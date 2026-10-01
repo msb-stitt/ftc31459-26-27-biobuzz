@@ -38,10 +38,19 @@ NT: Listening on NT3 port 1735, NT4 port 5810
 L2bTankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
 ```
 
-Point AdvantageScope at `127.0.0.1` and it will find the topics under `sim/`. Add a 2D field and
-give it `sim/Pose`, and the robot drives up the field. Watched on 2026-09-28. The menu path for
-setting the address is still not written down here: whoever drove those menus did it by hand and the
-path was not captured.
+Point AdvantageScope at `127.0.0.1` and it will find the topics under `sim/`. In AdvantageScope
+26.0.2 that is **File > Connect to Simulator > NetworkTables 4**. Choose it before starting `simRun`
+and the window waits, titled `127.0.0.1 (Searching)`, until the server comes up. Add a 2D field and
+give it `sim/Pose`, and the robot drives up the field. The **Field** list keeps the FTC fields in
+their own group below the FRC ones; **2026-2027 Field** is this season's, and choosing it shows a
+notice that FTC fields are experimental. Watched on 2026-09-28, and the menu path and the field on
+2026-10-01.
+
+An autonomous can be over before a field is set up by hand: `lessons.L9Drive24OpMode` drives its
+24 in and holds in about 1 s. Its flight log replays the run. Stop `simRun` with Ctrl-C, open the
+`.wpilog` it names in AdvantageScope, and drag `Robot/Pose` onto the field. `Robot/Path` dragged
+beside it and switched to **Trajectory** from its icon draws the line the robot was told to follow.
+Watched on 2026-10-01 against `solutions-03`.
 
 Ctrl-C stops it. It closes the flight log on the way out and prints where it left it.
 
