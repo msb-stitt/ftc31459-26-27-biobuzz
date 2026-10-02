@@ -1,40 +1,15 @@
 # L9Drive24OpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L9Drive24OpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L9Drive24OpMode.java`
 
-## An unmarked difference
+## L9
 
-What the lesson leaves blank:
+### TODO 
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO 
-
-What the lesson leaves blank:
+Before L9:
 
 ```java
         // TODO: return a sequence with one step: follow a straight line from
@@ -46,7 +21,7 @@ What the lesson leaves blank:
         return Command.NOOP;
 ```
 
-What the solutions line has there:
+After L9:
 
 ```java
         return sequential(

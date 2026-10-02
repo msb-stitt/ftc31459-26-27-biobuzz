@@ -1,40 +1,15 @@
 # L14DriveToPoseOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L14DriveToPoseOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L14DriveToPoseOpMode.java`
 
-## An unmarked difference
+## L14
 
-What the lesson leaves blank:
+### TODO 1
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO 1
-
-What the lesson leaves blank:
+Before L14:
 
 ```java
         // TODO 1: when gamepad1.y is pressed, run an instant command that
@@ -43,7 +18,7 @@ What the lesson leaves blank:
         //         The follower stays in HOLD until something calls manual().)
 ```
 
-What the solutions line has there:
+After L14:
 
 ```java
         // PedroCommands.hold() is an INSTANT command: it tells the follower to
@@ -55,9 +30,9 @@ What the solutions line has there:
         }));
 ```
 
-## TODO 2 (L14)
+### TODO 2 (L14)
 
-What the lesson leaves blank:
+Before L14:
 
 ```java
         // TODO 2 (L14): if drivingItself and the sticks are near zero, publish
@@ -70,7 +45,7 @@ What the lesson leaves blank:
         //         Tracker.publish("drive/mode", "DRIVER") and drive field relative.
 ```
 
-What the solutions line has there:
+After L14:
 
 ```java
         if (drivingItself) {
@@ -89,5 +64,4 @@ What the solutions line has there:
                 forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

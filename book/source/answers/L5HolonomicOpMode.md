@@ -1,46 +1,94 @@
 # L5HolonomicOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L5HolonomicOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicOpMode.java`
 
-## TODO 
+## L5
 
-What the lesson leaves blank:
+### A change
 
-```java
-        // TODO: three numbers now, not two. left comes from the left stick's x
-        //       axis; LEFT is positive and the stick reads positive to the RIGHT,
-        //       so that one needs negating too. Log all three.
-        double forwardSpeed = 0;
-        double strafeLeftSpeed = 0;
-        double turnCcwSpeed = 0;
-```
-
-What the solutions line has there:
+Before L5:
 
 ```java
-        double forwardSpeed = -gamepad1.left_stick_y;
-        double strafeLeftSpeed = -gamepad1.left_stick_x;
-        double turnCcwSpeed = -gamepad1.right_stick_x;
+@TeleOp(name = "L4 Arcade", group = "Lessons")
 ```
 
-## An unmarked difference
+After L5:
 
-What the lesson leaves blank:
+```java
+@TeleOp(name = "L5 Holonomic", group = "Lessons")
+```
+
+### A change
+
+Before L5:
+
+```java
+    private L4ArcadeDriveTrain drivetrain;
+```
+
+After L5:
+
+```java
+    private L5HolonomicDriveTrain drivetrain;
+```
+
+### A change
+
+Before L5:
+
+```java
+        drivetrain = new L4ArcadeDriveTrain(hardware);
+```
+
+After L5:
+
+```java
+        drivetrain = new L5HolonomicDriveTrain(hardware);
+```
+
+### A change
+
+Before L5:
 
 ```java
 (nothing)
 ```
 
-What the solutions line has there:
+After L5:
 
 ```java
-
-        Tracker.publish("command/forward", forwardSpeed);
-        Tracker.publish("command/left", strafeLeftSpeed);
-        Tracker.publish("command/turn_ccw", turnCcwSpeed);
+        double strafeLeftSpeed = -gamepad1.left_stick_x;
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+### A change
+
+Before L5:
+
+```java
+        drivetrain.sticks(forwardSpeed, turnCcwSpeed);
+```
+
+After L5:
+
+```java
+        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
+```
+
+### A change
+
+Before L5:
+
+```java
+(nothing)
+```
+
+After L5:
+
+```java
+        Tracker.publish("command/left", strafeLeftSpeed);
+```
+
+It also changes 3 run(s) of comment lines, which are not shown.

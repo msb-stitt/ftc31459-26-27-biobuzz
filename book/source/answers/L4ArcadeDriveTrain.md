@@ -1,24 +1,26 @@
 # L4ArcadeDriveTrain
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L4ArcadeDriveTrain.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L4ArcadeDriveTrain.java`
 
-## TODO 
+## L4
 
-What the lesson leaves blank:
+### A change
+
+Before L4:
 
 ```java
-        // TODO: turn the two numbers into a left speed and a right speed, each
-        //       into its own variable, and hand them to driveWheelsNow the way
-        //       L2TankDriveTrain does. Turning counter-clockwise means the left
-        //       side goes slower and the right side faster.
+    public void sticks(double leftSpeed, double rightSpeed) {
 ```
 
-What the solutions line has there:
+After L4:
 
 ```java
+    public void sticks(double forwardSpeed, double turnCcwSpeed) {
         double leftSpeed = forwardSpeed - turnCcwSpeed;
         double rightSpeed = forwardSpeed + turnCcwSpeed;
-        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
 ```
+
+It also changes 5 run(s) of comment lines, which are not shown.

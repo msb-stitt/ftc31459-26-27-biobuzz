@@ -47,7 +47,7 @@ rule words
 
 rule answers
   command = $run answers --check
-  description = answer pages match the two lesson lines
+  description = answer pages match the applied patches
   pool = console
 
 rule figures
@@ -57,7 +57,7 @@ rule figures
 
 rule cheatsheet
   command = $run cheatsheet --check
-  description = the cheat sheet matches the lesson code
+  description = the cheat sheet matches the applied patches
   pool = console
 
 build check-sphinx: sphinx | source/conf.py
@@ -66,8 +66,9 @@ build check-reading: reading | tools/check_reading_level.py tools/bookpaths.py
 build check-keep: keep | tools/check_keep.py tools/register.py keep.toml
 build check-words: words | tools/check_words.py tools/register.py keep.toml
 build check-figures: figures | tools/check_figures.py tools/bookpaths.py FIGURES.md
-build check-answers: answers | tools/answers.py tools/register.py keep.toml
-build check-cheatsheet: cheatsheet | tools/cheatsheet.py tools/answers.py tools/register.py keep.toml
+build check-answers: answers | tools/answers.py tools/applied.py tools/register.py keep.toml
+build check-cheatsheet: cheatsheet | tools/cheatsheet.py tools/answers.py tools/applied.py $
+    tools/register.py keep.toml
 
 build book: phony check-sphinx check-wrap check-reading check-keep check-words check-figures $
     check-answers check-cheatsheet

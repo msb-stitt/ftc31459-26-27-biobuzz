@@ -114,16 +114,16 @@ words = 400
 path = "source/tasks/sources.md"
 words = 400
 
-# The two lines the answers are generated from. A blank commit is the normal
-# state: the tool then reads the ref beside it, so running it by hand diffs the
-# tips rather than asking anyone to paste a hash. Put a commit in to freeze a
-# regeneration deliberately.
+# The solutions line the answers and the cheat sheet are generated from, by
+# applying its solutions/ in order. A blank commit is the normal state: the tools
+# then read the ref beside it, so running them by hand reads the tip rather than
+# asking anyone to paste a hash. Put a commit in to freeze a regeneration
+# deliberately.
 #
-# lessons is HEAD because the tool is run from the lessons line. This file is
-# byte-identical on the solutions line, where running it fails on the TODO guard
-# in tools/answers.py rather than writing empty pages.
+# lessons is read only by tools/diffs.py, behind `ninja review`, which still
+# compares the lessons package with a solutions line's own.
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-03"
+solutions = "solutions-try"
 solutions_commit = ""

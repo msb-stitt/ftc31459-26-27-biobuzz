@@ -1,40 +1,15 @@
 # L12RobotRelativeButtonOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L12RobotRelativeButtonOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L12RobotRelativeButtonOpMode.java`
 
-## An unmarked difference
+## L12
 
-What the lesson leaves blank:
+### TODO (L12)
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO (L12)
-
-What the lesson leaves blank:
+Before L12:
 
 ```java
         // TODO (L12): if gamepad1.right_bumper is held, drive robot relative
@@ -44,7 +19,7 @@ What the lesson leaves blank:
         //       Log it too: Tracker.publish("drive/robotRelative", gamepad1.right_bumper);
 ```
 
-What the solutions line has there:
+After L12:
 
 ```java
         if (gamepad1.right_bumper) {
@@ -56,5 +31,4 @@ What the solutions line has there:
         Tracker.publish("drive/robotRelative", gamepad1.right_bumper);
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

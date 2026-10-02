@@ -73,5 +73,5 @@ opens `L8:` gives that lesson to any of its blanks that name none. Add a shared 
 anywhere and the tool says so and fails.
 
 It is a view for reading, not a gate and not part of the guide: `ninja book` does not run it, and
-its pages are not committed. The answer pages under `source/answers/` say what fills each blank;
-this says how much work each one is.
+its pages are not committed. The answer pages under `source/answers/` say what each lesson's patch
+changes in each file, from applying `solutions/` in order; this says how much work each blank is.

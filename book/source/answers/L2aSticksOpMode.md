@@ -1,47 +1,22 @@
 # L2aSticksOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L2aSticksOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2aSticksOpMode.java`
 
-## An unmarked difference
+## L2a
 
-What the lesson leaves blank:
+### TODO 1
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO 1
-
-What the lesson leaves blank:
+Before L2a:
 
 ```java
         // TODO 1: read all four stick axes into four named doubles. Negate each
         //         y axis, so that pushing away from the driver is positive.
 ```
 
-What the solutions line has there:
+After L2a:
 
 ```java
         double leftSpeed = -gamepad1.left_stick_y;
@@ -50,9 +25,9 @@ What the solutions line has there:
         double rightSideways = gamepad1.right_stick_x;
 ```
 
-## TODO 2
+### TODO 2
 
-What the lesson leaves blank:
+Before L2a:
 
 ```java
         // TODO 2: log all four, so Panels can draw them:
@@ -60,7 +35,7 @@ What the lesson leaves blank:
         //         then stick/leftX, stick/rightY and stick/rightX.
 ```
 
-What the solutions line has there:
+After L2a:
 
 ```java
         Tracker.publish("stick/leftY", leftSpeed);
@@ -69,25 +44,25 @@ What the solutions line has there:
         Tracker.publish("stick/rightX", rightSideways);
 ```
 
-## TODO 3
+### TODO 3
 
-What the lesson leaves blank:
+Before L2a:
 
 ```java
         // TODO 3: read gamepad1.a into a boolean, and log it as
         //         "driver pressed A". A boolean logs the same way a double does.
 ```
 
-What the solutions line has there:
+After L2a:
 
 ```java
         boolean buttonA = gamepad1.a;
         Tracker.publish("driver pressed A", buttonA);
 ```
 
-## TODO 4
+### TODO 4
 
-What the lesson leaves blank:
+Before L2a:
 
 ```java
         // TODO 4: add one to loopCount, read getRuntime() into a double, and log
@@ -95,7 +70,7 @@ What the lesson leaves blank:
         //         and a double, so three of Java's kinds of number are now logged.
 ```
 
-What the solutions line has there:
+After L2a:
 
 ```java
         loopCount = loopCount + 1;
@@ -104,9 +79,9 @@ What the solutions line has there:
         Tracker.publish("lesson/seconds_running", secondsRunning);
 ```
 
-## TODO 5
+### TODO 5
 
-What the lesson leaves blank:
+Before L2a:
 
 ```java
         // TODO 5: say when the button changes. If the boolean is not the same as
@@ -118,7 +93,7 @@ What the lesson leaves blank:
         //         LessonsTest.l2a_saysWhenTheButtonIsPressedAndReleased pass.
 ```
 
-What the solutions line has there:
+After L2a:
 
 ```java
         if (buttonA != previousButtonA) {

@@ -1,40 +1,15 @@
 # L3aDeadbandOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L3aDeadbandOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3aDeadbandOpMode.java`
 
-## An unmarked difference
+## L3a
 
-What the lesson leaves blank:
+### TODO 1 (L3a)
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO 1 (L3a)
-
-What the lesson leaves blank:
+Before L3a:
 
 ```java
     // TODO 1 (L3a): pick the number. A stick let go reads a few hundredths, so
@@ -42,15 +17,15 @@ What the lesson leaves blank:
     private static final double DEADBAND = 0;
 ```
 
-What the solutions line has there:
+After L3a:
 
 ```java
     private static final double DEADBAND = 0.05;
 ```
 
-## TODO 2 (L3a)
+### TODO 2 (L3a)
 
-What the lesson leaves blank:
+Before L3a:
 
 ```java
         // TODO 2 (L3a): put each raw stick through drivetrain.deadband(), with
@@ -60,7 +35,7 @@ What the lesson leaves blank:
         double rightSpeed = 0;
 ```
 
-What the solutions line has there:
+After L3a:
 
 ```java
         double leftSpeed = drivetrain.deadband(leftRawSpeed, DEADBAND);
