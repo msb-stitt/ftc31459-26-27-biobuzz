@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.drivetrain.DrivePowers;
+import com.pedropathing.drivetrain.Drivetrain;
 
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.RobotHardware;
@@ -11,10 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * One test per blank in {@link L6FollowerDriveTrain}: one for each wheel of the
- * mixing, one for sending the four powers to the four motors, and one for the
- * sticks commanding the drivetrain while the follower holds the drivetrain. A
- * student who gets one wheel wrong sees which wheel.
+ * One test per blank in the student's L6FollowerDriveTrain, in {@code mytry}:
+ * one for each wheel of the mixing, one for sending the four powers to the four
+ * motors, and one for the sticks commanding the drivetrain while the follower
+ * holds the drivetrain. A student who gets one wheel wrong sees which wheel.
  *
  * <p>These drive the class directly rather than through an OpMode, because that
  * is what the follower does: it hands over three numbers and expects four
@@ -28,7 +29,7 @@ public class L6FollowerDriveTrainTest {
     private OpModeHarness.FakeMotor frontRight;
     private OpModeHarness.FakeMotor backLeft;
     private OpModeHarness.FakeMotor backRight;
-    private L6FollowerDriveTrain drivetrain;
+    private Drivetrain drivetrain;
 
     @Before
     public void setUp() {
@@ -36,7 +37,7 @@ public class L6FollowerDriveTrainTest {
         frontRight = new OpModeHarness.FakeMotor();
         backLeft = new OpModeHarness.FakeMotor();
         backRight = new OpModeHarness.FakeMotor();
-        drivetrain = new L6FollowerDriveTrain(new RobotHardware(
+        drivetrain = MyTry.make("L6FollowerDriveTrain", Drivetrain.class, new RobotHardware(
                 frontLeft.motor, frontRight.motor, backLeft.motor, backRight.motor,
                 new OpModeHarness.FakeImu().imu, OpModeHarness.freshConfig()));
     }
@@ -90,7 +91,7 @@ public class L6FollowerDriveTrainTest {
     public void writeWheelsSendsEachPowerToItsOwnMotor() {
         // Four different numbers, so a swapped pair cannot pass. Commanding the
         // drivetrain skips the mixing, which is the other blank.
-        drivetrain.setCommandedWheels(0.1, 0.2, 0.3, 0.4);
+        MyTry.call(drivetrain, "setCommandedWheels", 0.1, 0.2, 0.3, 0.4);
         follower(0, 0, 0);
         assertEquals(0.1, frontLeft.power, EPS);
         assertEquals(0.2, frontRight.power, EPS);
@@ -100,11 +101,11 @@ public class L6FollowerDriveTrainTest {
 
     @Test
     public void releasingTheWheelsHandsThemBackToTheFollower() {
-        drivetrain.setCommandedWheels(0.1, 0.2, 0.3, 0.4);
+        MyTry.call(drivetrain, "setCommandedWheels", 0.1, 0.2, 0.3, 0.4);
         follower(0, 0, 0);
         assertEquals("commanded, so the follower's zero is ignored", 0.1, frontLeft.power, EPS);
 
-        drivetrain.releaseCommandedWheels();
+        MyTry.call(drivetrain, "releaseCommandedWheels");
         follower(0, 0, 0);
         assertEquals("released, so the follower's zero reaches the motor",
                 0.0, frontLeft.power, EPS);
@@ -137,9 +138,9 @@ public class L6FollowerDriveTrainTest {
      */
     @Test
     public void theSticksCommandTheWheelsSoTheDriverStillWins() {
-        drivetrain.sticks(1, 0, 0);
+        MyTry.call(drivetrain, "sticks", 1, 0, 0);
         assertTrue("the wheels are commanded, not left to the follower",
-                drivetrain.commandedWheelsAreSet());
+                (Boolean) MyTry.call(drivetrain, "commandedWheelsAreSet"));
 
         // Whatever the follower asks for next is ignored; the sticks decided.
         follower(0, 0, 0);
@@ -152,7 +153,7 @@ public class L6FollowerDriveTrainTest {
     @Test
     public void theSticksAreScaledDownTogetherBeforeTheyAreCommanded() {
         // Full forward and full left at once is a diagonal: one pair wants 2.
-        drivetrain.sticks(1, 1, 0);
+        MyTry.call(drivetrain, "sticks", 1, 1, 0);
         follower(0, 0, 0);
         assertEquals("the pair that wanted 2 gets 1", 1.0, frontRight.power, EPS);
         assertEquals(1.0, backLeft.power, EPS);

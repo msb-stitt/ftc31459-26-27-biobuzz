@@ -3,10 +3,13 @@ package org.firstinspires.ftc.teamcode.lessons;
 import static org.junit.Assert.assertEquals;
 
 import com.pedropathing.api.PoseFactory;
+import com.pedropathing.localization.Localizer;
 import com.pedropathing.math.Pose;
 
 import org.firstinspires.ftc.teamcode.base.odometry.WheelSource;
 import org.junit.Test;
+
+import java.util.function.LongSupplier;
 
 /** L8: does the encoder localizer's arithmetic work, on a laptop, with no robot? */
 public class MecanumEncoderLocalizerTest {
@@ -40,8 +43,8 @@ public class MecanumEncoderLocalizerTest {
 
     private final FakeWheels wheels = new FakeWheels();
     private final long[] clock = {0};
-    private final MecanumEncoderLocalizer localizer =
-            new MecanumEncoderLocalizer(wheels, () -> clock[0]);
+    private final Localizer localizer = MyTry.make("MecanumEncoderLocalizer", Localizer.class,
+            wheels, (LongSupplier) () -> clock[0]);
 
     private void step() {
         clock[0] += 20_000_000L;           // 20 ms

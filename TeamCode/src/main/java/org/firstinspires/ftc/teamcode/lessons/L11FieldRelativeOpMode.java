@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
  * <p>Passes when: LessonsTest.l11_fieldRelativeIgnoresWhichWayTheRobotFaces
  */
 @TeleOp(name = "L11 Field Relative", group = "Lessons")
+@Disabled
 public class L11FieldRelativeOpMode extends CorbelsTeleOp {
 
     private L6FollowerDriveTrain drivetrain;

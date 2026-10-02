@@ -4,6 +4,34 @@ The blanks in this file, filled in from `solutions-03`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L3aDeadbandOpMode.java`
 
+## An unmarked difference
+
+What the lesson leaves blank:
+
+```java
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+```
+
+What the solutions line has there:
+
+```java
+(nothing)
+```
+
+## An unmarked difference
+
+What the lesson leaves blank:
+
+```java
+@Disabled
+```
+
+What the solutions line has there:
+
+```java
+(nothing)
+```
+
 ## TODO 1 (L3a)
 
 What the lesson leaves blank:

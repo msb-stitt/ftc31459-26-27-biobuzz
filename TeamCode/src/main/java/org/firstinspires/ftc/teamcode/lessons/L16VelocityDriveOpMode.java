@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -44,6 +45,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * LessonsTest.l16_turningAskesEachSideForOppositeSpeeds
  */
 @TeleOp(name = "L16 Velocity Drive", group = "Lessons")
+@Disabled
 public class L16VelocityDriveOpMode extends CorbelsTeleOp {
 
     /** How fast full stick asks for, forward and sideways. Inches per second. */

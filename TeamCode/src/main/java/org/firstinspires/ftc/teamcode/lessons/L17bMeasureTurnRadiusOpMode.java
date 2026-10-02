@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.Calibration;
@@ -28,6 +29,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * the number off the Driver Station.
  */
 @TeleOp(name = "L17b Measure turn radius", group = "Lessons")
+@Disabled
 public class L17bMeasureTurnRadiusOpMode extends CorbelsTeleOp {
 
     private static final double NEEDED_TURNS = 2;

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.api.PoseFactory;
+import com.pedropathing.drivetrain.Drivetrain;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
@@ -102,7 +103,7 @@ public class LessonsTest {
 
     @Test
     public void l2b_theSticksDriveTheWheelsLikeATank() {
-        OpModeHarness h = new OpModeHarness(new L2bTankOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L2bTankOpMode"));
         h.init();
         h.start();
 
@@ -137,7 +138,7 @@ public class LessonsTest {
      */
     @Test
     public void l2b_theSticksMoveTheSimulatedRobot() {
-        OpModeHarness h = new OpModeHarness(new L2bTankOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L2bTankOpMode"));
         h.init();
         h.start();
 
@@ -171,7 +172,7 @@ public class LessonsTest {
 
     @Test
     public void l3a_aNearlyCentredStickCountsAsCentred() {
-        OpModeHarness h = new OpModeHarness(new L3aDeadbandOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L3aDeadbandOpMode"));
         h.init();
         h.start();
 
@@ -197,7 +198,7 @@ public class LessonsTest {
 
     @Test
     public void l3b_halfAStickIsAQuarterOfThePower() {
-        OpModeHarness h = new OpModeHarness(new L3bSquaredOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L3bSquaredOpMode"));
         h.init();
         h.start();
 
@@ -227,7 +228,7 @@ public class LessonsTest {
 
     @Test
     public void l4_arcadeUsesOneStickToDriveAndOneToTurn() {
-        OpModeHarness h = new OpModeHarness(new L4ArcadeOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L4ArcadeOpMode"));
         h.init();
         h.start();
 
@@ -257,7 +258,7 @@ public class LessonsTest {
 
     @Test
     public void l5_holonomicCanStrafe() {
-        OpModeHarness h = new OpModeHarness(new L5HolonomicOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L5HolonomicOpMode"));
         h.init();
         h.start();
 
@@ -303,7 +304,7 @@ public class LessonsTest {
      */
     @Test
     public void l6_theLoopReadsThreeSticksAndNegatesEachOne() {
-        OpModeHarness h = new OpModeHarness(new L6WheelsFollowerOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L6WheelsFollowerOpMode"));
         h.init();
         h.start();
 
@@ -330,8 +331,10 @@ public class LessonsTest {
     @Test
     public void everyLessonTurnsClockwiseWhenTheRightStickGoesRight() {
         List<String> wrongWay = new ArrayList<>();
-        for (OpMode lesson : new OpMode[]{new L8CompareLocalizersOpMode(), new L11FieldRelativeOpMode(),
-                new L12RobotRelativeButtonOpMode(), new L14DriveToPoseOpMode()}) {
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L8CompareLocalizersOpMode"),
+                MyTry.opMode("L11FieldRelativeOpMode"),
+                MyTry.opMode("L12RobotRelativeButtonOpMode"),
+                MyTry.opMode("L14DriveToPoseOpMode")}) {
             OpModeHarness h = new OpModeHarness(lesson);
             h.init();
             h.start();
@@ -351,7 +354,7 @@ public class LessonsTest {
 
     @Test
     public void l8_theEncoderLocalizerRunsAlongsideAndIsLogged() {
-        OpModeHarness h = new OpModeHarness(new L8CompareLocalizersOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L8CompareLocalizersOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -379,7 +382,7 @@ public class LessonsTest {
 
     @Test
     public void l9_autoDrives24InchesForwardAndStops() {
-        OpModeHarness h = new OpModeHarness(new L9Drive24OpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L9Drive24OpMode"));
         Follower follower = h.robot.follower;
         h.init();
         assertEquals("placed at the start pose", 72.0, follower.pose().x(), EPS);
@@ -399,7 +402,7 @@ public class LessonsTest {
 
     @Test
     public void l10_autoDrivesForwardThenStrafesSideways() {
-        OpModeHarness h = new OpModeHarness(new L10ForwardThenStrafeOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L10ForwardThenStrafeOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -418,7 +421,7 @@ public class LessonsTest {
 
     @Test
     public void l11_fieldRelativeIgnoresWhichWayTheRobotFaces() {
-        OpModeHarness h = new OpModeHarness(new L11FieldRelativeOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L11FieldRelativeOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -440,7 +443,7 @@ public class LessonsTest {
 
     @Test
     public void l12_theBumperSwitchesToRobotRelative() {
-        OpModeHarness h = new OpModeHarness(new L12RobotRelativeButtonOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L12RobotRelativeButtonOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -464,7 +467,7 @@ public class LessonsTest {
 
     @Test
     public void l13_theRobotHoldsItsHeadingWhenTheStickIsReleased() {
-        OpModeHarness h = new OpModeHarness(new L13HeadingHoldOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L13HeadingHoldOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -488,7 +491,7 @@ public class LessonsTest {
 
     @Test
     public void l14_pressingYDrivesToAPoseAndTheDriverCanTakeOver() {
-        OpModeHarness h = new OpModeHarness(new L14DriveToPoseOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L14DriveToPoseOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -512,7 +515,7 @@ public class LessonsTest {
 
     @Test
     public void l15_everythingTogether() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L15CombinedOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -541,7 +544,7 @@ public class LessonsTest {
 
     @Test
     public void l15_aPointsAt45DegreesWhileTheDriverKeepsDriving() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L15CombinedOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -561,7 +564,7 @@ public class LessonsTest {
 
     @Test
     public void l15_theTurnStickTakesAimingBack() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L15CombinedOpMode"));
         h.robot.follower.setPose(POSES.of(72, 72, 0));
         h.init();
         h.start();
@@ -579,7 +582,7 @@ public class LessonsTest {
 
     @Test
     public void l15_yDrivesToTheStatedPoseAndAStickTakesItBack() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L15CombinedOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -603,7 +606,7 @@ public class LessonsTest {
 
     @Test
     public void l16_theSticksCommandASpeedAndTheWheelsAreCorrectedTowardsIt() {
-        OpModeHarness h = new OpModeHarness(new L16VelocityDriveOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L16VelocityDriveOpMode"));
         h.init();
         h.start();
 
@@ -624,7 +627,7 @@ public class LessonsTest {
 
     @Test
     public void l16_whenTheWheelsAreUpToSpeedOnlyTheFeedforwardRemains() {
-        OpModeHarness h = new OpModeHarness(new L16VelocityDriveOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L16VelocityDriveOpMode"));
         h.init();
         h.start();
         // 40 in/s at the measured ticks per inch
@@ -645,7 +648,7 @@ public class LessonsTest {
 
     @Test
     public void l16_turningAskesEachSideForOppositeSpeeds() {
-        OpModeHarness h = new OpModeHarness(new L16VelocityDriveOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L16VelocityDriveOpMode"));
         h.init();
         h.start();
         h.gamepad1.right_stick_x = -1.0f;           // full counter-clockwise
@@ -673,39 +676,41 @@ public class LessonsTest {
      */
     @Test
     public void l17_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards() {
-        for (OpMode lesson : new OpMode[]{new L17aMeasureTicksPerInchOpMode(),
-                new L17bMeasureTurnRadiusOpMode()}) {
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L17aMeasureTicksPerInchOpMode"),
+                MyTry.opMode("L17bMeasureTurnRadiusOpMode")}) {
             String name = lesson.getClass().getSimpleName();
             OpModeHarness h = new OpModeHarness(lesson);
             h.init();
-            LessonsDriveTrain drivetrain =
-                    (LessonsDriveTrain) ((CorbelsOpMode) h.opMode()).drivetrain();
-            assertTrue(name + " brakes before the run", drivetrain.getEffectiveBrakeMode());
+            Drivetrain drivetrain = ((CorbelsOpMode) h.opMode()).drivetrain();
+            assertTrue(name + " brakes before the run", braking(drivetrain));
 
             h.start();
-            assertFalse(name + " coasts once it starts", drivetrain.getEffectiveBrakeMode());
+            assertFalse(name + " coasts once it starts", braking(drivetrain));
             h.loops(5, 0);
-            assertFalse(name + " still coasts five loops in",
-                    drivetrain.getEffectiveBrakeMode());
+            assertFalse(name + " still coasts five loops in", braking(drivetrain));
 
             h.stop();
-            assertTrue(name + " brakes again afterwards", drivetrain.getEffectiveBrakeMode());
+            assertTrue(name + " brakes again afterwards", braking(drivetrain));
             OpModeHarness.restoreFactories();
         }
     }
 
     @Test
     public void l17_stoppingBeforeASingleLoopStillPutsBrakingBack() {
-        OpModeHarness h = new OpModeHarness(new L17aMeasureTicksPerInchOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L17aMeasureTicksPerInchOpMode"));
         h.init();
         h.start();
         h.stop();                                  // STOP pressed straight away
         assertTrue("braking is back although no loop ran",
-                ((LessonsDriveTrain) ((CorbelsOpMode) h.opMode()).drivetrain())
-                        .getEffectiveBrakeMode());
+                braking(((CorbelsOpMode) h.opMode()).drivetrain()));
     }
 
     // ---------------------------------------------------------- helpers
+
+    /** Whether the lesson's drivetrain brakes now, asked of it by name. */
+    private static boolean braking(Drivetrain drivetrain) {
+        return (Boolean) MyTry.call(drivetrain, "getEffectiveBrakeMode");
+    }
 
     /** Runs loops until the follower stops following, or the time runs out. */
     private static void runUntilDone(OpModeHarness h, Follower follower, double seconds) {

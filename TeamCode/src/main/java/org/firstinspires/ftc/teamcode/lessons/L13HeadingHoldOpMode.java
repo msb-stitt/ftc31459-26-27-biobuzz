@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * <p>Passes when: LessonsTest.l13_theRobotHoldsItsHeadingWhenTheStickIsReleased
  */
 @TeleOp(name = "L13 Heading Hold", group = "Lessons")
+@Disabled
 public class L13HeadingHoldOpMode extends CorbelsTeleOp {
 
     private HeadingHold heading;

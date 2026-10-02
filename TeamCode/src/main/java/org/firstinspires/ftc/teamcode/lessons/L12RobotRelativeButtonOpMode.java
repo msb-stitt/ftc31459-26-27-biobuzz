@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * <p>Passes when: LessonsTest.l12_theBumperSwitchesToRobotRelative
  */
 @TeleOp(name = "L12 Robot Relative Button", group = "Lessons")
+@Disabled
 public class L12RobotRelativeButtonOpMode extends CorbelsTeleOp {
 
     private L6FollowerDriveTrain drivetrain;
