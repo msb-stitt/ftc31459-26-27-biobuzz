@@ -208,6 +208,12 @@ public final class OpModeHarness {
      */
     static final List<File> logFolders = new ArrayList<>();
 
+    /** Logs into {@code folder} from the next init, rather than the temp folder it made. */
+    public void logTo(File folder) {
+        logFolder = folder;
+        FtcFlightLog.useDirectory(folder);
+    }
+
     /** The .wpilog files written so far. */
     public File[] logs() {
         File[] files = logFolder.listFiles((d, n) -> n.endsWith(".wpilog"));

@@ -4,6 +4,7 @@ import com.pedropathing.localization.MotionState;
 import com.pedropathing.math.Pose;
 import com.pedropathing.math.Twist;
 
+import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.RawPublisher;
@@ -11,6 +12,8 @@ import edu.wpi.first.networktables.StringPublisher;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
@@ -27,6 +30,11 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * log, and the same leaves appear here under {@code sim/}, so someone who has
  * learnt where to look in a robot log looks in the same place here. The sticks
  * use the names {@code L2bTankOpMode} already publishes to Panels.
+ *
+ * <p>Everything the OpMode publishes through {@link Tracker} goes out too, under
+ * the name the flight log gives it: {@code Tracker.publish("stick/leftY", ...)}
+ * is {@code /stick/leftY} here and in the log. So a student watches live what
+ * their own code wrote, and finds it in the same place in the log afterwards.
  *
  * <p>The pose goes out as a WPILib {@code struct:Pose2d}, which is three
  * little-endian doubles and a schema that says so. AdvantageScope draws a bare
@@ -71,6 +79,12 @@ public final class SimPublisher implements AutoCloseable {
     private final DoublePublisher forwardIps;
     private final DoublePublisher strafeIps;
     private final DoublePublisher omegaRadps;
+
+    /** One publisher per name {@link Tracker} has been given, made the first
+     *  time that name appears, by the kind of value it carries. */
+    private final Map<String, DoublePublisher> numbers = new HashMap<>();
+    private final Map<String, BooleanPublisher> flags = new HashMap<>();
+    private final Map<String, StringPublisher> words = new HashMap<>();
 
     public SimPublisher(OpModeHarness harness) {
         this(harness, NT3_PORT, NT4_PORT);
@@ -129,7 +143,26 @@ public final class SimPublisher implements AutoCloseable {
         strafeIps.set(twist.vy);
         omegaRadps.set(twist.omega);
 
+        publishTracked();
         nt.flush();
+    }
+
+    /** The last value of every name the OpMode published through {@link Tracker}. */
+    private void publishTracked() {
+        for (Map.Entry<String, Object> e : Tracker.values().entrySet()) {
+            String topic = "/" + e.getKey();
+            Object value = e.getValue();
+            if (value instanceof Number) {
+                numbers.computeIfAbsent(topic, t -> nt.getDoubleTopic(t).publish())
+                        .set(((Number) value).doubleValue());
+            } else if (value instanceof Boolean) {
+                flags.computeIfAbsent(topic, t -> nt.getBooleanTopic(t).publish())
+                        .set((Boolean) value);
+            } else if (value instanceof String) {
+                words.computeIfAbsent(topic, t -> nt.getStringTopic(t).publish())
+                        .set((String) value);
+            }
+        }
     }
 
     /** {@code {x, y, headingRad}} as a {@code struct:Pose2d}'s three

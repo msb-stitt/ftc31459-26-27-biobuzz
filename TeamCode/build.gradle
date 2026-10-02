@@ -207,6 +207,9 @@ afterEvaluate {
         dependsOn 'compileDebugUnitTestJavaWithJavac'
         mainClass = 'org.firstinspires.ftc.teamcode.base.SimRun'
         classpath = tasks.named('testDebugUnitTest').get().classpath
+        // The flight log goes in the repository's top folder, where a student
+        // can find it; .gitignore keeps a .wpilog there out of git.
+        systemProperty 'sim.logDir', rootProject.projectDir.absolutePath
         // Ctrl-C is how this task ends, and a JVM killed by SIGINT exits
         // 130. Without this, the intended way to stop it reports a build
         // failure.

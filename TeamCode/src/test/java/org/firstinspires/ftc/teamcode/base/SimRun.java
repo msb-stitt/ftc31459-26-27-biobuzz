@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.base;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 /**
@@ -77,6 +78,7 @@ public final class SimRun {
                 return;
             }
             harness = new OpModeHarness(opMode);
+            harness.logTo(logHome());
         }
         Gamepad typed = null;
         for (String control : plan.controls) {
@@ -113,6 +115,7 @@ public final class SimRun {
         try (SimPublisher out = harness == null ? null : new SimPublisher(harness);
                 SimPads pads = usePads ? SimPads.open() : null) {
             if (harness != null) {
+                System.out.println("Flight log: " + harness.logFolder);
                 System.out.println(plan.opMode + " running. Connect AdvantageScope to 127.0.0.1"
                         + " as NetworkTables 4, and Ctrl-C to stop.");
                 harness.init();
@@ -175,6 +178,17 @@ public final class SimRun {
                 Thread.currentThread().interrupt();
             }
         }));
+    }
+
+    /**
+     * Where the flight log goes: the repository's top folder, which the
+     * {@code simRun} task names in {@code sim.logDir}, so a student finds it
+     * beside the project rather than in a temp folder. {@code .gitignore} keeps
+     * a {@code .wpilog} there out of git. Run any other way, the folder it was
+     * started in.
+     */
+    static File logHome() {
+        return new File(System.getProperty("sim.logDir", ".")).getAbsoluteFile();
     }
 
     /** One OpMode by the part of its class name that follows {@link #PACKAGE}. */

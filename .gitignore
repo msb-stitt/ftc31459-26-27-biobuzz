@@ -88,3 +88,6 @@ book/.ninja_log
 book/review/
 # Working files, videos among them, that never go on a code branch.
 /scratch/
+
+# Flight logs simRun writes into the top folder, for AdvantageScope to open
+/*.wpilog
