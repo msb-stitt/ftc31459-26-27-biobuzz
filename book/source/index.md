@@ -35,6 +35,7 @@ finished, so read it after that one.
 :maxdepth: 1
 :caption: Drive it with the sticks
 
+tasks/l2a
 tasks/l2
 tasks/l3
 tasks/l4
