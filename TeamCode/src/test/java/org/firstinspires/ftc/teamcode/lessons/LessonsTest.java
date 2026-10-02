@@ -51,7 +51,7 @@ public class LessonsTest {
 
     @Test
     public void l2a_logsEveryStickAndTheAButton() {
-        OpModeHarness h = new OpModeHarness(new L2aSticksOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L2aSticksOpMode"));
         h.init();
         h.start();
         h.gamepad1.left_stick_y = -1.0f;      // pushed away from the driver
@@ -78,7 +78,7 @@ public class LessonsTest {
 
     @Test
     public void l2a_saysWhenTheButtonIsPressedAndReleased() {
-        OpModeHarness h = new OpModeHarness(new L2aSticksOpMode());
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L2aSticksOpMode"));
         h.init();
         h.start();
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -33,6 +34,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * LessonsTest.l2a_saysWhenTheButtonIsPressedAndReleased
  */
 @TeleOp(name = "L2a Sticks", group = "Lessons")
+@Disabled
 public class L2aSticksOpMode extends CorbelsTeleOp {
 
     /** How many times {@link #loop} has run. */
