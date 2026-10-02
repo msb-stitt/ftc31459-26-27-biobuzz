@@ -1,12 +1,15 @@
 # LessonsDriveTrain
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/LessonsDriveTrain.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java`
 
-## TODO 1 (L2b)
+## L2b
 
-What the lesson leaves blank:
+### TODO 1 (L2b)
+
+Before L2b:
 
 ```java
         // TODO 1 (L2b): send each slot of wheelPowers to the motor it belongs to,
@@ -16,7 +19,7 @@ What the lesson leaves blank:
         //         passes. Nothing drives at all until this is written.
 ```
 
-What the solutions line has there:
+After L2b:
 
 ```java
         motors[FL].setPower(wheelPowers[FL]);
@@ -25,9 +28,9 @@ What the solutions line has there:
         motors[BR].setPower(wheelPowers[BR]);
 ```
 
-## TODO 2 (L2b)
+### TODO 2 (L2b)
 
-What the lesson leaves blank:
+Before L2b:
 
 ```java
         // TODO 2 (L2b): put each power into its own slot of wheelPowers, using
@@ -39,7 +42,7 @@ What the lesson leaves blank:
         //         LessonsTest.l2b_theSticksDriveTheWheelsLikeATank passes.
 ```
 
-What the solutions line has there:
+After L2b:
 
 ```java
         wheelPowers[FL] = frontLeftPower;
@@ -51,9 +54,63 @@ What the solutions line has there:
         writeWheels();
 ```
 
-## TODO 3 (L4)
+## L3a
 
-What the lesson leaves blank:
+### TODO 7 (L3a)
+
+Before L3a:
+
+```java
+        // TODO 7 (L3a): if the value is smaller than the band, ignoring its minus
+        //         sign, the answer is 0. Otherwise the answer is the value itself.
+        //         An if and an else, and Math.abs takes the minus sign off.
+        //         Works when: LessonsTest.l3a_aNearlyCentredStickCountsAsCentred
+        //         passes, and the robot sits still with the sticks let go.
+        return value;
+```
+
+After L3a:
+
+```java
+        if (Math.abs(value) < band) {
+            return 0.0;
+        } else {
+            return value;
+        }
+```
+
+## L3b
+
+### TODO 8 (L3b)
+
+Before L3b:
+
+```java
+        // TODO 8 (L3b): the value times itself, with the sign it started with.
+        //         Squaring a negative number the ordinary way loses the minus
+        //         sign, which would drive the robot forwards when the driver asked
+        //         for backwards, so put it back.
+        //         Works when: LessonsTest.l3b_halfAStickIsAQuarterOfThePower
+        //         passes.
+        return value;
+```
+
+After L3b:
+
+```java
+        double magnitude = value * value;
+        if (value < 0.0) {
+            return -magnitude;
+        } else {
+            return magnitude;
+        }
+```
+
+## L4
+
+### TODO 3 (L4)
+
+Before L4:
 
 ```java
         // TODO 3 (L4): find the biggest of the four, ignoring minus signs, or 1 if
@@ -69,7 +126,7 @@ What the lesson leaves blank:
         //         the turn stick both all the way forward.
 ```
 
-What the solutions line has there:
+After L4:
 
 ```java
         double max = 1.0;
@@ -84,16 +141,18 @@ What the solutions line has there:
         }
 ```
 
-## TODO 4 (L6)
+## L6
 
-What the lesson leaves blank:
+### TODO 4 (L6)
+
+Before L6:
 
 ```java
         // TODO 4 (L6): make a new four-slot array in commandedWheels and put each
         //         power in its own slot, the same way driveWheelsNow does.
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
         commandedWheels = new double[4];
@@ -103,9 +162,9 @@ What the solutions line has there:
         commandedWheels[BR] = backRightPower;
 ```
 
-## TODO 5 (L6)
+### TODO 5 (L6)
 
-What the lesson leaves blank:
+Before L6:
 
 ```java
         // TODO 5 (L6): forget the four powers, so drive() goes back to asking mix().
@@ -113,15 +172,15 @@ What the lesson leaves blank:
         //         here".
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
         commandedWheels = null;
 ```
 
-## TODO 6 (L6)
+### TODO 6 (L6)
 
-What the lesson leaves blank:
+Before L6:
 
 ```java
         // TODO 6 (L6): work out where the four powers come from, and send them on.
@@ -136,7 +195,7 @@ What the lesson leaves blank:
         //         the sticks in L6, and L9 drives its 24 inches.
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
         double[] sourcePowers;
@@ -153,57 +212,11 @@ What the solutions line has there:
         writeWheels();
 ```
 
-## TODO 7 (L3a)
+## L11
 
-What the lesson leaves blank:
+### TODO 9 (L11)
 
-```java
-        // TODO 7 (L3a): if the value is smaller than the band, ignoring its minus
-        //         sign, the answer is 0. Otherwise the answer is the value itself.
-        //         An if and an else, and Math.abs takes the minus sign off.
-        //         Works when: LessonsTest.l3a_aNearlyCentredStickCountsAsCentred
-        //         passes, and the robot sits still with the sticks let go.
-        return value;
-```
-
-What the solutions line has there:
-
-```java
-        if (Math.abs(value) < band) {
-            return 0.0;
-        } else {
-            return value;
-        }
-```
-
-## TODO 8 (L3b)
-
-What the lesson leaves blank:
-
-```java
-        // TODO 8 (L3b): the value times itself, with the sign it started with.
-        //         Squaring a negative number the ordinary way loses the minus
-        //         sign, which would drive the robot forwards when the driver asked
-        //         for backwards, so put it back.
-        //         Works when: LessonsTest.l3b_halfAStickIsAQuarterOfThePower
-        //         passes.
-        return value;
-```
-
-What the solutions line has there:
-
-```java
-        double magnitude = value * value;
-        if (value < 0.0) {
-            return -magnitude;
-        } else {
-            return magnitude;
-        }
-```
-
-## TODO 9 (L11)
-
-What the lesson leaves blank:
+Before L11:
 
 ```java
         // TODO 9 (L11): turn the driver's two field speeds into the robot's own
@@ -220,7 +233,7 @@ What the lesson leaves blank:
         //         from the driver whichever way it is facing.
 ```
 
-What the solutions line has there:
+After L11:
 
 ```java
         double cos = Math.cos(headingRad);
@@ -233,9 +246,11 @@ What the solutions line has there:
         setCommandedWheels(scaled[FL], scaled[FR], scaled[BL], scaled[BR]);
 ```
 
-## TODO 10 (L16)
+## L16
 
-What the lesson leaves blank:
+### TODO 10 (L16)
+
+Before L16:
 
 ```java
         // TODO 10 (L16): put the four speeds asked for into a four-slot array, in
@@ -253,7 +268,7 @@ What the lesson leaves blank:
         //         passes.
 ```
 
-What the solutions line has there:
+After L16:
 
 ```java
         double[] wanted = new double[4];
@@ -274,9 +289,11 @@ What the solutions line has there:
         publishWheelSpeeds(wanted, measured, powers);
 ```
 
-## TODO 11 (L17a)
+## L17a
 
-What the lesson leaves blank:
+### TODO 11 (L17a)
+
+Before L17a:
 
 ```java
         // TODO 11 (L17a): fill each slot with what that wheel's encoder has
@@ -290,7 +307,7 @@ What the lesson leaves blank:
         //         passes.
 ```
 
-What the solutions line has there:
+After L17a:
 
 ```java
         ticks[FL] = hardware.frontLeft.getCurrentPosition();

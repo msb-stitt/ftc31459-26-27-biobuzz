@@ -1,55 +1,30 @@
 # L13HeadingHoldOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L13HeadingHoldOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L13HeadingHoldOpMode.java`
 
-## An unmarked difference
+## L13
 
-What the lesson leaves blank:
+### TODO 1
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO 1
-
-What the lesson leaves blank:
+Before L13:
 
 ```java
         // TODO 1: build a HeadingHold from the tuned controller:
         //         new HeadingHold(Constants.foresightConfig.headingFeedback.get())
 ```
 
-What the solutions line has there:
+After L13:
 
 ```java
         heading = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 ```
 
-## TODO 2 (L13)
+### TODO 2 (L13)
 
-What the lesson leaves blank:
+Before L13:
 
 ```java
         // TODO 2 (L13): ask heading.turn(follower, -gamepad1.right_stick_x) for the
@@ -58,7 +33,7 @@ What the lesson leaves blank:
         //         heading/deg so Panels can show the hold.
 ```
 
-What the solutions line has there:
+After L13:
 
 ```java
         double turnCcwSpeed = heading.turn(follower, -gamepad1.right_stick_x);
@@ -68,5 +43,4 @@ What the solutions line has there:
         Tracker.publish("heading/deg", Math.toDegrees(follower.pose().heading()));
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

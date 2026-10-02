@@ -1,62 +1,65 @@
 # MecanumEncoderLocalizer
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/MecanumEncoderLocalizer.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/MecanumEncoderLocalizer.java`
 
-## An unmarked difference
+## L8
 
-What the lesson leaves blank:
+### A change
+
+Before L8:
 
 ```java
 (nothing)
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
 import com.pedropathing.math.Twist;
 import com.pedropathing.api.PoseFactory;
 ```
 
-## An unmarked difference
+### A change
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
 (nothing)
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
 import org.firstinspires.ftc.teamcode.base.HeadingHold;
 ```
 
-## An unmarked difference
+### A change
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
 (nothing)
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
     private static final PoseFactory POSES = PoseFactory.radians();
 
 ```
 
-## An unmarked difference
+### A change
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
 (nothing)
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
 
@@ -69,9 +72,9 @@ What the solutions line has there:
     private MotionState state = MotionState.zero();
 ```
 
-## TODO 1 (L8)
+### TODO 1 (L8)
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
         // TODO 1 (L8): read source.wheelInches() and source.headingRadians().
@@ -88,7 +91,7 @@ What the lesson leaves blank:
         // TODO 5 (L8): publish the new pose with MotionState.ofTwist(...).
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
         double[] wheels = source.wheelInches();
@@ -136,16 +139,16 @@ What the solutions line has there:
                 new Twist(forwardSpeedInPerS, strafeLeftSpeedInPerS, turnCcwSpeedRadPerS));
 ```
 
-## TODO 6 (L8)
+### TODO 6 (L8)
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
         // TODO 6 (L8): start counting from this pose. The IMU's heading can't be
         //         moved, so remember the DIFFERENCE and add it from now on.
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
         x = pose.x();
@@ -154,29 +157,29 @@ What the solutions line has there:
         publish(0, 0, 0);
 ```
 
-## TODO 5 (L8)
+### TODO 5 (L8)
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
         return MotionState.zero();   // TODO 5 (L8): return the pose you worked out
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
         return state;
 ```
 
-## TODO 7 (L8)
+### TODO 7 (L8)
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
         // TODO 7 (L8): back to zero.
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
         x = 0;
@@ -186,5 +189,4 @@ What the solutions line has there:
         publish(0, 0, 0);
 ```
 
-The two lines also differ in 2 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 2 run(s) of comment lines, which are not shown.

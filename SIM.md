@@ -56,15 +56,16 @@ notice that FTC fields are experimental. Watched on 2026-09-28, and the menu pat
 
 An autonomous can be over before a field is set up by hand: `lessons.L9Drive24OpMode` drives its
 24 in and holds in about 1 s. Its flight log replays the run. Stop `simRun` with Ctrl-C, open the
-`.wpilog` it names in AdvantageScope, and drag `Robot/Pose` onto the field. `Robot/Path` dragged
+`.wpilog` it wrote into the repository's top folder in AdvantageScope, and drag `Robot/Pose` onto the field. `Robot/Path` dragged
 beside it and switched to **Trajectory** from its icon draws the line the robot was told to follow.
 Watched on 2026-10-01 against `solutions-03`.
 
-Ctrl-C stops it. It closes the flight log on the way out and prints where it left it.
+Ctrl-C stops it. The flight log goes in the repository's top folder, where `.gitignore` keeps it
+out of git, and `simRun` names that folder before anything else, as `Flight log: <folder>`.
 
 ## What gets published
 
-Everything is under `sim/`.
+What the simulated robot is doing is under `sim/`.
 
 | Topic | What it is |
 |---|---|
@@ -73,6 +74,11 @@ Everything is under `sim/`.
 | `sim/wheels/frontLeft` and the other three | What reached that motor, -1 to 1 |
 | `sim/stick/leftY`, `leftX`, `rightY`, `rightX` | What the driver is holding |
 | `sim/vel/forward_ips`, `strafe_ips`, `omega_radps` | How fast the robot is going, in its own frame |
+
+Every value the OpMode publishes through `Tracker` goes out too, under the name the flight log gives
+it, so `Tracker.publish("stick/leftY", leftSpeed)` is `/stick/leftY` live and in the log.
+`sim/stick/leftY` is the stick as the gamepad gives it, and `/stick/leftY` is what the lesson made
+of it. Watched on 2026-10-02 with L2a's solution and the left stick forward: -1 and 1.
 
 The pose is a struct because AdvantageScope wants one. A bare `double[]` of x, y and heading is what
 it calls the legacy numeric array format: it draws that too, warns about it in 2026 and removes it

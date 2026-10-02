@@ -1,40 +1,15 @@
 # L15CombinedOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L15CombinedOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L15CombinedOpMode.java`
 
-## An unmarked difference
+## L15
 
-What the lesson leaves blank:
+### TODO 1 (L15)
 
-```java
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## An unmarked difference
-
-What the lesson leaves blank:
-
-```java
-@Disabled
-```
-
-What the solutions line has there:
-
-```java
-(nothing)
-```
-
-## TODO 1 (L15)
-
-What the lesson leaves blank:
+Before L15:
 
 ```java
         // TODO 1 (L15): add your encoder localizer as "driveWheelEncoders", as in
@@ -42,12 +17,11 @@ What the lesson leaves blank:
         //         there.
 ```
 
-What the solutions line has there:
+After L15:
 
 ```java
         shadowLocalizers.add("driveWheelEncoders",
                 new MecanumEncoderLocalizer(new HardwareWheelSource(hardware)));
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

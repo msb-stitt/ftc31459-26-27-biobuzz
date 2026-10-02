@@ -1,12 +1,15 @@
 # L6FollowerDriveTrain
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L6FollowerDriveTrain.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6FollowerDriveTrain.java`
 
-## TODO 1
+## L6
 
-What the lesson leaves blank:
+### TODO 1
+
+Before L6:
 
 ```java
         // TODO 1: wrap the three numbers in a new DrivePowers(...) in its own
@@ -17,7 +20,7 @@ What the lesson leaves blank:
         //         then agree about which wheel does what.
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
         DrivePowers drivePowers = new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
@@ -26,16 +29,16 @@ What the solutions line has there:
         setCommandedWheels(scaled[FL], scaled[FR], scaled[BL], scaled[BR]);
 ```
 
-## TODO 2
+### TODO 2
 
-What the lesson leaves blank:
+Before L6:
 
 ```java
         // TODO 2: fill each slot in, one line each, naming it with FL, FR, BL or
         //         BR. The four sums are the same ones L5HolonomicDriveTrain uses.
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
         wheels[FL] = forwardSpeed - strafeLeftSpeed - turnCcwSpeed;

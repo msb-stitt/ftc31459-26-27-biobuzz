@@ -113,7 +113,8 @@ run. Nothing is wrong with the simulator. It ran a lesson that writes nothing to
 **If it didn't**, and no topics arrive at all, nothing connected. The address is `127.0.0.1`, and
 the kind is NetworkTables 4 rather than a log file.
 
-Ctrl-C stops it, and it prints where it left the flight log.
+Ctrl-C stops it. The flight log is in the project's top folder, which the first line it prints
+names.
 
 :::{admonition} fig-advantagescope-sim
 :class: pencil

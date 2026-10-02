@@ -1,43 +1,54 @@
 # L6WheelsFollowerOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L6WheelsFollowerOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6WheelsFollowerOpMode.java`
 
-## TODO 1
+## L6
 
-What the lesson leaves blank:
+### A change
+
+Before L6:
 
 ```java
-    // TODO 1: L5 made an L5HolonomicDriveTrain. This lesson needs an
-    //         L6FollowerDriveTrain instead, here and on the line below that
-    //         builds it.
+@TeleOp(name = "L5 Holonomic", group = "Lessons")
+```
+
+After L6:
+
+```java
+@TeleOp(name = "L6 Follower Wheels", group = "Lessons")
+```
+
+### A change
+
+Before L6:
+
+```java
     private L5HolonomicDriveTrain drivetrain;
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
     private L6FollowerDriveTrain drivetrain;
 ```
 
-## TODO 2
+### A change
 
-What the lesson leaves blank:
+Before L6:
 
 ```java
         drivetrain = new L5HolonomicDriveTrain(hardware);
-        // TODO 2: hand the drivetrain to initAfter(), so the follower holds
-        //         it. L2 through L5 called initAfter() with nothing, because
-        //         they drove their own wheels.
-        //         Works when: L6FollowerDriveTrainTest passes and the robot
-        //         drives on the sticks.
         initAfter();
 ```
 
-What the solutions line has there:
+After L6:
 
 ```java
         drivetrain = new L6FollowerDriveTrain(hardware);
         initAfter(drivetrain);
 ```
+
+It also changes 3 run(s) of comment lines, which are not shown.

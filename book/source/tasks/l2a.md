@@ -30,7 +30,7 @@ Open `lessons`, click `L2aSticksOpMode` once, and copy it: ⌘C on a Mac, Ctrl+C
 `lessons` up again, click `mytry` once, and paste.
 
 A box called **Copy Class** opens. Look at **Destination package**. It should end in `mytry`. Then
-click **OK**. If Android Studio asks whether to add the file to Git, click **Cancel**.
+click **OK**. If Android Studio asks whether to add the file to Git, click **Add**.
 
 :::{admonition} fig-l2a-copy-class
 :class: pencil
@@ -129,35 +129,36 @@ Click the **Terminal** button near the bottom of the left edge. Type this and pr
 ./gradlew :TeamCode:simRun --args="mytry.L2aSticksOpMode --pad"
 ```
 
-**You'll know it worked when** it prints `mytry.L2aSticksOpMode running.` and stays running.
+**You'll know it worked when** it prints `Flight log:` and a folder, then
+`mytry.L2aSticksOpMode running.`, and stays running. The folder is the project's top folder, the one
+that holds `README.md`.
 
 ### Step 8: watch the stick live
 
-In AdvantageScope, open **File > Connect to Simulator > NetworkTables 4**. Click **Line Graph**. In
-the list on the left, open `sim` and then `stick`, and drag `leftY` down into **Left Axis**.
+In AdvantageScope, open **File > Connect to Simulator > NetworkTables 4**. Click **Line Graph**. The
+list on the left has two `stick` folders. The one inside `sim` is the gamepad. The one on its own is
+what your code published. Open both, and drag each `leftY` down into **Left Axis**.
 
 Push the left stick away from you.
 
-**You'll know it worked when** the line moves as you push, and reads -1 with the stick all the way
-forward. That is the stick as the gamepad gives it, before your minus sign.
+**You'll know it worked when** both lines move as you push. With the stick all the way forward,
+`sim/stick/leftY` reads -1, the way the gamepad gives it, and your `stick/leftY` reads 1, after your
+minus sign.
 
 :::{admonition} fig-l2a-live
 :class: pencil
-AdvantageScope's Line Graph with `NT:sim/stick/leftY` in Left Axis, drawn at -1.
+AdvantageScope's Line Graph with `NT:sim/stick/leftY` drawn at -1 and `NT:/stick/leftY` drawn at
+1.
 :::
 
 ### Step 9: read the flight log
 
-Click in the Terminal and press Ctrl+C to stop the simulator. Open the flight log in AdvantageScope
-with **File > Open Log(s)…**, open `stick`, and drag `leftY` into **Left Axis**.
+Click in the Terminal and press Ctrl+C to stop the simulator. In AdvantageScope, open
+**File > Open Log(s)…**, go to the project's top folder, and open the newest file whose name starts
+`L2aSticksOpMode`. Open `stick`, and drag `leftY` into **Left Axis**.
 
-**You'll know it worked when** the line reads 1 while the stick was forward. That is your
-`stick/leftY`, after your minus sign.
-
-:::{admonition} To do
-Where the simulator leaves its flight log is not settled, so this step cannot say which file to
-open yet.
-:::
+**You'll know it worked when** the line reads 1 while the stick was forward. It is the same
+`stick/leftY` you watched live, kept in a file you can open again later.
 
 :::{admonition} fig-l2a-log
 :class: pencil
@@ -174,9 +175,9 @@ Sending your copy to the robot and running `L2a Sticks` from the Driver Station 
 
 `loop` runs over and over, from PLAY until STOP, and each pass is one look at the gamepad. Your code
 read the four sticks and the A button, turned forward into a positive number, and wrote each value
-down under a name. Live, AdvantageScope showed the stick the way the gamepad reports it. The flight
-log kept the values your code wrote, so the same push reads -1 in one and 1 in the other, and the
-minus sign is the difference.
+down under a name. AdvantageScope showed the stick the way the gamepad reports it beside the value
+your code wrote, so the same push reads -1 in one and 1 in the other, and the minus sign is the
+difference. The flight log kept your values, to look at again after the run.
 
 ## Where next
 

@@ -23,7 +23,7 @@ What the picture must show, in one sentence.
 | `fig-l2a-folders` | The Project window with `org.firstinspires.ftc.teamcode` open, showing the `lessons` folder and the `mytry` folder with only `package-info.java` in it | Screenshot, taken 2026-10-02 as `scratch/l2a/01-open.png` and kept out of the branch | pencilled |
 | `fig-l2a-copy-class` | The Copy Class box with New name `L2aSticksOpMode` and Destination package `org.firstinspires.ftc.teamcode.mytry` | Screenshot, taken 2026-10-02 as `scratch/l2a/03-copy-dialog.png`, with the clip `v-copy.mov` | pencilled |
 | `fig-l2a-complete` | The list under `gamepad1.` after typing `left_st`, with `left_stick_y` highlighted | Screenshot, taken 2026-10-02 as `scratch/l2a/07-complete-pick.png`, with the clips `v-tab.mov` and `v-hover.mov` | pencilled |
-| `fig-l2a-live` | AdvantageScope's Line Graph with `NT:sim/stick/leftY` in Left Axis, drawn at -1 | Screenshot, taken 2026-10-02 as `scratch/l2a/16-live.png` | pencilled |
+| `fig-l2a-live` | AdvantageScope's Line Graph with `NT:sim/stick/leftY` drawn at -1 and `NT:/stick/leftY` drawn at 1 | Screenshot, taken 2026-10-02 as `scratch/l2a/16-live.png` | pencilled |
 | `fig-l2a-log` | AdvantageScope's Line Graph of the flight log with `/stick/leftY` in Left Axis, drawn at 1 | Screenshot, taken 2026-10-02 as `scratch/l2a/18-log.png` | pencilled |
 | `fig-wheel-names` | The robot from above with its nose marked, and each of the four wheels labelled front left, front right, back left and back right | Photo of the robot, labelled | pencilled |
 | `fig-wheel-forward` | One wheel from the side, with an arrow on the top of the tyre showing which way it travels when that wheel is driving the robot forward | Photo of the robot, labelled | pencilled |
