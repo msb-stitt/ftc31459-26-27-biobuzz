@@ -100,6 +100,9 @@ public class SimPublisherTest {
             h.gamepad1.left_stick_y = -1.0f;
             h.gamepad1.right_stick_y = -1.0f;
             h.loops(200, 0);
+            Tracker.publish("lesson/number", 2.5);
+            Tracker.publish("lesson/flag", true);
+            Tracker.publish("lesson/word", "pressed");
             try (SimPublisher out = new SimPublisher(h, NT3, NT4)) {
                 out.publish();
 
@@ -148,6 +151,13 @@ public class SimPublisherTest {
                 assertTrue("moving forward at a fair speed",
                         out.instance().getDoubleTopic("sim/vel/forward_ips")
                                 .subscribe(0).get() > 50);
+
+                assertEquals("a number the OpMode published, under its flight log name", 2.5,
+                        out.instance().getDoubleTopic("/lesson/number").subscribe(0).get(), 1e-9);
+                assertTrue("a true or false it published",
+                        out.instance().getBooleanTopic("/lesson/flag").subscribe(false).get());
+                assertEquals("and a word", "pressed",
+                        out.instance().getStringTopic("/lesson/word").subscribe("").get());
             }
             h.stop();
         } finally {
