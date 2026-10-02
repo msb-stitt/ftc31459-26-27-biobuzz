@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.Calibration;
@@ -28,6 +29,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * same answer.
  */
 @TeleOp(name = "L17a Measure ticks per inch", group = "Lessons")
+@Disabled
 public class L17aMeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
     private static final double NEEDED_INCHES = 36;

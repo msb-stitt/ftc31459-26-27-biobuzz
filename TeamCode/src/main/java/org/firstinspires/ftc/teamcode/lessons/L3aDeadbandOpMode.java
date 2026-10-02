@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * <p>Passes when: LessonsTest.l3a_aNearlyCentredStickCountsAsCentred
  */
 @TeleOp(name = "L3a Deadband", group = "Lessons")
+@Disabled
 public class L3aDeadbandOpMode extends CorbelsTeleOp {
 
     /** Anything smaller than this counts as a stick that was let go. */

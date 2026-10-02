@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.lessons;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * <p>Passes when: LessonsTest.l14_pressingYDrivesToAPoseAndTheDriverCanTakeOver
  */
 @TeleOp(name = "L14 Drive To Pose", group = "Lessons")
+@Disabled
 public class L14DriveToPoseOpMode extends CorbelsTeleOp {
 
     private static final PoseFactory POSES = PoseFactory.degrees();

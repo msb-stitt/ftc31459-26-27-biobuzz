@@ -8,6 +8,7 @@ import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * <p>Passes when: LessonsTest.l9_autoDrives24InchesForwardAndStops
  */
 @Autonomous(name = "L9 Drive 24", group = "Lessons")
+@Disabled
 public class L9Drive24OpMode extends CorbelsAuto {
 
     private static final PoseFactory POSES = PoseFactory.degrees();

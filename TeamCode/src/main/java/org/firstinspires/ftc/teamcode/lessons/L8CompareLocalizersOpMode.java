@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
  * <p>Passes when: LessonsTest.l8_theEncoderLocalizerRunsAlongsideAndIsLogged
  */
 @TeleOp(name = "L8 Compare Localizers", group = "Lessons")
+@Disabled
 public class L8CompareLocalizersOpMode extends CorbelsTeleOp {
 
     @Override
