@@ -1,0 +1,4 @@
+# L2a: the sticks starter, copied into mytry and filled in.
+copy lessons/L2aSticksOpMode.java mytry/L2aSticksOpMode.java
+patch L2aSticksOpMode.patch
+test *LessonsTest.l2a*
