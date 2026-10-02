@@ -6,6 +6,7 @@ tests of the lesson it stops at.
     python3 solutions/apply.py l2a
     python3 solutions/apply.py l2b --copies-only --keep
     python3 solutions/apply.py l2b --unpatched
+    python3 solutions/apply.py l17b --every
 
 It makes a fresh worktree of solutions-try, so nothing in the checkout it runs
 from is touched, and reads `order` and each lesson's `steps` out of that
@@ -116,6 +117,8 @@ def main() -> int:
                     help="stop the last lesson after its copies, and run no tests")
     ap.add_argument("--unpatched", action="store_true",
                     help="leave the last lesson's patches out and run its tests, to see them fail")
+    ap.add_argument("--every", action="store_true",
+                    help="after each lesson, run the tests of every lesson so far")
     ap.add_argument("--keep", action="store_true", help="leave the worktree in place")
     args = ap.parse_args()
 
@@ -135,6 +138,8 @@ def main() -> int:
             raise Stop(f"{args.lesson} is not in solutions/order")
         upto = order[: order.index(args.lesson) + 1]
         tests: list[str] = []
+        so_far: list[str] = []
+        every_ok = True
         for lesson in upto:
             print(f"{lesson}:")
             last = lesson == args.lesson
@@ -149,11 +154,18 @@ def main() -> int:
                     patch(tree, lesson, rest[0])
                     print(f"  patch {rest[0]}")
                 elif kind == "test" and len(rest) == 1:
+                    so_far.append(rest[0])
                     if last:
                         tests.append(rest[0])
                 else:
                     raise Stop(f"solutions/{lesson}/steps: cannot read {' '.join(step)}")
-        if args.copies_only:
+            if args.every and not last:
+                print(f"every test through {lesson}:")
+                every_ok = test(tree, so_far) and every_ok
+        if args.every:
+            print(f"every test through {args.lesson}:")
+            ok = test(tree, so_far) and every_ok
+        elif args.copies_only:
             ok = True
         else:
             print(f"{args.lesson} tests:")
