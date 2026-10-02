@@ -1,0 +1,41 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+index 086a40e..e4f4ce4 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+@@ -132,11 +132,10 @@ public abstract class LessonsDriveTrain implements Drivetrain {
+      * {@link #FL} and the others name.
+      */
+     protected void writeWheels() {
+-        // TODO 1 (L2b): send each slot of wheelPowers to the motor it belongs to,
+-        //         naming the slot with FL, FR, BL or BR. One line each:
+-        //         motors[FL].setPower(wheelPowers[FL]);  and the other three.
+-        //         Works when: LessonsTest.l2b_theSticksDriveTheWheelsLikeATank
+-        //         passes. Nothing drives at all until this is written.
++        motors[FL].setPower(wheelPowers[FL]);
++        motors[FR].setPower(wheelPowers[FR]);
++        motors[BL].setPower(wheelPowers[BL]);
++        motors[BR].setPower(wheelPowers[BR]);
+     }
+ 
+     /**
+@@ -150,13 +149,13 @@ public abstract class LessonsDriveTrain implements Drivetrain {
+                                      double backLeftPower, double backRightPower) {
+         drivenDirectly = true;
+ 
+-        // TODO 2 (L2b): put each power into its own slot of wheelPowers, using
+-        //         FL, FR, BL and BR to say which slot is which. One line each.
+-        //         wheelPowers[FL] = frontLeftPower;  and so on.
+-        //         Then call normalized(wheelPowers), which is L4's job and does
+-        //         nothing yet, and writeWheels(), which you wrote just above.
+-        //         Works when: the wheels turn the way the sticks say, and
+-        //         LessonsTest.l2b_theSticksDriveTheWheelsLikeATank passes.
++        wheelPowers[FL] = frontLeftPower;
++        wheelPowers[FR] = frontRightPower;
++        wheelPowers[BL] = backLeftPower;
++        wheelPowers[BR] = backRightPower;
++
++        normalized(wheelPowers);
++        writeWheels();
+     }
+ 
+     // ------------------------------------------------- L4 writes this

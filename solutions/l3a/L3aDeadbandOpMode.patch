@@ -1,0 +1,30 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3aDeadbandOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3aDeadbandOpMode.java
+index 9108a9c..145ca14 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3aDeadbandOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3aDeadbandOpMode.java
+@@ -24,9 +24,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
+ public class L3aDeadbandOpMode extends CorbelsTeleOp {
+ 
+     /** Anything smaller than this counts as a stick that was let go. */
+-    // TODO 1 (L3a): pick the number. A stick let go reads a few hundredths, so
+-    //         0.05 is a good first guess; 0 leaves the creep exactly where it was.
+-    private static final double DEADBAND = 0;
++    private static final double DEADBAND = 0.05;
+ 
+     private L2TankDriveTrain drivetrain;
+ 
+@@ -50,11 +48,9 @@ public class L3aDeadbandOpMode extends CorbelsTeleOp {
+         double leftRawSpeed = -gamepad1.left_stick_y;
+         double rightRawSpeed = -gamepad1.right_stick_y;
+ 
+-        // TODO 2 (L3a): put each raw stick through drivetrain.deadband(), with
+-        //         DEADBAND as the band both times, and hand the two to
+-        //         drivetrain.sticks().
+-        double leftSpeed = 0;
+-        double rightSpeed = 0;
++        double leftSpeed = drivetrain.deadband(leftRawSpeed, DEADBAND);
++        double rightSpeed = drivetrain.deadband(rightRawSpeed, DEADBAND);
++        drivetrain.sticks(leftSpeed, rightSpeed);
+ 
+         Tracker.publish("stick/left_raw", leftRawSpeed);
+         Tracker.publish("stick/left_shaped", leftSpeed);

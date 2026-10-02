@@ -1,0 +1,30 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L11FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L11FieldRelativeOpMode.java
+index d77a362..a431fd5 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L11FieldRelativeOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L11FieldRelativeOpMode.java
+@@ -8,8 +8,6 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ /**
+  * L11: field relative. Push the stick away from you and the robot goes away
+  * from you, whichever way it happens to be facing.
+- *
+- * <p>Passes when: LessonsTest.l11_fieldRelativeIgnoresWhichWayTheRobotFaces
+  */
+ @TeleOp(name = "L11 Field Relative", group = "Lessons")
+ public class L11FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -32,12 +30,10 @@ public class L11FieldRelativeOpMode extends CorbelsTeleOp {
+     @Override
+     public void loop() {
+         loopBefore();
+-        // TODO (L11): the same three sticks as L5, but through
+-        //       drivetrain.fieldRelative(...) instead of drivetrain.sticks(...).
+-        //       The heading goes in first, and the drivetrain cannot get it
+-        //       itself: follower.pose().heading() is where it comes from.
+-        //       Try L5's version with the robot turned 180 degrees first, so you
+-        //       can feel the difference.
++        drivetrain.fieldRelative(follower.pose().heading(),
++                -gamepad1.left_stick_y,      // away from the driver
++                -gamepad1.left_stick_x,      // to the driver's left
++                -gamepad1.right_stick_x);    // counter-clockwise
+         loopAfter();
+     }
+ 

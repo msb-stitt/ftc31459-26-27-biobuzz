@@ -1,0 +1,10 @@
+# L2b grows the L2a OpMode in mytry; the tank drivetrain and LessonsDriveTrain are new.
+copy mytry/L2aSticksOpMode.java mytry/L2bTankOpMode.java
+copy lessons/L2TankDriveTrain.java mytry/L2TankDriveTrain.java
+copy lessons/LessonsDriveTrain.java mytry/LessonsDriveTrain.java
+patch L2bTankOpMode.patch
+patch L2TankDriveTrain.patch
+patch LessonsDriveTrain.patch
+test *LessonsTest.l2b*
+test *LessonsDriveTrainTest.drivingTheWheelsNowReachesAllFourMotorsInOrder
+test *LessonsDriveTrainTest.tankSticksRunBothWheelsOnEachSide

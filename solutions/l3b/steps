@@ -1,0 +1,6 @@
+# L3b grows the L3a OpMode in mytry.
+copy mytry/L3aDeadbandOpMode.java mytry/L3bSquaredOpMode.java
+patch L3bSquaredOpMode.patch
+patch LessonsDriveTrain.patch
+test *LessonsTest.l3b*
+test *LessonsDriveTrainTest.squaringTheStickKeepsItsSign

@@ -1,0 +1,57 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6WheelsFollowerOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6WheelsFollowerOpMode.java
+index 894c293..ba2a35a 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6WheelsFollowerOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6WheelsFollowerOpMode.java
+@@ -7,29 +7,38 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
+ 
+ /**
+- * L5: drivetrain drive. Now the robot can strafe.
++ * L6: let the path follower hold the drivetrain.
+  *
+- * <p>Arcade used two numbers, forward and turn, and both sides of the robot did
+- * the same thing. Mecanum wheels can do a third: slide sideways without turning.
+- * That needs all four wheels mixed separately, which is what
+- * {@link L5HolonomicDriveTrain#sticks} does.
++ * <p>L5 drove exactly as well as this does, and the sticks feel the same. What
++ * changes is who is holding the drivetrain. Up to now the follower was given a
++ * stand-in that ignored it, so the lesson had the motors to itself. Here the
++ * drivetrain goes to {@code initAfter}, and the follower has it.
+  *
+- * <p>The left stick now does two jobs at once -- push it to drive, push it
+- * sideways to slide -- and the right stick still turns. Everything is relative
+- * to the robot's own front: push the stick left and the robot slides towards its
+- * own left, whichever way it happens to be facing. Making it slide towards the
+- * driver's left instead comes in L11.
++ * <p>That is worth doing because the follower can do more than pass the sticks
++ * through. It knows where the robot is, it can hold a heading, and it can drive
++ * a path. None of that is possible while the follower is holding a stand-in, and
++ * all of it is what L8 onwards is about.
++ *
++ * <p>Handing the drivetrain over does not hand the driver's sticks over.
++ * {@link L6FollowerDriveTrain#sticks} commands the four drivetrain, and a commanded
++ * wheel beats whatever the follower worked out, so the driver still wins. L8 is
++ * where the drivetrain go back.
++ *
++ * <p>Two things to notice. {@code init} passes the drivetrain to
++ * {@code initAfter}, which is how the follower gets it. And {@code stop} hands
++ * the wheels back before the last follower update, or they keep whatever the
++ * last loop commanded.
+  */
+-@TeleOp(name = "L5 Holonomic", group = "Lessons")
++@TeleOp(name = "L6 Follower Wheels", group = "Lessons")
+ public class L6WheelsFollowerOpMode extends CorbelsTeleOp {
+ 
+-    private L5HolonomicDriveTrain drivetrain;
++    private L6FollowerDriveTrain drivetrain;
+ 
+     @Override
+     public void init() {
+         initBefore();
+-        drivetrain = new L5HolonomicDriveTrain(hardware);
+-        initAfter();
++        drivetrain = new L6FollowerDriveTrain(hardware);
++        initAfter(drivetrain);
+     }
+ 
+     @Override

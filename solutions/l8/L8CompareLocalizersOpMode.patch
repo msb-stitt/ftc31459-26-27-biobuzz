@@ -1,0 +1,37 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L8CompareLocalizersOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L8CompareLocalizersOpMode.java
+index 8315c64..a517d69 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L8CompareLocalizersOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L8CompareLocalizersOpMode.java
+@@ -17,18 +17,14 @@ import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+  *
+  * <p>Both of them count encoders. What differs is which wheels: yours reads the
+  * four that push, and the Pinpoint reads two that only measure.
+- *
+- * <p>Passes when: LessonsTest.l8_theEncoderLocalizerRunsAlongsideAndIsLogged
+  */
+ @TeleOp(name = "L8 Compare Localizers", group = "Lessons")
+ public class L8CompareLocalizersOpMode extends CorbelsTeleOp {
+ 
+     @Override
+     protected void shadowLocalizers() {
+-        // TODO 1 (L8): run your localizer alongside the robot's own, named
+-        //         "driveWheelEncoders" because that is which encoders it reads:
+-        //         shadowLocalizers.add("driveWheelEncoders",
+-        //                 new MecanumEncoderLocalizer(new HardwareWheelSource(hardware)));
++        shadowLocalizers.add("driveWheelEncoders",
++                new MecanumEncoderLocalizer(new HardwareWheelSource(hardware)));
+     }
+ 
+     private L6FollowerDriveTrain drivetrain;
+@@ -49,9 +45,8 @@ public class L8CompareLocalizersOpMode extends CorbelsTeleOp {
+     @Override
+     public void loop() {
+         loopBefore();
+-        // TODO 2 (L8): holonomic driving, same as L5 -- but through the drivetrain
+-        //         the follower is holding now, the way L6 handed it over. One call
+-        //         to drivetrain.sticks() with the three sticks.
++        drivetrain.sticks(
++                -gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x);
+         loopAfter();
+     }
+ 

@@ -1,0 +1,14 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2TankDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2TankDriveTrain.java
+index d6ab990..450d101 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2TankDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2TankDriveTrain.java
+@@ -34,8 +34,6 @@ public class L2TankDriveTrain extends LessonsDriveTrain {
+      * one place so every lesson that drives this way says the same thing.
+      */
+     public void sticks(double leftSpeed, double rightSpeed) {
+-        // TODO (L2b): call driveWheelsNow with four powers. The left stick runs both
+-        //       left wheels and the right stick runs both right wheels, so two of
+-        //       the four are the same number.
++        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
+     }
+ }

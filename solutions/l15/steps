@@ -1,0 +1,4 @@
+# L15 starts from its starter.
+copy lessons/L15CombinedOpMode.java mytry/L15CombinedOpMode.java
+patch L15CombinedOpMode.patch
+test *LessonsTest.l15_*

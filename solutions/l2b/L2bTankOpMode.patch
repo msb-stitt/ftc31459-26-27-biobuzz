@@ -1,0 +1,103 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2bTankOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2bTankOpMode.java
+index 5e1f199..54cdf91 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2bTankOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2bTankOpMode.java
+@@ -7,37 +7,24 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
+ 
+ /**
+- * L2a: read the gamepad and write down what it says. Nothing moves.
++ * L2b: the sticks drive the wheels.
+  *
+- * <p>The robot can sit on the floor for this one. Every number the driver's
+- * hands make goes to Panels and into the flight log, and the wheels are not
+- * touched until L2b.
++ * <p>L2a read the sticks and wrote the numbers down. This one hands them to a
++ * drivetrain. Tank drive: the left stick runs the left wheels and the right
++ * stick runs the right wheels, and {@link L2TankDriveTrain#sticks} is where that
++ * happens. Push both forward and the robot goes straight; push one each way and
++ * it spins in place.
+  *
+- * <p>This is also the first look at the four methods every OpMode has.
+- * {@code init} runs once when INIT is pressed, {@code start} once when PLAY is
+- * pressed, {@code loop} over and over until STOP, and {@code stop} once at the
+- * end. The {@code Before} and {@code After} calls are the robot's own
+- * housekeeping -- hardware, the flight log, Panels -- and the code between them
+- * is this lesson's.
++ * <p>The loop count and the running time are gone. The robot logs both itself,
++ * so writing them again was practice and not work.
+  *
+- * <p>A stick pushed away from the driver reads negative, which is backwards
+- * from how anyone thinks about it, so every stick gets a minus sign on the way
+- * in. After that, forward is positive.
+- *
+- * <p>Four kinds of value get logged here: a {@code double} for a stick, a
+- * {@code boolean} for a button, an {@code int} for the loop count, and a
+- * {@code String} for an event. The loop count and the running time are here to
+- * show how; the robot already logs both for itself, which is worth knowing
+- * before writing it a second time.
+- *
+- * <p>Passes when: LessonsTest.l2a_logsEveryStickAndTheAButton and
+- * LessonsTest.l2a_saysWhenTheButtonIsPressedAndReleased
++ * <p>Passes when: LessonsTest.l2b_theSticksDriveTheWheelsLikeATank and
++ * LessonsTest.l2b_theSticksMoveTheSimulatedRobot
+  */
+-@TeleOp(name = "L2a Sticks", group = "Lessons")
++@TeleOp(name = "L2b Tank", group = "Lessons")
+ public class L2bTankOpMode extends CorbelsTeleOp {
+ 
+-    /** How many times {@link #loop} has run. */
+-    private int loopCount;
++    private L2TankDriveTrain drivetrain;
+ 
+     /** What the A button was doing last loop, so a change can be spotted. */
+     private boolean previousButtonA;
+@@ -45,13 +32,13 @@ public class L2bTankOpMode extends CorbelsTeleOp {
+     @Override
+     public void init() {
+         initBefore();
++        drivetrain = new L2TankDriveTrain(hardware);
+         initAfter();
+     }
+ 
+     @Override
+     public void start() {
+         startBefore();
+-        loopCount = 0;
+         previousButtonA = false;
+         startAfter();
+     }
+@@ -62,22 +49,16 @@ public class L2bTankOpMode extends CorbelsTeleOp {
+ 
+         double leftSpeed = -gamepad1.left_stick_y;
+         double rightSpeed = -gamepad1.right_stick_y;
+-        double leftSideways = gamepad1.left_stick_x;
+-        double rightSideways = gamepad1.right_stick_x;
++        drivetrain.sticks(leftSpeed, rightSpeed);
+ 
+         Tracker.publish("stick/leftY", leftSpeed);
+-        Tracker.publish("stick/leftX", leftSideways);
++        Tracker.publish("stick/leftX", gamepad1.left_stick_x);
+         Tracker.publish("stick/rightY", rightSpeed);
+-        Tracker.publish("stick/rightX", rightSideways);
++        Tracker.publish("stick/rightX", gamepad1.right_stick_x);
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("driver pressed A", buttonA);
+ 
+-        loopCount = loopCount + 1;
+-        double secondsRunning = getRuntime();
+-        Tracker.publish("lesson/loop_count", loopCount);
+-        Tracker.publish("lesson/seconds_running", secondsRunning);
+-
+         if (buttonA != previousButtonA) {
+             if (buttonA) {
+                 Tracker.publish("lesson/event", "button A pressed");
+@@ -92,6 +73,7 @@ public class L2bTankOpMode extends CorbelsTeleOp {
+ 
+     @Override
+     public void stop() {
++        drivetrain.stop();
+         stopAfter();
+     }
+ }

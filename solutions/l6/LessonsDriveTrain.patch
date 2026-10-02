@@ -1,0 +1,55 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+index 244893f..60180ef 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+@@ -212,15 +212,16 @@ public abstract class LessonsDriveTrain implements Drivetrain {
+      */
+     public void setCommandedWheels(double frontLeftPower, double frontRightPower,
+                                    double backLeftPower, double backRightPower) {
+-        // TODO 4 (L6): make a new four-slot array in commandedWheels and put each
+-        //         power in its own slot, the same way driveWheelsNow does.
++        commandedWheels = new double[4];
++        commandedWheels[FL] = frontLeftPower;
++        commandedWheels[FR] = frontRightPower;
++        commandedWheels[BL] = backLeftPower;
++        commandedWheels[BR] = backRightPower;
+     }
+ 
+     /** Hands the wheels back to the follower. */
+     public void releaseCommandedWheels() {
+-        // TODO 5 (L6): forget the four powers, so drive() goes back to asking mix().
+-        //         Setting commandedWheels to null is how a field says "nothing
+-        //         here".
++        commandedWheels = null;
+     }
+ 
+     /** True while a lesson is driving the wheels itself. */
+@@ -247,16 +248,18 @@ public abstract class LessonsDriveTrain implements Drivetrain {
+         applyBrakeMode(manual);
+         lastDrivePowers = powers;
+ 
+-        // TODO 6 (L6): work out where the four powers come from, and send them on.
+-        //         Declare a double[] sourcePowers with nothing in it. If a lesson
+-        //         has not commanded the wheels, ask mix() for them into its own
+-        //         variable, hand that to normalized(), and point sourcePowers at
+-        //         what comes back. If a lesson has commanded them, point
+-        //         sourcePowers at commandedWheels instead. An if and an else, not
+-        //         a ?. Then copy every slot of sourcePowers into wheelPowers in a
+-        //         loop with i as the index, and call writeWheels().
+-        //         Works when: L6FollowerDriveTrainTest passes, the robot drives on
+-        //         the sticks in L6, and L9 drives its 24 inches.
++        double[] sourcePowers;
++        if (commandedWheels == null) {
++            double[] mixed = mix(powers);
++            sourcePowers = normalized(mixed);
++        } else {
++            sourcePowers = commandedWheels;
++        }
++        for (int i = 0; i < wheelPowers.length; i++) {
++            wheelPowers[i] = sourcePowers[i];
++        }
++
++        writeWheels();
+     }
+ 
+     // ------------------------------------------------- L3a and L3b write these, L11 the third

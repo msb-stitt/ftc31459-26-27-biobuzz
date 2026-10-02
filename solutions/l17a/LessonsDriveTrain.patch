@@ -1,0 +1,24 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+index ad72d9a..ffe2f62 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+@@ -338,15 +338,10 @@ public abstract class LessonsDriveTrain implements Drivetrain {
+     /** What each encoder has counted, in ticks, in wheel order. */
+     public int[] wheelTicks() {
+         int[] ticks = new int[4];
+-        // TODO 11 (L17a): fill each slot with what that wheel's encoder has
+-        //         counted, naming the slot with FL, FR, BL or BR and the motor
+-        //         through hardware:
+-        //         ticks[FL] = hardware.frontLeft.getCurrentPosition();  and three
+-        //         more. Four zeros is what comes back now, so a measurement says
+-        //         the robot never moved.
+-        //         Works when:
+-        //         LessonsDriveTrainTest.theTicksDoorReportsWhatEachEncoderCounted
+-        //         passes.
++        ticks[FL] = hardware.frontLeft.getCurrentPosition();
++        ticks[FR] = hardware.frontRight.getCurrentPosition();
++        ticks[BL] = hardware.backLeft.getCurrentPosition();
++        ticks[BR] = hardware.backRight.getCurrentPosition();
+         return ticks;
+     }
+ 

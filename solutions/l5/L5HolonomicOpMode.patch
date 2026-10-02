@@ -1,0 +1,59 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicOpMode.java
+index 60644f4..7254e75 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicOpMode.java
+@@ -7,27 +7,28 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
+ 
+ /**
+- * L4: drivetrain drive. One stick drives, the other turns. Still no strafing.
++ * L5: drivetrain drive. Now the robot can strafe.
+  *
+- * <p>The left stick says how fast to go. The right stick, pushed sideways, says
+- * how fast to spin. {@link L4ArcadeDriveTrain#sticks} works out the four wheel
+- * powers.
++ * <p>Arcade used two numbers, forward and turn, and both sides of the robot did
++ * the same thing. Mecanum wheels can do a third: slide sideways without turning.
++ * That needs all four wheels mixed separately, which is what
++ * {@link L5HolonomicDriveTrain#sticks} does.
+  *
+- * <p>Pushing the right stick to the right should turn the robot to the right,
+- * and turning to the right is <i>clockwise</i>. The drivetrain counts a turn as
+- * positive when it is counter-clockwise, so the stick gets a minus sign. Every
+- * turn number in this code is counter-clockwise-positive from here on, which is
+- * also how the path follower counts.
++ * <p>The left stick now does two jobs at once -- push it to drive, push it
++ * sideways to slide -- and the right stick still turns. Everything is relative
++ * to the robot's own front: push the stick left and the robot slides towards its
++ * own left, whichever way it happens to be facing. Making it slide towards the
++ * driver's left instead comes in L11.
+  */
+-@TeleOp(name = "L4 Arcade", group = "Lessons")
++@TeleOp(name = "L5 Holonomic", group = "Lessons")
+ public class L5HolonomicOpMode extends CorbelsTeleOp {
+ 
+-    private L4ArcadeDriveTrain drivetrain;
++    private L5HolonomicDriveTrain drivetrain;
+ 
+     @Override
+     public void init() {
+         initBefore();
+-        drivetrain = new L4ArcadeDriveTrain(hardware);
++        drivetrain = new L5HolonomicDriveTrain(hardware);
+         initAfter();
+     }
+ 
+@@ -42,10 +43,12 @@ public class L5HolonomicOpMode extends CorbelsTeleOp {
+         loopBefore();
+ 
+         double forwardSpeed = -gamepad1.left_stick_y;
++        double strafeLeftSpeed = -gamepad1.left_stick_x;
+         double turnCcwSpeed = -gamepad1.right_stick_x;
+-        drivetrain.sticks(forwardSpeed, turnCcwSpeed);
++        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
+ 
+         Tracker.publish("command/forward", forwardSpeed);
++        Tracker.publish("command/left", strafeLeftSpeed);
+         Tracker.publish("command/turn_ccw", turnCcwSpeed);
+ 
+         loopAfter();

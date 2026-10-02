@@ -1,0 +1,40 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+index 736d960..ad72d9a 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java
+@@ -315,19 +315,22 @@ public abstract class LessonsDriveTrain implements Drivetrain {
+      */
+     public void setCommandedWheelSpeeds(double frontLeftInPerS, double frontRightInPerS,
+                                         double backLeftInPerS, double backRightInPerS) {
+-        // TODO 10 (L16): put the four speeds asked for into a four-slot array, in
+-        //         wheel order, and ask measuredSpeeds.all() for the four speeds the
+-        //         encoders see. Then work out a power for each wheel, in a loop
+-        //         with i as the index:
+-        //             feedforward = Constants.powerPerInchPerSecond * wanted[i]
+-        //             feedback    = VELOCITY_KP * (wanted[i] - measured[i])
+-        //         and put clampToPower(feedforward + feedback) in that wheel's
+-        //         slot. Command the four wheels with them, then call
+-        //         publishWheelSpeeds(wanted, measured, powers) so the log shows
+-        //         what was asked for, what happened, and the power in between.
+-        //         Works when:
+-        //         LessonsTest.l16_theSticksCommandASpeedAndTheWheelsAreCorrectedTowardsIt
+-        //         passes.
++        double[] wanted = new double[4];
++        wanted[FL] = frontLeftInPerS;
++        wanted[FR] = frontRightInPerS;
++        wanted[BL] = backLeftInPerS;
++        wanted[BR] = backRightInPerS;
++
++        double[] measured = measuredSpeeds.all();
++        double[] powers = new double[4];
++        for (int i = 0; i < powers.length; i++) {
++            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
++            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
++            powers[i] = clampToPower(feedforward + feedback);
++        }
++
++        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
++        publishWheelSpeeds(wanted, measured, powers);
+     }
+ 
+     // ------------------------------------------------- L17a and L17b write this

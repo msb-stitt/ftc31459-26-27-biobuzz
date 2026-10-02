@@ -1,0 +1,34 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6FollowerDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6FollowerDriveTrain.java
+index 75184d5..ee982a0 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6FollowerDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6FollowerDriveTrain.java
+@@ -36,12 +36,10 @@ public class L6FollowerDriveTrain extends LessonsDriveTrain {
+      * {@link LessonsDriveTrain} sets out.
+      */
+     public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
+-        // TODO 1: wrap the three numbers in a new DrivePowers(...) in its own
+-        //         variable, hand that to mix() into a second variable, hand that
+-        //         to normalized() into a third, and pass the four slots to
+-        //         setCommandedWheels(). One call to a line; nothing nested.
+-        //         Going through mix() is the point: the sticks and the follower
+-        //         then agree about which wheel does what.
++        DrivePowers drivePowers = new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
++        double[] mixed = mix(drivePowers);
++        double[] scaled = normalized(mixed);
++        setCommandedWheels(scaled[FL], scaled[FR], scaled[BL], scaled[BR]);
+     }
+ 
+     /**
+@@ -58,8 +56,10 @@ public class L6FollowerDriveTrain extends LessonsDriveTrain {
+         double turnCcwSpeed = powers.turn();
+ 
+         double[] wheels = new double[4];
+-        // TODO 2: fill each slot in, one line each, naming it with FL, FR, BL or
+-        //         BR. The four sums are the same ones L5HolonomicDriveTrain uses.
++        wheels[FL] = forwardSpeed - strafeLeftSpeed - turnCcwSpeed;
++        wheels[FR] = forwardSpeed + strafeLeftSpeed + turnCcwSpeed;
++        wheels[BL] = forwardSpeed + strafeLeftSpeed - turnCcwSpeed;
++        wheels[BR] = forwardSpeed - strafeLeftSpeed + turnCcwSpeed;
+         return wheels;
+     }
+ }

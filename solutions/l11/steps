@@ -1,0 +1,7 @@
+# L11 starts from its starter.
+copy lessons/L11FieldRelativeOpMode.java mytry/L11FieldRelativeOpMode.java
+patch L11FieldRelativeOpMode.patch
+patch LessonsDriveTrain.patch
+test *LessonsTest.l11_*
+test *LessonsDriveTrainTest.fieldRelativeDrivingTurnsTheDriversViewIntoTheRobots
+test *LessonsDriveTrainTest.turningTheDriversViewNeverChangesHowFastTheRobotGoes

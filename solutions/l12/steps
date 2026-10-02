@@ -1,0 +1,4 @@
+# L12 starts from its starter.
+copy lessons/L12RobotRelativeButtonOpMode.java mytry/L12RobotRelativeButtonOpMode.java
+patch L12RobotRelativeButtonOpMode.patch
+test *LessonsTest.l12_*
