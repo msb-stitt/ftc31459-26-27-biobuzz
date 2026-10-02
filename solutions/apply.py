@@ -5,6 +5,7 @@ tests of the lesson it stops at.
 
     python3 solutions/apply.py l2a
     python3 solutions/apply.py l2b --copies-only --keep
+    python3 solutions/apply.py l2b --unpatched
 
 It makes a fresh worktree of solutions-try, so nothing in the checkout it runs
 from is touched, and reads `order` and each lesson's `steps` out of that
@@ -113,6 +114,8 @@ def main() -> int:
     ap.add_argument("--ref", default="solutions-try", help="what the worktree checks out")
     ap.add_argument("--copies-only", action="store_true",
                     help="stop the last lesson after its copies, and run no tests")
+    ap.add_argument("--unpatched", action="store_true",
+                    help="leave the last lesson's patches out and run its tests, to see them fail")
     ap.add_argument("--keep", action="store_true", help="leave the worktree in place")
     args = ap.parse_args()
 
@@ -141,7 +144,7 @@ def main() -> int:
                     copy(tree, *rest)
                     print(f"  copy {rest[0]} -> {rest[1]}")
                 elif kind == "patch" and len(rest) == 1:
-                    if last and args.copies_only:
+                    if last and (args.copies_only or args.unpatched):
                         continue
                     patch(tree, lesson, rest[0])
                     print(f"  patch {rest[0]}")
@@ -156,9 +159,9 @@ def main() -> int:
             print(f"{args.lesson} tests:")
             ok = test(tree, tests)
     except Stop as e:
-        print(f"stopped: {e}", file=sys.stderr)
+        print(f"stopped: {e}")
     finally:
-        if ok and not keep:
+        if (ok or args.unpatched) and not keep:
             run(home, "git", "worktree", "remove", "--force", str(tree))
         else:
             print(f"worktree left at {tree}")
