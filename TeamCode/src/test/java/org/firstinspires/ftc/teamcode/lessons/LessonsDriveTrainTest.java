@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.pedropathing.drivetrain.DrivePowers;
+import com.pedropathing.drivetrain.Drivetrain;
 
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.RobotHardware;
@@ -18,9 +19,10 @@ import org.junit.Test;
  * One test per part the lessons add to {@link LessonsDriveTrain}: the immediate
  * write L2 fills in, the scaling L4 fills in, and the wheel sharing L6 fills in.
  *
- * <p>Two drivetrains stand in for the lessons' own. {@code Sides} is L2 through
- * L5: it drives its own drivetrain and has no {@code mix}, so the follower cannot
- * drive it. {@code Mecanum} is L6 onwards.
+ * <p>The two drivetrains are the student's own, loaded from {@code mytry} by
+ * name. {@code L2TankDriveTrain} is L2 through L5: it drives its own wheels and
+ * has no {@code mix}, so the follower cannot drive it. {@code
+ * L6FollowerDriveTrain} is L6 onwards.
  */
 public class LessonsDriveTrainTest {
 
@@ -32,34 +34,24 @@ public class LessonsDriveTrainTest {
     private OpModeHarness.FakeMotor backRight;
     private RobotHardware hardware;
 
-    /** A lesson drivetrain that owns its drivetrain, the way L2 through L5 do. */
-    private static class Sides extends LessonsDriveTrain {
-        Sides(RobotHardware hardware) {
-            super(hardware);
-        }
-
-        void sticks(double leftSpeed, double rightSpeed) {
-            driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
-        }
+    /** L2 through L5's drivetrain: it drives its own wheels and has no mix. */
+    private Drivetrain sides() {
+        return MyTry.make("L2TankDriveTrain", Drivetrain.class, hardware);
     }
 
-    /** A lesson drivetrain the follower can drive, the way L6 onwards is. */
-    private static class Mecanum extends Sides {
-        Mecanum(RobotHardware hardware) {
-            super(hardware);
-        }
+    /** L6 onwards' drivetrain, which the follower can drive. */
+    private Drivetrain mecanum() {
+        return MyTry.make("L6FollowerDriveTrain", Drivetrain.class, hardware);
+    }
 
-        @Override
-        protected double[] mix(DrivePowers powers) {
-            double forwardSpeed = powers.forward();
-            double strafeLeftSpeed = powers.strafe();
-            double turnCcwSpeed = powers.turn();
-            return new double[]{
-                    forwardSpeed - strafeLeftSpeed - turnCcwSpeed,
-                    forwardSpeed + strafeLeftSpeed + turnCcwSpeed,
-                    forwardSpeed + strafeLeftSpeed - turnCcwSpeed,
-                    forwardSpeed - strafeLeftSpeed + turnCcwSpeed};
-        }
+    /** Whether the drivetrain brakes now, asked of it by name. */
+    private static boolean braking(Drivetrain drivetrain) {
+        return (Boolean) call(drivetrain, "getEffectiveBrakeMode");
+    }
+
+    /** A lesson's own method, which {@code Drivetrain} does not have, called by name. */
+    private static Object call(Drivetrain drivetrain, String method, Object... args) {
+        return MyTry.call(drivetrain, method, args);
     }
 
     @Before
@@ -81,14 +73,14 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void drivingTheWheelsNowReachesAllFourMotorsInOrder() {
-        new Sides(hardware).driveWheelsNow(0.1, 0.2, 0.3, 0.4);
+        call(sides(), "driveWheelsNow", 0.1, 0.2, 0.3, 0.4);
         assertArrayEquals("front left, front right, back left, back right",
                 new double[]{0.1, 0.2, 0.3, 0.4}, motorPowers(), EPS);
     }
 
     @Test
     public void tankSticksRunBothWheelsOnEachSide() {
-        new Sides(hardware).sticks(1, -1);
+        call(sides(), "sticks", 1, -1);
         assertArrayEquals(new double[]{1, -1, 1, -1}, motorPowers(), EPS);
     }
 
@@ -96,14 +88,14 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void askingForMoreThanFullPowerScalesEveryWheelDownTogether() {
-        new Sides(hardware).driveWheelsNow(2, 1, 0, -1);
+        call(sides(), "driveWheelsNow", 2, 1, 0, -1);
         assertArrayEquals("everything divided by 2, so the ratios survive",
                 new double[]{1, 0.5, 0, -0.5}, motorPowers(), EPS);
     }
 
     @Test
     public void powersInsideFullPowerAreLeftAlone() {
-        new Sides(hardware).driveWheelsNow(0.5, 0.25, 0, -0.75);
+        call(sides(), "driveWheelsNow", 0.5, 0.25, 0, -0.75);
         assertArrayEquals(new double[]{0.5, 0.25, 0, -0.75}, motorPowers(), EPS);
     }
 
@@ -111,16 +103,16 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void theFollowerDrivesADrivetrainThatHasAMix() {
-        new Mecanum(hardware).drive(new DrivePowers(1, 0, 0), true);
+        mecanum().drive(new DrivePowers(1, 0, 0), true);
         assertArrayEquals("forward runs all four the same way",
                 new double[]{1, 1, 1, 1}, motorPowers(), EPS);
     }
 
     @Test
     public void commandedWheelsBeatWhatTheFollowerWorkedOut() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        drivetrain.setCommandedWheels(0.1, 0.2, 0.3, 0.4);
-        assertTrue(drivetrain.commandedWheelsAreSet());
+        Drivetrain drivetrain = mecanum();
+        call(drivetrain, "setCommandedWheels", 0.1, 0.2, 0.3, 0.4);
+        assertTrue((Boolean) call(drivetrain, "commandedWheelsAreSet"));
 
         drivetrain.drive(new DrivePowers(1, 0, 0), true);
         assertArrayEquals("the lesson wins while the wheels are commanded",
@@ -129,10 +121,10 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void releasingTheWheelsHandsThemBackToTheFollower() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        drivetrain.setCommandedWheels(0.1, 0.2, 0.3, 0.4);
-        drivetrain.releaseCommandedWheels();
-        assertFalse(drivetrain.commandedWheelsAreSet());
+        Drivetrain drivetrain = mecanum();
+        call(drivetrain, "setCommandedWheels", 0.1, 0.2, 0.3, 0.4);
+        call(drivetrain, "releaseCommandedWheels");
+        assertFalse((Boolean) call(drivetrain, "commandedWheelsAreSet"));
 
         drivetrain.drive(new DrivePowers(1, 0, 0), true);
         assertArrayEquals(new double[]{1, 1, 1, 1}, motorPowers(), EPS);
@@ -140,16 +132,16 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void stoppingReleasesTheWheelsAndZeroesThem() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        drivetrain.setCommandedWheels(1, 1, 1, 1);
+        Drivetrain drivetrain = mecanum();
+        call(drivetrain, "setCommandedWheels", 1, 1, 1, 1);
         drivetrain.stop();
-        assertFalse(drivetrain.commandedWheelsAreSet());
+        assertFalse((Boolean) call(drivetrain, "commandedWheelsAreSet"));
         assertArrayEquals(new double[]{0, 0, 0, 0}, motorPowers(), EPS);
     }
 
     @Test
     public void theFollowerScalesAPathTheWayPedroExpects() {
-        Mecanum drivetrain = new Mecanum(hardware);
+        Drivetrain drivetrain = mecanum();
         assertEquals(1.0, drivetrain.maxScaling(DrivePowers.zero(), new DrivePowers(1, 0, 0)), EPS);
         assertEquals(0.0, drivetrain.maxScaling(new DrivePowers(1, 0, 0), new DrivePowers(1, 0, 0)), EPS);
         assertEquals(0.5, drivetrain.maxScaling(new DrivePowers(0.5, 0, 0), new DrivePowers(1, 0, 0)), EPS);
@@ -160,11 +152,11 @@ public class LessonsDriveTrainTest {
     @Test
     public void aDrivetrainWithNoMixSaysSoRatherThanSittingStill() {
         try {
-            new Sides(hardware).drive(new DrivePowers(1, 0, 0), true);
+            sides().drive(new DrivePowers(1, 0, 0), true);
             fail("a drivetrain with no mix() must refuse the follower, not do nothing");
         } catch (UnsupportedOperationException expected) {
             assertTrue("the message names the class: " + expected.getMessage(),
-                    expected.getMessage().contains("Sides"));
+                    expected.getMessage().contains("L2TankDriveTrain"));
         }
     }
 
@@ -172,54 +164,54 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void theEffectiveBrakeModeIsWhatTheConfigSaysUntilCharacterizationOverridesIt() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        assertTrue("the config asks for braking", drivetrain.getEffectiveBrakeMode());
-        assertFalse(drivetrain.isCoastForCharacterization());
+        Drivetrain drivetrain = mecanum();
+        assertTrue("the config asks for braking", braking(drivetrain));
+        assertFalse((Boolean) call(drivetrain, "isCoastForCharacterization"));
 
-        drivetrain.forceCoastForCharacterization();
-        assertTrue(drivetrain.isCoastForCharacterization());
-        assertFalse("a measurement needs the wheels to roll", drivetrain.getEffectiveBrakeMode());
+        call(drivetrain, "forceCoastForCharacterization");
+        assertTrue((Boolean) call(drivetrain, "isCoastForCharacterization"));
+        assertFalse("a measurement needs the wheels to roll", braking(drivetrain));
 
-        drivetrain.allowConfiguredBrakeMode();
-        assertFalse(drivetrain.isCoastForCharacterization());
-        assertTrue("back to whatever the config says", drivetrain.getEffectiveBrakeMode());
+        call(drivetrain, "allowConfiguredBrakeMode");
+        assertFalse((Boolean) call(drivetrain, "isCoastForCharacterization"));
+        assertTrue("back to whatever the config says", braking(drivetrain));
     }
 
     @Test
     public void coastingForCharacterizationSurvivesAFollowerUpdate() {
         // The bug this replaces: L17 wrote the flag and restored it in
         // afterLoop(), which runs every loop, so the coast lasted one update.
-        Mecanum drivetrain = new Mecanum(hardware);
-        drivetrain.forceCoastForCharacterization();
+        Drivetrain drivetrain = mecanum();
+        call(drivetrain, "forceCoastForCharacterization");
         drivetrain.drive(new DrivePowers(0, 0, 0), true);
         drivetrain.drive(new DrivePowers(0, 0, 0), true);
-        assertFalse("still coasting on the second update", drivetrain.getEffectiveBrakeMode());
+        assertFalse("still coasting on the second update", braking(drivetrain));
     }
 
     @Test
     public void aConfigThatAsksForCoastingGetsItWithoutAnyOverride() {
         hardware.mecanumConfig.manualBrakeMode.set(false);
-        Mecanum drivetrain = new Mecanum(hardware);
+        Drivetrain drivetrain = mecanum();
         assertFalse("nothing was overridden, and it still coasts",
-                drivetrain.getEffectiveBrakeMode());
-        assertFalse(drivetrain.isCoastForCharacterization());
+                braking(drivetrain));
+        assertFalse((Boolean) call(drivetrain, "isCoastForCharacterization"));
     }
 
     // ------------------------------------------------------------ L11's part
 
     @Test
     public void fieldRelativeDrivingTurnsTheDriversViewIntoTheRobots() {
-        Mecanum drivetrain = new Mecanum(hardware);
+        Drivetrain drivetrain = mecanum();
 
         // Facing along the field's x axis, the two views agree.
-        drivetrain.fieldRelative(0, 1, 0, 0);
+        call(drivetrain, "fieldRelative", 0, 1, 0, 0);
         drivetrain.drive(DrivePowers.zero(), true);
         assertArrayEquals("straight down the field is straight ahead",
                 new double[]{1, 1, 1, 1}, motorPowers(), EPS);
 
         // Turned a quarter turn to the left, going down the field is strafing
         // to the robot's right, which runs one diagonal pair each way.
-        drivetrain.fieldRelative(Math.PI / 2, 1, 0, 0);
+        call(drivetrain, "fieldRelative", Math.PI / 2, 1, 0, 0);
         drivetrain.drive(DrivePowers.zero(), true);
         assertArrayEquals("the same journey, sideways to the robot",
                 new double[]{1, -1, -1, 1}, motorPowers(), EPS);
@@ -232,8 +224,8 @@ public class LessonsDriveTrainTest {
         // drivetrain each time, because these powers are small enough for the
         // write cache to swallow a step between two headings.
         for (int deg = 0; deg < 360; deg += 30) {
-            Mecanum drivetrain = new Mecanum(hardware);
-            drivetrain.fieldRelative(Math.toRadians(deg), 0.06, -0.08, 0);
+            Drivetrain drivetrain = mecanum();
+            call(drivetrain, "fieldRelative", Math.toRadians(deg), 0.06, -0.08, 0);
             drivetrain.drive(DrivePowers.zero(), true);
             double[] w = motorPowers();
             double forward = (w[0] + w[1] + w[2] + w[3]) / 4;
@@ -247,28 +239,30 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void theDeadbandIgnoresAStickThatIsNearlyCentred() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        assertEquals("inside the band", 0.0, drivetrain.deadband(0.04, 0.05), EPS);
-        assertEquals("outside it, the stick itself", 0.5, drivetrain.deadband(0.5, 0.05), EPS);
+        Drivetrain drivetrain = sides();
+        assertEquals("inside the band",
+                0.0, (Double) call(drivetrain, "deadband", 0.04, 0.05), EPS);
+        assertEquals("outside it, the stick itself",
+                0.5, (Double) call(drivetrain, "deadband", 0.5, 0.05), EPS);
     }
 
     @Test
     public void squaringTheStickKeepsItsSign() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        assertEquals(0.25, drivetrain.squared(0.5), EPS);
-        assertEquals("keeps its sign", -0.25, drivetrain.squared(-0.5), EPS);
+        Drivetrain drivetrain = sides();
+        assertEquals(0.25, (Double) call(drivetrain, "squared", 0.5), EPS);
+        assertEquals("keeps its sign", -0.25, (Double) call(drivetrain, "squared", -0.5), EPS);
     }
 
     // ------------------------------------------------------------ L16's part
 
     @Test
     public void aWantedSpeedBecomesAFeedforwardGuessPlusACorrection() {
-        Mecanum drivetrain = new Mecanum(hardware);
+        Drivetrain drivetrain = mecanum();
         // Every wheel is stopped, so the whole error is the speed asked for.
         double wanted = 10.0;
         double expected = Constants.powerPerInchPerSecond * wanted + 0.008 * wanted;
 
-        drivetrain.setCommandedWheelSpeeds(wanted, wanted, wanted, wanted);
+        call(drivetrain, "setCommandedWheelSpeeds", wanted, wanted, wanted, wanted);
         drivetrain.drive(DrivePowers.zero(), true);
         assertArrayEquals(new double[]{expected, expected, expected, expected},
                 motorPowers(), EPS);
@@ -276,12 +270,12 @@ public class LessonsDriveTrainTest {
 
     @Test
     public void aWheelAlreadyAtTheWantedSpeedGetsTheGuessAndNoCorrection() {
-        Mecanum drivetrain = new Mecanum(hardware);
+        Drivetrain drivetrain = mecanum();
         double wanted = 10.0;
         // getVelocity() is in ticks per second, and ticksPerInch converts it.
         frontLeft.velocity = wanted * Constants.ticksPerInch;
 
-        drivetrain.setCommandedWheelSpeeds(wanted, wanted, wanted, wanted);
+        call(drivetrain, "setCommandedWheelSpeeds", wanted, wanted, wanted, wanted);
         drivetrain.drive(DrivePowers.zero(), true);
         assertEquals("no error, so no correction",
                 Constants.powerPerInchPerSecond * wanted, frontLeft.power, EPS);
@@ -298,13 +292,13 @@ public class LessonsDriveTrainTest {
         backLeft.ticks = 30;
         backRight.ticks = 40;
         assertArrayEquals("front left, front right, back left, back right",
-                new int[]{10, 20, 30, 40}, new Mecanum(hardware).wheelTicks());
+                new int[]{10, 20, 30, 40}, (int[]) call(sides(), "wheelTicks"));
     }
 
     @Test
     public void drivingNowAndLettingTheFollowerDriveTooIsRefused() {
-        Mecanum drivetrain = new Mecanum(hardware);
-        drivetrain.driveWheelsNow(1, 1, 1, 1);
+        Drivetrain drivetrain = mecanum();
+        call(drivetrain, "driveWheelsNow", 1, 1, 1, 1);
         try {
             drivetrain.drive(new DrivePowers(1, 0, 0), true);
             fail("two writers to one motor must be refused, not silently fought over");
