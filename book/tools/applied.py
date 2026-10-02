@@ -44,8 +44,16 @@ def _lines(path: Path) -> list[str]:
     return path.read_text(encoding="utf-8").splitlines() if path.exists() else []
 
 
-def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]]]:
-    """Every patch in order, and every file in mytry once the last lesson is applied."""
+@dataclass
+class Copied:
+    """One copy a lesson makes, as its steps file names it, under teamcode/."""
+    lesson: str
+    source: str
+    target: str
+
+
+def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]], list[Copied]]:
+    """Every patch in order, every file in mytry once the last lesson is applied, and every copy."""
     tree = Path(tempfile.mkdtemp(prefix="applied-"))
     _git("worktree", "add", "--detach", str(tree), ref)
     try:
@@ -54,11 +62,13 @@ def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]]]:
         apply = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(apply)
         patched = []
+        copied = []
         for lesson in (tree / "solutions" / "order").read_text().split():
             try:
                 for kind, *rest in apply.steps(tree, lesson):
                     if kind == "copy":
                         apply.copy(tree, *rest)
+                        copied.append(Copied(lesson, *rest))
                     elif kind == "patch":
                         path = _patched_path(tree / "solutions" / lesson / rest[0])
                         before = _lines(tree / path)
@@ -68,6 +78,6 @@ def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]]]:
                 raise SystemExit(f"applying {lesson} on {ref}: {e}")
         mytry = tree / apply.TEAMCODE / "mytry"
         final = {p.name: _lines(p) for p in sorted(mytry.glob("*.java"))}
-        return patched, final
+        return patched, final, copied
     finally:
         _git("worktree", "remove", "--force", str(tree))
