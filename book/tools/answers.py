@@ -187,7 +187,7 @@ def index(names: list[str]) -> str:
 
 def generate(solutions: str | None = None) -> dict[str, str]:
     solutions = solutions or pins()[1]
-    patched, _ = apply_all(solutions)
+    patched, _, _ = apply_all(solutions)
     by_file: dict[str, list[Patched]] = {}
     for patch in patched:
         by_file.setdefault(patch.path, []).append(patch)

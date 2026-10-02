@@ -199,7 +199,7 @@ def page(files: dict[str, list[str]], tests_in: dict[str, list[str]], solutions:
 
 def generate(solutions: str | None = None) -> str:
     solutions = solutions or pins()[1]
-    patched, final = apply_all(solutions)
+    patched, final, _ = apply_all(solutions)
     tests_in = dict(final)
     for patch in patched:
         tests_in[f"{Path(patch.path).name} before {patch.lesson}"] = patch.before

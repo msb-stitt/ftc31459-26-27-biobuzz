@@ -56,22 +56,22 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.
 
-## Seeing what a blank asks a student to write
+## Seeing what a lesson asks a student to do
 
 ```
 cd book && PATH="$PWD/.venv/bin:$PATH" ninja review
 ```
 
 `ninja review` writes a separate Sphinx site under `review/` and prints where the HTML landed. One
-page per lesson, one section per file, and each blank is the diff that filling it makes — starting
-from the file as a student sees it and applying one blank at a time, so the context carries the
-blanks already done.
+page per lesson: the files it copies, then one section per file its patches change, and each change
+is the diff that making it does, starting from the file as the copies left it and applying one
+change at a time, so the context carries the changes already made. Changes made only of comments
+are shown and labelled, because a page that says where code goes has to account for them.
 
-A blank in a file not named for a lesson lands on the lesson its marker names: `LessonsDriveTrain`
-writes `// TODO (L2):`, and that blank appears on the L2 page. A shared file whose class javadoc
-opens `L8:` gives that lesson to any of its blanks that name none. Add a shared blank with no lesson
-anywhere and the tool says so and fails.
+It comes from applying `solutions/` in order, the same as the answer pages, and checks that the
+changes applied one at a time rebuild what each patch left.
 
 It is a view for reading, not a gate and not part of the guide: `ninja book` does not run it, and
 its pages are not committed. The answer pages under `source/answers/` say what each lesson's patch
-changes in each file, from applying `solutions/` in order; this says how much work each blank is.
+changes in each file, from applying `solutions/` in order; this says what each lesson asks, and how
+much work it is.
