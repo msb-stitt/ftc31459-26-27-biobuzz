@@ -20,6 +20,11 @@ What the picture must show, in one sentence.
 | --- | --- | --- | --- |
 | `fig-robot-front` | The robot from the front, on the floor, with both gamepads beside it, so a student can match what is in front of them to what the guide calls each part | Photo of the robot | pencilled |
 | `fig-gamepad-sticks` | Gamepad 1 from above, with the left stick, the right stick and the A button labelled, and an arrow showing which way each y axis counts up | Photo of a gamepad | pencilled |
+| `fig-l2a-folders` | The Project window with `org.firstinspires.ftc.teamcode` open, showing the `lessons` folder and the `mytry` folder with only `package-info.java` in it | Screenshot, taken 2026-10-02 as `scratch/l2a/01-open.png` and kept out of the branch | pencilled |
+| `fig-l2a-copy-class` | The Copy Class box with New name `L2aSticksOpMode` and Destination package `org.firstinspires.ftc.teamcode.mytry` | Screenshot, taken 2026-10-02 as `scratch/l2a/03-copy-dialog.png`, with the clip `v-copy.mov` | pencilled |
+| `fig-l2a-complete` | The list under `gamepad1.` after typing `left_st`, with `left_stick_y` highlighted | Screenshot, taken 2026-10-02 as `scratch/l2a/07-complete-pick.png`, with the clips `v-tab.mov` and `v-hover.mov` | pencilled |
+| `fig-l2a-live` | AdvantageScope's Line Graph with `NT:sim/stick/leftY` in Left Axis, drawn at -1 | Screenshot, taken 2026-10-02 as `scratch/l2a/16-live.png` | pencilled |
+| `fig-l2a-log` | AdvantageScope's Line Graph of the flight log with `/stick/leftY` in Left Axis, drawn at 1 | Screenshot, taken 2026-10-02 as `scratch/l2a/18-log.png` | pencilled |
 | `fig-wheel-names` | The robot from above with its nose marked, and each of the four wheels labelled front left, front right, back left and back right | Photo of the robot, labelled | pencilled |
 | `fig-wheel-forward` | One wheel from the side, with an arrow on the top of the tyre showing which way it travels when that wheel is driving the robot forward | Photo of the robot, labelled | pencilled |
 | `fig-stick-shaping` | Three graphs side by side, each with the stick from -1 to 1 along the bottom and the power out from -1 to 1 up the side: the raw stick straight, the deadbanded stick with a flat step at the middle, and the squared stick as an S | A drawing | pencilled |

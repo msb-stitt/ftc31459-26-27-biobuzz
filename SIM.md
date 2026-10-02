@@ -27,7 +27,8 @@ Start the simulator:
 ```
 
 The first argument is the OpMode's class name after `org.firstinspires.ftc.teamcode`, so a lesson is
-`lessons.L2bTankOpMode` and a simulator teleop is `base.SimOpModes$Tank`. Leaving it off is an
+`lessons.L2bTankOpMode`, a student's copy of one is `mytry.L2aSticksOpMode`, and a simulator teleop
+is `base.SimOpModes$Tank`. Leaving it off is an
 error, not a default. Every option after it is `--name=value` naming one of the 21 controls a
 gamepad has, so `--left_stick_y=-1` is the left stick pushed fully forward and `--a=true` is the A
 button held. A control is held from before the run starts, so `--a=true` fires `aWasPressed()` on
