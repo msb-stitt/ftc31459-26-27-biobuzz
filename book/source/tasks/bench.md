@@ -93,11 +93,11 @@ so the robot stops. Plug it back in and it is yours again.
 Use `--pad`, or set the controls yourself, but not both. Together they are an error, and the run
 names the setting that clashed.
 
-It prints where it is listening, then runs:
+It prints where the flight log goes, then runs:
 
 ```
-NT: Listening on NT3 port 1735, NT4 port 5810
-L2bTankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
+Flight log: <the repository's top folder>
+lessons.L2bTankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
 ```
 
 Open AdvantageScope and connect to `127.0.0.1` as NetworkTables 4. The topics arrive under `sim/`.

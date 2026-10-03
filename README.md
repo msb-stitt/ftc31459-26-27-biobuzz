@@ -47,6 +47,7 @@ is `lessons.L2bTankOpMode` and not `L2bTankOpMode`.
 | [Panels](https://panels.bylazar.com/) | the dashboard: telemetry, graphs, field view, at `192.168.43.1:8001` |
 | [Sloth](https://github.com/Dairy-Foundation/Sloth) | hot reload, which pushes TeamCode alone in about a second |
 | [PANELS.md](./PANELS.md) | what those two need set up here, once |
+| [NETWORKTABLES.md](./NETWORKTABLES.md) | AdvantageScope live from the robot, and the robot test for it |
 | [FTC programming docs](https://ftc-docs.firstinspires.org/) | the SDK, Android Studio, the IMU, AprilTags |
 | [gm0](https://gm0.org/) | Game Manual 0, the community's how-to for everything else |
 | [Game and season materials](https://ftc.game/) | this season's manuals and field drawings |

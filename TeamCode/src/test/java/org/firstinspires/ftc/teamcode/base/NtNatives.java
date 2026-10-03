@@ -37,7 +37,7 @@ import java.nio.file.StandardCopyOption;
  * exits 127 before any test reports. So wpiutil is opened globally first, and
  * then loaded again the ordinary way so its own native methods bind.
  *
- * <p>Passes when: SimPublisherTest.theServerStartsAndListens
+ * <p>Passes when: SimPublisherTest.wpilibsClientReadsWhatTheSimulatedRobotIsDoing
  */
 final class NtNatives {
 

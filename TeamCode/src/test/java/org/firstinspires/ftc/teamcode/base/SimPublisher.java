@@ -4,15 +4,13 @@ import com.pedropathing.localization.MotionState;
 import com.pedropathing.math.Pose;
 import com.pedropathing.math.Twist;
 
-import edu.wpi.first.networktables.BooleanPublisher;
-import edu.wpi.first.networktables.DoublePublisher;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.RawPublisher;
-import edu.wpi.first.networktables.StringPublisher;
+import io.github.mikestitt.corbelsflightlog.FlightLog;
+import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -25,16 +23,23 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * field. AdvantageScope and Glass are both clients: point either at
  * {@code 127.0.0.1} and it connects. Nothing here draws anything.
  *
+ * <p>The server is the robot's own, {@code Nt4Server} from corbelsflightlog,
+ * and the run's flight log is mirrored onto it as {@code Tracker.serveLive()}
+ * mirrors it on the robot. So a simulator run exercises the robot's live path.
+ * It serves NetworkTables 4 only, not 3.
+ *
  * <p>The names are the robot's names. {@code corbelsflightlog-pedro} writes
  * {@code /Pose}, {@code /Mode} and a {@code /vel/...} breakdown into the flight
  * log, and the same leaves appear here under {@code sim/}, so someone who has
  * learnt where to look in a robot log looks in the same place here. The sticks
  * use the names {@code L2bTankOpMode} already publishes to Panels.
  *
- * <p>Everything the OpMode publishes through {@link Tracker} goes out too, under
- * the name the flight log gives it: {@code Tracker.publish("stick/leftY", ...)}
- * is {@code /stick/leftY} here and in the log. So a student watches live what
- * their own code wrote, and finds it in the same place in the log afterwards.
+ * <p>Everything the flight log records goes out too, under the name it has in
+ * the log: {@code Tracker.publish("stick/leftY", ...)} is {@code /stick/leftY}
+ * here and in the log. So a student watches live what their own code wrote, and
+ * finds it in the same place in the log afterwards. Each name {@link Tracker}
+ * holds is also set once a loop, so a value published before the mirror began
+ * goes out too.
  *
  * <p>The pose goes out as a WPILib {@code struct:Pose2d}, which is three
  * little-endian doubles and a schema that says so. AdvantageScope draws a bare
@@ -48,18 +53,18 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 public final class SimPublisher implements AutoCloseable {
 
     /** The NT4 port AdvantageScope looks for. */
-    public static final int NT4_PORT = 5810;
-
-    /** The NT3 port, which nothing here needs but the server opens anyway. */
-    public static final int NT3_PORT = 1735;
+    public static final int NT4_PORT = Nt4Server.DEFAULT_PORT;
 
     private final OpModeHarness harness;
-    private final NetworkTableInstance nt;
+    private final Nt4Server server;
+    private final boolean ownsServer;
+    private FlightLog mirrored;
 
     /** The struct schemas a {@code struct:Pose2d} is built out of, innermost
-     *  first. The same table is {@code FlightLog.SCHEMAS}, which writes them
-     *  into the flight log; it is not public, so the three a pose needs are
-     *  named here. A wrong one is loud: AdvantageScope draws nothing. */
+     *  first. The same table is {@code FlightLog.SCHEMAS}, which
+     *  {@code mirrorTo} sends too; it is not public, so the three a pose needs
+     *  are named here for {@code sim/Pose}. A wrong one is loud: AdvantageScope
+     *  draws nothing. */
     private static final String[][] POSE_SCHEMAS = {
             {"struct:Translation2d", "double x;double y"},
             {"struct:Rotation2d", "double value"},
@@ -67,84 +72,66 @@ public final class SimPublisher implements AutoCloseable {
 
     private static final int POSE_BYTES = 3 * Double.BYTES;
 
-    private final RawPublisher pose;
     private final ByteBuffer poseBytes =
             ByteBuffer.allocate(POSE_BYTES).order(ByteOrder.LITTLE_ENDIAN);
-    private final StringPublisher mode;
-    private final DoublePublisher[] wheels;
-    private final DoublePublisher leftY;
-    private final DoublePublisher leftX;
-    private final DoublePublisher rightY;
-    private final DoublePublisher rightX;
-    private final DoublePublisher forwardIps;
-    private final DoublePublisher strafeIps;
-    private final DoublePublisher omegaRadps;
 
-    /** One publisher per name {@link Tracker} has been given, made the first
-     *  time that name appears, by the kind of value it carries. */
-    private final Map<String, DoublePublisher> numbers = new HashMap<>();
-    private final Map<String, BooleanPublisher> flags = new HashMap<>();
-    private final Map<String, StringPublisher> words = new HashMap<>();
-
-    public SimPublisher(OpModeHarness harness) {
-        this(harness, NT3_PORT, NT4_PORT);
+    /** On {@link #NT4_PORT}, sharing the one server {@code Tracker.serveLive()} uses. */
+    public SimPublisher(OpModeHarness harness) throws IOException {
+        this(harness, Nt4Server.shared(), false);
     }
 
-    /** On other ports, for a test that must not collide with a real one. */
-    public SimPublisher(OpModeHarness harness, int nt3Port, int nt4Port) {
-        NtNatives.load();
+    /** On another port, for a test that must not collide with a real one. */
+    public SimPublisher(OpModeHarness harness, int nt4Port) throws IOException {
+        this(harness, Nt4Server.start(nt4Port), true);
+    }
+
+    private SimPublisher(OpModeHarness harness, Nt4Server server, boolean ownsServer) {
         this.harness = harness;
-        nt = NetworkTableInstance.create();
-        nt.startServer("", "", nt3Port, nt4Port);
-
+        this.server = server;
+        this.ownsServer = ownsServer;
         for (String[] schema : POSE_SCHEMAS) {
-            nt.addSchema(schema[0], "structschema", schema[1]);
+            server.set("/.schema/" + schema[0], "structschema",
+                    schema[1].getBytes(StandardCharsets.UTF_8));
         }
-        pose = nt.getRawTopic("sim/Pose").publish("struct:Pose2d");
-        mode = nt.getStringTopic("sim/Mode").publish();
-        wheels = new DoublePublisher[]{
-                nt.getDoubleTopic("sim/wheels/frontLeft").publish(),
-                nt.getDoubleTopic("sim/wheels/frontRight").publish(),
-                nt.getDoubleTopic("sim/wheels/backLeft").publish(),
-                nt.getDoubleTopic("sim/wheels/backRight").publish()};
-        leftY = nt.getDoubleTopic("sim/stick/leftY").publish();
-        leftX = nt.getDoubleTopic("sim/stick/leftX").publish();
-        rightY = nt.getDoubleTopic("sim/stick/rightY").publish();
-        rightX = nt.getDoubleTopic("sim/stick/rightX").publish();
-        forwardIps = nt.getDoubleTopic("sim/vel/forward_ips").publish();
-        strafeIps = nt.getDoubleTopic("sim/vel/strafe_ips").publish();
-        omegaRadps = nt.getDoubleTopic("sim/vel/omega_radps").publish();
     }
 
-    /** The instance, for a test that wants to read its own topics back. */
-    public NetworkTableInstance instance() {
-        return nt;
+    /** The server, for a test that wants its port. */
+    public Nt4Server server() {
+        return server;
     }
 
     /** One snapshot of the simulated robot. Call it once a loop. */
     public void publish() {
+        if (Tracker.flightlog != mirrored) {
+            mirrored = Tracker.flightlog;
+            mirrored.mirrorTo(server);
+        }
+
         MotionState state = harness.robot.localizer.state();
         Pose p = state.pose();
-        pose.set(packed(FieldPose.of(p.x(), p.y(), p.heading())));
-        mode.set(String.valueOf(harness.robot.follower.mode()));
+        server.set("sim/Pose", "struct:Pose2d", packed(FieldPose.of(p.x(), p.y(), p.heading())));
+        server.set("sim/Mode", "string", String.valueOf(harness.robot.follower.mode()));
 
-        wheels[0].set(harness.motors.get(OpModeHarness.FRONT_LEFT).power);
-        wheels[1].set(harness.motors.get(OpModeHarness.FRONT_RIGHT).power);
-        wheels[2].set(harness.motors.get(OpModeHarness.BACK_LEFT).power);
-        wheels[3].set(harness.motors.get(OpModeHarness.BACK_RIGHT).power);
+        number("sim/wheels/frontLeft", harness.motors.get(OpModeHarness.FRONT_LEFT).power);
+        number("sim/wheels/frontRight", harness.motors.get(OpModeHarness.FRONT_RIGHT).power);
+        number("sim/wheels/backLeft", harness.motors.get(OpModeHarness.BACK_LEFT).power);
+        number("sim/wheels/backRight", harness.motors.get(OpModeHarness.BACK_RIGHT).power);
 
-        leftY.set(harness.gamepad1.left_stick_y);
-        leftX.set(harness.gamepad1.left_stick_x);
-        rightY.set(harness.gamepad1.right_stick_y);
-        rightX.set(harness.gamepad1.right_stick_x);
+        number("sim/stick/leftY", harness.gamepad1.left_stick_y);
+        number("sim/stick/leftX", harness.gamepad1.left_stick_x);
+        number("sim/stick/rightY", harness.gamepad1.right_stick_y);
+        number("sim/stick/rightX", harness.gamepad1.right_stick_x);
 
         Twist twist = state.twist();
-        forwardIps.set(twist.vx);
-        strafeIps.set(twist.vy);
-        omegaRadps.set(twist.omega);
+        number("sim/vel/forward_ips", twist.vx);
+        number("sim/vel/strafe_ips", twist.vy);
+        number("sim/vel/omega_radps", twist.omega);
 
         publishTracked();
-        nt.flush();
+    }
+
+    private void number(String topic, double value) {
+        server.set(topic, "double", value + 0.0);
     }
 
     /** The last value of every name the OpMode published through {@link Tracker}. */
@@ -153,14 +140,11 @@ public final class SimPublisher implements AutoCloseable {
             String topic = "/" + e.getKey();
             Object value = e.getValue();
             if (value instanceof Number) {
-                numbers.computeIfAbsent(topic, t -> nt.getDoubleTopic(t).publish())
-                        .set(((Number) value).doubleValue());
+                number(topic, ((Number) value).doubleValue());
             } else if (value instanceof Boolean) {
-                flags.computeIfAbsent(topic, t -> nt.getBooleanTopic(t).publish())
-                        .set((Boolean) value);
+                server.set(topic, "boolean", value);
             } else if (value instanceof String) {
-                words.computeIfAbsent(topic, t -> nt.getStringTopic(t).publish())
-                        .set((String) value);
+                server.set(topic, "string", value);
             }
         }
     }
@@ -170,14 +154,16 @@ public final class SimPublisher implements AutoCloseable {
     private byte[] packed(double[] fieldPose) {
         poseBytes.clear();
         for (double value : fieldPose) {
-            poseBytes.putDouble(value);
+            poseBytes.putDouble(value + 0.0);
         }
-        return poseBytes.array();
+        return poseBytes.array().clone();
     }
 
+    /** Stops mirroring, and closes the server if this made its own. The
+     *  shared one stays up for the life of the program, as on the robot. */
     @Override
     public void close() {
-        nt.stopServer();
-        nt.close();
+        if (mirrored != null) mirrored.mirrorTo(null);
+        if (ownsServer) server.close();
     }
 }

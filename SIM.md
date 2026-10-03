@@ -7,8 +7,10 @@ How to run a lesson on a laptop and watch the robot move in AdvantageScope.
 The lessons are real OpModes, and the simulator runs them with fake hardware. `OpModeHarness` gives
 an OpMode four fake motors, a fake IMU and a fake battery, and `SimRobot` turns whatever power
 reaches those motors into motion. Nothing here runs on the robot: it all lives in `TeamCode`'s test
-sources, and NetworkTables is a `testImplementation` dependency, so none of it can reach a Control
-Hub.
+sources, and WPILib's NetworkTables is a `testImplementation` dependency, so none of it can reach a
+Control Hub. The NetworkTables server is the robot's own, `Nt4Server` from corbelsflightlog, with
+the run's flight log mirrored onto it as on the robot; [NETWORKTABLES.md](./NETWORKTABLES.md) says
+how the robot serves it.
 
 Two ways to run it:
 
@@ -39,10 +41,10 @@ the first loop and not again.
 To push the sticks yourself instead, plug a gamepad in and use `--pad`. `--pad-check` reports what a
 gamepad is doing without running an OpMode, so it can run beside one.
 
-It prints the port it is listening on and then runs:
+It prints where the flight log goes and then runs, serving NetworkTables 4 on port 5810:
 
 ```
-NT: Listening on NT3 port 1735, NT4 port 5810
+Flight log: <the repository's top folder>
 lessons.L2bTankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
 ```
 
@@ -153,8 +155,9 @@ grid measured from the clock read at startup, rather than sleeping a fixed time 
 
 ## Why the NetworkTables version is not the current one
 
-WPILib publishes `ntcore-java` at 2026.2.2, but every `-jni` artifact stops at 2025.3.2, and a
-server needs the native library. So both halves are pinned to 2025.3.2 in `TeamCode/build.gradle`,
+WPILib publishes `ntcore-java` at 2026.2.2, but every `-jni` artifact stops at 2025.3.2, and
+`SimPublisherTest`'s client, which checks the server against WPILib's own reading of the protocol,
+needs the native library. So both halves are pinned to 2025.3.2 in `TeamCode/build.gradle`,
 and both move together when the 2026 natives appear.
 
 Loading that native out of a plain Maven jar takes some care, and `NtNatives` is where it happens.
