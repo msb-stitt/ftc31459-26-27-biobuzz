@@ -5,13 +5,15 @@ the 2026-27 BIOBUZZ season.
 
 ### Temporary: the guide and the answers, on the web
 
-Built by hand from this branch and committed as bytes, so they do not rebuild
+Built by `src/build.py` on the `gh-pages` branch and committed as bytes, so they do not rebuild
 themselves and stop matching the moment either branch moves. Built on
-`lessons-03` at 5ea90ad against `solutions-03` at 13bfea1.
+`lessons-try` at fda3c1f against `solutions-try` at ad212f3.
 
-- [The guide](https://mikestitt.github.io/ftc31459-26-27-biobuzz/guide/) — the student pages.
-- [What the student writes](https://mikestitt.github.io/ftc31459-26-27-biobuzz/review/) — every
-  blank with the answer beside it, 55 across 17 lessons.
+- [The guide](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/) — the student pages,
+  with their figures.
+- [The guide as a PDF](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/ftc31459-book.pdf).
+- [What the student writes](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/review/) — each
+  lesson's copies and every change its patches make, 107 across 18 lessons.
 
 ### Cheat sheet: the commands
 
