@@ -15,11 +15,10 @@ happens to be facing, so a driver never has to think about which end of the robo
 You write in two files. `LessonsDriveTrain.java` gets the rotation, TODO 9, and
 `L11FieldRelativeOpMode.java` calls it.
 
-:::{admonition} fig-field-relative
-:class: pencil
-The field from above with the driver at the bottom, the robot turned a quarter turn, the stick's
-direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward
-and sideways it turns into.
+:::{figure} ../_static/figures/fig-field-relative.png
+:name: fig-field-relative
+
+The field from above with the driver at the bottom, the robot turned a quarter turn, the stick's direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward and sideways it turns into.
 :::
 
 ## The steps

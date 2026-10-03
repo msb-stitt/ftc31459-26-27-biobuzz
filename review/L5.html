@@ -208,6 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="L15.html">L15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L16.html">L16</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L17a.html">L17a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17b.html">L17b</a></li>
 </ul>
 
 </div>
@@ -248,22 +249,340 @@
         <article role="main" id="furo-main-content">
           <section id="l5">
 <h1>L5<a class="headerlink" href="#l5" title="Link to this heading">¶</a></h1>
-<p>3 blank(s) in 2 file(s), 12 line(s) for the student to write.</p>
+<p>2 file(s) copied, then 16 change(s) in 2 file(s), 12 line(s) of code to write.</p>
+<section id="copies">
+<h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry/L4ArcadeOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L5HolonomicOpMode.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry/L4ArcadeDriveTrain.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L5HolonomicDriveTrain.java</span></code></p></li>
+</ul>
+</section>
+<section id="l5holonomicopmode">
+<h2>L5HolonomicOpMode<a class="headerlink" href="#l5holonomicopmode" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicOpMode.java</span></code></p>
+<section id="comments-only">
+<h3>Comments only<a class="headerlink" href="#comments-only" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -7,7 +7,7 @@</span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.Tracker;
+<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="gd">- * L4: drivetrain drive. One stick drives, the other turns. Still no strafing.</span>
+<span class="gi">+ * L5: drivetrain drive. Now the robot can strafe.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;The left stick says how fast to go. The right stick, pushed sideways, says
+<span class="w"> </span> * how fast to spin. {@link L4ArcadeDriveTrain#sticks} works out the four wheel
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Comments only<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 3 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -9,9 +9,10 @@</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * L5: drivetrain drive. Now the robot can strafe.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;The left stick says how fast to go. The right stick, pushed sideways, says</span>
+<span class="gd">- * how fast to spin. {@link L4ArcadeDriveTrain#sticks} works out the four wheel</span>
+<span class="gd">- * powers.</span>
+<span class="gi">+ * &lt;p&gt;Arcade used two numbers, forward and turn, and both sides of the robot did</span>
+<span class="gi">+ * the same thing. Mecanum wheels can do a third: slide sideways without turning.</span>
+<span class="gi">+ * That needs all four wheels mixed separately, which is what</span>
+<span class="gi">+ * {@link L5HolonomicDriveTrain#sticks} does.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Pushing the right stick to the right should turn the robot to the right,
+<span class="w"> </span> * and turning to the right is &lt;i&gt;clockwise&lt;/i&gt;. The drivetrain counts a turn as
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Comments only<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 5 lines, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -14,11 +14,11 @@</span>
+<span class="w"> </span> * That needs all four wheels mixed separately, which is what
+<span class="w"> </span> * {@link L5HolonomicDriveTrain#sticks} does.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Pushing the right stick to the right should turn the robot to the right,</span>
+<span class="gd">- * and turning to the right is &lt;i&gt;clockwise&lt;/i&gt;. The drivetrain counts a turn as</span>
+<span class="gd">- * positive when it is counter-clockwise, so the stick gets a minus sign. Every</span>
+<span class="gd">- * turn number in this code is counter-clockwise-positive from here on, which is</span>
+<span class="gd">- * also how the path follower counts.</span>
+<span class="gi">+ * &lt;p&gt;The left stick now does two jobs at once -- push it to drive, push it</span>
+<span class="gi">+ * sideways to slide -- and the right stick still turns. Everything is relative</span>
+<span class="gi">+ * to the robot's own front: push the stick left and the robot slides towards its</span>
+<span class="gi">+ * own left, whichever way it happens to be facing. Making it slide towards the</span>
+<span class="gi">+ * driver's left instead comes in L11.</span>
+<span class="w"> </span> */
+<span class="w"> </span>@TeleOp(name = "L4 Arcade", group = "Lessons")
+<span class="w"> </span>public class L5HolonomicOpMode extends CorbelsTeleOp {
+</pre></div>
+</div>
+</section>
+<section id="a-change">
+<h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -20,7 +20,7 @@</span>
+<span class="w"> </span> * own left, whichever way it happens to be facing. Making it slide towards the
+<span class="w"> </span> * driver's left instead comes in L11.
+<span class="w"> </span> */
+<span class="gd">-@TeleOp(name = "L4 Arcade", group = "Lessons")</span>
+<span class="gi">+@TeleOp(name = "L5 Holonomic", group = "Lessons")</span>
+<span class="w"> </span>public class L5HolonomicOpMode extends CorbelsTeleOp {
+<span class="w"> </span>
+<span class="w"> </span>    private L4ArcadeDriveTrain drivetrain;
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -23,7 +23,7 @@</span>
+<span class="w"> </span>@TeleOp(name = "L5 Holonomic", group = "Lessons")
+<span class="w"> </span>public class L5HolonomicOpMode extends CorbelsTeleOp {
+<span class="w"> </span>
+<span class="gd">-    private L4ArcadeDriveTrain drivetrain;</span>
+<span class="gi">+    private L5HolonomicDriveTrain drivetrain;</span>
+<span class="w"> </span>
+<span class="w"> </span>    @Override
+<span class="w"> </span>    public void init() {
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -28,7 +28,7 @@</span>
+<span class="w"> </span>    @Override
+<span class="w"> </span>    public void init() {
+<span class="w"> </span>        initBefore();
+<span class="gd">-        drivetrain = new L4ArcadeDriveTrain(hardware);</span>
+<span class="gi">+        drivetrain = new L5HolonomicDriveTrain(hardware);</span>
+<span class="w"> </span>        initAfter();
+<span class="w"> </span>    }
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>A change<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -43,6 +43,7 @@</span>
+<span class="w"> </span>        loopBefore();
+<span class="w"> </span>
+<span class="w"> </span>        double forwardSpeed = -gamepad1.left_stick_y;
+<span class="gi">+        double strafeLeftSpeed = -gamepad1.left_stick_x;</span>
+<span class="w"> </span>        double turnCcwSpeed = -gamepad1.right_stick_x;
+<span class="w"> </span>        drivetrain.sticks(forwardSpeed, turnCcwSpeed);
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>A change<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -45,7 +45,7 @@</span>
+<span class="w"> </span>        double forwardSpeed = -gamepad1.left_stick_y;
+<span class="w"> </span>        double strafeLeftSpeed = -gamepad1.left_stick_x;
+<span class="w"> </span>        double turnCcwSpeed = -gamepad1.right_stick_x;
+<span class="gd">-        drivetrain.sticks(forwardSpeed, turnCcwSpeed);</span>
+<span class="gi">+        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);</span>
+<span class="w"> </span>
+<span class="w"> </span>        Tracker.publish("command/forward", forwardSpeed);
+<span class="w"> </span>        Tracker.publish("command/turn_ccw", turnCcwSpeed);
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>A change<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -48,6 +48,7 @@</span>
+<span class="w"> </span>        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
+<span class="w"> </span>
+<span class="w"> </span>        Tracker.publish("command/forward", forwardSpeed);
+<span class="gi">+        Tracker.publish("command/left", strafeLeftSpeed);</span>
+<span class="w"> </span>        Tracker.publish("command/turn_ccw", turnCcwSpeed);
+<span class="w"> </span>
+<span class="w"> </span>        loopAfter();
+</pre></div>
+</div>
+</section>
+</section>
 <section id="l5holonomicdrivetrain">
 <h2>L5HolonomicDriveTrain<a class="headerlink" href="#l5holonomicdrivetrain" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L5HolonomicDriveTrain.java</span></code></p>
-<section id="todo">
-<h3>TODO<a class="headerlink" href="#todo" title="Link to this heading">¶</a></h3>
-<p>Delete 3 blank lines, write 5 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -53,8 +53,10 @@</span>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicDriveTrain.java</span></code></p>
+<section id="id8">
+<h3>Comments only<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 2 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -3,7 +3,8 @@</span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.RobotHardware;
+<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="gd">- * The drivetrain for L4: one number to go, one number to turn.</span>
+<span class="gi">+ * The drivetrain for L5: all four wheels mixed separately, so the robot can</span>
+<span class="gi">+ * slide sideways.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Tank asked the driver to keep two sticks matched to go straight, which is
+<span class="w"> </span> * harder than it sounds. Arcade asks for what the robot should do instead: how
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>Comments only<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>Delete 4 lines, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -6,10 +6,11 @@</span>
+<span class="w"> </span> * The drivetrain for L5: all four wheels mixed separately, so the robot can
+<span class="w"> </span> * slide sideways.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Tank asked the driver to keep two sticks matched to go straight, which is</span>
+<span class="gd">- * harder than it sounds. Arcade asks for what the robot should do instead: how</span>
+<span class="gd">- * fast forward, and how fast to spin. {@link #sticks} works out what each side</span>
+<span class="gd">- * has to do.</span>
+<span class="gi">+ * &lt;p&gt;Mecanum wheels have rollers set at 45 degrees, and the four wheels are</span>
+<span class="gi">+ * handed so the rollers make an X across the robot. Spin all four forwards and</span>
+<span class="gi">+ * the sideways pushes cancel, so the robot drives forward. Spin one diagonal</span>
+<span class="gi">+ * pair forwards and the other pair backwards and the forward pushes cancel</span>
+<span class="gi">+ * instead, so the robot slides.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Turning counter-clockwise -- to the driver's left -- means the left wheels
+<span class="w"> </span> * go backwards while the right wheels go forwards. So the turn number is
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>Comments only<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<p>Delete 3 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -12,9 +12,7 @@</span>
+<span class="w"> </span> * pair forwards and the other pair backwards and the forward pushes cancel
+<span class="w"> </span> * instead, so the robot slides.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Turning counter-clockwise -- to the driver's left -- means the left wheels</span>
+<span class="gd">- * go backwards while the right wheels go forwards. So the turn number is</span>
+<span class="gd">- * subtracted from the left side and added to the right.</span>
+<span class="gi">+ * &lt;p&gt;That is the whole trick, and it is these four lines:</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Full forward and full turn together add up to more than a motor can give.
+<span class="w"> </span> * {@link LessonsDriveTrain#normalized} is where that gets sorted out, and this
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>Comments only<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>Delete 3 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -14,9 +14,12 @@</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;That is the whole trick, and it is these four lines:
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Full forward and full turn together add up to more than a motor can give.</span>
+<span class="gd">- * {@link LessonsDriveTrain#normalized} is where that gets sorted out, and this</span>
+<span class="gd">- * lesson writes it.</span>
+<span class="gi">+ * &lt;pre&gt;</span>
+<span class="gi">+ *   front left  = forwardSpeed - strafeLeftSpeed - turnCcwSpeed</span>
+<span class="gi">+ *   front right = forwardSpeed + strafeLeftSpeed + turnCcwSpeed</span>
+<span class="gi">+ *   back left   = forwardSpeed + strafeLeftSpeed - turnCcwSpeed</span>
+<span class="gi">+ *   back right  = forwardSpeed - strafeLeftSpeed + turnCcwSpeed</span>
+<span class="gi">+ * &lt;/pre&gt;</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Passes when: LessonsTest.l4_arcadeUsesOneStickToDriveAndOneToTurn
+<span class="w"> </span> */
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>Comments only<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -21,7 +21,10 @@</span>
+<span class="w"> </span> *   back right  = forwardSpeed - strafeLeftSpeed + turnCcwSpeed
+<span class="w"> </span> * &lt;/pre&gt;
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Passes when: LessonsTest.l4_arcadeUsesOneStickToDriveAndOneToTurn</span>
+<span class="gi">+ * &lt;p&gt;Those are the same four lines the path follower uses, so a robot that</span>
+<span class="gi">+ * strafes correctly here will follow a path correctly later.</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * &lt;p&gt;Passes when: LessonsTest.l5_holonomicCanStrafe</span>
+<span class="w"> </span> */
+<span class="w"> </span>public class L5HolonomicDriveTrain extends LessonsDriveTrain {
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>Comments only<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<p>Delete 3 lines, write 18 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -33,9 +33,24 @@</span>
+<span class="w"> </span>    }
+<span class="w"> </span>
+<span class="w"> </span>    /**
+<span class="gd">-     * Arcade drive. {@code forwardSpeed} is how fast to drive,</span>
+<span class="gd">-     * {@code turnCcwSpeed} is how fast to spin counter-clockwise, in the</span>
+<span class="gd">-     * directions {@link LessonsDriveTrain} sets out. Both are -1 to 1.</span>
+<span class="gi">+     * Holonomic drive, relative to the robot's own front.</span>
+<span class="gi">+     * {@code forwardSpeed} drives, {@code strafeLeftSpeed} slides towards the</span>
+<span class="gi">+     * robot's left, {@code turnCcwSpeed} spins counter-clockwise. All -1 to 1,</span>
+<span class="gi">+     * in the directions {@link LessonsDriveTrain} sets out.</span>
+<span class="gi">+     *</span>
+<span class="gi">+     * &lt;p&gt;Asking for all three at once wants more than a motor can give, and</span>
+<span class="gi">+     * {@link LessonsDriveTrain#normalized} sorts that out.</span>
+<span class="gi">+     *</span>
+<span class="gi">+     * &lt;p&gt;Where the four signs come from, if the pattern is not obvious yet:</span>
+<span class="gi">+     * &lt;ul&gt;</span>
+<span class="gi">+     *   &lt;li&gt;Game Manual 0's Mecanum TeleOp tutorial, which writes the same four</span>
+<span class="gi">+     *       lines for two sticks and a turn:</span>
+<span class="gi">+     *       https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html</span>
+<span class="gi">+     *   &lt;li&gt;Pedro's coordinate frame, which is where forward, strafe and turn point:</span>
+<span class="gi">+     *       https://pedropathing.com/docs/pathing/reference/coordinates</span>
+<span class="gi">+     *   &lt;li&gt;WPILib's {@code MecanumDrive}, the same arithmetic in another library:</span>
+<span class="gi">+     *       https://github.com/wpilibsuite/allwpilib</span>
+<span class="gi">+     * &lt;/ul&gt;</span>
+<span class="w"> </span>     */
+<span class="w"> </span>    public void sticks(double forwardSpeed, double turnCcwSpeed) {
+<span class="w"> </span>        double leftSpeed = forwardSpeed - turnCcwSpeed;
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3>A change<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<p>Delete 4 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -52,9 +52,11 @@</span>
+<span class="w"> </span>     *       https://github.com/wpilibsuite/allwpilib
 <span class="w"> </span>     * &lt;/ul&gt;
 <span class="w"> </span>     */
-<span class="w"> </span>    public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
-<span class="gd">-        // TODO: work out each wheel's power, one named variable at a time, then</span>
-<span class="gd">-        //       hand the four to driveWheelsNow. Three numbers add up differently</span>
-<span class="gd">-        //       at each corner; the sources in this class's javadoc draw it.</span>
+<span class="gd">-    public void sticks(double forwardSpeed, double turnCcwSpeed) {</span>
+<span class="gd">-        double leftSpeed = forwardSpeed - turnCcwSpeed;</span>
+<span class="gd">-        double rightSpeed = forwardSpeed + turnCcwSpeed;</span>
+<span class="gd">-        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);</span>
+<span class="gi">+    public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {</span>
 <span class="gi">+        double frontLeftPower = forwardSpeed - strafeLeftSpeed - turnCcwSpeed;</span>
 <span class="gi">+        double frontRightPower = forwardSpeed + strafeLeftSpeed + turnCcwSpeed;</span>
 <span class="gi">+        double backLeftPower = forwardSpeed + strafeLeftSpeed - turnCcwSpeed;</span>
@@ -271,55 +590,6 @@
 <span class="gi">+        driveWheelsNow(frontLeftPower, frontRightPower, backLeftPower, backRightPower);</span>
 <span class="w"> </span>    }
 <span class="w"> </span>}
-</pre></div>
-</div>
-</section>
-</section>
-<section id="l5holonomicopmode">
-<h2>L5HolonomicOpMode<a class="headerlink" href="#l5holonomicopmode" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L5HolonomicOpMode.java</span></code></p>
-<section id="id1">
-<h3>TODO<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>Delete 6 blank lines, write 3 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -41,12 +41,9 @@</span>
-<span class="w"> </span>    public void loop() {
-<span class="w"> </span>        loopBefore();
-<span class="w"> </span>
-<span class="gd">-        // TODO: three numbers now, not two. left comes from the left stick's x</span>
-<span class="gd">-        //       axis; LEFT is positive and the stick reads positive to the RIGHT,</span>
-<span class="gd">-        //       so that one needs negating too. Log all three.</span>
-<span class="gd">-        double forwardSpeed = 0;</span>
-<span class="gd">-        double strafeLeftSpeed = 0;</span>
-<span class="gd">-        double turnCcwSpeed = 0;</span>
-<span class="gi">+        double forwardSpeed = -gamepad1.left_stick_y;</span>
-<span class="gi">+        double strafeLeftSpeed = -gamepad1.left_stick_x;</span>
-<span class="gi">+        double turnCcwSpeed = -gamepad1.right_stick_x;</span>
-<span class="w"> </span>        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
-<span class="w"> </span>
-<span class="w"> </span>        loopAfter();
-</pre></div>
-</div>
-</section>
-<section id="no-todo-of-its-own">
-<h3>No TODO of its own<a class="headerlink" href="#no-todo-of-its-own" title="Link to this heading">¶</a></h3>
-<p>Delete 0 blank lines, write 4 real lines.</p>
-<p>These lines sit beside a blank rather than inside one, so the marker
-that asks for them is in another edit on this page.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -46,6 +46,10 @@</span>
-<span class="w"> </span>        double turnCcwSpeed = -gamepad1.right_stick_x;
-<span class="w"> </span>        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
-<span class="w"> </span>
-<span class="gi">+        Tracker.publish("command/forward", forwardSpeed);</span>
-<span class="gi">+        Tracker.publish("command/left", strafeLeftSpeed);</span>
-<span class="gi">+        Tracker.publish("command/turn_ccw", turnCcwSpeed);</span>
-<span class="gi">+</span>
-<span class="w"> </span>        loopAfter();
-<span class="w"> </span>    }
-<span class="w"> </span>
 </pre></div>
 </div>
 </section>
@@ -382,13 +652,27 @@ that asks for them is in another edit on this page.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L5</a><ul>
-<li><a class="reference internal" href="#l5holonomicdrivetrain">L5HolonomicDriveTrain</a><ul>
-<li><a class="reference internal" href="#todo">TODO</a></li>
+<li><a class="reference internal" href="#copies">Copies</a></li>
+<li><a class="reference internal" href="#l5holonomicopmode">L5HolonomicOpMode</a><ul>
+<li><a class="reference internal" href="#comments-only">Comments only</a></li>
+<li><a class="reference internal" href="#id1">Comments only</a></li>
+<li><a class="reference internal" href="#id2">Comments only</a></li>
+<li><a class="reference internal" href="#a-change">A change</a></li>
+<li><a class="reference internal" href="#id3">A change</a></li>
+<li><a class="reference internal" href="#id4">A change</a></li>
+<li><a class="reference internal" href="#id5">A change</a></li>
+<li><a class="reference internal" href="#id6">A change</a></li>
+<li><a class="reference internal" href="#id7">A change</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#l5holonomicopmode">L5HolonomicOpMode</a><ul>
-<li><a class="reference internal" href="#id1">TODO</a></li>
-<li><a class="reference internal" href="#no-todo-of-its-own">No TODO of its own</a></li>
+<li><a class="reference internal" href="#l5holonomicdrivetrain">L5HolonomicDriveTrain</a><ul>
+<li><a class="reference internal" href="#id8">Comments only</a></li>
+<li><a class="reference internal" href="#id9">Comments only</a></li>
+<li><a class="reference internal" href="#id10">Comments only</a></li>
+<li><a class="reference internal" href="#id11">Comments only</a></li>
+<li><a class="reference internal" href="#id12">Comments only</a></li>
+<li><a class="reference internal" href="#id13">Comments only</a></li>
+<li><a class="reference internal" href="#id14">A change</a></li>
 </ul>
 </li>
 </ul>

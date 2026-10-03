@@ -208,6 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="L15.html">L15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L16.html">L16</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L17a.html">L17a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17b.html">L17b</a></li>
 </ul>
 
 </div>
@@ -248,32 +249,120 @@
         <article role="main" id="furo-main-content">
           <section id="l10">
 <h1>L10<a class="headerlink" href="#l10" title="Link to this heading">¶</a></h1>
-<p>1 blank(s) in 1 file(s), 5 line(s) for the student to write.</p>
+<p>1 file(s) copied, then 6 change(s) in 1 file(s), 7 line(s) of code to write.</p>
+<section id="copies">
+<h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry/L9Drive24OpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L10ForwardThenStrafeOpMode.java</span></code></p></li>
+</ul>
+</section>
 <section id="l10forwardthenstrafeopmode">
 <h2>L10ForwardThenStrafeOpMode<a class="headerlink" href="#l10forwardthenstrafeopmode" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L10ForwardThenStrafeOpMode.java</span></code></p>
-<section id="todo-1-2-and-3">
-<h3>TODO 1, 2 and 3<a class="headerlink" href="#todo-1-2-and-3" title="Link to this heading">¶</a></h3>
-<p>Delete 8 blank lines, write 5 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -74,13 +74,10 @@</span>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L10ForwardThenStrafeOpMode.java</span></code></p>
+<section id="a-change">
+<h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -3,6 +3,7 @@</span>
+<span class="w"> </span>import static com.pedropathing.api.Paths.line;
+<span class="w"> </span>import static com.pedropathing.ivy.groups.Groups.sequential;
+<span class="w"> </span>import static com.pedropathing.ivy.pedro.PedroCommands.follow;
+<span class="gi">+import static com.pedropathing.ivy.pedro.PedroCommands.hold;</span>
 <span class="w"> </span>
+<span class="w"> </span>import com.pedropathing.api.PoseFactory;
+<span class="w"> </span>import com.pedropathing.ivy.Command;
+</pre></div>
+</div>
+</section>
+<section id="comments-only">
+<h3>Comments only<a class="headerlink" href="#comments-only" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -15,7 +15,7 @@</span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.Tracker;
+<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="gd">- * L9: the first autonomous -- drive 24 inches forward, and stop there.</span>
+<span class="gi">+ * L10: two moves in a row -- drive forward, then strafe sideways.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Passes when: LessonsTest.l9_autoDrives24InchesForwardAndStops
+<span class="w"> </span> */
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Comments only<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -17,7 +17,11 @@</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * L10: two moves in a row -- drive forward, then strafe sideways.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Passes when: LessonsTest.l9_autoDrives24InchesForwardAndStops</span>
+<span class="gi">+ * &lt;p&gt;Both legs hold the same heading, so the robot never turns. The second leg</span>
+<span class="gi">+ * moves it sideways instead, which is what mecanum wheels are for: the robot</span>
+<span class="gi">+ * ends up 24 inches to its right, still facing the way it started.</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * &lt;p&gt;Passes when: LessonsTest.l10_autoDrivesForwardThenStrafesSideways</span>
+<span class="w"> </span> */
+<span class="w"> </span>@Autonomous(name = "L9 Drive 24", group = "Lessons")
+<span class="w"> </span>public class L10ForwardThenStrafeOpMode extends CorbelsAuto {
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -23,7 +23,7 @@</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Passes when: LessonsTest.l10_autoDrivesForwardThenStrafesSideways
+<span class="w"> </span> */
+<span class="gd">-@Autonomous(name = "L9 Drive 24", group = "Lessons")</span>
+<span class="gi">+@Autonomous(name = "L10 Forward Then Strafe", group = "Lessons")</span>
+<span class="w"> </span>public class L10ForwardThenStrafeOpMode extends CorbelsAuto {
+<span class="w"> </span>
+<span class="w"> </span>    private static final PoseFactory POSES = PoseFactory.degrees();
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 2 lines, write 2 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -32,8 +32,8 @@</span>
+<span class="w"> </span>    double fieldPerimeterWidthIn = 1.5;
+<span class="w"> </span>    double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
+<span class="w"> </span>    private final Pose start = POSES.of(72, botStartYIn, 90);
+<span class="gd">-    private final Pose end = POSES.of(72, botStartYIn+24, 90);</span>
+<span class="gd">-</span>
+<span class="gi">+    private final Pose corner = POSES.of(72, 72, 90);</span>
+<span class="gi">+    private final Pose end = POSES.of(96, 72, 90);</span>
+<span class="w"> </span>
+<span class="w"> </span>    private L6FollowerDriveTrain drivetrain;
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 3 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -76,7 +76,9 @@</span>
 <span class="w"> </span>    @Override
 <span class="w"> </span>    protected Command routine() {
-<span class="gd">-        // TODO 1: drive start -&gt; corner, holding the heading it starts at.</span>
-<span class="gd">-        //         That is forward, because the robot faces +y.</span>
-<span class="gd">-        // TODO 2: then corner -&gt; end, holding that same heading. The robot does</span>
-<span class="gd">-        //         not turn, so this leg is a sideways strafe.</span>
-<span class="gd">-        // TODO 3: finish with hold(follower, end) so it stays put.</span>
-<span class="gd">-        //         .constant(pose) takes the heading from a pose. The number</span>
-<span class="gd">-        //         form is radians, so .constant(90) is not 90 degrees.</span>
-<span class="gd">-        return Command.NOOP;</span>
-<span class="gi">+        return sequential(</span>
+<span class="w"> </span>        return sequential(
+<span class="gd">-                follow(follower, line(start, end).constant(start))</span>
 <span class="gi">+                follow(follower, line(start, corner).constant(start)),</span>
 <span class="gi">+                follow(follower, line(corner, end).constant(start)),</span>
 <span class="gi">+                hold(follower, end)</span>
-<span class="gi">+        );</span>
+<span class="w"> </span>        );
 <span class="w"> </span>    }
 <span class="w"> </span>}
 </pre></div>
@@ -338,8 +427,14 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L10</a><ul>
+<li><a class="reference internal" href="#copies">Copies</a></li>
 <li><a class="reference internal" href="#l10forwardthenstrafeopmode">L10ForwardThenStrafeOpMode</a><ul>
-<li><a class="reference internal" href="#todo-1-2-and-3">TODO 1, 2 and 3</a></li>
+<li><a class="reference internal" href="#a-change">A change</a></li>
+<li><a class="reference internal" href="#comments-only">Comments only</a></li>
+<li><a class="reference internal" href="#id1">Comments only</a></li>
+<li><a class="reference internal" href="#id2">A change</a></li>
+<li><a class="reference internal" href="#id3">A change</a></li>
+<li><a class="reference internal" href="#id4">A change</a></li>
 </ul>
 </li>
 </ul>

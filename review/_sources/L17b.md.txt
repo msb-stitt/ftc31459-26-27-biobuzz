@@ -1,0 +1,9 @@
+# L17b
+
+1 file(s) copied, then 0 change(s) in 0 file(s), 0 line(s) of code to write.
+
+## Copies
+
+- `lessons/L17bMeasureTurnRadiusOpMode.java` to `mytry/L17bMeasureTurnRadiusOpMode.java`
+
+No patch: the copies are the whole lesson.

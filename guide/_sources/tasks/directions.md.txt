@@ -13,10 +13,10 @@ one line that fixes it lives.
 - For the first step, something to rest the robot on so all four wheels are off the ground. A
   couple of blocks under the frame is enough.
 
-:::{admonition} fig-wheel-forward
-:class: pencil
-One wheel from the side, with an arrow on the top of the tyre showing which way it travels when
-that wheel is driving the robot forward.
+:::{figure} ../_static/figures/fig-wheel-forward.png
+:name: fig-wheel-forward
+
+One wheel from the side, with an arrow on the top of the tyre showing which way it travels when that wheel is driving the robot forward.
 :::
 
 ## The steps

@@ -1,19 +1,42 @@
 # L8
 
-10 blank(s) in 2 file(s), 70 line(s) for the student to write.
+2 file(s) copied, then 13 change(s) in 2 file(s), 70 line(s) of code to write.
+
+## Copies
+
+- `lessons/L8CompareLocalizersOpMode.java` to `mytry/L8CompareLocalizersOpMode.java`
+- `lessons/MecanumEncoderLocalizer.java` to `mytry/MecanumEncoderLocalizer.java`
 
 ## L8CompareLocalizersOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L8CompareLocalizersOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L8CompareLocalizersOpMode.java`
+
+### Comments only
+
+Delete 2 lines, write 0 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -17,8 +17,6 @@
+  *
+  * <p>Both of them count encoders. What differs is which wheels: yours reads the
+  * four that push, and the Pinpoint reads two that only measure.
+- *
+- * <p>Passes when: LessonsTest.l8_theEncoderLocalizerRunsAlongsideAndIsLogged
+  */
+ @TeleOp(name = "L8 Compare Localizers", group = "Lessons")
+ public class L8CompareLocalizersOpMode extends CorbelsTeleOp {
+```
 
 ### TODO 1
 
-Delete 4 blank lines, write 2 real lines.
+Delete 4 lines, write 2 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -22,10 +22,8 @@
+--- before this change
++++ after it
+@@ -23,10 +23,8 @@
  
      @Override
      protected void shadowLocalizers() {
@@ -30,12 +53,12 @@ Delete 4 blank lines, write 2 real lines.
 
 ### TODO 2
 
-Delete 3 blank lines, write 2 real lines.
+Delete 3 lines, write 2 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -44,9 +44,8 @@
+--- before this change
++++ after it
+@@ -45,9 +45,8 @@
      @Override
      public void loop() {
          loopBefore();
@@ -51,18 +74,15 @@ Delete 3 blank lines, write 2 real lines.
 
 ## MecanumEncoderLocalizer
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/MecanumEncoderLocalizer.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/MecanumEncoderLocalizer.java`
 
-### No TODO of its own
+### A change
 
-Delete 0 blank lines, write 2 real lines.
-
-These lines sit beside a blank rather than inside one, so the marker
-that asks for them is in another edit on this page.
+Delete 0 lines, write 2 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
 @@ -3,6 +3,8 @@
  import com.pedropathing.localization.Localizer;
  import com.pedropathing.localization.MotionState;
@@ -74,16 +94,13 @@ that asks for them is in another edit on this page.
  
 ```
 
-### No TODO of its own
+### A change
 
-Delete 0 blank lines, write 1 real line.
-
-These lines sit beside a blank rather than inside one, so the marker
-that asks for them is in another edit on this page.
+Delete 0 lines, write 1 line.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
 @@ -6,6 +6,7 @@
  import com.pedropathing.math.Twist;
  import com.pedropathing.api.PoseFactory;
@@ -94,16 +111,42 @@ that asks for them is in another edit on this page.
  import java.util.function.LongSupplier;
 ```
 
-### No TODO of its own
+### Comments only
 
-Delete 0 blank lines, write 2 real lines.
-
-These lines sit beside a blank rather than inside one, so the marker
-that asks for them is in another edit on this page.
+Delete 8 lines, write 5 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
+@@ -14,14 +14,11 @@
+ /**
+  * L8: work out where the robot is from the drive wheels and the IMU.
+  *
+- * <p>Pedro 3 ships localizers for Pinpoint and dead wheels, but not for drive
+- * encoders -- so this one is yours to write. Every loop: ask how far each
+- * wheel rolled since last time, turn that into "forward" and "left" for the
+- * robot, rotate it by the heading, and add it to where you thought you were.
+- *
+- * <p>Wheel order is {frontLeft, frontRight, backLeft, backRight}, in inches.
+- *
+- * <p>Passes when: MecanumEncoderLocalizerTest (all of it)
++ * <p>Pedro 3 has no localizer like this -- Pinpoint and dead wheels only -- so
++ * this is ours. Every loop it asks how far each wheel rolled, turns that into
++ * "forward" and "left" for the robot, rotates it by the heading, and adds it to
++ * where it thought it was. That is dead reckoning: no wheel ever admits to
++ * slipping, so the error only grows.
+  */
+ public class MecanumEncoderLocalizer implements Localizer {
+ 
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
 @@ -21,6 +21,8 @@
   * slipping, so the error only grows.
   */
@@ -115,16 +158,13 @@ that asks for them is in another edit on this page.
      private final LongSupplier clockNanos;
 ```
 
-### No TODO of its own
+### A change
 
-Delete 0 blank lines, write 8 real lines.
-
-These lines sit beside a blank rather than inside one, so the marker
-that asks for them is in another edit on this page.
+Delete 0 lines, write 8 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
 @@ -26,6 +26,14 @@
  
      private final WheelSource source;
@@ -142,13 +182,30 @@ that asks for them is in another edit on this page.
          this(source, System::nanoTime);
 ```
 
-### TODO 1, 2, 3, 4 and 5
+### Comments only
 
-Delete 12 blank lines, write 43 real lines.
+Delete 1 line, write 0 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
+@@ -39,7 +39,6 @@
+         this(source, System::nanoTime);
+     }
+ 
+-    /** The second form lets the tests control time instead of the clock. */
+     public MecanumEncoderLocalizer(WheelSource source, LongSupplier clockNanos) {
+         this.source = source;
+         this.clockNanos = clockNanos;
+```
+
+### TODO 1, 2, 3, 4 and 5
+
+Delete 12 lines, write 43 lines.
+
+```diff
+--- before this change
++++ after it
 @@ -46,18 +46,49 @@
  
      @Override
@@ -215,11 +272,11 @@ Delete 12 blank lines, write 43 real lines.
 
 ### TODO 6
 
-Delete 2 blank lines, write 4 real lines.
+Delete 2 lines, write 4 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
 @@ -93,8 +93,10 @@
  
      @Override
@@ -237,11 +294,11 @@ Delete 2 blank lines, write 4 real lines.
 
 ### TODO 5
 
-Delete 1 blank line, write 1 real line.
+Delete 1 line, write 1 line.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
 @@ -101,7 +101,7 @@
  
      @Override
@@ -255,11 +312,11 @@ Delete 1 blank line, write 1 real line.
 
 ### TODO 7
 
-Delete 1 blank line, write 5 real lines.
+Delete 1 line, write 5 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
+--- before this change
++++ after it
 @@ -106,6 +106,10 @@
  
      @Override

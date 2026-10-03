@@ -18,10 +18,10 @@ the power in between.
 You write in two files: three short blanks in `L16VelocityDriveOpMode.java`, and one 16-line
 blank in `LessonsDriveTrain.java`.
 
-:::{admonition} fig-speed-loop
-:class: pencil
-The loop drawn once round: the stick asking for 40 in/s, the feedforward guess at the power, the
-encoder's measured speed coming back, and the error being added in.
+:::{figure} ../_static/figures/fig-speed-loop.png
+:name: fig-speed-loop
+
+The loop drawn once round: the stick asking for 40 in/s, the feedforward guess at the power, the encoder's measured speed coming back, and the error being added in.
 :::
 
 ## The steps

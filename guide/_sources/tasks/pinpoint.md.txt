@@ -13,10 +13,10 @@ you press INIT. The robot does not yet know how far the pods sit from its middle
 - The robot, the two odometry pods, and whatever driver the robot's own screws take.
 - The I2C cable the Pinpoint came with.
 
-:::{admonition} fig-pinpoint-mounting
-:class: pencil
-The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles
-to each other, each labelled with the socket it plugs into, and the sticker side marked facing up.
+:::{figure} ../_static/figures/fig-pinpoint-mounting.png
+:name: fig-pinpoint-mounting
+
+The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles to each other, each labelled with the socket it plugs into, and the sticker side marked facing up.
 :::
 
 ## The steps

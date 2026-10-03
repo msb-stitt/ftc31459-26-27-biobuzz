@@ -62,10 +62,10 @@ of about 5 ms, roughly one loop in 15 reaches the graph. For the same reason one
 show in `loop/period_ms`. Graph `loop/max_period_ms` instead: it only ever steps up, and a step
 means some loop blocked.
 
-:::{admonition} fig-panels-graph
-:class: pencil
-The Panels Graph panel with `stick/left_raw` and `stick/left_shaped` both plotted while the stick is
-pushed slowly to full, so the gap between the two curves is the thing a student is looking for.
+:::{figure} ../_static/figures/fig-panels-graph.png
+:name: fig-panels-graph
+
+The Panels Graph panel with `stick/left_raw` and `stick/left_shaped` both plotted while the stick is pushed slowly to full, so the gap between the two curves is the thing a student is looking for.
 :::
 
 ### Step 4: look at where it thinks it is

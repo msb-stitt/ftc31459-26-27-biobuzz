@@ -208,6 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="L15.html">L15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L16.html">L16</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L17a.html">L17a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17b.html">L17b</a></li>
 </ul>
 
 </div>
@@ -248,41 +249,40 @@
         <article role="main" id="furo-main-content">
           <section id="l4">
 <h1>L4<a class="headerlink" href="#l4" title="Link to this heading">¶</a></h1>
-<p>4 blank(s) in 3 file(s), 18 line(s) for the student to write.</p>
-<section id="l4arcadedrivetrain">
-<h2>L4ArcadeDriveTrain<a class="headerlink" href="#l4arcadedrivetrain" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L4ArcadeDriveTrain.java</span></code></p>
-<section id="todo">
-<h3>TODO<a class="headerlink" href="#todo" title="Link to this heading">¶</a></h3>
-<p>Delete 4 blank lines, write 3 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -32,9 +32,8 @@</span>
-<span class="w"> </span>     * directions {@link LessonsDriveTrain} sets out. Both are -1 to 1.
-<span class="w"> </span>     */
-<span class="w"> </span>    public void sticks(double forwardSpeed, double turnCcwSpeed) {
-<span class="gd">-        // TODO: turn the two numbers into a left speed and a right speed, each</span>
-<span class="gd">-        //       into its own variable, and hand them to driveWheelsNow the way</span>
-<span class="gd">-        //       L2TankDriveTrain does. Turning counter-clockwise means the left</span>
-<span class="gd">-        //       side goes slower and the right side faster.</span>
-<span class="gi">+        double leftSpeed = forwardSpeed - turnCcwSpeed;</span>
-<span class="gi">+        double rightSpeed = forwardSpeed + turnCcwSpeed;</span>
-<span class="gi">+        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);</span>
-<span class="w"> </span>    }
-<span class="w"> </span>}
-</pre></div>
-</div>
-</section>
+<p>2 file(s) copied, then 10 change(s) in 3 file(s), 18 line(s) of code to write.</p>
+<section id="copies">
+<h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L4ArcadeOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L4ArcadeOpMode.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry/L2TankDriveTrain.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L4ArcadeDriveTrain.java</span></code></p></li>
+</ul>
 </section>
 <section id="l4arcadeopmode">
 <h2>L4ArcadeOpMode<a class="headerlink" href="#l4arcadeopmode" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L4ArcadeOpMode.java</span></code></p>
-<section id="id1">
-<h3>TODO<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>Delete 7 blank lines, write 2 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -40,13 +40,8 @@</span>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L4ArcadeOpMode.java</span></code></p>
+<section id="comments-only">
+<h3>Comments only<a class="headerlink" href="#comments-only" title="Link to this heading">¶</a></h3>
+<p>Delete 2 lines, write 0 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -18,8 +18,6 @@</span>
+<span class="w"> </span> * positive when it is counter-clockwise, so the stick gets a minus sign. Every
+<span class="w"> </span> * turn number in this code is counter-clockwise-positive from here on, which is
+<span class="w"> </span> * also how the path follower counts.
+<span class="gd">- *</span>
+<span class="gd">- * &lt;p&gt;Passes when: LessonsTest.l4_arcadeUsesOneStickToDriveAndOneToTurn</span>
+<span class="w"> </span> */
+<span class="w"> </span>@TeleOp(name = "L4 Arcade", group = "Lessons")
+<span class="w"> </span>public class L4ArcadeOpMode extends CorbelsTeleOp {
+</pre></div>
+</div>
+</section>
+<section id="a-change">
+<h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
+<p>Delete 7 lines, write 2 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -41,13 +41,8 @@</span>
 <span class="w"> </span>    public void loop() {
 <span class="w"> </span>        loopBefore();
 <span class="w"> </span>
@@ -301,14 +301,12 @@
 </pre></div>
 </div>
 </section>
-<section id="no-todo-of-its-own">
-<h3>No TODO of its own<a class="headerlink" href="#no-todo-of-its-own" title="Link to this heading">¶</a></h3>
-<p>Delete 0 blank lines, write 3 real lines.</p>
-<p>These lines sit beside a blank rather than inside one, so the marker
-that asks for them is in another edit on this page.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -44,6 +44,9 @@</span>
+<section id="id1">
+<h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 3 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -45,6 +45,9 @@</span>
 <span class="w"> </span>        double turnCcwSpeed = -gamepad1.right_stick_x;
 <span class="w"> </span>        drivetrain.sticks(forwardSpeed, turnCcwSpeed);
 <span class="w"> </span>
@@ -322,14 +320,146 @@ that asks for them is in another edit on this page.</p>
 </div>
 </section>
 </section>
+<section id="l4arcadedrivetrain">
+<h2>L4ArcadeDriveTrain<a class="headerlink" href="#l4arcadedrivetrain" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L4ArcadeDriveTrain.java</span></code></p>
+<section id="id2">
+<h3>Comments only<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -3,7 +3,7 @@</span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.RobotHardware;
+<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="gd">- * The drivetrain for L2: two sticks, four wheels.</span>
+<span class="gi">+ * The drivetrain for L4: one number to go, one number to turn.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;This is the first drivetrain, and every later one is built the same way.
+<span class="w"> </span> * {@code extends LessonsDriveTrain} means it starts with everything
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Comments only<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 5 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -5,11 +5,10 @@</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * The drivetrain for L4: one number to go, one number to turn.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;This is the first drivetrain, and every later one is built the same way.</span>
+<span class="gd">- * {@code extends LessonsDriveTrain} means it starts with everything</span>
+<span class="gd">- * {@link LessonsDriveTrain} already has -- the four motors, which way each one</span>
+<span class="gd">- * spins, and braking when the power goes to 0 -- and adds what is special about</span>
+<span class="gd">- * this lesson. {@code super(hardware)} is how the motors get handed over.</span>
+<span class="gi">+ * &lt;p&gt;Tank asked the driver to keep two sticks matched to go straight, which is</span>
+<span class="gi">+ * harder than it sounds. Arcade asks for what the robot should do instead: how</span>
+<span class="gi">+ * fast forward, and how fast to spin. {@link #sticks} works out what each side</span>
+<span class="gi">+ * has to do.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;One method is this lesson's own: {@link #sticks} turns the two stick
+<span class="w"> </span> * numbers into four wheel powers. Sending them to the motors is
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Comments only<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 5 lines, write 3 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -10,11 +10,9 @@</span>
+<span class="w"> </span> * fast forward, and how fast to spin. {@link #sticks} works out what each side
+<span class="w"> </span> * has to do.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;One method is this lesson's own: {@link #sticks} turns the two stick</span>
+<span class="gd">- * numbers into four wheel powers. Sending them to the motors is</span>
+<span class="gd">- * {@link LessonsDriveTrain#writeWheels}, written once there and used by every</span>
+<span class="gd">- * lesson after this one. Nothing else writes to these motors while L2 is</span>
+<span class="gd">- * running, so what {@code sticks} asks for is what the wheels do.</span>
+<span class="gi">+ * &lt;p&gt;Turning counter-clockwise -- to the driver's left -- means the left wheels</span>
+<span class="gi">+ * go backwards while the right wheels go forwards. So the turn number is</span>
+<span class="gi">+ * subtracted from the left side and added to the right.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Passes when: LessonsTest.l2b_theSticksDriveTheWheelsLikeATank
+<span class="w"> </span> */
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>Comments only<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -14,7 +14,11 @@</span>
+<span class="w"> </span> * go backwards while the right wheels go forwards. So the turn number is
+<span class="w"> </span> * subtracted from the left side and added to the right.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Passes when: LessonsTest.l2b_theSticksDriveTheWheelsLikeATank</span>
+<span class="gi">+ * &lt;p&gt;Full forward and full turn together add up to more than a motor can give.</span>
+<span class="gi">+ * {@link LessonsDriveTrain#normalized} is where that gets sorted out, and this</span>
+<span class="gi">+ * lesson writes it.</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * &lt;p&gt;Passes when: LessonsTest.l4_arcadeUsesOneStickToDriveAndOneToTurn</span>
+<span class="w"> </span> */
+<span class="w"> </span>public class L4ArcadeDriveTrain extends LessonsDriveTrain {
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>Comments only<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>Delete 6 lines, write 3 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -27,12 +27,9 @@</span>
+<span class="w"> </span>    }
+<span class="w"> </span>
+<span class="w"> </span>    /**
+<span class="gd">-     * Tank drive: the left stick runs both left wheels, the right stick runs</span>
+<span class="gd">-     * both right wheels. Powers are -1 to 1.</span>
+<span class="gd">-     *</span>
+<span class="gd">-     * &lt;p&gt;Push both sticks forward and the robot goes straight. Push one forward</span>
+<span class="gd">-     * and one back and it spins. That is the whole idea, and it lives here in</span>
+<span class="gd">-     * one place so every lesson that drives this way says the same thing.</span>
+<span class="gi">+     * Arcade drive. {@code forwardSpeed} is how fast to drive,</span>
+<span class="gi">+     * {@code turnCcwSpeed} is how fast to spin counter-clockwise, in the</span>
+<span class="gi">+     * directions {@link LessonsDriveTrain} sets out. Both are -1 to 1.</span>
+<span class="w"> </span>     */
+<span class="w"> </span>    public void sticks(double leftSpeed, double rightSpeed) {
+<span class="w"> </span>        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>A change<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 3 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -31,7 +31,9 @@</span>
+<span class="w"> </span>     * {@code turnCcwSpeed} is how fast to spin counter-clockwise, in the
+<span class="w"> </span>     * directions {@link LessonsDriveTrain} sets out. Both are -1 to 1.
+<span class="w"> </span>     */
+<span class="gd">-    public void sticks(double leftSpeed, double rightSpeed) {</span>
+<span class="gi">+    public void sticks(double forwardSpeed, double turnCcwSpeed) {</span>
+<span class="gi">+        double leftSpeed = forwardSpeed - turnCcwSpeed;</span>
+<span class="gi">+        double rightSpeed = forwardSpeed + turnCcwSpeed;</span>
+<span class="w"> </span>        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
+<span class="w"> </span>    }
+<span class="w"> </span>}
+</pre></div>
+</div>
+</section>
+</section>
 <section id="lessonsdrivetrain">
 <h2>LessonsDriveTrain<a class="headerlink" href="#lessonsdrivetrain" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/LessonsDriveTrain.java</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java</span></code></p>
 <section id="todo-3">
 <h3>TODO 3<a class="headerlink" href="#todo-3" title="Link to this heading">¶</a></h3>
-<p>Delete 11 blank lines, write 10 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
+<p>Delete 11 lines, write 10 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
 <span class="gu">@@ -170,17 +170,16 @@</span>
 <span class="w"> </span>     * what it divided by in {@link #powerScale}, which is what Pedro reports.
 <span class="w"> </span>     */
@@ -420,13 +550,20 @@ that asks for them is in another edit on this page.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L4</a><ul>
-<li><a class="reference internal" href="#l4arcadedrivetrain">L4ArcadeDriveTrain</a><ul>
-<li><a class="reference internal" href="#todo">TODO</a></li>
+<li><a class="reference internal" href="#copies">Copies</a></li>
+<li><a class="reference internal" href="#l4arcadeopmode">L4ArcadeOpMode</a><ul>
+<li><a class="reference internal" href="#comments-only">Comments only</a></li>
+<li><a class="reference internal" href="#a-change">A change</a></li>
+<li><a class="reference internal" href="#id1">A change</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#l4arcadeopmode">L4ArcadeOpMode</a><ul>
-<li><a class="reference internal" href="#id1">TODO</a></li>
-<li><a class="reference internal" href="#no-todo-of-its-own">No TODO of its own</a></li>
+<li><a class="reference internal" href="#l4arcadedrivetrain">L4ArcadeDriveTrain</a><ul>
+<li><a class="reference internal" href="#id2">Comments only</a></li>
+<li><a class="reference internal" href="#id3">Comments only</a></li>
+<li><a class="reference internal" href="#id4">Comments only</a></li>
+<li><a class="reference internal" href="#id5">Comments only</a></li>
+<li><a class="reference internal" href="#id6">Comments only</a></li>
+<li><a class="reference internal" href="#id7">A change</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#lessonsdrivetrain">LessonsDriveTrain</a><ul>

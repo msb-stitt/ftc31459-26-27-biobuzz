@@ -1,19 +1,41 @@
 # L14
 
-2 blank(s) in 1 file(s), 21 line(s) for the student to write.
+1 file(s) copied, then 3 change(s) in 1 file(s), 21 line(s) of code to write.
+
+## Copies
+
+- `lessons/L14DriveToPoseOpMode.java` to `mytry/L14DriveToPoseOpMode.java`
 
 ## L14DriveToPoseOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L14DriveToPoseOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L14DriveToPoseOpMode.java`
+
+### Comments only
+
+Delete 2 lines, write 0 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -16,8 +16,6 @@
+  * commanded wheels beat whatever the follower worked out. So while the command
+  * is running the stick code hands the wheels back -- unless the driver moves a
+  * stick, which cancels the command.
+- *
+- * <p>Passes when: LessonsTest.l14_pressingYDrivesToAPoseAndTheDriverCanTakeOver
+  */
+ @TeleOp(name = "L14 Drive To Pose", group = "Lessons")
+ public class L14DriveToPoseOpMode extends CorbelsTeleOp {
+```
 
 ### TODO 1
 
-Delete 4 blank lines, write 7 real lines.
+Delete 4 lines, write 7 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -26,10 +26,13 @@
+--- before this change
++++ after it
+@@ -27,10 +27,13 @@
  
      @Override
      protected void bindings() {
@@ -35,12 +57,12 @@ Delete 4 blank lines, write 7 real lines.
 
 ### TODO 2 and 3
 
-Delete 8 blank lines, write 14 real lines.
+Delete 8 lines, write 14 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -75,13 +75,19 @@
+--- before this change
++++ after it
+@@ -76,13 +76,19 @@
          boolean driverWantsControl = Math.abs(forwardSpeed) > 0.1
                  || Math.abs(strafeLeftSpeed) > 0.1 || Math.abs(turnCcwSpeed) > 0.1;
  

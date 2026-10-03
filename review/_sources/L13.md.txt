@@ -1,19 +1,41 @@
 # L13
 
-2 blank(s) in 1 file(s), 6 line(s) for the student to write.
+1 file(s) copied, then 3 change(s) in 1 file(s), 6 line(s) of code to write.
+
+## Copies
+
+- `lessons/L13HeadingHoldOpMode.java` to `mytry/L13HeadingHoldOpMode.java`
 
 ## L13HeadingHoldOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L13HeadingHoldOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L13HeadingHoldOpMode.java`
+
+### Comments only
+
+Delete 2 lines, write 0 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -11,8 +11,6 @@
+ /**
+  * L13: stop the drift. When the turn stick is released the robot holds the
+  * heading it was left at, using the SAME controller the autonomous uses.
+- *
+- * <p>Passes when: LessonsTest.l13_theRobotHoldsItsHeadingWhenTheStickIsReleased
+  */
+ @TeleOp(name = "L13 Heading Hold", group = "Lessons")
+ public class L13HeadingHoldOpMode extends CorbelsTeleOp {
+```
 
 ### TODO 1
 
-Delete 2 blank lines, write 1 real line.
+Delete 2 lines, write 1 line.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -18,8 +18,7 @@
+--- before this change
++++ after it
+@@ -19,8 +19,7 @@
  
      @Override
      protected void bindings() {
@@ -27,12 +49,12 @@ Delete 2 blank lines, write 1 real line.
 
 ### TODO 2
 
-Delete 4 blank lines, write 5 real lines.
+Delete 4 lines, write 5 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -39,10 +39,11 @@
+--- before this change
++++ after it
+@@ -40,10 +40,11 @@
      @Override
      public void loop() {
          loopBefore();

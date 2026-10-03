@@ -20,10 +20,10 @@ somewhere you can watch them.
 Everything you write is in one folder:
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/`.
 
-:::{admonition} fig-gamepad-sticks
-:class: pencil
-Gamepad 1 from above, with the left stick, the right stick and the A button labelled, and an arrow
-showing which way each y axis counts up.
+:::{figure} ../_static/figures/fig-gamepad-sticks.png
+:name: fig-gamepad-sticks
+
+Gamepad 1 from above, with the left stick, the right stick and the A button labelled, and an arrow showing which way each y axis counts up.
 :::
 
 ## The steps
@@ -109,10 +109,10 @@ Using them writes the wheel order down once instead of guessing it in every meth
 
 Then fill TODO 1 in `L2bTankOpMode.java`, which reads the two sticks and hands them over.
 
-:::{admonition} fig-wheel-names
-:class: pencil
-The robot from above with its nose marked, and each of the four wheels labelled front left, front
-right, back left and back right.
+:::{figure} ../_static/figures/fig-wheel-names.png
+:name: fig-wheel-names
+
+The robot from above with its nose marked, and each of the four wheels labelled front left, front right, back left and back right.
 :::
 
 **You'll know it worked when** this prints `BUILD SUCCESSFUL`:

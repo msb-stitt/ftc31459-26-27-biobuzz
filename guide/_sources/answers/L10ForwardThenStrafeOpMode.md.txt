@@ -1,30 +1,70 @@
 # L10ForwardThenStrafeOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L10ForwardThenStrafeOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L10ForwardThenStrafeOpMode.java`
 
-## TODO 1
+## L10
 
-What the lesson leaves blank:
+### A change
+
+Before L10:
 
 ```java
-        // TODO 1: drive start -> corner, holding the heading it starts at.
-        //         That is forward, because the robot faces +y.
-        // TODO 2: then corner -> end, holding that same heading. The robot does
-        //         not turn, so this leg is a sideways strafe.
-        // TODO 3: finish with hold(follower, end) so it stays put.
-        //         .constant(pose) takes the heading from a pose. The number
-        //         form is radians, so .constant(90) is not 90 degrees.
-        return Command.NOOP;
+(nothing)
 ```
 
-What the solutions line has there:
+After L10:
 
 ```java
-        return sequential(
+import static com.pedropathing.ivy.pedro.PedroCommands.hold;
+```
+
+### A change
+
+Before L10:
+
+```java
+@Autonomous(name = "L9 Drive 24", group = "Lessons")
+```
+
+After L10:
+
+```java
+@Autonomous(name = "L10 Forward Then Strafe", group = "Lessons")
+```
+
+### A change
+
+Before L10:
+
+```java
+    private final Pose end = POSES.of(72, botStartYIn+24, 90);
+
+```
+
+After L10:
+
+```java
+    private final Pose corner = POSES.of(72, 72, 90);
+    private final Pose end = POSES.of(96, 72, 90);
+```
+
+### A change
+
+Before L10:
+
+```java
+                follow(follower, line(start, end).constant(start))
+```
+
+After L10:
+
+```java
                 follow(follower, line(start, corner).constant(start)),
                 follow(follower, line(corner, end).constant(start)),
                 hold(follower, end)
-        );
 ```
+
+It also changes 2 run(s) of comment lines, which are not shown.

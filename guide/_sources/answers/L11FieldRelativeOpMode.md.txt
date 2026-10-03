@@ -1,12 +1,15 @@
 # L11FieldRelativeOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L11FieldRelativeOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L11FieldRelativeOpMode.java`
 
-## TODO (L11)
+## L11
 
-What the lesson leaves blank:
+### TODO (L11)
+
+Before L11:
 
 ```java
         // TODO (L11): the same three sticks as L5, but through
@@ -17,7 +20,7 @@ What the lesson leaves blank:
         //       can feel the difference.
 ```
 
-What the solutions line has there:
+After L11:
 
 ```java
         drivetrain.fieldRelative(follower.pose().heading(),
@@ -26,5 +29,4 @@ What the solutions line has there:
                 -gamepad1.right_stick_x);    // counter-clockwise
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

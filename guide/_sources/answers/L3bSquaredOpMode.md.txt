@@ -1,39 +1,36 @@
 # L3bSquaredOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L3bSquaredOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3bSquaredOpMode.java`
 
-## TODO 1 (L3b)
+## L3b
 
-What the lesson leaves blank:
+### A change
 
-```java
-    // TODO 1 (L3b): pick the number again, the same way L3a did. Each lesson keeps
-    //         its own, so changing one never changes the other.
-    private static final double DEADBAND = 0;
-```
-
-What the solutions line has there:
+Before L3b:
 
 ```java
-    private static final double DEADBAND = 0.05;
+@TeleOp(name = "L3a Deadband", group = "Lessons")
 ```
 
-## TODO 2 (L3b)
-
-What the lesson leaves blank:
+After L3b:
 
 ```java
-        // TODO 2 (L3b): deadband each raw stick into its own variable, the way L3a
-        //         did, then square each of those into a second variable, then hand
-        //         the two to drivetrain.sticks(). One step to a line: no call
-        //         inside another call.
-        double leftSpeed = 0;
-        double rightSpeed = 0;
+@TeleOp(name = "L3b Squared", group = "Lessons")
 ```
 
-What the solutions line has there:
+### A change
+
+Before L3b:
+
+```java
+        double leftSpeed = drivetrain.deadband(leftRawSpeed, DEADBAND);
+        double rightSpeed = drivetrain.deadband(rightRawSpeed, DEADBAND);
+```
+
+After L3b:
 
 ```java
         double leftDeadbanded = drivetrain.deadband(leftRawSpeed, DEADBAND);
@@ -41,5 +38,6 @@ What the solutions line has there:
 
         double leftSpeed = drivetrain.squared(leftDeadbanded);
         double rightSpeed = drivetrain.squared(rightDeadbanded);
-        drivetrain.sticks(leftSpeed, rightSpeed);
 ```
+
+It also changes 4 run(s) of comment lines, which are not shown.

@@ -1,12 +1,15 @@
 # L4ArcadeOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L4ArcadeOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L4ArcadeOpMode.java`
 
-## TODO 
+## L4
 
-What the lesson leaves blank:
+### TODO 
+
+Before L4:
 
 ```java
         // TODO: read the two sticks and hand them to drivetrain.sticks(forwardSpeed, turnCcwSpeed).
@@ -18,22 +21,22 @@ What the lesson leaves blank:
         double turnCcwSpeed = 0;
 ```
 
-What the solutions line has there:
+After L4:
 
 ```java
         double forwardSpeed = -gamepad1.left_stick_y;
         double turnCcwSpeed = -gamepad1.right_stick_x;
 ```
 
-## An unmarked difference
+### A change
 
-What the lesson leaves blank:
+Before L4:
 
 ```java
 (nothing)
 ```
 
-What the solutions line has there:
+After L4:
 
 ```java
 
@@ -41,5 +44,4 @@ What the solutions line has there:
         Tracker.publish("command/turn_ccw", turnCcwSpeed);
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

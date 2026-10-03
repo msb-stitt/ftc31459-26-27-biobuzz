@@ -13,10 +13,10 @@ there. Every step tells you what you will see when it worked and what to try whe
 - **The answers are in the back.** They are the real code from the solutions branch. Use them when
   you are stuck, not instead of being stuck.
 
-:::{admonition} fig-robot-front
-:class: pencil
-The robot from the front, on the floor, with both gamepads beside it, so a student can match what is
-in front of them to what the guide calls each part.
+:::{figure} _static/figures/fig-robot-front.png
+:name: fig-robot-front
+
+The robot from the front, on the floor, with both gamepads beside it, so a student can match what is in front of them to what the guide calls each part.
 :::
 
 ## The tasks
@@ -35,6 +35,7 @@ finished, so read it after that one.
 :maxdepth: 1
 :caption: Drive it with the sticks
 
+tasks/l2a
 tasks/l2
 tasks/l3
 tasks/l4

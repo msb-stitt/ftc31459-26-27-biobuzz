@@ -208,6 +208,7 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L16.html">L16</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L17a.html">L17a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17b.html">L17b</a></li>
 </ul>
 
 </div>
@@ -248,16 +249,39 @@
         <article role="main" id="furo-main-content">
           <section id="l15">
 <h1>L15<a class="headerlink" href="#l15" title="Link to this heading">¶</a></h1>
-<p>1 blank(s) in 1 file(s), 2 line(s) for the student to write.</p>
+<p>1 file(s) copied, then 2 change(s) in 1 file(s), 2 line(s) of code to write.</p>
+<section id="copies">
+<h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L15CombinedOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L15CombinedOpMode.java</span></code></p></li>
+</ul>
+</section>
 <section id="l15combinedopmode">
 <h2>L15CombinedOpMode<a class="headerlink" href="#l15combinedopmode" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L15CombinedOpMode.java</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L15CombinedOpMode.java</span></code></p>
+<section id="comments-only">
+<h3>Comments only<a class="headerlink" href="#comments-only" title="Link to this heading">¶</a></h3>
+<p>Delete 2 lines, write 0 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -24,8 +24,6 @@</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;The encoder localizer runs alongside the real one, so the field view shows
+<span class="w"> </span> * both answers.
+<span class="gd">- *</span>
+<span class="gd">- * &lt;p&gt;Passes when: LessonsTest.l15_everythingTogether</span>
+<span class="w"> </span> */
+<span class="w"> </span>@TeleOp(name = "L15 Combined", group = "Lessons")
+<span class="w"> </span>public class L15CombinedOpMode extends CorbelsTeleOp {
+</pre></div>
+</div>
+</section>
 <section id="todo-1">
 <h3>TODO 1<a class="headerlink" href="#todo-1" title="Link to this heading">¶</a></h3>
-<p>Delete 3 blank lines, write 2 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -40,9 +40,8 @@</span>
+<p>Delete 3 lines, write 2 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -41,9 +41,8 @@</span>
 <span class="w"> </span>
 <span class="w"> </span>    @Override
 <span class="w"> </span>    protected void shadowLocalizers() {
@@ -331,7 +355,9 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L15</a><ul>
+<li><a class="reference internal" href="#copies">Copies</a></li>
 <li><a class="reference internal" href="#l15combinedopmode">L15CombinedOpMode</a><ul>
+<li><a class="reference internal" href="#comments-only">Comments only</a></li>
 <li><a class="reference internal" href="#todo-1">TODO 1</a></li>
 </ul>
 </li>

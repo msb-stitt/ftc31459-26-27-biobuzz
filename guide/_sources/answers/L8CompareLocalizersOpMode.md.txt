@@ -1,12 +1,15 @@
 # L8CompareLocalizersOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L8CompareLocalizersOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L8CompareLocalizersOpMode.java`
 
-## TODO 1 (L8)
+## L8
 
-What the lesson leaves blank:
+### TODO 1 (L8)
+
+Before L8:
 
 ```java
         // TODO 1 (L8): run your localizer alongside the robot's own, named
@@ -15,16 +18,16 @@ What the lesson leaves blank:
         //                 new MecanumEncoderLocalizer(new HardwareWheelSource(hardware)));
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
         shadowLocalizers.add("driveWheelEncoders",
                 new MecanumEncoderLocalizer(new HardwareWheelSource(hardware)));
 ```
 
-## TODO 2 (L8)
+### TODO 2 (L8)
 
-What the lesson leaves blank:
+Before L8:
 
 ```java
         // TODO 2 (L8): holonomic driving, same as L5 -- but through the drivetrain
@@ -32,12 +35,11 @@ What the lesson leaves blank:
         //         to drivetrain.sticks() with the three sticks.
 ```
 
-What the solutions line has there:
+After L8:
 
 ```java
         drivetrain.sticks(
                 -gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x);
 ```
 
-The two lines also differ in 1 run(s) of comment lines, which are not
-blanks and are not shown.
+It also changes 1 run(s) of comment lines, which are not shown.

@@ -1,35 +1,126 @@
 # L10
 
-1 blank(s) in 1 file(s), 5 line(s) for the student to write.
+1 file(s) copied, then 6 change(s) in 1 file(s), 7 line(s) of code to write.
+
+## Copies
+
+- `mytry/L9Drive24OpMode.java` to `mytry/L10ForwardThenStrafeOpMode.java`
 
 ## L10ForwardThenStrafeOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L10ForwardThenStrafeOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L10ForwardThenStrafeOpMode.java`
 
-### TODO 1, 2 and 3
+### A change
 
-Delete 8 blank lines, write 5 real lines.
+Delete 0 lines, write 1 line.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -74,13 +74,10 @@
+--- before this change
++++ after it
+@@ -3,6 +3,7 @@
+ import static com.pedropathing.api.Paths.line;
+ import static com.pedropathing.ivy.groups.Groups.sequential;
+ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
++import static com.pedropathing.ivy.pedro.PedroCommands.hold;
  
+ import com.pedropathing.api.PoseFactory;
+ import com.pedropathing.ivy.Command;
+```
+
+### Comments only
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -15,7 +15,7 @@
+ import org.firstinspires.ftc.teamcode.base.Tracker;
+ 
+ /**
+- * L9: the first autonomous -- drive 24 inches forward, and stop there.
++ * L10: two moves in a row -- drive forward, then strafe sideways.
+  *
+  * <p>Passes when: LessonsTest.l9_autoDrives24InchesForwardAndStops
+  */
+```
+
+### Comments only
+
+Delete 1 line, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -17,7 +17,11 @@
+ /**
+  * L10: two moves in a row -- drive forward, then strafe sideways.
+  *
+- * <p>Passes when: LessonsTest.l9_autoDrives24InchesForwardAndStops
++ * <p>Both legs hold the same heading, so the robot never turns. The second leg
++ * moves it sideways instead, which is what mecanum wheels are for: the robot
++ * ends up 24 inches to its right, still facing the way it started.
++ *
++ * <p>Passes when: LessonsTest.l10_autoDrivesForwardThenStrafesSideways
+  */
+ @Autonomous(name = "L9 Drive 24", group = "Lessons")
+ public class L10ForwardThenStrafeOpMode extends CorbelsAuto {
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -23,7 +23,7 @@
+  *
+  * <p>Passes when: LessonsTest.l10_autoDrivesForwardThenStrafesSideways
+  */
+-@Autonomous(name = "L9 Drive 24", group = "Lessons")
++@Autonomous(name = "L10 Forward Then Strafe", group = "Lessons")
+ public class L10ForwardThenStrafeOpMode extends CorbelsAuto {
+ 
+     private static final PoseFactory POSES = PoseFactory.degrees();
+```
+
+### A change
+
+Delete 2 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -32,8 +32,8 @@
+     double fieldPerimeterWidthIn = 1.5;
+     double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
+     private final Pose start = POSES.of(72, botStartYIn, 90);
+-    private final Pose end = POSES.of(72, botStartYIn+24, 90);
+-
++    private final Pose corner = POSES.of(72, 72, 90);
++    private final Pose end = POSES.of(96, 72, 90);
+ 
+     private L6FollowerDriveTrain drivetrain;
+ 
+```
+
+### A change
+
+Delete 1 line, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -76,7 +76,9 @@
      @Override
      protected Command routine() {
--        // TODO 1: drive start -> corner, holding the heading it starts at.
--        //         That is forward, because the robot faces +y.
--        // TODO 2: then corner -> end, holding that same heading. The robot does
--        //         not turn, so this leg is a sideways strafe.
--        // TODO 3: finish with hold(follower, end) so it stays put.
--        //         .constant(pose) takes the heading from a pose. The number
--        //         form is radians, so .constant(90) is not 90 degrees.
--        return Command.NOOP;
-+        return sequential(
+         return sequential(
+-                follow(follower, line(start, end).constant(start))
 +                follow(follower, line(start, corner).constant(start)),
 +                follow(follower, line(corner, end).constant(start)),
 +                hold(follower, end)
-+        );
+         );
      }
  }
 ```

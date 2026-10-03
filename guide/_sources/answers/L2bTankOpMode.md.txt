@@ -1,56 +1,142 @@
 # L2bTankOpMode
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L2bTankOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2bTankOpMode.java`
 
-## TODO 1
+## L2b
 
-What the lesson leaves blank:
+### A change
+
+Before L2b:
 
 ```java
-        // TODO 1: read both sticks' y axes into named doubles, negating each one
-        //         the way L2a did, and hand them to the drivetrain:
-        //         drivetrain.sticks(leftSpeed, rightSpeed);
+@TeleOp(name = "L2a Sticks", group = "Lessons")
 ```
 
-What the solutions line has there:
+After L2b:
 
 ```java
-        double leftSpeed = -gamepad1.left_stick_y;
-        double rightSpeed = -gamepad1.right_stick_y;
+@TeleOp(name = "L2b Tank", group = "Lessons")
+```
+
+### A change
+
+Before L2b:
+
+```java
+    /** How many times {@link #loop} has run. */
+    private int loopCount;
+```
+
+After L2b:
+
+```java
+    private L2TankDriveTrain drivetrain;
+```
+
+### A change
+
+Before L2b:
+
+```java
+(nothing)
+```
+
+After L2b:
+
+```java
+        drivetrain = new L2TankDriveTrain(hardware);
+```
+
+### A change
+
+Before L2b:
+
+```java
+        loopCount = 0;
+```
+
+After L2b:
+
+```java
+(nothing)
+```
+
+### A change
+
+Before L2b:
+
+```java
+        double leftSideways = gamepad1.left_stick_x;
+        double rightSideways = gamepad1.right_stick_x;
+```
+
+After L2b:
+
+```java
         drivetrain.sticks(leftSpeed, rightSpeed);
 ```
 
-## TODO 2
+### A change
 
-What the lesson leaves blank:
+Before L2b:
 
 ```java
-        // TODO 2: log the four stick axes, the A button and the pressed and
-        //         released events, the same as L2a. The loop count and the time
-        //         are gone: the robot logs both for itself.
-        //         Works when: LessonsTest.l2b_theSticksDriveTheWheelsLikeATank
-        //         and LessonsTest.l2b_theSticksMoveTheSimulatedRobot pass.
+        Tracker.publish("stick/leftX", leftSideways);
 ```
 
-What the solutions line has there:
+After L2b:
 
 ```java
-        Tracker.publish("stick/leftY", leftSpeed);
         Tracker.publish("stick/leftX", gamepad1.left_stick_x);
-        Tracker.publish("stick/rightY", rightSpeed);
-        Tracker.publish("stick/rightX", gamepad1.right_stick_x);
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("driver pressed A", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("lesson/event", "button A pressed");
-            } else {
-                Tracker.publish("lesson/event", "button A released");
-            }
-        }
-        previousButtonA = buttonA;
 ```
+
+### A change
+
+Before L2b:
+
+```java
+        Tracker.publish("stick/rightX", rightSideways);
+```
+
+After L2b:
+
+```java
+        Tracker.publish("stick/rightX", gamepad1.right_stick_x);
+```
+
+### A change
+
+Before L2b:
+
+```java
+
+        loopCount = loopCount + 1;
+        double secondsRunning = getRuntime();
+        Tracker.publish("lesson/loop_count", loopCount);
+        Tracker.publish("lesson/seconds_running", secondsRunning);
+```
+
+After L2b:
+
+```java
+(nothing)
+```
+
+### A change
+
+Before L2b:
+
+```java
+(nothing)
+```
+
+After L2b:
+
+```java
+        drivetrain.stop();
+```
+
+It also changes 4 run(s) of comment lines, which are not shown.

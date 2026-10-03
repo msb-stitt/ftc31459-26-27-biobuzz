@@ -16,11 +16,10 @@ This is the longest lesson in the course: about 70 lines in two files.
 - You write in `MecanumEncoderLocalizer.java`, which has seven TODOs and some lines no TODO asks
   for, and in `L8CompareLocalizersOpMode.java`, which has two.
 
-:::{admonition} fig-odometry-step
-:class: pencil
-One loop of dead reckoning: the four wheel travels since the last loop, the forward and left arrows
-those add up to, the same pair turned to point along the robot's heading, and the old estimate with
-that pair added on the end.
+:::{figure} ../_static/figures/fig-odometry-step.png
+:name: fig-odometry-step
+
+One loop of dead reckoning: the four wheel travels since the last loop, the forward and left arrows those add up to, the same pair turned to point along the robot's heading, and the old estimate with that pair added on the end.
 :::
 
 ## The steps

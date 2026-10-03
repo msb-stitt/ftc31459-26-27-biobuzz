@@ -208,6 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="L15.html">L15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L16.html">L16</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L17a.html">L17a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17b.html">L17b</a></li>
 </ul>
 
 </div>
@@ -248,66 +249,148 @@
         <article role="main" id="furo-main-content">
           <section id="l3b">
 <h1>L3b<a class="headerlink" href="#l3b" title="Link to this heading">¶</a></h1>
-<p>3 blank(s) in 2 file(s), 13 line(s) for the student to write.</p>
+<p>1 file(s) copied, then 7 change(s) in 2 file(s), 12 line(s) of code to write.</p>
+<section id="copies">
+<h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry/L3aDeadbandOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L3bSquaredOpMode.java</span></code></p></li>
+</ul>
+</section>
 <section id="l3bsquaredopmode">
 <h2>L3bSquaredOpMode<a class="headerlink" href="#l3bsquaredopmode" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L3bSquaredOpMode.java</span></code></p>
-<section id="todo-1">
-<h3>TODO 1<a class="headerlink" href="#todo-1" title="Link to this heading">¶</a></h3>
-<p>Delete 3 blank lines, write 1 real line.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -28,9 +28,7 @@</span>
-<span class="w"> </span>public class L3bSquaredOpMode extends CorbelsTeleOp {
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L3bSquaredOpMode.java</span></code></p>
+<section id="comments-only">
+<h3>Comments only<a class="headerlink" href="#comments-only" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -7,7 +7,7 @@</span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.Tracker;
 <span class="w"> </span>
-<span class="w"> </span>    /** Anything smaller than this counts as a stick that was let go. */
-<span class="gd">-    // TODO 1 (L3b): pick the number again, the same way L3a did. Each lesson keeps</span>
-<span class="gd">-    //         its own, so changing one never changes the other.</span>
-<span class="gd">-    private static final double DEADBAND = 0;</span>
-<span class="gi">+    private static final double DEADBAND = 0.05;</span>
-<span class="w"> </span>
-<span class="w"> </span>    private L2TankDriveTrain drivetrain;
-<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="gd">- * L3a: a stick that is nearly centred counts as centred.</span>
+<span class="gi">+ * L3b: half a stick is a quarter of the power.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;A stick let go does not read exactly zero, so the robot creeps. A deadband
+<span class="w"> </span> * fixes it: anything smaller than {@link #DEADBAND} is treated as nothing, and
 </pre></div>
 </div>
 </section>
-<section id="todo-2">
-<h3>TODO 2<a class="headerlink" href="#todo-2" title="Link to this heading">¶</a></h3>
-<p>Delete 6 blank lines, write 6 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -52,12 +52,12 @@</span>
+<section id="id1">
+<h3>Comments only<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 3 lines, write 3 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -9,9 +9,9 @@</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * L3b: half a stick is a quarter of the power.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;A stick let go does not read exactly zero, so the robot creeps. A deadband</span>
+<span class="gd">- * fixes it: anything smaller than {@link #DEADBAND} is treated as nothing, and</span>
+<span class="gd">- * everything else is passed through untouched.</span>
+<span class="gi">+ * &lt;p&gt;L3a stopped the creep. This one changes how the rest of the travel feels:</span>
+<span class="gi">+ * squaring the number makes small pushes much gentler and leaves full push at</span>
+<span class="gi">+ * full power, which is easier to drive slowly.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;{@link LessonsDriveTrain#deadband} is this lesson's own work, and it is an
+<span class="w"> </span> * {@code if} and an {@code else} rather than anything clever. It goes in the
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Comments only<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 4 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -13,10 +13,12 @@</span>
+<span class="w"> </span> * squaring the number makes small pushes much gentler and leaves full push at
+<span class="w"> </span> * full power, which is easier to drive slowly.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;{@link LessonsDriveTrain#deadband} is this lesson's own work, and it is an</span>
+<span class="gd">- * {@code if} and an {@code else} rather than anything clever. It goes in the</span>
+<span class="gd">- * drivetrain because every later lesson shapes its sticks the same way. Both</span>
+<span class="gd">- * sticks go through it here, so the same number is used twice.</span>
+<span class="gi">+ * &lt;p&gt;{@link LessonsDriveTrain#squared} keeps the sign, because squaring a</span>
+<span class="gi">+ * negative number the ordinary way would drive the robot forwards when the</span>
+<span class="gi">+ * driver asked for backwards. It goes beside the deadband in the drivetrain,</span>
+<span class="gi">+ * where the later lessons can reach it. The deadband runs first and the squaring</span>
+<span class="gi">+ * second, each into its own variable, so what happened to a number can be read</span>
+<span class="gi">+ * off the log.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Passes when: LessonsTest.l3a_aNearlyCentredStickCountsAsCentred
+<span class="w"> </span> */
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Comments only<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -20,7 +20,10 @@</span>
+<span class="w"> </span> * second, each into its own variable, so what happened to a number can be read
+<span class="w"> </span> * off the log.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Passes when: LessonsTest.l3a_aNearlyCentredStickCountsAsCentred</span>
+<span class="gi">+ * &lt;p&gt;Squaring reshapes what the driver asked for, and where it goes decides</span>
+<span class="gi">+ * which way. That is a driver's choice rather than a right answer.</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * &lt;p&gt;Passes when: LessonsTest.l3b_halfAStickIsAQuarterOfThePower</span>
+<span class="w"> </span> */
+<span class="w"> </span>@TeleOp(name = "L3a Deadband", group = "Lessons")
+<span class="w"> </span>public class L3bSquaredOpMode extends CorbelsTeleOp {
+</pre></div>
+</div>
+</section>
+<section id="a-change">
+<h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -25,7 +25,7 @@</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Passes when: LessonsTest.l3b_halfAStickIsAQuarterOfThePower
+<span class="w"> </span> */
+<span class="gd">-@TeleOp(name = "L3a Deadband", group = "Lessons")</span>
+<span class="gi">+@TeleOp(name = "L3b Squared", group = "Lessons")</span>
+<span class="w"> </span>public class L3bSquaredOpMode extends CorbelsTeleOp {
+<span class="w"> </span>
+<span class="w"> </span>    /** Anything smaller than this counts as a stick that was let go. */
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 2 lines, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -53,8 +53,11 @@</span>
 <span class="w"> </span>        double leftRawSpeed = -gamepad1.left_stick_y;
 <span class="w"> </span>        double rightRawSpeed = -gamepad1.right_stick_y;
 <span class="w"> </span>
-<span class="gd">-        // TODO 2 (L3b): deadband each raw stick into its own variable, the way L3a</span>
-<span class="gd">-        //         did, then square each of those into a second variable, then hand</span>
-<span class="gd">-        //         the two to drivetrain.sticks(). One step to a line: no call</span>
-<span class="gd">-        //         inside another call.</span>
-<span class="gd">-        double leftSpeed = 0;</span>
-<span class="gd">-        double rightSpeed = 0;</span>
+<span class="gd">-        double leftSpeed = drivetrain.deadband(leftRawSpeed, DEADBAND);</span>
+<span class="gd">-        double rightSpeed = drivetrain.deadband(rightRawSpeed, DEADBAND);</span>
 <span class="gi">+        double leftDeadbanded = drivetrain.deadband(leftRawSpeed, DEADBAND);</span>
 <span class="gi">+        double rightDeadbanded = drivetrain.deadband(rightRawSpeed, DEADBAND);</span>
 <span class="gi">+</span>
 <span class="gi">+        double leftSpeed = drivetrain.squared(leftDeadbanded);</span>
 <span class="gi">+        double rightSpeed = drivetrain.squared(rightDeadbanded);</span>
-<span class="gi">+        drivetrain.sticks(leftSpeed, rightSpeed);</span>
+<span class="w"> </span>        drivetrain.sticks(leftSpeed, rightSpeed);
 <span class="w"> </span>
 <span class="w"> </span>        Tracker.publish("stick/left_raw", leftRawSpeed);
-<span class="w"> </span>        Tracker.publish("stick/left_shaped", leftSpeed);
 </pre></div>
 </div>
 </section>
 </section>
 <section id="lessonsdrivetrain">
 <h2>LessonsDriveTrain<a class="headerlink" href="#lessonsdrivetrain" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/LessonsDriveTrain.java</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java</span></code></p>
 <section id="todo-8">
 <h3>TODO 8<a class="headerlink" href="#todo-8" title="Link to this heading">¶</a></h3>
-<p>Delete 7 blank lines, write 6 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -275,13 +275,12 @@</span>
+<p>Delete 7 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -273,13 +273,12 @@</span>
 <span class="w"> </span>
 <span class="w"> </span>    /** The number times itself, with the sign it started with. */
 <span class="w"> </span>    public double squared(double value) {
@@ -389,9 +472,14 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L3b</a><ul>
+<li><a class="reference internal" href="#copies">Copies</a></li>
 <li><a class="reference internal" href="#l3bsquaredopmode">L3bSquaredOpMode</a><ul>
-<li><a class="reference internal" href="#todo-1">TODO 1</a></li>
-<li><a class="reference internal" href="#todo-2">TODO 2</a></li>
+<li><a class="reference internal" href="#comments-only">Comments only</a></li>
+<li><a class="reference internal" href="#id1">Comments only</a></li>
+<li><a class="reference internal" href="#id2">Comments only</a></li>
+<li><a class="reference internal" href="#id3">Comments only</a></li>
+<li><a class="reference internal" href="#a-change">A change</a></li>
+<li><a class="reference internal" href="#id4">A change</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#lessonsdrivetrain">LessonsDriveTrain</a><ul>

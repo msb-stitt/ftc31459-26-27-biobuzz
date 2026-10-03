@@ -16,11 +16,10 @@ the motors.
 You write in three files. `LessonsDriveTrain.java` gets the two new methods, and
 `L3aDeadbandOpMode.java` and `L3bSquaredOpMode.java` each use one more of them than the last.
 
-:::{admonition} fig-stick-shaping
-:class: pencil
-Three graphs side by side, each with the stick from -1 to 1 along the bottom and the power out from
--1 to 1 up the side: the raw stick as a straight line, the deadbanded stick as a line with a flat
-step at the middle, and the squared stick as an S through the middle.
+:::{figure} ../_static/figures/fig-stick-shaping.png
+:name: fig-stick-shaping
+
+Three graphs side by side, each with the stick from -1 to 1 along the bottom and the power out from -1 to 1 up the side: the raw stick as a straight line, the deadbanded stick as a line with a flat step at the middle, and the squared stick as an S through the middle.
 :::
 
 ## The steps

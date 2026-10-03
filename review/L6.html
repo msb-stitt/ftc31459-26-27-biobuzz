@@ -208,6 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="L15.html">L15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L16.html">L16</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L17a.html">L17a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17b.html">L17b</a></li>
 </ul>
 
 </div>
@@ -248,15 +249,153 @@
         <article role="main" id="furo-main-content">
           <section id="l6">
 <h1>L6<a class="headerlink" href="#l6" title="Link to this heading">¶</a></h1>
-<p>7 blank(s) in 3 file(s), 29 line(s) for the student to write.</p>
+<p>2 file(s) copied, then 11 change(s) in 3 file(s), 30 line(s) of code to write.</p>
+<section id="copies">
+<h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry/L5HolonomicOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L6WheelsFollowerOpMode.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L6FollowerDriveTrain.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L6FollowerDriveTrain.java</span></code></p></li>
+</ul>
+</section>
+<section id="l6wheelsfolloweropmode">
+<h2>L6WheelsFollowerOpMode<a class="headerlink" href="#l6wheelsfolloweropmode" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6WheelsFollowerOpMode.java</span></code></p>
+<section id="comments-only">
+<h3>Comments only<a class="headerlink" href="#comments-only" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -7,7 +7,7 @@</span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.Tracker;
+<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="gd">- * L5: drivetrain drive. Now the robot can strafe.</span>
+<span class="gi">+ * L6: let the path follower hold the drivetrain.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;Arcade used two numbers, forward and turn, and both sides of the robot did
+<span class="w"> </span> * the same thing. Mecanum wheels can do a third: slide sideways without turning.
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Comments only<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 4 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -9,10 +9,10 @@</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * L6: let the path follower hold the drivetrain.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;Arcade used two numbers, forward and turn, and both sides of the robot did</span>
+<span class="gd">- * the same thing. Mecanum wheels can do a third: slide sideways without turning.</span>
+<span class="gd">- * That needs all four wheels mixed separately, which is what</span>
+<span class="gd">- * {@link L5HolonomicDriveTrain#sticks} does.</span>
+<span class="gi">+ * &lt;p&gt;L5 drove exactly as well as this does, and the sticks feel the same. What</span>
+<span class="gi">+ * changes is who is holding the drivetrain. Up to now the follower was given a</span>
+<span class="gi">+ * stand-in that ignored it, so the lesson had the motors to itself. Here the</span>
+<span class="gi">+ * drivetrain goes to {@code initAfter}, and the follower has it.</span>
+<span class="w"> </span> *
+<span class="w"> </span> * &lt;p&gt;The left stick now does two jobs at once -- push it to drive, push it
+<span class="w"> </span> * sideways to slide -- and the right stick still turns. Everything is relative
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Comments only<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 5 lines, write 14 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -14,11 +14,20 @@</span>
+<span class="w"> </span> * stand-in that ignored it, so the lesson had the motors to itself. Here the
+<span class="w"> </span> * drivetrain goes to {@code initAfter}, and the follower has it.
+<span class="w"> </span> *
+<span class="gd">- * &lt;p&gt;The left stick now does two jobs at once -- push it to drive, push it</span>
+<span class="gd">- * sideways to slide -- and the right stick still turns. Everything is relative</span>
+<span class="gd">- * to the robot's own front: push the stick left and the robot slides towards its</span>
+<span class="gd">- * own left, whichever way it happens to be facing. Making it slide towards the</span>
+<span class="gd">- * driver's left instead comes in L11.</span>
+<span class="gi">+ * &lt;p&gt;That is worth doing because the follower can do more than pass the sticks</span>
+<span class="gi">+ * through. It knows where the robot is, it can hold a heading, and it can drive</span>
+<span class="gi">+ * a path. None of that is possible while the follower is holding a stand-in, and</span>
+<span class="gi">+ * all of it is what L8 onwards is about.</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * &lt;p&gt;Handing the drivetrain over does not hand the driver's sticks over.</span>
+<span class="gi">+ * {@link L6FollowerDriveTrain#sticks} commands the four drivetrain, and a commanded</span>
+<span class="gi">+ * wheel beats whatever the follower worked out, so the driver still wins. L8 is</span>
+<span class="gi">+ * where the drivetrain go back.</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * &lt;p&gt;Two things to notice. {@code init} passes the drivetrain to</span>
+<span class="gi">+ * {@code initAfter}, which is how the follower gets it. And {@code stop} hands</span>
+<span class="gi">+ * the wheels back before the last follower update, or they keep whatever the</span>
+<span class="gi">+ * last loop commanded.</span>
+<span class="w"> </span> */
+<span class="w"> </span>@TeleOp(name = "L5 Holonomic", group = "Lessons")
+<span class="w"> </span>public class L6WheelsFollowerOpMode extends CorbelsTeleOp {
+</pre></div>
+</div>
+</section>
+<section id="a-change">
+<h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -29,7 +29,7 @@</span>
+<span class="w"> </span> * the wheels back before the last follower update, or they keep whatever the
+<span class="w"> </span> * last loop commanded.
+<span class="w"> </span> */
+<span class="gd">-@TeleOp(name = "L5 Holonomic", group = "Lessons")</span>
+<span class="gi">+@TeleOp(name = "L6 Follower Wheels", group = "Lessons")</span>
+<span class="w"> </span>public class L6WheelsFollowerOpMode extends CorbelsTeleOp {
+<span class="w"> </span>
+<span class="w"> </span>    private L5HolonomicDriveTrain drivetrain;
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -32,7 +32,7 @@</span>
+<span class="w"> </span>@TeleOp(name = "L6 Follower Wheels", group = "Lessons")
+<span class="w"> </span>public class L6WheelsFollowerOpMode extends CorbelsTeleOp {
+<span class="w"> </span>
+<span class="gd">-    private L5HolonomicDriveTrain drivetrain;</span>
+<span class="gi">+    private L6FollowerDriveTrain drivetrain;</span>
+<span class="w"> </span>
+<span class="w"> </span>    @Override
+<span class="w"> </span>    public void init() {
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 2 lines, write 2 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -37,8 +37,8 @@</span>
+<span class="w"> </span>    @Override
+<span class="w"> </span>    public void init() {
+<span class="w"> </span>        initBefore();
+<span class="gd">-        drivetrain = new L5HolonomicDriveTrain(hardware);</span>
+<span class="gd">-        initAfter();</span>
+<span class="gi">+        drivetrain = new L6FollowerDriveTrain(hardware);</span>
+<span class="gi">+        initAfter(drivetrain);</span>
+<span class="w"> </span>    }
+<span class="w"> </span>
+<span class="w"> </span>    @Override
+</pre></div>
+</div>
+</section>
+</section>
 <section id="l6followerdrivetrain">
 <h2>L6FollowerDriveTrain<a class="headerlink" href="#l6followerdrivetrain" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L6FollowerDriveTrain.java</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L6FollowerDriveTrain.java</span></code></p>
 <section id="todo-1">
 <h3>TODO 1<a class="headerlink" href="#todo-1" title="Link to this heading">¶</a></h3>
-<p>Delete 6 blank lines, write 4 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
+<p>Delete 6 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
 <span class="gu">@@ -36,12 +36,10 @@</span>
 <span class="w"> </span>     * {@link LessonsDriveTrain} sets out.
 <span class="w"> </span>     */
@@ -279,9 +418,9 @@
 </section>
 <section id="todo-2">
 <h3>TODO 2<a class="headerlink" href="#todo-2" title="Link to this heading">¶</a></h3>
-<p>Delete 2 blank lines, write 4 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
+<p>Delete 2 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
 <span class="gu">@@ -56,8 +56,10 @@</span>
 <span class="w"> </span>        double turnCcwSpeed = powers.turn();
 <span class="w"> </span>
@@ -299,62 +438,14 @@
 </div>
 </section>
 </section>
-<section id="l6wheelsfolloweropmode">
-<h2>L6WheelsFollowerOpMode<a class="headerlink" href="#l6wheelsfolloweropmode" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L6WheelsFollowerOpMode.java</span></code></p>
-<section id="id1">
-<h3>TODO 1<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>Delete 4 blank lines, write 1 real line.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -31,10 +31,7 @@</span>
-<span class="w"> </span>@TeleOp(name = "L6 Follower Wheels", group = "Lessons")
-<span class="w"> </span>public class L6WheelsFollowerOpMode extends CorbelsTeleOp {
-<span class="w"> </span>
-<span class="gd">-    // TODO 1: L5 made an L5HolonomicDriveTrain. This lesson needs an</span>
-<span class="gd">-    //         L6FollowerDriveTrain instead, here and on the line below that</span>
-<span class="gd">-    //         builds it.</span>
-<span class="gd">-    private L5HolonomicDriveTrain drivetrain;</span>
-<span class="gi">+    private L6FollowerDriveTrain drivetrain;</span>
-<span class="w"> </span>
-<span class="w"> </span>    @Override
-<span class="w"> </span>    public void init() {
-</pre></div>
-</div>
-</section>
-<section id="id2">
-<h3>TODO 2<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p>Delete 7 blank lines, write 2 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
-<span class="gu">@@ -36,13 +36,8 @@</span>
-<span class="w"> </span>    @Override
-<span class="w"> </span>    public void init() {
-<span class="w"> </span>        initBefore();
-<span class="gd">-        drivetrain = new L5HolonomicDriveTrain(hardware);</span>
-<span class="gd">-        // TODO 2: hand the drivetrain to initAfter(), so the follower holds</span>
-<span class="gd">-        //         it. L2 through L5 called initAfter() with nothing, because</span>
-<span class="gd">-        //         they drove their own wheels.</span>
-<span class="gd">-        //         Works when: L6FollowerDriveTrainTest passes and the robot</span>
-<span class="gd">-        //         drives on the sticks.</span>
-<span class="gd">-        initAfter();</span>
-<span class="gi">+        drivetrain = new L6FollowerDriveTrain(hardware);</span>
-<span class="gi">+        initAfter(drivetrain);</span>
-<span class="w"> </span>    }
-<span class="w"> </span>
-<span class="w"> </span>    @Override
-</pre></div>
-</div>
-</section>
-</section>
 <section id="lessonsdrivetrain">
 <h2>LessonsDriveTrain<a class="headerlink" href="#lessonsdrivetrain" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/LessonsDriveTrain.java</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/LessonsDriveTrain.java</span></code></p>
 <section id="todo-4">
 <h3>TODO 4<a class="headerlink" href="#todo-4" title="Link to this heading">¶</a></h3>
-<p>Delete 2 blank lines, write 5 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
+<p>Delete 2 lines, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
 <span class="gu">@@ -212,8 +212,11 @@</span>
 <span class="w"> </span>     */
 <span class="w"> </span>    public void setCommandedWheels(double frontLeftPower, double frontRightPower,
@@ -374,9 +465,9 @@
 </section>
 <section id="todo-5">
 <h3>TODO 5<a class="headerlink" href="#todo-5" title="Link to this heading">¶</a></h3>
-<p>Delete 3 blank lines, write 1 real line.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
+<p>Delete 3 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
 <span class="gu">@@ -221,9 +221,7 @@</span>
 <span class="w"> </span>
 <span class="w"> </span>    /** Hands the wheels back to the follower. */
@@ -393,9 +484,9 @@
 </section>
 <section id="todo-6">
 <h3>TODO 6<a class="headerlink" href="#todo-6" title="Link to this heading">¶</a></h3>
-<p>Delete 10 blank lines, write 12 real lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- as the lesson leaves it</span>
-<span class="gi">+++ with this blank filled</span>
+<p>Delete 10 lines, write 12 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
 <span class="gu">@@ -248,16 +248,18 @@</span>
 <span class="w"> </span>        applyBrakeMode(manual);
 <span class="w"> </span>        lastDrivePowers = powers;
@@ -487,14 +578,19 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L6</a><ul>
+<li><a class="reference internal" href="#copies">Copies</a></li>
+<li><a class="reference internal" href="#l6wheelsfolloweropmode">L6WheelsFollowerOpMode</a><ul>
+<li><a class="reference internal" href="#comments-only">Comments only</a></li>
+<li><a class="reference internal" href="#id1">Comments only</a></li>
+<li><a class="reference internal" href="#id2">Comments only</a></li>
+<li><a class="reference internal" href="#a-change">A change</a></li>
+<li><a class="reference internal" href="#id3">A change</a></li>
+<li><a class="reference internal" href="#id4">A change</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#l6followerdrivetrain">L6FollowerDriveTrain</a><ul>
 <li><a class="reference internal" href="#todo-1">TODO 1</a></li>
 <li><a class="reference internal" href="#todo-2">TODO 2</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#l6wheelsfolloweropmode">L6WheelsFollowerOpMode</a><ul>
-<li><a class="reference internal" href="#id1">TODO 1</a></li>
-<li><a class="reference internal" href="#id2">TODO 2</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#lessonsdrivetrain">LessonsDriveTrain</a><ul>

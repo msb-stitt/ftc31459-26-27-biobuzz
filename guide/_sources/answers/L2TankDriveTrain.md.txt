@@ -1,12 +1,15 @@
 # L2TankDriveTrain
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L2TankDriveTrain.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L2TankDriveTrain.java`
 
-## TODO (L2b)
+## L2b
 
-What the lesson leaves blank:
+### TODO (L2b)
+
+Before L2b:
 
 ```java
         // TODO (L2b): call driveWheelsNow with four powers. The left stick runs both
@@ -14,7 +17,7 @@ What the lesson leaves blank:
         //       the four are the same number.
 ```
 
-What the solutions line has there:
+After L2b:
 
 ```java
         driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);

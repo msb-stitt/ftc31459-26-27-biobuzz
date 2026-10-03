@@ -18,10 +18,10 @@ whichever way the nose happens to be pointing.
 You write in two files, `L5HolonomicDriveTrain.java` and `L5HolonomicOpMode.java`, and the test
 needs both.
 
-:::{admonition} fig-mecanum-x
-:class: pencil
-The robot from above with its nose marked, and the top roller of each of the four wheels drawn as a
-line at 45 degrees, so the four lines make an X across the robot.
+:::{figure} ../_static/figures/fig-mecanum-x.png
+:name: fig-mecanum-x
+
+The robot from above with its nose marked, and the top roller of each of the four wheels drawn as a line at 45 degrees, so the four lines make an X across the robot.
 :::
 
 ## The steps

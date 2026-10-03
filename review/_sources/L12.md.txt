@@ -1,19 +1,41 @@
 # L12
 
-1 blank(s) in 1 file(s), 7 line(s) for the student to write.
+1 file(s) copied, then 2 change(s) in 1 file(s), 7 line(s) of code to write.
+
+## Copies
+
+- `lessons/L12RobotRelativeButtonOpMode.java` to `mytry/L12RobotRelativeButtonOpMode.java`
 
 ## L12RobotRelativeButtonOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L12RobotRelativeButtonOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L12RobotRelativeButtonOpMode.java`
 
-### TODO
+### Comments only
 
-Delete 5 blank lines, write 7 real lines.
+Delete 2 lines, write 0 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -39,11 +39,13 @@
+--- before this change
++++ after it
+@@ -9,8 +9,6 @@
+ /**
+  * L12: field relative normally, robot relative while the right bumper is held
+  * -- which is what a driver wants when lining up against a wall.
+- *
+- * <p>Passes when: LessonsTest.l12_theBumperSwitchesToRobotRelative
+  */
+ @TeleOp(name = "L12 Robot Relative Button", group = "Lessons")
+ public class L12RobotRelativeButtonOpMode extends CorbelsTeleOp {
+```
+
+### A change
+
+Delete 5 lines, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -40,11 +40,13 @@
          double forwardSpeed = -gamepad1.left_stick_y;
          double strafeLeftSpeed = -gamepad1.left_stick_x;
          double turnCcwSpeed = -gamepad1.right_stick_x;

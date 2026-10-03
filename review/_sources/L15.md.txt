@@ -1,19 +1,41 @@
 # L15
 
-1 blank(s) in 1 file(s), 2 line(s) for the student to write.
+1 file(s) copied, then 2 change(s) in 1 file(s), 2 line(s) of code to write.
+
+## Copies
+
+- `lessons/L15CombinedOpMode.java` to `mytry/L15CombinedOpMode.java`
 
 ## L15CombinedOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L15CombinedOpMode.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L15CombinedOpMode.java`
+
+### Comments only
+
+Delete 2 lines, write 0 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -24,8 +24,6 @@
+  *
+  * <p>The encoder localizer runs alongside the real one, so the field view shows
+  * both answers.
+- *
+- * <p>Passes when: LessonsTest.l15_everythingTogether
+  */
+ @TeleOp(name = "L15 Combined", group = "Lessons")
+ public class L15CombinedOpMode extends CorbelsTeleOp {
+```
 
 ### TODO 1
 
-Delete 3 blank lines, write 2 real lines.
+Delete 3 lines, write 2 lines.
 
 ```diff
---- as the lesson leaves it
-+++ with this blank filled
-@@ -40,9 +40,8 @@
+--- before this change
++++ after it
+@@ -41,9 +41,8 @@
  
      @Override
      protected void shadowLocalizers() {

@@ -1,25 +1,32 @@
 # L5HolonomicDriveTrain
 
-The blanks in this file, filled in from `solutions-03`:
+What each lesson's patch does to this file, in the order the lessons come, from
+applying `solutions/` on `solutions-try`:
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons/L5HolonomicDriveTrain.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L5HolonomicDriveTrain.java`
 
-## TODO 
+## L5
 
-What the lesson leaves blank:
+### A change
+
+Before L5:
 
 ```java
-        // TODO: work out each wheel's power, one named variable at a time, then
-        //       hand the four to driveWheelsNow. Three numbers add up differently
-        //       at each corner; the sources in this class's javadoc draw it.
+    public void sticks(double forwardSpeed, double turnCcwSpeed) {
+        double leftSpeed = forwardSpeed - turnCcwSpeed;
+        double rightSpeed = forwardSpeed + turnCcwSpeed;
+        driveWheelsNow(leftSpeed, rightSpeed, leftSpeed, rightSpeed);
 ```
 
-What the solutions line has there:
+After L5:
 
 ```java
+    public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
         double frontLeftPower = forwardSpeed - strafeLeftSpeed - turnCcwSpeed;
         double frontRightPower = forwardSpeed + strafeLeftSpeed + turnCcwSpeed;
         double backLeftPower = forwardSpeed + strafeLeftSpeed - turnCcwSpeed;
         double backRightPower = forwardSpeed - strafeLeftSpeed + turnCcwSpeed;
         driveWheelsNow(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
 ```
+
+It also changes 6 run(s) of comment lines, which are not shown.
