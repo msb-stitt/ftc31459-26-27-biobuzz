@@ -122,11 +122,13 @@ public final class NtApiCheck {
                 lastRun = waitForNewRun(subs.get(NtApiCheckOpMode.RUN), lastRun);
                 expect(lastRun != null, "run " + run + ": a new value of " + NtApiCheckOpMode.RUN);
                 if (lastRun == null) break;
-                waitForStep(subs.get(NtApiCheckOpMode.STEP), lastStep);
-            } else {
-                lastRun = waitForValue(subs.get(NtApiCheckOpMode.RUN)) == null ? null
-                        : subs.get(NtApiCheckOpMode.RUN).get().getString();
             }
+            // The server keeps a stopped OpMode's last values, so a value is
+            // no sign that it runs; a step that changes is.
+            boolean running = waitForRunning(subs.get(NtApiCheckOpMode.STEP));
+            expect(running, "run " + run + ": " + NtApiCheckOpMode.STEP + " moving, so the OpMode is running");
+            if (!running) break;
+            if (run == 1) lastRun = subs.get(NtApiCheckOpMode.RUN).get().getString();
             System.out.println("\nrun " + run);
             received.clear();
             for (Entry e : fixed) {
@@ -138,6 +140,9 @@ public final class NtApiCheck {
                                 + (want.equals(got) ? "" : ", got " + got));
                 received.computeIfAbsent(e.name, k -> new TreeSet<>()).add(got);
             }
+            // The one value that differs from run to run, so --log can tell
+            // this run's log from another's.
+            received.computeIfAbsent(NtApiCheckOpMode.RUN, k -> new TreeSet<>()).add(lastRun);
             long firstStep = changingValues(subs, received);
             if (run > 1) {
                 expect(firstStep < lastStep, "run " + run + ": the step began again (" + firstStep
@@ -245,14 +250,22 @@ public final class NtApiCheck {
         return null;
     }
 
-    /** Waits up to 30 s for the new run's first step, which is below the last run's. */
-    private static void waitForStep(GenericSubscriber step, long lastStep) throws InterruptedException {
-        long until = System.currentTimeMillis() + 30_000;
+    /**
+     * Waits up to 180 s for two different steps. One is not enough: the
+     * server sends a stopped OpMode's last step to a new subscriber.
+     */
+    private static boolean waitForRunning(GenericSubscriber step) throws InterruptedException {
+        Long first = null;
+        long until = System.currentTimeMillis() + 180_000;
         while (System.currentTimeMillis() < until) {
-            NetworkTableValue v = step.get();
-            if (v.isValid() && v.getInteger() < lastStep) return;
+            for (NetworkTableValue v : step.readQueue()) {
+                if (!v.isInteger()) continue;
+                if (first == null) first = v.getInteger();
+                else if (v.getInteger() != first) return true;
+            }
             Thread.sleep(20);
         }
+        return false;
     }
 
     /**
