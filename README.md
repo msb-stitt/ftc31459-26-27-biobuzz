@@ -32,6 +32,7 @@ runs it on its own.
 | Drive it without a gamepad | `./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --left_stick_y=-1 --right_stick_y=-1"` |
 | Every option the simulator takes | `./gradlew :TeamCode:simRun --args="--help"` |
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
+| Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
 | Hot reload TeamCode only | `./gradlew deploySloth` — see [PANELS.md](./PANELS.md); it does not configure in this checkout |
 | Build the guide | `ninja book` in `book/`, with `book/.venv/bin` on `PATH` |
 

@@ -217,4 +217,16 @@ afterEvaluate {
         // failure.
         ignoreExitValue = true
     }
+
+    // Reads NtApiCheckOpMode back over NetworkTables, from a robot (through
+    // adb forward) or a simRun, and fails on any mismatch. --args="--help" is
+    // not a thing here; NtApiCheck's javadoc lists the arguments.
+    tasks.register('ntApiCheck', JavaExec) {
+        group = 'verification'
+        description = 'Check NtApiCheckOpMode over NetworkTables 4 on 127.0.0.1:5810.'
+        dependsOn 'compileDebugUnitTestJavaWithJavac'
+        mainClass = 'org.firstinspires.ftc.teamcode.base.NtApiCheck'
+        classpath = tasks.named('testDebugUnitTest').get().classpath
+        workingDir = rootProject.projectDir
+    }
 }
