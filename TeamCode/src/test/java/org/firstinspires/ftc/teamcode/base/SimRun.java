@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
@@ -87,7 +88,14 @@ public final class SimRun {
             }
             set(typed, control);
         }
-        loop(plan, harness, typed);
+        try {
+            loop(plan, harness, typed);
+        } catch (IOException e) {
+            System.err.println("simRun: the NetworkTables server could not start on port "
+                    + SimPublisher.NT4_PORT + ": " + e.getMessage()
+                    + ". Is another simRun still running?");
+            System.exit(2);
+        }
     }
 
     /**
@@ -106,7 +114,8 @@ public final class SimRun {
      * the last step, so how far the robot goes follows real time rather than the
      * number of passes it took to get there.
      */
-    private static void loop(SimArgs.Plan plan, OpModeHarness harness, Gamepad typed) {
+    private static void loop(SimArgs.Plan plan, OpModeHarness harness, Gamepad typed)
+            throws IOException {
         Gamepad slot1 = harness == null ? new Gamepad() : harness.gamepad1;
         Gamepad slot2 = harness == null ? new Gamepad() : harness.gamepad2;
         boolean usePads = plan.form == SimArgs.Form.OPMODE_PAD

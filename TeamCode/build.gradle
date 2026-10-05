@@ -154,14 +154,16 @@ dependencies {
     // anyone asks. Note the coordinates are JitPack's, not the library's own:
     // the group is com.github.<owner>.<repo> and the version is the git tag,
     // with its leading v. All four modules publish there as of v0.2.1.
+    // Here the version is a commit on msb-stitt's nt-server branch, which
+    // carries the NetworkTables server, until that is merged and tagged.
     //
     // To use a locally built copy instead, run ./gradlew publishToMavenLocal in
     // the corbelsflightlog repo and depend on
     // 'io.github.mikestitt:corbelsflightlog-core:<version>' -- its own
     // coordinates, found through mavenLocal().
-    implementation 'com.github.MikeStitt.corbelsflightlog:corbelsflightlog-core:v0.2.1'
-    implementation 'com.github.MikeStitt.corbelsflightlog:corbelsflightlog-ftc:v0.2.1'
-    implementation 'com.github.MikeStitt.corbelsflightlog:corbelsflightlog-pedro:v0.2.1'
+    implementation 'com.github.msb-stitt.corbelsflightlog:corbelsflightlog-core:f67de51'
+    implementation 'com.github.msb-stitt.corbelsflightlog:corbelsflightlog-ftc:f67de51'
+    implementation 'com.github.msb-stitt.corbelsflightlog:corbelsflightlog-pedro:f67de51'
 
     testImplementation 'junit:junit:4.13.2'
 
@@ -214,5 +216,17 @@ afterEvaluate {
         // 130. Without this, the intended way to stop it reports a build
         // failure.
         ignoreExitValue = true
+    }
+
+    // Reads NtApiCheckOpMode back over NetworkTables, from a robot (through
+    // adb forward) or a simRun, and fails on any mismatch. --args="--help" is
+    // not a thing here; NtApiCheck's javadoc lists the arguments.
+    tasks.register('ntApiCheck', JavaExec) {
+        group = 'verification'
+        description = 'Check NtApiCheckOpMode over NetworkTables 4 on 127.0.0.1:5810.'
+        dependsOn 'compileDebugUnitTestJavaWithJavac'
+        mainClass = 'org.firstinspires.ftc.teamcode.base.NtApiCheck'
+        classpath = tasks.named('testDebugUnitTest').get().classpath
+        workingDir = rootProject.projectDir
     }
 }
