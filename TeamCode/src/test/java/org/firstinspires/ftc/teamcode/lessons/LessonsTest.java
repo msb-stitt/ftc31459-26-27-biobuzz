@@ -141,6 +141,46 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l060_aLetGoStickCountsAsCentred() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L060ShapingOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.03f;     // two sticks that were let go
+        h.gamepad1.right_stick_y = 0.04f;
+        h.loop();
+
+        assertEquals("inside the deadband, so the robot does not creep",
+                0.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        h.stop();
+    }
+
+    @Test
+    public void l060_halfAStickIsAQuarterOfThePower() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L060ShapingOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.gamepad1.right_stick_y = 0.5f;      // half back
+        h.loop();
+
+        assertEquals("half stick is quarter power",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals("and squaring keeps the sign",
+                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+
+        h.gamepad1.left_stick_y = -1.0f;      // fully forward
+        h.loop();
+        assertEquals("full stick still reaches full power",
+                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
