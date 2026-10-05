@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.api.PoseFactory;
+import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.drivetrain.Drivetrain;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Scheduler;
@@ -16,6 +17,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.base.CorbelsOpMode;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
+import org.firstinspires.ftc.teamcode.base.RobotHardware;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
@@ -333,6 +335,75 @@ public class LessonsTest {
         h.loop();
 
         assertWheels("2 asked for, so every wheel is divided by 2", h, 0, 1, 1, 0);
+        h.stop();
+    }
+
+    /**
+     * L110's mix, driven the way the follower drives it: three numbers in, four
+     * powers on the motors. Each assert names the wheel, so a wrong sign says
+     * which line it is on.
+     */
+    @Test
+    public void l110_mixGivesEachWheelItsOwnSum() {
+        OpModeHarness.FakeMotor fl = new OpModeHarness.FakeMotor();
+        OpModeHarness.FakeMotor fr = new OpModeHarness.FakeMotor();
+        OpModeHarness.FakeMotor bl = new OpModeHarness.FakeMotor();
+        OpModeHarness.FakeMotor br = new OpModeHarness.FakeMotor();
+        Drivetrain drivetrain = MyTry.make("L110FollowerDriveTrain", Drivetrain.class, new RobotHardware(
+                fl.motor, fr.motor, bl.motor, br.motor,
+                new OpModeHarness.FakeImu().imu, OpModeHarness.freshConfig()));
+
+        drivetrain.drive(new DrivePowers(0.5, 0, 0), true);
+        assertEquals("forward: front left", 0.5, fl.power, EPS);
+        assertEquals("forward: front right", 0.5, fr.power, EPS);
+        assertEquals("forward: back left", 0.5, bl.power, EPS);
+        assertEquals("forward: back right", 0.5, br.power, EPS);
+
+        drivetrain.drive(new DrivePowers(0, 0.5, 0), true);
+        assertEquals("strafe left: front left", -0.5, fl.power, EPS);
+        assertEquals("strafe left: front right", 0.5, fr.power, EPS);
+        assertEquals("strafe left: back left", 0.5, bl.power, EPS);
+        assertEquals("strafe left: back right", -0.5, br.power, EPS);
+
+        drivetrain.drive(new DrivePowers(0, 0, 0.5), true);
+        assertEquals("turn left: front left", -0.5, fl.power, EPS);
+        assertEquals("turn left: front right", 0.5, fr.power, EPS);
+        assertEquals("turn left: back left", -0.5, bl.power, EPS);
+        assertEquals("turn left: back right", 0.5, br.power, EPS);
+    }
+
+    @Test
+    public void l110_theFollowerDrivesTheSticks() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L110FollowerOpMode"));
+        h.init();
+        h.start();
+
+        h.gamepad1.left_stick_x = -0.5f;      // half left
+        h.loop();
+        assertWheels("the follower slides it left", h, -0.25, 0.25, 0.25, -0.25);
+
+        h.gamepad1.left_stick_x = 0f;
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+        assertWheels("the follower drives it forward", h, 0.25, 0.25, 0.25, 0.25);
+
+        h.gamepad1.left_stick_y = 0f;
+        h.gamepad1.right_stick_x = 0.5f;      // half right
+        h.loop();
+        assertWheels("the follower turns it right", h, 0.25, -0.25, 0.25, -0.25);
+        h.stop();
+    }
+
+    @Test
+    public void l110_aCornerOfTheStickIsStillScaled() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L110FollowerOpMode"));
+        h.init();
+        h.start();
+
+        h.gamepad1.left_stick_y = -1f;        // all the way forward
+        h.gamepad1.left_stick_x = -1f;        // and all the way left
+        h.loop();
+        assertWheels("the drivetrain divides by 2 as L090 did", h, 0, 1, 1, 0);
         h.stop();
     }
 
