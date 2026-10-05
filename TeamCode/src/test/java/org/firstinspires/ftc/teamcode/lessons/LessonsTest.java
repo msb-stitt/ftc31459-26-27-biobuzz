@@ -285,6 +285,57 @@ public class LessonsTest {
         h.stop();
     }
 
+    /** The four wheel powers, front left, front right, back left, back right. */
+    private static void assertWheels(String message, OpModeHarness h,
+                                     double fl, double fr, double bl, double br) {
+        assertEquals(message + ": front left", fl, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals(message + ": front right", fr, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals(message + ": back left", bl, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals(message + ": back right", br, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+    }
+
+    @Test
+    public void l090_theLeftStickSlidesLeft() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L090MecanumOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_x = -0.5f;      // half left
+        h.loop();
+
+        assertWheels("sliding left runs the front right and back left forward", h,
+                -0.25, 0.25, 0.25, -0.25);
+        h.stop();
+    }
+
+    @Test
+    public void l090_forwardAndTurnStillWork() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L090MecanumOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+        assertWheels("forward runs every wheel forward", h, 0.25, 0.25, 0.25, 0.25);
+
+        h.gamepad1.left_stick_y = 0f;
+        h.gamepad1.right_stick_x = 0.5f;      // half right
+        h.loop();
+        assertWheels("turning right runs the left side forward", h, 0.25, -0.25, 0.25, -0.25);
+        h.stop();
+    }
+
+    @Test
+    public void l090_aCornerOfTheStickIsScaled() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L090MecanumOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -1.0f;      // full forward
+        h.gamepad1.left_stick_x = -1.0f;      // and full left
+        h.loop();
+
+        assertWheels("2 asked for, so every wheel is divided by 2", h, 0, 1, 1, 0);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
