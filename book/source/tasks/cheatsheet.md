@@ -32,6 +32,7 @@ names that lesson: its check is on the floor.
 | L030 | `L030 Speeds` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l030*'` |
 | L040 | `L040 Tank` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l040*'` |
 | L050 | `L050 Blocks` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l050*'` |
+| L060 | `L060 Shaping` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l060*'` |
 
 ## Who writes what in the shared drivetrain
 
@@ -76,14 +77,16 @@ A key ending in `...` has a name added to the end of it, one per wheel or per lo
 | `measure/ticksPerInch` | `L17aMeasureTicksPerInchOpMode` |
 | `measure/turnRadius_in` | `L17bMeasureTurnRadiusOpMode` |
 | `measure/wheel_inches` | `L17bMeasureTurnRadiusOpMode` |
-| `speed/left` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode` |
-| `speed/right` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode` |
+| `power/left` | `L060ShapingOpMode` |
+| `power/right` | `L060ShapingOpMode` |
+| `speed/left` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode` |
+| `speed/right` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode` |
 | `stick/leftX` | `L2aSticksOpMode`, `L2bTankOpMode` |
-| `stick/leftY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
+| `stick/leftY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
 | `stick/left_raw` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
 | `stick/left_shaped` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
 | `stick/rightX` | `L2aSticksOpMode`, `L2bTankOpMode` |
-| `stick/rightY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
+| `stick/rightY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
 | `stick/right_raw` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
 | `stick/right_shaped` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
 | `wheel/...` | `LessonsDriveTrain` |
