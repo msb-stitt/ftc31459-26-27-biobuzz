@@ -20,6 +20,7 @@ finished, so read it after that one.
 :caption: Drive it with the sticks
 
 tasks/l020
+tasks/l030
 tasks/l2a
 tasks/l2
 tasks/l3
