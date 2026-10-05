@@ -16,6 +16,8 @@ L080ArcadeOpMode
 L090MecanumOpMode
 L110FollowerDriveTrain
 L110FollowerOpMode
+L120CompareLocalizersOpMode
+L120EncoderLocalizer
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
