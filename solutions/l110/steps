@@ -1,0 +1,6 @@
+# L110: both starters, copied into mytry and filled in.
+copy lessons/L110FollowerDriveTrain.java mytry/L110FollowerDriveTrain.java
+copy lessons/L110FollowerOpMode.java mytry/L110FollowerOpMode.java
+patch L110FollowerDriveTrain.patch
+patch L110FollowerOpMode.patch
+test *LessonsTest.l110*

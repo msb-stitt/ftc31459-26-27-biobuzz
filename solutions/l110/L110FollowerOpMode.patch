@@ -1,0 +1,31 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
+index 4947cd1..9c60e12 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
+@@ -31,6 +31,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+     // When on L110S040, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s040
+     // for what to do here.
++    L110FollowerDriveTrain drivetrain;
+ 
+     // public: OpMode's own init is public, so this one has to be too.
+     @Override
+@@ -40,8 +41,9 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+         // When on L110S050, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s050
+         // for what to do here.
++        drivetrain = new L110FollowerDriveTrain(hardware);
+ 
+-        initAfter();
++        initAfter(drivetrain);
+     }
+ 
+     // public: OpMode's own start is public, so this one has to be too.
+@@ -78,6 +80,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+         // When on L110S060, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s060
+         // for what to do here.
++        drivetrain.sticks(forward, strafe, turn);
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
