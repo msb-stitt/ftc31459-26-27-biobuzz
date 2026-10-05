@@ -1,0 +1,4 @@
+# L080: the arcade starter, copied into mytry and filled in.
+copy lessons/L080ArcadeOpMode.java mytry/L080ArcadeOpMode.java
+patch L080ArcadeOpMode.patch
+test *LessonsTest.l080*
