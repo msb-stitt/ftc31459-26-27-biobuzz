@@ -778,6 +778,32 @@ public class LessonsTest {
         assertEquals("and still faces +y", 90.0, Math.toDegrees(follower.pose().heading()), 15.0);
     }
 
+    @Test
+    public void l130_autoDrivesForwardThenStrafesSideways() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L130ForwardThenStrafeOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+        // The first leg runs straight up x = 72, so x holds until near the corner.
+        double drift = 0;
+        long deadline = System.nanoTime() + 3_000_000_000L;
+        while (follower.pose().y() < 66 && System.nanoTime() < deadline) {
+            h.loop();
+            drift = Math.max(drift, Math.abs(follower.pose().x() - 72));
+            OpModeHarness.sleep(5);
+        }
+        runUntilDone(h, follower, 6.0);
+        h.stop();
+        assertEquals("drove straight up to the corner first", 0.0, drift, 2.0);
+
+        // Forward to (72, 72), then 24 inches of strafe to the robot's right.
+        Pose end = follower.pose();
+        assertEquals("strafed 24 inches in x", 96.0, end.x(), 2.0);
+        assertEquals("and stayed on the line it drove up", 72.0, end.y(), 2.0);
+        assertEquals("never turned, so it still faces +y",
+                90.0, Math.toDegrees(end.heading()), 15.0);
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test
