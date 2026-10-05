@@ -1,0 +1,4 @@
+# L125 starts from its starter.
+copy lessons/L125Drive24OpMode.java mytry/L125Drive24OpMode.java
+patch L125Drive24OpMode.patch
+test *LessonsTest.l125_*
