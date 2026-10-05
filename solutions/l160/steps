@@ -1,0 +1,4 @@
+# L160 starts from its starter.
+copy lessons/L160HeadingHoldOpMode.java mytry/L160HeadingHoldOpMode.java
+patch L160HeadingHoldOpMode.patch
+test *LessonsTest.l160_*

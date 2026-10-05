@@ -1,0 +1,31 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
+index c9668d0..61820d9 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
+@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
++import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L160: hold the heading the driver left. Let go of the turn stick and the
+@@ -29,6 +31,7 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+     boolean previousButtonA;
+ 
+     CorbelsMecanum drivetrain;
++    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
+ 
+     // public: OpMode's own init is public, so this one has to be too.
+     @Override
+@@ -70,6 +73,8 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+         // When on L160S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
+         // for what to do here.
++        turn = hold.turn(follower, turn);
++        Tracker.publish("heading/holding", hold.target() != null);
+ 
+         double strafe = squared(deadband(-leftStickX, band));
+         Tracker.publish("arcade/strafe", strafe);
