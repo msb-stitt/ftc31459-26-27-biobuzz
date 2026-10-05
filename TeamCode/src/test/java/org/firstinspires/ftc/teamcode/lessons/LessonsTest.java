@@ -234,6 +234,57 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l080_theLeftStickDrivesBothSides() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L080ArcadeOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+
+        assertEquals("half forward is a quarter power on every wheel",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        h.stop();
+    }
+
+    @Test
+    public void l080_theRightStickTurns() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L080ArcadeOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.right_stick_x = 0.5f;      // half right
+        h.loop();
+
+        assertEquals("turning right drives the left side forward",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals("and the right side back",
+                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        h.stop();
+    }
+
+    @Test
+    public void l080_tooMuchIsScaledNotCut() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L080ArcadeOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -1.0f;      // full forward
+        h.gamepad1.right_stick_x = 0.5f;      // half right
+        h.loop();
+
+        assertEquals("1.25 asked for, so the biggest is brought down to 1",
+                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals(1.0, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals("0.75 asked for, divided by the same 1.25",
+                0.6, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals(0.6, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
