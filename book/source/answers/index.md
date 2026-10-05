@@ -22,6 +22,7 @@ L125Drive24OpMode
 L130ForwardThenStrafeOpMode
 L140FieldRelativeOpMode
 L150RobotRelativeButtonOpMode
+L160HeadingHoldOpMode
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain

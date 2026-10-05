@@ -868,6 +868,28 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l170_pressingYDrivesToAPoseAndTheDriverCanTakeOver() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L170DriveToPoseOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+        follower.setPose(POSES.of(72, 72, 0));
+
+        h.gamepad1.y = true;
+        h.loop();
+        h.gamepad1.y = false;
+        h.loop();
+        assertEquals("the command is driving, not the sticks",
+                Follower.Mode.HOLD, follower.mode());
+
+        h.gamepad1.left_stick_y = -1.0f;           // the driver grabs the stick
+        h.loop();
+        assertEquals("manual control returns", Follower.Mode.MANUAL, follower.mode());
+        assertEquals(1.0, h.wheelsForward(), 1e-3);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test
