@@ -18,6 +18,7 @@ L110FollowerDriveTrain
 L110FollowerOpMode
 L120CompareLocalizersOpMode
 L120EncoderLocalizer
+L125Drive24OpMode
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
