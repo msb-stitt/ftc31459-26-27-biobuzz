@@ -1,0 +1,4 @@
+# L170 starts from its starter.
+copy lessons/L170DriveToPoseOpMode.java mytry/L170DriveToPoseOpMode.java
+patch L170DriveToPoseOpMode.patch
+test *LessonsTest.l170_*

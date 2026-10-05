@@ -1,0 +1,40 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
+index 9a9e842..6cc5dac 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
+@@ -1,6 +1,7 @@
+ package org.firstinspires.ftc.teamcode.mytry;
+ 
+ import com.pedropathing.api.PoseFactory;
++import com.pedropathing.ivy.commands.Commands;
+ import com.pedropathing.math.Pose;
+ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+@@ -45,6 +46,10 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
+         // When on L170S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s030
+         // for what to do here.
++        buttons.whenPressed(() -> gamepad1.y, Commands.instant(() -> {
++            follower.hold(target);
++            drivingItself = true;
++        }));
+     }
+ 
+     // public: OpMode's own init is public, so this one has to be too.
+@@ -124,6 +129,16 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
+         // When on L170S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
+         // for what to do here.
++        if (drivingItself) {
++            if (!driverWantsControl) {
++                Tracker.publish("drive/mode", "AUTO");
++                drivetrain.releaseCommandedWheels();
++                return;
++            }
++            drivingItself = false;
++            follower.manual(0, 0, 0);
++        }
++        Tracker.publish("drive/mode", "DRIVER");
+         double heading = follower.pose().heading();
+         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
+         double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
