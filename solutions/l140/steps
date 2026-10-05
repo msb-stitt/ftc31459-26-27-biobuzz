@@ -1,0 +1,4 @@
+# L140 starts from its starter.
+copy lessons/L140FieldRelativeOpMode.java mytry/L140FieldRelativeOpMode.java
+patch L140FieldRelativeOpMode.patch
+test *LessonsTest.l140_*

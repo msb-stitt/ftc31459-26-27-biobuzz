@@ -1,0 +1,16 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
+index 9e2f50a..eec437d 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
+@@ -74,7 +74,10 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+         // When on L140S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l140.html#l140s040
+         // for what to do here.
+-        drivetrain.sticks(forward, strafe, turn);
++        double heading = follower.pose().heading();
++        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
++        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
++        drivetrain.sticks(robotForward, robotStrafe, turn);
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
