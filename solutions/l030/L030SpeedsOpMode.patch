@@ -1,0 +1,19 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java
+index 156cd3d..8c37518 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java
+@@ -51,10 +51,14 @@ public class L030SpeedsOpMode extends CorbelsTeleOp {
+         // When on L030S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s030
+         // for what to do here.
++        double leftSpeed = -leftStickY;
++        Tracker.publish("speed/left", leftSpeed);
+ 
+         // When on L030S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s040
+         // for what to do here.
++        double rightSpeed = -rightStickY;
++        Tracker.publish("speed/right", rightSpeed);
+ 
+         loopAfter();
+     }

@@ -1,0 +1,4 @@
+# L030: the speeds starter, copied into mytry and filled in.
+copy lessons/L030SpeedsOpMode.java mytry/L030SpeedsOpMode.java
+patch L030SpeedsOpMode.patch
+test *LessonsTest.l030*
