@@ -1,0 +1,4 @@
+# L130 starts from its starter.
+copy lessons/L130ForwardThenStrafeOpMode.java mytry/L130ForwardThenStrafeOpMode.java
+patch L130ForwardThenStrafeOpMode.patch
+test *LessonsTest.l130_*
