@@ -38,6 +38,7 @@ names that lesson: its check is on the floor.
 | L090 | `L090 Mecanum` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l090*'` |
 | L110 | `L110 Follower` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l110*'` |
 | L120 | `L120 Compare Localizers` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l120_theEncoderLocalizerRunsAlongsideAndIsLogged' --tests '*L120EncoderLocalizerTest*'` |
+| L125 | `L125 Drive 24` (Autonomous) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l125*'` |
 
 ## Who writes what in the shared drivetrain
 
