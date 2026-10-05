@@ -88,6 +88,43 @@ public class LessonsTest {
                 -0.5, number(values, "speed/right"), EPS);
     }
 
+    // -------------------------------------------------------------- L040
+
+    @Test
+    public void l040_eachSpeedDrivesItsOwnSide() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L040TankOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -1.0f;      // pushed away from the driver
+        h.gamepad1.right_stick_y = 0.5f;      // pulled halfway back
+        h.loop();
+
+        assertEquals("the left speed drives the front left wheel",
+                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals("and the back left wheel",
+                1.0, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals("the right speed drives the front right wheel",
+                -0.5, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+        assertEquals("and the back right wheel",
+                -0.5, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        h.stop();
+    }
+
+    @Test
+    public void l040_bothSticksForwardDriveTheSimulatedRobotForward() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L040TankOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -1.0f;      // both sticks fully forward
+        h.gamepad1.right_stick_y = -1.0f;
+        h.loops(100, 0);                      // 100 x 10 ms of simulated time
+
+        Pose pose = h.robot.localizer.state().pose();
+        assertTrue("drove forward, and got a fair way: " + forwardOf(pose), forwardOf(pose) > 40);
+        assertEquals("no sideways drift", 0, lateralOf(pose), EPS);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
