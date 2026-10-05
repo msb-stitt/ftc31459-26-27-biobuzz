@@ -1,0 +1,4 @@
+# L040: the tank starter, copied into mytry and filled in.
+copy lessons/L040TankOpMode.java mytry/L040TankOpMode.java
+patch L040TankOpMode.patch
+test *LessonsTest.l040*
