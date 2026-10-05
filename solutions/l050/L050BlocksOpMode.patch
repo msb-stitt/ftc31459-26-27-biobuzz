@@ -1,0 +1,15 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
+index 839cc0f..cdf4117 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
+@@ -33,6 +33,10 @@ public class L050BlocksOpMode extends CorbelsTeleOp {
+         // When on L050S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+         // for what to do here.
++        hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
++        hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());
++        hardware.backLeft.setDirection(hardware.mecanumConfig.backLeftDirection.get());
++        hardware.backRight.setDirection(hardware.mecanumConfig.backRightDirection.get());
+ 
+         initAfter();
+     }

@@ -1,0 +1,4 @@
+# L050: the blocks starter, copied into mytry and filled in.
+copy lessons/L050BlocksOpMode.java mytry/L050BlocksOpMode.java
+patch L050BlocksOpMode.patch
+test *LessonsTest.l050*
