@@ -181,6 +181,59 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l070_logsTheAButton() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L070ButtonsOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.a = true;
+        h.loop();
+        assertEquals("A held down", true, Tracker.values().get("button/a"));
+
+        h.gamepad1.a = false;
+        h.loop();
+        assertEquals("A let go", false, Tracker.values().get("button/a"));
+        h.stop();
+    }
+
+    @Test
+    public void l070_saysWhenTheAButtonIsPressedAndReleased() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L070ButtonsOpMode"));
+        h.init();
+        h.start();
+        h.loop();
+        assertEquals("nothing has changed yet", null, Tracker.values().get("button/event"));
+
+        h.gamepad1.a = true;
+        h.loop();
+        assertEquals("the loop the button went down on says so",
+                "A pressed", Tracker.values().get("button/event"));
+
+        h.loop();
+        assertEquals("holding it says nothing new",
+                "A pressed", Tracker.values().get("button/event"));
+
+        h.gamepad1.a = false;
+        h.loop();
+        assertEquals("letting go says so",
+                "A released", Tracker.values().get("button/event"));
+        h.stop();
+    }
+
+    @Test
+    public void l070_logsBothSticksSideways() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L070ButtonsOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_x = 0.5f;
+        h.gamepad1.right_stick_x = -0.25f;
+        h.loop();
+
+        assertEquals(0.5, number(Tracker.values(), "stick/leftX"), EPS);
+        assertEquals(-0.25, number(Tracker.values(), "stick/rightX"), EPS);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
