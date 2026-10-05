@@ -315,7 +315,7 @@
 <figure class="align-default" id="fig-l180-aiming">
 <img alt="../_images/fig-l180-aiming.png" src="../_images/fig-l180-aiming.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot near the bottom of the field, right of the middle, its arrow pointing up and to the right, and the list showing <code class="docutils literal notranslate"><span class="pre">drive/mode</span></code> at DRIVER, <code class="docutils literal notranslate"><span class="pre">heading/holding</span></code> green and <code class="docutils literal notranslate"><span class="pre">target_deg</span></code> at 45, <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> at x 72, y 10.500 and heading 90, and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 93.325, y 14.375 and heading 44.983.</span><a class="headerlink" href="#fig-l180-aiming" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot near the bottom of the field, right of the middle, its arrow pointing up and to the right, and the list showing <code class="docutils literal notranslate"><span class="pre">drive/mode</span></code> at DRIVER, <code class="docutils literal notranslate"><span class="pre">heading/holding</span></code> green and <code class="docutils literal notranslate"><span class="pre">target_deg</span></code> at 45, <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> at x 72, y 10.500 and heading 44.958, and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 96.628, y 15.069 and heading 44.958.</span><a class="headerlink" href="#fig-l180-aiming" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>One teleop with all of it in. The sticks drive field relative and hold the heading they were left
@@ -386,8 +386,9 @@ Y. Read the code without it: the hold would turn the robot back to that old head
 folder. Then open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and both folders in it.</p>
 <p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">target_deg</span></code> reads 45. The robot turns until its arrow points up and to the right, and
 <code class="docutils literal notranslate"><span class="pre">pinPoint/heading_deg</span></code> comes to about 45. All the while it drives to the right, and <code class="docutils literal notranslate"><span class="pre">pinPoint/x_in</span></code>
-climbs. <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> is there, and it stays at x 72 and y 10.5. The simulator moves the
-robot, but it turns no wheel encoders, so your localizer counts nothing.</p>
+climbs. <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> is there. Its heading comes to about 45 too, because the simulator
+turns the IMU, but it stays at x 72 and y 10.5. The simulator turns no wheel encoders, so your
+localizer counts no distance.</p>
 </section>
 <section id="l180s050">
 <span id="l180s050-drive-all-four"></span><h3>L180S050: drive all four<a class="headerlink" href="#l180s050" title="Link to this heading">¶</a></h3>
