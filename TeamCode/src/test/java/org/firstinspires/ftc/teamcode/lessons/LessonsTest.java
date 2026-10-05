@@ -125,6 +125,22 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l050_eachMotorTakesItsDirectionFromTheConfig() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L050BlocksOpMode"));
+        h.init();
+
+        assertEquals("front left", Constants.drivetrainConfig.frontLeftDirection.get(),
+                h.motors.get(OpModeHarness.FRONT_LEFT).direction);
+        assertEquals("front right", Constants.drivetrainConfig.frontRightDirection.get(),
+                h.motors.get(OpModeHarness.FRONT_RIGHT).direction);
+        assertEquals("back left", Constants.drivetrainConfig.backLeftDirection.get(),
+                h.motors.get(OpModeHarness.BACK_LEFT).direction);
+        assertEquals("back right", Constants.drivetrainConfig.backRightDirection.get(),
+                h.motors.get(OpModeHarness.BACK_RIGHT).direction);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
