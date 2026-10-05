@@ -1,0 +1,6 @@
+# L195: all three starters, copied into mytry, and the drivetrain filled in.
+copy lessons/L195MeasureTicksPerInchOpMode.java mytry/L195MeasureTicksPerInchOpMode.java
+copy lessons/L195MeasureTurnRadiusOpMode.java mytry/L195MeasureTurnRadiusOpMode.java
+copy lessons/L195TicksDriveTrain.java mytry/L195TicksDriveTrain.java
+patch L195TicksDriveTrain.patch
+test *LessonsTest.l195*

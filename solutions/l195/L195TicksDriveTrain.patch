@@ -1,0 +1,15 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L195TicksDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L195TicksDriveTrain.java
+index 5b356fe..a354018 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L195TicksDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L195TicksDriveTrain.java
+@@ -30,6 +30,10 @@ class L195TicksDriveTrain extends CorbelsMecanum {
+         // When on L195S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l195.html#l195s030
+         // for what to do here.
++        ticks[FL] = hardware.frontLeft.getCurrentPosition();
++        ticks[FR] = hardware.frontRight.getCurrentPosition();
++        ticks[BL] = hardware.backLeft.getCurrentPosition();
++        ticks[BR] = hardware.backRight.getCurrentPosition();
+         return ticks;
+     }
+ }
