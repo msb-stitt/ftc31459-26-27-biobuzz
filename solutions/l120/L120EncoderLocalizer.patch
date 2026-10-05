@@ -1,0 +1,31 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java
+index fdb4fd7..e0ee10b 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java
+@@ -51,10 +51,26 @@ class L120EncoderLocalizer implements Localizer {
+         // When on L120S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s040
+         // for what to do here.
++        if (lastWheels == null) {
++            lastWheels = wheels.clone();
++            lastRawHeading = rawHeading;
++            return;
++        }
++
++        double frontLeft = wheels[0] - lastWheels[0];
++        double frontRight = wheels[1] - lastWheels[1];
++        double backLeft = wheels[2] - lastWheels[2];
++        double backRight = wheels[3] - lastWheels[3];
++
++        double forward = (frontLeft + frontRight + backLeft + backRight) / 4;
++        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4;
+ 
+         // When on L120S050, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s050
+         // for what to do here.
++        double heading = rawHeading + headingOffset;
++        x += forward * Math.cos(heading) - strafe * Math.sin(heading);
++        y += forward * Math.sin(heading) + strafe * Math.cos(heading);
+ 
+         lastWheels = wheels.clone();
+         lastRawHeading = rawHeading;

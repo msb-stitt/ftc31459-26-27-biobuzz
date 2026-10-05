@@ -1,0 +1,7 @@
+# L120: both starters, copied into mytry and filled in.
+copy lessons/L120CompareLocalizersOpMode.java mytry/L120CompareLocalizersOpMode.java
+copy lessons/L120EncoderLocalizer.java mytry/L120EncoderLocalizer.java
+patch L120CompareLocalizersOpMode.patch
+patch L120EncoderLocalizer.patch
+test *LessonsTest.l120*
+test *L120EncoderLocalizerTest*
