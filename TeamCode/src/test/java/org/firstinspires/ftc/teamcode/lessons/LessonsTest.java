@@ -67,6 +67,27 @@ public class LessonsTest {
                 0.5, number(values, "stick/rightY"), EPS);
     }
 
+    // -------------------------------------------------------------- L030
+
+    @Test
+    public void l030_eachSpeedIsItsStickTurnedRound() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L030SpeedsOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -1.0f;      // pushed away from the driver
+        h.gamepad1.right_stick_y = 0.5f;      // pulled halfway back
+        h.loop();
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertEquals("the left stick still as the gamepad gives it",
+                -1.0, number(values, "stick/leftY"), EPS);
+        assertEquals("the left stick pushed away is full speed forward",
+                1.0, number(values, "speed/left"), EPS);
+        assertEquals("the right stick pulled halfway back is half speed backward",
+                -0.5, number(values, "speed/right"), EPS);
+    }
+
     // -------------------------------------------------------------- L2a
 
     @Test
