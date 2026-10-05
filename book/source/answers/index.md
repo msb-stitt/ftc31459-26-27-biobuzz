@@ -10,6 +10,7 @@ L020SticksOpMode
 L030SpeedsOpMode
 L040TankOpMode
 L050BlocksOpMode
+L060ShapingOpMode
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
