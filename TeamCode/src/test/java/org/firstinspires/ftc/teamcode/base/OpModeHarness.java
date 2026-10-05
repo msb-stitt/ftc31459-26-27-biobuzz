@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.DoubleSupplier;
 
 /**
  * Runs a real OpMode on a laptop: simulated drivetrain, fake motors and a
@@ -112,20 +113,42 @@ public final class OpModeHarness {
         }
     }
 
-    /** An IMU whose heading the test sets. */
+    /**
+     * An IMU. On its own, its heading is what a test sets in {@link #yawRadians}.
+     * After {@link #follow}, it reads how far the simulated robot has turned since
+     * then, or since the last {@code resetYaw}, wrapped to -pi to pi as the real
+     * one is.
+     */
     public static final class FakeImu implements InvocationHandler {
         public double yawRadians;
+        /** How far the robot has turned, unwrapped; null until {@link #follow}. */
+        private DoubleSupplier turned;
+        /** What {@link #turned} read when the yaw was last zero. */
+        private double zero;
 
         public final IMU imu = (IMU) Proxy.newProxyInstance(
                 IMU.class.getClassLoader(), new Class<?>[]{IMU.class}, this);
+
+        /** Reads its heading from {@code turned} from now on, starting at zero. */
+        public void follow(DoubleSupplier turned) {
+            this.turned = turned;
+            zero = turned.getAsDouble();
+        }
+
+        private double yaw() {
+            if (turned == null) return yawRadians;
+            double a = turned.getAsDouble() - zero;
+            return Math.atan2(Math.sin(a), Math.cos(a));
+        }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) {
             switch (method.getName()) {
                 case "getRobotYawPitchRollAngles":
-                    return new YawPitchRollAngles(AngleUnit.RADIANS, yawRadians, 0, 0, 0);
+                    return new YawPitchRollAngles(AngleUnit.RADIANS, yaw(), 0, 0, 0);
                 case "resetYaw":
                     yawRadians = 0;
+                    if (turned != null) zero = turned.getAsDouble();
                     return null;
                 default:
                     return defaultValue(method.getReturnType());
@@ -266,6 +289,9 @@ public final class OpModeHarness {
                 motors.get(FRONT_RIGHT).power,
                 motors.get(BACK_LEFT).power,
                 motors.get(BACK_RIGHT).power));
+        // The IMU turns as the simulated robot does, and only then: putting the
+        // robot down at its start pose leaves it reading zero, as on the robot.
+        imu.follow(robot.localizer::turnedRadians);
         // Pedro gets the simulated drivetrain, which passes what it is asked
         // for on to the drivetrain the lesson built. Without that, nothing the
         // follower computes ever reaches a motor.

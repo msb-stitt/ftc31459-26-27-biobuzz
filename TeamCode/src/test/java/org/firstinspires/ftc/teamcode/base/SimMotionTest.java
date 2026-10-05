@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.math.Pose;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
@@ -101,6 +102,38 @@ public class SimMotionTest {
         assertTrue("drove forward, and got a fair way: " + forwardOf(pose), forwardOf(pose) > 40);
         assertEquals("no sideways drift", 0, lateralOf(pose), 1e-9);
         assertEquals("no turn", start().heading(), pose.heading(), 1e-9);
+        h.stop();
+    }
+
+    /** The IMU's yaw, in radians, as {@code HardwareWheelSource} reads it. */
+    private static double imuYaw(OpModeHarness h) {
+        return h.imu.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+    }
+
+    /**
+     * The IMU turns with the simulated robot, from zero where the robot was
+     * put down. With the harness not calling {@code follow}, this fails with
+     * {@code the IMU turned as far as the robot expected:<2.88...> but was:<0.0>};
+     * following the pose instead of the turning, with
+     * {@code put down at its start, the IMU reads zero expected:<0.0> but was:<1.57...>}.
+     */
+    @Test
+    public void theImuTurnsWithTheSimulatedRobot() {
+        OpModeHarness h = new OpModeHarness(new SimOpModes.Tank());
+        h.init();
+        h.start();
+        assertEquals("put down at its start, the IMU reads zero", 0, imuYaw(h), 1e-9);
+
+        h.gamepad1.left_stick_y = -1.0f;    // left forward, right back: clockwise
+        h.gamepad1.right_stick_y = 1.0f;
+        h.loops(100, 0);
+        double turned = h.robot.localizer.state().pose().heading() - start().heading();
+        double wrapped = Math.atan2(Math.sin(turned), Math.cos(turned));
+        assertTrue("it turned a fair way: " + turned, Math.abs(turned) > 1);
+        assertEquals("the IMU turned as far as the robot", wrapped, imuYaw(h), 1e-9);
+
+        h.imu.imu.resetYaw();
+        assertEquals("resetYaw makes here zero", 0, imuYaw(h), 1e-9);
         h.stop();
     }
 

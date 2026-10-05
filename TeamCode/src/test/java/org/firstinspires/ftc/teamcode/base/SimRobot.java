@@ -164,6 +164,8 @@ public final class SimRobot {
         private double vx;
         private double vy;
         private double omega;
+        /** How far the robot has really turned, which {@link #setPose} does not change. */
+        private double turned;
         private long lastNs;
         private MotionState state = MotionState.zero();
 
@@ -180,6 +182,15 @@ public final class SimRobot {
          */
         public void driveFrom(Supplier<double[]> chassisVelocitySupplier) {
             this.chassisVelocitySupplier = chassisVelocitySupplier;
+        }
+
+        /**
+         * How far the robot has turned since it was made, counter-clockwise, in
+         * radians, unwrapped. An IMU measures this; a localizer's pose is only
+         * what it was told plus what it saw.
+         */
+        public double turnedRadians() {
+            return turned;
         }
 
         @Override
@@ -214,6 +225,7 @@ public final class SimRobot {
             x += (vx * Math.cos(heading) - vy * Math.sin(heading)) * dt;
             y += (vx * Math.sin(heading) + vy * Math.cos(heading)) * dt;
             heading += omega * dt;
+            turned += omega * dt;
             state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));
         }
     }
