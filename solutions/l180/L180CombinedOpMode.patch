@@ -1,0 +1,21 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java
+index 7418c2d..a60ace0 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java
+@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+ import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+@@ -101,6 +102,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
+         // When on L180S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
+         // for what to do here.
++        shadowLocalizers.add("driveWheelEncoders",
++                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
+     }
+ 
+     // public: OpMode's own stop is public, so this one has to be too.

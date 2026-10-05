@@ -1,0 +1,4 @@
+# L180 starts from its starter.
+copy lessons/L180CombinedOpMode.java mytry/L180CombinedOpMode.java
+patch L180CombinedOpMode.patch
+test *LessonsTest.l180_*
