@@ -20,8 +20,8 @@ A `steps` file holds one step per line; `#` starts a comment.
     test *LessonsTest.l2a*
 
 `copy` paths are under teamcode/, and the copy does what a student does to it:
-the package line becomes mytry's, an `@Disabled` line goes, and a copy under a
-new name has its class renamed. `patch` names a file beside `steps`, applied
+the folder is made if it is not there, the package line becomes mytry's, an
+`@Disabled` line goes, and a copy under a new name has its class renamed. `patch` names a file beside `steps`, applied
 from the root with `git apply`. `test` is a `--tests` pattern.
 """
 
@@ -72,6 +72,7 @@ def copy(tree: Path, src: str, dst: str) -> None:
     old, new = Path(src).stem, Path(dst).stem
     if old != new:
         text = re.sub(rf"\b{old}\b", new, text)
+    target.parent.mkdir(exist_ok=True)
     target.write_text(text)
     run(tree, "git", "add", str(TEAMCODE / dst))
 

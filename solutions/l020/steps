@@ -1,0 +1,4 @@
+# L020: the sticks starter, copied into mytry and filled in.
+copy lessons/L020SticksOpMode.java mytry/L020SticksOpMode.java
+patch L020SticksOpMode.patch
+test *LessonsTest.l020*
