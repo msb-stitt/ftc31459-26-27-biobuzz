@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -1017,6 +1018,47 @@ public class LessonsTest {
         double right = (Double) Tracker.values().get("wheel/frontRight/target_ips");
         assertEquals("opposite", -left, right, 1e-6);
         assertTrue("turning counter-clockwise drives the left side backwards", left < 0);
+    }
+
+    @Test
+    public void l195_theTicksDoorReportsWhatEachEncoderCounted() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L195MeasureTicksPerInchOpMode"));
+        h.init();
+        h.setWheelTicks(10, 20, 30, 40);
+        assertArrayEquals("front left, front right, back left, back right",
+                new int[]{10, 20, 30, 40},
+                (int[]) MyTry.call(((CorbelsOpMode) h.opMode()).drivetrain(), "wheelTicks"));
+    }
+
+    @Test
+    public void l195_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards() {
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L195MeasureTicksPerInchOpMode"),
+                MyTry.opMode("L195MeasureTurnRadiusOpMode")}) {
+            String name = lesson.getClass().getSimpleName();
+            OpModeHarness h = new OpModeHarness(lesson);
+            h.init();
+            Drivetrain drivetrain = ((CorbelsOpMode) h.opMode()).drivetrain();
+            assertTrue(name + " brakes before the run", braking(drivetrain));
+
+            h.start();
+            assertFalse(name + " coasts once it starts", braking(drivetrain));
+            h.loops(5, 0);
+            assertFalse(name + " still coasts five loops in", braking(drivetrain));
+
+            h.stop();
+            assertTrue(name + " brakes again afterwards", braking(drivetrain));
+            OpModeHarness.restoreFactories();
+        }
+    }
+
+    @Test
+    public void l195_stoppingBeforeASingleLoopStillPutsBrakingBack() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L195MeasureTicksPerInchOpMode"));
+        h.init();
+        h.start();
+        h.stop();                                  // STOP pressed straight away
+        assertTrue("braking is back although no loop ran",
+                braking(((CorbelsOpMode) h.opMode()).drivetrain()));
     }
 
     // -------------------------------------------------------------- L9

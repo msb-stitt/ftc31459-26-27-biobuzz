@@ -25,6 +25,8 @@ L150RobotRelativeButtonOpMode
 L160HeadingHoldOpMode
 L170DriveToPoseOpMode
 L180CombinedOpMode
+L190SpeedDriveTrain
+L190VelocityDriveOpMode
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
