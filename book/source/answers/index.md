@@ -7,6 +7,7 @@ stuck, not instead of being stuck.
 :maxdepth: 1
 
 L020SticksOpMode
+L030SpeedsOpMode
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
