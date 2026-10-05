@@ -403,7 +403,50 @@ def pinpoint_mounting():
     save(fig, "fig-pinpoint-mounting")
 
 
-DRAWINGS = [stick_shaping, mecanum_x, wheel_handover, odometry_step, field_relative, speed_loop]
+def wheel_pushes():
+    # L090's four lines: fl = f - s - t, fr = f + s + t, bl = f + s - t, br = f - s + t.
+    # Spinning forward, front left and back right push forward and right, front right and
+    # back left push forward and left; spinning backward, each pushes the other way.
+    pushes = {"front left": (1, 1), "front right": (-1, 1), "back left": (-1, 1),
+              "back right": (1, 1)}
+    where = {"front left": (-1, 1), "front right": (1, 1), "back left": (-1, -1),
+             "back right": (1, -1)}
+    motions = [("driving forward", 1, 0, 0), ("sliding left", 0, 1, 0),
+               ("turning left", 0, 0, 1)]
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5.6))
+    for ax, (title, f, s, t) in zip(axes, motions):
+        robot_top(ax, size=4)
+        power = {"front left": f - s - t, "front right": f + s + t, "back left": f + s - t,
+                 "back right": f - s + t}
+        for name, (sx, sy) in where.items():
+            wx, wy = sx * 2.35, sy * 1.45
+            ax.add_patch(Rectangle((wx - 0.35, wy - 0.7), 0.7, 1.4, facecolor="#555555",
+                                   edgecolor=INK))
+            p = power[name]
+            arrow(ax, (wx, wy - 0.55 * p), (wx, wy + 0.55 * p), color=BLUE, head=14)
+            ux, uy = np.array(pushes[name]) / np.sqrt(2) * p
+            ox = wx + sx * 0.9
+            arrow(ax, (ox - 0.5 * ux, wy - 0.5 * uy), (ox + 0.5 * ux, wy + 0.5 * uy), color=RED,
+                  head=14)
+        if t:
+            # Along the bottom, left to right: counter-clockwise seen from above.
+            ax.add_patch(FancyArrowPatch((-0.7, -0.4), (0.7, -0.4), connectionstyle="arc3,rad=0.9",
+                                         arrowstyle="-|>", mutation_scale=22, color=GREEN,
+                                         linewidth=3))
+        else:
+            arrow(ax, (0, 0), (-1.2 * s, 1.2 * f), color=GREEN, head=22, width=3.5)
+        ax.set_title(title, fontsize=14)
+        ax.set_xlim(-4.0, 4.0)
+        ax.set_ylim(-2.4, 3.8)
+        ax.set_aspect("equal")
+        ax.axis("off")
+    fig.text(0.5, 0.06, "blue: which way each wheel spins    red: which way it pushes the robot    "
+             "green: what the four pushes add up to", ha="center", fontsize=11)
+    save(fig, "fig-l090-wheel-pushes")
+
+
+DRAWINGS = [stick_shaping, mecanum_x, wheel_handover, odometry_step, field_relative, speed_loop,
+            wheel_pushes]
 STAND_INS = [panels_graph, robot_front, gamepad_sticks, wheel_names, wheel_forward,
              pinpoint_mounting]
 
