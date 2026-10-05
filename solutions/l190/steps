@@ -1,0 +1,6 @@
+# L190: both starters, copied into mytry and filled in.
+copy lessons/L190SpeedDriveTrain.java mytry/L190SpeedDriveTrain.java
+copy lessons/L190VelocityDriveOpMode.java mytry/L190VelocityDriveOpMode.java
+patch L190SpeedDriveTrain.patch
+patch L190VelocityDriveOpMode.patch
+test *LessonsTest.l190*

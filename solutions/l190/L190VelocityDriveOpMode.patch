@@ -1,0 +1,50 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java
+index 4d87485..7c4beba 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java
+@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.WheelTargets;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
+@@ -37,6 +39,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
+     // When on L190S030, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030
+     // for what to do here.
++    L190SpeedDriveTrain drivetrain;
+ 
+     // public: OpMode's own init is public, so this one has to be too.
+     @Override
+@@ -46,8 +49,9 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
+         // When on L190S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s040
+         // for what to do here.
++        drivetrain = new L190SpeedDriveTrain(hardware);
+ 
+-        initAfter();
++        initAfter(drivetrain);
+     }
+ 
+     // public: OpMode's own start is public, so this one has to be too.
+@@ -73,12 +77,14 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
+         // When on L190S050, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
+         // for what to do here.
+-        double forwardInPerS = 0;
+-        double strafeInPerS = 0;
+-        double turnRadPerS = 0;
++        double forwardInPerS = deadband(-leftStickY, band) * MAX_IPS;
++        double strafeInPerS = deadband(-leftStickX, band) * MAX_IPS;
++        double turnRadPerS = deadband(-rightStickX, band) * MAX_TURN_RADPS;
+         Tracker.publish("command/forward_ips", forwardInPerS);
+         Tracker.publish("command/left_ips", strafeInPerS);
+         Tracker.publish("command/turn_radps", turnRadPerS);
++        double[] target = WheelTargets.forMecanum(forwardInPerS, strafeInPerS, turnRadPerS, Constants.turnRadiusInches);
++        drivetrain.setCommandedWheelSpeeds(target[0], target[1], target[2], target[3]);
+ 
+         loopAfter();
+     }

@@ -1,0 +1,27 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
+index 6c506ad..4a874f5 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
+@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.mytry;
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.RobotHardware;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L190: the drivetrain that asks the wheels for a speed.
+@@ -38,5 +39,14 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
+         // When on L190S060, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s060
+         // for what to do here.
++        double[] measured = measuredSpeeds.all();
++        double[] powers = new double[4];
++        for (int i = 0; i < 4; i++) {
++            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
++            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
++            powers[i] = clampToPower(feedforward + feedback);
++        }
++        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
++        publishWheelSpeeds(wanted, measured, powers);
+     }
+ }
