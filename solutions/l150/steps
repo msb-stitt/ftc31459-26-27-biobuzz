@@ -1,0 +1,4 @@
+# L150 starts from its starter.
+copy lessons/L150RobotRelativeButtonOpMode.java mytry/L150RobotRelativeButtonOpMode.java
+patch L150RobotRelativeButtonOpMode.patch
+test *LessonsTest.l150_*

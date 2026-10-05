@@ -1,0 +1,19 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
+index 2632d55..9a0d8d8 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
+@@ -77,7 +77,13 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
+         // When on L150S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s030
+         // for what to do here.
+-        drivetrain.sticks(robotForward, robotStrafe, turn);
++        boolean robotRelative = gamepad1.right_bumper;
++        Tracker.publish("drive/robotRelative", robotRelative);
++        if (robotRelative) {
++            drivetrain.sticks(forward, strafe, turn);
++        } else {
++            drivetrain.sticks(robotForward, robotStrafe, turn);
++        }
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
