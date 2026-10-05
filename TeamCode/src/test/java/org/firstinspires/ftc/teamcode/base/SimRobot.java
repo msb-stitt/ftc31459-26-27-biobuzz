@@ -15,6 +15,7 @@ import com.pedropathing.math.Twist;
 import com.pedropathing.math.Vector2D;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -166,6 +167,8 @@ public final class SimRobot {
         private double omega;
         /** How far the robot has really turned, which {@link #setPose} does not change. */
         private double turned;
+        /** How far each wheel has rolled, front left, front right, back left, back right, inches. */
+        private final double[] rolled = new double[4];
         private long lastNs;
         private MotionState state = MotionState.zero();
 
@@ -191,6 +194,21 @@ public final class SimRobot {
          */
         public double turnedRadians() {
             return turned;
+        }
+
+        /**
+         * How fast each wheel's rim is moving, front left, front right, back
+         * left, back right, in inches per second: the robot's motion put back
+         * through {@link WheelTargets#forMecanum}, so the wheels agree with the
+         * geometry the robot code uses.
+         */
+        public double[] wheelSpeeds() {
+            return WheelTargets.forMecanum(vx, vy, omega, Constants.turnRadiusInches);
+        }
+
+        /** How far each wheel has rolled since the robot was made, in inches, in the same order. */
+        public double rolledInches(int wheel) {
+            return rolled[wheel];
         }
 
         @Override
@@ -226,6 +244,8 @@ public final class SimRobot {
             y += (vx * Math.sin(heading) + vy * Math.cos(heading)) * dt;
             heading += omega * dt;
             turned += omega * dt;
+            double[] speeds = wheelSpeeds();
+            for (int i = 0; i < 4; i++) rolled[i] += speeds[i] * dt;
             state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));
         }
     }

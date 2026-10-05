@@ -137,6 +137,59 @@ public class SimMotionTest {
         h.stop();
     }
 
+    /** Each encoder's count, front left, front right, back left, back right. */
+    private static double[] encoders(OpModeHarness h) {
+        return new double[]{
+                h.motors.get(OpModeHarness.FRONT_LEFT).motor.getCurrentPosition(),
+                h.motors.get(OpModeHarness.FRONT_RIGHT).motor.getCurrentPosition(),
+                h.motors.get(OpModeHarness.BACK_LEFT).motor.getCurrentPosition(),
+                h.motors.get(OpModeHarness.BACK_RIGHT).motor.getCurrentPosition()};
+    }
+
+    /**
+     * Driving forward turns every encoder by the inches covered, at
+     * {@code Constants.ticksPerInch}, and reports the speed it is turning at.
+     * With the harness not calling {@code follow}, this fails with
+     * {@code every wheel rolled as far as the robot went: arrays first differed
+     * at element [0]; expected:<2463.7...> but was:<0.0>}, and the spin test
+     * with {@code the left wheels roll forward: 0.0}.
+     */
+    @Test
+    public void theEncodersCountWhatTheWheelsRoll() {
+        OpModeHarness h = driveForward();
+        double ticks = forwardOf(h.robot.localizer.state().pose()) * Constants.ticksPerInch;
+        assertArrayEquals("every wheel rolled as far as the robot went",
+                new double[]{ticks, ticks, ticks, ticks}, encoders(h), 1);
+        assertTrue("and is still turning: " + h.motors.get(OpModeHarness.FRONT_LEFT).motor.getVelocity(),
+                h.motors.get(OpModeHarness.FRONT_LEFT).motor.getVelocity() > 1000);
+        h.stop();
+    }
+
+    /**
+     * Spinning clockwise rolls the left wheels forward and the right ones
+     * back, each by the turn times {@code Constants.turnRadiusInches}. With
+     * the turn's sign flipped in the wheels, this fails with {@code the left
+     * wheels roll forward}.
+     */
+    @Test
+    public void spinningRollsTheTwoSidesOppositeWays() {
+        OpModeHarness h = new OpModeHarness(new SimOpModes.Tank());
+        h.init();
+        h.start();
+        assertArrayEquals("nothing counted when it was put down",
+                new double[]{0, 0, 0, 0}, encoders(h), 0);
+        h.gamepad1.left_stick_y = -1.0f;    // left forward, right back: clockwise
+        h.gamepad1.right_stick_y = 1.0f;
+        h.loops(50, 0);
+        double turned = h.robot.localizer.turnedRadians();
+        double edge = -turned * Constants.turnRadiusInches * Constants.ticksPerInch;
+        double[] e = encoders(h);
+        assertTrue("the left wheels roll forward: " + e[0], e[0] > 0);
+        assertArrayEquals("each wheel rolled the turn times the radius",
+                new double[]{edge, -edge, edge, -edge}, e, 1);
+        h.stop();
+    }
+
     @Test
     public void twoRunsOfTheSameLoopsIntegrateTheSameMotion() {
         Pose first = driveForward().robot.localizer.state().pose();
