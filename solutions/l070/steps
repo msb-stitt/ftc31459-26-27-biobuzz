@@ -1,0 +1,4 @@
+# L070: the buttons starter, copied into mytry and filled in.
+copy lessons/L070ButtonsOpMode.java mytry/L070ButtonsOpMode.java
+patch L070ButtonsOpMode.patch
+test *LessonsTest.l070*
