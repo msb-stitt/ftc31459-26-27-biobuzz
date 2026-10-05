@@ -1,0 +1,4 @@
+# L060: the shaping starter, copied into mytry and filled in.
+copy lessons/L060ShapingOpMode.java mytry/L060ShapingOpMode.java
+patch L060ShapingOpMode.patch
+test *LessonsTest.l060*
