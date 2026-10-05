@@ -10,24 +10,6 @@ names that lesson: its check is on the floor.
 
 | Lesson | On the robot | On the laptop |
 | --- | --- | --- |
-| L2a | `L2a Sticks` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l2a*'` |
-| L2b | `L2b Tank` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l2b*'` |
-| L3a | `L3a Deadband` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l3a*'` |
-| L3b | `L3b Squared` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l3b*'` |
-| L4 | `L4 Arcade` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l4*'` |
-| L5 | `L5 Holonomic` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l5*'` |
-| L6 | `L6 Follower Wheels` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*L6FollowerDriveTrainTest*'` |
-| L8 | `L8 Compare Localizers` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l8*'` |
-| L9 | `L9 Drive 24` (Autonomous) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l9*'` |
-| L10 | `L10 Forward Then Strafe` (Autonomous) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l10*'` |
-| L11 | `L11 Field Relative` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l11*'` |
-| L12 | `L12 Robot Relative Button` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l12*'` |
-| L13 | `L13 Heading Hold` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l13*'` |
-| L14 | `L14 Drive To Pose` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l14*'` |
-| L15 | `L15 Combined` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l15*'` |
-| L16 | `L16 Velocity Drive` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l16*'` |
-| L17a | `L17a Measure ticks per inch` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsDriveTrainTest.theTicksDoorReportsWhatEachEncoderCounted'` |
-| L17b | `L17b Measure turn radius` (TeleOp) | -- |
 | L020 | `L020 Sticks` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l020*'` |
 | L030 | `L030 Speeds` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l030*'` |
 | L040 | `L040 Tank` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l040*'` |
@@ -48,55 +30,31 @@ names that lesson: its check is on the floor.
 | L190 | `L190 Velocity Drive` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l190*'` |
 | L195 | `L195 Measure ticks per inch` (TeleOp) `L195 Measure turn radius` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l195*'` |
 
-## Who writes what in the shared drivetrain
-
-Every lesson adds to one class, and nothing is written twice. A method written in an early
-lesson is the one a later lesson calls.
-
-| Lesson | What it writes in `LessonsDriveTrain` |
-| --- | --- |
-| L2b | `writeWheels()`, `driveWheelsNow()` |
-| L3a and L3b | `deadband()`, `squared()`, `fieldRelative()` |
-| L4 | `normalized()` |
-| L6 | `mix()`, `setCommandedWheels()`, `releaseCommandedWheels()`, `commandedWheelsAreSet()`, `drive()` |
-| L16 | `setCommandedWheelSpeeds()` |
-| L17a and L17b | `wheelTicks()` |
-
 ## What shows up in Panels
 
 A key ending in `...` has a name added to the end of it, one per wheel or per localizer.
 
 | Log key | Published by |
 | --- | --- |
-| `Localizer/driveWheelEncoders/...` | `L120CompareLocalizersOpMode`, `L15CombinedOpMode`, `L180CombinedOpMode`, `L8CompareLocalizersOpMode` |
+| `Localizer/driveWheelEncoders/...` | `L120CompareLocalizersOpMode`, `L180CombinedOpMode` |
 | `arcade/forward` | `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
 | `arcade/strafe` | `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
 | `arcade/turn` | `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
 | `button/a` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
 | `button/event` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
-| `command/forward` | `L4ArcadeOpMode`, `L5HolonomicOpMode`, `L6WheelsFollowerOpMode` |
-| `command/forward_ips` | `L16VelocityDriveOpMode`, `L190VelocityDriveOpMode` |
-| `command/left` | `L5HolonomicOpMode`, `L6WheelsFollowerOpMode` |
-| `command/left_ips` | `L16VelocityDriveOpMode`, `L190VelocityDriveOpMode` |
-| `command/turn_ccw` | `L4ArcadeOpMode`, `L5HolonomicOpMode`, `L6WheelsFollowerOpMode` |
-| `command/turn_radps` | `L16VelocityDriveOpMode`, `L190VelocityDriveOpMode` |
-| `drive/aiming` | `L15CombinedOpMode` |
-| `drive/mode` | `L14DriveToPoseOpMode`, `L15CombinedOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
-| `drive/robotRelative` | `L12RobotRelativeButtonOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
-| `drive/target_deg` | `L15CombinedOpMode` |
-| `driver pressed A` | `L2aSticksOpMode`, `L2bTankOpMode` |
-| `heading/deg` | `L13HeadingHoldOpMode` |
-| `heading/holding` | `L13HeadingHoldOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `command/forward_ips` | `L190VelocityDriveOpMode` |
+| `command/left_ips` | `L190VelocityDriveOpMode` |
+| `command/turn_radps` | `L190VelocityDriveOpMode` |
+| `drive/mode` | `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drive/robotRelative` | `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `heading/holding` | `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
 | `heading/target_deg` | `L180CombinedOpMode` |
-| `lesson/event` | `L2aSticksOpMode`, `L2bTankOpMode` |
-| `lesson/loop_count` | `L2aSticksOpMode` |
-| `lesson/seconds_running` | `L2aSticksOpMode` |
-| `measure/inches` | `L17aMeasureTicksPerInchOpMode`, `L195MeasureTicksPerInchOpMode` |
-| `measure/radians` | `L17bMeasureTurnRadiusOpMode`, `L195MeasureTurnRadiusOpMode` |
-| `measure/ticks` | `L17aMeasureTicksPerInchOpMode`, `L195MeasureTicksPerInchOpMode` |
-| `measure/ticksPerInch` | `L17aMeasureTicksPerInchOpMode`, `L195MeasureTicksPerInchOpMode` |
-| `measure/turnRadius_in` | `L17bMeasureTurnRadiusOpMode`, `L195MeasureTurnRadiusOpMode` |
-| `measure/wheel_inches` | `L17bMeasureTurnRadiusOpMode`, `L195MeasureTurnRadiusOpMode` |
+| `measure/inches` | `L195MeasureTicksPerInchOpMode` |
+| `measure/radians` | `L195MeasureTurnRadiusOpMode` |
+| `measure/ticks` | `L195MeasureTicksPerInchOpMode` |
+| `measure/ticksPerInch` | `L195MeasureTicksPerInchOpMode` |
+| `measure/turnRadius_in` | `L195MeasureTurnRadiusOpMode` |
+| `measure/wheel_inches` | `L195MeasureTurnRadiusOpMode` |
 | `power/backLeft` | `L090MecanumOpMode` |
 | `power/backRight` | `L090MecanumOpMode` |
 | `power/frontLeft` | `L090MecanumOpMode` |
@@ -105,14 +63,9 @@ A key ending in `...` has a name added to the end of it, one per wheel or per lo
 | `power/right` | `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode` |
 | `speed/left` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode` |
 | `speed/right` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode` |
-| `stick/leftX` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
-| `stick/leftY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
-| `stick/left_raw` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
-| `stick/left_shaped` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
-| `stick/rightX` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
-| `stick/rightY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L2aSticksOpMode`, `L2bTankOpMode` |
-| `stick/right_raw` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
-| `stick/right_shaped` | `L3aDeadbandOpMode`, `L3bSquaredOpMode` |
-| `wheel/...` | `LessonsDriveTrain` |
+| `stick/leftX` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode` |
+| `stick/leftY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode` |
+| `stick/rightX` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode` |
+| `stick/rightY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L110FollowerOpMode`, `L120CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
 
 Generated by applying `solutions/` on `solutions-l010`, every lesson in order.
