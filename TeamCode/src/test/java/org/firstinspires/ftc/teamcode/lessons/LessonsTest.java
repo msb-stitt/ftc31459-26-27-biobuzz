@@ -846,6 +846,28 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l160_theRobotHoldsItsHeadingWhenTheStickIsReleased() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L160HeadingHoldOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+
+        follower.setPose(POSES.of(0, 0, 0));
+        h.gamepad1.right_stick_x = 1.0f;           // pushed right: clockwise
+        h.loop();
+        assertEquals("while steering, the stick wins", -1.0, h.wheelsTurn(), 1e-3);
+
+        h.gamepad1.right_stick_x = 0.0f;
+        h.loop();                                  // releases: captures heading 0
+        assertEquals("on target, no correction", 0.0, h.wheelsTurn(), 1e-3);
+
+        follower.setPose(POSES.of(0, 0, -10));     // the robot drifts
+        h.loop();
+        assertTrue("it steers back", h.wheelsTurn() > 0.01);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test
