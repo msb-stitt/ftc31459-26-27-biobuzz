@@ -21,8 +21,8 @@ py = python
 run = $py tools/run.py
 
 rule sphinx
-  command = sphinx-build -W -b html source build/html
-  description = the guide builds, with every warning an error
+  command = sphinx-build -W -b html source build/html && sphinx-build -W -t mentor -b html source build/mentor
+  description = both books build, student and mentor, with every warning an error
   pool = console
 
 rule wrap

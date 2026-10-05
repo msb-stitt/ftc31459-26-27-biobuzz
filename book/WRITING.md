@@ -45,6 +45,18 @@ Every figure has a row in [`FIGURES.md`](FIGURES.md) and an id of the form `fig-
 figure that does not exist yet is a pencilled box in the page, so the gap is visible to a reader and
 not blocking to a writer. `tools/check_figures.py` checks both directions.
 
+## One source makes two books
+
+- **The student book** is built with no tag, from `source/student_index.md`, into `build/html`.
+- **The mentor book** is built with `-t mentor`, from `source/index.md`, into `build/mentor`.
+
+`ninja book` builds both. Both front pages include `source/_intro.md`. `MENTOR_ONLY` in
+`source/conf.py` lists the pages only the mentor book has.
+
+A mentor paragraph inside a shared page goes in a `{only} mentor` block, and so does any link to a
+mentor-only page; outside one, that link fails the student build. A mentor part leads with bold
+text, not a heading: a heading inside `only` brings the whole block into the student book.
+
 ## Running the gate
 
 ```
