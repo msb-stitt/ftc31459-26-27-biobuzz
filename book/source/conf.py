@@ -15,6 +15,7 @@ copyright = "2026, Catholic Central Spires Robotics"
 extensions = ["myst_parser"]
 myst_enable_extensions = ["colon_fence", "deflist"]
 
+
 # The tag `mentor` picks the book. With it, the mentor book, rooted at index.md.
 # Without it, the student book, rooted at student_index.md and leaving out the
 # pages only a mentor reads. _intro.md is the front page both roots include.
@@ -34,8 +35,8 @@ html_css_files = ["pencil.css"]
 
 
 def setup(app):
-    """Drop the other book's `only` blocks before links are resolved, and give
-    the student book an index.html.
+    """Drop the other book's `only` blocks before links are resolved, give the
+    student book an index.html, and give each lesson step a short anchor.
 
     Sphinx drops them at priority 50 and resolves links at 9 and 10, so a link
     to a mentor page inside `{only} mentor` would fail the student build. A
@@ -62,3 +63,17 @@ def setup(app):
             shutil.copyfile(out / f"{app.config.root_doc}.html", out / "index.html")
 
     app.connect("build-finished", front_page_as_index)
+
+    def step_anchors(app, doctree):
+        """Give a step `### L020S010: read the left stick` the id `l020s010`, so
+        the code a student copies can link to it."""
+        import re
+
+        from docutils import nodes
+
+        for section in doctree.findall(nodes.section):
+            step = re.match(r"L\d{3}S\d{3}\b", section[0].astext())
+            if step and step.group().lower() not in section["ids"]:
+                section["ids"].insert(0, step.group().lower())
+
+    app.connect("doctree-read", step_anchors)
