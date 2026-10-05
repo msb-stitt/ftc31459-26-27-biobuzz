@@ -331,8 +331,9 @@ for the last step.</p></li>
 </ul>
 <p>Step L120S060 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l8</span></code> page. It has not been performed on a robot
 yet.</p>
-<p>The simulator moves the robot and turns its IMU, but never turns its wheel encoders, so this
-localizer can turn there but cannot move. The tests check the arithmetic instead.</p>
+<p>The simulator turns each wheel’s encoder by how far the wheel rolls, at <code class="docutils literal notranslate"><span class="pre">Constants.ticksPerInch</span></code>,
+and turns the IMU with the robot. It has no slip, so a finished localizer follows the Pinpoint
+there more closely than it will on the robot. The tests check the arithmetic step by step.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l120s010">
@@ -448,6 +449,16 @@ this step. Under it, type:</p>
 is 0, so forward all goes on x. Facing along y, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 0 and <code class="docutils literal notranslate"><span class="pre">sin</span></code> is 1, so forward all goes on y.
 In between, each gets a part.</p>
 <p><strong>Check.</strong> Run the same test command again. It ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p>
+<figure class="align-default" id="fig-l120-encoders-follow">
+<img alt="../_images/fig-l120-encoders-follow.png" src="../_images/fig-l120-encoders-follow.png" />
+<figcaption>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the top of the field, its arrow pointing up, and the list with the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder open: <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> both at x 72 and heading 90, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 142.367 and 142.360.</span><a class="headerlink" href="#fig-l120-encoders-follow" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Simulator.</strong> Run the command from L120S030 again, and connect AdvantageScope.</p>
+<p><strong>Check.</strong> Push the left stick forward. This time <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders/y_in</span></code> climbs with
+<code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code>, and the two stay within a tenth of an inch. The simulator turns each wheel’s
+encoder by how far it rolls, so your localizer has something to count.</p>
 </section>
 <section id="l120s060">
 <span id="l120s060-drive-it-then-measure-it"></span><h3>L120S060: drive it, then measure it<a class="headerlink" href="#l120s060" title="Link to this heading">¶</a></h3>
@@ -460,7 +471,7 @@ quite agree. Measure how far the robot really went with the tape measure.</p>
 does not go anywhere. <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> walks off across the field. <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> stays put,
 because its pods are off the floor too.</p>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L120CompareLocalizersOpMode</span> <span class="pre">--left_stick_y=-0.5&quot;</span></code> drives forward
-for the picture at the top.</p>
+for the picture at the top, and for L120S050’s.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> is missing from the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder in L120S030, the
 two lines are not in <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code>.
 <code class="docutils literal notranslate"><span class="pre">LessonsTest.l120_theEncoderLocalizerRunsAlongsideAndIsLogged</span></code> fails with

@@ -3,7 +3,7 @@
 :::{figure} ../_static/figures/fig-l180-aiming.png
 :name: fig-l180-aiming
 
-AdvantageScope's 2D Field with the robot near the bottom of the field, right of the middle, its arrow pointing up and to the right, and the list showing `drive/mode` at DRIVER, `heading/holding` green and `target_deg` at 45, `driveWheelEncoders` at x 72, y 10.500 and heading 44.958, and `pinPoint` at x 96.628, y 15.069 and heading 44.958.
+AdvantageScope's 2D Field with the robot near the bottom right of the field, its arrow pointing up and to the right, and the list showing `drive/mode` at DRIVER, `heading/holding` green and `target_deg` at 45, `driveWheelEncoders` at x 100.622, y 15.756 and heading 44.959, and `pinPoint` at x 100.623, y 15.758 and heading 44.959.
 :::
 
 One teleop with all of it in. The sticks drive field relative and hold the heading they were left
@@ -91,9 +91,8 @@ folder. Then open `Localizer` and both folders in it.
 
 **Check.** `target_deg` reads 45. The robot turns until its arrow points up and to the right, and
 `pinPoint/heading_deg` comes to about 45. All the while it drives to the right, and `pinPoint/x_in`
-climbs. `driveWheelEncoders` is there. Its heading comes to about 45 too, because the simulator
-turns the IMU, but it stays at x 72 and y 10.5. The simulator turns no wheel encoders, so your
-localizer counts no distance.
+climbs. `driveWheelEncoders` is there, and it follows `pinPoint`: the same heading, and x and y
+within a tenth of an inch.
 
 ### L180S050: drive all four
 

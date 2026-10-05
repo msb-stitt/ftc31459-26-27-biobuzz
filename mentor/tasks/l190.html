@@ -315,7 +315,7 @@
 <figure class="align-default" id="fig-l190-wheel-numbers">
 <img alt="../_images/fig-l190-wheel-numbers.png" src="../_images/fig-l190-wheel-numbers.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot in the middle of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">command/forward_ips</span></code> at 8, <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> at 93.672, and <code class="docutils literal notranslate"><span class="pre">wheel/frontLeft</span></code> with <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> at 8, <code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> at 0, <code class="docutils literal notranslate"><span class="pre">error_ips</span></code> at 8 and <code class="docutils literal notranslate"><span class="pre">power</span></code> at 0.198.</span><a class="headerlink" href="#fig-l190-wheel-numbers" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot near the top of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">command/forward_ips</span></code> at 8, <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> at 121.080, and <code class="docutils literal notranslate"><span class="pre">wheel/frontLeft</span></code> with <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> at 8, <code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> at 8.365, <code class="docutils literal notranslate"><span class="pre">error_ips</span></code> at -0.365 and <code class="docutils literal notranslate"><span class="pre">power</span></code> at 0.131.</span><a class="headerlink" href="#fig-l190-wheel-numbers" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Full stick means 40 inches per second, not full power. The drivetrain measures how fast each wheel
@@ -463,10 +463,11 @@ longer:</p>
 </pre></div>
 </div>
 <p><strong>AdvantageScope.</strong> Connect, and open <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, then <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8. The robot drives up the field. <code class="docutils literal notranslate"><span class="pre">power</span></code> reads
-0.198: the guess, 0.134, plus the correction.</p>
-<p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> stays at 0, and <code class="docutils literal notranslate"><span class="pre">error_ips</span></code> stays at 8. The simulator moves the robot, but it turns
-no wheel encoders, so the correction never shrinks. On the robot it does.</p>
+<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8. The robot drives up the field. On the first loop
+<code class="docutils literal notranslate"><span class="pre">power</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet turning.</p>
+<p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second, and <code class="docutils literal notranslate"><span class="pre">error_ips</span></code> shrinks to less than 0.5.
+<code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.131 and stays there. The guess was a little too much for the simulated
+robot, and the correction takes off what it needs.</p>
 </section>
 <section id="l190s070">
 <span id="l190s070-drive-it-up-something"></span><h3>L190S070: drive it up something<a class="headerlink" href="#l190s070" title="Link to this heading">¶</a></h3>
