@@ -1,6 +1,0 @@
-# L17a starts from its starter, which is already the answer; its work is a TODO in LessonsDriveTrain.
-copy lessons/L17aMeasureTicksPerInchOpMode.java mytry/L17aMeasureTicksPerInchOpMode.java
-patch LessonsDriveTrain.patch
-test *LessonsTest.l17_stoppingBeforeASingleLoopStillPutsBrakingBack
-test *LessonsDriveTrainTest.theTicksDoorReportsWhatEachEncoderCounted
-test *LessonsDriveTrainTest.drivingNowAndLettingTheFollowerDriveTooIsRefused

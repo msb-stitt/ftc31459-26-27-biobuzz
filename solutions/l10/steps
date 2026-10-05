@@ -1,4 +1,0 @@
-# L10 grows the L9 OpMode in mytry.
-copy mytry/L9Drive24OpMode.java mytry/L10ForwardThenStrafeOpMode.java
-patch L10ForwardThenStrafeOpMode.patch
-test *LessonsTest.l10_*

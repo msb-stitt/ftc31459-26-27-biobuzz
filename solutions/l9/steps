@@ -1,4 +1,0 @@
-# L9 starts from its starter.
-copy lessons/L9Drive24OpMode.java mytry/L9Drive24OpMode.java
-patch L9Drive24OpMode.patch
-test *LessonsTest.l9_*

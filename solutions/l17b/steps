@@ -1,3 +1,0 @@
-# L17b starts from its starter, which is already the answer.
-copy lessons/L17bMeasureTurnRadiusOpMode.java mytry/L17bMeasureTurnRadiusOpMode.java
-test *LessonsTest.l17_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards

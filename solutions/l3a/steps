@@ -1,6 +1,0 @@
-# L3a starts from its starter: growing L2b would change more lines than the starter does.
-copy lessons/L3aDeadbandOpMode.java mytry/L3aDeadbandOpMode.java
-patch L3aDeadbandOpMode.patch
-patch LessonsDriveTrain.patch
-test *LessonsTest.l3a*
-test *LessonsDriveTrainTest.theDeadbandIgnoresAStickThatIsNearlyCentred

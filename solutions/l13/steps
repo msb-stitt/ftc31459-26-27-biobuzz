@@ -1,4 +1,0 @@
-# L13 starts from its starter.
-copy lessons/L13HeadingHoldOpMode.java mytry/L13HeadingHoldOpMode.java
-patch L13HeadingHoldOpMode.patch
-test *LessonsTest.l13_*

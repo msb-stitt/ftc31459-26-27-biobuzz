@@ -3,10 +3,10 @@
 Apply the lessons to mytry in order, the way a student does them, and run the
 tests of the lesson it stops at.
 
-    python3 solutions/apply.py l2a
-    python3 solutions/apply.py l2b --copies-only --keep
-    python3 solutions/apply.py l2b --unpatched
-    python3 solutions/apply.py l17b --every
+    python3 solutions/apply.py l020
+    python3 solutions/apply.py l030 --copies-only --keep
+    python3 solutions/apply.py l030 --unpatched
+    python3 solutions/apply.py l195 --every
 
 It makes a fresh worktree of solutions-try, so nothing in the checkout it runs
 from is touched, and reads `order` and each lesson's `steps` out of that
@@ -15,9 +15,9 @@ applied, which makes `git diff` in a kept worktree show what is not yet a patch.
 
 A `steps` file holds one step per line; `#` starts a comment.
 
-    copy lessons/L2aSticksOpMode.java mytry/L2aSticksOpMode.java
-    patch L2aSticksOpMode.patch
-    test *LessonsTest.l2a*
+    copy lessons/L020SticksOpMode.java mytry/L020SticksOpMode.java
+    patch L020SticksOpMode.patch
+    test *LessonsTest.l020*
 
 `copy` paths are under teamcode/, and the copy does what a student does to it:
 the folder is made if it is not there, the package line becomes mytry's, an

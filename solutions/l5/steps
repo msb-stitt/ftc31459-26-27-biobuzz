@@ -1,6 +1,0 @@
-# L5 grows both of L4's files in mytry.
-copy mytry/L4ArcadeOpMode.java mytry/L5HolonomicOpMode.java
-copy mytry/L4ArcadeDriveTrain.java mytry/L5HolonomicDriveTrain.java
-patch L5HolonomicOpMode.patch
-patch L5HolonomicDriveTrain.patch
-test *LessonsTest.l5_*

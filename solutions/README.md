@@ -10,7 +10,7 @@ tests. It lives on `solutions-try` and never on `lessons-try`.
   that lesson's tests.
 
 ```
-python3 solutions/apply.py l2a
+python3 solutions/apply.py l020
 ```
 
 `--every` runs every lesson's tests so far after each lesson, which is how a later patch is seen

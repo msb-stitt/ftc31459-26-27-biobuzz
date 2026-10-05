@@ -1,9 +1,0 @@
-# L4 starts its OpMode from the starter and grows its drivetrain from L2's in mytry.
-copy lessons/L4ArcadeOpMode.java mytry/L4ArcadeOpMode.java
-copy mytry/L2TankDriveTrain.java mytry/L4ArcadeDriveTrain.java
-patch L4ArcadeOpMode.patch
-patch L4ArcadeDriveTrain.patch
-patch LessonsDriveTrain.patch
-test *LessonsTest.l4_*
-test *LessonsDriveTrainTest.askingForMoreThanFullPower*
-test *LessonsDriveTrainTest.powersInsideFullPowerAreLeftAlone

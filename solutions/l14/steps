@@ -1,5 +1,0 @@
-# L14 starts from its starter.
-copy lessons/L14DriveToPoseOpMode.java mytry/L14DriveToPoseOpMode.java
-patch L14DriveToPoseOpMode.patch
-test *LessonsTest.l14_*
-test *LessonsTest.everyLessonTurnsClockwiseWhenTheRightStickGoesRight

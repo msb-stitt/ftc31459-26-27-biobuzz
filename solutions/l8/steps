@@ -1,7 +1,0 @@
-# L8 starts both files from their starters.
-copy lessons/L8CompareLocalizersOpMode.java mytry/L8CompareLocalizersOpMode.java
-copy lessons/MecanumEncoderLocalizer.java mytry/MecanumEncoderLocalizer.java
-patch L8CompareLocalizersOpMode.patch
-patch MecanumEncoderLocalizer.patch
-test *LessonsTest.l8_*
-test *MecanumEncoderLocalizerTest*

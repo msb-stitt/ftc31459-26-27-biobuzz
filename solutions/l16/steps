@@ -1,7 +1,0 @@
-# L16 starts from its starter.
-copy lessons/L16VelocityDriveOpMode.java mytry/L16VelocityDriveOpMode.java
-patch L16VelocityDriveOpMode.patch
-patch LessonsDriveTrain.patch
-test *LessonsTest.l16_*
-test *LessonsDriveTrainTest.aWantedSpeedBecomesAFeedforwardGuessPlusACorrection
-test *LessonsDriveTrainTest.aWheelAlreadyAtTheWantedSpeedGetsTheGuessAndNoCorrection
