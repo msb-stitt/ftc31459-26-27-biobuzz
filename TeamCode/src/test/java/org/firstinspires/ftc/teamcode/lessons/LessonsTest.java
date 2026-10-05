@@ -737,6 +737,29 @@ public class LessonsTest {
         assertEquals(follower.pose().y(), number(values, "Localizer/pinPoint/y_in"), EPS);
     }
 
+    @Test
+    public void l120_theEncoderLocalizerRunsAlongsideAndIsLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L120CompareLocalizersOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+        h.loop();
+        // 45 inches of wheel travel on every wheel = 45 inches forward
+        h.setWheelTicks(2025, 2025, 2025, 2025);
+        h.loop();
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the shadow localizer is logged: " + values.keySet(),
+                values.containsKey("Localizer/driveWheelEncoders/x_in"));
+        assertEquals("the shadow must not steer the robot", 0.0, h.wheelsForward(), EPS);
+        assertNotEquals("it moved in its own estimate",
+                0.0, number(values, "Localizer/driveWheelEncoders/x_in"), 0.1);
+        assertEquals("the robot's own localizer, to compare against",
+                follower.pose().x(), number(values, "Localizer/pinPoint/x_in"), EPS);
+        assertEquals(follower.pose().y(), number(values, "Localizer/pinPoint/y_in"), EPS);
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test

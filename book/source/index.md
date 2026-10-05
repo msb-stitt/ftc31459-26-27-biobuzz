@@ -28,6 +28,8 @@ tasks/l070
 tasks/l080
 tasks/l090
 tasks/l110
+tasks/l115
+tasks/l120
 tasks/l2a
 tasks/l2
 tasks/l3
