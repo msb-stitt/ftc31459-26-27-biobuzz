@@ -26,10 +26,10 @@ runs it on its own.
 | Build the app | `./gradlew :TeamCode:assembleDebug` |
 | Everything except the lessons | `./gradlew :TeamCode:test` |
 | The lessons only | `./gradlew :TeamCode:testLessons` |
-| One lesson's test | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l9*'` |
+| One lesson's test | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l125*'` |
 | The solutions, which should be green | `./gradlew :TeamCode:testLessons` on `solutions-03` |
-| Watch a lesson drive | `./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --pad"` |
-| Drive it without a gamepad | `./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --left_stick_y=-1 --right_stick_y=-1"` |
+| Watch a lesson drive | `./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"` |
+| Drive it without a gamepad | `./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1 --right_stick_y=-1"` |
 | Every option the simulator takes | `./gradlew :TeamCode:simRun --args="--help"` |
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
 | Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
@@ -37,7 +37,7 @@ runs it on its own.
 | Build the guide | `ninja book` in `book/`, with `book/.venv/bin` on `PATH` |
 
 The OpMode name is whatever follows `org.firstinspires.ftc.teamcode`, so a lesson
-is `lessons.L2bTankOpMode` and not `L2bTankOpMode`.
+is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 
 ### Cheat sheet: the links
 

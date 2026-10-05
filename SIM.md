@@ -25,11 +25,11 @@ Two ways to run it:
 Start the simulator:
 
 ```
-./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --left_stick_y=-1 --right_stick_y=-1"
+./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1 --right_stick_y=-1"
 ```
 
 The first argument is the OpMode's class name after `org.firstinspires.ftc.teamcode`, so a lesson is
-`lessons.L2bTankOpMode`, a student's copy of one is `mytry.L2aSticksOpMode`, and a simulator teleop
+`lessons.L040TankOpMode`, a student's copy of one is `mytry.L020SticksOpMode`, and a simulator teleop
 is `base.SimOpModes$Tank`. Leaving it off is an
 error, not a default. Every option after it is `--name=value` naming one of the 21 controls a
 gamepad has, so `--left_stick_y=-1` is the left stick pushed fully forward and `--a=true` is the A
@@ -45,7 +45,7 @@ It prints where the flight log goes and then runs, serving NetworkTables 4 on po
 
 ```
 Flight log: <the repository's top folder>
-lessons.L2bTankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
+lessons.L040TankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
 ```
 
 Point AdvantageScope at `127.0.0.1` and it will find the topics under `sim/`. In AdvantageScope
@@ -56,11 +56,11 @@ their own group below the FRC ones; **2026-2027 Field** is this season's, and ch
 notice that FTC fields are experimental. Watched on 2026-09-28, and the menu path and the field on
 2026-10-01.
 
-An autonomous can be over before a field is set up by hand: `lessons.L9Drive24OpMode` drives its
+An autonomous can be over before a field is set up by hand: `lessons.L125Drive24OpMode` drives its
 24 in and holds in about 1 s. Its flight log replays the run. Stop `simRun` with Ctrl-C, open the
 `.wpilog` it wrote into the repository's top folder in AdvantageScope, and drag `Robot/Pose` onto the field. `Robot/Path` dragged
 beside it and switched to **Trajectory** from its icon draws the line the robot was told to follow.
-Watched on 2026-10-01 against `solutions-03`.
+Watched on 2026-10-01 against `solutions-03`, as `L9Drive24OpMode`.
 
 Ctrl-C stops it. The flight log goes in the repository's top folder, where `.gitignore` keeps it
 out of git, and `simRun` names that folder before anything else, as `Flight log: <folder>`.
@@ -101,8 +101,8 @@ of the simulator that drove one would fail there, where a failure outside the `l
 defect rather than the point.
 
 The one test that asks a real lesson to move the robot is
-`LessonsTest.l2b_theSticksMoveTheSimulatedRobot`, and it lives in the `lessons` package, where a
-blank L2 failing is expected.
+`LessonsTest.l040_bothSticksForwardDriveTheSimulatedRobotForward`, and it lives in the `lessons`
+package, where it failing until L040 is typed is expected.
 
 ## Where a failing test leaves its log
 
@@ -111,7 +111,7 @@ A test that fails names its flight log in the failure message:
 ```
 drove forward, and got a fair way: 54.75097300967889
 AdvantageScope can open what ran:
-  /var/folders/.../corbelsflightlog-test2706371408438583527/L2bTankOpMode-20260927-032443.wpilog
+  /var/folders/.../corbelsflightlog-test2706371408438583527/L040TankOpMode-20260927-032443.wpilog
 ```
 
 Open that file in AdvantageScope and the run is there up to the moment the assertion went wrong.

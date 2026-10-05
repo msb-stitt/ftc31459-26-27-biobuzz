@@ -2,8 +2,8 @@
 
 The answer pages under source/answers/ are grouped by file: what each lesson's
 patch changes in it. This groups by lesson instead: a page per lesson, holding
-the files it copies and every change its patches make, wherever they land. L6
-copies two files and changes three, and all of it is on the L6 page.
+the files it copies and every change its patches make, wherever they land. L190
+copies two files and changes both, and all of it is on the L190 page.
 
 Everything comes from applying solutions/ in order, by tools/applied.py, the
 same as the answer pages. Each change is shown as the diff that making it does,

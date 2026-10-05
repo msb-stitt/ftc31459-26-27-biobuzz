@@ -13,10 +13,10 @@ import java.util.Map;
 /**
  * A working mecanum drivetrain, for code that is not a lesson.
  *
- * <p>This is the finished version of what the lessons build in
- * {@code LessonsDriveTrain}: the same members in the same order, so the two can
- * be read side by side. The only part left open is {@link #mix}, and
- * {@link CorbelsMecanum} fills it in.
+ * <p>The lessons from L110 on extend it, and each writes one method: {@link #mix}
+ * in L110, {@code setCommandedWheelSpeeds} in L190 and {@code wheelTicks} in
+ * L195. The only part left open is {@link #mix}, and {@link CorbelsMecanum}
+ * fills it in.
  *
  * <p><b>Which way is positive.</b> Pedro's three numbers are
  * {@code forwardSpeed} along the robot's nose, {@code strafeLeftSpeed} towards
@@ -306,7 +306,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * {@link #allowConfiguredBrakeMode} is called: the wheels coast, so a robot
      * being pushed rolls freely, and every power reaches the hardware, so a slow
      * voltage ramp is a ramp rather than a staircase of {@code powerThreshold}
-     * steps. L17a, L17b and the SysId OpModes are what this is for.
+     * steps. L195's two OpModes and the SysId OpModes are what this is for.
      */
     public void forceCoastForCharacterization() {
         coastForCharacterization = true;

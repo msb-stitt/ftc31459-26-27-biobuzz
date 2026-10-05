@@ -8,7 +8,7 @@ lesson sends, a graph of any two of them, and a picture of where the robot think
 
 ## Before you start
 
-- [L3](l3.md) is finished, because step 3 graphs the two numbers L3b makes.
+- [L060](l060.md) is finished, because step 3 graphs the two numbers L060's squaring makes.
 - A robot with its battery in, running a lesson.
 - A laptop or a phone that can join the robot's Wi-Fi.
 
@@ -31,30 +31,30 @@ joined.
 
 ### Step 2: find the numbers your lesson sends
 
-Run `L3b Squared` and press PLAY. The Telemetry panel fills with one line per value, each shaped
-`name: number`.
+Run `L060 Shaping`, the copy finished in L060, and press PLAY. The Telemetry panel fills with one
+line per value, each shaped `name: number`.
 
 The Graph panel has a list to pick from, and a name only joins that list **after it has been sent
 once**. So start the OpMode first, then go looking. The list is flat, in the order the names first
 arrived.
 
-**You'll know it worked when** `stick/left_raw` and `stick/left_shaped` are both in the list, and
+**You'll know it worked when** `speed/left` and `power/left` are both in the list, and
 both numbers move when you move the left stick. The [cheat sheet](cheatsheet.md) lists every name
 each lesson sends.
 
 **If it didn't**, and a name you expected is missing, nothing sent it. Either that lesson does not
-publish it, or the line that publishes it is still a blank.
+publish it, or the line that publishes it is not typed yet.
 
 ### Step 3: graph the two against each other
 
-Pick `stick/left_raw` and `stick/left_shaped` and push the stick slowly from nothing up to full.
+Pick `speed/left` and `power/left` and push the stick slowly from nothing up to full.
 
 **You'll know it worked when** the two lines leave zero together and the shaped one stays under the
-raw one the whole way up, until they meet at full stick. That is L3b drawn: squaring a number below
+raw one the whole way up, until they meet at full stick. That is L060 drawn: squaring a number below
 1 makes it smaller.
 
 **If it didn't**, and the two lines lie exactly on top of each other, nothing is being shaped. That
-is L3b's blank still open.
+is L060S060 not typed yet.
 
 **If it didn't**, and both lines look like a staircase rather than a curve, that is the sampling and
 it is normal. The robot sends to Panels every 75 ms and drops the loops in between, so with a loop
@@ -64,7 +64,7 @@ means some loop blocked.
 
 :::{admonition} fig-panels-graph
 :class: pencil
-The Panels Graph panel with `stick/left_raw` and `stick/left_shaped` both plotted while the stick is
+The Panels Graph panel with `speed/left` and `power/left` both plotted while the stick is
 pushed slowly to full, so the gap between the two curves is the thing a student is looking for.
 :::
 

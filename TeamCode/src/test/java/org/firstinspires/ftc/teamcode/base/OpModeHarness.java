@@ -259,8 +259,8 @@ public final class OpModeHarness {
         opMode.gamepad1 = gamepad1;
         opMode.gamepad2 = gamepad2;
         // The simulated robot moves on what reached the motors, whoever wrote
-        // it: the lesson's own code in L2 to L5, the follower through the
-        // lesson's drivetrain from L6 on.
+        // it: the lesson's own code in L040 to L090, the follower through the
+        // lesson's drivetrain from L110 on.
         robot.localizer.driveFrom(() -> SimRobot.fromWheels(
                 motors.get(FRONT_LEFT).power,
                 motors.get(FRONT_RIGHT).power,
