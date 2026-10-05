@@ -13,8 +13,22 @@
 path = "source/index.md"
 words = 240
 
+# The front page's words moved to _intro.md, which both books' front pages
+# include; each of the three keeps the front page's ceiling.
+[[page]]
+path = "source/_intro.md"
+words = 240
+
+[[page]]
+path = "source/student_index.md"
+words = 240
+
 # Measured off the first draft and rounded up, so the check has something to
 # hold. Mike sets the real one when he reads the page.
+[[page]]
+path = "source/tasks/l020.md"
+words = 800
+
 [[page]]
 path = "source/tasks/l2a.md"
 words = 1300

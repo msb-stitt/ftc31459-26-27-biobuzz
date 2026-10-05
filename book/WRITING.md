@@ -1,13 +1,55 @@
 # How the guide is written
 
-**Status: controlling.** Written 2026-09-27.
+**Status: controlling.** Written 2026-09-27; the lesson page format added 2026-10-05.
 
 The register and the voice belong to
 [`prose-style.md`](../../.claude/rules/parts/prose-style.md) and nothing here repeats it. What is
 here is what that file does not say: the shape of a task page, how words are introduced, what a
 picture has to be, and what a simplification may do.
 
-## Every task page has the same five parts
+## A lesson page is one page for both books
+
+A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tasks/l020.md`, titled
+`# L020: read the sticks`. The pages named `l2a` to `l17` keep the five parts below until the lesson
+that takes their content replaces them.
+
+**What the student book shows**, the shape backed by the research in `ftc-claude`'s
+`.docs/2026-10-03-two-books.md`:
+
+- **A picture of what you will have**, first, with one sentence about the robot, not the code.
+- **The steps**, each a `### L020S010: read the left stick` heading, counting by 10s. A step is one
+  change to the code, then tried everywhere it runs, in this order, leaving out a part the step
+  does not need:
+  - **Copy**: a file copied into `mytry`, or within it.
+  - **Change**: one edit or a few small ones in `mytry`, with the changed lines highlighted.
+  - **Simulator**: `simRun`, watched live in AdvantageScope.
+  - **AdvantageScope**: what to open or set to see the result.
+  - **Log**: the same values in the flight log, from the repository's top folder.
+  - **Robot**: sent to the robot, run from the Driver Station, watched in AdvantageScope.
+- **Check**: one line after each part that changes what the student sees, saying what they see
+  when it worked.
+
+Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
+
+**What only the mentor book shows**, each in a `{only} mentor` block that leads with bold text:
+
+- **Before you start**: the lessons this one needs finished, and the state the robot has to be in.
+  A mentor reads it to bring back a student who missed a session.
+- **If it didn't**: under a check, only where a failure was seen, written as *Write the check
+  from a failure somebody saw* says.
+- **What you just did**: one paragraph of theory.
+- **Where next**: the lessons this one unlocks.
+
+The code a student copies carries a comment where each step changes it, linking to the step.
+`source/conf.py` gives each step heading its name as its anchor:
+
+```java
+// When on L020S010, see
+// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s010
+// for what to do here.
+```
+
+## The old pages have five parts
 
 - **What you will have when this is done.** One or two sentences, about the robot and not about the
   code. A student deciding what to do next reads only this.
@@ -44,6 +86,18 @@ corrected later, the page says so in one line and names the task that corrects i
 Every figure has a row in [`FIGURES.md`](FIGURES.md) and an id of the form `fig-<something>`. A
 figure that does not exist yet is a pencilled box in the page, so the gap is visible to a reader and
 not blocking to a writer. `tools/check_figures.py` checks both directions.
+
+## One source makes two books
+
+- **The student book** is built with no tag, from `source/student_index.md`, into `build/html`.
+- **The mentor book** is built with `-t mentor`, from `source/index.md`, into `build/mentor`.
+
+`ninja book` builds both. Both front pages include `source/_intro.md`. `MENTOR_ONLY` in
+`source/conf.py` lists the pages only the mentor book has.
+
+A mentor paragraph inside a shared page goes in a `{only} mentor` block, and so does any link to a
+mentor-only page; outside one, that link fails the student build. A mentor part leads with bold
+text, not a heading: a heading inside `only` brings the whole block into the student book.
 
 ## Running the gate
 

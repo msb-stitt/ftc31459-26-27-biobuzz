@@ -29,14 +29,6 @@ tasks/l5
 
 ```{toctree}
 :maxdepth: 1
-:caption: See what it is doing
-
-tasks/panels
-tasks/bench
-```
-
-```{toctree}
-:maxdepth: 1
 :caption: Hand the wheels to the follower
 
 tasks/l6
