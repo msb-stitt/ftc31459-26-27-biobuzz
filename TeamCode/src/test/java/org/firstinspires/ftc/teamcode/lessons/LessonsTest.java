@@ -824,6 +824,28 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l150_theBumperSwitchesToRobotRelative() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L150RobotRelativeButtonOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+        follower.setPose(POSES.of(0, 0, 90));
+        h.gamepad1.left_stick_y = -1.0f;
+
+        h.loop();
+        assertEquals("field relative by default", 0.0, h.wheelsForward(), 1e-3);
+
+        h.gamepad1.right_bumper = true;
+        h.loop();
+        assertEquals("robot relative while held", 1.0, h.wheelsForward(), 1e-3);
+
+        h.gamepad1.right_bumper = false;
+        h.loop();
+        assertEquals("and back again on release", 0.0, h.wheelsForward(), 1e-3);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test
