@@ -27,6 +27,7 @@ L170DriveToPoseOpMode
 L180CombinedOpMode
 L190SpeedDriveTrain
 L190VelocityDriveOpMode
+L195TicksDriveTrain
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
