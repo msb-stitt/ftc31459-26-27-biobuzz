@@ -804,6 +804,26 @@ public class LessonsTest {
                 90.0, Math.toDegrees(end.heading()), 15.0);
     }
 
+    @Test
+    public void l140_fieldRelativeIgnoresWhichWayTheRobotFaces() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L140FieldRelativeOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+
+        follower.setPose(POSES.of(0, 0, 0));
+        h.gamepad1.left_stick_y = -1.0f;          // away from the driver
+        h.loop();
+        assertEquals(1.0, h.wheelsForward(), 1e-3);
+
+        follower.setPose(POSES.of(0, 0, 90));     // robot now faces +y
+        h.loop();
+        assertEquals("same stick, still moves away from the driver",
+                0.0, h.wheelsForward(), 1e-3);
+        assertEquals(-1.0, h.wheelsStrafe(), 1e-3);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test
