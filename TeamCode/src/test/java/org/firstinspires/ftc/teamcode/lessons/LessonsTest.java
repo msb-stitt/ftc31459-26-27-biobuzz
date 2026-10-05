@@ -760,6 +760,24 @@ public class LessonsTest {
         assertEquals(follower.pose().y(), number(values, "Localizer/pinPoint/y_in"), EPS);
     }
 
+    @Test
+    public void l125_autoDrives24InchesForwardAndStops() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L125Drive24OpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        assertEquals("placed at the start pose", 72.0, follower.pose().x(), EPS);
+        assertEquals("against the wall, half a robot out", 10.5, follower.pose().y(), EPS);
+        assertEquals("facing +y", 90.0, Math.toDegrees(follower.pose().heading()), EPS);
+        h.start();
+        runUntilDone(h, follower, 3.0);
+        h.stop();
+
+        // Forward is +y at heading 90, so the 24 inches are in y and x holds.
+        assertEquals("ends 24 inches further along y", 34.5, follower.pose().y(), 1.0);
+        assertEquals("and does not wander in x", 72.0, follower.pose().x(), 1.0);
+        assertEquals("and still faces +y", 90.0, Math.toDegrees(follower.pose().heading()), 15.0);
+    }
+
     // -------------------------------------------------------------- L9
 
     @Test
