@@ -38,6 +38,10 @@ path = "source/tasks/l040.md"
 words = 800
 
 [[page]]
+path = "source/tasks/l050.md"
+words = 1100
+
+[[page]]
 path = "source/tasks/l2a.md"
 words = 1300
 

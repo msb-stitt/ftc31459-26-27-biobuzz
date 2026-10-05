@@ -4,6 +4,7 @@ import com.pedropathing.revhub.drivetrains.MecanumConfig;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -67,13 +68,17 @@ public final class OpModeHarness {
      * <p>Built as a {@link Proxy} rather than a class implementing DcMotorEx:
      * the real interface has dozens of methods and gains more with each SDK
      * release, and a hand-written fake would stop compiling every time. The
-     * proxy answers the four calls this code makes and returns harmless
+     * proxy answers the six calls this code makes and returns harmless
      * defaults for the rest.
      */
     public static final class FakeMotor implements InvocationHandler {
         public int ticks;
         public double power;
         public double velocity;
+
+        /** The direction last set, or null if none was. Recorded only: the
+         * simulator drives from the powers as written, whatever this says. */
+        public DcMotorSimple.Direction direction;
 
         /** How many times a power actually reached this motor, so a test can
          * see the write cache skipping one. */
@@ -96,6 +101,11 @@ public final class OpModeHarness {
                     return null;
                 case "getPower":
                     return power;
+                case "setDirection":
+                    direction = (DcMotorSimple.Direction) args[0];
+                    return null;
+                case "getDirection":
+                    return direction;
                 default:
                     return defaultValue(method.getReturnType());
             }

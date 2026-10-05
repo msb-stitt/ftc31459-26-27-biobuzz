@@ -8,6 +8,7 @@ stuck, not instead of being stuck.
 
 L020SticksOpMode
 L030SpeedsOpMode
+L040TankOpMode
 L2aSticksOpMode
 L2bTankOpMode
 L2TankDriveTrain
