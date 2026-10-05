@@ -1,0 +1,46 @@
+# L180
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 3 line(s) of code to write.
+
+## Copies
+
+- `lessons/L180CombinedOpMode.java` to `mytry/L180CombinedOpMode.java`
+
+## L180CombinedOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -10,6 +10,7 @@
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+ import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -102,6 +102,8 @@
+         // When on L180S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
+         // for what to do here.
++        shadowLocalizers.add("driveWheelEncoders",
++                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
+     }
+ 
+     // public: OpMode's own stop is public, so this one has to be too.
+```

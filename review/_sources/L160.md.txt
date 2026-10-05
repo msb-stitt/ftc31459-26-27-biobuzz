@@ -1,0 +1,80 @@
+# L160
+
+1 file(s) copied, then 4 change(s) in 1 file(s), 5 line(s) of code to write.
+
+## Copies
+
+- `lessons/L160HeadingHoldOpMode.java` to `mytry/L160HeadingHoldOpMode.java`
+
+## L160HeadingHoldOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -5,6 +5,7 @@
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
++import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
+ 
+ /**
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -7,6 +7,7 @@
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L160: hold the heading the driver left. Let go of the turn stick and the
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -31,6 +31,7 @@
+     boolean previousButtonA;
+ 
+     CorbelsMecanum drivetrain;
++    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
+ 
+     // public: OpMode's own init is public, so this one has to be too.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -73,6 +73,8 @@
+         // When on L160S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
+         // for what to do here.
++        turn = hold.turn(follower, turn);
++        Tracker.publish("heading/holding", hold.target() != null);
+ 
+         double strafe = squared(deadband(-leftStickX, band));
+         Tracker.publish("arcade/strafe", strafe);
+```

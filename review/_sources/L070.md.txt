@@ -1,0 +1,90 @@
+# L070
+
+1 file(s) copied, then 4 change(s) in 1 file(s), 15 line(s) of code to write.
+
+## Copies
+
+- `lessons/L070ButtonsOpMode.java` to `mytry/L070ButtonsOpMode.java`
+
+## L070ButtonsOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L070ButtonsOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -30,6 +30,7 @@
+     // When on L070S040, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s040
+     // for what to do here.
++    boolean previousButtonA;
+ 
+     // public: OpMode's own init is public, so this one has to be too.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -65,6 +65,10 @@
+         // When on L070S060, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s060
+         // for what to do here.
++        double leftStickX = gamepad1.left_stick_x;
++        Tracker.publish("stick/leftX", leftStickX);
++        double rightStickX = gamepad1.right_stick_x;
++        Tracker.publish("stick/rightX", rightStickX);
+ 
+         double leftSpeed = -leftStickY;
+         Tracker.publish("speed/left", leftSpeed);
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -90,6 +90,8 @@
+         // When on L070S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s030
+         // for what to do here.
++        boolean buttonA = gamepad1.a;
++        Tracker.publish("button/a", buttonA);
+ 
+         // When on L070S050, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s050
+```
+
+### A change
+
+Delete 0 lines, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -96,6 +96,14 @@
+         // When on L070S050, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s050
+         // for what to do here.
++        if (buttonA != previousButtonA) {
++            if (buttonA) {
++                Tracker.publish("button/event", "A pressed");
++            } else {
++                Tracker.publish("button/event", "A released");
++            }
++        }
++        previousButtonA = buttonA;
+ 
+         loopAfter();
+     }
+```
