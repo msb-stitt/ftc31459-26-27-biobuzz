@@ -41,8 +41,8 @@ Now the tests for your own work:
 ./gradlew :TeamCode:testLessons
 ```
 
-On a fresh copy, where nobody has written a lesson yet, the report counts 66 tests and 54 failures.
-Measured on 2026-09-28. Fifty-four failures is not a broken copy. Each one is a lesson nobody has
+On a fresh copy, where nobody has written a lesson yet, the report counts 44 tests and 44 failures.
+Measured on 2026-10-05. Forty-four failures is not a broken copy. Each one is a lesson nobody has
 written, and the count drops as you write them.
 
 **You'll know it worked when** the last lines name a report:
