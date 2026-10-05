@@ -194,7 +194,7 @@ def odometry_step():
     arrow(ax, (0, 0), (-lft, 0), color=RED)
     ax.text(-1.35, 1.75, f"forward (FL+FR+BL+BR)/4 = {fwd:g} in", fontsize=9, ha="left",
             va="bottom", color=GREEN)
-    ax.text(-1.35, -1.55, f"left (-FL+FR+BL-BR)/4 = {lft:g} in", fontsize=9, ha="left",
+    ax.text(-1.35, -1.55, f"strafe (-FL+FR+BL-BR)/4 = {lft:g} in", fontsize=9, ha="left",
             va="top", color=RED)
     ax.set_xlim(-2.4, 2.4)
     ax.set_ylim(-2.2, 2.2)
