@@ -1,0 +1,4 @@
+# L090: the mecanum starter, copied into mytry and filled in.
+copy lessons/L090MecanumOpMode.java mytry/L090MecanumOpMode.java
+patch L090MecanumOpMode.patch
+test *LessonsTest.l090*
