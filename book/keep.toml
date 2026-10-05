@@ -139,5 +139,5 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-try"
+solutions = "solutions-l010"
 solutions_commit = ""
