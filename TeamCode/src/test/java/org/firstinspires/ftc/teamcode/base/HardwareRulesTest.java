@@ -6,7 +6,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.firstinspires.ftc.teamcode.lessons.L15CombinedOpMode;
+import org.firstinspires.ftc.teamcode.lessons.L180CombinedOpMode;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class HardwareRulesTest {
 
     @Test
     public void everyDeviceIsLookedUpDuringInitAndNotAfter() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(new L180CombinedOpMode());
         assertEquals("nothing before init", 0, h.lookups);
 
         h.init();
@@ -47,7 +47,7 @@ public class HardwareRulesTest {
 
     @Test
     public void theHardwareIsResolvedExactlyOnce() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(new L180CombinedOpMode());
         h.init();
         h.start();
         h.loops(5, 0);
@@ -56,9 +56,9 @@ public class HardwareRulesTest {
 
     @Test
     public void theLocalizerReadsTheDevicesTheOpModeWasGiven() {
-        OpModeHarness h = new OpModeHarness(new L15CombinedOpMode());
+        OpModeHarness h = new OpModeHarness(new L180CombinedOpMode());
         h.init();
-        L15CombinedOpMode opMode = (L15CombinedOpMode) h.opMode();
+        L180CombinedOpMode opMode = (L180CombinedOpMode) h.opMode();
         assertSame("the same motor object, not a second handle",
                 h.motors.get(OpModeHarness.FRONT_LEFT).motor, opMode.hardware.frontLeft);
         assertSame(h.motors.get(OpModeHarness.FRONT_RIGHT).motor, opMode.hardware.frontRight);

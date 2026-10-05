@@ -5,15 +5,7 @@
 
 ## The tasks
 
-```{toctree}
-:maxdepth: 1
-:caption: Get the robot moving
-
-tasks/directions
-```
-
-Getting the robot and the laptop ready has no page yet. Checking the motor directions needs L2
-finished, so read it after that one.
+Getting the robot and the laptop ready, L010, has no page yet.
 
 ```{toctree}
 :maxdepth: 1
@@ -27,65 +19,49 @@ tasks/l060
 tasks/l070
 tasks/l080
 tasks/l090
-tasks/l110
-tasks/l115
-tasks/l120
-tasks/l125
-tasks/l130
-tasks/l140
-tasks/l150
-tasks/l160
-tasks/l170
-tasks/l180
-tasks/l190
-tasks/l195
-tasks/l2a
-tasks/l2
-tasks/l3
-tasks/l4
-tasks/l5
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Hand the wheels to the follower
 
-tasks/l6
+tasks/l100
+tasks/l110
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Know where it is
 
-tasks/pinpoint
-tasks/l8
+tasks/l115
+tasks/l120
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Drive it without a driver
 
-tasks/l9
-tasks/l10
+tasks/l125
+tasks/l130
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Drive it like a driver
 
-tasks/l11
-tasks/l12
-tasks/l13
-tasks/l14
-tasks/l15
-tasks/l16
+tasks/l140
+tasks/l150
+tasks/l160
+tasks/l170
+tasks/l180
+tasks/l190
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Measure the robot
 
-tasks/l17
+tasks/l195
 ```
 
 ```{toctree}

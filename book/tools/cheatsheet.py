@@ -31,9 +31,6 @@ TEST_LESSON = re.compile(r"^l(\d+[ab]?)_")
 TODO_LESSON = re.compile(r"TODO \d+ \(L(\d+[ab]?)\)")
 PUBLISH = re.compile(r'Tracker\.publish\("([^"]*)"')
 SHADOW = re.compile(r'shadowLocalizers\.add\("([^"]*)"')
-DIVIDER = re.compile(r"^\s*// -+ (.*)$")
-SIGNATURE = re.compile(r"^    (?:public|protected)(?: final)? [\w\[\]<>, ]+ (\w+)\(")
-WRITES = re.compile(r"^(L\d+[ab]?(?: and L\d+[ab]?)*) writes? (?:this|these)")
 NAMES_A_TEST = re.compile(r"(Passes|Works) when:")
 
 
@@ -125,27 +122,6 @@ def lessons_table(files: dict[str, list[str]],
     return out
 
 
-def drivetrain_table(lines: list[str]) -> list[str]:
-    """Which lesson writes which method of the shared drivetrain."""
-    owner = None
-    rows: dict[str, list[str]] = defaultdict(list)
-    for line in lines:
-        divider = DIVIDER.match(line)
-        if divider:
-            writes = WRITES.match(divider.group(1).strip())
-            owner = writes.group(1) if writes else None
-            continue
-        signature = SIGNATURE.match(line)
-        if owner and signature:
-            rows[owner].append(signature.group(1))
-    out = ["| Lesson | What it writes in `LessonsDriveTrain` |", "| --- | --- |"]
-    for owner in sorted(rows, key=lambda k: (int(re.sub(r"\D", "", k.split()[0])), k)):
-        methods = rows[owner]
-        written = ", ".join(f"`{method}()`" for method in dict.fromkeys(methods))
-        out.append(f"| {owner} | {written} |")
-    return out
-
-
 def publishes_table(files: dict[str, list[str]]) -> list[str]:
     """Every log key a lesson publishes, and where it comes from."""
     keys: dict[str, list[str]] = defaultdict(list)
@@ -177,13 +153,6 @@ def page(files: dict[str, list[str]], tests_in: dict[str, list[str]], solutions:
         "names that lesson: its check is on the floor.",
         "",
         *lessons_table(files, tests_in),
-        "",
-        "## Who writes what in the shared drivetrain",
-        "",
-        "Every lesson adds to one class, and nothing is written twice. A method written in an early",
-        "lesson is the one a later lesson calls.",
-        "",
-        *drivetrain_table(files["LessonsDriveTrain.java"]),
         "",
         "## What shows up in Panels",
         "",

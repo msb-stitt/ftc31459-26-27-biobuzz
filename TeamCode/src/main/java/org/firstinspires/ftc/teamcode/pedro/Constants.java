@@ -40,9 +40,9 @@ public class Constants {
      * MEASURE BOTH on your robot: push it a known distance for the first, and
      * drive flat out and read the velocity for the second.
      */
-    public static double ticksPerInch = 45.0;          // MEASURE: run L17a
+    public static double ticksPerInch = 45.0;          // MEASURE: run L195
 
-    /** How far a wheel sits from the middle, inches. MEASURE: run L17b. */
+    /** How far a wheel sits from the middle, inches. MEASURE: run L195. */
     public static double turnRadiusInches = 8.0;
 
     /**

@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.example.DriveForward24OpMode;
-import org.firstinspires.ftc.teamcode.lessons.L2bTankOpMode;
+import org.firstinspires.ftc.teamcode.lessons.L040TankOpMode;
 import org.junit.Test;
 
 /**
@@ -21,7 +21,7 @@ public class SimRunTest {
     @Test
     public void anOpModeIsNamedByWhatFollowsThePackage() throws Exception {
         assertTrue("a lesson",
-                SimRun.opMode("lessons.L2bTankOpMode") instanceof L2bTankOpMode);
+                SimRun.opMode("lessons.L040TankOpMode") instanceof L040TankOpMode);
         assertTrue("another package",
                 SimRun.opMode("example.DriveForward24OpMode") instanceof DriveForward24OpMode);
     }

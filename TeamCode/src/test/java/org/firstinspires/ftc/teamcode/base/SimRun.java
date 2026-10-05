@@ -15,9 +15,9 @@ import java.lang.reflect.Field;
  * <pre>
  * ./gradlew :TeamCode:simRun --args="--help"
  * ./gradlew :TeamCode:simRun --args="--pad-check"
- * ./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode"
- * ./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --pad"
- * ./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --left_stick_y=-1"
+ * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode"
+ * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"
+ * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1"
  * </pre>
  *
  * <p>{@link SimArgs} holds the four forms, the 21 controls that can be set and

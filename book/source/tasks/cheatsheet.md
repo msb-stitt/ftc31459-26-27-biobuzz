@@ -46,6 +46,7 @@ names that lesson: its check is on the floor.
 | L170 | `L170 Drive To Pose` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l170*'` |
 | L180 | `L180 Combined` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l180*'` |
 | L190 | `L190 Velocity Drive` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l190*'` |
+| L195 | `L195 Measure ticks per inch` (TeleOp) `L195 Measure turn radius` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l195*'` |
 
 ## Who writes what in the shared drivetrain
 
@@ -90,12 +91,12 @@ A key ending in `...` has a name added to the end of it, one per wheel or per lo
 | `lesson/event` | `L2aSticksOpMode`, `L2bTankOpMode` |
 | `lesson/loop_count` | `L2aSticksOpMode` |
 | `lesson/seconds_running` | `L2aSticksOpMode` |
-| `measure/inches` | `L17aMeasureTicksPerInchOpMode` |
-| `measure/radians` | `L17bMeasureTurnRadiusOpMode` |
-| `measure/ticks` | `L17aMeasureTicksPerInchOpMode` |
-| `measure/ticksPerInch` | `L17aMeasureTicksPerInchOpMode` |
-| `measure/turnRadius_in` | `L17bMeasureTurnRadiusOpMode` |
-| `measure/wheel_inches` | `L17bMeasureTurnRadiusOpMode` |
+| `measure/inches` | `L17aMeasureTicksPerInchOpMode`, `L195MeasureTicksPerInchOpMode` |
+| `measure/radians` | `L17bMeasureTurnRadiusOpMode`, `L195MeasureTurnRadiusOpMode` |
+| `measure/ticks` | `L17aMeasureTicksPerInchOpMode`, `L195MeasureTicksPerInchOpMode` |
+| `measure/ticksPerInch` | `L17aMeasureTicksPerInchOpMode`, `L195MeasureTicksPerInchOpMode` |
+| `measure/turnRadius_in` | `L17bMeasureTurnRadiusOpMode`, `L195MeasureTurnRadiusOpMode` |
+| `measure/wheel_inches` | `L17bMeasureTurnRadiusOpMode`, `L195MeasureTurnRadiusOpMode` |
 | `power/backLeft` | `L090MecanumOpMode` |
 | `power/backRight` | `L090MecanumOpMode` |
 | `power/frontLeft` | `L090MecanumOpMode` |
