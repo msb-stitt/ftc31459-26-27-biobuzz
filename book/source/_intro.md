@@ -25,7 +25,7 @@ that says what you will see when it worked.
 ::::
 
 - **The answers are in the back.** They are the real code from the solutions branch. Use them when
-  you are stuck, not instead of being stuck.
+  you have tried and want a hint, not instead of trying.
 
 :::{admonition} fig-robot-front
 :class: pencil
