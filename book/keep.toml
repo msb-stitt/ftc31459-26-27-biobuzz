@@ -27,7 +27,9 @@ words = 240
 # hold. Mike sets the real one when he reads the page.
 [[page]]
 path = "source/tasks/l020.md"
-words = 800
+# Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
+# short student explanations.
+words = 850
 
 [[page]]
 path = "source/tasks/l030.md"
@@ -58,7 +60,7 @@ path = "source/tasks/l090.md"
 words = 1800
 
 [[page]]
-path = "source/tasks/l100.md"
+path = "source/tasks/l117.md"
 words = 1700
 
 [[page]]
@@ -110,34 +112,6 @@ path = "source/tasks/l195.md"
 words = 1700
 
 [[page]]
-path = "source/tasks/l2a.md"
-words = 1300
-
-[[page]]
-path = "source/tasks/l2.md"
-words = 1400
-
-[[page]]
-path = "source/tasks/directions.md"
-words = 1100
-
-[[page]]
-path = "source/tasks/l3.md"
-words = 1200
-
-[[page]]
-path = "source/tasks/l4.md"
-words = 1000
-
-[[page]]
-path = "source/tasks/l5.md"
-words = 1000
-
-[[page]]
-path = "source/tasks/l6.md"
-words = 1200
-
-[[page]]
 path = "source/tasks/panels.md"
 words = 1000
 
@@ -155,50 +129,6 @@ words = 1000
 [[page]]
 path = "source/tasks/bench.md"
 words = 1150
-
-[[page]]
-path = "source/tasks/pinpoint.md"
-words = 1000
-
-[[page]]
-path = "source/tasks/l8.md"
-words = 1300
-
-[[page]]
-path = "source/tasks/l9.md"
-words = 700
-
-[[page]]
-path = "source/tasks/l10.md"
-words = 800
-
-[[page]]
-path = "source/tasks/l11.md"
-words = 900
-
-[[page]]
-path = "source/tasks/l12.md"
-words = 800
-
-[[page]]
-path = "source/tasks/l13.md"
-words = 900
-
-[[page]]
-path = "source/tasks/l14.md"
-words = 1000
-
-[[page]]
-path = "source/tasks/l15.md"
-words = 900
-
-[[page]]
-path = "source/tasks/l16.md"
-words = 1400
-
-[[page]]
-path = "source/tasks/l17.md"
-words = 1100
 
 [[page]]
 path = "source/tasks/glossary.md"

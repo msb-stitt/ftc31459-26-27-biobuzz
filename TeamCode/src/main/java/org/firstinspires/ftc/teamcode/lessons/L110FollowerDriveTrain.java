@@ -33,9 +33,9 @@ class L110FollowerDriveTrain extends CorbelsDriveTrain {
      * as in L090. {@code wheels[FL]} is the front left wheel's power, and
      * {@code FR}, {@code BL} and {@code BR} name the other three.
      */
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected double[] mix(DrivePowers powers) {
+    public double[] mix(DrivePowers powers) {
         double forward = powers.forward();
         double strafe = powers.strafe();
         double turn = powers.turn();

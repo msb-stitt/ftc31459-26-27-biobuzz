@@ -1,4 +1,4 @@
-# Biobuz lessons
+# BIOBUZZ lessons
 
 ```{include} _intro.md
 ```
@@ -33,7 +33,6 @@ tasks/bench
 :maxdepth: 1
 :caption: Hand the wheels to the follower
 
-tasks/l100
 tasks/l110
 ```
 
@@ -42,6 +41,7 @@ tasks/l110
 :caption: Know where it is
 
 tasks/l115
+tasks/l117
 tasks/l120
 ```
 

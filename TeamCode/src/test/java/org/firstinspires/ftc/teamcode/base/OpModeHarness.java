@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.DoubleSupplier;
 
 /**
  * Runs a real OpMode on a laptop: simulated drivetrain, fake motors and a
@@ -76,6 +77,25 @@ public final class OpModeHarness {
         public double power;
         public double velocity;
 
+        /** How far the wheel has rolled, and how fast, in inches and inches per
+         * second; null until {@link #follow}, and while they are null the
+         * encoder reports {@link #ticks} and {@link #velocity} as a test set them. */
+        private DoubleSupplier rolledInches;
+        private DoubleSupplier speedInPerS;
+
+        /** Counts what the wheel rolls from now on, from zero, at Constants.ticksPerInch. */
+        public void follow(DoubleSupplier rolledInches, DoubleSupplier speedInPerS) {
+            double start = rolledInches.getAsDouble();
+            this.rolledInches = () -> rolledInches.getAsDouble() - start;
+            this.speedInPerS = speedInPerS;
+        }
+
+        /** Stops counting the wheel, so the encoder reports what a test sets. */
+        public void unfollow() {
+            rolledInches = null;
+            speedInPerS = null;
+        }
+
         /** The direction last set, or null if none was. Recorded only: the
          * simulator drives from the powers as written, whatever this says. */
         public DcMotorSimple.Direction direction;
@@ -92,9 +112,11 @@ public final class OpModeHarness {
         public Object invoke(Object proxy, Method method, Object[] args) {
             switch (method.getName()) {
                 case "getCurrentPosition":
-                    return ticks;
+                    return rolledInches == null ? ticks
+                            : (int) Math.round(rolledInches.getAsDouble() * Constants.ticksPerInch);
                 case "getVelocity":
-                    return velocity;
+                    return speedInPerS == null ? velocity
+                            : speedInPerS.getAsDouble() * Constants.ticksPerInch;
                 case "setPower":
                     power = (Double) args[0];
                     writes++;
@@ -112,20 +134,42 @@ public final class OpModeHarness {
         }
     }
 
-    /** An IMU whose heading the test sets. */
+    /**
+     * An IMU. On its own, its heading is what a test sets in {@link #yawRadians}.
+     * After {@link #follow}, it reads how far the simulated robot has turned since
+     * then, or since the last {@code resetYaw}, wrapped to -pi to pi as the real
+     * one is.
+     */
     public static final class FakeImu implements InvocationHandler {
         public double yawRadians;
+        /** How far the robot has turned, unwrapped; null until {@link #follow}. */
+        private DoubleSupplier turned;
+        /** What {@link #turned} read when the yaw was last zero. */
+        private double zero;
 
         public final IMU imu = (IMU) Proxy.newProxyInstance(
                 IMU.class.getClassLoader(), new Class<?>[]{IMU.class}, this);
+
+        /** Reads its heading from {@code turned} from now on, starting at zero. */
+        public void follow(DoubleSupplier turned) {
+            this.turned = turned;
+            zero = turned.getAsDouble();
+        }
+
+        private double yaw() {
+            if (turned == null) return yawRadians;
+            double a = turned.getAsDouble() - zero;
+            return Math.atan2(Math.sin(a), Math.cos(a));
+        }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) {
             switch (method.getName()) {
                 case "getRobotYawPitchRollAngles":
-                    return new YawPitchRollAngles(AngleUnit.RADIANS, yawRadians, 0, 0, 0);
+                    return new YawPitchRollAngles(AngleUnit.RADIANS, yaw(), 0, 0, 0);
                 case "resetYaw":
                     yawRadians = 0;
+                    if (turned != null) zero = turned.getAsDouble();
                     return null;
                 default:
                     return defaultValue(method.getReturnType());
@@ -201,8 +245,9 @@ public final class OpModeHarness {
     /** How many times anything has resolved the robot's hardware. */
     public int lookups;
 
-    /** Sets what each motor reports for velocity, in ticks per second. */
+    /** Sets what each motor reports for velocity, in ticks per second, in place of what its wheel rolls. */
     public void velocities(double frontLeft, double frontRight, double backLeft, double backRight) {
+        for (FakeMotor m : motors.values()) m.unfollow();
         motors.get(FRONT_LEFT).velocity = frontLeft;
         motors.get(FRONT_RIGHT).velocity = frontRight;
         motors.get(BACK_LEFT).velocity = backLeft;
@@ -266,6 +311,16 @@ public final class OpModeHarness {
                 motors.get(FRONT_RIGHT).power,
                 motors.get(BACK_LEFT).power,
                 motors.get(BACK_RIGHT).power));
+        // The IMU turns as the simulated robot does, and only then: putting the
+        // robot down at its start pose leaves it reading zero, as on the robot.
+        imu.follow(robot.localizer::turnedRadians);
+        // The encoders count what each wheel rolls, until a test sets them.
+        String[] wheels = {FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT};
+        for (int i = 0; i < 4; i++) {
+            int wheel = i;
+            motors.get(wheels[i]).follow(() -> robot.localizer.rolledInches(wheel),
+                    () -> robot.localizer.wheelSpeeds()[wheel]);
+        }
         // Pedro gets the simulated drivetrain, which passes what it is asked
         // for on to the drivetrain the lesson built. Without that, nothing the
         // follower computes ever reaches a motor.
@@ -285,8 +340,9 @@ public final class OpModeHarness {
         }
     }
 
-    /** Sets all four encoders, in ticks. */
+    /** Sets all four encoders, in ticks, in place of what their wheels roll. */
     public void setWheelTicks(int frontLeft, int frontRight, int backLeft, int backRight) {
+        for (FakeMotor m : motors.values()) m.unfollow();
         motors.get(FRONT_LEFT).ticks = frontLeft;
         motors.get(FRONT_RIGHT).ticks = frontRight;
         motors.get(BACK_LEFT).ticks = backLeft;
@@ -300,6 +356,11 @@ public final class OpModeHarness {
 
     public void init() {
         opMode.init();
+    }
+
+    /** One pass between INIT and PLAY, as the SDK makes again and again. */
+    public void initLoop() {
+        opMode.init_loop();
     }
 
     public void start() {

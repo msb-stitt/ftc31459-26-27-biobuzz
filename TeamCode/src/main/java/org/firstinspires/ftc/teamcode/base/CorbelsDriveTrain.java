@@ -54,7 +54,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     protected static final int BR = 3;
 
     /** Power per inch per second of error, for {@link #setCommandedWheelSpeeds}. */
-    protected static final double VELOCITY_KP = 0.008;
+    public static final double VELOCITY_KP = 0.008;
 
     /** The robot's motors, sensors and battery. The motors are read from here. */
     protected final RobotHardware hardware;
@@ -83,7 +83,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     private boolean coastForCharacterization;
 
     /** How fast each wheel is actually turning, for {@link #setCommandedWheelSpeeds}. */
-    protected final WheelVelocities measuredSpeeds;
+    public final WheelVelocities measuredSpeeds;
 
     /**
      * Takes the robot's hardware and gets the motors ready: each one spins the
@@ -141,7 +141,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * The three numbers the follower asks for, as four wheel powers: front left,
      * front right, back left, back right.
      */
-    protected abstract double[] mix(DrivePowers powers);
+    public abstract double[] mix(DrivePowers powers);
 
     /**
      * Drives each wheel at the power given, from the next follower update until
@@ -463,13 +463,13 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     }
 
     /** No more than full power either way. */
-    protected static double clampToPower(double power) {
+    public static double clampToPower(double power) {
         double notTooLow = Math.max(-1.0, power);
         return Math.min(1.0, notTooLow);
     }
 
     /** What a wanted speed, a measured speed and the power between them were. */
-    protected void publishWheelSpeeds(double[] wanted, double[] measured, double[] powers) {
+    public void publishWheelSpeeds(double[] wanted, double[] measured, double[] powers) {
         String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
         for (int i = 0; i < names.length; i++) {
             Tracker.publish("wheel/" + names[i] + "/target_ips", wanted[i]);

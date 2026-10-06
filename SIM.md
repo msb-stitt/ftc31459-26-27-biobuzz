@@ -138,6 +138,12 @@ constant; and the result is integrated into a pose.
 | Strafe | 43.6 in/s |
 | Turn | 4.0 rad/s |
 
+The fake IMU's yaw is how far the simulated robot has turned since it was put down, so a
+localizer's `setPose` does not move it, as on the robot. Each motor's encoder counts what its wheel
+rolls, at `Constants.ticksPerInch`, worked out from the robot's motion with
+`WheelTargets.forMecanum` and `Constants.turnRadiusInches`, and its velocity is the wheel's speed in
+ticks per second. A test that sets the ticks or velocities by hand takes them over.
+
 So the simulator has no slip, no scrub, no battery sag, no floor, no field wall, no motor wired
 backwards and no Pinpoint. It cannot tell you a path is too fast for the tyres, and it will happily
 drive through the perimeter. **When the simulator and the robot disagree, the robot is right.**

@@ -92,6 +92,18 @@ public abstract class CorbelsOpMode extends OpMode {
         // sensor reading, a configuration problem -- is in the file too. The
         // Robot Controller closes it if the OpMode never runs.
         Tracker.begin(this);
+        // A lesson's run is live in AdvantageScope from INIT. For practice
+        // only: FTC rule R704 forbids it at competitions, so only the lessons
+        // and the students' copies of them turn it on.
+        if (isLesson()) {
+            Tracker.serveLive();
+        }
+    }
+
+    /** True for an OpMode in {@code lessons} or in {@code mytry}. */
+    private boolean isLesson() {
+        String name = getClass().getName();
+        return name.contains(".lessons.") || name.contains(".mytry.");
     }
 
     /**
@@ -116,7 +128,24 @@ public abstract class CorbelsOpMode extends OpMode {
         }
         onInit();
         follower.update();
-        Tracker.printToDs("Panels: http://192.168.43.1:8001");
+        shadowLocalizers = new ShadowLocalizers().publishOnly("pinPoint", follower.localizer);
+        if (isLesson()) {
+            Tracker.printToDs("AdvantageScope: connect to 192.168.43.1");
+        } else {
+            Tracker.printToDs("Panels: http://192.168.43.1:8001");
+        }
+    }
+
+    /**
+     * Again and again between INIT and PLAY: the live localizer read and its
+     * pose published, so the robot can be watched before it starts. The
+     * wheels are not driven.
+     */
+    @Override
+    public void init_loop() {
+        follower.localizer.update();
+        shadowLocalizers.update();
+        Tracker.endInitLoop();
     }
 
     @Override
