@@ -30,7 +30,7 @@ names that lesson: its check is on the floor.
 | L190 | `L190 Velocity Drive` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l190*'` |
 | L195 | `L195 Measure ticks per inch` (TeleOp) `L195 Measure turn radius` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l195*'` |
 
-## What shows up in Panels
+## What shows up in AdvantageScope
 
 A key ending in `...` has a name added to the end of it, one per wheel or per localizer.
 

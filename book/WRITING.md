@@ -23,13 +23,12 @@ that takes their content replaces them.
   - **Copy**: a file copied into `mytry`, or within it.
   - **Change**: one edit or a few small ones in `mytry`, with the changed lines highlighted.
   - **Simulator**: `simRun`, watched live in AdvantageScope.
-  - **AdvantageScope**: what to open or set to see the result.
+  - **AdvantageScope**: what to open or set to see the result, connected to the simulator or, on
+    the robot's Wi-Fi, to the robot.
   - **Log**: the same values in the flight log, from the repository's top folder.
   - **Send**: the code sent to the robot, and the OpMode picked and started on the Driver Station.
   - **Robot**: what to do with the robot. A part can instead be named for that one thing, as
     **Push**, **Spin** or **Drive**.
-  - **Panels**: what to open in Panels to see the result. AdvantageScope connects only to the
-    simulator.
 - **Check**: one line after each part that changes what the student sees, saying what they see
   when it worked.
 

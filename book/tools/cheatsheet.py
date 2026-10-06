@@ -154,7 +154,7 @@ def page(files: dict[str, list[str]], tests_in: dict[str, list[str]], solutions:
         "",
         *lessons_table(files, tests_in),
         "",
-        "## What shows up in Panels",
+        "## What shows up in AdvantageScope",
         "",
         "A key ending in `...` has a name added to the end of it, one per wheel or per localizer.",
         "",

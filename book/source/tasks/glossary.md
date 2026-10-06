@@ -14,7 +14,8 @@ documentation and the Driver Station all use this one.
 
 **AdvantageScope**
 : The program that shows what the code published. It can show it live or from a flight log, as
-  numbers, as graphs, or as a robot on the field. [L020](l020.md)
+  numbers, as graphs, or as a robot on the field. [The cheat sheet](cheatsheet.md) lists every name
+  the lessons publish. [L020](l020.md)
 
 **Flight log**
 : The file a run writes. It holds every number the code published, so you can look at the run
@@ -27,10 +28,6 @@ documentation and the Driver Station all use this one.
 **Driver Station**
 : The phone or tablet that holds the gamepads and picks the OpMode. Lines printed with
   `Tracker.printToDs` show up there. [L050](l050.md)
-
-**Panels**
-: The web page that draws what the code published while it ran. Every `Tracker.publish` key shows
-  up there, and [the cheat sheet](cheatsheet.md) lists them. [L050](l050.md)
 
 **Drivetrain**
 : The four motors and the code that decides what power each one gets. L040 sets the four powers
