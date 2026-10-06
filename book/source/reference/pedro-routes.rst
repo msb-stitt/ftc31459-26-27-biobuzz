@@ -142,9 +142,10 @@ both:
 
 .. code-block:: text
 
-   line(s, e).linear(0, toRadians(90))    3.0.1  t=0   0.0    t=0.5  45.0    t=1  90.0
-                                          3.0.0  t=0  90.0    t=0.5  45.0    t=1   0.0
-   line(s, e).linear(e, s)   swapped      3.0.1  t=0  90.0    t=0.5  45.0    t=1   0.0
+   on line(s, e)                     version    t=0   t=0.5    t=1
+   .linear(0, toRadians(90))         3.0.1      0.0    45.0   90.0
+   .linear(0, toRadians(90))         3.0.0     90.0    45.0    0.0
+   .linear(e, s), swapped            3.0.1     90.0    45.0    0.0
 
 This was `issue 176 <https://github.com/Pedro-Pathing/PedroPathing/issues/176>`_,
 with `180 <https://github.com/Pedro-Pathing/PedroPathing/issues/180>`_ and
