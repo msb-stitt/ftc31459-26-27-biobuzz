@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s020
 // for what to do here.
 @Disabled
-// public: the robot only runs an OpMode that is public.
+// 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L170DriveToPoseOpMode extends CorbelsTeleOp {
 
     boolean previousButtonA;
@@ -40,7 +40,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     Pose target = poses.of(120, 72, 90);
     boolean drivingItself;
 
-    // protected: CorbelsTeleOp's own bindings is protected, so this one has to be too.
+    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
     @Override
     protected void bindings() {
         // When on L170S030, see
@@ -48,7 +48,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         // for what to do here.
     }
 
-    // public: OpMode's own init is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
@@ -58,14 +58,14 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         initAfter(drivetrain);
     }
 
-    // public: OpMode's own start is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void start() {
         startBefore();
         startAfter();
     }
 
-    // public: OpMode's own loop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
@@ -87,7 +87,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // public: OpMode's own stop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void stop() {
         stopAfter();

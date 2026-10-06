@@ -23,7 +23,7 @@ class L195TicksDriveTrain extends CorbelsMecanum {
      * left wheel's count, and {@code FR}, {@code BL} and {@code BR} name the
      * other three.
      */
-    // public: CorbelsDriveTrain's own wheelTicks is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public int[] wheelTicks() {
         int[] ticks = new int[4];

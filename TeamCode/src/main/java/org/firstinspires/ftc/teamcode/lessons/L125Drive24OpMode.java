@@ -27,7 +27,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s020
 // for what to do here.
 @Disabled
-// public: the robot only runs an OpMode that is public.
+// 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L125Drive24OpMode extends CorbelsAuto {
 
     PoseFactory poses = PoseFactory.degrees();
@@ -40,7 +40,7 @@ public class L125Drive24OpMode extends CorbelsAuto {
 
     CorbelsMecanum drivetrain;
 
-    // public: OpMode's own init is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
@@ -48,7 +48,7 @@ public class L125Drive24OpMode extends CorbelsAuto {
         initAfter(drivetrain);
     }
 
-    // public: OpMode's own start is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void start() {
         startBefore();
@@ -60,7 +60,7 @@ public class L125Drive24OpMode extends CorbelsAuto {
      * one line here is for the driver's screen, which shows nothing unless a
      * lesson asks it to.
      */
-    // public: OpMode's own loop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
@@ -68,19 +68,19 @@ public class L125Drive24OpMode extends CorbelsAuto {
         loopAfter();
     }
 
-    // public: OpMode's own stop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void stop() {
         stopAfter();
     }
 
-    // protected: CorbelsAuto's own startPose is protected, so this one has to be too.
+    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
     @Override
     protected Pose startPose() {
         return start;
     }
 
-    // protected: CorbelsAuto's own routine is protected, so this one has to be too.
+    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
     @Override
     protected Command routine() {
         // When on L125S030, see
