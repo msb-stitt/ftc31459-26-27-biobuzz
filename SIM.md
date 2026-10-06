@@ -60,7 +60,7 @@ An autonomous can be over before a field is set up by hand: `lessons.L125Drive24
 24 in and holds in about 1 s. Its flight log replays the run. Stop `simRun` with Ctrl-C, open the
 `.wpilog` it wrote into the repository's top folder in AdvantageScope, and drag `Robot/Pose` onto the field. `Robot/Path` dragged
 beside it and switched to **Trajectory** from its icon draws the line the robot was told to follow.
-Watched on 2026-10-01 against `solutions-03`, as `L9Drive24OpMode`.
+Watched on 2026-10-01 with the finished code of the old `L9Drive24OpMode`, which L125 now teaches.
 
 Ctrl-C stops it. The flight log goes in the repository's top folder, where `.gitignore` keeps it
 out of git, and `simRun` names that folder before anything else, as `Flight log: <folder>`.
