@@ -308,8 +308,8 @@
           <section id="pedro-routes-a-cheat-sheet">
 <h1>Pedro routes: a cheat sheet<a class="headerlink" href="#pedro-routes-a-cheat-sheet" title="Link to this heading">¶</a></h1>
 <p>Every way to say where the robot should go, and which ones to avoid.
-Measured on 2026-09-29. This project resolves <code class="docutils literal notranslate"><span class="pre">com.pedropathing:core:3.0.0</span></code>,
-and the <code class="docutils literal notranslate"><span class="pre">linear()</span></code> rows were measured against it again on 2026-10-05. Where
+Measured on 2026-09-29. This project resolves <code class="docutils literal notranslate"><span class="pre">com.pedropathing:core:3.0.1</span></code>,
+and every number here was measured against it again on 2026-10-05. Where
 the documentation and the jar disagree, the jar is what is written here.</p>
 <p>In the pictures the black line is where the robot drives and each red pin is
 its nose, sampled every eighth of the way along. Both come from
@@ -412,11 +412,11 @@ nothing in between.</p>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">linear(a,</span> <span class="pre">b)</span></code></p></td>
 <td><p>Sweeps from one heading to another along the route.</p></td>
-<td><p>Not on a line.</p></td>
+<td><p>Yes.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">longLinear(a,</span> <span class="pre">b)</span></code></p></td>
 <td><p>The same, taking the long way round.</p></td>
-<td><p>No.</p></td>
+<td><p>Yes, undocumented.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Interpolator.piecewise()</span></code></p></td>
 <td><p>A different rule on each stretch of the route.</p></td>
@@ -444,38 +444,36 @@ from the pose. Or convert, <code class="docutils literal notranslate"><span clas
 <code class="docutils literal notranslate"><span class="pre">PoseFactory.degrees()</span></code> converts for you; <code class="docutils literal notranslate"><span class="pre">constant</span></code> does not.</p>
 </section>
 </section>
-<section id="do-not-use-linear-on-a-line">
-<h2>Do not use <code class="docutils literal notranslate"><span class="pre">linear()</span></code> on a line<a class="headerlink" href="#do-not-use-linear-on-a-line" title="Link to this heading">¶</a></h2>
-<img alt="a straight line whose nose starts at ninety degrees and ends at zero" src="../_images/route-linear.svg" />
-<p>Asked to sweep from 0 to 90 degrees along a line, 3.0.0 sweeps from 90 to 0.
-Measured:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>line(s, e).linear(0, toRadians(90))    t=0  90.0    t=0.5  45.0    t=1   0.0
-line(s, e).linear(e, s)   swapped      t=0   0.0    t=0.5  45.0    t=1  90.0
+<section id="linear-on-a-line-was-reversed-before-3-0-1">
+<h2><code class="docutils literal notranslate"><span class="pre">linear()</span></code> on a line was reversed before 3.0.1<a class="headerlink" href="#linear-on-a-line-was-reversed-before-3-0-1" title="Link to this heading">¶</a></h2>
+<img alt="a straight line whose nose starts at zero degrees and ends at ninety" src="../_images/route-linear.svg" />
+<p>Asked to sweep from 0 to 90 degrees along a line, 3.0.1 does, and
+<code class="docutils literal notranslate"><span class="pre">endPose().heading()</span></code> reports the end heading. 3.0.0, which this project used
+until 2026-10-05, swept from 90 to 0 and reported the start heading. Measured on
+both:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>on line(s, e)                     version    t=0   t=0.5    t=1
+.linear(0, toRadians(90))         3.0.1      0.0    45.0   90.0
+.linear(0, toRadians(90))         3.0.0     90.0    45.0    0.0
+.linear(e, s), swapped            3.0.1     90.0    45.0    0.0
 </pre></div>
 </div>
-<p>The end pose is wrong too: <code class="docutils literal notranslate"><span class="pre">endPose().heading()</span></code> reports the start heading.</p>
-<p>This is <a class="reference external" href="https://github.com/Pedro-Pathing/PedroPathing/issues/176">issue 176</a>,
+<p>This was <a class="reference external" href="https://github.com/Pedro-Pathing/PedroPathing/issues/176">issue 176</a>,
 with <a class="reference external" href="https://github.com/Pedro-Pathing/PedroPathing/issues/180">180</a> and
 <a class="reference external" href="https://github.com/Pedro-Pathing/PedroPathing/issues/181">181</a> reporting the
 same thing. The cause given there is <code class="docutils literal notranslate"><span class="pre">Curve.pathCompletion()</span></code> returning the
-fraction of the path remaining rather than the fraction completed. All three
-are closed. 3.0.1 fixes it: measured on 2026-10-05, the same line runs 0, 45
-and 90, and <code class="docutils literal notranslate"><span class="pre">endPose().heading()</span></code> reports the end heading.</p>
-<p>The workaround in those issues is to swap the arguments, and it works, and it
-reads as a mistake to whoever finds it next. It also fails for a 180 degree
-turn, where the two ways round are the same distance.</p>
-<p><strong>On a curve, ``linear()`` is correct.</strong> Measured on the same three poses:
-<code class="docutils literal notranslate"><span class="pre">curve(s,</span> <span class="pre">m,</span> <span class="pre">e).linear(0,</span> <span class="pre">toRadians(90))</span></code> runs 0, 24.6, 45, 90. So the bug is
-the line’s, which is what issue 176’s title says: line and compound paths.</p>
-<p>Two ways round it on a straight leg. Hold one heading with <code class="docutils literal notranslate"><span class="pre">constant</span></code> and put
-the turn on its own leg. Or make the leg a shallow <code class="docutils literal notranslate"><span class="pre">curve</span></code>, where <code class="docutils literal notranslate"><span class="pre">linear</span></code>
-behaves.</p>
+fraction of the path remaining rather than the fraction completed.</p>
+<p>The workaround in those issues was to swap the arguments. On 3.0.1 the swap
+turns the robot the wrong way, so a swapped <code class="docutils literal notranslate"><span class="pre">linear()</span></code> in code written for
+3.0.0 is now a bug. On a curve, <code class="docutils literal notranslate"><span class="pre">linear()</span></code> is the same in both versions:
+<code class="docutils literal notranslate"><span class="pre">curve(s,</span> <span class="pre">m,</span> <span class="pre">e).linear(0,</span> <span class="pre">toRadians(90))</span></code> runs 0, 24.6, 45, 90.</p>
 </section>
-<section id="longlinear-is-reversed-the-same-way">
-<h2><code class="docutils literal notranslate"><span class="pre">longLinear()</span></code> is reversed the same way<a class="headerlink" href="#longlinear-is-reversed-the-same-way" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">longLinear(0,</span> <span class="pre">toRadians(90))</span></code> runs 90, 157.5, 225, then 0 at the end. Neither
-end is what was asked for. It is undocumented as well: the documentation page
-lists tangent, linear, constant, facingPoint, piecewise and custom, and not this.</p>
+<section id="longlinear-takes-the-long-way-round">
+<h2><code class="docutils literal notranslate"><span class="pre">longLinear()</span></code> takes the long way round<a class="headerlink" href="#longlinear-takes-the-long-way-round" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">longLinear(0,</span> <span class="pre">toRadians(90))</span></code> runs 0, 292.5, 225, then 90 at the end:
+clockwise, the long way from 0 to 90. On 3.0.0 it was reversed the same way as
+<code class="docutils literal notranslate"><span class="pre">linear()</span></code>, running 90, 157.5, 225, then 0. It is undocumented: the
+documentation page lists tangent, linear, constant, facingPoint, piecewise and
+custom, and not this.</p>
 </section>
 <section id="facingpoint-has-one-edge">
 <h2><code class="docutils literal notranslate"><span class="pre">facingPoint()</span></code> has one edge<a class="headerlink" href="#facingpoint-has-one-edge" title="Link to this heading">¶</a></h2>
@@ -569,8 +567,8 @@ the robot is right.</p></li>
 <li><a class="reference internal" href="#the-number-form-is-radians">The number form is radians</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#do-not-use-linear-on-a-line">Do not use <code class="docutils literal notranslate"><span class="pre">linear()</span></code> on a line</a></li>
-<li><a class="reference internal" href="#longlinear-is-reversed-the-same-way"><code class="docutils literal notranslate"><span class="pre">longLinear()</span></code> is reversed the same way</a></li>
+<li><a class="reference internal" href="#linear-on-a-line-was-reversed-before-3-0-1"><code class="docutils literal notranslate"><span class="pre">linear()</span></code> on a line was reversed before 3.0.1</a></li>
+<li><a class="reference internal" href="#longlinear-takes-the-long-way-round"><code class="docutils literal notranslate"><span class="pre">longLinear()</span></code> takes the long way round</a></li>
 <li><a class="reference internal" href="#facingpoint-has-one-edge"><code class="docutils literal notranslate"><span class="pre">facingPoint()</span></code> has one edge</a></li>
 <li><a class="reference internal" href="#what-this-page-does-not-cover">What this page does not cover</a></li>
 </ul>
