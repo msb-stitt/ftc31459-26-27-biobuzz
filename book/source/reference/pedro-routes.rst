@@ -2,9 +2,8 @@ Pedro routes: a cheat sheet
 ===========================
 
 Every way to say where the robot should go, and which ones to avoid.
-Measured on 2026-09-29. This project resolves ``com.pedropathing:core:3.0.1``,
-and every number here was measured against it again on 2026-10-05. Where
-the documentation and the jar disagree, the jar is what is written here.
+This project resolves ``com.pedropathing:core:3.0.1``. Where the
+documentation and the jar disagree, the jar is what is written here.
 
 In the pictures the black line is where the robot drives and each red pin is
 its nose, sampled every eighth of the way along. Both come from
@@ -104,7 +103,7 @@ The heading rules
      - Yes, undocumented.
    * - ``Interpolator.piecewise()``
      - A different rule on each stretch of the route.
-     - Untested here.
+     - Not covered here.
 
 There is no default
 ~~~~~~~~~~~~~~~~~~~
@@ -136,8 +135,7 @@ from the pose. Or convert, ``constant(Math.toRadians(90))``. A pose built by
    :alt: a straight line whose nose starts at zero degrees and ends at ninety
 
 Asked to sweep from 0 to 90 degrees along a line, 3.0.1 does, and
-``endPose().heading()`` reports the end heading. 3.0.0, which this project used
-until 2026-10-05, swept from 90 to 0 and reported the start heading. Measured on
+``endPose().heading()`` reports the end heading. 3.0.0 swept from 90 to 0 and reported the start heading. On
 both:
 
 .. code-block:: text

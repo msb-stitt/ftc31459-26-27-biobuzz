@@ -53,14 +53,11 @@ Point AdvantageScope at `127.0.0.1` and it will find the topics under `sim/`. In
 and the window waits, titled `127.0.0.1 (Searching)`, until the server comes up. Add a 2D field and
 give it `sim/Pose`, and the robot drives up the field. The **Field** list keeps the FTC fields in
 their own group below the FRC ones; **2026-2027 Field** is this season's, and choosing it shows a
-notice that FTC fields are experimental. Watched on 2026-09-28, and the menu path and the field on
-2026-10-01.
+notice that FTC fields are experimental.
 
-An autonomous can be over before a field is set up by hand: `lessons.L125Drive24OpMode` drives its
-24 in and holds in about 1 s. Its flight log replays the run. Stop `simRun` with Ctrl-C, open the
+An autonomous can be over before a field is set up by hand. Its flight log replays the run. Stop `simRun` with Ctrl-C, open the
 `.wpilog` it wrote into the repository's top folder in AdvantageScope, and drag `Robot/Pose` onto the field. `Robot/Path` dragged
 beside it and switched to **Trajectory** from its icon draws the line the robot was told to follow.
-Watched on 2026-10-01 against `solutions-03`, as `L9Drive24OpMode`.
 
 Ctrl-C stops it. The flight log goes in the repository's top folder, where `.gitignore` keeps it
 out of git, and `simRun` names that folder before anything else, as `Flight log: <folder>`.
@@ -80,16 +77,12 @@ What the simulated robot is doing is under `sim/`.
 Every value the OpMode publishes through `Tracker` goes out too, under the name the flight log gives
 it, so `Tracker.publish("stick/leftY", leftSpeed)` is `/stick/leftY` live and in the log.
 `sim/stick/leftY` is the stick as the gamepad gives it, and `/stick/leftY` is what the lesson made
-of it. Watched on 2026-10-02 with L2a's solution and the left stick forward: -1 and 1.
+of it.
 
 The pose is a struct because AdvantageScope wants one. A bare `double[]` of x, y and heading is what
 it calls the legacy numeric array format: it draws that too, warns about it in 2026 and removes it
 in 2027. The flight log has always written `struct:Pose2d`, so the topic now carries the same three
 little-endian doubles, and the schema that says what they are goes out beside it.
-
-The flight log's other struct topics are still missing: no `Speeds`, no `Twist`, no `Path`, no
-`AimPose`. The three `sim/vel` numbers say what `Twist` would have said. That is
-`sim.struct.topics` in `open-work.md`.
 
 ## Which teleop a test drives
 

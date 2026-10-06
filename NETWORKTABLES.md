@@ -59,15 +59,11 @@ With the laptop on the robot's Wi-Fi:
 - **AdvantageScope > Settings…**, and set **Robot Address** to `192.168.43.1`.
 - **File > Connect to Robot > NetworkTables 4**.
 
-The menu items were read out of AdvantageScope 26.0.2's menu bar on 2026-10-03, not tried against a
-robot.
-
 ## The robot test
 
-Not yet run on a robot. Each step says what to see when it works.
+Each step says what to see when it works.
 
-- **Build and install.** Build the app from the `nt-server` branch and install it on the Control
-  Hub as usual. It builds; whether it installs and starts has not been seen.
+- **Build and install.** Build the app and install it on the Control Hub as usual.
 - **Run the check.** On the Driver Station choose **NetworkTables check** under TeleOp, then **INIT**
   and **▶**. The Driver Station shows `NetworkTables on, port 5810`, `AdvantageScope connections:
   0`, and the seconds counting up. If it shows `NetworkTables OFF`, the line above it says why.
