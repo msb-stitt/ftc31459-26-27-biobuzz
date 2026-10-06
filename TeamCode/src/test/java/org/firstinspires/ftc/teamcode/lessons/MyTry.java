@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 /**
  * Builds a lesson's class out of {@code mytry} by its name, and calls its
  * methods by name, so the lesson tests compile on the lessons line, where
- * {@code mytry} holds nothing until a student copies a file into it.
+ * {@code mytry} holds no class until a student copies a file into it.
  *
  * <p>A test holds what it builds as an interface the robot code already has,
  * such as Pedro's {@code Drivetrain}, and reaches the lesson's own methods with
