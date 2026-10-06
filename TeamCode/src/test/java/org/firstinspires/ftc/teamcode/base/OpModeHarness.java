@@ -358,6 +358,11 @@ public final class OpModeHarness {
         opMode.init();
     }
 
+    /** One pass between INIT and PLAY, as the SDK makes again and again. */
+    public void initLoop() {
+        opMode.init_loop();
+    }
+
     public void start() {
         opMode.start();
     }

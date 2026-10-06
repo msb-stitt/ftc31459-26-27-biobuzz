@@ -106,8 +106,9 @@ public final class Tracker {
     /**
      * Sends everything the file records live to AdvantageScope as well, over
      * NetworkTables 4 on port 5810: on the robot, connect AdvantageScope to
-     * {@code 192.168.43.1}. Off until an OpMode calls this after
-     * {@code initBefore()}, and {@link #begin} switches it off again.
+     * {@code 192.168.43.1}. {@code initBefore()} calls this for a lesson and
+     * a copy in {@code mytry}; any other OpMode calls it itself, after
+     * {@code initBefore()}. {@link #begin} switches it off again.
      *
      * <p>For practice only: FTC rule R704 forbids third-party telemetry over
      * Wi-Fi at competitions. Returns false, with the reason on the Driver
@@ -165,6 +166,14 @@ public final class Tracker {
         if (ds != null) {
             ds.update();
         }
+    }
+
+    /**
+     * Closes the file's record for one pass between INIT and PLAY, without
+     * counting it as a loop. Called from {@code CorbelsOpMode.init_loop()}.
+     */
+    public static void endInitLoop() {
+        flightlog.endLoop();
     }
 
     /** Closes the file. Called from {@code CorbelsOpMode.stopAfter()}. */
