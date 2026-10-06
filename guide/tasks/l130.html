@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L140: make the sticks mean the field" href="l140.html"><link rel="prev" title="L125: the first autonomous" href="l125.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L130: two legs, forward then sideways - Biobuz lessons</title>
+        <title>L130: two legs, forward then sideways - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../student_index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../student_index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -332,12 +332,13 @@ to Git, click <strong>Add</strong>.</p>
 </section>
 <section id="l130s030">
 <span id="l130s030-add-a-second-leg-and-a-hold"></span><h3>L130S030: add a second leg and a hold<a class="headerlink" href="#l130s030" title="Link to this heading">¶</a></h3>
-<p>Near the top of the class are three poses: <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">corner</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>. All three face 90 degrees.
+<p>A pose is a place on the field and the way the robot faces there. Near the top of the class are
+three poses: <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">corner</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>. All three face 90 degrees.
 <code class="docutils literal notranslate"><span class="pre">corner</span></code> is straight up the field from <code class="docutils literal notranslate"><span class="pre">start</span></code>, and <code class="docutils literal notranslate"><span class="pre">end</span></code> is 24 inches to the right of <code class="docutils literal notranslate"><span class="pre">corner</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">routine()</span></code> already holds the first leg, from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">corner</span></code>. It is L125’s line, with one item
 on each line so there is room for more.</p>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">routine()</span></code>, type a comma at the end of the first leg. Find the comment that names
-this step, under it. Under the comment, type:</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">routine()</span></code>, type a comma at the end of the first leg. The comment that names this
+step is under it. Under the comment, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sequential</span><span class="p">(</span>
 <span class="hll"><span class="w">                </span><span class="n">follow</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">corner</span><span class="p">).</span><span class="na">constant</span><span class="p">(</span><span class="n">start</span><span class="p">)),</span>
 </span><span class="w">                </span><span class="c1">// When on L130S030, see</span>

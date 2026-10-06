@@ -1,4 +1,4 @@
-# Biobuz lessons
+# BIOBUZZ lessons
 
 ```{include} _intro.md
 ```

@@ -230,6 +230,8 @@ planted and run.
 - `expected:<40.0> but was:<1.0>`: `* MAX_IPS` is missing. A full stick is 1, and 1 inch per second
   is very slow.
 - `expected:<40.0> but was:<-40.0>`: the minus sign in front of `leftStickY` is missing.
+  `l190_whenTheWheelsAreUpToSpeedOnlyTheFeedforwardRemains` fails with it, saying
+  `expected:<0.0> but was:<-80.0>`.
 - `turning counter-clockwise drives the left side backwards`, on its own: the minus sign in front of
   `rightStickX` is missing.
 - `expected:<0.9878391425450086> but was:<0.6678391425450086>`: the feedback is not added. The
@@ -242,7 +244,7 @@ planted and run.
   `measuredSpeeds.all()`.
 
 Two mistakes pass every test. Both were run in the simulator with `--left_stick_y=-0.2`, and in
-both the `wheel` numbers were right while the robot stood still at x 72, y 10.5.
+both the `wheel` numbers were right while the robot stood still at x 72 in, y 10.5 in.
 
 - `setCommandedWheels` is missing, so the powers are worked out and logged but never sent.
 - `initAfter();` was left as it was, so the follower holds a stand-in and never sends the powers on,

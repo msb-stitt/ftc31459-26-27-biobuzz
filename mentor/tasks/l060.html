@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L070: read the buttons" href="l070.html"><link rel="prev" title="L050: drive the robot on blocks" href="l050.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L060: shape the sticks - Biobuz lessons</title>
+        <title>L060: shape the sticks - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -363,9 +363,9 @@ write a method of your own:</p>
 </div>
 <p>A <strong>method</strong> is a named piece of code you can use again. This one takes two numbers, <code class="docutils literal notranslate"><span class="pre">value</span></code> and
 <code class="docutils literal notranslate"><span class="pre">band</span></code>, and gives back one number. <code class="docutils literal notranslate"><span class="pre">return</span></code> is the number it gives back.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Math.abs</span></code> takes the minus sign off: <code class="docutils literal notranslate"><span class="pre">Math.abs(-0.03)</span></code> is 0.03. A stick pulled a long way back
-reads -0.5, and -0.5 is less than 0.05. But it is far from the middle, so it has to be compared
-without its minus sign.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Math.abs</span></code> takes the minus sign off: <code class="docutils literal notranslate"><span class="pre">Math.abs(-0.03)</span></code> is 0.03. <code class="docutils literal notranslate"><span class="pre">deadband</span></code> is given the speed, so a
+stick pulled halfway back gives -0.5, and -0.5 is less than 0.05. But it is far from the middle, so
+it has to be compared without its minus sign.</p>
 <p><strong>Check.</strong> The method has no red underline. Android Studio shows <code class="docutils literal notranslate"><span class="pre">deadband</span></code> in grey, with
 <em>no usages</em> above it, because nothing uses it yet.</p>
 </section>
@@ -456,8 +456,8 @@ both sticks just off centre; the first picture was taken that way. <code class="
 <p><strong>If it didn’t</strong>, and the robot still creeps on the floor, the band is smaller than what this
 gamepad reads when it is let go. Raise it a little: 0.05 to 0.1 is the usual range. A band much
 bigger than that throws away real driving.</p>
-<p><strong>If it didn’t</strong>, and the robot backs up but will not go forward, or the other way round, the sign
-was lost. Check <code class="docutils literal notranslate"><span class="pre">squared</span></code> uses <code class="docutils literal notranslate"><span class="pre">Math.abs</span></code>, and <code class="docutils literal notranslate"><span class="pre">deadband</span></code> too.</p>
+<p><strong>If it didn’t</strong>, and the robot goes forward but will not back up, a sign was lost. Check <code class="docutils literal notranslate"><span class="pre">squared</span></code>
+uses <code class="docutils literal notranslate"><span class="pre">Math.abs</span></code>, and <code class="docutils literal notranslate"><span class="pre">deadband</span></code> too.</p>
 <p><strong>What you just did.</strong> Both methods sit between the speed and the wheels. Each one takes a number
 and gives one back, and neither knows what a wheel is. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> is still what the stick asks
 for, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> is what the wheels get, so AdvantageScope shows both side by side.</p>

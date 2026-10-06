@@ -3,7 +3,7 @@
 :::{figure} ../_static/figures/fig-l120-shadow-still.png
 :name: fig-l120-shadow-still
 
-AdvantageScope's list with the `Localizer` folder open: `pinPoint/y_in` climbing past 600 while the robot drives forward, and `driveWheelEncoders` still at x 72, y 10.5 and heading 90, where it started.
+AdvantageScope's 2D Field and list with the `Localizer` folder open: `pinPoint/y_in` at 83.078 while the robot drives forward, and `driveWheelEncoders` still at x 72, y 10.5 and heading 90, where it started.
 :::
 
 Your own localizer runs beside the robot's own, and both are published so they can be graphed
@@ -88,6 +88,10 @@ Android Studio with `HardwareWheelSource` underlined in red and the popup offeri
 **Check.** Both start at `x_in` 72, `y_in` 10.5 and `heading_deg` 90. Push the left stick forward.
 `pinPoint/y_in` climbs, and `driveWheelEncoders` stays where it started. Yours does not count
 anything yet.
+
+`x_in` is how many inches the robot is from the left edge of the 2D Field, and `y_in` how many from
+its bottom edge. `heading_deg` is the way the robot's nose points, and 90 is straight up the field.
+Since L040, the **Poses** list has called that same direction 180°. Both mean up the field.
 
 ### L120S040: add up how far the wheels rolled
 
@@ -209,7 +213,7 @@ two lines are not in `shadowLocalizers()`.
 
 **If it didn't**, and `countsStrafingLeft` fails with `left is +y when facing +x`, a sign in the
 `strafe` line is wrong. With the sign in front of `frontRight` flipped, it reads
-`expected:<12.0> but was:<6.0>`, and `countsStraightAhead` fails too.
+`expected:<12.0> but was:<6.0>`, and three other tests fail with it.
 
 **If it didn't**, and all 8 tests fail with
 `Cannot load from double array because "this.lastWheels" is null`, the first-loop `if` is missing.

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L170: press Y and the robot drives itself there" href="l170.html"><link rel="prev" title="L150: give the driver both" href="l150.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L160: hold the heading the driver left - Biobuz lessons</title>
+        <title>L160: hold the heading the driver left - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../student_index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../student_index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -352,8 +352,8 @@ goes. <code class="docutils literal notranslate"><span class="pre">heading_deg</
 <section id="l160s040">
 <span id="l160s040-hold-the-heading"></span><h3>L160S040: hold the heading<a class="headerlink" href="#l160s040" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">HeadingHold</span></code> is written for you, in <code class="docutils literal notranslate"><span class="pre">base</span></code>. While the turn stick is pushed, it hands the stick
-straight back and the driver steers. The loop the stick is let go, it remembers the heading. After
-that it hands back the turn that steers the robot back to that heading.</p>
+straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
+After that it hands back the turn that steers the robot back to that heading.</p>
 <p>Its own deadband is 0.05, so a stick that is nearly centred counts as let go. <code class="docutils literal notranslate"><span class="pre">turn</span></code> at -0.040 is
 inside it.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the line
@@ -364,7 +364,7 @@ inside it.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Constants.foresightConfig</span></code> holds the follower’s own settings. <code class="docutils literal notranslate"><span class="pre">headingFeedback</span></code> is the part that
 steers the heading in autonomous. Tune the follower, and this hold gets the same tuning.</p>
-<p><code class="docutils literal notranslate"><span class="pre">HeadingHold</span></code> and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> turn red. Click each one and press Option+Enter, as in L125. The
+<p><code class="docutils literal notranslate"><span class="pre">HeadingHold</span></code> and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> turn red. Click each one and press Option+Enter, as in L120. The
 popup for <code class="docutils literal notranslate"><span class="pre">Constants</span></code> names <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode.pedro.Constants</span></code>.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">squared</span><span class="p">(</span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">rightStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">));</span>

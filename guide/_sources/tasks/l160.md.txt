@@ -63,8 +63,8 @@ goes. `heading_deg` started at 90 and keeps dropping.
 ### L160S040: hold the heading
 
 `HeadingHold` is written for you, in `base`. While the turn stick is pushed, it hands the stick
-straight back and the driver steers. The loop the stick is let go, it remembers the heading. After
-that it hands back the turn that steers the robot back to that heading.
+straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
+After that it hands back the turn that steers the robot back to that heading.
 
 Its own deadband is 0.05, so a stick that is nearly centred counts as let go. `turn` at -0.040 is
 inside it.
@@ -82,7 +82,7 @@ inside it.
 `Constants.foresightConfig` holds the follower's own settings. `headingFeedback` is the part that
 steers the heading in autonomous. Tune the follower, and this hold gets the same tuning.
 
-`HeadingHold` and `Constants` turn red. Click each one and press Option+Enter, as in L125. The
+`HeadingHold` and `Constants` turn red. Click each one and press Option+Enter, as in L120. The
 popup for `Constants` names `org.firstinspires.ftc.teamcode.pedro.Constants`.
 
 **Change.** In `loop()`, find the comment that names this step. Under it, type:

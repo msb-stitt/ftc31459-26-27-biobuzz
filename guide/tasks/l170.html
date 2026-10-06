@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L180: one OpMode a driver could take to a match" href="l180.html"><link rel="prev" title="L160: hold the heading the driver left" href="l160.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L170: press Y and the robot drives itself there - Biobuz lessons</title>
+        <title>L170: press Y and the robot drives itself there - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../student_index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../student_index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -340,7 +340,7 @@ Git, click <strong>Add</strong>.</p>
 </figure>
 <p>The starter is L160’s finished OpMode, moved around a little. All the driving now sits in
 <code class="docutils literal notranslate"><span class="pre">driveTheRobot()</span></code>, which <code class="docutils literal notranslate"><span class="pre">loop()</span></code> calls. Near the top are three new fields. <code class="docutils literal notranslate"><span class="pre">target</span></code> is the pose, at
-x 120, y 72 and heading 90. <code class="docutils literal notranslate"><span class="pre">drivingItself</span></code> remembers whether Y sent the robot there.</p>
+x 120 in, y 72 in and heading 90°. <code class="docutils literal notranslate"><span class="pre">drivingItself</span></code> remembers whether Y sent the robot there.</p>
 <p><code class="docutils literal notranslate"><span class="pre">bindings()</span></code> runs once, when PLAY is pressed. It is the place to say what each button does.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">bindings()</span></code>, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L170S030, see</span>
@@ -353,7 +353,7 @@ x 120, y 72 and heading 90. <code class="docutils literal notranslate"><span cla
 </span></pre></div>
 </div>
 <p>Android Studio closes the brackets for you, as <code class="docutils literal notranslate"><span class="pre">}))</span></code>. Type the <code class="docutils literal notranslate"><span class="pre">;</span></code> after them yourself.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Commands</span></code> turns red. Click it and press Option+Enter, as in L125. The popup names
+<p><code class="docutils literal notranslate"><span class="pre">Commands</span></code> turns red. Click it and press Option+Enter, as in L120. The popup names
 <code class="docutils literal notranslate"><span class="pre">com.pedropathing.ivy.commands.Commands</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">whenPressed</span></code> runs its command once, the loop Y goes down. Holding Y does not run it again. The
 command tells the follower to drive to <code class="docutils literal notranslate"><span class="pre">target</span></code> and stay there.</p>

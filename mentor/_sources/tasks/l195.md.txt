@@ -14,7 +14,8 @@ while you push it and spin it by hand.
 **Before you start.**
 
 - L190 is done. It is the lesson that uses both numbers.
-- The Pinpoint is mounted and tuned, as in L115, because this measurement believes it.
+- The Pinpoint is mounted, as in L115, and its offsets set, as in L100, because this measurement
+  believes it.
 - AdvantageScope is installed on the same laptop.
 - The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
   the robot on the spot.
@@ -79,9 +80,9 @@ the same shape pointing the other way: it brings four numbers back.
 **AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the `measure`
 folder.
 
-**Check.** `inches` and `ticks` read 0, and `ticksPerInch` reads NaN, which means "not a number".
-Nobody can push a robot in the simulator, so it stays at x 72 and y 10.5, and 0 divided by 0 is not
-a number. The measuring is for the robot.
+**Check.** `inches` and `ticks` read 0. `ticksPerInch` reads NaN, which means "not a number".
+Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
+is not a number. The measuring is for the robot.
 
 ### L195S040: push the robot and measure an inch
 
@@ -96,10 +97,12 @@ INIT, then PLAY.
 **Push.** Push the robot slowly straight forward, at least 36 in, keeping it pointing the same way.
 Push slowly: a wheel that slips travels without turning, and the answer comes out short.
 
-**Check.** The Driver Station shows `ticksPerInch` with a number after it. Do it three times. Three
-answers a tick or two apart are a measurement. Open `Constants`, in the `pedro` folder, and put the
-number in `ticksPerInch`, which is 45.0 until you do. Send the code again and run it once more to
-check.
+**Check.** The Driver Station shows `ticksPerInch` with a number after it.
+
+Do it three times. Three answers a tick or two apart are a measurement.
+
+**Change.** Open `Constants`, in the `pedro` folder, and put the number in `ticksPerInch`, which is
+45.0 until you do. Send the code again and run it once more to check.
 
 ### L195S050: spin the robot and measure the radius
 
@@ -112,9 +115,9 @@ radius is the wheel's inches divided by the radians. This OpMode turns ticks int
 **Spin.** Spin the robot on the spot by hand, at least two full turns, keeping it in about the same
 place.
 
-**Check.** The Driver Station shows a turn radius. Measure the distance between two opposite wheels,
-corner to corner, with a tape measure, and halve it. The two agree. Put the number in
-`turnRadiusInches` in `Constants.java`, which is 8.0 until you do.
+**Check.** The Driver Station shows a turn radius. Measure from the middle of the robot to the
+middle of one wheel, once across the robot and once along it, and add the two. The two agree. Put
+the number in `turnRadiusInches` in `Constants.java`, which is 8.0 until you do.
 
 ::::{only} mentor
 **No gamepad.** None of the runs above needs one. Pushing a robot by hand is not something the

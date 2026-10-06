@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L195: measure the two numbers L190 trusted" href="l195.html"><link rel="prev" title="L180: one OpMode a driver could take to a match" href="l180.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L190: ask the wheels for a speed - Biobuz lessons</title>
+        <title>L190: ask the wheels for a speed - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -494,7 +494,9 @@ planted and run.</p>
 speeds are still <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">MAX_IPS</span></code> is missing. A full stick is 1, and 1 inch per second
 is very slow.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;-40.0&gt;</span></code>: the minus sign in front of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is missing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;-40.0&gt;</span></code>: the minus sign in front of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is missing.
+<code class="docutils literal notranslate"><span class="pre">l190_whenTheWheelsAreUpToSpeedOnlyTheFeedforwardRemains</span></code> fails with it, saying
+<code class="docutils literal notranslate"><span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;-80.0&gt;</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">turning</span> <span class="pre">counter-clockwise</span> <span class="pre">drives</span> <span class="pre">the</span> <span class="pre">left</span> <span class="pre">side</span> <span class="pre">backwards</span></code>, on its own: the minus sign in front of
 <code class="docutils literal notranslate"><span class="pre">rightStickX</span></code> is missing.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;0.9878391425450086&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.6678391425450086&gt;</span></code>: the feedback is not added. The
@@ -507,7 +509,7 @@ speed then gets no power at all.</p></li>
 <code class="docutils literal notranslate"><span class="pre">measuredSpeeds.all()</span></code>.</p></li>
 </ul>
 <p>Two mistakes pass every test. Both were run in the simulator with <code class="docutils literal notranslate"><span class="pre">--left_stick_y=-0.2</span></code>, and in
-both the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> numbers were right while the robot stood still at x 72, y 10.5.</p>
+both the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> numbers were right while the robot stood still at x 72 in, y 10.5 in.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> is missing, so the powers are worked out and logged but never sent.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">initAfter();</span></code> was left as it was, so the follower holds a stand-in and never sends the powers on,

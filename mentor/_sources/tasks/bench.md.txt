@@ -117,12 +117,6 @@ the kind is NetworkTables 4 rather than a log file.
 Ctrl-C stops it. The flight log is in the project's top folder, which the first line it prints
 names.
 
-:::{figure} ../_static/figures/fig-advantagescope-sim.png
-:name: fig-advantagescope-sim
-
-AdvantageScope with a 2D field showing `sim/Pose`, the topic list open beside it, and a graph of the four `sim/wheels` values, so a student can match their own screen to what this step describes.
-:::
-
 :::{admonition} Which way round the field gets drawn is being looked into
 :class: note
 The corner the arrow starts in and the way it points do not yet agree with the numbers going out.

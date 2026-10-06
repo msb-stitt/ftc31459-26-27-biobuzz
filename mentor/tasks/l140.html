@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L150: give the driver both" href="l150.html"><link rel="prev" title="L130: two legs, forward then sideways" href="l130.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L140: make the sticks mean the field - Biobuz lessons</title>
+        <title>L140: make the sticks mean the field - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -329,7 +329,7 @@ happens to be facing, so a driver never has to think about which end of the robo
 <p>Step L140S050 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l11</span></code> page. It has not been performed on a robot
 yet.</p>
 <p><strong>Where the driver stands.</strong> “Away from the driver” is the field’s +x, as in the old <code class="docutils literal notranslate"><span class="pre">l11</span></code>. The
-robot starts at heading 90, facing +y, so at the start a push away from the driver slides it to its
+robot starts at heading 90°, facing +y, so at the start a push away from the driver slides it to its
 right. Which wall the drivers stand at this season has not been checked against the game manual.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
@@ -364,7 +364,7 @@ nose points, and its nose keeps turning.</p>
 <figure class="align-default" id="fig-field-relative">
 <img alt="../_images/fig-field-relative.png" src="../_images/fig-field-relative.png" />
 <figcaption>
-<p><span class="caption-text">The field from above with the driver at the bottom, the robot turned a quarter turn, the stick’s direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward and sideways it turns into.</span><a class="headerlink" href="#fig-field-relative" title="Link to this image">¶</a></p>
+<p><span class="caption-text">The field from above as AdvantageScope draws it, with the driver at the left edge, the robot facing up the field, the stick’s direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward and sideways it turns into.</span><a class="headerlink" href="#fig-field-relative" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>From now on, <code class="docutils literal notranslate"><span class="pre">forward</span></code> on the stick means away from the driver, along the field’s x. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> means
@@ -401,9 +401,9 @@ and the stick still means the same way on the field.</p>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L140FieldRelativeOpMode</span> <span class="pre">--left_stick_y=-0.4</span> <span class="pre">--right_stick_x=-0.7&quot;</span></code>
 holds both sticks, for the circle in L140S030 and the picture at the top. Before L140S040, the run
 was watched at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 70.812 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 7.230 after about 8 s.</p>
-<p>After L140S040, the robot drifts toward +y as it goes: one run went from x 72 and y 10.5 to x 179
-and y 43.5, about 17 degrees off a straight line. Why has not been worked out. The simulator has no
-walls, so a run left going drives off the field.</p>
+<p>After L140S040, the robot drifts toward +y as it goes: one run went from x 72 in and y 10.5 in
+to x 179 in and y 43.5 in, about 17 degrees off a straight line. Why has not been worked out. The
+simulator has no walls, so a run left going drives off the field.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l140_fieldRelativeIgnoresWhichWayTheRobotFaces</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">same</span> <span class="pre">stick,</span> <span class="pre">still</span> <span class="pre">moves</span> <span class="pre">away</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">driver</span> <span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>, the line still reads
 <code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(forward,</span> <span class="pre">strafe,</span> <span class="pre">turn);</span></code>.</p>

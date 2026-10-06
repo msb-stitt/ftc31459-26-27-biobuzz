@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L030: turn the sticks into speeds" href="l030.html"><link rel="prev" title="Biobuz lessons" href="../index.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L030: turn the sticks into speeds" href="l030.html"><link rel="prev" title="BIOBUZZ lessons" href="../index.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L020: read the sticks - Biobuz lessons</title>
+        <title>L020: read the sticks - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -334,9 +334,11 @@ files.</p>
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l020s010">
 <span id="l020s010-copy-the-starter-into-mytry"></span><h3>L020S010: copy the starter into mytry<a class="headerlink" href="#l020s010" title="Link to this heading">¶</a></h3>
-<p><strong>Copy.</strong> Open <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode/lessons</span></code>. Scroll to the bottom of it,
-click <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> once, and copy it: ⌘C on a Mac, Ctrl+C on Windows. Click
-<code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode</span></code> once, and paste.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">lessons</span></code> folder holds the starters: the file each lesson begins from. You copy one into your
+own folder, <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, and change the copy.</p>
+<p><strong>Copy.</strong> Open <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode/lessons</span></code>. Click <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>
+once, and copy it: ⌘C on a Mac, Ctrl+C on Windows. Click <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode</span></code> once, and
+paste.</p>
 <p>A box called <strong>Copy Class</strong> opens. Click at the end of <strong>Destination package</strong>, type <code class="docutils literal notranslate"><span class="pre">.mytry</span></code>, and
 click <strong>OK</strong>. If Android Studio asks whether to add the file to Git, click <strong>Add</strong>.</p>
 <figure class="align-default" id="fig-l020-copy-class">
@@ -355,8 +357,6 @@ click <strong>OK</strong>. If Android Studio asks whether to add the file to Git
 </figure>
 <p><strong>If it didn’t</strong>, and the copy landed in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> beside the starter, Destination package still
 ended in <code class="docutils literal notranslate"><span class="pre">lessons</span></code>. Delete the copy and paste again.</p>
-<p><strong>Why the bottom of the list.</strong> Android Studio sorts <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> after
-<code class="docutils literal notranslate"><span class="pre">L17bMeasureTurnRadiusOpMode</span></code>, so it is last in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> until the old lessons are retired.</p>
 </section>
 <section id="l020s020">
 <span id="l020s020-switch-your-copy-on"></span><h3>L020S020: switch your copy on<a class="headerlink" href="#l020s020" title="Link to this heading">¶</a></h3>
@@ -431,6 +431,8 @@ writes them in the flight log. Android Studio added an <code class="docutils lit
 the file.</p>
 <p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> is not red, and there is an
 <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">org.firstinspires.ftc.teamcode.base.Tracker;</span></code> line near the top.</p>
+<p>The simulator is a robot that exists only in the laptop. It runs your OpMode just as the real robot
+would.</p>
 <p><strong>Simulator.</strong> Click the <strong>Terminal</strong> button near the bottom of the left edge. Type this and press
 Enter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L020SticksOpMode --pad"</span>
@@ -438,6 +440,7 @@ Enter:</p>
 </div>
 <p><strong>Check.</strong> It prints <code class="docutils literal notranslate"><span class="pre">Flight</span> <span class="pre">log:</span></code> and a folder, then <code class="docutils literal notranslate"><span class="pre">mytry.L020SticksOpMode</span> <span class="pre">running.</span></code>, and stays
 running. The folder is the project’s top folder, the one that holds <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</p>
+<p>AdvantageScope draws the numbers your code publishes, as they change.</p>
 <p><strong>AdvantageScope.</strong> Open <strong>File &gt; Connect to Simulator &gt; NetworkTables 4</strong>, and click <strong>Line
 Graph</strong>. Type <code class="docutils literal notranslate"><span class="pre">stick</span></code> in the search box at the top left, and click <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code>. Drag <code class="docutils literal notranslate"><span class="pre">leftY</span></code>
 from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder down into <strong>Left Axis</strong>.</p>
@@ -454,7 +457,7 @@ same, because the code passes the stick on unchanged.</p>
 <figure class="align-default" id="fig-advantagescope-sim">
 <img alt="../_images/fig-advantagescope-sim.png" src="../_images/fig-advantagescope-sim.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope with a 2D field showing <code class="docutils literal notranslate"><span class="pre">sim/Pose</span></code>, the topic list open beside it, and a graph of the four <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> values.</span><a class="headerlink" href="#fig-advantagescope-sim" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot <code class="docutils literal notranslate"><span class="pre">NT:sim/Pose</span></code> at its start. The list shows the four <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> at 0, <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> at -1 and <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> at 0.5.</span><a class="headerlink" href="#fig-advantagescope-sim" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The simulator also sends where the robot is and the four wheel powers, as above. They stay still in

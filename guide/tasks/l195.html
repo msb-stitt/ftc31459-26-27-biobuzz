@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Pedro routes: a cheat sheet" href="../reference/pedro-routes.html"><link rel="prev" title="L190: ask the wheels for a speed" href="l190.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L195: measure the two numbers L190 trusted - Biobuz lessons</title>
+        <title>L195: measure the two numbers L190 trusted - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../student_index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../student_index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -359,9 +359,9 @@ the same shape pointing the other way: it brings four numbers back.</p>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">measure</span></code>
 folder.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0, and <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.
-Nobody can push a robot in the simulator, so it stays at x 72 and y 10.5, and 0 divided by 0 is not
-a number. The measuring is for the robot.</p>
+<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0. <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.
+Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
+is not a number. The measuring is for the robot.</p>
 </section>
 <section id="l195s040">
 <span id="l195s040-push-the-robot-and-measure-an-inch"></span><h3>L195S040: push the robot and measure an inch<a class="headerlink" href="#l195s040" title="Link to this heading">¶</a></h3>
@@ -373,10 +373,10 @@ L050. On the Driver Station, pick <code class="docutils literal notranslate"><sp
 INIT, then PLAY.</p>
 <p><strong>Push.</strong> Push the robot slowly straight forward, at least 36 in, keeping it pointing the same way.
 Push slowly: a wheel that slips travels without turning, and the answer comes out short.</p>
-<p><strong>Check.</strong> The Driver Station shows <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> with a number after it. Do it three times. Three
-answers a tick or two apart are a measurement. Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, and put the
-number in <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, which is 45.0 until you do. Send the code again and run it once more to
-check.</p>
+<p><strong>Check.</strong> The Driver Station shows <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> with a number after it.</p>
+<p>Do it three times. Three answers a tick or two apart are a measurement.</p>
+<p><strong>Change.</strong> Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, and put the number in <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, which is
+45.0 until you do. Send the code again and run it once more to check.</p>
 </section>
 <section id="l195s050">
 <span id="l195s050-spin-the-robot-and-measure-the-radius"></span><h3>L195S050: spin the robot and measure the radius<a class="headerlink" href="#l195s050" title="Link to this heading">¶</a></h3>
@@ -386,9 +386,9 @@ radius is the wheel’s inches divided by the radians. This OpMode turns ticks i
 <p><strong>Send.</strong> On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code>. Press INIT, then PLAY.</p>
 <p><strong>Spin.</strong> Spin the robot on the spot by hand, at least two full turns, keeping it in about the same
 place.</p>
-<p><strong>Check.</strong> The Driver Station shows a turn radius. Measure the distance between two opposite wheels,
-corner to corner, with a tape measure, and halve it. The two agree. Put the number in
-<code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>, which is 8.0 until you do.</p>
+<p><strong>Check.</strong> The Driver Station shows a turn radius. Measure from the middle of the robot to the
+middle of one wheel, once across the robot and once along it, and add the two. The two agree. Put
+the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>, which is 8.0 until you do.</p>
 </section>
 </section>
 </section>

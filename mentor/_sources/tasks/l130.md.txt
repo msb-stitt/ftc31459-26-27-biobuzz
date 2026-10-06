@@ -40,14 +40,15 @@ to Git, click **Add**.
 
 ### L130S030: add a second leg and a hold
 
-Near the top of the class are three poses: `start`, `corner` and `end`. All three face 90 degrees.
+A pose is a place on the field and the way the robot faces there. Near the top of the class are
+three poses: `start`, `corner` and `end`. All three face 90 degrees.
 `corner` is straight up the field from `start`, and `end` is 24 inches to the right of `corner`.
 
 `routine()` already holds the first leg, from `start` to `corner`. It is L125's line, with one item
 on each line so there is room for more.
 
-**Change.** In `routine()`, type a comma at the end of the first leg. Find the comment that names
-this step, under it. Under the comment, type:
+**Change.** In `routine()`, type a comma at the end of the first leg. The comment that names this
+step is under it. Under the comment, type:
 
 ```{code-block} java
 :emphasize-lines: 2,6-7

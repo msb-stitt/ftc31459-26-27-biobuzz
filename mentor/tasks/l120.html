@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L125: the first autonomous" href="l125.html"><link rel="prev" title="L115: mount the Pinpoint and plug it in" href="l115.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L120: work out where the robot is from the drive wheels - Biobuz lessons</title>
+        <title>L120: work out where the robot is from the drive wheels - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -315,7 +315,7 @@
 <figure class="align-default" id="fig-l120-shadow-still">
 <img alt="../_images/fig-l120-shadow-still.png" src="../_images/fig-l120-shadow-still.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s list with the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder open: <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> climbing past 600 while the robot drives forward, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> still at x 72, y 10.5 and heading 90, where it started.</span><a class="headerlink" href="#fig-l120-shadow-still" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field and list with the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder open: <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> at 83.078 while the robot drives forward, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> still at x 72, y 10.5 and heading 90, where it started.</span><a class="headerlink" href="#fig-l120-shadow-still" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Your own localizer runs beside the robot’s own, and both are published so they can be graphed
@@ -383,6 +383,9 @@ away.</p>
 <p><strong>Check.</strong> Both start at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 10.5 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 90. Push the left stick forward.
 <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> climbs, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> stays where it started. Yours does not count
 anything yet.</p>
+<p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> is how many inches the robot is from the left edge of the 2D Field, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> how many from
+its bottom edge. <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> is the way the robot’s nose points, and 90 is straight up the field.
+Since L040, the <strong>Poses</strong> list has called that same direction 180°. Both mean up the field.</p>
 </section>
 <section id="l120s040">
 <span id="l120s040-add-up-how-far-the-wheels-rolled"></span><h3>L120S040: add up how far the wheels rolled<a class="headerlink" href="#l120s040" title="Link to this heading">¶</a></h3>
@@ -478,7 +481,7 @@ two lines are not in <code class="docutils literal notranslate"><span class="pre
 <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">shadow</span> <span class="pre">localizer</span> <span class="pre">is</span> <span class="pre">logged:</span></code> and the list of names that were published.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">countsStrafingLeft</span></code> fails with <code class="docutils literal notranslate"><span class="pre">left</span> <span class="pre">is</span> <span class="pre">+y</span> <span class="pre">when</span> <span class="pre">facing</span> <span class="pre">+x</span></code>, a sign in the
 <code class="docutils literal notranslate"><span class="pre">strafe</span></code> line is wrong. With the sign in front of <code class="docutils literal notranslate"><span class="pre">frontRight</span></code> flipped, it reads
-<code class="docutils literal notranslate"><span class="pre">expected:&lt;12.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;6.0&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">countsStraightAhead</span></code> fails too.</p>
+<code class="docutils literal notranslate"><span class="pre">expected:&lt;12.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;6.0&gt;</span></code>, and three other tests fail with it.</p>
 <p><strong>If it didn’t</strong>, and all 8 tests fail with
 <code class="docutils literal notranslate"><span class="pre">Cannot</span> <span class="pre">load</span> <span class="pre">from</span> <span class="pre">double</span> <span class="pre">array</span> <span class="pre">because</span> <span class="pre">&quot;this.lastWheels&quot;</span> <span class="pre">is</span> <span class="pre">null</span></code>, the first-loop <code class="docutils literal notranslate"><span class="pre">if</span></code> is missing.</p>
 <p><strong>What you just did.</strong> That is <strong>dead reckoning</strong>: believe the wheels, and add up every step. It

@@ -47,7 +47,7 @@ AdvantageScope's 2D Field with the robot at the bottom middle of the field, its 
 
 The starter is L160's finished OpMode, moved around a little. All the driving now sits in
 `driveTheRobot()`, which `loop()` calls. Near the top are three new fields. `target` is the pose, at
-x 120, y 72 and heading 90. `drivingItself` remembers whether Y sent the robot there.
+x 120 in, y 72 in and heading 90°. `drivingItself` remembers whether Y sent the robot there.
 
 `bindings()` runs once, when PLAY is pressed. It is the place to say what each button does.
 
@@ -67,7 +67,7 @@ x 120, y 72 and heading 90. `drivingItself` remembers whether Y sent the robot t
 
 Android Studio closes the brackets for you, as `}))`. Type the `;` after them yourself.
 
-`Commands` turns red. Click it and press Option+Enter, as in L125. The popup names
+`Commands` turns red. Click it and press Option+Enter, as in L120. The popup names
 `com.pedropathing.ivy.commands.Commands`.
 
 `whenPressed` runs its command once, the loop Y goes down. Holding Y does not run it again. The

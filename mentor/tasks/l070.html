@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L080: drive like an arcade game" href="l080.html"><link rel="prev" title="L060: shape the sticks" href="l060.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L070: read the buttons - Biobuz lessons</title>
+        <title>L070: read the buttons - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -414,9 +414,10 @@ saves this loop’s button for the next loop.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>AdvantageScope.</strong> Drag <code class="docutils literal notranslate"><span class="pre">event</span></code> from the <code class="docutils literal notranslate"><span class="pre">button</span></code> folder into <strong>Discrete Fields</strong>. Until A has
 been pressed once, <code class="docutils literal notranslate"><span class="pre">event</span></code> is crossed out, because nothing has been written to it yet.</p>
+<p>Holding A down does not write <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> again. <code class="docutils literal notranslate"><span class="pre">event</span></code> only changes on the loop the button
+changed.</p>
 <p><strong>Check.</strong> Press A and hold it. <code class="docutils literal notranslate"><span class="pre">button/a</span></code> turns into a green dot, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.
-Let go. The dot turns red, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>. Holding A down does not write
-<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> again; it only changes on the loop the button changed.</p>
+Let go. The dot turns red, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p>
 </section>
 <section id="l070s060">
 <span id="l070s060-read-the-sticks-sideways"></span><h3>L070S060: read the sticks sideways<a class="headerlink" href="#l070s060" title="Link to this heading">¶</a></h3>
@@ -455,8 +456,8 @@ the <code class="docutils literal notranslate"><span class="pre">Lessons</span><
 <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> and never changes; the picture at the top was taken that way. A release
 needs a gamepad. <code class="docutils literal notranslate"><span class="pre">--left_stick_x=0.5</span> <span class="pre">--right_stick_x=-0.25</span></code> holds the sticks sideways for the last
 picture. The tests press and let go of A without a gamepad.</p>
-<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">event</span></code> never changes, the last line, <code class="docutils literal notranslate"><span class="pre">previousButtonA</span> <span class="pre">=</span> <span class="pre">buttonA;</span></code>, is
-missing or inside the first <code class="docutils literal notranslate"><span class="pre">if</span></code>. It has to run every loop.</p>
+<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> but never <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>, the last line,
+<code class="docutils literal notranslate"><span class="pre">previousButtonA</span> <span class="pre">=</span> <span class="pre">buttonA;</span></code>, is missing. The test fails with <code class="docutils literal notranslate"><span class="pre">letting</span> <span class="pre">go</span> <span class="pre">says</span> <span class="pre">so</span></code>.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> when A is let go, the two <code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> lines
 are swapped.</p>
 <p><strong>What you just did.</strong> A boolean is either <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. A field keeps a value between loops,

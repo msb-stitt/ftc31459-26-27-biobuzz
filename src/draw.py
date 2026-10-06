@@ -227,27 +227,27 @@ def odometry_step():
 
 
 def field_relative():
-    fig, ax = plt.subplots(figsize=(7, 7.6))
+    fig, ax = plt.subplots(figsize=(7.6, 7))
     ax.add_patch(Rectangle((-5, -5), 10, 10, facecolor="#f7f7f7", edgecolor=INK, linewidth=2))
-    ax.text(0, -5.6, "driver", ha="center", fontsize=12)
-    ax.add_patch(Circle((0, -5.25), 0.18, color=INK))
-    # Field x is away from the driver, so up the page; field y is then to the left.
+    ax.text(-5.75, 0, "driver", va="center", ha="right", rotation=90, fontsize=12)
+    ax.add_patch(Circle((-5.25, 0), 0.18, color=INK))
+    # As AdvantageScope's 2D Field draws it: field x to the right, away from the driver; y up.
+    arrow(ax, (-4.4, -4.4), (-3.2, -4.4), color=GREY, head=12)
     arrow(ax, (-4.4, -4.4), (-4.4, -3.2), color=GREY, head=12)
-    arrow(ax, (-4.4, -4.4), (-5.6 + 0.0, -4.4), color=GREY, head=12)
-    ax.text(-4.25, -3.2, "field x", fontsize=9)
-    ax.text(-5.6, -4.15, "field y", fontsize=9)
+    ax.text(-3.2, -4.75, "field x", fontsize=9)
+    ax.text(-4.3, -3.1, "field y", fontsize=9)
     # The stick, pushed away from the driver, drawn on the field.
-    arrow(ax, (2.8, -3.6), (2.8, -1.4), color=BLUE, width=4)
-    ax.text(3.0, -2.6, "stick:\naway from\nthe driver", fontsize=10, color=BLUE)
-    # The robot turned a quarter turn: heading 90 degrees faces field y, to the left.
-    c, f, l, s = robot_top(ax, cx=-0.5, cy=0.6, size=2.6, heading_deg=180)
-    arrow(ax, tuple(c), tuple(c + np.array([0, 2.2])), color=BLUE, width=4)
-    ax.text(c[0] + 0.15, c[1] + 2.25, "the same arrow on the robot:\nforward 0, sideways to its "
-            "right 1", fontsize=10, color=BLUE)
-    ax.text(c[0], c[1] - 1.9, "robot turned a quarter turn\n(heading 90 degrees)", ha="center",
+    arrow(ax, (-3.4, 3.4), (-1.2, 3.4), color=BLUE, width=4)
+    ax.text(-3.4, 3.7, "stick: away from the driver", fontsize=10, color=BLUE)
+    # The robot at heading 90 degrees faces field y, up the page.
+    c, f, l, s = robot_top(ax, cx=-1.2, cy=-0.6, size=2.6, heading_deg=90)
+    arrow(ax, tuple(c), tuple(c + np.array([2.2, 0])), color=BLUE, width=4)
+    ax.text(c[0] + 2.4, c[1], "the same arrow on\nthe robot: forward 0,\nsideways to its right 1",
+            va="center", fontsize=10, color=BLUE)
+    ax.text(c[0], c[1] - 2.3, "robot facing up the field\n(heading 90 degrees)", ha="center",
             fontsize=10)
-    ax.set_xlim(-6, 6)
-    ax.set_ylim(-6.1, 5.4)
+    ax.set_xlim(-6.1, 5.4)
+    ax.set_ylim(-6, 6)
     ax.set_aspect("equal")
     ax.axis("off")
     save(fig, "fig-field-relative")

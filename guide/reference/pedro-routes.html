@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Glossary" href="../tasks/glossary.html"><link rel="prev" title="L195: measure the two numbers L190 trusted" href="../tasks/l195.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Pedro routes: a cheat sheet - Biobuz lessons</title>
+        <title>Pedro routes: a cheat sheet - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../student_index.html"><div class="brand">Biobuz lessons</div></a>
+      <a href="../student_index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
-  <span class="sidebar-brand-text">Biobuz lessons</span>
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -308,9 +308,9 @@
           <section id="pedro-routes-a-cheat-sheet">
 <h1>Pedro routes: a cheat sheet<a class="headerlink" href="#pedro-routes-a-cheat-sheet" title="Link to this heading">¶</a></h1>
 <p>Every way to say where the robot should go, and which ones to avoid.
-Measured against <code class="docutils literal notranslate"><span class="pre">com.pedropathing:core:3.0.1</span></code>, the version this project
-pins, on 2026-09-29. Where the documentation and the jar disagree, the jar
-is what is written here.</p>
+Measured on 2026-09-29. This project resolves <code class="docutils literal notranslate"><span class="pre">com.pedropathing:core:3.0.0</span></code>,
+and the <code class="docutils literal notranslate"><span class="pre">linear()</span></code> rows were measured against it again on 2026-10-05. Where
+the documentation and the jar disagree, the jar is what is written here.</p>
 <p>In the pictures the black line is where the robot drives and each red pin is
 its nose, sampled every eighth of the way along. Both come from
 <code class="docutils literal notranslate"><span class="pre">Path.get(t)</span></code> and <code class="docutils literal notranslate"><span class="pre">Path.heading(t)</span></code>, so they are the library’s own
@@ -447,7 +447,7 @@ from the pose. Or convert, <code class="docutils literal notranslate"><span clas
 <section id="do-not-use-linear-on-a-line">
 <h2>Do not use <code class="docutils literal notranslate"><span class="pre">linear()</span></code> on a line<a class="headerlink" href="#do-not-use-linear-on-a-line" title="Link to this heading">¶</a></h2>
 <img alt="a straight line whose nose starts at ninety degrees and ends at zero" src="../_images/route-linear.svg" />
-<p>Asked to sweep from 0 to 90 degrees along a line, 3.0.1 sweeps from 90 to 0.
+<p>Asked to sweep from 0 to 90 degrees along a line, 3.0.0 sweeps from 90 to 0.
 Measured:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>line(s, e).linear(0, toRadians(90))    t=0  90.0    t=0.5  45.0    t=1   0.0
 line(s, e).linear(e, s)   swapped      t=0   0.0    t=0.5  45.0    t=1  90.0
@@ -459,7 +459,8 @@ with <a class="reference external" href="https://github.com/Pedro-Pathing/PedroP
 <a class="reference external" href="https://github.com/Pedro-Pathing/PedroPathing/issues/181">181</a> reporting the
 same thing. The cause given there is <code class="docutils literal notranslate"><span class="pre">Curve.pathCompletion()</span></code> returning the
 fraction of the path remaining rather than the fraction completed. All three
-are closed, and 3.0.1 still does it.</p>
+are closed. 3.0.1 fixes it: measured on 2026-10-05, the same line runs 0, 45
+and 90, and <code class="docutils literal notranslate"><span class="pre">endPose().heading()</span></code> reports the end heading.</p>
 <p>The workaround in those issues is to swap the arguments, and it works, and it
 reads as a mistake to whoever finds it next. It also fails for a 180 degree
 turn, where the two ways round are the same distance.</p>

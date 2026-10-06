@@ -7,7 +7,8 @@ AdvantageScope's 2D Field with the robot `NT:sim/Pose` slid to its own left alon
 :::
 
 The robot drives on the sticks as it did in L090, and the path follower is holding the drivetrain.
-The sticks still decide where the robot goes.
+The sticks still decide where the robot goes. The path follower is Pedro Pathing's code that drives
+the robot along a path; from L125 on, it drives the robot itself.
 
 ::::{only} mentor
 **Before you start.**

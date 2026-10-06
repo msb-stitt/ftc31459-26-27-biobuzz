@@ -3,7 +3,7 @@
 :::{figure} ../_static/figures/fig-l125-drive24.png
 :name: fig-l125-drive24
 
-AdvantageScope's 2D Field with the robot stopped 24 inches out from the back wall, its arrow pointing up the field, and the list showing `pinPoint/y_in` at 34.499, `x_in` at 72 and `heading_deg` at 90.
+AdvantageScope's 2D Field with the robot stopped 24 inches up the field from where it started, its arrow pointing up the field, and the list showing `pinPoint/y_in` at 34.499, `x_in` at 72 and `heading_deg` at 90.
 :::
 
 The robot drives 24 inches forward on its own and stops there. Nobody touches a stick. The path
@@ -115,9 +115,9 @@ are from the old `l9` page, and neither has been seen on a robot.
 and it works out the wheel powers. Nobody here wrote the path code.
 
 `.constant()` holds one heading for the whole line, which is what this path wants. Pedro also has
-`.linear()`, which turns from one heading to another. On Pedro 3.0.1 it turns the wrong way on a
-line path, reported in its issues #176 and #181. Nothing here can show that, because both ends face
-the same way.
+`.linear()`, which turns from one heading to another. On Pedro 3.0.0, which this project uses, it
+turns the wrong way on a line path, reported in its issues #176 and #181. Pedro 3.0.1 fixes it.
+Nothing here can show the bug, because both ends face the same way.
 
 `sequential` takes a list, and this one has a single item in it. [L130](l130.md) puts a second item
 after it, and that is the whole of what an autonomous routine is: a list of things to do in order.

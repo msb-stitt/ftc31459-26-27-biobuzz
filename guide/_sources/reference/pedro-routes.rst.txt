@@ -2,9 +2,9 @@ Pedro routes: a cheat sheet
 ===========================
 
 Every way to say where the robot should go, and which ones to avoid.
-Measured against ``com.pedropathing:core:3.0.1``, the version this project
-pins, on 2026-09-29. Where the documentation and the jar disagree, the jar
-is what is written here.
+Measured on 2026-09-29. This project resolves ``com.pedropathing:core:3.0.0``,
+and the ``linear()`` rows were measured against it again on 2026-10-05. Where
+the documentation and the jar disagree, the jar is what is written here.
 
 In the pictures the black line is where the robot drives and each red pin is
 its nose, sampled every eighth of the way along. Both come from
@@ -135,7 +135,7 @@ Do not use ``linear()`` on a line
 .. image:: ../_static/routes/route-linear.svg
    :alt: a straight line whose nose starts at ninety degrees and ends at zero
 
-Asked to sweep from 0 to 90 degrees along a line, 3.0.1 sweeps from 90 to 0.
+Asked to sweep from 0 to 90 degrees along a line, 3.0.0 sweeps from 90 to 0.
 Measured:
 
 .. code-block:: text
@@ -150,7 +150,8 @@ with `180 <https://github.com/Pedro-Pathing/PedroPathing/issues/180>`_ and
 `181 <https://github.com/Pedro-Pathing/PedroPathing/issues/181>`_ reporting the
 same thing. The cause given there is ``Curve.pathCompletion()`` returning the
 fraction of the path remaining rather than the fraction completed. All three
-are closed, and 3.0.1 still does it.
+are closed. 3.0.1 fixes it: measured on 2026-10-05, the same line runs 0, 45
+and 90, and ``endPose().heading()`` reports the end heading.
 
 The workaround in those issues is to swap the arguments, and it works, and it
 reads as a mistake to whoever finds it next. It also fails for a 180 degree
