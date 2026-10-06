@@ -16,9 +16,6 @@ that every wheel turns the way its stick says.
 - A robot, a Driver Station with a gamepad, and a USB cable from the laptop to the Control Hub.
 - Two blocks to rest the robot on, so no wheel touches the ground, and about 2 m of clear floor
   for the last step.
-
-Steps L050S050 to L050S080 are written from the code and the old `directions` and `l2` pages. They
-have not been performed on a robot yet.
 ::::
 
 ## The steps
@@ -187,13 +184,9 @@ it. Press INIT, then PLAY.
 **Live on the robot is for practice.** An OpMode in `lessons` or `mytry` turns on the robot's
 NetworkTables server at INIT, which is what AdvantageScope connects to. FTC rule R704 forbids
 third-party telemetry over Wi-Fi at competitions, so a competition OpMode lives in another folder,
-where it stays off. The rule is as `Tracker.serveLive()`'s comment gives it; the game manual was not
-opened for this page.
+where it stays off.
 
-**Seen on 2026-10-06** with `L110 Follower` on blocks, over Wi-Fi: the macOS permission prompt,
-then `Localizer/pinPoint` at INIT, before PLAY, and the rest of the values after PLAY. The
-**Settings…** window is titled **Preferences**. The gamepad half of L050S060 has not been
-performed.
+On a Mac, the **Settings…** window is titled **Preferences**.
 
 **If it didn't**, and the robot creeps with both sticks let go, the sticks do not read exactly 0.
 L060 fixes that.

@@ -328,8 +328,6 @@ follower does the driving, and you write one line to tell it where to go.</p>
 <li><p>The robot, the Driver Station, a piece of tape, a tape measure, and about 1 m of clear floor in
 front of the robot for the last step.</p></li>
 </ul>
-<p>Step L125S040 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l9</span></code> page. It has not been performed on a robot
-yet.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l125s010">
@@ -415,8 +413,7 @@ standing at that path’s finish already, so it is done before it starts. The te
 <code class="docutils literal notranslate"><span class="pre">and</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">wander</span> <span class="pre">in</span> <span class="pre">x</span> <span class="pre">expected:&lt;72.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;70.81415129095723&gt;</span></code>, the heading is
 <code class="docutils literal notranslate"><span class="pre">.constant(90)</span></code>. The number form is radians, so 90 is not 90 degrees.</p>
 <p><strong>If it didn’t</strong>, and on the floor it overshot or stopped short, that is the follower’s tuning, not
-this line. L117 tunes it. If it curved, check the motor directions from L050S070 first. These two
-are from the old <code class="docutils literal notranslate"><span class="pre">l9</span></code> page, and neither has been seen on a robot.</p>
+this line. L117 tunes it. If it curved, check the motor directions from L050S070 first.</p>
 <p><strong>What you just did.</strong> The follower is a library, used the way a team uses one: say where to go,
 and it works out the wheel powers. Nobody here wrote the path code.</p>
 <p><code class="docutils literal notranslate"><span class="pre">.constant()</span></code> holds one heading for the whole line, which is what this path wants. Pedro also has

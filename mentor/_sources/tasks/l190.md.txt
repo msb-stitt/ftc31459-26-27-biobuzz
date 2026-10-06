@@ -16,9 +16,6 @@ turns and makes up the difference, on a fresh battery or a flat one, on the flat
 - AdvantageScope is installed on the same laptop. No gamepad is needed until the last step.
 - The robot, the Driver Station, a gamepad, about 3 m of clear floor, and something gentle to drive
   up, like a folded mat, for the last step.
-
-Step L190S070 is written from the code and the old `l16` page. It has not been performed on a robot
-yet.
 ::::
 
 ## The steps
@@ -228,7 +225,7 @@ and watch it in AdvantageScope.
 
 ::::{only} mentor
 **No gamepad.** The runs above need none. With `--pad`, a driver can push the stick and watch the
-numbers; that has not been performed.
+numbers.
 
 **If it didn't**, and every `LessonsTest.l190_` test fails with this, nothing was published under
 `wheel/`:
@@ -274,7 +271,7 @@ A number in the log is what the code decided, not what the robot did.
 **If it didn't**, and on the robot it is slower than `target_ips` everywhere,
 `powerPerInchPerSecond` is off for this robot. L117 measures it. If turning is the wrong speed
 while driving straight is right, `turnRadiusInches` is 8 in, and this robot may not be. L195
-measures it. Both are from the old `l16` page, and neither has been seen on a robot.
+measures it.
 
 **What you just did.** A power is an instruction, and a speed is a result. Every lesson before
 this one sent instructions. This one states the result it wants, measures, and corrects.

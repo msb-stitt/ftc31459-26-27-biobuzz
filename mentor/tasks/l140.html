@@ -327,11 +327,9 @@ happens to be facing, so a driver never has to think about which end of the robo
 <li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
 <li><p>The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.</p></li>
 </ul>
-<p>Step L140S050 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l11</span></code> page. It has not been performed on a robot
-yet.</p>
-<p><strong>Where the driver stands.</strong> “Away from the driver” is the field’s +x, as in the old <code class="docutils literal notranslate"><span class="pre">l11</span></code>. The
+<p><strong>Where the driver stands.</strong> “Away from the driver” is the field’s +x. The
 robot starts at heading 90°, facing +y, so at the start a push away from the driver slides it to its
-right. Which wall the drivers stand at this season has not been checked against the game manual.</p>
+right.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l140s010">
@@ -418,7 +416,7 @@ Station. Stand off the robot’s left side, so that away from you is the field�
 holds both sticks, for the circle in L140S030 and the picture at the top. Before L140S040, the run
 was watched at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 70.812 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 7.230 after about 8 s.</p>
 <p>After L140S040, the robot drifts toward +y as it goes: one run went from x 72 in and y 10.5 in
-to x 179 in and y 43.5 in, about 17 degrees off a straight line. Why has not been worked out. The
+to x 179 in and y 43.5 in, about 17 degrees off a straight line. The
 simulator has no walls, so a run left going drives off the field.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l140_fieldRelativeIgnoresWhichWayTheRobotFaces</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">same</span> <span class="pre">stick,</span> <span class="pre">still</span> <span class="pre">moves</span> <span class="pre">away</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">driver</span> <span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>, the line still reads

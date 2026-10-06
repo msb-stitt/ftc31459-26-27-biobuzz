@@ -314,9 +314,8 @@
           <section id="pedro-routes-a-cheat-sheet">
 <h1>Pedro routes: a cheat sheet<a class="headerlink" href="#pedro-routes-a-cheat-sheet" title="Link to this heading">¶</a></h1>
 <p>Every way to say where the robot should go, and which ones to avoid.
-Measured on 2026-09-29. This project resolves <code class="docutils literal notranslate"><span class="pre">com.pedropathing:core:3.0.1</span></code>,
-and every number here was measured against it again on 2026-10-05. Where
-the documentation and the jar disagree, the jar is what is written here.</p>
+This project resolves <code class="docutils literal notranslate"><span class="pre">com.pedropathing:core:3.0.1</span></code>. Where the
+documentation and the jar disagree, the jar is what is written here.</p>
 <p>In the pictures the black line is where the robot drives and each red pin is
 its nose, sampled every eighth of the way along. Both come from
 <code class="docutils literal notranslate"><span class="pre">Path.get(t)</span></code> and <code class="docutils literal notranslate"><span class="pre">Path.heading(t)</span></code>, so they are the library’s own
@@ -426,7 +425,7 @@ nothing in between.</p>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Interpolator.piecewise()</span></code></p></td>
 <td><p>A different rule on each stretch of the route.</p></td>
-<td><p>Untested here.</p></td>
+<td><p>Not covered here.</p></td>
 </tr>
 </tbody>
 </table>
@@ -454,8 +453,7 @@ from the pose. Or convert, <code class="docutils literal notranslate"><span clas
 <h2><code class="docutils literal notranslate"><span class="pre">linear()</span></code> on a line was reversed before 3.0.1<a class="headerlink" href="#linear-on-a-line-was-reversed-before-3-0-1" title="Link to this heading">¶</a></h2>
 <img alt="a straight line whose nose starts at zero degrees and ends at ninety" src="../_images/route-linear.svg" />
 <p>Asked to sweep from 0 to 90 degrees along a line, 3.0.1 does, and
-<code class="docutils literal notranslate"><span class="pre">endPose().heading()</span></code> reports the end heading. 3.0.0, which this project used
-until 2026-10-05, swept from 90 to 0 and reported the start heading. Measured on
+<code class="docutils literal notranslate"><span class="pre">endPose().heading()</span></code> reports the end heading. 3.0.0 swept from 90 to 0 and reported the start heading. On
 both:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>on line(s, e)                     version    t=0   t=0.5    t=1
 .linear(0, toRadians(90))         3.0.1      0.0    45.0   90.0

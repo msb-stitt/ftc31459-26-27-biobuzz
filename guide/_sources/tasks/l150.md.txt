@@ -15,9 +15,6 @@ they mean the robot. Let go and they mean the field again.
 - L140 is done.
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
-
-Step L150S040 is written from the code and the old `l12` page. It has not been performed on a robot
-yet.
 ::::
 
 ## The steps

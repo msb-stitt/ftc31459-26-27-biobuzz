@@ -328,11 +328,8 @@ that.</p>
 <li><p>The robot, the two odometry pods, and whatever driver the robot’s own screws take.</p></li>
 <li><p>The I2C cable the Pinpoint came with, and the Driver Station.</p></li>
 </ul>
-<p>Every step here is on the robot. None has been performed yet. The three rules in L115S010 and
-L115S020 are Pedro’s, from
-<a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/localization/pinpoint">its Pinpoint page</a>, read on
-2026-09-28 and again on 2026-10-05. No Pinpoint was wired each wrong way to see what each mistake
-looks like.</p>
+<p>The three rules in L115S010 and L115S020 are Pedro’s, from
+<a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/localization/pinpoint">its Pinpoint page</a>.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l115s010">
@@ -389,9 +386,7 @@ the name in the code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Unable</span> <span class="n">to</span> <span class="n">find</span> <span class="n">a</span> <span class="n">hardware</span> <span class="n">device</span> <span class="k">with</span> <span class="n">name</span> <span class="s2">"pinpoint"</span> <span class="ow">and</span> <span class="nb">type</span> <span class="n">GoBildaPinpointDriver</span>
 </pre></div>
 </div>
-<p><strong>Seen on 2026-10-06</strong>, on blocks, not on the floor: after INIT and before PLAY, AdvantageScope
-read <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 90.000, <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72.000 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 10.500, and the same 36 s later. A still robot
-cannot show whether the numbers are live; the square shows that, and it has not been driven.</p>
+<p>A still robot cannot show whether the numbers are live; the square shows that.</p>
 <p><strong>If it didn’t</strong>, and the heading crawls one way while the robot sits still, INIT happened while
 the robot was moving. Press STOP and INIT again without touching it.</p>
 <p><strong>If it didn’t</strong>, and forward and sideways come out swapped once L117 has tuned the pods, the two
@@ -400,7 +395,7 @@ around it.</p>
 <p><strong>Where the rest comes from.</strong> The missing-device message is the one <code class="docutils literal notranslate"><span class="pre">HardwareMap.get</span></code> throws in
 the SDK. The reset at INIT is <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code>’s default <code class="docutils literal notranslate"><span class="pre">resetMode</span></code>, which <code class="docutils literal notranslate"><span class="pre">PinpointLocalizer</span></code>’s
 constructor acts on. The still robot and the quarter second are from the goBILDA driver’s own
-javadoc. These were read from the code, not seen on a robot.</p>
+javadoc.</p>
 <p><strong>What you just did.</strong> Every lesson from L120 on believes the Pinpoint. L120 puts a second way of
 tracking the robot beside it and shows the drive encoders drifting away from it over a run. L195
 measures the robot against it. A pod in the wrong socket makes all of that quietly wrong instead of

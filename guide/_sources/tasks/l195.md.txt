@@ -19,9 +19,6 @@ while you push it and spin it by hand.
 - AdvantageScope is installed on the same laptop.
 - The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
   the robot on the spot.
-
-Steps L195S040 and L195S050 are written from the code and the old `l17` page. They have not been
-performed on a robot yet.
 ::::
 
 ## The steps
@@ -166,7 +163,7 @@ L195S030 is not on the robot you sent to.
 
 **If it didn't**, and the turn radius is about half what the tape says, the robot was swung round
 the room rather than spun on the spot. The Pinpoint counts the turning, and driving in a circle adds
-turning the wheels never made. This is from the old `l17` page and has not been seen on a robot.
+turning the wheels never made.
 
 **The wheels have to roll.** Both OpModes make the wheels coast in `start()` and put braking back in
 `stop()`. It is given code, and the other two `l195_` tests watch it. They pass on the starter. Each

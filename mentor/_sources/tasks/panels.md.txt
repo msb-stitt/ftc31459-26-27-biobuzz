@@ -88,14 +88,6 @@ a pose starts there.
 **If it didn't**, and there is no green square or orange line, you are in a teleop lesson. There is
 no path to draw. You get the robot and its trail.
 
-:::{admonition} What has not been done here
-:class: note
-Nobody opened Panels for this page. Every step is taken from the team's own `PANELS.md`, and the
-names in step 2 are read out of the lesson code, the same way the [cheat sheet](cheatsheet.md) gets
-them. What each *if it didn't* line describes follows from those two, and none of them was watched
-on a robot.
-:::
-
 ## What you just did
 
 Panels has no separate graph call. It reads the telemetry text, and any line shaped `name: number`

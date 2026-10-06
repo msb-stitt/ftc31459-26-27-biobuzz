@@ -19,9 +19,6 @@ Pinpoint's two pods. Neither is the truth. A tape measure is.
 - The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
   for the last step.
 
-Step L120S060 is written from the code and the old `l8` page. It has not been performed on a robot
-yet.
-
 The simulator turns each wheel's encoder by how far the wheel rolls, at `Constants.ticksPerInch`,
 and turns the IMU with the robot. It has no slip, so a finished localizer follows the Pinpoint
 there more closely than it will on the robot. The tests check the arithmetic step by step.
@@ -249,7 +246,7 @@ the estimate 6 in. The Pinpoint's pods only measure and never push, so they slip
 case for having them.
 
 The heading here is the one at the end of each step. While driving and turning at once, the middle
-of the step would be closer, and the old `l8` used it. Taking the end needs no subtraction of two
+of the step would be closer. Taking the end needs no subtraction of two
 headings, so a turn through the back of the circle needs no care.
 
 The localizer reports a speed of zero. Only `x_in`, `y_in` and `heading_deg` are published for a

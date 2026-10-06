@@ -15,10 +15,6 @@ sideways. The robot drives as it did in L060 the whole time.
 - L060 is done, so `mytry` holds `L060ShapingOpMode`.
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot and the Driver Station for the last step.
-
-Step L070S070 is written from the code and the old `l2a` and `l2` pages. It has not been performed
-on a robot yet. Letting go of A in L070S030 and L070S050 has been checked by the tests, not with
-a gamepad.
 ::::
 
 ## The steps

@@ -8,8 +8,8 @@ you can see what your code does before it is your turn at the field.
 
 ## Before you start
 
-- Android Studio opens the project, and you can type a Gradle command into its terminal. Getting a
-  laptop that far has no page yet, so ask a mentor.
+- Android Studio opens the project, and you can type a Gradle command into its terminal. Ask a
+  mentor to get a laptop that far.
 - [L040](l040.md) is written, or step 2 has no lesson to show you.
 - AdvantageScope installed on the same laptop, for step 2 and step 3.
 
@@ -42,8 +42,8 @@ Now the tests for your own work:
 ```
 
 On a fresh copy, where nobody has written a lesson yet, the report counts 44 tests and 44 failures.
-Measured on 2026-10-05. Forty-four failures is not a broken copy. Each one is a lesson nobody has
-written, and the count drops as you write them.
+Forty-four failures is not a broken copy. Each one is a lesson nobody has written, and the count
+drops as you write them.
 
 **You'll know it worked when** the last lines name a report:
 
@@ -117,11 +117,10 @@ the kind is NetworkTables 4 rather than a log file.
 Ctrl-C stops it. The flight log is in the project's top folder, which the first line it prints
 names.
 
-:::{admonition} Which way round the field gets drawn is being looked into
+:::{admonition} Which way round the field gets drawn
 :class: note
-The corner the arrow starts in and the way it points do not yet agree with the numbers going out.
-Trust that the robot moves, and how far it moves, rather than which way it faces on the screen. It
-is filed as `sim.field_orientation`.
+The corner the arrow starts in and the way it points do not agree with the numbers going out.
+Trust that the robot moves, and how far it moves, rather than which way it faces on the screen.
 :::
 
 ### Step 3: open the log a failing test left

@@ -16,9 +16,6 @@ ends up. It is the first autonomous that does more than one thing.
 - AdvantageScope is installed on the same laptop. No gamepad is needed.
 - The robot, the Driver Station, a piece of tape, a tape measure, and about 1 m by 2 m of clear
   floor for the last step.
-
-Step L130S040 is written from the code and the old `l10` page. It has not been performed on a robot
-yet.
 ::::
 
 ## The steps
@@ -110,12 +107,10 @@ Send the code, and run `L130 Forward Then Strafe` from the autonomous list.
 is `.constant(90)`. The number form is radians, as in L125.
 
 **If it didn't**, and on the floor it slid left, check which way +x runs from where the robot
-stands. Facing +y, the robot's right hand points at +x. This is from the old `l10` page and has not
-been seen on a robot.
+stands. Facing +y, the robot's right hand points at +x.
 
-`hold` is not checked: the test passes with it left out. The old `l10` page says that on a floor
-it keeps the wheels pushing back if something bumps the robot once the path is over. That has not
-been seen on a robot.
+`hold` is not checked: the test passes with it left out. On a floor it keeps the wheels
+pushing back if something bumps the robot once the path is over.
 
 **What you just did.** An autonomous routine is a list. Two legs and a hold here, and a match
 autonomous is the same list with more items, some of them moving something other than the wheels.

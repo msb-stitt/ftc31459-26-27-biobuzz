@@ -330,8 +330,6 @@ robot.</p></li>
 <li><p>The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
 for the last step.</p></li>
 </ul>
-<p>Step L120S060 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l8</span></code> page. It has not been performed on a robot
-yet.</p>
 <p>The simulator turns each wheel’s encoder by how far the wheel rolls, at <code class="docutils literal notranslate"><span class="pre">Constants.ticksPerInch</span></code>,
 and turns the IMU with the robot. It has no slip, so a finished localizer follows the Pinpoint
 there more closely than it will on the robot. The tests check the arithmetic step by step.</p>
@@ -520,7 +518,7 @@ has no other source, so a wheel that spins without carrying the robot moves the 
 the estimate 6 in. The Pinpoint’s pods only measure and never push, so they slip less. That is the
 case for having them.</p>
 <p>The heading here is the one at the end of each step. While driving and turning at once, the middle
-of the step would be closer, and the old <code class="docutils literal notranslate"><span class="pre">l8</span></code> used it. Taking the end needs no subtraction of two
+of the step would be closer. Taking the end needs no subtraction of two
 headings, so a turn through the back of the circle needs no care.</p>
 <p>The localizer reports a speed of zero. Only <code class="docutils literal notranslate"><span class="pre">x_in</span></code>, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> are published for a
 shadow, so nothing reads its speed.</p>

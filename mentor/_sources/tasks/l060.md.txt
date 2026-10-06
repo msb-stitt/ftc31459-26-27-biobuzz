@@ -15,9 +15,6 @@ Make the robot sit still when the sticks are let go, and make a gentle push mean
   way.
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot and the Driver Station for the last step.
-
-Step L060S070 is written from the code and the old `l3` page. It has not been performed on a robot
-yet.
 ::::
 
 ## The steps

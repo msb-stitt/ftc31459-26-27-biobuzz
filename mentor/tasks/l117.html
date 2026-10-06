@@ -325,10 +325,9 @@ robot’s wheels off the floor.</p></li>
 <li><p>Clear floor for L117S040: at least 48 in ahead of the robot, 48 in to its left and 36 in to its
 right, plus a tile of room all round.</p></li>
 </ul>
-<p>Every step here is on the robot. None has been performed yet. The step names and the messages
-quoted are read from the tuner code in <code class="docutils literal notranslate"><span class="pre">pedro/procedures/</span></code>, and the address from Pedro’s
-<a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/drivetrain/mecanum">Mecanum page</a>, opened on
-2026-10-05. The AutoTune page itself has not been seen, so its button names are not given.</p>
+<p>The step names and the messages quoted are from the tuner code in <code class="docutils literal notranslate"><span class="pre">pedro/procedures/</span></code>, and the
+address from Pedro’s
+<a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/drivetrain/mecanum">Mecanum page</a>.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l117s010">
@@ -420,10 +419,9 @@ none did:</p>
 so both wheels turn backwards. L050’s checks on blocks cannot tell that from a backwards wheel. This
 one can.</p>
 <p><strong>If it didn’t</strong>, and x and y swap over in the Localization Test, the two pods are in each other’s
-sockets. L115S010 is where that gets fixed, and no tuning works around it. This is from the old
-<code class="docutils literal notranslate"><span class="pre">pinpoint</span></code> page, and has not been seen on a robot.</p>
+sockets. L115S010 is where that gets fixed, and no tuning works around it.</p>
 <p><strong>If it didn’t</strong>, and the robot brakes late or never holds still after L117S040, check that the
-five hold lines are still in <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>. Read from the code, not seen.</p>
+five hold lines are still in <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>.</p>
 <p><strong>What you just did.</strong> Every number in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code> either came off this robot or is waiting
 to. AutoTune measures the ones that need the robot driving itself. L195 measures the two it does
 not: ticks per inch and the turn radius.</p>

@@ -5,8 +5,6 @@
 
 ## The tasks
 
-Getting the robot and the laptop ready, L010, has no page yet.
-
 ```{toctree}
 :maxdepth: 1
 :caption: Drive it with the sticks

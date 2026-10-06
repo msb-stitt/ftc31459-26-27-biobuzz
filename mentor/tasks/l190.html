@@ -328,8 +328,6 @@ turns and makes up the difference, on a fresh battery or a flat one, on the flat
 <li><p>The robot, the Driver Station, a gamepad, about 3 m of clear floor, and something gentle to drive
 up, like a folded mat, for the last step.</p></li>
 </ul>
-<p>Step L190S070 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l16</span></code> page. It has not been performed on a robot
-yet.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l190s010">
@@ -504,7 +502,7 @@ the foot of the slope and then picks back up.</p></li>
 it.</p></li>
 </ul>
 <p><strong>No gamepad.</strong> The runs above need none. With <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, a driver can push the stick and watch the
-numbers; that has not been performed.</p>
+numbers.</p>
 <p><strong>If it didn’t</strong>, and every <code class="docutils literal notranslate"><span class="pre">LessonsTest.l190_</span></code> test fails with this, nothing was published under
 <code class="docutils literal notranslate"><span class="pre">wheel/</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NullPointerException</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">invoke</span> <span class="s2">"java.lang.Double.doubleValue()"</span> <span class="n">because</span> <span class="n">the</span> <span class="k">return</span> <span class="n">value</span> <span class="n">of</span> <span class="s2">"java.util.Map.get(Object)"</span> <span class="ow">is</span> <span class="n">null</span>
@@ -545,7 +543,7 @@ as in L110.</p></li>
 <p><strong>If it didn’t</strong>, and on the robot it is slower than <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> everywhere,
 <code class="docutils literal notranslate"><span class="pre">powerPerInchPerSecond</span></code> is off for this robot. L117 measures it. If turning is the wrong speed
 while driving straight is right, <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> is 8 in, and this robot may not be. L195
-measures it. Both are from the old <code class="docutils literal notranslate"><span class="pre">l16</span></code> page, and neither has been seen on a robot.</p>
+measures it.</p>
 <p><strong>What you just did.</strong> A power is an instruction, and a speed is a result. Every lesson before
 this one sent instructions. This one states the result it wants, measures, and corrects.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l195.html"><span class="std std-doc">L195</span></a> measures the numbers this lesson trusted: how far a wheel goes for

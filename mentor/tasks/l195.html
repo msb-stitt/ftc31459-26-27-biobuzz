@@ -331,8 +331,6 @@ believes it.</p></li>
 <li><p>The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
 the robot on the spot.</p></li>
 </ul>
-<p>Steps L195S040 and L195S050 are written from the code and the old <code class="docutils literal notranslate"><span class="pre">l17</span></code> page. They have not been
-performed on a robot yet.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l195s010">
@@ -447,7 +445,7 @@ counts.</p>
 L195S030 is not on the robot you sent to.</p>
 <p><strong>If it didn’t</strong>, and the turn radius is about half what the tape says, the robot was swung round
 the room rather than spun on the spot. The Pinpoint counts the turning, and driving in a circle adds
-turning the wheels never made. This is from the old <code class="docutils literal notranslate"><span class="pre">l17</span></code> page and has not been seen on a robot.</p>
+turning the wheels never made.</p>
 <p><strong>The wheels have to roll.</strong> Both OpModes make the wheels coast in <code class="docutils literal notranslate"><span class="pre">start()</span></code> and put braking back in
 <code class="docutils literal notranslate"><span class="pre">stop()</span></code>. It is given code, and the other two <code class="docutils literal notranslate"><span class="pre">l195_</span></code> tests watch it. They pass on the starter. Each
 of these was planted in <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code> and run.</p>

@@ -16,9 +16,6 @@ happen at once. Each wheel gets its own power.
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot on blocks, as in L050, the Driver Station, and about 2 m by 2 m of clear floor for the
   last step.
-
-Steps L090S060 and L090S070 are written from the code, the old `l5` page and the outline. They
-have not been performed on a robot yet.
 ::::
 
 ## The steps

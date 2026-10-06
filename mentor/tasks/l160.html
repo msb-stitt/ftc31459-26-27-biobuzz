@@ -327,8 +327,6 @@ the driver has it back at once.</p>
 <li><p>AdvantageScope is installed on the same laptop. No gamepad is needed until the last step.</p></li>
 <li><p>The robot, the Driver Station, a gamepad, and about 2 m by 2 m of clear floor for the last step.</p></li>
 </ul>
-<p>Step L160S050 is written from the code and the old <code class="docutils literal notranslate"><span class="pre">l13</span></code> page. It has not been performed on a robot
-yet.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l160s010">
@@ -422,7 +420,7 @@ too.</p>
 <li><p>Then take hold of the robot and twist it a little. It turns back on its own.</p></li>
 </ul>
 <p><strong>No gamepad.</strong> The two runs above need none. With <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, a driver can turn, let go, and watch
-the hold take over; that has not been performed.</p>
+the hold take over.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l160_theRobotHoldsItsHeadingWhenTheStickIsReleased</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">it</span> <span class="pre">steers</span> <span class="pre">back</span></code>, nothing listens to the hold. Either the line is missing, or it reads
 <code class="docutils literal notranslate"><span class="pre">hold.turn(follower,</span> <span class="pre">turn);</span></code> without <code class="docutils literal notranslate"><span class="pre">turn</span> <span class="pre">=</span></code> in front, so its answer is thrown away.</p>
@@ -431,8 +429,7 @@ the hold take over; that has not been performed.</p>
 of <code class="docutils literal notranslate"><span class="pre">turn</span></code>. That skips the minus sign that makes a push to the right turn clockwise.</p>
 <p><strong>If it didn’t</strong>, and on the floor the robot fights back and overshoots, that is the follower’s
 tuning, not this lesson. L117 tunes it. If the nose drifts slowly anyway, the hold is working and
-the follower’s heading is drifting with it. Both are from the old <code class="docutils literal notranslate"><span class="pre">l13</span></code> page, and neither has been
-seen on a robot.</p>
+the follower’s heading is drifting with it.</p>
 <p>The simulator turns the robot only when told to, so nothing there pushes it off its heading. The
 creep in L160S030 is a stick resting off centre, not a bump.</p>
 <p><strong>What you just did.</strong> Three things want to turn the robot, and they take turns in a fixed order.
