@@ -18,4 +18,4 @@ index 205e8ad..052cc35 100644
 +                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
      }
  
-     // public: OpMode's own stop is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.

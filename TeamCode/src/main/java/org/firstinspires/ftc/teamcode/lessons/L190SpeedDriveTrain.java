@@ -25,7 +25,7 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
      * {@code wanted[FL]} is the front left wheel's speed, and {@code FR},
      * {@code BL} and {@code BR} name the other three.
      */
-    // public: CorbelsDriveTrain's own setCommandedWheelSpeeds is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void setCommandedWheelSpeeds(double frontLeftInPerS, double frontRightInPerS,
                                         double backLeftInPerS, double backRightInPerS) {

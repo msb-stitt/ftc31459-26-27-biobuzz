@@ -26,14 +26,14 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s020
 // for what to do here.
 @Disabled
-// public: the robot only runs an OpMode that is public.
+// 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
 
     boolean previousButtonA;
 
     CorbelsMecanum drivetrain;
 
-    // public: OpMode's own init is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
@@ -43,14 +43,14 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
         initAfter(drivetrain);
     }
 
-    // public: OpMode's own start is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void start() {
         startBefore();
         startAfter();
     }
 
-    // public: OpMode's own loop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
@@ -91,7 +91,7 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // protected: CorbelsOpMode's own shadowLocalizers is protected, so this one has to be too.
+    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
     @Override
     protected void shadowLocalizers() {
         // When on L120S030, see
@@ -99,7 +99,7 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
         // for what to do here.
     }
 
-    // public: OpMode's own stop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void stop() {
         stopAfter();

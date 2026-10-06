@@ -20,7 +20,7 @@ index 9a9e842..6cc5dac 100644
 +        }));
      }
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
 @@ -124,6 +129,16 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
          // When on L170S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040

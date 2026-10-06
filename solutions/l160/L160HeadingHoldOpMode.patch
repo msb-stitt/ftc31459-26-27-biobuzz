@@ -18,7 +18,7 @@ index c9668d0..61820d9 100644
      CorbelsMecanum drivetrain;
 +    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 @@ -70,6 +73,8 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
          // When on L160S040, see

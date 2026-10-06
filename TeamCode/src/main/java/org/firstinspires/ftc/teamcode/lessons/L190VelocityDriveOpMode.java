@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s020
 // for what to do here.
 @Disabled
-// public: the robot only runs an OpMode that is public.
+// 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L190VelocityDriveOpMode extends CorbelsTeleOp {
 
     /** How fast full stick asks for, forward and sideways. Inches per second. */
@@ -39,7 +39,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030
     // for what to do here.
 
-    // public: OpMode's own init is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
@@ -51,14 +51,14 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
         initAfter();
     }
 
-    // public: OpMode's own start is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void start() {
         startBefore();
         startAfter();
     }
 
-    // public: OpMode's own loop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
@@ -84,7 +84,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // public: OpMode's own stop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void stop() {
         stopAfter();

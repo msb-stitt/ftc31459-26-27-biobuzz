@@ -8,7 +8,7 @@ index 4ac1693..c9d9d23 100644
      // for what to do here.
 +    boolean previousButtonA;
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 @@ -64,6 +65,10 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
          // When on L070S060, see

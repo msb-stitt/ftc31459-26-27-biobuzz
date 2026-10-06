@@ -8,7 +8,7 @@ index 4947cd1..9c60e12 100644
      // for what to do here.
 +    L110FollowerDriveTrain drivetrain;
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 @@ -40,8 +41,9 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
          // When on L110S050, see
@@ -20,7 +20,7 @@ index 4947cd1..9c60e12 100644
 +        initAfter(drivetrain);
      }
  
-     // public: OpMode's own start is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
 @@ -78,6 +80,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
          // When on L110S060, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s060

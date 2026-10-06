@@ -42,7 +42,7 @@ class L120EncoderLocalizer implements Localizer {
         this.source = source;
     }
 
-    // public: Pedro's Localizer says update is public, so this one has to be too.
+    // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void update() {
         double[] wheels = source.wheelInches();
@@ -65,14 +65,14 @@ class L120EncoderLocalizer implements Localizer {
      * localizer, which logs where it is and never how fast, so the speed it
      * reports is zero.
      */
-    // public: Pedro's Localizer says state is public, so this one has to be too.
+    // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public MotionState state() {
         return MotionState.ofTwist(
                 poses.of(x, y, lastRawHeading + headingOffset), new Twist(0, 0, 0));
     }
 
-    // public: Pedro's Localizer says setPose is public, so this one has to be too.
+    // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void setPose(Pose pose) {
         x = pose.x();
@@ -80,7 +80,7 @@ class L120EncoderLocalizer implements Localizer {
         headingOffset = pose.heading() - lastRawHeading;
     }
 
-    // public: Pedro's Localizer says reset is public, so this one has to be too.
+    // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void reset() {
         x = 0;

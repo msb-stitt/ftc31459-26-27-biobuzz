@@ -17,7 +17,7 @@ index 4d87485..7c4beba 100644
      // for what to do here.
 +    L190SpeedDriveTrain drivetrain;
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 @@ -46,8 +49,9 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
          // When on L190S040, see
@@ -29,7 +29,7 @@ index 4d87485..7c4beba 100644
 +        initAfter(drivetrain);
      }
  
-     // public: OpMode's own start is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
 @@ -73,12 +77,14 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
          // When on L190S050, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050

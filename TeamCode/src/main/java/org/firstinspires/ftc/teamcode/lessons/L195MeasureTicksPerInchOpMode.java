@@ -36,7 +36,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l195.html#l195s020
 // for what to do here.
 @Disabled
-// public: the robot only runs an OpMode that is public.
+// 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
     static final double NEEDED_INCHES = 36;
@@ -47,7 +47,7 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
     L195TicksDriveTrain drivetrain;
 
-    // public: OpMode's own init is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
@@ -55,7 +55,7 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         initAfter(drivetrain);
     }
 
-    // public: OpMode's own start is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void start() {
         startBefore();
@@ -67,7 +67,7 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         startAfter();
     }
 
-    // public: OpMode's own stop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void stop() {
         // Braking is allowed again, however this run ended -- STOP pressed
@@ -79,7 +79,7 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         stopAfter();
     }
 
-    // public: OpMode's own loop is public, so this one has to be too.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
