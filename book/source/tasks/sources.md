@@ -14,8 +14,8 @@ pages.
 ## Game Manual 0
 
 [Game Manual 0](https://gm0.org) is licensed
-[CC BY-NC 2.0 Generic](https://gm0.org/en/latest/docs/appendix/license.html). It is the best
-general FTC reference there is. This guide is not trying to replace it. These pages are about one
+[CC BY-NC 2.0 Generic](https://gm0.org/en/latest/docs/appendix/license.html). It is a general FTC
+reference, written by FTC teams. This guide is not trying to replace it. These pages are about one
 robot and one set of lessons.
 
 One page leans on it. [L090](l090.md) explains why the mecanum rollers make an X, and links GM0's

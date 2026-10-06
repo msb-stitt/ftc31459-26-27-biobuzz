@@ -8,7 +8,7 @@ Built with -W: a broken link or a missing image fails the build rather than
 printing a warning nobody reads.
 """
 
-project = "Biobuz lessons"
+project = "BIOBUZZ lessons"
 author = "Catholic Central Spires Robotics"
 copyright = "2026, Catholic Central Spires Robotics"
 
@@ -29,7 +29,7 @@ else:
     exclude_patterns += MENTOR_ONLY
 
 html_theme = "furo"
-html_title = "Biobuz lessons"
+html_title = "BIOBUZZ lessons"
 html_static_path = ["_static"]
 html_css_files = ["pencil.css"]
 

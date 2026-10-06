@@ -25,7 +25,11 @@ that takes their content replaces them.
   - **Simulator**: `simRun`, watched live in AdvantageScope.
   - **AdvantageScope**: what to open or set to see the result.
   - **Log**: the same values in the flight log, from the repository's top folder.
-  - **Robot**: sent to the robot, run from the Driver Station, watched in AdvantageScope.
+  - **Send**: the code sent to the robot, and the OpMode picked and started on the Driver Station.
+  - **Robot**: what to do with the robot. A part can instead be named for that one thing, as
+    **Push**, **Spin** or **Drive**.
+  - **Panels**: what to open in Panels to see the result. AdvantageScope connects only to the
+    simulator.
 - **Check**: one line after each part that changes what the student sees, saying what they see
   when it worked.
 
