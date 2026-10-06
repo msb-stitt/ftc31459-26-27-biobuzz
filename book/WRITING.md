@@ -34,6 +34,15 @@ that takes their content replaces them.
 
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
 
+**Break a skill into its parts the first times it is taught, then trust the student with it.** A
+skill is what the pages ask for again and again: copying a starter, switching a copy on, running
+the simulator, connecting AdvantageScope, sending the code and running it on the robot, importing a
+class. The first time, each part of it has its own name and its own **Check**. It is broken down
+once more if the next lesson to use it is close, and twice more if that lesson is many lessons
+later. After that, one part names the whole skill, as **Robot.** Send the code, run `L070 Buttons`
+from the Driver Station, and watch it in AdvantageScope. `ftc-claude`'s
+`.docs/2026-10-05-lessons-restructure.md` lists where each skill is broken down.
+
 **What only the mentor book shows**, each in a `{only} mentor` block that leads with bold text:
 
 - **Before you start**: the lessons this one needs finished, and the state the robot has to be in.
