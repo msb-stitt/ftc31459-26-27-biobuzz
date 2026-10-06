@@ -23,7 +23,7 @@ public class CorbelsMecanum extends CorbelsDriveTrain {
 
     /** Pedro's mixing, unchanged: forward, strafe and turn into four wheels. */
     @Override
-    protected double[] mix(DrivePowers powers) {
+    public double[] mix(DrivePowers powers) {
         double forward = powers.forward();
         double strafe = powers.strafe();
         double turn = powers.turn();
