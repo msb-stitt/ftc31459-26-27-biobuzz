@@ -20,9 +20,11 @@ ninja_required_version = 1.10
 py = python
 run = $py tools/run.py
 
+# One book per edge: Windows runs a ninja command without a shell, so `&&`
+# would reach sphinx-build as an argument.
 rule sphinx
-  command = sphinx-build -W -b html source build/html && sphinx-build -W -t mentor -b html source build/mentor
-  description = both books build, student and mentor, with every warning an error
+  command = sphinx-build -W $tags -b html source $dir
+  description = the $book book builds, with every warning an error
   pool = console
 
 rule wrap
@@ -60,7 +62,15 @@ rule cheatsheet
   description = the cheat sheet matches the applied patches
   pool = console
 
-build check-sphinx: sphinx | source/conf.py
+build check-sphinx-student: sphinx | source/conf.py
+  book = student
+  tags =
+  dir = build/html
+build check-sphinx-mentor: sphinx | source/conf.py
+  book = mentor
+  tags = -t mentor
+  dir = build/mentor
+build check-sphinx: phony check-sphinx-student check-sphinx-mentor
 build check-wrap: wrap | tools/check_wrap.py tools/bookpaths.py
 build check-reading: reading | tools/check_reading_level.py tools/bookpaths.py
 build check-keep: keep | tools/check_keep.py tools/register.py keep.toml
