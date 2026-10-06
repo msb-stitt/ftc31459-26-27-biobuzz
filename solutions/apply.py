@@ -73,7 +73,7 @@ def copy(tree: Path, src: str, dst: str) -> None:
     if old != new:
         text = re.sub(rf"\b{old}\b", new, text)
     target.parent.mkdir(exist_ok=True)
-    target.write_text(text)
+    target.write_text(text, newline="\n")
     run(tree, "git", "add", str(TEAMCODE / dst))
 
 
