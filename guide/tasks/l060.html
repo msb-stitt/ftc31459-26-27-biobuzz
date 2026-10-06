@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -321,13 +322,19 @@
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l060s020">
 <span id="l060s020-switch-your-copy-on"></span><h3>L060S020: switch your copy on<a class="headerlink" href="#l060s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l060s030">
 <span id="l060s030-write-a-deadband"></span><h3>L060S030: write a deadband<a class="headerlink" href="#l060s030" title="Link to this heading">¶</a></h3>
@@ -352,8 +359,11 @@ write a method of your own:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Math.abs</span></code> takes the minus sign off: <code class="docutils literal notranslate"><span class="pre">Math.abs(-0.03)</span></code> is 0.03. <code class="docutils literal notranslate"><span class="pre">deadband</span></code> is given the speed, so a
 stick pulled halfway back gives -0.5, and -0.5 is less than 0.05. But it is far from the middle, so
 it has to be compared without its minus sign.</p>
-<p><strong>Check.</strong> The method has no red underline. Android Studio shows <code class="docutils literal notranslate"><span class="pre">deadband</span></code> in grey, with
-<em>no usages</em> above it, because nothing uses it yet.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The method has no red underline.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deadband</span></code> is grey, with <em>no usages</em> above it. Nothing uses it yet.</p></li>
+</ul>
 </section>
 <section id="l060s040">
 <span id="l060s040-use-the-deadband"></span><h3>L060S040: use the deadband<a class="headerlink" href="#l060s040" title="Link to this heading">¶</a></h3>
@@ -382,8 +392,11 @@ it has to be compared without its minus sign.</p>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Drag <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">speed</span></code> folder and
 <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">power</span></code> folder into <strong>Left Axis</strong>.</p>
-<p><strong>Check.</strong> Let go of the sticks. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> may sit a little off 0, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 0.
-The wheels in <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> all read 0.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Let go of the sticks. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> may sit a little off 0, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 0.</p></li>
+<li><p>The wheels in <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> all read 0.</p></li>
+</ul>
 <figure class="align-default" id="fig-l060-deadband">
 <img alt="../_images/fig-l060-deadband.png" src="../_images/fig-l060-deadband.png" />
 <figcaption>
@@ -408,7 +421,10 @@ step. Under it, write a second method:</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">*</span> <span class="pre">value</span></code> would lose the minus sign: -0.5 times -0.5 is 0.25, and backward would turn into
 forward. <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">*</span> <span class="pre">Math.abs(value)</span></code> keeps it: -0.5 times 0.5 is -0.25.</p>
-<p><strong>Check.</strong> The method has no red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The method has no red underline.</p></li>
+</ul>
 </section>
 <section id="l060s060">
 <span id="l060s060-use-squaring"></span><h3>L060S060: use squaring<a class="headerlink" href="#l060s060" title="Link to this heading">¶</a></h3>
@@ -422,8 +438,12 @@ forward. <code class="docutils literal notranslate"><span class="pre">value</spa
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">squared</span></code> works on what <code class="docutils literal notranslate"><span class="pre">deadband</span></code> gives back.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
-<p><strong>Check.</strong> Push the left stick halfway forward. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reads 0.5, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads
-0.25. Push it all the way, and both read 1. Pull it back, and the power goes below 0.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick halfway forward. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reads 0.5, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 0.25.</p></li>
+<li><p>Push it all the way, and both read 1.</p></li>
+<li><p>Pull it back, and the power goes below 0.</p></li>
+</ul>
 <figure class="align-default" id="fig-l060-squared">
 <img alt="../_images/fig-l060-squared.png" src="../_images/fig-l060-squared.png" />
 <figcaption>
@@ -433,10 +453,35 @@ forward. <code class="docutils literal notranslate"><span class="pre">value</spa
 </section>
 <section id="l060s070">
 <span id="l060s070-drive-it-on-the-robot"></span><h3>L060S070: drive it on the robot<a class="headerlink" href="#l060s070" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Send the code to the robot, as in L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L060</span> <span class="pre">Shaping</span></code> from
-the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> Let go of both sticks, and the robot sits still. Push a stick about a third of the way,
-and the robot creeps along under control. Push it all the way, and the robot goes full speed.</p>
+<p><strong>Send.</strong></p>
+<ul class="steps simple">
+<li><p>Press Ctrl+C in the Terminal to stop the simulator.</p></li>
+<li><p>Plug the laptop into the Control Hub with the USB cable.</p></li>
+<li><p>Pick the Control Hub from the device list, and click the green triangle right of <strong>TeamCode</strong>.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Android Studio says the install worked.</p></li>
+</ul>
+<p><strong>Run.</strong> On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L060</span> <span class="pre">Shaping</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT.</p>
+<p><strong>AdvantageScope.</strong></p>
+<ul class="steps simple">
+<li><p>Join the laptop to the robot’s Wi-Fi.</p></li>
+<li><p>Open <strong>File &gt; Connect to Robot &gt; NetworkTables 4</strong>. AdvantageScope still has the robot’s address
+from L050.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The title bar reads <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code>.</p></li>
+</ul>
+<p><strong>Run.</strong> Press PLAY. Drag <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">speed</span></code> folder and <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">power</span></code> folder into
+<strong>Left Axis</strong>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Let go of both sticks, and the robot sits still, with <code class="docutils literal notranslate"><span class="pre">power/left</span></code> at 0.</p></li>
+<li><p>Push a stick about a third of the way, and the robot creeps along under control.</p></li>
+<li><p>Push it all the way, and the robot goes full speed.</p></li>
+</ul>
 </section>
 </section>
 </section>

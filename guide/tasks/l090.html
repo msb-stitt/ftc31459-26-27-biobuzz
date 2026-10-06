@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -322,13 +323,19 @@ happen at once. Each wheel gets its own power.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l090s020">
 <span id="l090s020-switch-your-copy-on"></span><h3>L090S020: switch your copy on<a class="headerlink" href="#l090s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l090s030">
 <span id="l090s030-read-the-slide"></span><h3>L090S030: read the slide<a class="headerlink" href="#l090s030" title="Link to this heading">¶</a></h3>
@@ -357,7 +364,10 @@ left stick, sideways.</p>
 </div>
 <p><strong>Strafe</strong> is the robot word for sliding sideways. The stick reads above 0 to the right, and the
 minus sign makes a slide to the left positive, the same way a turn to the left is.</p>
-<p><strong>Check.</strong> Neither line has a red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Neither line has a red underline.</p></li>
+</ul>
 </section>
 <section id="l090s040">
 <span id="l090s040-give-each-wheel-its-power"></span><h3>L090S040: give each wheel its power<a class="headerlink" href="#l090s040" title="Link to this heading">¶</a></h3>
@@ -420,9 +430,13 @@ minus sign makes a slide to the left positive, the same way a turn to the left i
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, and click <strong>2D Field</strong>. Open the <code class="docutils literal notranslate"><span class="pre">arcade</span></code>
 and <code class="docutils literal notranslate"><span class="pre">power</span></code> folders.</p>
-<p><strong>Check.</strong> Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> reads 0.25. The front right and back left
-wheels read 0.25, and the other two read -0.25. The robot slides to its own left, and its nose keeps
-pointing the same way. Forward and turning work as they did in L080.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> reads 0.25.</p></li>
+<li><p>The front right and back left wheels read 0.25, and the other two read -0.25.</p></li>
+<li><p>The robot slides to its own left, and its nose keeps pointing the same way!</p></li>
+<li><p>Forward and turning work as they did in L080.</p></li>
+</ul>
 </section>
 <section id="l090s050">
 <span id="l090s050-scale-all-four"></span><h3>L090S050: scale all four<a class="headerlink" href="#l090s050" title="Link to this heading">¶</a></h3>
@@ -446,9 +460,12 @@ the wheel powers. Under them, type:</p>
 pair, and the next one finds the biggest of all four. Type it as two lines, pressing Enter where the
 first one ends, and Android Studio moves the second one in for you.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
-<p><strong>Check.</strong> Push the left stick into the forward-left corner. The front right and back left wheels
-read 1, and the other two read 0. The robot drives diagonally, forward and to its left, with its
-nose still pointing forward.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick into the forward-left corner. The front right and back left wheels read 1, and
+the other two read 0.</p></li>
+<li><p>The robot drives diagonally, forward and to its left, with its nose still pointing forward.</p></li>
+</ul>
 <figure class="align-default" id="fig-l090-corner">
 <img alt="../_images/fig-l090-corner.png" src="../_images/fig-l090-corner.png" />
 <figcaption>
@@ -468,10 +485,12 @@ pushes add up.</p>
 <p><span class="caption-text">The robot from above, three times: driving forward, sliding left and turning left. On each wheel, an arrow for the way it spins and an arrow at 45 degrees for the way it pushes the robot, and in the middle one arrow for where the four pushes add up to.</span><a class="headerlink" href="#fig-l090-wheel-pushes" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><strong>Robot.</strong> Rest the robot on the blocks, so all four wheels are off the ground. Send the code to the
-robot, as in L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L090</span> <span class="pre">Mecanum</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT,
-then PLAY.</p>
-<p><strong>Check.</strong> Push each way gently and watch the top of each tyre:</p>
+<p><strong>Robot.</strong> Stop the simulator. Rest the robot on the blocks, so all four wheels are off the ground.
+Send the code, and run <code class="docutils literal notranslate"><span class="pre">L090</span> <span class="pre">Mecanum</span></code> from the Driver Station.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push each way gently and watch the top of each tyre:</p></li>
+</ul>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
@@ -507,16 +526,20 @@ then PLAY.</p>
 <p>Left stick forward: all four push forward, and their sideways pushes cancel. Left stick left: the
 forward and backward pushes cancel, and all four push left. Right stick left: the left side pushes
 backward and the right side forward, so the robot turns left.</p>
-<p>Write down any wheel that turns the other way. A wheel that is wrong for every push has the wrong
-direction, and L050S070 fixes it. A wheel that is right for forward but wrong for a slide is on the
-wrong corner. Check the X from above.</p>
+<p>Write down any wheel that turns the other way. A wheel that turns backward for every push needs its
+direction swapped, as in L050S070. A wheel that is right for forward but backward for a slide is on
+the other corner. Check the X from above.</p>
 </section>
 <section id="l090s070">
 <span id="l090s070-drive-it-on-the-floor"></span><h3>L090S070: drive it on the floor<a class="headerlink" href="#l090s070" title="Link to this heading">¶</a></h3>
 <p><strong>Drive.</strong> Press STOP. Lift the robot off the blocks and put it on the floor. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> Push the left stick left, and the robot slides to its own left with its nose still
-pointing the same way. Push it into a corner, and the robot drives diagonally. Push the right stick
-while sliding, and it turns as it slides.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick left, and the robot slides to its own left with its nose still pointing the
+same way.</p></li>
+<li><p>Push it into a corner, and the robot drives diagonally.</p></li>
+<li><p>Push the right stick while sliding, and it turns as it slides.</p></li>
+</ul>
 </section>
 </section>
 </section>

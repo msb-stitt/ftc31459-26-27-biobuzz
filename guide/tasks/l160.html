@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -322,13 +323,19 @@ the driver has it back at once.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l160s020">
 <span id="l160s020-switch-your-copy-on"></span><h3>L160S020: switch your copy on<a class="headerlink" href="#l160s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l160s030">
 <span id="l160s030-watch-the-nose-creep"></span><h3>L160S030: watch the nose creep<a class="headerlink" href="#l160s030" title="Link to this heading">¶</a></h3>
@@ -346,8 +353,12 @@ the way a worn stick does.</p>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">arcade</span></code>
 folder, then <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">turn</span></code> reads -0.040, which is small. The robot drives to the right, and it turns as it
-goes. <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> started at 90 and keeps dropping.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">turn</span></code> reads -0.040, which is small.</p></li>
+<li><p>The robot drives to the right, and it turns as it goes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> started at 90 and keeps dropping.</p></li>
+</ul>
 </section>
 <section id="l160s040">
 <span id="l160s040-hold-the-heading"></span><h3>L160S040: hold the heading<a class="headerlink" href="#l160s040" title="Link to this heading">¶</a></h3>
@@ -381,16 +392,22 @@ both drive with it. Android Studio now underlines <code class="docutils literal 
 changes after it is made. It is not an error.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope. Open the <code class="docutils literal notranslate"><span class="pre">heading</span></code> folder
 too.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">holding</span></code> is green. The robot drives to the right, its nose still pointing up the field,
-and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> stays at 90.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">holding</span></code> is green.</p></li>
+<li><p>The robot drives to the right, its nose still pointing up the field, and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> stays at
+90.</p></li>
+</ul>
 </section>
 <section id="l160s050">
 <span id="l160s050-drive-it-and-then-push-it"></span><h3>L160S050: drive it and then push it<a class="headerlink" href="#l160s050" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Send the code to the robot, as in
-L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L160</span> <span class="pre">Heading</span> <span class="pre">Hold</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then
-PLAY.</p>
-<p><strong>Check.</strong> Drive a long diagonal with the left stick, and do not touch the turn stick. The nose
-stays where it was. Then take hold of the robot and twist it a little. It turns back on its own.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L160</span> <span class="pre">Heading</span> <span class="pre">Hold</span></code> from the Driver Station.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Drive a long diagonal with the left stick, and do not touch the turn stick.</p></li>
+<li><p>The nose stays where it was.</p></li>
+<li><p>Then take hold of the robot and twist it a little. It turns back on its own.</p></li>
+</ul>
 </section>
 </section>
 </section>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -329,18 +330,28 @@
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l030s010">
 <span id="l030s010-copy-the-starter-into-mytry"></span><h3>L030S010: copy the starter into mytry<a class="headerlink" href="#l030s010" title="Link to this heading">¶</a></h3>
-<p><strong>Copy.</strong> Open <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode/lessons</span></code>. Click <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>
-once, and copy it: ⌘C on a Mac, Ctrl+C on Windows. Click the <code class="docutils literal notranslate"><span class="pre">mytry</span></code> folder once, and paste.</p>
-<p>The <strong>Copy Class</strong> box opens with <strong>Destination package</strong> already ending in <code class="docutils literal notranslate"><span class="pre">mytry</span></code>. Click <strong>OK</strong>.
-If Android Studio asks whether to add the file to Git, click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, and the new file is open.</p>
+<p><strong>Copy.</strong></p>
+<ul class="steps simple">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode/lessons</span></code>.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code> once, and copy it: ⌘C on a Mac, Ctrl+C on Windows.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">mytry</span></code> folder once, and paste.</p></li>
+<li><p>The <strong>Copy Class</strong> box opens with <strong>Destination package</strong> already ending in <code class="docutils literal notranslate"><span class="pre">mytry</span></code>. Click <strong>OK</strong>.</p></li>
+<li><p>If Android Studio asks whether to add the file to Git, click <strong>Add</strong>.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l030s020">
 <span id="l030s020-switch-your-copy-on"></span><h3>L030S020: switch your copy on<a class="headerlink" href="#l030s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Find the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, just under the comment that names this step, and delete
 the whole line, the way you did in L020.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l030s030">
 <span id="l030s030-the-left-speed"></span><h3>L030S030: the left speed<a class="headerlink" href="#l030s030" title="Link to this heading">¶</a></h3>
@@ -374,8 +385,11 @@ two ideas means each name always says what it holds.</p>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Type <code class="docutils literal notranslate"><span class="pre">stick</span></code> in the search box. Drag
 <code class="docutils literal notranslate"><span class="pre">leftY</span></code> from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder, and <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">speed</span></code> folder, into <strong>Left Axis</strong>.</p>
-<p><strong>Check.</strong> Push the left stick away from you. <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> goes to -1, and <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes to 1.
-The two lines are always mirror images of each other.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick away from you. <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> goes to -1, and <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes to 1.</p></li>
+<li><p>The two lines are always mirror images of each other.</p></li>
+</ul>
 </section>
 <section id="l030s040">
 <span id="l030s040-the-right-speed"></span><h3>L030S040: the right speed<a class="headerlink" href="#l030s040" title="Link to this heading">¶</a></h3>
@@ -390,7 +404,11 @@ step, do the same for the right stick:</p>
 </div>
 <p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>AdvantageScope.</strong> Drag <code class="docutils literal notranslate"><span class="pre">rightY</span></code> from <code class="docutils literal notranslate"><span class="pre">stick</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> from <code class="docutils literal notranslate"><span class="pre">speed</span></code> into <strong>Left Axis</strong>.</p>
-<p><strong>Check.</strong> Push both sticks away from you. Both speeds read 1. Pull both back, and both read -1.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push both sticks away from you. Both speeds read 1.</p></li>
+<li><p>Pull both back, and both read -1.</p></li>
+</ul>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L030SpeedsOpMode</span> <span class="pre">--left_stick_y=-1</span> <span class="pre">--right_stick_y=0.5&quot;</span></code> holds the
 left stick full forward and the right stick half back. The picture at the top was taken that way:
 <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reads 1 and <code class="docutils literal notranslate"><span class="pre">speed/right</span></code> reads -0.500.</p>

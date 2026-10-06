@@ -29,14 +29,18 @@ a gamepad.
 In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to Git,
 click **Add**.
 
-**Check.** `mytry` holds `L070ButtonsOpMode`, and the new file is open.
+**Check.**
+
+- `mytry` holds `L070ButtonsOpMode`, and the new file is open.
 
 ### L070S020: switch your copy on
 
 **Change.** Delete the line `@Disabled`, under the comment that names this step.
 
-**Check.** Under the step's comment, the next line reads
-`// public: the robot only runs an OpMode that is public.`
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
 ### L070S030: read the A button
 
@@ -73,8 +77,11 @@ Pick `a`, and finish the lines:
 **AdvantageScope.** Connect to the simulator as in L020. Open the `button` folder, and drag `a`
 into **Discrete Fields**.
 
-**Check.** `button/a` is a red dot. Press A and hold it, and the dot turns green. Let go, and it
-turns red again.
+**Check.**
+
+- `button/a` is a red dot.
+- Press A and hold it, and the dot turns green.
+- Let go, and it turns red again.
 
 ### L070S040: remember last loop's button
 
@@ -98,7 +105,9 @@ type:
 A variable made here is a **field**. It keeps its value from one loop to the next. A `boolean`
 field starts out `false`.
 
-**Check.** The line has no red underline.
+**Check.**
+
+- The line has no red underline.
 
 ### L070S050: say when the button changes
 
@@ -134,8 +143,10 @@ been pressed once, `event` is crossed out, because nothing has been written to i
 Holding A down does not write `A pressed` again. `event` only changes on the loop the button
 changed.
 
-**Check.** Press A and hold it. `button/a` turns into a green dot, and `event` reads `A pressed`.
-Let go. The dot turns red, and `event` reads `A released`.
+**Check.**
+
+- Press A and hold it. `button/a` turns into a green dot, and `event` reads `A pressed`.
+- Let go. The dot turns red, and `event` reads `A released`.
 
 ### L070S060: read the sticks sideways
 
@@ -159,9 +170,11 @@ comment that names this step, under the lines that read the sticks up and down. 
 
 **Simulator.** Run the same command again, and connect AdvantageScope.
 
-**Check.** Push the left stick to the right, and `stick/leftX` goes above 0. Push the right stick to
-the left, and `stick/rightX` goes below 0. `speed` and `power` stay at 0, and the robot does not
-move.
+**Check.**
+
+- Push the left stick to the right, and `stick/leftX` goes above 0.
+- Push the right stick to the left, and `stick/rightX` goes below 0.
+- `speed` and `power` stay at 0, and the robot does not move.
 
 :::{figure} ../_static/figures/fig-l070-sideways.png
 :name: fig-l070-sideways
@@ -171,13 +184,14 @@ AdvantageScope's list with the `stick` folder open, showing `leftX` at 0.500 and
 
 ### L070S070: watch the buttons on the robot
 
-**Send.** Send the code to the robot, as in L050. On the Driver Station, pick `L070 Buttons` from
-the `Lessons` group. Press INIT, then PLAY.
+**Robot.** Stop the simulator. Send the code, run `L070 Buttons` from the Driver Station, and watch
+it in AdvantageScope.
 
-**Panels.** Join the laptop to the robot's Wi-Fi, and open `http://192.168.43.1:8001`.
+**Check.**
 
-**Check.** Press A, and in Panels `button/event` reads `A pressed`. Let go, and it reads
-`A released`. The robot still drives with the sticks as it did in L060.
+- Press A, and in AdvantageScope `button/event` reads `A pressed`.
+- Let go, and it reads `A released`.
+- The robot still drives with the sticks as it did in L060.
 
 ::::{only} mentor
 **No gamepad.** `--args="mytry.L070ButtonsOpMode --a=true"` holds A down for the whole run, so

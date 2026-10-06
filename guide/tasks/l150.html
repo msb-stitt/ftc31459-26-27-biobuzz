@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -322,13 +323,19 @@ they mean the robot. Let go and they mean the field again.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once
 and paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file
 to Git, click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l150s020">
 <span id="l150s020-switch-your-copy-on"></span><h3>L150S020: switch your copy on<a class="headerlink" href="#l150s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l150s030">
 <span id="l150s030-choose-with-the-bumper"></span><h3>L150S030: choose with the bumper<a class="headerlink" href="#l150s030" title="Link to this heading">¶</a></h3>
@@ -364,19 +371,25 @@ driver’s thumb tells them which way the sticks work, so there is nothing to re
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">drive</span></code>
 folder, then <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
-<p><strong>Check.</strong> Hold the right bumper and push the left stick a little forward. <code class="docutils literal notranslate"><span class="pre">robotRelative</span></code> turns
-green, and the robot drives up the field, the way its nose points. <code class="docutils literal notranslate"><span class="pre">y_in</span></code> climbs and <code class="docutils literal notranslate"><span class="pre">x_in</span></code> stays at
-72. Let go of the bumper and keep pushing. The robot slides to the right, along +x, and <code class="docutils literal notranslate"><span class="pre">x_in</span></code>
-climbs.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Hold the right bumper and push the left stick a little forward. <code class="docutils literal notranslate"><span class="pre">robotRelative</span></code> turns green, and
+the robot drives up the field, the way its nose points.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_in</span></code> climbs and <code class="docutils literal notranslate"><span class="pre">x_in</span></code> stays at 72.</p></li>
+<li><p>Let go of the bumper and keep pushing. The robot slides to the right, along +x, and <code class="docutils literal notranslate"><span class="pre">x_in</span></code> climbs.</p></li>
+</ul>
 </section>
 <section id="l150s040">
 <span id="l150s040-drive-both-ways-on-the-floor"></span><h3>L150S040: drive both ways on the floor<a class="headerlink" href="#l150s040" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Send the code to the robot, as in
-L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L150</span> <span class="pre">Robot</span> <span class="pre">Relative</span> <span class="pre">Button</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Stand off
-the robot’s left side, as in L140. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> Turn the robot so its nose points to one side, and push the left stick away from you.
-The robot drives away from you. Now hold the right bumper and push the same way. The robot drives
-along its own nose. Let go, and it drives away from you again.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L150</span> <span class="pre">Robot</span> <span class="pre">Relative</span> <span class="pre">Button</span></code> from the Driver
+Station. Stand off the robot’s left side, as in L140.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Turn the robot so its nose points to one side, and push the left stick away from you.</p></li>
+<li><p>The robot drives away from you.</p></li>
+<li><p>Now hold the right bumper and push the same way. The robot drives along its own nose.</p></li>
+<li><p>Let go, and it drives away from you again.</p></li>
+</ul>
 </section>
 </section>
 </section>

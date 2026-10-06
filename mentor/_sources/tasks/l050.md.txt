@@ -29,14 +29,18 @@ have not been performed on a robot yet.
 In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to Git,
 click **Add**.
 
-**Check.** `mytry` holds `L050BlocksOpMode`, and the new file is open.
+**Check.**
+
+- `mytry` holds `L050BlocksOpMode`, and the new file is open.
 
 ### L050S020: switch your copy on
 
 **Change.** Delete the line `@Disabled`, under the comment that names this step.
 
-**Check.** Under the step's comment, the next line reads
-`// public: the robot only runs an OpMode that is public.`
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
 ### L050S030: label the robot
 
@@ -49,7 +53,9 @@ and the right side RIGHT, as the robot sees them when it drives forward.
 The robot from above with its nose marked, and each of the four wheels labelled front left, front right, back left and back right.
 :::
 
-**Check.** Stand behind the robot, facing the way FRONT faces. LEFT is on your left.
+**Check.**
+
+- Stand behind the robot, facing the way FRONT faces. LEFT is on your left.
 
 ### L050S040: tell each motor which way it is mounted
 
@@ -86,56 +92,103 @@ Finish the line, and do the same for the other three motors:
 
 `init` runs once, when INIT is pressed, so the motors know their directions before PLAY.
 
-**Check.** Each line ends `.get());`, and none has a red underline.
+**Check.**
+
+- Each line ends `.get());`, and none has a red underline.
 
 ### L050S050: send the code to the robot
 
-**Robot.** Rest the robot on the blocks, so all four wheels are off the ground. Turn it on, and plug
-the laptop into the Control Hub with the USB cable.
+**Robot.**
 
-**Send.** In Android Studio, the device list left of **TeamCode** reads **No Devices** until the
-robot is plugged in. Pick the Control Hub from it, and click the green triangle right of
-**TeamCode**.
+{.steps}
+- Rest the robot on the blocks, so all four wheels are off the ground.
 
-**Check.** Android Studio says the install worked, and the Driver Station shows the robot.
+- Turn it on, and plug the laptop into the Control Hub with the USB cable.
+
+**Send.**
+
+{.steps}
+- In Android Studio, the device list left of **TeamCode** reads **No Devices** until the robot is
+  plugged in. Pick the Control Hub from it.
+
+- Click the green triangle right of **TeamCode**.
+
+**Check.**
+
+- Android Studio says the install worked, and the Driver Station shows the robot.
 
 ### L050S060: watch the wheels
 
 **Gamepad.** On the gamepad, hold Start and press A. That makes it gamepad 1.
 
-**Run.** On the Driver Station, pick `L050 Blocks` from the `Lessons` group. Press INIT, then PLAY.
+**Run.** On the Driver Station, pick `L050 Blocks` from the `Lessons` group. Press INIT.
 
-**Panels.** Join the laptop to the robot's Wi-Fi, and open `http://192.168.43.1:8001`.
+**AdvantageScope.**
 
-**Check.** Push the left stick a little way forward. In Panels, `speed/left` goes above 0. Both
-left wheels turn, with the top of each tyre moving toward FRONT. Let go, and do the same with the
-right stick and the right wheels.
+{.steps}
+- Join the laptop to the robot's Wi-Fi.
 
-Write down any wheel that turns the other way, or that turns for the wrong stick.
+- Open **AdvantageScope > Settings…**. Type `192.168.43.1` in **Robot Address**, and click the ✓.
 
-### L050S070: fix a wheel that is wrong
+- Open **File > Connect to Robot > NetworkTables 4**.
 
-**Wrong way.** A wheel that turns backward has the wrong direction in
+The first time AdvantageScope talks to the robot, the operating system might ask for your
+permission. Please give it.
+
+**Check.**
+
+- The title bar reads `192.168.43.1`, and the list on the left shows `Localizer`.
+
+**Run.** Press PLAY.
+
+**Check.**
+
+- Push the left stick a little way forward. In AdvantageScope, `speed/left` goes above 0.
+- Both left wheels turn, with the top of each tyre moving toward FRONT.
+- Let go, and do the same with the right stick and the right wheels.
+
+Write down any wheel that turns the other way, or that turns for the other side's stick.
+
+### L050S070: set each wheel right
+
+**Turns backward.** A wheel that turns backward needs its direction swapped in
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/pedro/Constants.java`. Find its line, such as
 `c.frontLeftDirection.set(DcMotorSimple.Direction.FORWARD);`, and swap `FORWARD` for `REVERSE`, or
 `REVERSE` for `FORWARD`.
 
-**Wrong stick.** A wheel that turns for the other side's stick is plugged into a port the Robot
-Configuration gives a different name. Ask a mentor to check the names on the Driver Station.
+**Turns for the other stick.** A wheel that turns for the other side's stick is plugged into a
+port the Robot Configuration gives a different name. Ask a mentor to check the names on the Driver
+Station.
 
 **Send.** Send the code again, as in L050S050, and repeat L050S060.
 
-**Check.** All four wheels pass L050S060.
+**Check.**
+
+- All four wheels pass L050S060.
 
 ### L050S080: drive it on the floor
 
 **Drive.** Press STOP. Lift the robot off the blocks and put it on the floor, with room in front of
 it. Press INIT, then PLAY.
 
-**Check.** Push both sticks gently forward, and the robot drives forward. Pull both back, and it
-comes back. Push one forward and pull the other back, and it spins in place.
+**Check.**
+
+- Push both sticks gently forward, and the robot drives forward!
+- Pull both back, and it comes back.
+- Push one forward and pull the other back, and it spins in place.
 
 ::::{only} mentor
+**Live on the robot is for practice.** An OpMode in `lessons` or `mytry` turns on the robot's
+NetworkTables server at INIT, which is what AdvantageScope connects to. FTC rule R704 forbids
+third-party telemetry over Wi-Fi at competitions, so a competition OpMode lives in another folder,
+where it stays off. The rule is as `Tracker.serveLive()`'s comment gives it; the game manual was not
+opened for this page.
+
+**Seen on 2026-10-06** with `L110 Follower` on blocks, over Wi-Fi: the macOS permission prompt,
+then `Localizer/pinPoint` at INIT, before PLAY, and the rest of the values after PLAY. The
+**Settings…** window is titled **Preferences**. The gamepad half of L050S060 has not been
+performed.
+
 **If it didn't**, and the robot creeps with both sticks let go, the sticks do not read exactly 0.
 L060 fixes that.
 

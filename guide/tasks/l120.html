@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -325,14 +326,20 @@ out where the robot is.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>.</p></li>
+</ul>
 </section>
 <section id="l120s020">
 <span id="l120s020-switch-your-copy-on"></span><h3>L120S020: switch your copy on<a class="headerlink" href="#l120s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that
 names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l120s030">
 <span id="l120s030-run-your-localizer-beside-the-robot-s-own"></span><h3>L120S030: run your localizer beside the robot’s own<a class="headerlink" href="#l120s030" title="Link to this heading">¶</a></h3>
@@ -347,9 +354,12 @@ this step. Under it, type:</p>
 </span><span class="hll"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">L120EncoderLocalizer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">HardwareWheelSource</span><span class="p">(</span><span class="n">hardware</span><span class="p">)));</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code> turns red, because this file does not know where it lives yet. Click it and
-press Option+Enter. Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span></code> line at the top of the file, and the red goes
-away.</p>
+<p><code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code> turns red, because this file does not know where it lives yet.</p>
+<ul class="steps simple">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code>.</p></li>
+<li><p>Press Option+Enter, and pick <strong>Import class…</strong>.</p></li>
+<li><p>Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span></code> line at the top of the file, and the red goes away.</p></li>
+</ul>
 <figure class="align-default" id="fig-l120-import">
 <img alt="../_images/fig-l120-import.png" src="../_images/fig-l120-import.png" />
 <figcaption>
@@ -362,9 +372,12 @@ away.</p>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Open the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder, then
 <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> inside it.</p>
-<p><strong>Check.</strong> Both start at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 10.5 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 90. Push the left stick forward.
-<code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> climbs, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> stays where it started. Yours does not count
-anything yet.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Both start at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 10.5 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 90.</p></li>
+<li><p>Push the left stick forward. <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> climbs, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> stays where it
+started. Yours does not count anything yet.</p></li>
+</ul>
 <p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> is how many inches the robot is from the left edge of the 2D Field, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> how many from
 its bottom edge. <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> is the way the robot’s nose points, and 90 is straight up the field.
 Since L040, the <strong>Poses</strong> list has called that same direction 180°. Both mean up the field.</p>
@@ -401,11 +414,15 @@ remembers last loop’s numbers and takes them away.</p>
 <p><code class="docutils literal notranslate"><span class="pre">null</span></code> means “nothing yet”. <code class="docutils literal notranslate"><span class="pre">return</span></code> leaves <code class="docutils literal notranslate"><span class="pre">update</span></code> early, until next loop.</p>
 <p>The two long lines are L090’s table read backwards. There, three numbers made four wheel powers.
 Here, four wheel moves make <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">strafe</span></code> again, in inches.</p>
-<p><strong>Check.</strong> In the Terminal, run:</p>
+<p><strong>Check.</strong></p>
+<ul>
+<li><p>In the Terminal, run this. It ends with <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">tests</span> <span class="pre">completed,</span> <span class="pre">2</span> <span class="pre">failed</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testDebugUnitTest</span> <span class="o">--</span><span class="n">tests</span> <span class="s1">'*L120EncoderLocalizerTest*'</span>
 </pre></div>
 </div>
-<p>It ends with <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">tests</span> <span class="pre">completed,</span> <span class="pre">2</span> <span class="pre">failed</span></code>. The two that fail are
+</li>
+</ul>
+<p>The two that fail are
 <code class="docutils literal notranslate"><span class="pre">appliesTheHeadingSoSidewaysIsRelativeToTheRobot</span></code> and
 <code class="docutils literal notranslate"><span class="pre">setPoseMovesTheEstimateWithoutMovingTheRobot</span></code>. Both are about which way the robot faces. That is
 the next step.</p>
@@ -433,7 +450,10 @@ this step. Under it, type:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> share the step out between x and y. Facing along x, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 1 and <code class="docutils literal notranslate"><span class="pre">sin</span></code>
 is 0, so forward all goes on x. Facing along y, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 0 and <code class="docutils literal notranslate"><span class="pre">sin</span></code> is 1, so forward all goes on y.
 In between, each gets a part.</p>
-<p><strong>Check.</strong> Run the same test command again. It ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Run the same test command again. It ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
 <figure class="align-default" id="fig-l120-encoders-follow">
 <img alt="../_images/fig-l120-encoders-follow.png" src="../_images/fig-l120-encoders-follow.png" />
 <figcaption>
@@ -441,17 +461,23 @@ In between, each gets a part.</p>
 </figcaption>
 </figure>
 <p><strong>Simulator.</strong> Run the command from L120S030 again, and connect AdvantageScope.</p>
-<p><strong>Check.</strong> Push the left stick forward. This time <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders/y_in</span></code> climbs with
-<code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code>, and the two stay within a tenth of an inch. The simulator turns each wheel’s
-encoder by how far it rolls, so your localizer has something to count.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick forward. This time <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders/y_in</span></code> climbs with <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code>, and
+the two stay within a tenth of an inch.</p></li>
+</ul>
+<p>The simulator turns each wheel’s encoder by how far it rolls, so your localizer has something to
+count.</p>
 </section>
 <section id="l120s060">
 <span id="l120s060-drive-it-then-measure-it"></span><h3>L120S060: drive it, then measure it<a class="headerlink" href="#l120s060" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Send the code to the robot, as in L050. On the Driver Station, pick
-<code class="docutils literal notranslate"><span class="pre">L120</span> <span class="pre">Compare</span> <span class="pre">Localizers</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then PLAY.</p>
-<p><strong>Panels.</strong> Join the laptop to the robot’s Wi-Fi, and open <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:8001</span></code>, as in L070.</p>
-<p><strong>Check.</strong> Drive about 2 m straight ahead and stop. Both <code class="docutils literal notranslate"><span class="pre">y_in</span></code> numbers moved, and they do not
-quite agree. Measure how far the robot really went with the tape measure.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, run <code class="docutils literal notranslate"><span class="pre">L120</span> <span class="pre">Compare</span> <span class="pre">Localizers</span></code> from the Driver
+Station, and watch it in AdvantageScope.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Drive about 2 m straight ahead and stop. Both <code class="docutils literal notranslate"><span class="pre">y_in</span></code> numbers moved, and they do not quite agree.</p></li>
+<li><p>Measure how far the robot really went with the tape measure.</p></li>
+</ul>
 <p>Then put the robot on the blocks and push the left stick forward. The wheels spin, and the robot
 does not go anywhere. <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> walks off across the field. <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> stays put,
 because its pods are off the floor too.</p>

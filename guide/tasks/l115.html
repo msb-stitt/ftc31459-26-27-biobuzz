@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -326,8 +327,11 @@ that one is the <strong>forward</strong> pod. The other rolls across it, and tha
 count, and nothing after it can tell that it did.</p>
 <p><strong>Mount.</strong> Bolt the two pods on, one along the robot and one across it. Plug the forward pod into
 the Pinpoint’s <strong>x</strong> socket and the strafe pod into its <strong>y</strong> socket.</p>
-<p><strong>Check.</strong> Push the robot forward by hand. The forward pod’s wheel turns. The strafe pod’s wheel
-drags sideways.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the robot forward by hand. The forward pod’s wheel turns.</p></li>
+<li><p>The strafe pod’s wheel drags sideways.</p></li>
+</ul>
 </section>
 <section id="l115s020">
 <span id="l115s020-plug-it-into-an-i2c-port-that-is-not-port-0"></span><h3>L115S020: plug it into an I2C port that is not port 0<a class="headerlink" href="#l115s020" title="Link to this heading">¶</a></h3>
@@ -340,17 +344,28 @@ port, and name it <code class="docutils literal notranslate"><span class="pre">p
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"pinpoint"</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><strong>Check.</strong> Pick <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group and press INIT. INIT finishes with no
-error. INIT looks for the Pinpoint by its name, so if INIT finishes, it was found.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Pick <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group and press INIT.</p></li>
+<li><p>INIT finishes with no error.</p></li>
+</ul>
+<p>INIT looks for the Pinpoint by its name, so if INIT finishes, it was found.</p>
 </section>
 <section id="l115s030">
 <span id="l115s030-hold-the-robot-still-while-it-inits"></span><h3>L115S030: hold the robot still while it inits<a class="headerlink" href="#l115s030" title="Link to this heading">¶</a></h3>
 <p>Pressing INIT builds the follower, and the follower builds the Pinpoint. The Pinpoint then resets
 its own gyro, which takes about a quarter of a second. The robot has to sit still for it.</p>
-<p><strong>Robot.</strong> Put the robot on the floor and take your hands off it. Press INIT.</p>
-<p><strong>Panels.</strong> Join the laptop to the robot’s Wi-Fi, and open <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:8001</span></code>, as in L070.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">Localizer/pinPoint/heading_deg</span></code> holds steady while the robot sits still. Press PLAY and
-drive a slow square, and the heading comes back to where it started.</p>
+<p><strong>Robot.</strong> Put the robot on the floor, step back, safety glasses on! Pick <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> on the
+Driver Station and press INIT, but not PLAY yet. Watch it in AdvantageScope.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Before you press PLAY, <code class="docutils literal notranslate"><span class="pre">Localizer/pinPoint/heading_deg</span></code> holds steady while the robot sits still.</p></li>
+</ul>
+<p><strong>Drive.</strong> Press PLAY and drive a slow square.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The heading comes back to where it started.</p></li>
+</ul>
 </section>
 </section>
 </section>

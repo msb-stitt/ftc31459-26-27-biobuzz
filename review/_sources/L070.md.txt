@@ -23,7 +23,7 @@ Delete 0 lines, write 1 line.
      // for what to do here.
 +    boolean previousButtonA;
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 ```
 

@@ -28,14 +28,18 @@ yet.
 paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
 Git, click **Add**.
 
-**Check.** `mytry` holds `L170DriveToPoseOpMode`, and the new file is open.
+**Check.**
+
+- `mytry` holds `L170DriveToPoseOpMode`, and the new file is open.
 
 ### L170S020: switch your copy on
 
 **Change.** Delete the line `@Disabled`, under the comment that names this step.
 
-**Check.** Under the step's comment, the next line reads
-`// public: the robot only runs an OpMode that is public.`
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
 ### L170S030: give Y a pose
 
@@ -82,8 +86,12 @@ command tells the follower to drive to `target` and stay there.
 **AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
 `Localizer` folder, then `pinPoint`.
 
-**Check.** The robot does not move. `x_in` stays at 72 and `y_in` at 10.5. The follower wants to
-go, but every loop the sticks say stop, and since L110 the sticks win.
+**Check.**
+
+- The robot does not move.
+- `x_in` stays at 72 and `y_in` at 10.5.
+
+The follower wants to go, but every loop the sticks say stop, and since L110 the sticks win.
 
 ### L170S040: let the follower drive until the driver takes over
 
@@ -119,18 +127,22 @@ follower. The sticks drive again, from this loop on.
 
 **Simulator.** Run the same command again, and connect AdvantageScope. Open the `drive` folder too.
 
-**Check.** `mode` reads AUTO. The robot drives right and up the field and stops at `x_in` 120 and
-`y_in` 72, its nose still pointing up the field. It may show 119.999 and 71.999.
+**Check.**
+
+- `mode` reads AUTO.
+- The robot drives right and up the field and stops at `x_in` 120 and `y_in` 72, its nose still
+  pointing up the field. It may show 119.999 and 71.999.
 
 ### L170S050: send it and then take it back
 
-**Send.** Press Ctrl+C in the Terminal to stop the simulator. Send the code to the robot, as in
-L050. On the Driver Station, pick `L170 Drive To Pose` from the `Lessons` group. Press INIT, then
-PLAY.
+**Robot.** Stop the simulator. Send the code, and run `L170 Drive To Pose` from the Driver Station.
 
-**Check.** Press Y once and let go. The robot drives itself toward the middle of the field, right of
-where it started. Press Y again and push the left stick while it is on its way. It stops going
-there, and drives the way the stick says.
+**Check.**
+
+- Press Y once and let go. The robot drives itself toward the middle of the field, right of where it
+  started.
+- Press Y again and push the left stick while it is on its way. It stops going there, and drives the
+  way the stick says.
 
 ::::{only} mentor
 **No gamepad.** Both runs above hold Y with `--y=true` and need none. With `--pad`, a driver can

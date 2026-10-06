@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -322,13 +323,19 @@ sideways. The robot drives as it did in L060 the whole time.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l070s020">
 <span id="l070s020-switch-your-copy-on"></span><h3>L070S020: switch your copy on<a class="headerlink" href="#l070s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l070s030">
 <span id="l070s030-read-the-a-button"></span><h3>L070S030: read the A button<a class="headerlink" href="#l070s030" title="Link to this heading">¶</a></h3>
@@ -356,8 +363,12 @@ Under it, type <code class="docutils literal notranslate"><span class="pre">bool
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Open the <code class="docutils literal notranslate"><span class="pre">button</span></code> folder, and drag <code class="docutils literal notranslate"><span class="pre">a</span></code>
 into <strong>Discrete Fields</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">button/a</span></code> is a red dot. Press A and hold it, and the dot turns green. Let go, and it
-turns red again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">button/a</span></code> is a red dot.</p></li>
+<li><p>Press A and hold it, and the dot turns green.</p></li>
+<li><p>Let go, and it turns red again.</p></li>
+</ul>
 </section>
 <section id="l070s040">
 <span id="l070s040-remember-last-loop-s-button"></span><h3>L070S040: remember last loop’s button<a class="headerlink" href="#l070s040" title="Link to this heading">¶</a></h3>
@@ -375,7 +386,10 @@ type:</p>
 </div>
 <p>A variable made here is a <strong>field</strong>. It keeps its value from one loop to the next. A <code class="docutils literal notranslate"><span class="pre">boolean</span></code>
 field starts out <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
-<p><strong>Check.</strong> The line has no red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The line has no red underline.</p></li>
+</ul>
 </section>
 <section id="l070s050">
 <span id="l070s050-say-when-the-button-changes"></span><h3>L070S050: say when the button changes<a class="headerlink" href="#l070s050" title="Link to this heading">¶</a></h3>
@@ -402,8 +416,11 @@ saves this loop’s button for the next loop.</p>
 been pressed once, <code class="docutils literal notranslate"><span class="pre">event</span></code> is crossed out, because nothing has been written to it yet.</p>
 <p>Holding A down does not write <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> again. <code class="docutils literal notranslate"><span class="pre">event</span></code> only changes on the loop the button
 changed.</p>
-<p><strong>Check.</strong> Press A and hold it. <code class="docutils literal notranslate"><span class="pre">button/a</span></code> turns into a green dot, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.
-Let go. The dot turns red, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Press A and hold it. <code class="docutils literal notranslate"><span class="pre">button/a</span></code> turns into a green dot, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.</p></li>
+<li><p>Let go. The dot turns red, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p></li>
+</ul>
 </section>
 <section id="l070s060">
 <span id="l070s060-read-the-sticks-sideways"></span><h3>L070S060: read the sticks sideways<a class="headerlink" href="#l070s060" title="Link to this heading">¶</a></h3>
@@ -421,9 +438,12 @@ comment that names this step, under the lines that read the sticks up and down. 
 </span></pre></div>
 </div>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
-<p><strong>Check.</strong> Push the left stick to the right, and <code class="docutils literal notranslate"><span class="pre">stick/leftX</span></code> goes above 0. Push the right stick to
-the left, and <code class="docutils literal notranslate"><span class="pre">stick/rightX</span></code> goes below 0. <code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> stay at 0, and the robot does not
-move.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick to the right, and <code class="docutils literal notranslate"><span class="pre">stick/leftX</span></code> goes above 0.</p></li>
+<li><p>Push the right stick to the left, and <code class="docutils literal notranslate"><span class="pre">stick/rightX</span></code> goes below 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> stay at 0, and the robot does not move.</p></li>
+</ul>
 <figure class="align-default" id="fig-l070-sideways">
 <img alt="../_images/fig-l070-sideways.png" src="../_images/fig-l070-sideways.png" />
 <figcaption>
@@ -433,11 +453,14 @@ move.</p>
 </section>
 <section id="l070s070">
 <span id="l070s070-watch-the-buttons-on-the-robot"></span><h3>L070S070: watch the buttons on the robot<a class="headerlink" href="#l070s070" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Send the code to the robot, as in L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L070</span> <span class="pre">Buttons</span></code> from
-the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then PLAY.</p>
-<p><strong>Panels.</strong> Join the laptop to the robot’s Wi-Fi, and open <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:8001</span></code>.</p>
-<p><strong>Check.</strong> Press A, and in Panels <code class="docutils literal notranslate"><span class="pre">button/event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>. Let go, and it reads
-<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>. The robot still drives with the sticks as it did in L060.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, run <code class="docutils literal notranslate"><span class="pre">L070</span> <span class="pre">Buttons</span></code> from the Driver Station, and watch
+it in AdvantageScope.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Press A, and in AdvantageScope <code class="docutils literal notranslate"><span class="pre">button/event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.</p></li>
+<li><p>Let go, and it reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p></li>
+<li><p>The robot still drives with the sticks as it did in L060.</p></li>
+</ul>
 </section>
 </section>
 </section>

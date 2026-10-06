@@ -29,14 +29,18 @@ yet.
 In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to Git,
 click **Add**.
 
-**Check.** `mytry` holds `L125Drive24OpMode`, and the new file is open.
+**Check.**
+
+- `mytry` holds `L125Drive24OpMode`, and the new file is open.
 
 ### L125S020: switch your copy on
 
 **Change.** Delete the line `@Disabled`, under the comment that names this step.
 
-**Check.** Under the step's comment, the next line reads
-`// public: the robot only runs an OpMode that is public.`
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
 ### L125S030: say where to go
 
@@ -63,9 +67,15 @@ Read it from the inside out. `line(start, end)` is the path. `.constant(start)` 
 `start` has the whole way. `follow` drives the path. `sequential` makes the list, and this list has
 one thing in it.
 
-`sequential`, `follow` and `line` turn red. Click each one and press Option+Enter. This time the
-popup says **Import static method...**, because each is a method, not a class. Android Studio adds
-an `import static` line at the top of the file for each one.
+`sequential`, `follow` and `line` turn red. For each one:
+
+{.steps}
+- Click it.
+
+- Press Option+Enter. This time the popup says **Import static method...**, because each is a
+  method, not a class. Pick it.
+
+- Android Studio adds an `import static` line at the top of the file.
 
 :::{figure} ../_static/figures/fig-l125-import-static.png
 :name: fig-l125-import-static
@@ -82,17 +92,22 @@ Android Studio with `sequential`, `follow` and `line` underlined in red and the 
 **AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
 `Localizer` folder, then `pinPoint`.
 
-**Check.** The robot has driven up the field and stopped. `y_in` reads 34.5, which is 24 more than
-the 10.5 it started at. `x_in` stays at 72 and `heading_deg` at 90.
+**Check.**
+
+- The robot has driven up the field and stopped.
+- `y_in` reads 34.5, which is 24 more than the 10.5 it started at.
+- `x_in` stays at 72 and `heading_deg` at 90.
 
 ### L125S040: drive it on the floor
 
-**Send.** Press Ctrl+C in the Terminal to stop the simulator. Put the robot on the floor with a
-piece of tape at its front edge. Send the code to the robot, as in L050. On the Driver Station, pick
-`L125 Drive 24` from the autonomous list. Press INIT, then PLAY, and keep your hands off the sticks.
+**Robot.** Stop the simulator. Put the robot on the floor with a piece of tape at its front edge.
+Send the code, and run `L125 Drive 24` from the Driver Station. It is in the autonomous list, not
+the TeleOp one. Keep your hands off the sticks.
 
-**Check.** The robot drives forward, slows down, and stops. Measure from the tape to the front
-edge. It is close to 24 inches.
+**Check.**
+
+- The robot drives forward, slows down, and stops, all by itself!
+- Measure from the tape to the front edge. It is close to 24 inches.
 
 ::::{only} mentor
 **If it didn't**, and nothing moves, the routine still says `return Command.NOOP;`, the command

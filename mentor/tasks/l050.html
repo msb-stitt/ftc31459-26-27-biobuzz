@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -336,13 +337,19 @@ have not been performed on a robot yet.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l050s020">
 <span id="l050s020-switch-your-copy-on"></span><h3>L050S020: switch your copy on<a class="headerlink" href="#l050s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l050s030">
 <span id="l050s030-label-the-robot"></span><h3>L050S030: label the robot<a class="headerlink" href="#l050s030" title="Link to this heading">¶</a></h3>
@@ -354,7 +361,10 @@ and the right side RIGHT, as the robot sees them when it drives forward.</p>
 <p><span class="caption-text">The robot from above with its nose marked, and each of the four wheels labelled front left, front right, back left and back right.</span><a class="headerlink" href="#fig-wheel-names" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><strong>Check.</strong> Stand behind the robot, facing the way FRONT faces. LEFT is on your left.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Stand behind the robot, facing the way FRONT faces. LEFT is on your left.</p></li>
+</ul>
 </section>
 <section id="l050s040">
 <span id="l050s040-tell-each-motor-which-way-it-is-mounted"></span><h3>L050S040: tell each motor which way it is mounted<a class="headerlink" href="#l050s040" title="Link to this heading">¶</a></h3>
@@ -383,44 +393,88 @@ what it says.</p>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">init</span></code> runs once, when INIT is pressed, so the motors know their directions before PLAY.</p>
-<p><strong>Check.</strong> Each line ends <code class="docutils literal notranslate"><span class="pre">.get());</span></code>, and none has a red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Each line ends <code class="docutils literal notranslate"><span class="pre">.get());</span></code>, and none has a red underline.</p></li>
+</ul>
 </section>
 <section id="l050s050">
 <span id="l050s050-send-the-code-to-the-robot"></span><h3>L050S050: send the code to the robot<a class="headerlink" href="#l050s050" title="Link to this heading">¶</a></h3>
-<p><strong>Robot.</strong> Rest the robot on the blocks, so all four wheels are off the ground. Turn it on, and plug
-the laptop into the Control Hub with the USB cable.</p>
-<p><strong>Send.</strong> In Android Studio, the device list left of <strong>TeamCode</strong> reads <strong>No Devices</strong> until the
-robot is plugged in. Pick the Control Hub from it, and click the green triangle right of
-<strong>TeamCode</strong>.</p>
-<p><strong>Check.</strong> Android Studio says the install worked, and the Driver Station shows the robot.</p>
+<p><strong>Robot.</strong></p>
+<ul class="steps simple">
+<li><p>Rest the robot on the blocks, so all four wheels are off the ground.</p></li>
+<li><p>Turn it on, and plug the laptop into the Control Hub with the USB cable.</p></li>
+</ul>
+<p><strong>Send.</strong></p>
+<ul class="steps simple">
+<li><p>In Android Studio, the device list left of <strong>TeamCode</strong> reads <strong>No Devices</strong> until the robot is
+plugged in. Pick the Control Hub from it.</p></li>
+<li><p>Click the green triangle right of <strong>TeamCode</strong>.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Android Studio says the install worked, and the Driver Station shows the robot.</p></li>
+</ul>
 </section>
 <section id="l050s060">
 <span id="l050s060-watch-the-wheels"></span><h3>L050S060: watch the wheels<a class="headerlink" href="#l050s060" title="Link to this heading">¶</a></h3>
 <p><strong>Gamepad.</strong> On the gamepad, hold Start and press A. That makes it gamepad 1.</p>
-<p><strong>Run.</strong> On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L050</span> <span class="pre">Blocks</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then PLAY.</p>
-<p><strong>Panels.</strong> Join the laptop to the robot’s Wi-Fi, and open <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:8001</span></code>.</p>
-<p><strong>Check.</strong> Push the left stick a little way forward. In Panels, <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes above 0. Both
-left wheels turn, with the top of each tyre moving toward FRONT. Let go, and do the same with the
-right stick and the right wheels.</p>
-<p>Write down any wheel that turns the other way, or that turns for the wrong stick.</p>
+<p><strong>Run.</strong> On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L050</span> <span class="pre">Blocks</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT.</p>
+<p><strong>AdvantageScope.</strong></p>
+<ul class="steps simple">
+<li><p>Join the laptop to the robot’s Wi-Fi.</p></li>
+<li><p>Open <strong>AdvantageScope &gt; Settings…</strong>. Type <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code> in <strong>Robot Address</strong>, and click the ✓.</p></li>
+<li><p>Open <strong>File &gt; Connect to Robot &gt; NetworkTables 4</strong>.</p></li>
+</ul>
+<p>The first time AdvantageScope talks to the robot, the operating system might ask for your
+permission. Please give it.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The title bar reads <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code>, and the list on the left shows <code class="docutils literal notranslate"><span class="pre">Localizer</span></code>.</p></li>
+</ul>
+<p><strong>Run.</strong> Press PLAY.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick a little way forward. In AdvantageScope, <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes above 0.</p></li>
+<li><p>Both left wheels turn, with the top of each tyre moving toward FRONT.</p></li>
+<li><p>Let go, and do the same with the right stick and the right wheels.</p></li>
+</ul>
+<p>Write down any wheel that turns the other way, or that turns for the other side’s stick.</p>
 </section>
 <section id="l050s070">
-<span id="l050s070-fix-a-wheel-that-is-wrong"></span><h3>L050S070: fix a wheel that is wrong<a class="headerlink" href="#l050s070" title="Link to this heading">¶</a></h3>
-<p><strong>Wrong way.</strong> A wheel that turns backward has the wrong direction in
+<span id="l050s070-set-each-wheel-right"></span><h3>L050S070: set each wheel right<a class="headerlink" href="#l050s070" title="Link to this heading">¶</a></h3>
+<p><strong>Turns backward.</strong> A wheel that turns backward needs its direction swapped in
 <code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/pedro/Constants.java</span></code>. Find its line, such as
 <code class="docutils literal notranslate"><span class="pre">c.frontLeftDirection.set(DcMotorSimple.Direction.FORWARD);</span></code>, and swap <code class="docutils literal notranslate"><span class="pre">FORWARD</span></code> for <code class="docutils literal notranslate"><span class="pre">REVERSE</span></code>, or
 <code class="docutils literal notranslate"><span class="pre">REVERSE</span></code> for <code class="docutils literal notranslate"><span class="pre">FORWARD</span></code>.</p>
-<p><strong>Wrong stick.</strong> A wheel that turns for the other side’s stick is plugged into a port the Robot
-Configuration gives a different name. Ask a mentor to check the names on the Driver Station.</p>
+<p><strong>Turns for the other stick.</strong> A wheel that turns for the other side’s stick is plugged into a
+port the Robot Configuration gives a different name. Ask a mentor to check the names on the Driver
+Station.</p>
 <p><strong>Send.</strong> Send the code again, as in L050S050, and repeat L050S060.</p>
-<p><strong>Check.</strong> All four wheels pass L050S060.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>All four wheels pass L050S060.</p></li>
+</ul>
 </section>
 <section id="l050s080">
 <span id="l050s080-drive-it-on-the-floor"></span><h3>L050S080: drive it on the floor<a class="headerlink" href="#l050s080" title="Link to this heading">¶</a></h3>
 <p><strong>Drive.</strong> Press STOP. Lift the robot off the blocks and put it on the floor, with room in front of
 it. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> Push both sticks gently forward, and the robot drives forward. Pull both back, and it
-comes back. Push one forward and pull the other back, and it spins in place.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push both sticks gently forward, and the robot drives forward!</p></li>
+<li><p>Pull both back, and it comes back.</p></li>
+<li><p>Push one forward and pull the other back, and it spins in place.</p></li>
+</ul>
+<p><strong>Live on the robot is for practice.</strong> An OpMode in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> or <code class="docutils literal notranslate"><span class="pre">mytry</span></code> turns on the robot’s
+NetworkTables server at INIT, which is what AdvantageScope connects to. FTC rule R704 forbids
+third-party telemetry over Wi-Fi at competitions, so a competition OpMode lives in another folder,
+where it stays off. The rule is as <code class="docutils literal notranslate"><span class="pre">Tracker.serveLive()</span></code>’s comment gives it; the game manual was not
+opened for this page.</p>
+<p><strong>Seen on 2026-10-06</strong> with <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> on blocks, over Wi-Fi: the macOS permission prompt,
+then <code class="docutils literal notranslate"><span class="pre">Localizer/pinPoint</span></code> at INIT, before PLAY, and the rest of the values after PLAY. The
+<strong>Settings…</strong> window is titled <strong>Preferences</strong>. The gamepad half of L050S060 has not been
+performed.</p>
 <p><strong>If it didn’t</strong>, and the robot creeps with both sticks let go, the sticks do not read exactly 0.
 L060 fixes that.</p>
 <p><strong>What you just did.</strong> Which way a motor turns is set by how it is bolted on and wired, not by the
@@ -495,7 +549,7 @@ from there, and so will the drivetrains in later lessons and AutoTune.</p>
 <li><a class="reference internal" href="#l050s040-tell-each-motor-which-way-it-is-mounted">L050S040: tell each motor which way it is mounted</a></li>
 <li><a class="reference internal" href="#l050s050-send-the-code-to-the-robot">L050S050: send the code to the robot</a></li>
 <li><a class="reference internal" href="#l050s060-watch-the-wheels">L050S060: watch the wheels</a></li>
-<li><a class="reference internal" href="#l050s070-fix-a-wheel-that-is-wrong">L050S070: fix a wheel that is wrong</a></li>
+<li><a class="reference internal" href="#l050s070-set-each-wheel-right">L050S070: set each wheel right</a></li>
 <li><a class="reference internal" href="#l050s080-drive-it-on-the-floor">L050S080: drive it on the floor</a></li>
 </ul>
 </li>

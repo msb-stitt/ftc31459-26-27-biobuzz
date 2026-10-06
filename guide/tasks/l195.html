@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -327,15 +328,21 @@ drivetrain, which tells them what each wheel’s encoder has counted.</p>
 <strong>Copy</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the files to Git, click <strong>Add</strong>.</p>
 <p>Copy all three at once. Copied one at a time, the OpModes still point at the drivetrain in
 <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, and turn red.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code> and
-<code class="docutils literal notranslate"><span class="pre">L195TicksDriveTrain</span></code>, and none of them shows red.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code> and
+<code class="docutils literal notranslate"><span class="pre">L195TicksDriveTrain</span></code>, and none of them shows red.</p></li>
+</ul>
 </section>
 <section id="l195s020">
 <span id="l195s020-switch-both-opmodes-on"></span><h3>L195S020: switch both OpModes on<a class="headerlink" href="#l195s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that
 names this step. Do the same in <code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code>.</p>
-<p><strong>Check.</strong> In both, under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>In both, under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l195s030">
 <span id="l195s030-open-a-door-to-the-encoders"></span><h3>L195S030: open a door to the encoders<a class="headerlink" href="#l195s030" title="Link to this heading">¶</a></h3>
@@ -359,8 +366,12 @@ the same shape pointing the other way: it brings four numbers back.</p>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">measure</span></code>
 folder.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0. <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.
-Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.</p></li>
+</ul>
+<p>Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
 is not a number. The measuring is for the robot.</p>
 </section>
 <section id="l195s040">
@@ -368,12 +379,14 @@ is not a number. The measuring is for the robot.</p>
 <p>The robot keeps two accounts of the same trip. The Pinpoint says how far it went in inches, since
 its own wheels measure the floor. The drive encoders say how many ticks they counted. One divided
 by the other is the number.</p>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Send the code to the robot, as in
-L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">ticks</span> <span class="pre">per</span> <span class="pre">inch</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press
-INIT, then PLAY.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">ticks</span> <span class="pre">per</span> <span class="pre">inch</span></code> from the
+Driver Station.</p>
 <p><strong>Push.</strong> Push the robot slowly straight forward, at least 36 in, keeping it pointing the same way.
 Push slowly: a wheel that slips travels without turning, and the answer comes out short.</p>
-<p><strong>Check.</strong> The Driver Station shows <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> with a number after it.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Driver Station shows <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> with a number after it.</p></li>
+</ul>
 <p>Do it three times. Three answers a tick or two apart are a measurement.</p>
 <p><strong>Change.</strong> Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, and put the number in <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, which is
 45.0 until you do. Send the code again and run it once more to check.</p>
@@ -383,12 +396,16 @@ Push slowly: a wheel that slips travels without turning, and the answer comes ou
 <p>A wheel <code class="docutils literal notranslate"><span class="pre">r</span></code> inches from the middle travels <code class="docutils literal notranslate"><span class="pre">r</span></code> inches for every radian the robot turns. So the
 radius is the wheel’s inches divided by the radians. This OpMode turns ticks into inches with
 <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, so L195S040 comes first.</p>
-<p><strong>Send.</strong> On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code>. Press INIT, then PLAY.</p>
+<p><strong>Robot.</strong> Run <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code> from the Driver Station.</p>
 <p><strong>Spin.</strong> Spin the robot on the spot by hand, at least two full turns, keeping it in about the same
 place.</p>
-<p><strong>Check.</strong> The Driver Station shows a turn radius. Measure from the middle of the robot to the
-middle of one wheel, once across the robot and once along it, and add the two. The two agree. Put
-the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>, which is 8.0 until you do.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Driver Station shows a turn radius.</p></li>
+<li><p>Measure from the middle of the robot to the middle of one wheel, once across the robot and once
+along it, and add the two. The two agree.</p></li>
+</ul>
+<p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>, which is 8.0 until you do.</p>
 </section>
 </section>
 </section>

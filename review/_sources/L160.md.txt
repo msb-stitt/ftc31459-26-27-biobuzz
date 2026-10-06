@@ -57,7 +57,7 @@ Delete 0 lines, write 1 line.
      CorbelsMecanum drivetrain;
 +    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 ```
 

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -323,13 +324,19 @@ asked for.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l080s020">
 <span id="l080s020-switch-your-copy-on"></span><h3>L080S020: switch your copy on<a class="headerlink" href="#l080s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l080s030">
 <span id="l080s030-forward-and-turn"></span><h3>L080S030: forward and turn<a class="headerlink" href="#l080s030" title="Link to this heading">¶</a></h3>
@@ -357,8 +364,12 @@ counter-clockwise, is positive.</p>
 </pre></div>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, and open the <code class="docutils literal notranslate"><span class="pre">arcade</span></code> folder.</p>
-<p><strong>Check.</strong> Push the left stick halfway forward, and <code class="docutils literal notranslate"><span class="pre">forward</span></code> reads 0.25. Push the right stick
-halfway right, and <code class="docutils literal notranslate"><span class="pre">turn</span></code> reads -0.25. The robot does not move yet.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick halfway forward, and <code class="docutils literal notranslate"><span class="pre">forward</span></code> reads 0.25.</p></li>
+<li><p>Push the right stick halfway right, and <code class="docutils literal notranslate"><span class="pre">turn</span></code> reads -0.25.</p></li>
+<li><p>The robot does not move yet.</p></li>
+</ul>
 <figure class="align-default" id="fig-l080-forward-turn">
 <img alt="../_images/fig-l080-forward-turn.png" src="../_images/fig-l080-forward-turn.png" />
 <figcaption>
@@ -389,8 +400,12 @@ step. Under it, type:</p>
 </div>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope. Click <strong>2D Field</strong>. The
 robot from L040 is still in <strong>Poses</strong>.</p>
-<p><strong>Check.</strong> Push the left stick forward, and the robot drives forward. Push the right stick right,
-and it turns right. Push both, and it drives a curve.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick forward, and the robot drives forward.</p></li>
+<li><p>Push the right stick right, and it turns right.</p></li>
+<li><p>Push both, and it drives a curve.</p></li>
+</ul>
 <p>Now push the left stick all the way forward and the right stick halfway right. Click
 <strong>Line Graph</strong>, and drag <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> from the <code class="docutils literal notranslate"><span class="pre">power</span></code> folder into <strong>Left Axis</strong>.
 <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 1.25.</p>
@@ -403,7 +418,7 @@ and it turns right. Push both, and it drives a curve.</p>
 <p>A motor’s power only goes from -1 to 1. On the robot, the Control Hub cuts 1.25 down to 1 and
 leaves 0.75 alone. The left side loses some of what it asked for and the right side loses none, so
 the robot drives a wider curve than the sticks asked for. The simulator does not cut it, so the
-curve there looks right. The number shows the problem.</p>
+curve there looks right. The number gives it away.</p>
 </section>
 <section id="l080s050">
 <span id="l080s050-scale-don-t-cut"></span><h3>L080S050: scale, don’t cut<a class="headerlink" href="#l080s050" title="Link to this heading">¶</a></h3>
@@ -424,17 +439,22 @@ minus sign taken off. The outer one makes sure <code class="docutils literal not
 <p>The last two lines have no <code class="docutils literal notranslate"><span class="pre">double</span></code> in front. <code class="docutils literal notranslate"><span class="pre">leftPower</span></code> already exists, so they change it rather
 than making a new one.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
-<p><strong>Check.</strong> Push the left stick all the way forward and the right stick halfway right. <code class="docutils literal notranslate"><span class="pre">power/left</span></code>
-reads 1, and <code class="docutils literal notranslate"><span class="pre">power/right</span></code> reads 0.6. Push the left stick halfway forward alone, and both read
-0.25, the same as before this step.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick all the way forward and the right stick halfway right. <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 1,
+and <code class="docutils literal notranslate"><span class="pre">power/right</span></code> reads 0.6.</p></li>
+<li><p>Push the left stick halfway forward alone, and both read 0.25, the same as before this step.</p></li>
+</ul>
 </section>
 <section id="l080s060">
 <span id="l080s060-drive-it-on-the-robot"></span><h3>L080S060: drive it on the robot<a class="headerlink" href="#l080s060" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Send the code to the robot, as in L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L080</span> <span class="pre">Arcade</span></code> from
-the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> Push the left stick halfway forward and the right stick a quarter right, and the robot
-drives a circle to the right. Push both sticks twice as far, and it drives a circle the same size,
-only faster.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L080</span> <span class="pre">Arcade</span></code> from the Driver Station.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick halfway forward and the right stick a quarter right, and the robot drives a
+circle to the right.</p></li>
+<li><p>Push both sticks twice as far, and it drives a circle the same size, only faster.</p></li>
+</ul>
 </section>
 </section>
 </section>

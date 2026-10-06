@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -341,14 +342,20 @@ three numbers into four wheel powers.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code> and <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code> and <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>.</p></li>
+</ul>
 </section>
 <section id="l110s020">
 <span id="l110s020-switch-your-copy-on"></span><h3>L110S020: switch your copy on<a class="headerlink" href="#l110s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names
 this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l110s030">
 <span id="l110s030-write-the-mix"></span><h3>L110S030: write the mix<a class="headerlink" href="#l110s030" title="Link to this heading">¶</a></h3>
@@ -368,7 +375,10 @@ into its own slot:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">wheels</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p><strong>Check.</strong> No line has a red underline, and <code class="docutils literal notranslate"><span class="pre">FL</span></code>, <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code> turn purple.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>No line has a red underline, and <code class="docutils literal notranslate"><span class="pre">FL</span></code>, <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code> turn purple.</p></li>
+</ul>
 </section>
 <section id="l110s040">
 <span id="l110s040-make-room-for-the-drivetrain"></span><h3>L110S040: make room for the drivetrain<a class="headerlink" href="#l110s040" title="Link to this heading">¶</a></h3>
@@ -382,7 +392,10 @@ step. Under it, type:</p>
 </div>
 <p>This is a field, like <code class="docutils literal notranslate"><span class="pre">previousButtonA</span></code> in L070. It holds the drivetrain from <code class="docutils literal notranslate"><span class="pre">init</span></code> until the
 OpMode stops.</p>
-<p><strong>Check.</strong> The line has no red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The line has no red underline.</p></li>
+</ul>
 </section>
 <section id="l110s050">
 <span id="l110s050-hand-the-drivetrain-to-the-follower"></span><h3>L110S050: hand the drivetrain to the follower<a class="headerlink" href="#l110s050" title="Link to this heading">¶</a></h3>
@@ -406,7 +419,10 @@ below. Then change <code class="docutils literal notranslate"><span class="pre">
 handed. Up to L090, <code class="docutils literal notranslate"><span class="pre">initAfter()</span></code> was handed nothing, because the lesson drove its own wheels.</p>
 <p>The four <code class="docutils literal notranslate"><span class="pre">setDirection</span></code> lines from L050 are gone from <code class="docutils literal notranslate"><span class="pre">init</span></code>. The drivetrain sets each motor’s
 direction itself, from the same config.</p>
-<p><strong>Check.</strong> Neither line has a red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Neither line has a red underline.</p></li>
+</ul>
 </section>
 <section id="l110s060">
 <span id="l110s060-drive-with-the-sticks"></span><h3>L110S060: drive with the sticks<a class="headerlink" href="#l110s060" title="Link to this heading">¶</a></h3>
@@ -426,15 +442,20 @@ of the loop, <code class="docutils literal notranslate"><span class="pre">loopAf
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">arcade</span></code>
 folder.</p>
-<p><strong>Check.</strong> Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> reads 0.25, and the robot slides to its own
-left with its nose pointing the same way. Forward, turning and the corners all work as they did in
-L090.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> reads 0.25, and the robot slides to its own left with
+its nose pointing the same way.</p></li>
+<li><p>Forward, turning and the corners all work as they did in L090.</p></li>
+</ul>
 </section>
 <section id="l110s070">
 <span id="l110s070-drive-it-on-the-robot"></span><h3>L110S070: drive it on the robot<a class="headerlink" href="#l110s070" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Send the code to the robot, as in L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> from
-the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> It drives the way L090 did: forward, sideways, turning, and the diagonals.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> from the Driver Station.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>It drives the way L090 did: forward, sideways, turning, and the diagonals.</p></li>
+</ul>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L110FollowerOpMode</span> <span class="pre">--left_stick_x=-0.5&quot;</span></code> slides it left for the
 picture at the top. The simulator has no walls, so a robot left running slides off the field.</p>
 <p><strong>If it didn’t</strong>, and the robot does not move at all, <code class="docutils literal notranslate"><span class="pre">initAfter</span></code> is still <code class="docutils literal notranslate"><span class="pre">initAfter()</span></code>. The

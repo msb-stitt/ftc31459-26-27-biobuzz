@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -338,14 +339,20 @@ a speed into a power.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code> and <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code> and <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>.</p></li>
+</ul>
 </section>
 <section id="l190s020">
 <span id="l190s020-switch-your-copy-on"></span><h3>L190S020: switch your copy on<a class="headerlink" href="#l190s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names
 this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l190s030">
 <span id="l190s030-make-room-for-the-drivetrain"></span><h3>L190S030: make room for the drivetrain<a class="headerlink" href="#l190s030" title="Link to this heading">¶</a></h3>
@@ -356,8 +363,11 @@ this step.</p>
 <span class="hll"><span class="w">    </span><span class="n">L190SpeedDriveTrain</span><span class="w"> </span><span class="n">drivetrain</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p><strong>Check.</strong> The line has no red underline. <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code> is in <code class="docutils literal notranslate"><span class="pre">mytry</span></code> too, so it needs no
-import.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The line has no red underline.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code> is in <code class="docutils literal notranslate"><span class="pre">mytry</span></code> too, so it needs no import.</p></li>
+</ul>
 </section>
 <section id="l190s040">
 <span id="l190s040-hand-the-drivetrain-to-the-follower"></span><h3>L190S040: hand the drivetrain to the follower<a class="headerlink" href="#l190s040" title="Link to this heading">¶</a></h3>
@@ -372,7 +382,10 @@ below. Then change <code class="docutils literal notranslate"><span class="pre">
 </span></pre></div>
 </div>
 <p>This is L110S050 again, with the new drivetrain.</p>
-<p><strong>Check.</strong> Neither line has a red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Neither line has a red underline.</p></li>
+</ul>
 </section>
 <section id="l190s050">
 <span id="l190s050-turn-the-sticks-into-speeds"></span><h3>L190S050: turn the sticks into speeds<a class="headerlink" href="#l190s050" title="Link to this heading">¶</a></h3>
@@ -412,8 +425,12 @@ class</strong>, and click it. The box for <code class="docutils literal notransl
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">command</span></code>
 folder. Then open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> reads 20, half of 40. The robot does not move, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> stays at 10.5.
-The OpMode asks for a speed, but <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> in your drivetrain is still empty.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> reads 20, half of 40.</p></li>
+<li><p>The robot does not move, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> stays at 10.5.</p></li>
+</ul>
+<p>The OpMode asks for a speed, but <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> in your drivetrain is still empty.</p>
 </section>
 <section id="l190s060">
 <span id="l190s060-turn-a-speed-into-a-power"></span><h3>L190S060: turn a speed into a power<a class="headerlink" href="#l190s060" title="Link to this heading">¶</a></h3>
@@ -463,20 +480,29 @@ longer:</p>
 </pre></div>
 </div>
 <p><strong>AdvantageScope.</strong> Connect, and open <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, then <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8. The robot drives up the field. On the first loop
-<code class="docutils literal notranslate"><span class="pre">power</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet turning.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8.</p></li>
+<li><p>The robot drives up the field.</p></li>
+<li><p>On the first loop <code class="docutils literal notranslate"><span class="pre">power</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet
+turning.</p></li>
+</ul>
 <p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second, and <code class="docutils literal notranslate"><span class="pre">error_ips</span></code> shrinks to less than 0.5.
 <code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.131 and stays there. The guess was a little too much for the simulated
 robot, and the correction takes off what it needs.</p>
 </section>
 <section id="l190s070">
 <span id="l190s070-drive-it-up-something"></span><h3>L190S070: drive it up something<a class="headerlink" href="#l190s070" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Send the code to the robot, as in
-L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L190</span> <span class="pre">Velocity</span> <span class="pre">Drive</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then
-PLAY.</p>
-<p><strong>Check.</strong> Drive on the flat first. Then drive straight up the mat, with the stick held in the same
-place. The robot slows a little at the foot of the slope and then picks back up. In AdvantageScope,
-<code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> dips below <code class="docutils literal notranslate"><span class="pre">target_ips</span></code>, then climbs back, and <code class="docutils literal notranslate"><span class="pre">power</span></code> rises to do it.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, run <code class="docutils literal notranslate"><span class="pre">L190</span> <span class="pre">Velocity</span> <span class="pre">Drive</span></code> from the Driver Station,
+and watch it in AdvantageScope.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Drive on the flat first.</p></li>
+<li><p>Then drive straight up the mat, with the stick held in the same place. The robot slows a little at
+the foot of the slope and then picks back up.</p></li>
+<li><p>In AdvantageScope, <code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> dips below <code class="docutils literal notranslate"><span class="pre">target_ips</span></code>, then climbs back, and <code class="docutils literal notranslate"><span class="pre">power</span></code> rises to do
+it.</p></li>
+</ul>
 <p><strong>No gamepad.</strong> The runs above need none. With <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, a driver can push the stick and watch the
 numbers; that has not been performed.</p>
 <p><strong>If it didn’t</strong>, and every <code class="docutils literal notranslate"><span class="pre">LessonsTest.l190_</span></code> test fails with this, nothing was published under

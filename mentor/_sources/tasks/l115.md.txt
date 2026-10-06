@@ -37,8 +37,10 @@ count, and nothing after it can tell that it did.
 **Mount.** Bolt the two pods on, one along the robot and one across it. Plug the forward pod into
 the Pinpoint's **x** socket and the strafe pod into its **y** socket.
 
-**Check.** Push the robot forward by hand. The forward pod's wheel turns. The strafe pod's wheel
-drags sideways.
+**Check.**
+
+- Push the robot forward by hand. The forward pod's wheel turns.
+- The strafe pod's wheel drags sideways.
 
 ### L115S020: plug it into an I2C port that is not port 0
 
@@ -55,20 +57,30 @@ port, and name it `pinpoint`, spelled exactly that way. That is the name the cod
 c.name.set("pinpoint");
 ```
 
-**Check.** Pick `L110 Follower` from the `Lessons` group and press INIT. INIT finishes with no
-error. INIT looks for the Pinpoint by its name, so if INIT finishes, it was found.
+**Check.**
+
+- Pick `L110 Follower` from the `Lessons` group and press INIT.
+- INIT finishes with no error.
+
+INIT looks for the Pinpoint by its name, so if INIT finishes, it was found.
 
 ### L115S030: hold the robot still while it inits
 
 Pressing INIT builds the follower, and the follower builds the Pinpoint. The Pinpoint then resets
 its own gyro, which takes about a quarter of a second. The robot has to sit still for it.
 
-**Robot.** Put the robot on the floor and take your hands off it. Press INIT.
+**Robot.** Put the robot on the floor, step back, safety glasses on! Pick `L110 Follower` on the
+Driver Station and press INIT, but not PLAY yet. Watch it in AdvantageScope.
 
-**Panels.** Join the laptop to the robot's Wi-Fi, and open `http://192.168.43.1:8001`, as in L070.
+**Check.**
 
-**Check.** `Localizer/pinPoint/heading_deg` holds steady while the robot sits still. Press PLAY and
-drive a slow square, and the heading comes back to where it started.
+- Before you press PLAY, `Localizer/pinPoint/heading_deg` holds steady while the robot sits still.
+
+**Drive.** Press PLAY and drive a slow square.
+
+**Check.**
+
+- The heading comes back to where it started.
 
 ::::{only} mentor
 **If it didn't**, and a pod wheel does not turn at all in L115S010, it is not reaching the floor.
@@ -80,6 +92,10 @@ the name in the code:
 ```
 Unable to find a hardware device with name "pinpoint" and type GoBildaPinpointDriver
 ```
+
+**Seen on 2026-10-06**, on blocks, not on the floor: after INIT and before PLAY, AdvantageScope
+read `heading_deg` 90.000, `x_in` 72.000 and `y_in` 10.500, and the same 36 s later. A still robot
+cannot show whether the numbers are live; the square shows that, and it has not been driven.
 
 **If it didn't**, and the heading crawls one way while the robot sits still, INIT happened while
 the robot was moving. Press STOP and INIT again without touching it.

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -336,19 +337,26 @@ files.</p>
 <span id="l020s010-copy-the-starter-into-mytry"></span><h3>L020S010: copy the starter into mytry<a class="headerlink" href="#l020s010" title="Link to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">lessons</span></code> folder holds the starters: the file each lesson begins from. You copy one into your
 own folder, <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, and change the copy.</p>
-<p><strong>Copy.</strong> Open <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode/lessons</span></code>. Click <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>
-once, and copy it: ⌘C on a Mac, Ctrl+C on Windows. Click <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode</span></code> once, and
-paste.</p>
-<p>A box called <strong>Copy Class</strong> opens. Click at the end of <strong>Destination package</strong>, type <code class="docutils literal notranslate"><span class="pre">.mytry</span></code>, and
-click <strong>OK</strong>. If Android Studio asks whether to add the file to Git, click <strong>Add</strong>.</p>
+<p><strong>Copy.</strong></p>
+<ul class="steps simple">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode/lessons</span></code>.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> once, and copy it: ⌘C on a Mac, Ctrl+C on Windows.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode</span></code> once, and paste.</p></li>
+<li><p>A box called <strong>Copy Class</strong> opens. Click at the end of <strong>Destination package</strong>, type <code class="docutils literal notranslate"><span class="pre">.mytry</span></code>, and
+click <strong>OK</strong>.</p></li>
+<li><p>If Android Studio asks whether to add the file to Git, click <strong>Add</strong>.</p></li>
+</ul>
 <figure class="align-default" id="fig-l020-copy-class">
 <img alt="../_images/fig-l020-copy-class.png" src="../_images/fig-l020-copy-class.png" />
 <figcaption>
 <p><span class="caption-text">The Copy Class box with New name <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> and Destination package <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode.mytry</span></code>, with <code class="docutils literal notranslate"><span class="pre">mytry</span></code> in red.</span><a class="headerlink" href="#fig-l020-copy-class" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><strong>Check.</strong> A new <code class="docutils literal notranslate"><span class="pre">mytry</span></code> folder holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, the file is open, and its first line reads
-<code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">org.firstinspires.ftc.teamcode.mytry;</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>A new <code class="docutils literal notranslate"><span class="pre">mytry</span></code> folder holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, the file is open, and its first line reads
+<code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">org.firstinspires.ftc.teamcode.mytry;</span></code>.</p></li>
+</ul>
 <figure class="align-default" id="fig-l020-copied">
 <img alt="../_images/fig-l020-copied.png" src="../_images/fig-l020-copied.png" />
 <figcaption>
@@ -364,18 +372,28 @@ ended in <code class="docutils literal notranslate"><span class="pre">lessons</s
 delete the whole line: ⌘⌫ on a Mac, Ctrl+Y on Windows.</p>
 <p><code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code> hides an OpMode from the robot’s list. The starter in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> keeps it, so the robot
 only ever lists your copy.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next lines read
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code> and <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">class</span> <span class="pre">L020SticksOpMode</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next lines read
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code> and
+<code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">class</span> <span class="pre">L020SticksOpMode</span></code>.</p></li>
+</ul>
 </section>
 <section id="l020s030">
 <span id="l020s030-read-the-left-stick"></span><h3>L020S030: read the left stick<a class="headerlink" href="#l020s030" title="Link to this heading">¶</a></h3>
-<p><strong>Change.</strong> Scroll down to <code class="docutils literal notranslate"><span class="pre">loop()</span></code> and find the comment that names this step. Click at the end of
-its last line and press Enter. Type this much:</p>
+<p><strong>Change.</strong></p>
+<ul class="steps">
+<li><p>Scroll down to <code class="docutils literal notranslate"><span class="pre">loop()</span></code> and find the comment that names this step.</p></li>
+<li><p>Click at the end of its last line and press Enter. Type this much:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">leftStickY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span>
 </pre></div>
 </div>
-<p>A list opens with everything a gamepad has. Type <code class="docutils literal notranslate"><span class="pre">left_st</span></code> and the list shrinks to the left stick.
-Move the highlight to <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code> with the arrow keys, then press Tab. Type <code class="docutils literal notranslate"><span class="pre">;</span></code> to end the line.</p>
+</li>
+<li><p>A list opens with everything a gamepad has. Type <code class="docutils literal notranslate"><span class="pre">left_st</span></code> and the list shrinks to the left
+stick.</p></li>
+<li><p>Move the highlight to <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code> with the arrow keys, then press Tab.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">;</span></code> to end the line.</p></li>
+</ul>
 <figure class="align-default" id="fig-l020-complete">
 <img alt="../_images/fig-l020-complete.png" src="../_images/fig-l020-complete.png" />
 <figcaption>
@@ -405,7 +423,10 @@ vertical axis</em>. You can do this with any name you are not sure about.</p>
 <p><span class="caption-text">Gamepad 1 from above, with the left stick, the right stick and the A button labelled, and an arrow showing which way each y axis counts up.</span><a class="headerlink" href="#fig-gamepad-sticks" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><strong>Check.</strong> The line has no red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The line has no red underline.</p></li>
+</ul>
 <p><strong>If it didn’t</strong>, and the line reads <code class="docutils literal notranslate"><span class="pre">left_stick_x</span></code>, the highlight was on the wrong name when Tab
 was pressed. Change the letter by hand.</p>
 </section>
@@ -429,8 +450,11 @@ line:</p>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> takes a name and a value. It sends both to AdvantageScope while the code runs, and
 writes them in the flight log. Android Studio added an <code class="docutils literal notranslate"><span class="pre">import</span></code> line for <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> near the top of
 the file.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> is not red, and there is an
-<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">org.firstinspires.ftc.teamcode.base.Tracker;</span></code> line near the top.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> is not red, and there is an <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">org.firstinspires.ftc.teamcode.base.Tracker;</span></code> line
+near the top.</p></li>
+</ul>
 <p>The simulator is a robot that exists only in the laptop. It runs your OpMode just as the real robot
 would.</p>
 <p><strong>Simulator.</strong> Click the <strong>Terminal</strong> button near the bottom of the left edge. Type this and press
@@ -438,16 +462,25 @@ Enter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L020SticksOpMode --pad"</span>
 </pre></div>
 </div>
-<p><strong>Check.</strong> It prints <code class="docutils literal notranslate"><span class="pre">Flight</span> <span class="pre">log:</span></code> and a folder, then <code class="docutils literal notranslate"><span class="pre">mytry.L020SticksOpMode</span> <span class="pre">running.</span></code>, and stays
-running. The folder is the project’s top folder, the one that holds <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>It prints <code class="docutils literal notranslate"><span class="pre">Flight</span> <span class="pre">log:</span></code> and a folder, then <code class="docutils literal notranslate"><span class="pre">mytry.L020SticksOpMode</span> <span class="pre">running.</span></code>, and stays running.</p></li>
+<li><p>The folder is the project’s top folder, the one that holds <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</p></li>
+</ul>
 <p>AdvantageScope draws the numbers your code publishes, as they change.</p>
-<p><strong>AdvantageScope.</strong> Open <strong>File &gt; Connect to Simulator &gt; NetworkTables 4</strong>, and click <strong>Line
-Graph</strong>. Type <code class="docutils literal notranslate"><span class="pre">stick</span></code> in the search box at the top left, and click <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code>. Drag <code class="docutils literal notranslate"><span class="pre">leftY</span></code>
-from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder down into <strong>Left Axis</strong>.</p>
+<p><strong>AdvantageScope.</strong></p>
+<ul class="steps simple">
+<li><p>Open <strong>File &gt; Connect to Simulator &gt; NetworkTables 4</strong>, and click <strong>Line Graph</strong>.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">stick</span></code> in the search box at the top left, and click <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code>.</p></li>
+<li><p>Drag <code class="docutils literal notranslate"><span class="pre">leftY</span></code> from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder down into <strong>Left Axis</strong>.</p></li>
+</ul>
 <p>Before you push the stick, guess. When you push the left stick all the way away from you, will the
-line go to 1 or to -1? Now push it and see.</p>
-<p><strong>Check.</strong> The line moves when you push. All the way forward it reads -1, and all the way back it
-reads 1.</p>
+line go to 1 or to -1? Now push it and see!</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The line moves when you push.</p></li>
+<li><p>All the way forward it reads -1, and all the way back it reads 1.</p></li>
+</ul>
 <p><strong>No gamepad.</strong> The simulator takes stick positions as words instead:
 <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L020SticksOpMode</span> <span class="pre">--left_stick_y=-1</span> <span class="pre">--right_stick_y=0.5&quot;</span></code> holds the left stick full
 forward and the right stick half back. The pictures on this page were taken that way.</p>
@@ -476,19 +509,31 @@ names this step, read and write down the right stick the same way:</p>
 </div>
 <p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>AdvantageScope.</strong> Drag <code class="docutils literal notranslate"><span class="pre">rightY</span></code> from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder into <strong>Left Axis</strong> beside <code class="docutils literal notranslate"><span class="pre">leftY</span></code>.</p>
-<p><strong>Check.</strong> Each line follows its own stick. Push each stick all the way both ways. The numbers never
-go past 1 or below -1, and forward is -1 on both.</p>
-<p><strong>Log.</strong> Press Ctrl+C in the Terminal to stop the simulator. In AdvantageScope, open
-<strong>File &gt; Open Log(s)…</strong>, go to the project’s top folder, and open the newest file whose name starts
-<code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>. Drag <code class="docutils literal notranslate"><span class="pre">leftY</span></code> and <code class="docutils literal notranslate"><span class="pre">rightY</span></code> from <code class="docutils literal notranslate"><span class="pre">stick</span></code> into <strong>Left Axis</strong>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Each line follows its own stick.</p></li>
+<li><p>Push each stick all the way both ways. The numbers never go past 1 or below -1, and forward is -1
+on both.</p></li>
+</ul>
+<p><strong>Log.</strong></p>
+<ul class="steps simple">
+<li><p>Press Ctrl+C in the Terminal to stop the simulator.</p></li>
+<li><p>In AdvantageScope, open <strong>File &gt; Open Log(s)…</strong>. Go to the project’s top folder. Open the newest
+file whose name starts <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>.</p></li>
+<li><p>Drag <code class="docutils literal notranslate"><span class="pre">leftY</span></code> and <code class="docutils literal notranslate"><span class="pre">rightY</span></code> from <code class="docutils literal notranslate"><span class="pre">stick</span></code> into <strong>Left Axis</strong>.</p></li>
+</ul>
 <figure class="align-default" id="fig-l020-log">
 <img alt="../_images/fig-l020-log.png" src="../_images/fig-l020-log.png" />
 <figcaption>
 <p><span class="caption-text">AdvantageScope’s Line Graph of the flight log <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode-….wpilog</span></code>, with <code class="docutils literal notranslate"><span class="pre">/stick/leftY</span></code> at -1 and <code class="docutils literal notranslate"><span class="pre">/stick/rightY</span></code> at 0.5 for the whole run.</span><a class="headerlink" href="#fig-l020-log" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><strong>Check.</strong> The lines show what the sticks did during the run. It is the same <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> and
-<code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> you watched live, kept in a file you can open again later.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The lines show what the sticks did during the run.</p></li>
+<li><p>It is the same <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> and <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> you watched live, kept in a file you can open
+again later.</p></li>
+</ul>
 <p><strong>What you just did.</strong> <code class="docutils literal notranslate"><span class="pre">loop</span></code> runs over and over, from PLAY until STOP, and each pass is one look at
 the gamepad. The code read both sticks into <code class="docutils literal notranslate"><span class="pre">double</span></code>s and wrote each one down under a name.
 AdvantageScope showed the values live, and the flight log kept them to look at after the run. A

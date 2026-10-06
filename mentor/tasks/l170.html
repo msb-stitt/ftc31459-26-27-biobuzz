@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -335,13 +336,19 @@ yet.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l170s020">
 <span id="l170s020-switch-your-copy-on"></span><h3>L170S020: switch your copy on<a class="headerlink" href="#l170s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l170s030">
 <span id="l170s030-give-y-a-pose"></span><h3>L170S030: give Y a pose<a class="headerlink" href="#l170s030" title="Link to this heading">¶</a></h3>
@@ -376,8 +383,12 @@ command tells the follower to drive to <code class="docutils literal notranslate
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
 <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder, then <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
-<p><strong>Check.</strong> The robot does not move. <code class="docutils literal notranslate"><span class="pre">x_in</span></code> stays at 72 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 10.5. The follower wants to
-go, but every loop the sticks say stop, and since L110 the sticks win.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The robot does not move.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> stays at 72 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 10.5.</p></li>
+</ul>
+<p>The follower wants to go, but every loop the sticks say stop, and since L110 the sticks win.</p>
 </section>
 <section id="l170s040">
 <span id="l170s040-let-the-follower-drive-until-the-driver-takes-over"></span><h3>L170S040: let the follower drive until the driver takes over<a class="headerlink" href="#l170s040" title="Link to this heading">¶</a></h3>
@@ -406,17 +417,23 @@ wheels, and <code class="docutils literal notranslate"><span class="pre">return<
 driving. Once a stick is pushed, <code class="docutils literal notranslate"><span class="pre">drivingItself</span></code> goes back to false and <code class="docutils literal notranslate"><span class="pre">follower.manual</span></code> stops the
 follower. The sticks drive again, from this loop on.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope. Open the <code class="docutils literal notranslate"><span class="pre">drive</span></code> folder too.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mode</span></code> reads AUTO. The robot drives right and up the field and stops at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 120 and
-<code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72, its nose still pointing up the field. It may show 119.999 and 71.999.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code> reads AUTO.</p></li>
+<li><p>The robot drives right and up the field and stops at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 120 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72, its nose still
+pointing up the field. It may show 119.999 and 71.999.</p></li>
+</ul>
 </section>
 <section id="l170s050">
 <span id="l170s050-send-it-and-then-take-it-back"></span><h3>L170S050: send it and then take it back<a class="headerlink" href="#l170s050" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Send the code to the robot, as in
-L050. On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L170</span> <span class="pre">Drive</span> <span class="pre">To</span> <span class="pre">Pose</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT, then
-PLAY.</p>
-<p><strong>Check.</strong> Press Y once and let go. The robot drives itself toward the middle of the field, right of
-where it started. Press Y again and push the left stick while it is on its way. It stops going
-there, and drives the way the stick says.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L170</span> <span class="pre">Drive</span> <span class="pre">To</span> <span class="pre">Pose</span></code> from the Driver Station.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Press Y once and let go. The robot drives itself toward the middle of the field, right of where it
+started.</p></li>
+<li><p>Press Y again and push the left stick while it is on its way. It stops going there, and drives the
+way the stick says.</p></li>
+</ul>
 <p><strong>No gamepad.</strong> Both runs above hold Y with <code class="docutils literal notranslate"><span class="pre">--y=true</span></code> and need none. With <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, a driver can
 press Y and take over with a stick; that has not been performed.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l170_pressingYDrivesToAPoseAndTheDriverCanTakeOver</span></code> fails with

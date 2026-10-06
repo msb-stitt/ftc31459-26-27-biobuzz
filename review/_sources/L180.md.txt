@@ -42,5 +42,5 @@ Delete 0 lines, write 2 lines.
 +                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
      }
  
-     // public: OpMode's own stop is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
 ```

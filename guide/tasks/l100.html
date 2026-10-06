@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -317,10 +318,14 @@ paste what it finds into <code class="docutils literal notranslate"><span class=
 <span id="l100s010-open-autotune"></span><h3>L100S010: open AutoTune<a class="headerlink" href="#l100s010" title="Link to this heading">¶</a></h3>
 <p>AutoTune is a web page the robot serves. It is not in the Driver Station’s list of OpModes. It
 starts its own OpMode, called <code class="docutils literal notranslate"><span class="pre">Pedro</span> <span class="pre">Tuning</span></code>, when a step needs the robot to move.</p>
-<p><strong>Send.</strong> Send the code to the robot, as in L050. Join the laptop to the robot’s Wi-Fi. In a
-browser, open <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:10158</span></code>.</p>
-<p><strong>Check.</strong> The page lists four tuners: <code class="docutils literal notranslate"><span class="pre">Mecanum</span> <span class="pre">Tuner</span></code>, <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, <code class="docutils literal notranslate"><span class="pre">Pinpoint</span> <span class="pre">Tuner</span></code> and
-<code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>.</p>
+<p><strong>Send.</strong> Send the code to the robot. Join the laptop to the robot’s Wi-Fi. In a browser, open
+<code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:10158</span></code>.</p>
+<p>The first time the browser talks to the robot, the operating system might ask for your
+permission. Please give it.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The page lists four tuners: <code class="docutils literal notranslate"><span class="pre">Mecanum</span> <span class="pre">Tuner</span></code>, <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, <code class="docutils literal notranslate"><span class="pre">Pinpoint</span> <span class="pre">Tuner</span></code> and <code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>.</p></li>
+</ul>
 </section>
 <section id="l100s020">
 <span id="l100s020-find-which-way-each-motor-turns"></span><h3>L100S020: find which way each motor turns<a class="headerlink" href="#l100s020" title="Link to this heading">¶</a></h3>
@@ -332,7 +337,10 @@ or reversed.</p>
 <p><strong>Change.</strong> At the end, AutoTune shows Java that starts <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">static</span> <span class="pre">MecanumConfig</span> <span class="pre">drivetrainConfig</span></code>. Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder. Find the eight lines that set the names
 and directions. Put the eight AutoTune shows in their place. Keep <code class="docutils literal notranslate"><span class="pre">manualBrakeMode</span></code> and
 <code class="docutils literal notranslate"><span class="pre">powerThreshold</span></code>. AutoTune does not print them.</p>
-<p><strong>Check.</strong> The directions match what L050 found on blocks.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The directions match what L050 found on blocks.</p></li>
+</ul>
 </section>
 <section id="l100s030">
 <span id="l100s030-measure-the-pods"></span><h3>L100S030: measure the pods<a class="headerlink" href="#l100s030" title="Link to this heading">¶</a></h3>
@@ -349,8 +357,11 @@ three pushes it asks for, stopping each one when you are done:</p>
 <li><p>Spin the robot half a turn on the spot, counterclockwise.</p></li>
 </ul>
 <p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants</span></code> with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code> AutoTune shows.</p>
-<p><strong>Check.</strong> In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Localization</span> <span class="pre">Test</span></code> and drive with the gamepad. Driving forward raises
-x, and strafing left raises y.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Localization</span> <span class="pre">Test</span></code> and drive with the gamepad.</p></li>
+<li><p>Driving forward raises x, and strafing left raises y.</p></li>
+</ul>
 </section>
 <section id="l100s040">
 <span id="l100s040-let-the-robot-find-its-speed-and-its-brakes"></span><h3>L100S040: let the robot find its speed and its brakes<a class="headerlink" href="#l100s040" title="Link to this heading">¶</a></h3>
@@ -367,13 +378,19 @@ up into its own line:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">maxAchievableForwardVelocity</span></code> goes in <code class="docutils literal notranslate"><span class="pre">maxForwardInchesPerSecond</span></code>;</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">maxAchievableStrafeVelocity</span></code> goes in <code class="docutils literal notranslate"><span class="pre">maxStrafeInchesPerSecond</span></code>.</p></li>
 </ul>
-<p><strong>Check.</strong> Each of the three pairs holds the same number.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Each of the three pairs holds the same number.</p></li>
+</ul>
 </section>
 <section id="l100s050">
 <span id="l100s050-watch-it-drive-a-line"></span><h3>L100S050: watch it drive a line<a class="headerlink" href="#l100s050" title="Link to this heading">¶</a></h3>
 <p><strong>Send.</strong> Send the code again, so the new <code class="docutils literal notranslate"><span class="pre">Constants</span></code> is on the robot.</p>
 <p><strong>Robot.</strong> In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">Test</span></code>, with the distance at 48.</p>
-<p><strong>Check.</strong> The robot drives 48 in and stops on the line.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The robot drives 48 in and stops on the line.</p></li>
+</ul>
 </section>
 </section>
 </section>

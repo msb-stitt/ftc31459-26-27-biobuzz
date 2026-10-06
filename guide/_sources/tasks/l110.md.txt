@@ -36,15 +36,19 @@ three numbers into four wheel powers.
 paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
 Git, click **Add**. Do the same for `L110FollowerOpMode`.
 
-**Check.** `mytry` holds `L110FollowerDriveTrain` and `L110FollowerOpMode`.
+**Check.**
+
+- `mytry` holds `L110FollowerDriveTrain` and `L110FollowerOpMode`.
 
 ### L110S020: switch your copy on
 
 **Change.** In `L110FollowerOpMode`, delete the line `@Disabled`, under the comment that names
 this step.
 
-**Check.** Under the step's comment, the next line reads
-`// public: the robot only runs an OpMode that is public.`
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
 ### L110S030: write the mix
 
@@ -70,7 +74,9 @@ into its own slot:
         wheels[BR] = forward - strafe + turn;
 ```
 
-**Check.** No line has a red underline, and `FL`, `FR`, `BL` and `BR` turn purple.
+**Check.**
+
+- No line has a red underline, and `FL`, `FR`, `BL` and `BR` turn purple.
 
 ### L110S040: make room for the drivetrain
 
@@ -89,7 +95,9 @@ step. Under it, type:
 This is a field, like `previousButtonA` in L070. It holds the drivetrain from `init` until the
 OpMode stops.
 
-**Check.** The line has no red underline.
+**Check.**
+
+- The line has no red underline.
 
 ### L110S050: hand the drivetrain to the follower
 
@@ -119,7 +127,9 @@ handed. Up to L090, `initAfter()` was handed nothing, because the lesson drove i
 The four `setDirection` lines from L050 are gone from `init`. The drivetrain sets each motor's
 direction itself, from the same config.
 
-**Check.** Neither line has a red underline.
+**Check.**
+
+- Neither line has a red underline.
 
 ### L110S060: drive with the sticks
 
@@ -147,16 +157,19 @@ of the loop, `loopAfter()` updates the follower, and the follower drives the whe
 **AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the `arcade`
 folder.
 
-**Check.** Push the left stick halfway left. `strafe` reads 0.25, and the robot slides to its own
-left with its nose pointing the same way. Forward, turning and the corners all work as they did in
-L090.
+**Check.**
+
+- Push the left stick halfway left. `strafe` reads 0.25, and the robot slides to its own left with
+  its nose pointing the same way.
+- Forward, turning and the corners all work as they did in L090.
 
 ### L110S070: drive it on the robot
 
-**Send.** Send the code to the robot, as in L050. On the Driver Station, pick `L110 Follower` from
-the `Lessons` group. Press INIT, then PLAY.
+**Robot.** Stop the simulator. Send the code, and run `L110 Follower` from the Driver Station.
 
-**Check.** It drives the way L090 did: forward, sideways, turning, and the diagonals.
+**Check.**
+
+- It drives the way L090 did: forward, sideways, turning, and the diagonals.
 
 ::::{only} mentor
 **No gamepad.** `--args="mytry.L110FollowerOpMode --left_stick_x=-0.5"` slides it left for the

@@ -87,7 +87,7 @@ Delete 0 lines, write 1 line.
      // for what to do here.
 +    L190SpeedDriveTrain drivetrain;
  
-     // public: OpMode's own init is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
      @Override
 ```
 
@@ -123,7 +123,7 @@ Delete 1 line, write 1 line.
 +        initAfter(drivetrain);
      }
  
-     // public: OpMode's own start is public, so this one has to be too.
+     // 'public' to match the parent class. 'public' allows access from any code.
 ```
 
 ### A change

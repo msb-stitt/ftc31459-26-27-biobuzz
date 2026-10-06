@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -313,7 +314,7 @@
 <p><span class="caption-text">AdvantageScope’s 2D Field connected to the simulator, with the robot <code class="docutils literal notranslate"><span class="pre">NT:sim/Pose</span></code> near the left wall after curving left from its start, <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reading 0.250 and <code class="docutils literal notranslate"><span class="pre">speed/right</span></code> 0.350.</span><a class="headerlink" href="#fig-l040-field" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>The two speeds drive the wheels, and the robot drives in the simulator: tank drive.</p>
+<p>The two speeds drive the wheels, and the robot drives in the simulator: tank drive!</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l040s010">
@@ -321,13 +322,19 @@
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l040s020">
 <span id="l040s020-switch-your-copy-on"></span><h3>L040S020: switch your copy on<a class="headerlink" href="#l040s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l040s030">
 <span id="l040s030-the-left-wheels"></span><h3>L040S030: the left wheels<a class="headerlink" href="#l040s030" title="Link to this heading">¶</a></h3>
@@ -360,7 +367,10 @@ comment that names this step, type <code class="docutils literal notranslate"><s
 </div>
 <p>A power is a number from -1 to 1. It is how hard the motor pushes: 1 is full forward, -1 is full
 backward, and 0 is stop.</p>
-<p><strong>Check.</strong> Neither line has a red underline.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Neither line has a red underline.</p></li>
+</ul>
 </section>
 <section id="l040s040">
 <span id="l040s040-the-right-wheels"></span><h3>L040S040: the right wheels<a class="headerlink" href="#l040s040" title="Link to this heading">¶</a></h3>
@@ -380,9 +390,13 @@ backward, and 0 is stop.</p>
 folder and drag <code class="docutils literal notranslate"><span class="pre">Pose</span></code> into <strong>Poses</strong>. The robot appears near the bottom edge of the field. A thin
 line runs to it from the middle of the field. That is where the simulator put the robot before the
 OpMode moved it to its start, so you can ignore it.</p>
-<p><strong>Check.</strong> Push both sticks gently forward, and the robot drives forward. Pull both back, and it
-comes back. Push one forward and pull the other back, and it spins in place. Push the right stick
-further than the left, and it curves to the left.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Push both sticks gently forward, and the robot drives forward.</p></li>
+<li><p>Pull both back, and it comes back.</p></li>
+<li><p>Push one forward and pull the other back, and it spins in place.</p></li>
+<li><p>Push the right stick further than the left, and it curves to the left.</p></li>
+</ul>
 </section>
 </section>
 </section>

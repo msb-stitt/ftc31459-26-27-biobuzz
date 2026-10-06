@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -336,13 +337,19 @@ yet.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L130ForwardThenStrafeOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once
 and paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file
 to Git, click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L130ForwardThenStrafeOpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L130ForwardThenStrafeOpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l130s020">
 <span id="l130s020-switch-your-copy-on"></span><h3>L130S020: switch your copy on<a class="headerlink" href="#l130s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l130s030">
 <span id="l130s030-add-a-second-leg-and-a-hold"></span><h3>L130S030: add a second leg and a hold<a class="headerlink" href="#l130s030" title="Link to this heading">¶</a></h3>
@@ -373,16 +380,22 @@ robot at <code class="docutils literal notranslate"><span class="pre">end</span>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
 <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder, then <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
-<p><strong>Check.</strong> The robot has stopped right of the middle of the field. <code class="docutils literal notranslate"><span class="pre">x_in</span></code> reads 96 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72.
-<code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> is still 90.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The robot has stopped right of the middle of the field.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> reads 96 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> is still 90.</p></li>
+</ul>
 </section>
 <section id="l130s040">
 <span id="l130s040-drive-it-on-the-floor"></span><h3>L130S040: drive it on the floor<a class="headerlink" href="#l130s040" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Put the robot on the floor with a
-piece of tape at its front edge. Send the code to the robot, as in L050. On the Driver Station, pick
-<code class="docutils literal notranslate"><span class="pre">L130</span> <span class="pre">Forward</span> <span class="pre">Then</span> <span class="pre">Strafe</span></code> from the autonomous list. Press INIT, then PLAY.</p>
-<p><strong>Check.</strong> The robot drives straight forward and stops, then slides to its right and stops again.
-Its nose points the same way the whole time.</p>
+<p><strong>Robot.</strong> Stop the simulator. Put the robot on the floor with a piece of tape at its front edge.
+Send the code, and run <code class="docutils literal notranslate"><span class="pre">L130</span> <span class="pre">Forward</span> <span class="pre">Then</span> <span class="pre">Strafe</span></code> from the autonomous list.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The robot drives straight forward and stops, then slides to its right and stops again.</p></li>
+<li><p>Its nose points the same way the whole time.</p></li>
+</ul>
 <p><strong>If it didn’t</strong>, and the robot cuts across in one diagonal, the first leg goes to <code class="docutils literal notranslate"><span class="pre">end</span></code> instead of
 <code class="docutils literal notranslate"><span class="pre">corner</span></code>. <code class="docutils literal notranslate"><span class="pre">LessonsTest.l130_autoDrivesForwardThenStrafesSideways</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">drove</span> <span class="pre">straight</span> <span class="pre">up</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">corner</span> <span class="pre">first</span> <span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;20.307354640929788&gt;</span></code>.</p>

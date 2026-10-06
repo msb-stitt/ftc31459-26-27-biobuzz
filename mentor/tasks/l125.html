@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     
     
 
@@ -336,13 +337,19 @@ yet.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L125Drive24OpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
 In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
 click <strong>Add</strong>.</p>
-<p><strong>Check.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L125Drive24OpMode</span></code>, and the new file is open.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L125Drive24OpMode</span></code>, and the new file is open.</p></li>
+</ul>
 </section>
 <section id="l125s020">
 <span id="l125s020-switch-your-copy-on"></span><h3>L125S020: switch your copy on<a class="headerlink" href="#l125s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><strong>Check.</strong> Under the step’s comment, the next line reads
-<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">public:</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">only</span> <span class="pre">runs</span> <span class="pre">an</span> <span class="pre">OpMode</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">public.</span></code></p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
 </section>
 <section id="l125s030">
 <span id="l125s030-say-where-to-go"></span><h3>L125S030: say where to go<a class="headerlink" href="#l125s030" title="Link to this heading">¶</a></h3>
@@ -362,9 +369,13 @@ tells the follower where the robot is at the start.</p>
 <p>Read it from the inside out. <code class="docutils literal notranslate"><span class="pre">line(start,</span> <span class="pre">end)</span></code> is the path. <code class="docutils literal notranslate"><span class="pre">.constant(start)</span></code> holds the heading
 <code class="docutils literal notranslate"><span class="pre">start</span></code> has the whole way. <code class="docutils literal notranslate"><span class="pre">follow</span></code> drives the path. <code class="docutils literal notranslate"><span class="pre">sequential</span></code> makes the list, and this list has
 one thing in it.</p>
-<p><code class="docutils literal notranslate"><span class="pre">sequential</span></code>, <code class="docutils literal notranslate"><span class="pre">follow</span></code> and <code class="docutils literal notranslate"><span class="pre">line</span></code> turn red. Click each one and press Option+Enter. This time the
-popup says <strong>Import static method…</strong>, because each is a method, not a class. Android Studio adds
-an <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">static</span></code> line at the top of the file for each one.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sequential</span></code>, <code class="docutils literal notranslate"><span class="pre">follow</span></code> and <code class="docutils literal notranslate"><span class="pre">line</span></code> turn red. For each one:</p>
+<ul class="steps simple">
+<li><p>Click it.</p></li>
+<li><p>Press Option+Enter. This time the popup says <strong>Import static method…</strong>, because each is a
+method, not a class. Pick it.</p></li>
+<li><p>Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">static</span></code> line at the top of the file.</p></li>
+</ul>
 <figure class="align-default" id="fig-l125-import-static">
 <img alt="../_images/fig-l125-import-static.png" src="../_images/fig-l125-import-static.png" />
 <figcaption>
@@ -377,16 +388,23 @@ an <code class="docutils literal notranslate"><span class="pre">import</span> <s
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
 <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder, then <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
-<p><strong>Check.</strong> The robot has driven up the field and stopped. <code class="docutils literal notranslate"><span class="pre">y_in</span></code> reads 34.5, which is 24 more than
-the 10.5 it started at. <code class="docutils literal notranslate"><span class="pre">x_in</span></code> stays at 72 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> at 90.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The robot has driven up the field and stopped.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y_in</span></code> reads 34.5, which is 24 more than the 10.5 it started at.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> stays at 72 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> at 90.</p></li>
+</ul>
 </section>
 <section id="l125s040">
 <span id="l125s040-drive-it-on-the-floor"></span><h3>L125S040: drive it on the floor<a class="headerlink" href="#l125s040" title="Link to this heading">¶</a></h3>
-<p><strong>Send.</strong> Press Ctrl+C in the Terminal to stop the simulator. Put the robot on the floor with a
-piece of tape at its front edge. Send the code to the robot, as in L050. On the Driver Station, pick
-<code class="docutils literal notranslate"><span class="pre">L125</span> <span class="pre">Drive</span> <span class="pre">24</span></code> from the autonomous list. Press INIT, then PLAY, and keep your hands off the sticks.</p>
-<p><strong>Check.</strong> The robot drives forward, slows down, and stops. Measure from the tape to the front
-edge. It is close to 24 inches.</p>
+<p><strong>Robot.</strong> Stop the simulator. Put the robot on the floor with a piece of tape at its front edge.
+Send the code, and run <code class="docutils literal notranslate"><span class="pre">L125</span> <span class="pre">Drive</span> <span class="pre">24</span></code> from the Driver Station. It is in the autonomous list, not
+the TeleOp one. Keep your hands off the sticks.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The robot drives forward, slows down, and stops, all by itself!</p></li>
+<li><p>Measure from the tape to the front edge. It is close to 24 inches.</p></li>
+</ul>
 <p><strong>If it didn’t</strong>, and nothing moves, the routine still says <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">Command.NOOP;</span></code>, the command
 that does nothing. <code class="docutils literal notranslate"><span class="pre">LessonsTest.l125_autoDrives24InchesForwardAndStops</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">robot</span> <span class="pre">never</span> <span class="pre">started</span> <span class="pre">following</span> <span class="pre">a</span> <span class="pre">path</span></code>.</p>
