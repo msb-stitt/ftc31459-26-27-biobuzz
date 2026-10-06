@@ -27,7 +27,9 @@ words = 240
 # hold. Mike sets the real one when he reads the page.
 [[page]]
 path = "source/tasks/l020.md"
-words = 800
+# Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
+# short student explanations.
+words = 850
 
 [[page]]
 path = "source/tasks/l030.md"
