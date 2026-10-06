@@ -400,6 +400,9 @@ what it says.</p>
 </section>
 <section id="l050s050">
 <span id="l050s050-send-the-code-to-the-robot"></span><h3>L050S050: send the code to the robot<a class="headerlink" href="#l050s050" title="Link to this heading">¶</a></h3>
+<p>The <strong>Control Hub</strong> is the robot’s computer: the box the motors plug into. The <strong>Driver Station</strong>
+is the screen the drivers hold. It picks an OpMode, has the INIT, PLAY and STOP buttons, and
+passes the gamepad to the robot.</p>
 <p><strong>Robot.</strong></p>
 <ul class="steps simple">
 <li><p>Rest the robot on the blocks, so all four wheels are off the ground.</p></li>
@@ -418,12 +421,14 @@ plugged in. Pick the Control Hub from it.</p></li>
 </section>
 <section id="l050s060">
 <span id="l050s060-watch-the-wheels"></span><h3>L050S060: watch the wheels<a class="headerlink" href="#l050s060" title="Link to this heading">¶</a></h3>
-<p><strong>Gamepad.</strong> On the gamepad, hold Start and press A. That makes it gamepad 1.</p>
+<p><strong>Gamepad.</strong> Plug the gamepad into the Driver Station. On the gamepad, hold Start and press A.
+That makes it gamepad 1.</p>
 <p><strong>Run.</strong> On the Driver Station, pick <code class="docutils literal notranslate"><span class="pre">L050</span> <span class="pre">Blocks</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group. Press INIT.</p>
 <p><strong>AdvantageScope.</strong></p>
 <ul class="steps simple">
-<li><p>Join the laptop to the robot’s Wi-Fi.</p></li>
-<li><p>Open <strong>AdvantageScope &gt; Settings…</strong>. Type <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code> in <strong>Robot Address</strong>, and click the ✓.</p></li>
+<li><p>Join the laptop to the robot’s Wi-Fi. Ask a mentor for its name and password the first time.</p></li>
+<li><p>Open <strong>AdvantageScope &gt; Settings…</strong> on a Mac. On Windows it is <strong>App &gt; Show Preferences…</strong>.
+Type <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code> in <strong>Robot Address</strong>, and click the ✓.</p></li>
 <li><p>Open <strong>File &gt; Connect to Robot &gt; NetworkTables 4</strong>.</p></li>
 </ul>
 <p>The first time AdvantageScope talks to the robot, the operating system might ask for your

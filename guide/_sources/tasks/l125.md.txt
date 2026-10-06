@@ -72,8 +72,8 @@ one thing in it.
 {.steps}
 - Click it.
 
-- Press Option+Enter. This time the popup says **Import static method...**, because each is a
-  method, not a class. Pick it.
+- Press Option+Enter on a Mac, Alt+Enter on Windows. This time the popup says **Import static
+  method...**, because each is a method, not a class. Pick it.
 
 - Android Studio adds an `import static` line at the top of the file.
 

@@ -375,6 +375,8 @@ x 120 in, y 72 in and heading 90°. <code class="docutils literal notranslate"><
 <p>Android Studio closes the brackets for you, as <code class="docutils literal notranslate"><span class="pre">}))</span></code>. Type the <code class="docutils literal notranslate"><span class="pre">;</span></code> after them yourself.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Commands</span></code> turns red. Click it and press Option+Enter, as in L120. The popup names
 <code class="docutils literal notranslate"><span class="pre">com.pedropathing.ivy.commands.Commands</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">()</span> <span class="pre">-&gt;</span></code> wraps code to run later, not now. <code class="docutils literal notranslate"><span class="pre">()</span> <span class="pre">-&gt;</span> <span class="pre">gamepad1.y</span></code> is how <code class="docutils literal notranslate"><span class="pre">whenPressed</span></code> reads Y every
+loop, and the code inside <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> is what it does when Y goes down.</p>
 <p><code class="docutils literal notranslate"><span class="pre">whenPressed</span></code> runs its command once, the loop Y goes down. Holding Y does not run it again. The
 command tells the follower to drive to <code class="docutils literal notranslate"><span class="pre">target</span></code> and stay there.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
@@ -412,6 +414,8 @@ comment that names this step. Under it, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drive/mode"</span><span class="p">,</span><span class="w"> </span><span class="s">"DRIVER"</span><span class="p">);</span>
 </span></pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">||</span></code> means “or”, so <code class="docutils literal notranslate"><span class="pre">driverWantsControl</span></code> is true when any one stick is pushed. <code class="docutils literal notranslate"><span class="pre">!</span></code> means “not”, so
+<code class="docutils literal notranslate"><span class="pre">!driverWantsControl</span></code> is true when no stick is pushed.</p>
 <p>While the robot drives itself and no stick is pushed, <code class="docutils literal notranslate"><span class="pre">releaseCommandedWheels()</span></code> lets go of the
 wheels, and <code class="docutils literal notranslate"><span class="pre">return</span></code> leaves <code class="docutils literal notranslate"><span class="pre">driveTheRobot()</span></code> before the sticks are read. The follower is left
 driving. Once a stick is pushed, <code class="docutils literal notranslate"><span class="pre">drivingItself</span></code> goes back to false and <code class="docutils literal notranslate"><span class="pre">follower.manual</span></code> stops the

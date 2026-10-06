@@ -74,6 +74,9 @@ Android Studio closes the brackets for you, as `}))`. Type the `;` after them yo
 `Commands` turns red. Click it and press Option+Enter, as in L120. The popup names
 `com.pedropathing.ivy.commands.Commands`.
 
+`() ->` wraps code to run later, not now. `() -> gamepad1.y` is how `whenPressed` reads Y every
+loop, and the code inside `{ }` is what it does when Y goes down.
+
 `whenPressed` runs its command once, the loop Y goes down. Holding Y does not run it again. The
 command tells the follower to drive to `target` and stay there.
 
@@ -119,6 +122,9 @@ comment that names this step. Under it, type:
         }
         Tracker.publish("drive/mode", "DRIVER");
 ```
+
+`||` means "or", so `driverWantsControl` is true when any one stick is pushed. `!` means "not", so
+`!driverWantsControl` is true when no stick is pushed.
 
 While the robot drives itself and no stick is pushed, `releaseCommandedWheels()` lets go of the
 wheels, and `return` leaves `driveTheRobot()` before the sticks are read. The follower is left

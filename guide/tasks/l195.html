@@ -376,6 +376,8 @@ is not a number. The measuring is for the robot.</p>
 </section>
 <section id="l195s040">
 <span id="l195s040-push-the-robot-and-measure-an-inch"></span><h3>L195S040: push the robot and measure an inch<a class="headerlink" href="#l195s040" title="Link to this heading">¶</a></h3>
+<p>An encoder counts small steps, called <strong>ticks</strong>, as its motor turns. Many ticks make one turn of
+the wheel.</p>
 <p>The robot keeps two accounts of the same trip. The Pinpoint says how far it went in inches, since
 its own wheels measure the floor. The drive encoders say how many ticks they counted. One divided
 by the other is the number.</p>
@@ -403,7 +405,7 @@ place.</p>
 <ul class="simple">
 <li><p>The Driver Station shows a turn radius.</p></li>
 <li><p>Measure from the middle of the robot to the middle of one wheel, once across the robot and once
-along it, and add the two. The two agree.</p></li>
+along it. Add those two lengths. The sum is close to the turn radius the Driver Station shows.</p></li>
 </ul>
 <p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>, which is 8.0 until you do.</p>
 </section>

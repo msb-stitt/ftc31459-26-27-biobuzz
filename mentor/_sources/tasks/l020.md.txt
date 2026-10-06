@@ -81,6 +81,10 @@ only ever lists your copy.
 
 ### L020S030: read the left stick
 
+The file is an **OpMode**: one program the robot can run. Pressing INIT runs its `init()` once.
+Pressing PLAY then runs its `loop()` over and over, many times a second, until STOP. The simulator
+presses all three for you.
+
 **Change.**
 
 {.steps}
@@ -227,8 +231,9 @@ L020, since nothing drives the wheels.
 
 ### L020S050: the right stick too
 
-**Change.** Click in the Terminal and press Ctrl+C to stop the simulator. Under the comment that
-names this step, read and write down the right stick the same way:
+**Change.** Click in the Terminal and press Ctrl+C to stop the simulator. That is Ctrl+C on a Mac
+too, not ⌘C. Under the comment that names this step, read and write down the right stick the same
+way:
 
 ```{code-block} java
 :emphasize-lines: 4-5

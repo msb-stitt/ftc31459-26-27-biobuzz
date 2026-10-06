@@ -412,7 +412,7 @@ in <code class="docutils literal notranslate"><span class="pre">=</span> <span c
 </span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">setCommandedWheelSpeeds</span><span class="p">(</span><span class="n">target</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>The minus signs are the ones from L060. A stick pushed up reads less than 0.</p>
+<p>The minus signs are the ones from L030. A stick pushed up reads less than 0.</p>
 <p><code class="docutils literal notranslate"><span class="pre">WheelTargets.forMecanum</span></code> works out how fast each wheel has to turn for the robot to move like
 that. It hands back an array, front left first, then front right, back left and back right.
 <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> is how far each wheel sits from the middle of the robot.</p>
@@ -487,9 +487,9 @@ longer:</p>
 <li><p>On the first loop <code class="docutils literal notranslate"><span class="pre">power</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet
 turning.</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second, and <code class="docutils literal notranslate"><span class="pre">error_ips</span></code> shrinks to less than 0.5.
-<code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.131 and stays there. The guess was a little too much for the simulated
-robot, and the correction takes off what it needs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second and settles a little above 8, so <code class="docutils literal notranslate"><span class="pre">error_ips</span></code>
+settles a little below 0. <code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.13 and stays there. The guess was a little too
+much for the simulated robot, and the correction takes off what it needs.</p>
 </section>
 <section id="l190s070">
 <span id="l190s070-drive-it-up-something"></span><h3>L190S070: drive it up something<a class="headerlink" href="#l190s070" title="Link to this heading">¶</a></h3>

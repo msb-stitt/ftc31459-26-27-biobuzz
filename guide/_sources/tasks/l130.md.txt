@@ -90,7 +90,9 @@ robot at `end` once it gets there.
 
 ### L130S040: drive it on the floor
 
-**Robot.** Stop the simulator. Put the robot on the floor with a piece of tape at its front edge.
+**Robot.** Stop the simulator. The robot drives about 62 in forward, then 24 in to its right, so
+clear that much floor, plus room for the robot. Put the robot on the floor with a piece of tape at
+its front edge.
 Send the code, and run `L130 Forward Then Strafe` from the autonomous list.
 
 **Check.**

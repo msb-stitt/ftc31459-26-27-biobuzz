@@ -67,6 +67,9 @@ write a method of your own:
 A **method** is a named piece of code you can use again. This one takes two numbers, `value` and
 `band`, and gives back one number. `return` is the number it gives back.
 
+`if` runs the lines inside its `{ }` only when what is in its brackets is true. Here, `return 0`
+runs only for a stick close to the middle.
+
 `Math.abs` takes the minus sign off: `Math.abs(-0.03)` is 0.03. `deadband` is given the speed, so a
 stick pulled halfway back gives -0.5, and -0.5 is less than 0.05. But it is far from the middle, so
 it has to be compared without its minus sign.
