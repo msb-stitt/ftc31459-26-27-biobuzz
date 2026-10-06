@@ -23,10 +23,9 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * "24 inches in whatever direction the robot is pointing at start".
  *
  * <p>NOTE ON HEADING: this uses {@code .constant()}, not the {@code .linear()}
- * the Pedro docs show. Open issues #176 and #181 both report .linear()
- * interpolating heading BACKWARDS on line paths in Pedro 3.0.x. Since this path
- * does not change heading at all, constant interpolation is both correct and
- * avoids that code path. Do not "fix" this to .linear().
+ * the Pedro docs show. This path does not change heading at all, so constant
+ * interpolation says what it means. Issues #176 and #181 report .linear()
+ * interpolating heading backwards on line paths in Pedro 3.0.0; 3.0.1 fixes it.
  */
 @Autonomous(name = "Auto: Drive 24in", group = "Corbels")
 public class DriveForward24OpMode extends CorbelsAuto {

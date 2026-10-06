@@ -2,8 +2,8 @@ Pedro routes: a cheat sheet
 ===========================
 
 Every way to say where the robot should go, and which ones to avoid.
-Measured on 2026-09-29. This project resolves ``com.pedropathing:core:3.0.0``,
-and the ``linear()`` rows were measured against it again on 2026-10-05. Where
+Measured on 2026-09-29. This project resolves ``com.pedropathing:core:3.0.1``,
+and every number here was measured against it again on 2026-10-05. Where
 the documentation and the jar disagree, the jar is what is written here.
 
 In the pictures the black line is where the robot drives and each red pin is
@@ -98,10 +98,10 @@ The heading rules
      - Yes, with one edge.
    * - ``linear(a, b)``
      - Sweeps from one heading to another along the route.
-     - Not on a line.
+     - Yes.
    * - ``longLinear(a, b)``
      - The same, taking the long way round.
-     - No.
+     - Yes, undocumented.
    * - ``Interpolator.piecewise()``
      - A different rule on each stretch of the route.
      - Untested here.
@@ -129,48 +129,42 @@ Two ways to avoid it. Pass a pose, ``constant(start)``, and the heading comes
 from the pose. Or convert, ``constant(Math.toRadians(90))``. A pose built by
 ``PoseFactory.degrees()`` converts for you; ``constant`` does not.
 
-Do not use ``linear()`` on a line
----------------------------------
+``linear()`` on a line was reversed before 3.0.1
+-------------------------------------------------
 
 .. image:: ../_static/routes/route-linear.svg
-   :alt: a straight line whose nose starts at ninety degrees and ends at zero
+   :alt: a straight line whose nose starts at zero degrees and ends at ninety
 
-Asked to sweep from 0 to 90 degrees along a line, 3.0.0 sweeps from 90 to 0.
-Measured:
+Asked to sweep from 0 to 90 degrees along a line, 3.0.1 does, and
+``endPose().heading()`` reports the end heading. 3.0.0, which this project used
+until 2026-10-05, swept from 90 to 0 and reported the start heading. Measured on
+both:
 
 .. code-block:: text
 
-   line(s, e).linear(0, toRadians(90))    t=0  90.0    t=0.5  45.0    t=1   0.0
-   line(s, e).linear(e, s)   swapped      t=0   0.0    t=0.5  45.0    t=1  90.0
+   line(s, e).linear(0, toRadians(90))    3.0.1  t=0   0.0    t=0.5  45.0    t=1  90.0
+                                          3.0.0  t=0  90.0    t=0.5  45.0    t=1   0.0
+   line(s, e).linear(e, s)   swapped      3.0.1  t=0  90.0    t=0.5  45.0    t=1   0.0
 
-The end pose is wrong too: ``endPose().heading()`` reports the start heading.
-
-This is `issue 176 <https://github.com/Pedro-Pathing/PedroPathing/issues/176>`_,
+This was `issue 176 <https://github.com/Pedro-Pathing/PedroPathing/issues/176>`_,
 with `180 <https://github.com/Pedro-Pathing/PedroPathing/issues/180>`_ and
 `181 <https://github.com/Pedro-Pathing/PedroPathing/issues/181>`_ reporting the
 same thing. The cause given there is ``Curve.pathCompletion()`` returning the
-fraction of the path remaining rather than the fraction completed. All three
-are closed. 3.0.1 fixes it: measured on 2026-10-05, the same line runs 0, 45
-and 90, and ``endPose().heading()`` reports the end heading.
+fraction of the path remaining rather than the fraction completed.
 
-The workaround in those issues is to swap the arguments, and it works, and it
-reads as a mistake to whoever finds it next. It also fails for a 180 degree
-turn, where the two ways round are the same distance.
+The workaround in those issues was to swap the arguments. On 3.0.1 the swap
+turns the robot the wrong way, so a swapped ``linear()`` in code written for
+3.0.0 is now a bug. On a curve, ``linear()`` is the same in both versions:
+``curve(s, m, e).linear(0, toRadians(90))`` runs 0, 24.6, 45, 90.
 
-**On a curve, ``linear()`` is correct.** Measured on the same three poses:
-``curve(s, m, e).linear(0, toRadians(90))`` runs 0, 24.6, 45, 90. So the bug is
-the line's, which is what issue 176's title says: line and compound paths.
-
-Two ways round it on a straight leg. Hold one heading with ``constant`` and put
-the turn on its own leg. Or make the leg a shallow ``curve``, where ``linear``
-behaves.
-
-``longLinear()`` is reversed the same way
+``longLinear()`` takes the long way round
 -----------------------------------------
 
-``longLinear(0, toRadians(90))`` runs 90, 157.5, 225, then 0 at the end. Neither
-end is what was asked for. It is undocumented as well: the documentation page
-lists tangent, linear, constant, facingPoint, piecewise and custom, and not this.
+``longLinear(0, toRadians(90))`` runs 0, 292.5, 225, then 90 at the end:
+clockwise, the long way from 0 to 90. On 3.0.0 it was reversed the same way as
+``linear()``, running 90, 157.5, 225, then 0. It is undocumented: the
+documentation page lists tangent, linear, constant, facingPoint, piecewise and
+custom, and not this.
 
 ``facingPoint()`` has one edge
 ------------------------------
