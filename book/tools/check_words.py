@@ -21,7 +21,7 @@ GENERATED = ("source/answers/", "source/tasks/cheatsheet.md")
 
 
 def words(path) -> int:
-    """Words of prose: fenced code and MyST directives do not count."""
+    """Words of prose: fenced code, MyST directives and list markers do not count."""
     total = 0
     in_fence = False
     for line in open(path, encoding="utf-8"):
@@ -31,7 +31,10 @@ def words(path) -> int:
             continue
         if in_fence or stripped.startswith(":"):
             continue
-        total += len(stripped.split())
+        tokens = stripped.split()
+        if tokens[:1] == ["-"]:
+            tokens = tokens[1:]
+        total += len(tokens)
     return total
 
 

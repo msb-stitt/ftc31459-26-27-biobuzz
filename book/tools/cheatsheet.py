@@ -1,13 +1,9 @@
-"""Generate the cheat sheet from the lesson code.
+"""Generate the cheat sheet from what applying the patches does.
 
-Every table on the page is read out of the two lesson lines at the commits
-keep.toml pins, the same commits the answers are generated from, so the page and
-the code cannot drift apart: what a student is told to run is what the code says.
-
-The names and the tests come from the lessons line, which is where a javadoc says
-`Passes when:` and a blank says `Works when:`. The log keys come from the
-solutions line, because a key published inside a blank is not in the lessons line
-at all.
+Every table on the page is read out of the mytry files as they stand once every
+lesson's copies and patches are applied on the solutions line keep.toml names,
+the same application the answers are generated from, so the page and the code
+cannot drift apart: what a student is told to run is what the code says.
 
 Nothing here is written by hand except the headings and the sentences under them.
 A name, a test, a method or a log key on the page is there because it is in the
@@ -22,7 +18,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from answers import git, LESSONS_DIR, pins
+from answers import pins, resolved
+from applied import apply_all
 from bookpaths import book_root
 
 OUT = "source/tasks/cheatsheet.md"
@@ -34,17 +31,7 @@ TEST_LESSON = re.compile(r"^l(\d+[ab]?)_")
 TODO_LESSON = re.compile(r"TODO \d+ \(L(\d+[ab]?)\)")
 PUBLISH = re.compile(r'Tracker\.publish\("([^"]*)"')
 SHADOW = re.compile(r'shadowLocalizers\.add\("([^"]*)"')
-DIVIDER = re.compile(r"^\s*// -+ (.*)$")
-SIGNATURE = re.compile(r"^    (?:public|protected)(?: final)? [\w\[\]<>, ]+ (\w+)\(")
-WRITES = re.compile(r"^(L\d+[ab]?(?: and L\d+[ab]?)*) writes? (?:this|these)")
 NAMES_A_TEST = re.compile(r"(Passes|Works) when:")
-
-
-def package(commit: str) -> dict[str, list[str]]:
-    """Every file in the lessons package at that commit, by file name."""
-    listed = git("ls-tree", "-r", "--name-only", commit, LESSONS_DIR + "/").splitlines()
-    return {Path(path).name: git("show", f"{commit}:{path}").splitlines()
-            for path in listed}
 
 
 def named_tests(lines: list[str]) -> list[tuple[str, tuple[str, str | None]]]:
@@ -105,8 +92,14 @@ def test_command(tests: list[tuple[str, str | None]], lesson: str) -> str:
     return "./gradlew :TeamCode:testDebugUnitTest --tests " + " --tests ".join(patterns)
 
 
-def lessons_table(files: dict[str, list[str]]) -> list[str]:
-    """Lesson, what it is called on the robot, and what runs its tests."""
+def lessons_table(files: dict[str, list[str]],
+                  tests_in: dict[str, list[str]]) -> list[str]:
+    """Lesson, what it is called on the robot, and what runs its tests.
+
+    The names come from the finished files. The tests come from those and from
+    each file as it stood before a lesson patched it, because a blank names its
+    test in a `Works when:` line that the patch then replaces.
+    """
     rows: dict[str, dict] = {}
     for name, lines in sorted(files.items()):
         lesson = LESSON_ID.match(name)
@@ -114,7 +107,7 @@ def lessons_table(files: dict[str, list[str]]) -> list[str]:
         if not (lesson and found):
             continue
         rows.setdefault(lesson.group(1), {"names": [], "tests": []})["names"] += found
-    for name, lines in sorted(files.items()):
+    for name, lines in sorted(tests_in.items()):
         lesson = LESSON_ID.match(name)
         file_id = lesson.group(1) if lesson else None
         for todo_id, test in named_tests(lines):
@@ -126,27 +119,6 @@ def lessons_table(files: dict[str, list[str]]) -> list[str]:
         robot = " ".join(f"`{opmode}` ({kind})" for kind, opmode in rows[lesson]["names"])
         command = test_command(rows[lesson]["tests"], lesson)
         out.append(f"| L{lesson} | {robot} | {'`' + command + '`' if command else '--'} |")
-    return out
-
-
-def drivetrain_table(lines: list[str]) -> list[str]:
-    """Which lesson writes which method of the shared drivetrain."""
-    owner = None
-    rows: dict[str, list[str]] = defaultdict(list)
-    for line in lines:
-        divider = DIVIDER.match(line)
-        if divider:
-            writes = WRITES.match(divider.group(1).strip())
-            owner = writes.group(1) if writes else None
-            continue
-        signature = SIGNATURE.match(line)
-        if owner and signature:
-            rows[owner].append(signature.group(1))
-    out = ["| Lesson | What it writes in `LessonsDriveTrain` |", "| --- | --- |"]
-    for owner in sorted(rows, key=lambda k: (int(re.sub(r"\D", "", k.split()[0])), k)):
-        methods = rows[owner]
-        written = ", ".join(f"`{method}()`" for method in dict.fromkeys(methods))
-        out.append(f"| {owner} | {written} |")
     return out
 
 
@@ -168,8 +140,7 @@ def publishes_table(files: dict[str, list[str]]) -> list[str]:
     return out
 
 
-def page(blank: dict[str, list[str]], filled: dict[str, list[str]],
-         lessons: str, solutions: str) -> str:
+def page(files: dict[str, list[str]], tests_in: dict[str, list[str]], solutions: str) -> str:
     out = [
         "# Cheat sheet",
         "",
@@ -181,40 +152,41 @@ def page(blank: dict[str, list[str]], filled: dict[str, list[str]],
         "that lesson's own tests, which is what makes a red one easy to read. A dash means no test",
         "names that lesson: its check is on the floor.",
         "",
-        *lessons_table(blank),
+        *lessons_table(files, tests_in),
         "",
-        "## Who writes what in the shared drivetrain",
-        "",
-        "Every lesson adds to one class, and nothing is written twice. A method written in an early",
-        "lesson is the one a later lesson calls.",
-        "",
-        *drivetrain_table(blank["LessonsDriveTrain.java"]),
-        "",
-        "## What shows up in Panels",
+        "## What shows up in AdvantageScope",
         "",
         "A key ending in `...` has a name added to the end of it, one per wheel or per localizer.",
         "",
-        *publishes_table(filled),
+        *publishes_table(files),
         "",
-        f"Generated from the lessons line at `{lessons}` and the solutions line at `{solutions}`.",
+        f"Generated by applying `solutions/` on `{solutions}`, every lesson in order.",
         "",
     ]
     return "\n".join(out)
 
 
-def generate() -> str:
-    lessons, solutions = pins()
-    return page(package(lessons), package(solutions), lessons, solutions)
+def generate(solutions: str | None = None) -> str:
+    solutions = solutions or pins()[1]
+    patched, final, _ = apply_all(solutions)
+    tests_in = dict(final)
+    for patch in patched:
+        tests_in[f"{Path(patch.path).name} before {patch.lesson}"] = patch.before
+    return page(final, tests_in, solutions)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true",
                         help="compare with what is committed instead of writing")
+    pinned = pins()[1]
+    parser.add_argument("--solutions", default=pinned,
+                        help=f"the solutions ref to apply (default {pinned}, from keep.toml)")
     args = parser.parse_args()
 
+    print(f"applying solutions/ on {resolved(args.solutions)}")
     out = book_root() / OUT
-    text = generate()
+    text = generate(args.solutions)
     if args.check:
         if not out.exists():
             print(f"{OUT}: generated and missing. Run tools/cheatsheet.py.")
@@ -223,7 +195,7 @@ def main() -> int:
             print(f"{OUT}: differs from what the generator produces."
                   " Run tools/cheatsheet.py and commit what it writes.")
             return 1
-        print("the cheat sheet matches the lesson code")
+        print("the cheat sheet matches the applied patches")
         return 0
     out.write_text(text, encoding="utf-8")
     print(f"wrote {OUT}")

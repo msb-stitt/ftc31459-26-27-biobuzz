@@ -154,7 +154,7 @@ In AdvantageScope:
 - `Circle/Speeds`, `Circle/Wheels`, `Circle/Twist` in a **Table**.
 - `imu/Rotation` and `imu/Heading` if the IMU was there.
 
-**Two things are unverified and this is where we find out:**
+**Check two things:**
 
 1. **`fieldQuarterTurns`.** If the circle is rotated or mirrored relative to the
    field image, set `FlightLog.fieldQuarterTurns` to 0, 1, 2 or 3 until it

@@ -5,13 +5,14 @@ the 2026-27 BIOBUZZ season.
 
 ### Temporary: the guide and the answers, on the web
 
-Built by hand from this branch and committed as bytes, so they do not rebuild
-themselves and stop matching the moment either branch moves. Built on
-`lessons-03` at 5ea90ad against `solutions-03` at 13bfea1.
-
-- [The guide](https://mikestitt.github.io/ftc31459-26-27-biobuzz/guide/) — the student pages.
-- [What the student writes](https://mikestitt.github.io/ftc31459-26-27-biobuzz/review/) — every
-  blank with the answer beside it, 55 across 17 lessons.
+- [The guide](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/) — the student pages,
+  with their figures.
+- [The guide as a PDF](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/ftc31459-book.pdf).
+- [The mentor guide](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/mentor/) — the student
+  pages with the mentor notes.
+- [The mentor guide as a PDF](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/ftc31459-mentor-book.pdf).
+- [What the student writes](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/review/) — each
+  lesson's copies and every change its patches make.
 
 ### Cheat sheet: the commands
 
@@ -24,17 +25,17 @@ runs it on its own.
 | Build the app | `./gradlew :TeamCode:assembleDebug` |
 | Everything except the lessons | `./gradlew :TeamCode:test` |
 | The lessons only | `./gradlew :TeamCode:testLessons` |
-| One lesson's test | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l9*'` |
-| The solutions, which should be green | `./gradlew :TeamCode:testLessons` on `solutions-03` |
-| Watch a lesson drive | `./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --pad"` |
-| Drive it without a gamepad | `./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --left_stick_y=-1 --right_stick_y=-1"` |
+| One lesson's test | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l125*'` |
+| Watch a lesson drive | `./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"` |
+| Drive it without a gamepad | `./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1 --right_stick_y=-1"` |
 | Every option the simulator takes | `./gradlew :TeamCode:simRun --args="--help"` |
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
+| Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
 | Hot reload TeamCode only | `./gradlew deploySloth` — see [PANELS.md](./PANELS.md); it does not configure in this checkout |
 | Build the guide | `ninja book` in `book/`, with `book/.venv/bin` on `PATH` |
 
 The OpMode name is whatever follows `org.firstinspires.ftc.teamcode`, so a lesson
-is `lessons.L2bTankOpMode` and not `L2bTankOpMode`.
+is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 
 ### Cheat sheet: the links
 
@@ -45,6 +46,7 @@ is `lessons.L2bTankOpMode` and not `L2bTankOpMode`.
 | [Panels](https://panels.bylazar.com/) | the dashboard: telemetry, graphs, field view, at `192.168.43.1:8001` |
 | [Sloth](https://github.com/Dairy-Foundation/Sloth) | hot reload, which pushes TeamCode alone in about a second |
 | [PANELS.md](./PANELS.md) | what those two need set up here, once |
+| [NETWORKTABLES.md](./NETWORKTABLES.md) | AdvantageScope live from the robot, and the robot test for it |
 | [FTC programming docs](https://ftc-docs.firstinspires.org/) | the SDK, Android Studio, the IMU, AprilTags |
 | [gm0](https://gm0.org/) | Game Manual 0, the community's how-to for everything else |
 | [Game and season materials](https://ftc.game/) | this season's manuals and field drawings |
@@ -53,7 +55,7 @@ is `lessons.L2bTankOpMode` and not `L2bTankOpMode`.
 | [goBILDA](https://www.gobilda.com/) | the Pinpoint, the pods and most of the hardware |
 | [REV Robotics](https://www.revrobotics.com/) | the hubs and the motors |
 | [AndyMark](https://www.andymark.com/) | field elements and more hardware |
-| [spiresfrc9106/ftc31459-26-27-biobuz](https://github.com/spiresfrc9106/ftc31459-26-27-biobuz) | the team's repository, which this one tracks |
+| [spiresfrc9106/ftc31459-26-27-biobuzz](https://github.com/spiresfrc9106/ftc31459-26-27-biobuzz) | the team's repository, which this one tracks |
 
 ### TODO 
 - [ ] Monitor the sloth plugin for updates to Gradle version [see](PANELS.md#one-time-setup) - 1. Gradle version

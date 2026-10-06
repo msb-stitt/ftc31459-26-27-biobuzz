@@ -198,7 +198,7 @@ final class SimArgs {
                 .append("     OpModeClass\n")
                 .append("             The OpMode to run, named by the part of its class name that\n")
                 .append("             follows ").append(packageName()).append(":\n")
-                .append("             lessons.L2aSticksOpMode, example.DriveForward24OpMode.\n\n")
+                .append("             lessons.L020SticksOpMode, example.DriveForward24OpMode.\n\n")
                 .append("             It runs on this computer against a simulated robot, a WPILOG\n")
                 .append("             is opened for it, and a NetworkTables port is served so\n")
                 .append("             AdvantageScope can plot the values while the run is going.\n\n")

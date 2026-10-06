@@ -42,23 +42,23 @@ public final class SimArgsTest {
 
     @Test
     public void anOpModeOnItsOwnLeavesEveryControlUntouched() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode");
         assertNull(plan.error);
         assertEquals(SimArgs.Form.OPMODE, plan.form);
-        assertEquals("lessons.L2bTankOpMode", plan.opMode);
+        assertEquals("lessons.L040TankOpMode", plan.opMode);
         assertEquals(0, plan.controls.size());
     }
 
     @Test
     public void anOpModeWithPadReadsGamepads() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--pad");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--pad");
         assertNull(plan.error);
         assertEquals(SimArgs.Form.OPMODE_PAD, plan.form);
     }
 
     @Test
     public void anOpModeWithControlsCarriesThemInOrder() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--left_stick_y=-1", "--a=true");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--left_stick_y=-1", "--a=true");
         assertNull(plan.error);
         assertEquals(SimArgs.Form.OPMODE_CONTROLS, plan.form);
         assertEquals("[left_stick_y=-1, a=true]", plan.controls.toString());
@@ -80,7 +80,7 @@ public final class SimArgsTest {
         Gamepad staging = new Gamepad();
         for (String control : SimArgs.CONTROLS) {
             String option = "--" + control + "=" + value(control);
-            SimArgs.Plan plan = parse("lessons.L2bTankOpMode", option);
+            SimArgs.Plan plan = parse("lessons.L040TankOpMode", option);
             if (plan.error != null) {
                 refused.add(option + ": " + plan.error);
                 continue;
@@ -96,7 +96,7 @@ public final class SimArgsTest {
     public void everyDerivedFieldIsRefusedByName() {
         assertEquals("the nine the SDK fills for itself", 9, SimArgs.DERIVED.size());
         for (String derived : SimArgs.DERIVED) {
-            SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--" + derived + "=true");
+            SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--" + derived + "=true");
             assertTrue(derived + " was accepted", plan.error != null);
             assertTrue(plan.error, plan.error.contains("\"" + derived + "\""));
         }
@@ -106,7 +106,7 @@ public final class SimArgsTest {
     public void everyTouchpadFieldIsRefusedByName() {
         assertEquals("the seven touchpad fields", 7, SimArgs.TOUCHPAD.size());
         for (String touchpad : SimArgs.TOUCHPAD) {
-            SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--" + touchpad + "=true");
+            SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--" + touchpad + "=true");
             assertTrue(touchpad + " was accepted", plan.error != null);
             assertTrue(plan.error, plan.error.contains("\"" + touchpad + "\""));
         }
@@ -127,7 +127,7 @@ public final class SimArgsTest {
                     || SimArgs.TOUCHPAD.contains(name)) {
                 continue;
             }
-            if (parse("lessons.L2bTankOpMode", "--" + name + "=1").error == null) {
+            if (parse("lessons.L040TankOpMode", "--" + name + "=1").error == null) {
                 accepted.add(name);
             }
         }
@@ -136,7 +136,7 @@ public final class SimArgsTest {
 
     @Test
     public void aConstantIsNotAControl() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--DEFAULT_TRIGGER_THRESHOLD=0.9");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--DEFAULT_TRIGGER_THRESHOLD=0.9");
         assertTrue("a static field was accepted", plan.error != null);
         assertTrue(plan.error, plan.error.contains("no control called"));
     }
@@ -150,38 +150,38 @@ public final class SimArgsTest {
 
     @Test
     public void anUnknownControlSaysThereIsNoSuchControl() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--leftY=-1");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--leftY=-1");
         assertTrue(plan.error, plan.error.contains("no control called \"leftY\""));
     }
 
     @Test
     public void aValueOfTheWrongTypeSaysWhatTheControlTakes() {
-        SimArgs.Plan axis = parse("lessons.L2bTankOpMode", "--left_stick_y=sideways");
+        SimArgs.Plan axis = parse("lessons.L040TankOpMode", "--left_stick_y=sideways");
         assertTrue(axis.error, axis.error.contains("number"));
         assertTrue(axis.error, axis.error.contains("\"sideways\""));
-        SimArgs.Plan button = parse("lessons.L2bTankOpMode", "--a=0.5");
+        SimArgs.Plan button = parse("lessons.L040TankOpMode", "--a=0.5");
         assertTrue(button.error, button.error.contains("true or false"));
     }
 
     @Test
     public void padWithAControlOptionNamesTheOptionThatClashed() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--pad", "--left_stick_y=-1");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--pad", "--left_stick_y=-1");
         assertTrue(plan.error, plan.error.contains("--left_stick_y=-1"));
     }
 
     @Test
     public void aControlWithNoValueIsRejected() {
-        SimArgs.Plan plan = parse("lessons.L2bTankOpMode", "--left_stick_y");
+        SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--left_stick_y");
         assertTrue(plan.error, plan.error.contains("--name=value"));
     }
 
     @Test
     public void theOldSpellingsAreNotTheNewOnes() {
-        assertTrue("the bare word pad", parse("lessons.L2bTankOpMode", "pad").error != null);
+        assertTrue("the bare word pad", parse("lessons.L040TankOpMode", "pad").error != null);
         assertTrue("a control with no dashes",
-                parse("lessons.L2bTankOpMode", "left_stick_y=-1").error != null);
+                parse("lessons.L040TankOpMode", "left_stick_y=-1").error != null);
         assertTrue("a flag where the OpMode goes", parse("--pad").error != null);
-        assertTrue("pad-check with an OpMode", parse("--pad-check", "lessons.L2bTankOpMode")
+        assertTrue("pad-check with an OpMode", parse("--pad-check", "lessons.L040TankOpMode")
                 .error != null);
     }
 
@@ -189,11 +189,11 @@ public final class SimArgsTest {
     public void everyErrorLineNamesTheToolAndTheHelp() {
         String[][] bad = {
             {},
-            {"lessons.L2bTankOpMode", "--leftY=-1"},
-            {"lessons.L2bTankOpMode", "--a=0.5"},
-            {"lessons.L2bTankOpMode", "--pad", "--a=true"},
-            {"lessons.L2bTankOpMode", "pad"},
-            {"--pad-check", "lessons.L2bTankOpMode"},
+            {"lessons.L040TankOpMode", "--leftY=-1"},
+            {"lessons.L040TankOpMode", "--a=0.5"},
+            {"lessons.L040TankOpMode", "--pad", "--a=true"},
+            {"lessons.L040TankOpMode", "pad"},
+            {"--pad-check", "lessons.L040TankOpMode"},
             {"--nonsense"},
         };
         for (String[] args : bad) {

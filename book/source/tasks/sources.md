@@ -14,13 +14,13 @@ pages.
 ## Game Manual 0
 
 [Game Manual 0](https://gm0.org) is licensed
-[CC BY-NC 2.0 Generic](https://gm0.org/en/latest/docs/appendix/license.html). It is the best
-general FTC reference there is. This guide is not trying to replace it. These pages are about one
+[CC BY-NC 2.0 Generic](https://gm0.org/en/latest/docs/appendix/license.html). It is a general FTC
+reference, written by FTC teams. This guide is not trying to replace it. These pages are about one
 robot and one set of lessons.
 
-One page leans on it. [L5](l5.md) explains why the mecanum rollers make an X, and says that GM0's
-mecanum page and the drivetrain's own javadoc are where that explanation comes from. No page here
-copies GM0's words. The guide's license is chosen to keep every restriction GM0's asks for anyway.
+One page leans on it. [L090](l090.md) explains why the mecanum rollers make an X, and links GM0's
+page on holonomic drivetrains, which shows it. No page here copies GM0's words. The guide's license
+is chosen to keep every restriction GM0's asks for anyway.
 
 ## Pedro Pathing
 

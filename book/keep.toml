@@ -13,31 +13,103 @@
 path = "source/index.md"
 words = 240
 
+# The front page's words moved to _intro.md, which both books' front pages
+# include; each of the three keeps the front page's ceiling.
+[[page]]
+path = "source/_intro.md"
+words = 240
+
+[[page]]
+path = "source/student_index.md"
+words = 240
+
 # Measured off the first draft and rounded up, so the check has something to
 # hold. Mike sets the real one when he reads the page.
 [[page]]
-path = "source/tasks/l2.md"
-words = 1400
+path = "source/tasks/l020.md"
+# Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
+# short student explanations.
+words = 850
 
 [[page]]
-path = "source/tasks/directions.md"
+path = "source/tasks/l030.md"
+words = 700
+
+[[page]]
+path = "source/tasks/l040.md"
+words = 800
+
+[[page]]
+path = "source/tasks/l050.md"
 words = 1100
 
 [[page]]
-path = "source/tasks/l3.md"
+path = "source/tasks/l060.md"
+words = 1300
+
+[[page]]
+path = "source/tasks/l070.md"
+words = 1500
+
+[[page]]
+path = "source/tasks/l080.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l090.md"
+words = 1800
+
+[[page]]
+path = "source/tasks/l117.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l110.md"
+words = 1800
+
+[[page]]
+path = "source/tasks/l115.md"
 words = 1200
 
 [[page]]
-path = "source/tasks/l4.md"
-words = 1000
+path = "source/tasks/l120.md"
+words = 1800
 
 [[page]]
-path = "source/tasks/l5.md"
-words = 1000
+path = "source/tasks/l125.md"
+words = 1300
 
 [[page]]
-path = "source/tasks/l6.md"
-words = 1200
+path = "source/tasks/l130.md"
+words = 1300
+
+[[page]]
+path = "source/tasks/l140.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l150.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l160.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l170.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l180.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l190.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l195.md"
+words = 1700
 
 [[page]]
 path = "source/tasks/panels.md"
@@ -59,50 +131,6 @@ path = "source/tasks/bench.md"
 words = 1150
 
 [[page]]
-path = "source/tasks/pinpoint.md"
-words = 1000
-
-[[page]]
-path = "source/tasks/l8.md"
-words = 1300
-
-[[page]]
-path = "source/tasks/l9.md"
-words = 700
-
-[[page]]
-path = "source/tasks/l10.md"
-words = 800
-
-[[page]]
-path = "source/tasks/l11.md"
-words = 900
-
-[[page]]
-path = "source/tasks/l12.md"
-words = 800
-
-[[page]]
-path = "source/tasks/l13.md"
-words = 900
-
-[[page]]
-path = "source/tasks/l14.md"
-words = 1000
-
-[[page]]
-path = "source/tasks/l15.md"
-words = 900
-
-[[page]]
-path = "source/tasks/l16.md"
-words = 1400
-
-[[page]]
-path = "source/tasks/l17.md"
-words = 1100
-
-[[page]]
 path = "source/tasks/glossary.md"
 words = 400
 
@@ -110,16 +138,16 @@ words = 400
 path = "source/tasks/sources.md"
 words = 400
 
-# The two lines the answers are generated from. A blank commit is the normal
-# state: the tool then reads the ref beside it, so running it by hand diffs the
-# tips rather than asking anyone to paste a hash. Put a commit in to freeze a
-# regeneration deliberately.
+# The solutions line the answers and the cheat sheet are generated from, by
+# applying its solutions/ in order. A blank commit is the normal state: the tools
+# then read the ref beside it, so running them by hand reads the tip rather than
+# asking anyone to paste a hash. Put a commit in to freeze a regeneration
+# deliberately.
 #
-# lessons is HEAD because the tool is run from the lessons line. This file is
-# byte-identical on the solutions line, where running it fails on the TODO guard
-# in tools/answers.py rather than writing empty pages.
+# lessons is read only by tools/diffs.py, behind `ninja review`, which still
+# compares the lessons package with a solutions line's own.
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-03"
+solutions = "solutions-l010"
 solutions_commit = ""

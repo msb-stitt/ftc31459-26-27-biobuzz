@@ -1,44 +1,22 @@
-# Biobuz lessons
+# BIOBUZZ lessons
 
-This guide walks you through making the robot do things, one task at a time. Each task page says
-what you will have when it is done, what has to be true before you start, and the steps to get
-there. Every step tells you what you will see when it worked and what to try when it did not.
-
-## How to use it
-
-- **Start with the task you need, not with page one.** Every task lists what it needs finished
-  first. If you missed a session, find the task you are up to and read its *Before you start*.
-- **Do the step, then read the check.** The check tells you whether to go on. If what you see is not
-  what the check describes, the *if it didn't* line under it is the first thing to try.
-- **The answers are in the back.** They are the real code from the solutions branch. Use them when
-  you are stuck, not instead of being stuck.
-
-:::{admonition} fig-robot-front
-:class: pencil
-The robot from the front, on the floor, with both gamepads beside it, so a student can match what is
-in front of them to what the guide calls each part.
-:::
+```{include} _intro.md
+```
 
 ## The tasks
 
 ```{toctree}
 :maxdepth: 1
-:caption: Get the robot moving
-
-tasks/directions
-```
-
-Getting the robot and the laptop ready has no page yet. Checking the motor directions needs L2
-finished, so read it after that one.
-
-```{toctree}
-:maxdepth: 1
 :caption: Drive it with the sticks
 
-tasks/l2
-tasks/l3
-tasks/l4
-tasks/l5
+tasks/l020
+tasks/l030
+tasks/l040
+tasks/l050
+tasks/l060
+tasks/l070
+tasks/l080
+tasks/l090
 ```
 
 ```{toctree}
@@ -53,42 +31,43 @@ tasks/bench
 :maxdepth: 1
 :caption: Hand the wheels to the follower
 
-tasks/l6
+tasks/l110
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Know where it is
 
-tasks/pinpoint
-tasks/l8
+tasks/l115
+tasks/l117
+tasks/l120
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Drive it without a driver
 
-tasks/l9
-tasks/l10
+tasks/l125
+tasks/l130
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Drive it like a driver
 
-tasks/l11
-tasks/l12
-tasks/l13
-tasks/l14
-tasks/l15
-tasks/l16
+tasks/l140
+tasks/l150
+tasks/l160
+tasks/l170
+tasks/l180
+tasks/l190
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: Measure the robot
 
-tasks/l17
+tasks/l195
 ```
 
 ```{toctree}

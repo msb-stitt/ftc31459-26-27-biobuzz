@@ -8,9 +8,9 @@ you can see what your code does before it is your turn at the field.
 
 ## Before you start
 
-- Android Studio opens the project, and you can type a Gradle command into its terminal. Getting a
-  laptop that far has no page yet, so ask a mentor.
-- [L2](l2.md) is written, or step 2 has no lesson to show you.
+- Android Studio opens the project, and you can type a Gradle command into its terminal. Ask a
+  mentor to get a laptop that far.
+- [L040](l040.md) is written, or step 2 has no lesson to show you.
 - AdvantageScope installed on the same laptop, for step 2 and step 3.
 
 ## The steps
@@ -41,9 +41,9 @@ Now the tests for your own work:
 ./gradlew :TeamCode:testLessons
 ```
 
-On a fresh copy, where nobody has written a lesson yet, the report counts 66 tests and 54 failures.
-Measured on 2026-09-28. Fifty-four failures is not a broken copy. Each one is a lesson nobody has
-written, and the count drops as you write them.
+On a fresh copy, where nobody has written a lesson yet, the report counts 44 tests and 44 failures.
+Forty-four failures is not a broken copy. Each one is a lesson nobody has written, and the count
+drops as you write them.
 
 **You'll know it worked when** the last lines name a report:
 
@@ -55,14 +55,14 @@ Open that link in a browser, click the class and then the test, and you get the 
 wrote. The console does not give you that. All the console gives you is this:
 
 ```
-MecanumEncoderLocalizerTest > countsStraightAhead FAILED
-    java.lang.AssertionError at MecanumEncoderLocalizerTest.java:63
+L120EncoderLocalizerTest > countsStraightAhead FAILED
+    java.lang.AssertionError at L120EncoderLocalizerTest.java:61
 ```
 
 A file and a line, and no word about what went wrong. The report for that same run also holds
-`robot relative while held expected:<1.0> but was:<0.0>`, which is L12's blank still open. Every
-*if it didn't* line in this guide quotes a message out of the report, so every one of them starts
-here.
+`robot relative while held expected:<1.0> but was:<5.551115123125783E-17>`, which is L150's starter
+copied and not yet changed. Every *if it didn't* line in this guide quotes a message out of the
+report, so every one of them starts here.
 
 ### Step 2: watch one lesson move
 
@@ -70,7 +70,7 @@ A test says where the robot ended up. It does not show you the robot. For that, 
 its own:
 
 ```
-./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --left_stick_y=-1 --right_stick_y=-1"
+./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1 --right_stick_y=-1"
 ```
 
 The first word inside the quotes is the lesson's class name, with the package it sits in before it.
@@ -81,7 +81,7 @@ the A button held down. Ask for `--args="--help"` and it lists every control you
 To push the sticks yourself, plug a gamepad into the laptop and add `--pad`:
 
 ```
-./gradlew :TeamCode:simRun --args="lessons.L2bTankOpMode --pad"
+./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"
 ```
 
 One gamepad becomes `gamepad1` on its own. With two plugged in, hold Start and press A on the one
@@ -93,11 +93,11 @@ so the robot stops. Plug it back in and it is yours again.
 Use `--pad`, or set the controls yourself, but not both. Together they are an error, and the run
 names the setting that clashed.
 
-It prints where it is listening, then runs:
+It prints where the flight log goes, then runs:
 
 ```
-NT: Listening on NT3 port 1735, NT4 port 5810
-L2bTankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
+Flight log: <the repository's top folder>
+lessons.L040TankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTables 4, and Ctrl-C to stop.
 ```
 
 Open AdvantageScope and connect to `127.0.0.1` as NetworkTables 4. The topics arrive under `sim/`.
@@ -107,25 +107,20 @@ Add a 2D field and give it `sim/Pose`.
 what reached each motor, and `sim/vel/forward_ips` says how fast the robot is going.
 
 **If it didn't**, and the robot sits still with all four wheels reading 0, that lesson is still
-blank. Watched with L2b's blanks open and both sticks forward: the pose never changed for the whole
-run. Nothing is wrong with the simulator. It ran a lesson that writes nothing to the motors.
+blank. Watched with the old L2b lesson's blanks open and both sticks forward: the pose never changed
+for the whole run. Nothing is wrong with the simulator. It ran a lesson that writes nothing to the
+motors.
 
 **If it didn't**, and no topics arrive at all, nothing connected. The address is `127.0.0.1`, and
 the kind is NetworkTables 4 rather than a log file.
 
-Ctrl-C stops it, and it prints where it left the flight log.
+Ctrl-C stops it. The flight log is in the project's top folder, which the first line it prints
+names.
 
-:::{admonition} fig-advantagescope-sim
-:class: pencil
-AdvantageScope with a 2D field showing `sim/Pose`, the topic list open beside it, and a graph of
-the four `sim/wheels` values, so a student can match their own screen to what this step describes.
-:::
-
-:::{admonition} Which way round the field gets drawn is being looked into
+:::{admonition} Which way round the field gets drawn
 :class: note
-The corner the arrow starts in and the way it points do not yet agree with the numbers going out.
-Trust that the robot moves, and how far it moves, rather than which way it faces on the screen. It
-is filed as `sim.field_orientation`.
+The corner the arrow starts in and the way it points do not agree with the numbers going out.
+Trust that the robot moves, and how far it moves, rather than which way it faces on the screen.
 :::
 
 ### Step 3: open the log a failing test left
@@ -171,5 +166,5 @@ will show you, and that is why every lesson's last step is a robot on a floor.
 
 ## Where next
 
-- [L6](l6.md) hands the wheels to the path follower. From here on you can try each lesson on the
+- [L110](l110.md) hands the wheels to the path follower. From here on you can try each lesson on the
   laptop before you take it to the field.

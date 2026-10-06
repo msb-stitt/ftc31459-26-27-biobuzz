@@ -8,11 +8,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import io.github.mikestitt.corbelsflightlog.FlightLog;
 import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
+import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
 import io.github.mikestitt.corbelsflightlog.pedro.PedroFlightLog;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.panels.PanelsLogger;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -101,6 +103,27 @@ public final class Tracker {
         pedro = new PedroFlightLog(flightlog, "Robot");
     }
 
+    /**
+     * Sends everything the file records live to AdvantageScope as well, over
+     * NetworkTables 4 on port 5810: on the robot, connect AdvantageScope to
+     * {@code 192.168.43.1}. {@code initBefore()} calls this for a lesson and
+     * a copy in {@code mytry}; any other OpMode calls it itself, after
+     * {@code initBefore()}. {@link #begin} switches it off again.
+     *
+     * <p>For practice only: FTC rule R704 forbids third-party telemetry over
+     * Wi-Fi at competitions. Returns false, with the reason on the Driver
+     * Station, if the server cannot start.
+     */
+    public static boolean serveLive() {
+        try {
+            flightlog.mirrorTo(Nt4Server.shared());
+            return true;
+        } catch (IOException | RuntimeException e) {
+            printToDs("NetworkTables off: " + e.getMessage());
+            return false;
+        }
+    }
+
     /** Panels and its logger. Called from {@code CorbelsOpMode.startBefore()}. */
     public static void startLogging() {
         panels = PanelsTelemetry.INSTANCE.getTelemetry();
@@ -143,6 +166,14 @@ public final class Tracker {
         if (ds != null) {
             ds.update();
         }
+    }
+
+    /**
+     * Closes the file's record for one pass between INIT and PLAY, without
+     * counting it as a loop. Called from {@code CorbelsOpMode.init_loop()}.
+     */
+    public static void endInitLoop() {
+        flightlog.endLoop();
     }
 
     /** Closes the file. Called from {@code CorbelsOpMode.stopAfter()}. */

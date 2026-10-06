@@ -7,8 +7,9 @@ package org.firstinspires.ftc.teamcode.base;
  * branch, where the lessons are blanks, and a failure outside the
  * {@code lessons} package there is a defect rather than the point. Every teleop
  * here is complete on both branches. That a real lesson's sticks move the
- * simulated robot is {@code LessonsTest.l2_theSticksMoveTheSimulatedRobot},
- * where a blank L2 failing is expected.
+ * simulated robot is
+ * {@code LessonsTest.l040_bothSticksForwardDriveTheSimulatedRobotForward},
+ * where it failing until L040 is typed is expected.
  */
 final class SimOpModes {
 
