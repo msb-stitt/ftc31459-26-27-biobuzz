@@ -13,7 +13,7 @@ author = "Catholic Central Spires Robotics"
 copyright = "2026, Catholic Central Spires Robotics"
 
 extensions = ["myst_parser"]
-myst_enable_extensions = ["colon_fence", "deflist"]
+myst_enable_extensions = ["attrs_block", "colon_fence", "deflist"]
 
 
 # The tag `mentor` picks the book. With it, the mentor book, rooted at index.md.
@@ -31,7 +31,7 @@ else:
 html_theme = "furo"
 html_title = "BIOBUZZ lessons"
 html_static_path = ["_static"]
-html_css_files = ["pencil.css"]
+html_css_files = ["pencil.css", "steps.css"]
 
 
 def setup(app):

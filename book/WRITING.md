@@ -29,8 +29,8 @@ that takes their content replaces them.
   - **Send**: the code sent to the robot, and the OpMode picked and started on the Driver Station.
   - **Robot**: what to do with the robot. A part can instead be named for that one thing, as
     **Push**, **Spin** or **Drive**.
-- **Check**: one line after each part that changes what the student sees, saying what they see
-  when it worked.
+- **Check**: after each part that changes what the student sees, a bulleted list of what they see
+  when it worked, one thing to look at or do per item.
 
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
 
@@ -42,6 +42,25 @@ once more if the next lesson to use it is close, and twice more if that lesson i
 later. After that, one part names the whole skill, as **Robot.** Send the code, run `L070 Buttons`
 from the Driver Station, and watch it in AdvantageScope. `ftc-claude`'s
 `.docs/2026-10-05-lessons-restructure.md` lists where each skill is broken down.
+
+**Write a Check as a bulleted list, even of one item.** `**Check.**` stands alone, then a blank
+line, then the list, with no blank line between items. An explanation goes after the list, not in
+it. The Microsoft Style Guide's
+[step-by-step
+instructions](https://learn.microsoft.com/en-us/style-guide/procedures-instructions/writing-step-by-step-instructions)
+uses a bullet for a single step, to match the lists around it.
+
+**Set apart each action a student does for the first time.** Where a part breaks a skill down,
+its name stands alone, then `{.steps}` on the line above a bulleted list, one action per item,
+with a blank line between items. `_static/steps.css` puts a line of space between them in the HTML.
+The PDF does not show the space. Every other list stays close. The sources:
+
+- USWDS [Typography](https://designsystem.digital.gov/components/typography/): "Use less
+  whitespace to group elements and more whitespace to distinguish them from each other."
+- digital.gov [Lists](https://digital.gov/guides/plain-language/design/lists/): "Add white space
+  for easy reading."
+- The Microsoft Style Guide, above: "Use a separate step for each instruction."
+
 
 **What only the mentor book shows**, each in a `{only} mentor` block that leads with bold text:
 
