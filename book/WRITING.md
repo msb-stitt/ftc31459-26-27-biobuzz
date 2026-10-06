@@ -97,8 +97,14 @@ The code a student copies carries a comment where each step changes it, linking 
 ## Write the check from a failure somebody saw
 
 An **if it didn't** line names the symptom a student will actually see. A guessed symptom sends them
-looking for something that never appears, which is worse than saying nothing. Where the failure has
-not been reproduced, the line says it comes from reading the code rather than from a robot.
+looking for something that never appears, which is worse than saying nothing.
+
+## Say nothing about what has been run, tried or seen
+
+A page, a README or a comment in this repository says what to do and what you will see. It does
+not say whether a step has been performed, when something was tried or seen, or what is still
+unknown. That record is kept in the `ftc-claude` repository, and only there. Naming a source, such
+as Pedro's tuning page, is not a record and stays.
 
 ## Put the explanation in the step that needs it
 
