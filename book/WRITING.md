@@ -104,7 +104,8 @@ looking for something that never appears, which is worse than saying nothing.
 A page, a README or a comment in this repository says what to do and what you will see. It does
 not say whether a step has been performed, when something was tried or seen, or what is still
 unknown. That record is kept in the `ftc-claude` repository, and only there. Naming a source, such
-as Pedro's tuning page, is not a record and stays.
+as Pedro's tuning page, is not a record and stays. Neither is a dated measurement in a code comment,
+such as "Measured on 2026-09-28: …", which says why the code is the way it is.
 
 ## Put the explanation in the step that needs it
 
