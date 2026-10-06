@@ -233,5 +233,5 @@ here has been driven with a wheel on the wrong corner.
 mecanum drive, and the path follower in later lessons uses the same four. The scaling is L080's,
 for four wheels instead of two.
 
-**Where next.** [L100](l100.md) lets AutoTune tune the robot.
+**Where next.** [L110](l110.md) hands the wheels to the path follower.
 ::::

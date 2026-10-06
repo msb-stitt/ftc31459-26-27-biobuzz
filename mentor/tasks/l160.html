@@ -210,12 +210,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Hand the wheels to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="l100.html">L100: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l110.html">L110: hand the wheels to the path follower</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Know where it is</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l115.html">L115: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l117.html">L117: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">L120: work out where the robot is from the drive wheels</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Drive it without a driver</span></p>
@@ -430,7 +430,7 @@ the hold take over; that has not been performed.</p>
 <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">steering,</span> <span class="pre">the</span> <span class="pre">stick</span> <span class="pre">wins</span> <span class="pre">expected:&lt;-1.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>, the hold got <code class="docutils literal notranslate"><span class="pre">rightStickX</span></code> instead
 of <code class="docutils literal notranslate"><span class="pre">turn</span></code>. That skips the minus sign that makes a push to the right turn clockwise.</p>
 <p><strong>If it didn’t</strong>, and on the floor the robot fights back and overshoots, that is the follower’s
-tuning, not this lesson. L100 tunes it. If the nose drifts slowly anyway, the hold is working and
+tuning, not this lesson. L117 tunes it. If the nose drifts slowly anyway, the hold is working and
 the follower’s heading is drifting with it. Both are from the old <code class="docutils literal notranslate"><span class="pre">l13</span></code> page, and neither has been
 seen on a robot.</p>
 <p>The simulator turns the robot only when told to, so nothing there pushes it off its heading. The

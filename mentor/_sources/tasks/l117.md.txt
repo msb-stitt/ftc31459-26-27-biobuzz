@@ -1,20 +1,17 @@
-# L100: let AutoTune tune the robot
+# L117: let AutoTune tune the robot
 
 The robot measures itself. It finds which way each motor turns and where the pods sit. It finds
 how fast it can drive and how hard it can brake. Pedro Pathing's AutoTune does the measuring. You
 paste what it finds into `Constants.java`.
 
-Do this after L115, which mounts the Pinpoint this lesson tunes.
-
 ::::{only} mentor
 **Before you start.**
 
-- L090 is done, and L050's motor directions are set.
-- The Pinpoint and its two pods are mounted and plugged in, as L115 says. L115 comes later in the
-  book, but L100S030 and L100S040 need the pods.
+- L115 is done, so the Pinpoint and its two pods are mounted and plugged in, and L050's motor
+  directions are set.
 - The robot, the Driver Station, a laptop that can join the robot's Wi-Fi, and blocks to lift the
   robot's wheels off the floor.
-- Clear floor for L100S040: at least 48 in ahead of the robot, 48 in to its left and 36 in to its
+- Clear floor for L117S040: at least 48 in ahead of the robot, 48 in to its left and 36 in to its
   right, plus a tile of room all round.
 
 Every step here is on the robot. None has been performed yet. The step names and the messages
@@ -25,7 +22,7 @@ quoted are read from the tuner code in `pedro/procedures/`, and the address from
 
 ## The steps
 
-### L100S010: open AutoTune
+### L117S010: open AutoTune
 
 AutoTune is a web page the robot serves. It is not in the Driver Station's list of OpModes. It
 starts its own OpMode, called `Pedro Tuning`, when a step needs the robot to move.
@@ -40,7 +37,7 @@ permission. Please give it.
 
 - The page lists four tuners: `Mecanum Tuner`, `Tests`, `Pinpoint Tuner` and `Foresight Tuner`.
 
-### L100S020: find which way each motor turns
+### L117S020: find which way each motor turns
 
 Put the robot on blocks, so its wheels spin freely.
 
@@ -58,7 +55,7 @@ and directions. Put the eight AutoTune shows in their place. Keep `manualBrakeMo
 
 - The directions match what L050 found on blocks.
 
-### L100S030: measure the pods
+### L117S030: measure the pods
 
 The Pinpoint needs four more numbers: which way each pod counts, and how far each one sits from the
 middle of the robot. The x offset is how far sideways the forward pod is from the point the robot
@@ -81,7 +78,7 @@ three pushes it asks for, stopping each one when you are done:
 - In `Tests`, pick `Localization Test` and drive with the gamepad.
 - Driving forward raises x, and strafing left raises y.
 
-### L100S040: let the robot find its speed and its brakes
+### L117S040: let the robot find its speed and its brakes
 
 This one drives itself. Clear the floor first.
 
@@ -103,7 +100,7 @@ up into its own line:
 
 - Each of the three pairs holds the same number.
 
-### L100S050: watch it drive a line
+### L117S050: watch it drive a line
 
 **Send.** Send the code again, so the new `Constants` is on the robot.
 
@@ -114,7 +111,7 @@ up into its own line:
 - The robot drives 48 in and stops on the line.
 
 ::::{only} mentor
-**No gamepad**, except in L100S030's check. AutoTune runs its own OpMode, and nothing here runs in
+**No gamepad**, except in L117S030's check. AutoTune runs its own OpMode, and nothing here runs in
 the simulator.
 
 **If it didn't**, and the Mecanum Tuner stops with this, a motor other than the one named spun, or
@@ -133,13 +130,12 @@ one can.
 sockets. L115S010 is where that gets fixed, and no tuning works around it. This is from the old
 `pinpoint` page, and has not been seen on a robot.
 
-**If it didn't**, and the robot brakes late or never holds still after L100S040, check that the
+**If it didn't**, and the robot brakes late or never holds still after L117S040, check that the
 five hold lines are still in `foresightConfig`. Read from the code, not seen.
 
 **What you just did.** Every number in `Constants.java` either came off this robot or is waiting
 to. AutoTune measures the ones that need the robot driving itself. L195 measures the two it does
 not: ticks per inch and the turn radius.
 
-**Where next.** [L110](l110.md) hands the wheels to the path follower, which drives with these
-numbers.
+**Where next.** [L120](l120.md) compares the Pinpoint with the drive encoders and logs both.
 ::::

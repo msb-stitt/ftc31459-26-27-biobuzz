@@ -14,7 +14,7 @@ while you push it and spin it by hand.
 **Before you start.**
 
 - L190 is done. It is the lesson that uses both numbers.
-- The Pinpoint is mounted, as in L115, and its offsets set, as in L100, because this measurement
+- The Pinpoint is mounted, as in L115, and its offsets set, as in L117, because this measurement
   believes it.
 - AdvantageScope is installed on the same laptop.
 - The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
@@ -185,6 +185,6 @@ in it, and those are somebody else's robot. Nothing in L190 could tell they were
 cannot check a number it has no other way of knowing. Have the robot measure the same thing two
 ways, with two instruments that do not talk to each other, and compare.
 
-**Where next.** L195 is the last lesson. [L100](l100.md) tunes the numbers that need the robot
+**Where next.** L195 is the last lesson. [L117](l117.md) tunes the numbers that need the robot
 driving itself rather than being pushed.
 ::::

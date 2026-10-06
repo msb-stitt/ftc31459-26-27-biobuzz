@@ -210,12 +210,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Hand the wheels to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="l100.html">L100: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l110.html">L110: hand the wheels to the path follower</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Know where it is</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l115.html">L115: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l117.html">L117: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">L120: work out where the robot is from the drive wheels</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Drive it without a driver</span></p>
@@ -415,7 +415,7 @@ standing at that path’s finish already, so it is done before it starts. The te
 <code class="docutils literal notranslate"><span class="pre">and</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">wander</span> <span class="pre">in</span> <span class="pre">x</span> <span class="pre">expected:&lt;72.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;70.81415129095723&gt;</span></code>, the heading is
 <code class="docutils literal notranslate"><span class="pre">.constant(90)</span></code>. The number form is radians, so 90 is not 90 degrees.</p>
 <p><strong>If it didn’t</strong>, and on the floor it overshot or stopped short, that is the follower’s tuning, not
-this line. L100 tunes it. If it curved, check the motor directions from L050S070 first. These two
+this line. L117 tunes it. If it curved, check the motor directions from L050S070 first. These two
 are from the old <code class="docutils literal notranslate"><span class="pre">l9</span></code> page, and neither has been seen on a robot.</p>
 <p><strong>What you just did.</strong> The follower is a library, used the way a team uses one: say where to go,
 and it works out the wheel powers. Nobody here wrote the path code.</p>

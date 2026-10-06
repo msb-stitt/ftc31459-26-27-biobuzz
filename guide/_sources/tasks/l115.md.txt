@@ -7,7 +7,7 @@ The Pinpoint on the robot from above, with the forward pod and the strafe pod dr
 :::
 
 The Pinpoint is bolted on, its two pods are in the right sockets, and the Control Hub finds it when
-you press INIT. The robot does not yet know how far the pods sit from its middle. L100 measures
+you press INIT. The robot does not yet know how far the pods sit from its middle. L117 measures
 that.
 
 ::::{only} mentor
@@ -100,7 +100,7 @@ cannot show whether the numbers are live; the square shows that, and it has not 
 **If it didn't**, and the heading crawls one way while the robot sits still, INIT happened while
 the robot was moving. Press STOP and INIT again without touching it.
 
-**If it didn't**, and forward and sideways come out swapped once L100 has tuned the pods, the two
+**If it didn't**, and forward and sideways come out swapped once L117 has tuned the pods, the two
 pods are in each other's sockets. L115S010 is where that gets fixed, and no amount of tuning works
 around it.
 
@@ -117,5 +117,5 @@ loudly broken.
 The Pinpoint needs nothing from the drive motors to know where the robot is. Its two wheels are not
 driven, so a mecanum roller cannot scrub them sideways and a slipping wheel cannot spin them.
 
-**Where next.** [L120](l120.md) compares the Pinpoint with the drive encoders and logs both.
+**Where next.** [L117](l117.md) lets AutoTune tune the robot.
 ::::

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L110: hand the wheels to the path follower" href="l110.html"><link rel="prev" title="Check your work without a robot" href="bench.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L120: work out where the robot is from the drive wheels" href="l120.html"><link rel="prev" title="L115: mount the Pinpoint and plug it in" href="l115.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L100: let AutoTune tune the robot - BIOBUZZ lessons</title>
+        <title>L117: let AutoTune tune the robot - BIOBUZZ lessons</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -163,7 +163,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
+      <a href="../student_index.html"><div class="brand">BIOBUZZ lessons</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
   <span class="sidebar-brand-text">BIOBUZZ lessons</span>
   
@@ -203,19 +203,14 @@
 <li class="toctree-l1"><a class="reference internal" href="l080.html">L080: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l090.html">L090: slide it sideways</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">See what it is doing</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="panels.html">Watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bench.html">Check your work without a robot</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">Hand the wheels to the follower</span></p>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L100: let AutoTune tune the robot</a></li>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="l110.html">L110: hand the wheels to the path follower</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Know where it is</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="l115.html">L115: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L117: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">L120: work out where the robot is from the drive wheels</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Drive it without a driver</span></p>
@@ -293,7 +288,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/tasks/l100.md.txt" title="View this page">
+  <a class="muted-link" href="../_sources/tasks/l117.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -311,30 +306,15 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="l100-let-autotune-tune-the-robot">
-<h1>L100: let AutoTune tune the robot<a class="headerlink" href="#l100-let-autotune-tune-the-robot" title="Link to this heading">¶</a></h1>
+          <section id="l117-let-autotune-tune-the-robot">
+<h1>L117: let AutoTune tune the robot<a class="headerlink" href="#l117-let-autotune-tune-the-robot" title="Link to this heading">¶</a></h1>
 <p>The robot measures itself. It finds which way each motor turns and where the pods sit. It finds
 how fast it can drive and how hard it can brake. Pedro Pathing’s AutoTune does the measuring. You
 paste what it finds into <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>.</p>
-<p>Do this after L115, which mounts the Pinpoint this lesson tunes.</p>
-<p><strong>Before you start.</strong></p>
-<ul class="simple">
-<li><p>L090 is done, and L050’s motor directions are set.</p></li>
-<li><p>The Pinpoint and its two pods are mounted and plugged in, as L115 says. L115 comes later in the
-book, but L100S030 and L100S040 need the pods.</p></li>
-<li><p>The robot, the Driver Station, a laptop that can join the robot’s Wi-Fi, and blocks to lift the
-robot’s wheels off the floor.</p></li>
-<li><p>Clear floor for L100S040: at least 48 in ahead of the robot, 48 in to its left and 36 in to its
-right, plus a tile of room all round.</p></li>
-</ul>
-<p>Every step here is on the robot. None has been performed yet. The step names and the messages
-quoted are read from the tuner code in <code class="docutils literal notranslate"><span class="pre">pedro/procedures/</span></code>, and the address from Pedro’s
-<a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/drivetrain/mecanum">Mecanum page</a>, opened on
-2026-10-05. The AutoTune page itself has not been seen, so its button names are not given.</p>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
-<section id="l100s010">
-<span id="l100s010-open-autotune"></span><h3>L100S010: open AutoTune<a class="headerlink" href="#l100s010" title="Link to this heading">¶</a></h3>
+<section id="l117s010">
+<span id="l117s010-open-autotune"></span><h3>L117S010: open AutoTune<a class="headerlink" href="#l117s010" title="Link to this heading">¶</a></h3>
 <p>AutoTune is a web page the robot serves. It is not in the Driver Station’s list of OpModes. It
 starts its own OpMode, called <code class="docutils literal notranslate"><span class="pre">Pedro</span> <span class="pre">Tuning</span></code>, when a step needs the robot to move.</p>
 <p><strong>Send.</strong> Send the code to the robot. Join the laptop to the robot’s Wi-Fi. In a browser, open
@@ -346,8 +326,8 @@ permission. Please give it.</p>
 <li><p>The page lists four tuners: <code class="docutils literal notranslate"><span class="pre">Mecanum</span> <span class="pre">Tuner</span></code>, <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, <code class="docutils literal notranslate"><span class="pre">Pinpoint</span> <span class="pre">Tuner</span></code> and <code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>.</p></li>
 </ul>
 </section>
-<section id="l100s020">
-<span id="l100s020-find-which-way-each-motor-turns"></span><h3>L100S020: find which way each motor turns<a class="headerlink" href="#l100s020" title="Link to this heading">¶</a></h3>
+<section id="l117s020">
+<span id="l117s020-find-which-way-each-motor-turns"></span><h3>L117S020: find which way each motor turns<a class="headerlink" href="#l117s020" title="Link to this heading">¶</a></h3>
 <p>Put the robot on blocks, so its wheels spin freely.</p>
 <p><strong>Robot.</strong> Pick <code class="docutils literal notranslate"><span class="pre">Mecanum</span> <span class="pre">Tuner</span></code>. Type the four motor names as the Robot Configuration spells them:
 <code class="docutils literal notranslate"><span class="pre">Front</span> <span class="pre">Left</span></code>, <code class="docutils literal notranslate"><span class="pre">Front</span> <span class="pre">Right</span></code>, <code class="docutils literal notranslate"><span class="pre">Back</span> <span class="pre">Left</span></code> and <code class="docutils literal notranslate"><span class="pre">Back</span> <span class="pre">Right</span></code>. Each motor then spins on its own, at
@@ -361,8 +341,8 @@ and directions. Put the eight AutoTune shows in their place. Keep <code class="d
 <li><p>The directions match what L050 found on blocks.</p></li>
 </ul>
 </section>
-<section id="l100s030">
-<span id="l100s030-measure-the-pods"></span><h3>L100S030: measure the pods<a class="headerlink" href="#l100s030" title="Link to this heading">¶</a></h3>
+<section id="l117s030">
+<span id="l117s030-measure-the-pods"></span><h3>L117S030: measure the pods<a class="headerlink" href="#l117s030" title="Link to this heading">¶</a></h3>
 <p>The Pinpoint needs four more numbers: which way each pod counts, and how far each one sits from the
 middle of the robot. The x offset is how far sideways the forward pod is from the point the robot
 turns about, and left counts up. The y offset is how far forward the strafe pod is, and forward
@@ -382,8 +362,8 @@ three pushes it asks for, stopping each one when you are done:</p>
 <li><p>Driving forward raises x, and strafing left raises y.</p></li>
 </ul>
 </section>
-<section id="l100s040">
-<span id="l100s040-let-the-robot-find-its-speed-and-its-brakes"></span><h3>L100S040: let the robot find its speed and its brakes<a class="headerlink" href="#l100s040" title="Link to this heading">¶</a></h3>
+<section id="l117s040">
+<span id="l117s040-let-the-robot-find-its-speed-and-its-brakes"></span><h3>L117S040: let the robot find its speed and its brakes<a class="headerlink" href="#l117s040" title="Link to this heading">¶</a></h3>
 <p>This one drives itself. Clear the floor first.</p>
 <p><strong>Robot.</strong> Pick <code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>. Keep the distances and the speed it offers: 48 in, 30 in/s and
 36 in. It drives forward and left as fast as it can, coasts to a stop, turns back and forth, spins,
@@ -402,35 +382,14 @@ up into its own line:</p>
 <li><p>Each of the three pairs holds the same number.</p></li>
 </ul>
 </section>
-<section id="l100s050">
-<span id="l100s050-watch-it-drive-a-line"></span><h3>L100S050: watch it drive a line<a class="headerlink" href="#l100s050" title="Link to this heading">¶</a></h3>
+<section id="l117s050">
+<span id="l117s050-watch-it-drive-a-line"></span><h3>L117S050: watch it drive a line<a class="headerlink" href="#l117s050" title="Link to this heading">¶</a></h3>
 <p><strong>Send.</strong> Send the code again, so the new <code class="docutils literal notranslate"><span class="pre">Constants</span></code> is on the robot.</p>
 <p><strong>Robot.</strong> In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">Test</span></code>, with the distance at 48.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>The robot drives 48 in and stops on the line.</p></li>
 </ul>
-<p><strong>No gamepad</strong>, except in L100S030’s check. AutoTune runs its own OpMode, and nothing here runs in
-the simulator.</p>
-<p><strong>If it didn’t</strong>, and the Mecanum Tuner stops with this, a motor other than the one named spun, or
-none did:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">wrong</span> <span class="n">motor</span> <span class="n">spun</span><span class="o">.</span> <span class="n">Check</span> <span class="n">that</span> <span class="n">your</span> <span class="n">motors</span> <span class="n">are</span> <span class="n">plugged</span> <span class="n">into</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">ports</span><span class="p">,</span> <span class="ow">and</span> <span class="n">that</span> <span class="n">they</span> <span class="n">are</span> <span class="n">configured</span> <span class="n">correctly</span><span class="o">.</span> <span class="n">Then</span><span class="p">,</span> <span class="k">try</span> <span class="n">again</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>It is the message for an answer of No to “Did the front left motor spin?”, read from
-<code class="docutils literal notranslate"><span class="pre">MecanumTuner.java</span></code>. Swap two motor names and each of those motors is given the other’s direction,
-so both wheels turn backwards. L050’s checks on blocks cannot tell that from a backwards wheel. This
-one can.</p>
-<p><strong>If it didn’t</strong>, and x and y swap over in the Localization Test, the two pods are in each other’s
-sockets. L115S010 is where that gets fixed, and no tuning works around it. This is from the old
-<code class="docutils literal notranslate"><span class="pre">pinpoint</span></code> page, and has not been seen on a robot.</p>
-<p><strong>If it didn’t</strong>, and the robot brakes late or never holds still after L100S040, check that the
-five hold lines are still in <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>. Read from the code, not seen.</p>
-<p><strong>What you just did.</strong> Every number in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code> either came off this robot or is waiting
-to. AutoTune measures the ones that need the robot driving itself. L195 measures the two it does
-not: ticks per inch and the turn radius.</p>
-<p><strong>Where next.</strong> <a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a> hands the wheels to the path follower, which drives with these
-numbers.</p>
 </section>
 </section>
 </section>
@@ -440,23 +399,23 @@ numbers.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="l110.html">
+          <a class="next-page" href="l120.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">L110: hand the wheels to the path follower</div>
+                <div class="title">L120: work out where the robot is from the drive wheels</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="bench.html">
+          <a class="prev-page" href="l115.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Check your work without a robot</div>
+                <div class="title">L115: mount the Pinpoint and plug it in</div>
                 
               </div>
             </a>
@@ -490,13 +449,13 @@ numbers.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">L100: let AutoTune tune the robot</a><ul>
+<li><a class="reference internal" href="#">L117: let AutoTune tune the robot</a><ul>
 <li><a class="reference internal" href="#the-steps">The steps</a><ul>
-<li><a class="reference internal" href="#l100s010-open-autotune">L100S010: open AutoTune</a></li>
-<li><a class="reference internal" href="#l100s020-find-which-way-each-motor-turns">L100S020: find which way each motor turns</a></li>
-<li><a class="reference internal" href="#l100s030-measure-the-pods">L100S030: measure the pods</a></li>
-<li><a class="reference internal" href="#l100s040-let-the-robot-find-its-speed-and-its-brakes">L100S040: let the robot find its speed and its brakes</a></li>
-<li><a class="reference internal" href="#l100s050-watch-it-drive-a-line">L100S050: watch it drive a line</a></li>
+<li><a class="reference internal" href="#l117s010-open-autotune">L117S010: open AutoTune</a></li>
+<li><a class="reference internal" href="#l117s020-find-which-way-each-motor-turns">L117S020: find which way each motor turns</a></li>
+<li><a class="reference internal" href="#l117s030-measure-the-pods">L117S030: measure the pods</a></li>
+<li><a class="reference internal" href="#l117s040-let-the-robot-find-its-speed-and-its-brakes">L117S040: let the robot find its speed and its brakes</a></li>
+<li><a class="reference internal" href="#l117s050-watch-it-drive-a-line">L117S050: watch it drive a line</a></li>
 </ul>
 </li>
 </ul>

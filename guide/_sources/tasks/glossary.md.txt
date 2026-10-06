@@ -95,7 +95,7 @@ documentation and the Driver Station all use this one.
 
 **Pinpoint**
 : The odometry computer. It has its own two measuring wheels, and it works out the pose. The
-  follower believes this one. L195 measures against it. [L100](l100.md)
+  follower believes this one. L195 measures against it. [L117](l117.md)
 
 **Path**
 : A line or curve the follower drives along, with a heading to hold while it does.
