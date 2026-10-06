@@ -257,22 +257,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      */
     public void setCommandedWheelSpeeds(double frontLeftInPerS, double frontRightInPerS,
                                         double backLeftInPerS, double backRightInPerS) {
-        double[] wanted = new double[4];
-        wanted[FL] = frontLeftInPerS;
-        wanted[FR] = frontRightInPerS;
-        wanted[BL] = backLeftInPerS;
-        wanted[BR] = backRightInPerS;
-
-        double[] measured = measuredSpeeds.all();
-        double[] powers = new double[4];
-        for (int i = 0; i < powers.length; i++) {
-            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
-            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
-            powers[i] = clampToPower(feedforward + feedback);
-        }
-
-        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
-        publishWheelSpeeds(wanted, measured, powers);
+        // When on L190S060, work out each wheel's power.
     }
 
     // ------------------------------------------------------- reading the wheels back
@@ -285,10 +270,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     /** What each encoder has counted, in ticks, in the same order. */
     public int[] wheelTicks() {
         int[] ticks = new int[4];
-        ticks[FL] = hardware.frontLeft.getCurrentPosition();
-        ticks[FR] = hardware.frontRight.getCurrentPosition();
-        ticks[BL] = hardware.backLeft.getCurrentPosition();
-        ticks[BR] = hardware.backRight.getCurrentPosition();
+        // When on L195S030, read each encoder.
         return ticks;
     }
 
