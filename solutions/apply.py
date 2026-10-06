@@ -79,9 +79,13 @@ def copy(tree: Path, src: str, dst: str) -> None:
 
 def patch(tree: Path, lesson: str, name: str) -> None:
     path = Path("solutions") / lesson / name
-    done = run(tree, "git", "apply", "--index", str(path))
+    # Read in Python and handed over as LF bytes, since a Windows checkout can
+    # give the patch file CRLF line endings that the copy does not have.
+    text = (tree / path).read_text().encode()
+    done = subprocess.run(["git", "apply", "--index", "-"], cwd=tree, input=text,
+                          capture_output=True)
     if done.returncode != 0:
-        raise Stop(f"patch {path} does not apply:\n{done.stderr.strip()}")
+        raise Stop(f"patch {path} does not apply:\n{done.stderr.decode().strip()}")
 
 
 def test(tree: Path, patterns: list[str]) -> bool:
