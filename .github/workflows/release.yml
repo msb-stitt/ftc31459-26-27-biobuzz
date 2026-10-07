@@ -1,9 +1,9 @@
 # Publishes the books on gh-pages, and makes a release.
 #
-# - A tag vX.Y.Z: the books built from the tag and from the solutions at the tag
-#   vX.Y.Z-solutions, which has to be pushed first. They go into vX.Y.Z/ and, if
-#   it is the newest release, to the top level, where the code's links point. A
-#   GitHub Release gets both PDFs.
+# - A tag vX.Y.Z: the books built from the tag and from the solutions its
+#   book/keep.toml pins, which has to be a tag made by tools/pin.py. They go into
+#   vX.Y.Z/ and, if it is the newest release, to the top level, where the code's
+#   links point. A GitHub Release gets both PDFs.
 # - A tag such as v0.1.1-rc.1: the same, as a pre-release, which never takes the
 #   top level.
 # - A push to main: the same build, into dev/.
@@ -44,27 +44,20 @@ jobs:
       - name: What this run publishes, and from which solutions
         id: what
         run: |
-          # The committed answer pages and cheat sheet name keep.toml's solutions,
-          # so they are checked against it by that name.
-          pinned=$(python3 -c 'import tomllib; a = tomllib.load(open("book/keep.toml", "rb"))["answers"]; print(a["solutions_commit"] or a["solutions"])')
+          # keep.toml names the solutions the answer pages and cheat sheet were
+          # generated from; a release pins them to a tag, so it can be rebuilt.
+          solutions=$(python3 -c 'import tomllib; a = tomllib.load(open("book/keep.toml", "rb"))["answers"]; print(a["solutions_commit"] or a["solutions"])')
           if [ "$GITHUB_REF_TYPE" = tag ]; then
             version="$GITHUB_REF_NAME"
-            solutions="$version-solutions"
             if ! git rev-parse --verify --quiet "refs/tags/$solutions" >/dev/null; then
-              echo "No tag $solutions. Tag the solutions commit $solutions and push it first."
-              exit 1
-            fi
-            if [ "$(git rev-parse "$solutions^{commit}")" != "$(git rev-parse "$pinned^{commit}")" ]; then
-              echo "$solutions is not the commit keep.toml pins, $pinned, which the answer pages were built from."
+              echo "keep.toml names $solutions, which is not a tag. Run tools/pin.py, commit what it writes, and tag again."
               exit 1
             fi
           else
-            solutions="$pinned"
             if [ "$GITHUB_REF" = refs/heads/main ]; then version=dev; else version=; fi
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
-          echo "pinned=$pinned" >> "$GITHUB_OUTPUT"
           echo "Publishing '${version:-nothing}', with the solutions at $solutions."
 
       - uses: actions/setup-java@v4
@@ -94,8 +87,8 @@ jobs:
           PYTHONPATH: tools
         run: |
           ninja check-sphinx check-wrap check-reading check-keep check-words check-figures
-          python tools/answers.py --check --solutions '${{ steps.what.outputs.pinned }}'
-          python tools/cheatsheet.py --check --solutions '${{ steps.what.outputs.pinned }}'
+          python tools/answers.py --check
+          python tools/cheatsheet.py --check
 
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
       - name: Both books, the review and both PDFs
@@ -128,6 +121,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.what.outputs.version }}
+          SOLUTIONS: ${{ steps.what.outputs.solutions }}
         run: |
           site="https://msb-stitt.github.io/ftc31459-26-27-biobuzz/$VERSION"
           {
@@ -137,7 +131,7 @@ jobs:
             echo "- Mentor guide: $site/mentor/"
             echo "- What the student writes: $site/review/"
             echo
-            echo "The answer pages and cheat sheet are built from the solutions at the tag \`$VERSION-solutions\`."
+            echo "The answer pages and cheat sheet are built from the solutions at the tag \`$SOLUTIONS\`."
           } > notes.md
           case "$VERSION" in
             *-*) pre=--prerelease ;;
