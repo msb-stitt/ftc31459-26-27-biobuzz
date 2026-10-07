@@ -1,0 +1,64 @@
+# L090
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 21 line(s) of code to write.
+
+## Copies
+
+- `lessons/L090MecanumOpMode.java` to `mytry/L090MecanumOpMode.java`
+
+## L090MecanumOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -73,6 +73,8 @@
+         // When on L090S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030
+         // for what to do here.
++        double strafe = squared(deadband(-leftStickX, band));
++        Tracker.publish("arcade/strafe", strafe);
+ 
+         // When on L090S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+```
+
+### A change
+
+Delete 0 lines, write 19 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -79,6 +79,25 @@
+         // When on L090S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+         // for what to do here.
++        double frontLeftPower = forward - strafe - turn;
++        double frontRightPower = forward + strafe + turn;
++        double backLeftPower = forward + strafe - turn;
++        double backRightPower = forward - strafe + turn;
++        double biggest = Math.max(1, Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower)),
++                Math.max(Math.abs(backLeftPower), Math.abs(backRightPower))));
++        frontLeftPower = frontLeftPower / biggest;
++        frontRightPower = frontRightPower / biggest;
++        backLeftPower = backLeftPower / biggest;
++        backRightPower = backRightPower / biggest;
++        Tracker.publish("power/frontLeft", frontLeftPower);
++        Tracker.publish("power/frontRight", frontRightPower);
++        Tracker.publish("power/backLeft", backLeftPower);
++        Tracker.publish("power/backRight", backRightPower);
++
++        hardware.frontLeft.setPower(frontLeftPower);
++        hardware.frontRight.setPower(frontRightPower);
++        hardware.backLeft.setPower(backLeftPower);
++        hardware.backRight.setPower(backRightPower);
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
+```

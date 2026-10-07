@@ -1,0 +1,47 @@
+# L040
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 4 line(s) of code to write.
+
+## Copies
+
+- `lessons/L040TankOpMode.java` to `mytry/L040TankOpMode.java`
+
+## L040TankOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L040TankOpMode.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -58,6 +58,8 @@
+         // When on L040S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s030
+         // for what to do here.
++        hardware.frontLeft.setPower(leftSpeed);
++        hardware.backLeft.setPower(leftSpeed);
+ 
+         // When on L040S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s040
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -64,6 +64,8 @@
+         // When on L040S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s040
+         // for what to do here.
++        hardware.frontRight.setPower(rightSpeed);
++        hardware.backRight.setPower(rightSpeed);
+ 
+         loopAfter();
+     }
+```
