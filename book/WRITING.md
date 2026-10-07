@@ -148,39 +148,10 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.
 
-## Building what a release publishes
+## Pinning the solutions and releasing are in the README
 
-```
-book/.venv/bin/pip install -r book/requirements-publish.txt
-cd book && PATH="$PWD/.venv/bin:$PATH" ninja publish-check
-```
-
-`ninja publish-check` builds both books with every figure in place, the review and both PDFs into
-`build/publish/`, and publishes nothing. It runs `gh-pages`' `src/build.py`, with the figures from
-`gh-pages`' `src/figures/`, on the last commit, so commit first. It fails if a figure is still a
-pencilled box or a page shows an image that is not there. It is not part of `ninja book`.
-
-## Pinning the solutions the answers come from
-
-```
-cd book && PATH="$PWD/.venv/bin:$PATH" ninja pin
-```
-
-The answer pages, the cheat sheet and the review apply the `solutions/` that `keep.toml`'s
-`[answers]` names, and the pages say which. While a lesson is worked on it names the solutions
-branch, so they follow its tip. On `main` it names a tag, so the pages stay those of one commit; CI
-fails on `main` when it does not.
-
-- Start a round of lesson work with `python tools/run.py pin --follow solutions-X`, which names
-  the branch and regenerates the pages.
-- End it, as the last commit before the merge to `main`, with `ninja pin`. It tags the branch's
-  tip `solutions-X.N` with the next number, names the tag and regenerates the pages, committing
-  nothing. Commit what it writes, push the tag, then push the commit.
-- On a lessons branch, CI fails a pinned tag whose `solutions/` is no longer the branch's, since
-  the patches changed after pinning. Pin again.
-
-Merging lessons into solutions moves the branch's tip without changing `solutions/`, so it does
-not make a pin stale.
+How `keep.toml` names the solutions the answer pages come from, a round of lesson work, and
+building and making a release: [Lesson work and releases](../README.md#lesson-work-and-releases).
 
 ## Seeing what a lesson asks a student to do
 

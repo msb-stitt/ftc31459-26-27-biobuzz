@@ -138,11 +138,11 @@ words = 400
 path = "source/tasks/sources.md"
 words = 400
 
-# The solutions line the answers and the cheat sheet are generated from, by
-# applying its solutions/ in order. A blank commit is the normal state: the tools
-# then read the ref beside it, so running them by hand reads the tip rather than
-# asking anyone to paste a hash. Put a commit in to freeze a regeneration
-# deliberately.
+# The solutions line the answers, the cheat sheet and the review are generated
+# from, by applying its solutions/ in order. On a lessons branch at work it names
+# the solutions branch, so the tools read its tip; on main it names a tag made by
+# tools/pin.py. Change it with tools/pin.py, not by hand: the README's "Lesson
+# work and releases" says how. pin.py leaves solutions_commit blank.
 #
 # lessons is read only by tools/diffs.py, behind `ninja review`, which still
 # compares the lessons package with a solutions line's own.
