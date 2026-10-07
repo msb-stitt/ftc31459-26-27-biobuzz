@@ -148,6 +148,19 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.
 
+## Building what a release publishes
+
+```
+book/.venv/bin/pip install -r book/requirements-publish.txt
+cd book && PATH="$PWD/.venv/bin:$PATH" ninja publish-check
+```
+
+`ninja publish-check` builds both books with every figure in place, the review and both PDFs into
+`build/publish/`, and publishes nothing. It runs `gh-pages`' `src/build.py`, with the figures from
+`gh-pages`' `src/figures/`, on the last commit, so commit first. It fails if a figure is still a
+pencilled box or a page shows an image that is not there. It runs on a Mac only, and is not part
+of `ninja book`.
+
 ## Seeing what a lesson asks a student to do
 
 ```
