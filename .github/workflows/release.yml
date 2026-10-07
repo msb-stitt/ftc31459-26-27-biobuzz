@@ -44,6 +44,9 @@ jobs:
       - name: What this run publishes, and from which solutions
         id: what
         run: |
+          # The committed answer pages and cheat sheet name keep.toml's solutions,
+          # so they are checked against it by that name.
+          pinned=$(python3 -c 'import tomllib; a = tomllib.load(open("book/keep.toml", "rb"))["answers"]; print(a["solutions_commit"] or a["solutions"])')
           if [ "$GITHUB_REF_TYPE" = tag ]; then
             version="$GITHUB_REF_NAME"
             solutions="$version-solutions"
@@ -51,12 +54,17 @@ jobs:
               echo "No tag $solutions. Tag the solutions commit $solutions and push it first."
               exit 1
             fi
+            if [ "$(git rev-parse "$solutions^{commit}")" != "$(git rev-parse "$pinned^{commit}")" ]; then
+              echo "$solutions is not the commit keep.toml pins, $pinned, which the answer pages were built from."
+              exit 1
+            fi
           else
-            solutions=$(python3 -c 'import tomllib; a = tomllib.load(open("book/keep.toml", "rb"))["answers"]; print(a["solutions_commit"] or a["solutions"])')
+            solutions="$pinned"
             if [ "$GITHUB_REF" = refs/heads/main ]; then version=dev; else version=; fi
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
+          echo "pinned=$pinned" >> "$GITHUB_OUTPUT"
           echo "Publishing '${version:-nothing}', with the solutions at $solutions."
 
       - uses: actions/setup-java@v4
@@ -86,8 +94,8 @@ jobs:
           PYTHONPATH: tools
         run: |
           ninja check-sphinx check-wrap check-reading check-keep check-words check-figures
-          python tools/answers.py --check --solutions '${{ steps.what.outputs.solutions }}'
-          python tools/cheatsheet.py --check --solutions '${{ steps.what.outputs.solutions }}'
+          python tools/answers.py --check --solutions '${{ steps.what.outputs.pinned }}'
+          python tools/cheatsheet.py --check --solutions '${{ steps.what.outputs.pinned }}'
 
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
       - name: Both books, the review and both PDFs
