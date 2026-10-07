@@ -106,3 +106,13 @@ rule publish
   pool = console
 
 build publish-check: publish | tools/publish_check.py tools/answers.py keep.toml
+
+# Not part of `ninja book`: tags the solutions branch keep.toml follows, pins the
+# tag and regenerates the answer pages and the cheat sheet, committing nothing.
+# The last step of a round of lesson work. See tools/pin.py.
+rule pin
+  command = $run pin
+  description = the solutions pinned to a new tag, and the pages regenerated
+  pool = console
+
+build pin: pin | tools/pin.py tools/answers.py tools/cheatsheet.py keep.toml

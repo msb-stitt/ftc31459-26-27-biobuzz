@@ -160,6 +160,28 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja publish-check
 `gh-pages`' `src/figures/`, on the last commit, so commit first. It fails if a figure is still a
 pencilled box or a page shows an image that is not there. It is not part of `ninja book`.
 
+## Pinning the solutions the answers come from
+
+```
+cd book && PATH="$PWD/.venv/bin:$PATH" ninja pin
+```
+
+The answer pages, the cheat sheet and the review apply the `solutions/` that `keep.toml`'s
+`[answers]` names, and the pages say which. While a lesson is worked on it names the solutions
+branch, so they follow its tip. On `main` it names a tag, so the pages stay those of one commit; CI
+fails on `main` when it does not.
+
+- Start a round of lesson work with `python tools/run.py pin --follow solutions-X`, which names
+  the branch and regenerates the pages.
+- End it, as the last commit before the merge to `main`, with `ninja pin`. It tags the branch's
+  tip `solutions-X.N` with the next number, names the tag and regenerates the pages, committing
+  nothing. Commit what it writes, push the tag, then push the commit.
+- On a lessons branch, CI fails a pinned tag whose `solutions/` is no longer the branch's, since
+  the patches changed after pinning. Pin again.
+
+Merging lessons into solutions moves the branch's tip without changing `solutions/`, so it does
+not make a pin stale.
+
 ## Seeing what a lesson asks a student to do
 
 ```
@@ -175,7 +197,6 @@ are shown and labelled, because a page that says where code goes has to account 
 It comes from applying `solutions/` in order, the same as the answer pages, and checks that the
 changes applied one at a time rebuild what each patch left. `ninja book` builds it too.
 
-It is a view for reading, not a gate and not part of the guide: `ninja book` does not run it, and
-its pages are not committed. The answer pages under `source/answers/` say what each lesson's patch
-changes in each file, from applying `solutions/` in order; this says what each lesson asks, and how
-much work it is.
+It is a view for reading, not part of the guide: its pages are not committed. The answer pages
+under `source/answers/` say what each lesson's patch changes in each file, from applying
+`solutions/` in order; this says what each lesson asks, and how much work it is.
