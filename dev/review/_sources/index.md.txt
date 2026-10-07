@@ -1,6 +1,6 @@
 # What the student writes
 
-Every lesson's copies and patches, from applying `solutions/` on `solutions-l010` in
+Every lesson's copies and patches, from applying `solutions/` on `solutions-l010.1` in
 order. Each page is one lesson, each section one file, and each diff is one edit
 a student makes, comments included.
 
