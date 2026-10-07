@@ -95,3 +95,14 @@ rule diffs
   pool = console
 
 build review: diffs | tools/diffs.py tools/answers.py tools/register.py keep.toml
+
+# Not part of `ninja book`: builds what a release publishes, both books with
+# every figure, the review and both PDFs, into build/publish/, and publishes
+# nothing. It runs gh-pages' src/build.py, needs requirements-publish.txt, and
+# runs on a Mac only. See tools/publish_check.py.
+rule publish
+  command = $run publish_check
+  description = what a release publishes builds, with every figure in place
+  pool = console
+
+build publish-check: publish | tools/publish_check.py tools/answers.py keep.toml
