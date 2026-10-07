@@ -1,0 +1,139 @@
+# L117: let AutoTune tune the robot
+
+The robot measures itself. It finds which way each motor turns and where the pods sit. It finds
+how fast it can drive and how hard it can brake. Pedro Pathing's AutoTune does the measuring. You
+paste what it finds into `Constants.java`.
+
+::::{only} mentor
+**Before you start.**
+
+- L115 is done, so the Pinpoint and its two pods are mounted and plugged in, and L050's motor
+  directions are set.
+- The robot, the Driver Station, a laptop that can join the robot's Wi-Fi, and blocks to lift the
+  robot's wheels off the floor.
+- Clear floor for L117S040: at least 48 in ahead of the robot, 48 in to its left and 36 in to its
+  right, plus a tile of room all round.
+
+The step names and the messages quoted are from the tuner code in `pedro/procedures/`, and the
+address from Pedro's
+[Mecanum page](https://pedropathing.com/docs/pathing/tuning/drivetrain/mecanum).
+::::
+
+## The steps
+
+### L117S010: open AutoTune
+
+AutoTune is a web page the robot serves. It is not in the Driver Station's list of OpModes. It
+starts its own OpMode, called `Pedro Tuning`, when a step needs the robot to move.
+
+**Send.** Send the code to the robot. Join the laptop to the robot's Wi-Fi. In a browser, open
+`http://192.168.43.1:10158`.
+
+The first time the browser talks to the robot, the operating system might ask for your
+permission. Please give it.
+
+**Check.**
+
+- The page lists four tuners: `Mecanum Tuner`, `Tests`, `Pinpoint Tuner` and `Foresight Tuner`.
+
+### L117S020: find which way each motor turns
+
+Put the robot on blocks, so its wheels spin freely.
+
+**Robot.** Pick `Mecanum Tuner`. Type the four motor names as the Robot Configuration spells them:
+`Front Left`, `Front Right`, `Back Left` and `Back Right`. Each motor then spins on its own, at
+half power, beside a picture of which wheel it is. Say whether it spun, and whether it spun forward
+or reversed.
+
+**Change.** At the end, AutoTune shows Java that starts `public static MecanumConfig
+drivetrainConfig`. Open `Constants`, in the `pedro` folder. Find the eight lines that set the names
+and directions. Put the eight AutoTune shows in their place. Keep `manualBrakeMode` and
+`powerThreshold`. AutoTune does not print them.
+
+**Check.**
+
+- The directions match what L050 found on blocks.
+
+### L117S030: measure the pods
+
+The Pinpoint needs four more numbers: which way each pod counts, and how far each one sits from the
+middle of the robot. The x offset is how far sideways the forward pod is from the point the robot
+turns about, and left counts up. The y offset is how far forward the strafe pod is, and forward
+counts up. This robot's are about 1.06 in and 3.36 in.
+
+Put the robot on the floor.
+
+**Robot.** Pick `Pinpoint Tuner`. Keep the name `pinpoint` and the pod type it offers. Then do the
+three pushes it asks for, stopping each one when you are done:
+
+- Push the robot forward.
+- Push the robot to the left.
+- Spin the robot half a turn on the spot, counterclockwise.
+
+**Change.** Replace `localizerConfig` in `Constants` with the `PinpointConfig` AutoTune shows.
+
+**Check.**
+
+- In `Tests`, pick `Localization Test` and drive with the gamepad.
+- Driving forward raises x, and strafing left raises y.
+
+### L117S040: let the robot find its speed and its brakes
+
+This one drives itself. Clear the floor first.
+
+**Robot.** Pick `Foresight Tuner`. Keep the distances and the speed it offers: 48 in, 30 in/s and
+36 in. It drives forward and left as fast as it can, coasts to a stop, turns back and forth, spins,
+brakes, and steps 12 in to 24 in each way.
+
+**Change.** Replace `foresightConfig` in `Constants` with the `ForesightConfig` AutoTune shows.
+Keep the five lines it does not print, from `translationalConstraint` to `holdPointHeadingScaling`.
+
+Three of its numbers are kept twice in `Constants`, for the lessons' own drivetrain. Copy each one
+up into its own line:
+
+- the number in `c.coast.set(...)` goes in `powerPerInchPerSecond`;
+- `maxAchievableForwardVelocity` goes in `maxForwardInchesPerSecond`;
+- `maxAchievableStrafeVelocity` goes in `maxStrafeInchesPerSecond`.
+
+**Check.**
+
+- Each of the three pairs holds the same number.
+
+### L117S050: watch it drive a line
+
+**Send.** Send the code again, so the new `Constants` is on the robot.
+
+**Robot.** In `Tests`, pick `Line Test`, with the distance at 48.
+
+**Check.**
+
+- The robot drives 48 in and stops on the line.
+
+::::{only} mentor
+**No gamepad**, except in L117S030's check. AutoTune runs its own OpMode, and nothing here runs in
+the simulator.
+
+**If it didn't**, and the Mecanum Tuner stops with this, a motor other than the one named spun, or
+none did:
+
+```
+The wrong motor spun. Check that your motors are plugged into the correct ports, and that they are configured correctly. Then, try again.
+```
+
+It is the message for an answer of No to "Did the front left motor spin?", read from
+`MecanumTuner.java`. Swap two motor names and each of those motors is given the other's direction,
+so both wheels turn backwards. L050's checks on blocks cannot tell that from a backwards wheel. This
+one can.
+
+**If it didn't**, and x and y swap over in the Localization Test, the two pods are in each other's
+sockets. L115S010 is where that gets fixed, and no tuning works around it.
+
+**If it didn't**, and the robot brakes late or never holds still after L117S040, check that the
+five hold lines are still in `foresightConfig`.
+
+**What you just did.** Every number in `Constants.java` either came off this robot or is waiting
+to. AutoTune measures the ones that need the robot driving itself. L195 measures the two it does
+not: ticks per inch and the turn radius.
+
+**Where next.** [L120](l120.md) compares the Pinpoint with the drive encoders and logs both.
+::::
