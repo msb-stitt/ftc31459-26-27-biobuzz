@@ -4,11 +4,15 @@ Builds the guide with every figure in place, the review of what each lesson asks
 and a PDF of the guide, from a lessons branch and its solutions branch, into this
 branch's guide/, review/ and ftc31459-book.pdf.
 
-    python src/build.py [--lessons lessons-try] [--solutions solutions-try] [--mentor]
+    python src/build.py [--lessons lessons-try] [--solutions solutions-try] [--mentor] [--out DIR]
 
 `--mentor` builds the mentor book, with Sphinx's `mentor` tag, into mentor/ and
 ftc31459-mentor-book.pdf, and leaves the review alone. Without it, the student
-book goes into guide/ and ftc31459-book.pdf.
+book goes into guide/ and ftc31459-book.pdf. `--out` writes them into another
+folder in place of this branch's root.
+
+It fails, and writes nothing, if a pencilled box has no picture in src/figures/.
+It fails after writing if a built page shows an image file that is not there.
 
 Run it from this branch's root, in a Python that has the book's requirements and
 rinohtype. The lessons branch is checked out into a throwaway worktree, so
@@ -77,12 +81,26 @@ def svg_to_png(source: Path) -> None:
                            page.read_text(encoding="utf-8")), encoding="utf-8")
 
 
+def missing_images(site: Path) -> list[str]:
+    """Every <img> in a built HTML site whose file does not exist, as page: src."""
+    missing = []
+    for page in sorted(site.rglob("*.html")):
+        for src in re.findall(r'<img[^>]*\ssrc="([^"]+)"', page.read_text(encoding="utf-8")):
+            if "://" in src or src.startswith("data:"):
+                continue
+            if not (page.parent / src.split("#")[0].split("?")[0]).exists():
+                missing.append(f"{page.relative_to(site)}: {src}")
+    return missing
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
     ap.add_argument("--lessons", default="lessons-try")
     ap.add_argument("--solutions", default="solutions-try")
     ap.add_argument("--mentor", action="store_true")
+    ap.add_argument("--out", type=Path, default=ROOT)
     args = ap.parse_args()
+    dest = args.out.resolve()
     tag = ["-t", "mentor"] if args.mentor else []
     name, pdf = ("mentor", "ftc31459-mentor-book.pdf") if args.mentor else \
         ("guide", "ftc31459-book.pdf")
@@ -94,6 +112,9 @@ def main() -> int:
         book = tree / "book"
         filled, left = fill(book / "source")
         print(f"{filled} figure(s) filled; still pencilled: {', '.join(left) or 'none'}")
+        if left:
+            print("FAILED: every pencilled box needs its picture in src/figures/")
+            return 1
 
         out = tree / "out"
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
@@ -108,16 +129,21 @@ def main() -> int:
         run(sys.executable, "-m", "sphinx", "-b", "rinoh", *tag, "-D",
             "extensions=myst_parser,rinoh.frontend.sphinx", str(pdf_source), str(out / "pdf"))
 
+        dest.mkdir(parents=True, exist_ok=True)
         for each in built:
-            shutil.rmtree(ROOT / each, ignore_errors=True)
-            shutil.copytree(out / each, ROOT / each)
-            shutil.rmtree(ROOT / each / ".doctrees", ignore_errors=True)
-        shutil.copy(next((out / "pdf").glob("*.pdf")), ROOT / pdf)
+            shutil.rmtree(dest / each, ignore_errors=True)
+            shutil.copytree(out / each, dest / each)
+            shutil.rmtree(dest / each / ".doctrees", ignore_errors=True)
+        shutil.copy(next((out / "pdf").glob("*.pdf")), dest / pdf)
         lessons = subprocess.run(["git", "rev-parse", "--short", args.lessons], cwd=ROOT,
                                  capture_output=True, text=True).stdout.strip()
         solutions = subprocess.run(["git", "rev-parse", "--short", args.solutions], cwd=ROOT,
                                    capture_output=True, text=True).stdout.strip()
         print(f"built from {args.lessons} at {lessons} and {args.solutions} at {solutions}")
+        missing = [f"{each}/{m}" for each in built for m in missing_images(dest / each)]
+        if missing:
+            print("FAILED: pages show images that are not there:\n  " + "\n  ".join(missing))
+            return 1
     finally:
         run("git", "worktree", "remove", "--force", str(tree), cwd=ROOT)
     return 0
