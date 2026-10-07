@@ -158,8 +158,7 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja publish-check
 `ninja publish-check` builds both books with every figure in place, the review and both PDFs into
 `build/publish/`, and publishes nothing. It runs `gh-pages`' `src/build.py`, with the figures from
 `gh-pages`' `src/figures/`, on the last commit, so commit first. It fails if a figure is still a
-pencilled box or a page shows an image that is not there. It runs on a Mac only, and is not part
-of `ninja book`.
+pencilled box or a page shows an image that is not there. It is not part of `ninja book`.
 
 ## Seeing what a lesson asks a student to do
 

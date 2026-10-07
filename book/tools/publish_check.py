@@ -9,8 +9,7 @@ that is not there, and so does this.
 It builds HEAD, the last commit, not the files as they stand: commit first. The
 figures and build.py come from gh-pages, by default as last fetched from origin.
 
-The PDF step renders the route drawings with macOS's qlmanage, so this runs on
-a Mac only, in a Python with requirements.txt and requirements-publish.txt.
+It runs in a Python with requirements.txt and requirements-publish.txt.
 
     python tools/run.py publish_check [--pages origin/gh-pages]
 """
