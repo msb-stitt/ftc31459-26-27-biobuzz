@@ -12,7 +12,8 @@ book goes into guide/ and ftc31459-book.pdf. `--out` writes them into another
 folder in place of this branch's root.
 
 It fails, and writes nothing, if a pencilled box has no picture in src/figures/.
-It fails after writing if a built page shows an image file that is not there.
+It fails, and writes nothing, if the PDF step cannot open an image. It fails
+after writing if a built page shows an image file that is not there.
 
 Run it from this branch's root, in a Python that has the book's requirements and
 rinohtype. The lessons branch is checked out into a throwaway worktree, so
@@ -22,7 +23,8 @@ src/figures/ becomes a figure with the box's own words as its caption. The
 lessons branch keeps its boxes; the pictures live only here.
 
 The PDF needs the route diagrams as PNG, because rinohtype places no SVG; they
-are rendered with macOS's qlmanage, so the PDF step runs on a Mac only.
+are drawn with Pillow, so the build runs on any computer with the book's
+requirements.txt and requirements-publish.txt.
 """
 
 import argparse
@@ -31,7 +33,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
+
+from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -71,11 +76,43 @@ def fill(source: Path) -> tuple[int, list[str]]:
     return filled, left
 
 
+def draw_svg(svg: Path, size: int = 1600) -> Image.Image:
+    """A route drawing as a size-pixel PNG. The drawings hold only lines, circles and
+    straight-segment paths; anything else is refused rather than left out."""
+    root = ET.parse(svg).getroot()
+    left, top, width, height = (float(n) for n in root.get("viewBox").split())
+    scale = 4 * size / width  # drawn four times over, then shrunk, to smooth the edges
+    image = Image.new("RGB", (4 * size, round(4 * size * height / width)), "white")
+    pen = ImageDraw.Draw(image)
+
+    def at(x, y):
+        return ((float(x) - left) * scale, (float(y) - top) * scale)
+
+    for shape in root:
+        kind = shape.tag.split("}")[-1]
+        stroke = round(float(shape.get("stroke-width", 0)) * scale)
+        if kind == "title":
+            continue
+        if kind == "line":
+            pen.line([at(shape.get("x1"), shape.get("y1")), at(shape.get("x2"), shape.get("y2"))],
+                     fill=shape.get("stroke"), width=stroke)
+        elif kind == "circle":
+            x, y = at(shape.get("cx"), shape.get("cy"))
+            r = float(shape.get("r")) * scale
+            pen.ellipse([x - r, y - r, x + r, y + r], fill=shape.get("fill"))
+        elif kind == "path" and re.fullmatch(r"(?:[ML][-\d.]+,[-\d.]+)+", shape.get("d")):
+            points = [at(x, y) for x, y in re.findall(r"[ML]([-\d.]+),([-\d.]+)", shape.get("d"))]
+            pen.line(points, fill=shape.get("stroke"), width=stroke, joint="curve")
+        else:
+            raise ValueError(f"{svg.name}: cannot draw <{kind}> {shape.attrib}")
+    return image.resize((size, round(size * height / width)), Image.LANCZOS)
+
+
 def svg_to_png(source: Path) -> None:
     """The route diagrams as PNG beside the SVG, and the reference page pointed at them."""
     routes = source / "_static" / "routes"
     for svg in routes.glob("*.svg"):
-        run("qlmanage", "-t", "-s", "1600", "-o", str(routes), str(svg))
+        draw_svg(svg).save(str(svg) + ".png")
     page = source / "reference" / "pedro-routes.rst"
     page.write_text(re.sub(r"(_static/routes/route-[a-z]+)\.svg", r"\1.svg.png",
                            page.read_text(encoding="utf-8")), encoding="utf-8")
@@ -126,8 +163,17 @@ def main() -> int:
         pdf_source = tree / "pdf-source"
         shutil.copytree(book / "source", pdf_source)
         svg_to_png(pdf_source)
-        run(sys.executable, "-m", "sphinx", "-b", "rinoh", *tag, "-D",
-            "extensions=myst_parser,rinoh.frontend.sphinx", str(pdf_source), str(out / "pdf"))
+        # rinohtype leaves out an image it cannot open, warns, and still exits 0.
+        rinoh = subprocess.run(
+            [sys.executable, "-m", "sphinx", "-b", "rinoh", *tag, "-D",
+             "extensions=myst_parser,rinoh.frontend.sphinx", str(pdf_source), str(out / "pdf")],
+            check=True, stderr=subprocess.PIPE, text=True)
+        sys.stderr.write(rinoh.stderr)
+        unopened = [line for line in rinoh.stderr.replace("\r", "\n").splitlines()
+                    if "Error opening image file" in line]
+        if unopened:
+            print("FAILED: the PDF leaves out images:\n  " + "\n  ".join(unopened))
+            return 1
 
         dest.mkdir(parents=True, exist_ok=True)
         for each in built:

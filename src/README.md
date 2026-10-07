@@ -23,5 +23,5 @@ python src/build.py
 pencilled box has no picture here, or a built page shows an image that is not there. The lessons
 branch's `ninja publish-check` runs it into a scratch folder.
 
-Both need a Python with the book's `requirements.txt`, `rinohtype` and `matplotlib`. The PDF step
-renders the route diagrams with macOS's `qlmanage`, so it runs on a Mac only.
+`build.py` needs a Python with the book's `requirements.txt` and `requirements-publish.txt`;
+`draw.py` needs `matplotlib`.
