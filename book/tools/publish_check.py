@@ -11,7 +11,7 @@ figures and build.py come from gh-pages, by default as last fetched from origin.
 
 It runs in a Python with requirements.txt and requirements-publish.txt.
 
-    python tools/run.py publish_check [--pages origin/gh-pages]
+    python tools/run.py publish_check [--pages origin/gh-pages] [--solutions REF]
 """
 
 import argparse
@@ -35,10 +35,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--pages", default="origin/gh-pages",
                         help="the ref holding src/build.py and src/figures/")
+    parser.add_argument("--solutions", default=answers.pins()[1],
+                        help="the solutions ref; a release names its vX.Y.Z-solutions tag")
     args = parser.parse_args()
 
     book = book_root()
-    _, pinned = answers.pins()
     lessons = git("rev-parse", "HEAD", cwd=book)
     out = (book / OUT).resolve()
 
@@ -47,7 +48,7 @@ def main() -> int:
     try:
         for book_tag in ([], ["--mentor"]):
             finished = subprocess.run(
-                [sys.executable, "src/build.py", "--lessons", lessons, "--solutions", pinned,
+                [sys.executable, "src/build.py", "--lessons", lessons, "--solutions", args.solutions,
                  "--out", str(out), *book_tag],
                 cwd=pages,
             )
