@@ -1,0 +1,550 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Pedro routes: a cheat sheet" href="../reference/pedro-routes.html"><link rel="prev" title="L190: ask the wheels for a speed" href="l190.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>L195: measure the two numbers L190 trusted - BIOBUZZ lessons</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Drive it with the sticks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l020.html">L020: read the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l030.html">L030: turn the sticks into speeds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l040.html">L040: drive like a tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l050.html">L050: drive the robot on blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l060.html">L060: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l070.html">L070: read the buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l080.html">L080: drive like an arcade game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l090.html">L090: slide it sideways</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">See what it is doing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panels.html">Watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bench.html">Check your work without a robot</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hand the wheels to the follower</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">L110: hand the wheels to the path follower</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Know where it is</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l115.html">L115: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l117.html">L117: let AutoTune tune the robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">L120: work out where the robot is from the drive wheels</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Drive it without a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l125.html">L125: the first autonomous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l130.html">L130: two legs, forward then sideways</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Drive it like a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l140.html">L140: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l150.html">L150: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l160.html">L160: hold the heading the driver left</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l170.html">L170: press Y and the robot drives itself there</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l180.html">L180: one OpMode a driver could take to a match</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l190.html">L190: ask the wheels for a speed</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Measure the robot</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L195: measure the two numbers L190 trusted</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/pedro-routes.html">Pedro routes: a cheat sheet</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The answers</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../answers/index.html">Answers</a><input aria-label="Toggle navigation of Answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L020SticksOpMode.html">L020SticksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L030SpeedsOpMode.html">L030SpeedsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L040TankOpMode.html">L040TankOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tasks/l195.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="l195-measure-the-two-numbers-l190-trusted">
+<h1>L195: measure the two numbers L190 trusted<a class="headerlink" href="#l195-measure-the-two-numbers-l190-trusted" title="Link to this heading">¶</a></h1>
+<figure class="align-default" id="fig-l195-nothing-pushed">
+<img alt="../_images/fig-l195-nothing-pushed.png" src="../_images/fig-l195-nothing-pushed.png" />
+<figcaption>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 72, y 10.500 and heading 90, and <code class="docutils literal notranslate"><span class="pre">measure</span></code> with <code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> at 0 and <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> at NaN.</span><a class="headerlink" href="#fig-l195-nothing-pushed" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Two numbers in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code> that came off this robot instead of somebody else’s: how many
+encoder ticks make an inch, and how far a wheel sits from the middle. The robot measures them
+while you push it and spin it by hand.</p>
+<p><strong>Before you start.</strong></p>
+<ul class="simple">
+<li><p>L190 is done. It is the lesson that uses both numbers.</p></li>
+<li><p>The Pinpoint is mounted, as in L115, and its offsets set, as in L117, because this measurement
+believes it.</p></li>
+<li><p>AdvantageScope is installed on the same laptop.</p></li>
+<li><p>The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
+the robot on the spot.</p></li>
+</ul>
+<section id="the-steps">
+<h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
+<section id="l195s010">
+<span id="l195s010-copy-the-three-starters-into-mytry"></span><h3>L195S010: copy the three starters into mytry<a class="headerlink" href="#l195s010" title="Link to this heading">¶</a></h3>
+<p>This lesson has three files. Two are OpModes, one for each measurement. The third is the
+drivetrain, which tells them what each wheel’s encoder has counted.</p>
+<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code> once. Hold Shift and click
+<code class="docutils literal notranslate"><span class="pre">L195TicksDriveTrain</span></code>, so all three are picked. Copy them, click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once, and paste. In the
+<strong>Copy</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the files to Git, click <strong>Add</strong>.</p>
+<p>Copy all three at once. Copied one at a time, the OpModes still point at the drivetrain in
+<code class="docutils literal notranslate"><span class="pre">lessons</span></code>, and turn red.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code> and
+<code class="docutils literal notranslate"><span class="pre">L195TicksDriveTrain</span></code>, and none of them shows red.</p></li>
+</ul>
+</section>
+<section id="l195s020">
+<span id="l195s020-switch-both-opmodes-on"></span><h3>L195S020: switch both OpModes on<a class="headerlink" href="#l195s020" title="Link to this heading">¶</a></h3>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that
+names this step. Do the same in <code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>In both, under the step’s comment, the next line reads
+<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+</ul>
+</section>
+<section id="l195s030">
+<span id="l195s030-open-a-door-to-the-encoders"></span><h3>L195S030: open a door to the encoders<a class="headerlink" href="#l195s030" title="Link to this heading">¶</a></h3>
+<p>Open <code class="docutils literal notranslate"><span class="pre">L195TicksDriveTrain</span></code>. A drivetrain sends four powers out to the motors. <code class="docutils literal notranslate"><span class="pre">wheelTicks()</span></code> is
+the same shape pointing the other way: it brings four numbers back.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">wheelTicks()</span></code>, find the comment that names this step. Under it, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L195S030, see</span>
+<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l195.html#l195s030</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">ticks</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">getCurrentPosition</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="n">ticks</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">getCurrentPosition</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="n">ticks</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">getCurrentPosition</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="n">ticks</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">getCurrentPosition</span><span class="p">();</span>
+</span></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">getCurrentPosition()</span></code> is how many ticks a motor’s encoder has counted since the robot started.
+<code class="docutils literal notranslate"><span class="pre">FL</span></code>, <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code> name the slots, as in L190.</p>
+<p><strong>Simulator.</strong> In the Terminal, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L195MeasureTicksPerInchOpMode"</span>
+</pre></div>
+</div>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">measure</span></code>
+folder.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.</p></li>
+</ul>
+<p>Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
+is not a number. The measuring is for the robot.</p>
+</section>
+<section id="l195s040">
+<span id="l195s040-push-the-robot-and-measure-an-inch"></span><h3>L195S040: push the robot and measure an inch<a class="headerlink" href="#l195s040" title="Link to this heading">¶</a></h3>
+<p>An encoder counts small steps, called <strong>ticks</strong>, as its motor turns. Many ticks make one turn of
+the wheel.</p>
+<p>The robot keeps two accounts of the same trip. The Pinpoint says how far it went in inches, since
+its own wheels measure the floor. The drive encoders say how many ticks they counted. One divided
+by the other is the number.</p>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">ticks</span> <span class="pre">per</span> <span class="pre">inch</span></code> from the
+Driver Station.</p>
+<p><strong>Push.</strong> Push the robot slowly straight forward, at least 36 in, keeping it pointing the same way.
+Push slowly: a wheel that slips travels without turning, and the answer comes out short.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Driver Station shows <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> with a number after it.</p></li>
+</ul>
+<p>Do it three times. Three answers a tick or two apart are a measurement.</p>
+<p><strong>Change.</strong> Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, and put the number in <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, which is
+45.0 until you do. Send the code again and run it once more to check.</p>
+</section>
+<section id="l195s050">
+<span id="l195s050-spin-the-robot-and-measure-the-radius"></span><h3>L195S050: spin the robot and measure the radius<a class="headerlink" href="#l195s050" title="Link to this heading">¶</a></h3>
+<p>A wheel <code class="docutils literal notranslate"><span class="pre">r</span></code> inches from the middle travels <code class="docutils literal notranslate"><span class="pre">r</span></code> inches for every radian the robot turns. So the
+radius is the wheel’s inches divided by the radians. This OpMode turns ticks into inches with
+<code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, so L195S040 comes first.</p>
+<p><strong>Robot.</strong> Run <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code> from the Driver Station.</p>
+<p><strong>Spin.</strong> Spin the robot on the spot by hand, at least two full turns, keeping it in about the same
+place.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Driver Station shows a turn radius.</p></li>
+<li><p>Measure from the middle of the robot to the middle of one wheel, once across the robot and once
+along it. Add those two lengths. The sum is close to the turn radius the Driver Station shows.</p></li>
+</ul>
+<p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>, which is 8.0 until you do.</p>
+<p><strong>No gamepad.</strong> None of the runs above needs one. Pushing a robot by hand is not something the
+simulator does, so L195S040 and L195S050 are robot steps only.</p>
+<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l195_theTicksDoorReportsWhatEachEncoderCounted</span></code> fails, the test
+puts 10, 20, 30 and 40 on the four encoders, so the numbers in the message name the wheel they came
+from. Each of these was planted and run.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">front</span> <span class="pre">left,</span> <span class="pre">front</span> <span class="pre">right,</span> <span class="pre">back</span> <span class="pre">left,</span> <span class="pre">back</span> <span class="pre">right:</span> <span class="pre">arrays</span> <span class="pre">first</span> <span class="pre">differed</span> <span class="pre">at</span> <span class="pre">element</span> <span class="pre">[0];</span> <span class="pre">expected:&lt;10&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0&gt;</span></code>: L195S030 is not typed yet. Every measurement would say the robot
+never moved.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arrays</span> <span class="pre">first</span> <span class="pre">differed</span> <span class="pre">at</span> <span class="pre">element</span> <span class="pre">[1];</span> <span class="pre">expected:&lt;20&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;30&gt;</span></code>: the front right and back
+left went into each other’s slots. 30 is the back left’s count, in the front right’s place.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">getVelocity()</span></code> in place of <code class="docutils literal notranslate"><span class="pre">getCurrentPosition()</span></code> does not build. Android Studio underlines it
+red, and the test run stops with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">error</span><span class="p">:</span> <span class="n">incompatible</span> <span class="n">types</span><span class="p">:</span> <span class="n">possible</span> <span class="n">lossy</span> <span class="n">conversion</span> <span class="kn">from</span><span class="w"> </span><span class="nn">double</span> <span class="n">to</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">getVelocity()</span></code> is how fast a wheel turns, as a decimal. <code class="docutils literal notranslate"><span class="pre">getCurrentPosition()</span></code> is the one that
+counts.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code> left in, every test passes. The OpMode is missing from the Driver Station’s list.</p>
+<p><strong>If it didn’t</strong>, on the robot, and it says <code class="docutils literal notranslate"><span class="pre">Encoders</span> <span class="pre">counted</span> <span class="pre">0</span> <span class="pre">ticks</span></code> while the inches climb,
+L195S030 is not on the robot you sent to.</p>
+<p><strong>If it didn’t</strong>, and the turn radius is about half what the tape says, the robot was swung round
+the room rather than spun on the spot. The Pinpoint counts the turning, and driving in a circle adds
+turning the wheels never made.</p>
+<p><strong>The wheels have to roll.</strong> Both OpModes make the wheels coast in <code class="docutils literal notranslate"><span class="pre">start()</span></code> and put braking back in
+<code class="docutils literal notranslate"><span class="pre">stop()</span></code>. It is given code, and the other two <code class="docutils literal notranslate"><span class="pre">l195_</span></code> tests watch it. They pass on the starter. Each
+of these was planted in <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code> and run.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">allowConfiguredBrakeMode()</span></code> added at the end of <code class="docutils literal notranslate"><span class="pre">loop()</span></code>: the coast lasts one loop, and the test
+says <code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span> <span class="pre">still</span> <span class="pre">coasts</span> <span class="pre">five</span> <span class="pre">loops</span> <span class="pre">in</span></code>. The wheels would brake while the
+student was still pushing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allowConfiguredBrakeMode()</span></code> taken out of <code class="docutils literal notranslate"><span class="pre">stop()</span></code>: two messages,
+<code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span> <span class="pre">brakes</span> <span class="pre">again</span> <span class="pre">afterwards</span></code> and <code class="docutils literal notranslate"><span class="pre">braking</span> <span class="pre">is</span> <span class="pre">back</span> <span class="pre">although</span> <span class="pre">no</span> <span class="pre">loop</span> <span class="pre">ran</span></code>. The second is a run where STOP came before the first loop, which leaves the next OpMode
+coasting.</p></li>
+</ul>
+<p><strong>What you just did.</strong> Two constants became measurements. <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code> came with 45.0 and 8.0
+in it, and those are somebody else’s robot. Nothing in L190 could tell they were wrong, because code
+cannot check a number it has no other way of knowing. Have the robot measure the same thing two
+ways, with two instruments that do not talk to each other, and compare.</p>
+<p><strong>Where next.</strong> L195 is the last lesson. <a class="reference internal" href="l117.html"><span class="std std-doc">L117</span></a> tunes the numbers that need the robot
+driving itself rather than being pushed.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../reference/pedro-routes.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Pedro routes: a cheat sheet</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="l190.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">L190: ask the wheels for a speed</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, Catholic Central Spires Robotics
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">L195: measure the two numbers L190 trusted</a><ul>
+<li><a class="reference internal" href="#the-steps">The steps</a><ul>
+<li><a class="reference internal" href="#l195s010-copy-the-three-starters-into-mytry">L195S010: copy the three starters into mytry</a></li>
+<li><a class="reference internal" href="#l195s020-switch-both-opmodes-on">L195S020: switch both OpModes on</a></li>
+<li><a class="reference internal" href="#l195s030-open-a-door-to-the-encoders">L195S030: open a door to the encoders</a></li>
+<li><a class="reference internal" href="#l195s040-push-the-robot-and-measure-an-inch">L195S040: push the robot and measure an inch</a></li>
+<li><a class="reference internal" href="#l195s050-spin-the-robot-and-measure-the-radius">L195S050: spin the robot and measure the radius</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

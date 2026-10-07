@@ -1,0 +1,289 @@
+# L020: read the sticks
+
+:::{figure} ../_static/figures/fig-l020-live.png
+:name: fig-l020-live
+
+AdvantageScope's Line Graph connected to the simulator, with `NT:/stick/leftY` drawn at -1 and `NT:/stick/rightY` drawn at 0.5, and both names in Left Axis.
+:::
+
+Push the gamepad's sticks and watch the numbers they send, live on the laptop. Nothing on the robot
+moves yet.
+
+::::{only} mentor
+**Before you start.**
+
+- Android Studio has the project open. Ask a mentor to get it there.
+- AdvantageScope is installed on the same laptop.
+- A gamepad is plugged into the laptop.
+- No robot is needed.
+
+The student writes in one folder, `mytry`, inside `TeamCode/java/org.firstinspires.ftc.teamcode`.
+It holds only a file called `.gitignore` until step L020S010 copies a starter into it. The
+`lessons` folder beside it holds the starting files.
+::::
+
+## The steps
+
+### L020S010: copy the starter into mytry
+
+The `lessons` folder holds the starters: the file each lesson begins from. You copy one into your
+own folder, `mytry`, and change the copy.
+
+**Copy.**
+
+{.steps}
+- Open `TeamCode/java/org.firstinspires.ftc.teamcode/lessons`.
+
+- Click `L020SticksOpMode` once, and copy it: ⌘C on a Mac, Ctrl+C on Windows.
+
+- Click the `mytry` folder once, and paste.
+
+- A box called **Copy Class** opens with **Destination package** already ending in `mytry`. Click
+  **OK**.
+
+- If Android Studio asks whether to add the file to Git, click **Add**.
+
+:::{figure} ../_static/figures/fig-l020-copy-class.png
+:name: fig-l020-copy-class
+
+The Copy Class box with New name `L020SticksOpMode` and Destination package `org.firstinspires.ftc.teamcode.mytry`.
+:::
+
+**Check.**
+
+- `mytry` holds `L020SticksOpMode` beside `.gitignore`, the file is open, and its first line reads
+  `package org.firstinspires.ftc.teamcode.mytry;`.
+
+:::{figure} ../_static/figures/fig-l020-copied.png
+:name: fig-l020-copied
+
+The Project window with `lessons` and `mytry` both open, `L020SticksOpMode` in each, and the copy open in the editor with its first line ending in `mytry;`.
+:::
+
+::::{only} mentor
+**If it didn't**, and the copy landed in `lessons` beside the starter, `lessons` was the folder
+clicked before pasting, so Destination package ended in `lessons`. Delete the copy, click `mytry`,
+and paste again.
+::::
+
+### L020S020: switch your copy on
+
+**Change.** Find the line `@Disabled`, just under the comment that names this step. Click on it and
+delete the whole line: ⌘⌫ on a Mac, Ctrl+Y on Windows.
+
+`@Disabled` hides an OpMode from the robot's list. The starter in `lessons` keeps it, so the robot
+only ever lists your copy.
+
+**Check.**
+
+- Under the step's comment, the next lines read
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.` and
+  `public class L020SticksOpMode`.
+
+### L020S030: read the left stick
+
+The file is an **OpMode**: one program the robot can run. Pressing INIT runs its `init()` once.
+Pressing PLAY then runs its `loop()` over and over, many times a second, until STOP. The simulator
+presses all three for you.
+
+**Change.**
+
+{.steps}
+- Scroll down to `loop()` and find the comment that names this step.
+
+- Click at the end of its last line and press Enter. Type this much:
+
+  ```java
+  double leftStickY = gamepad1.
+  ```
+
+- A list opens with everything a gamepad has. Type `left_st` and the list shrinks to the left
+  stick.
+
+- Move the highlight to `left_stick_y` with the arrow keys, then press Tab.
+
+- Type `;` to end the line.
+
+:::{figure} ../_static/figures/fig-l020-complete.png
+:name: fig-l020-complete
+
+The list under `gamepad1.` after typing `left_st`, with `left_stick_y` highlighted and marked `float`.
+:::
+
+```{code-block} java
+:emphasize-lines: 4
+
+        // When on L020S030, see
+        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s030
+        // for what to do here.
+        double leftStickY = gamepad1.left_stick_y;
+```
+
+`double` is Java's word for a number with a decimal point, like 0.5 or -1. `leftStickY` is a name
+you chose for one. The list said `float`, which is a smaller kind of decimal number. A `double`
+holds any `float`.
+
+Now hold the pointer still over `left_stick_y`. A box opens and says what it is: *left analog stick
+vertical axis*. You can do this with any name you are not sure about.
+
+:::{figure} ../_static/figures/fig-l020-hover.png
+:name: fig-l020-hover
+
+The box over `left_stick_y` reading `public volatile float left_stick_y` and *left analog stick vertical axis*.
+:::
+
+:::{figure} ../_static/figures/fig-gamepad-sticks.png
+:name: fig-gamepad-sticks
+
+Gamepad 1 from above, with the left stick, the right stick and the A button labelled, and an arrow showing which way each y axis counts up.
+:::
+
+**Check.**
+
+- The line has no red underline.
+
+::::{only} mentor
+**If it didn't**, and the line reads `left_stick_x`, the highlight was on the wrong name when Tab
+was pressed. Change the letter by hand.
+::::
+
+### L020S040: write the left stick down
+
+**Change.** Under the comment that names this step, type `Track`. The list shows more than one
+`Tracker`. Pick the one from `org.firstinspires.ftc.teamcode.base` and press Tab. Then finish the
+line:
+
+```{code-block} java
+:emphasize-lines: 4
+
+        // When on L020S040, see
+        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s040
+        // for what to do here.
+        Tracker.publish("stick/leftY", leftStickY);
+```
+
+:::{figure} ../_static/figures/fig-l020-tracker.png
+:name: fig-l020-tracker
+
+The list under `Track`, with `Tracker` from `org.firstinspires.ftc.teamcode.base` highlighted at the top and `Tracker` from `org.opencv.video` under it.
+:::
+
+`Tracker.publish` takes a name and a value. It sends both to AdvantageScope while the code runs, and
+writes them in the flight log. Android Studio added an `import` line for `Tracker` near the top of
+the file.
+
+**Check.**
+
+- `Tracker` is not red, and there is an `import org.firstinspires.ftc.teamcode.base.Tracker;` line
+  near the top.
+
+The simulator is a robot that exists only in the laptop. It runs your OpMode just as the real robot
+would.
+
+**Simulator.** Click the **Terminal** button near the bottom of the left edge. Type this and press
+Enter:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L020SticksOpMode --pad"
+```
+
+**Check.**
+
+- It prints `Flight log:` and a folder, then `mytry.L020SticksOpMode running.`, and stays running.
+- The folder is the project's top folder, the one that holds `README.md`.
+
+AdvantageScope draws the numbers your code publishes, as they change.
+
+**AdvantageScope.**
+
+{.steps}
+- Open **File > Connect to Simulator > NetworkTables 4**, and click **Line Graph**.
+
+- Type `stick` in the search box at the top left, and click `NT:/stick/leftY`.
+
+- Drag `leftY` from the `stick` folder down into **Left Axis**.
+
+Before you push the stick, guess. When you push the left stick all the way away from you, will the
+line go to 1 or to -1? Now push it and see!
+
+**Check.**
+
+- The line moves when you push.
+- All the way forward it reads -1, and all the way back it reads 1.
+
+::::{only} mentor
+**No gamepad.** The simulator takes stick positions as words instead:
+`--args="mytry.L020SticksOpMode --left_stick_y=-1 --right_stick_y=0.5"` holds the left stick full
+forward and the right stick half back. The pictures on this page were taken that way.
+
+The list in AdvantageScope has two `stick` folders. The one inside `sim` is the gamepad as the
+simulator read it; the one on its own is what the student's code published. In L020 they read the
+same, because the code passes the stick on unchanged.
+
+:::{figure} ../_static/figures/fig-advantagescope-sim.png
+:name: fig-advantagescope-sim
+
+AdvantageScope's 2D Field with the robot `NT:sim/Pose` at its start. The list shows the four `sim/wheels` at 0, `stick/leftY` at -1 and `stick/rightY` at 0.5.
+:::
+
+The simulator also sends where the robot is and the four wheel powers, as above. They stay still in
+L020, since nothing drives the wheels.
+::::
+
+### L020S050: the right stick too
+
+**Change.** Click in the Terminal and press Ctrl+C to stop the simulator. That is Ctrl+C on a Mac
+too, not ⌘C. Under the comment that names this step, read and write down the right stick the same
+way:
+
+```{code-block} java
+:emphasize-lines: 4-5
+
+        // When on L020S050, see
+        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s050
+        // for what to do here.
+        double rightStickY = gamepad1.right_stick_y;
+        Tracker.publish("stick/rightY", rightStickY);
+```
+
+**Simulator.** Run the same command again.
+
+**AdvantageScope.** Drag `rightY` from the `stick` folder into **Left Axis** beside `leftY`.
+
+**Check.**
+
+- Each line follows its own stick.
+- Push each stick all the way both ways. The numbers never go past 1 or below -1, and forward is -1
+  on both.
+
+**Log.**
+
+{.steps}
+- Press Ctrl+C in the Terminal to stop the simulator.
+
+- In AdvantageScope, open **File > Open Log(s)…**. Go to the project's top folder. Open the newest
+  file whose name starts `L020SticksOpMode`.
+
+- Drag `leftY` and `rightY` from `stick` into **Left Axis**.
+
+:::{figure} ../_static/figures/fig-l020-log.png
+:name: fig-l020-log
+
+AdvantageScope's Line Graph of the flight log `L020SticksOpMode-….wpilog`, with `/stick/leftY` at -1 and `/stick/rightY` at 0.5 for the whole run.
+:::
+
+**Check.**
+
+- The lines show what the sticks did during the run.
+- It is the same `stick/leftY` and `stick/rightY` you watched live, kept in a file you can open
+  again later.
+
+::::{only} mentor
+**What you just did.** `loop` runs over and over, from PLAY until STOP, and each pass is one look at
+the gamepad. The code read both sticks into `double`s and wrote each one down under a name.
+AdvantageScope showed the values live, and the flight log kept them to look at after the run. A
+stick reads from -1 to 1, and forward is -1, which is backwards from the way anybody thinks about
+driving. L030 turns it round.
+
+**Where next.** [L030](l030.md) puts a minus sign in front, so forward is positive.
+::::
