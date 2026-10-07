@@ -161,7 +161,7 @@ change at a time, so the context carries the changes already made. Changes made 
 are shown and labelled, because a page that says where code goes has to account for them.
 
 It comes from applying `solutions/` in order, the same as the answer pages, and checks that the
-changes applied one at a time rebuild what each patch left.
+changes applied one at a time rebuild what each patch left. `ninja book` builds it too.
 
 It is a view for reading, not a gate and not part of the guide: `ninja book` does not run it, and
 its pages are not committed. The answer pages under `source/answers/` say what each lesson's patch
