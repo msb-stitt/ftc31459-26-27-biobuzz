@@ -20,7 +20,11 @@ the 2026-27 BIOBUZZ season.
 
 - Take any new screenshots into `gh-pages`' `src/figures/` first. `ninja publish-check` in `book/`
   builds what a release publishes, and fails on a figure still missing.
-- Tag the solutions commit `vX.Y.Z-solutions` and push it; then tag `main` `vX.Y.Z` and push that.
+- Tag the solutions commit that `book/keep.toml` pins `vX.Y.Z-solutions` and push it; then tag
+  `main` `vX.Y.Z` and push that. The release stops if the solutions tag is another commit, since
+  the answer pages were built from the pinned one.
+- A tag such as `vX.Y.Z-rc.1` is a pre-release: it gets its own folder and a GitHub pre-release,
+  and the links above keep the newest release.
 - [`release.yml`](.github/workflows/release.yml) publishes the books into `vX.Y.Z/` and at the
   links above, and makes a GitHub Release with both PDFs.
 - Look at the published books after: a page of each guide and of each PDF.
