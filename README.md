@@ -13,6 +13,17 @@ the 2026-27 BIOBUZZ season.
 - [The mentor guide as a PDF](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/ftc31459-mentor-book.pdf).
 - [What the student writes](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/review/) — each
   lesson's copies and every change its patches make.
+- [Every release](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/), and `dev`, built from
+  `main` on every push. The links above are the newest release.
+
+### Making a release
+
+- Take any new screenshots into `gh-pages`' `src/figures/` first. `ninja publish-check` in `book/`
+  builds what a release publishes, and fails on a figure still missing.
+- Tag the solutions commit `vX.Y.Z-solutions` and push it; then tag `main` `vX.Y.Z` and push that.
+- [`release.yml`](.github/workflows/release.yml) publishes the books into `vX.Y.Z/` and at the
+  links above, and makes a GitHub Release with both PDFs.
+- Look at the published books after: a page of each guide and of each PDF.
 
 ### Cheat sheet: the commands
 
@@ -33,6 +44,7 @@ runs it on its own.
 | Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
 | Hot reload TeamCode only | `./gradlew deploySloth` — see [PANELS.md](./PANELS.md); it does not configure in this checkout |
 | Build the guide | `ninja book` in `book/`, with `book/.venv/bin` on `PATH` |
+| Build what a release publishes | `ninja publish-check` in `book/`, the same way |
 
 The OpMode name is whatever follows `org.firstinspires.ftc.teamcode`, so a lesson
 is `lessons.L040TankOpMode` and not `L040TankOpMode`.
