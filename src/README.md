@@ -19,5 +19,9 @@ python src/draw.py
 python src/build.py
 ```
 
+`build.py --out DIR` writes into another folder in place of this branch's root. It fails if a
+pencilled box has no picture here, or a built page shows an image that is not there. The lessons
+branch's `ninja publish-check` runs it into a scratch folder.
+
 Both need a Python with the book's `requirements.txt`, `rinohtype` and `matplotlib`. The PDF step
 renders the route diagrams with macOS's `qlmanage`, so it runs on a Mac only.
