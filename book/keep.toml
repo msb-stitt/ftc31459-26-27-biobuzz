@@ -26,6 +26,11 @@ words = 240
 # Measured off the first draft and rounded up, so the check has something to
 # hold. Mike sets the real one when he reads the page.
 [[page]]
+path = "source/tasks/l010.md"
+# Measured off the first draft, 904 words, and rounded up.
+words = 950
+
+[[page]]
 path = "source/tasks/l020.md"
 # Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
 # short student explanations.

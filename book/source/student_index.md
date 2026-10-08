@@ -7,6 +7,13 @@
 
 ```{toctree}
 :maxdepth: 1
+:caption: Get started
+
+tasks/l010
+```
+
+```{toctree}
+:maxdepth: 1
 :caption: Drive it with the sticks
 
 tasks/l020
