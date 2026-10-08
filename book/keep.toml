@@ -37,8 +37,9 @@ words = 700
 
 [[page]]
 path = "source/tasks/l012.md"
-# Measured off the first draft, 624 words, and rounded up.
-words = 650
+# Measured off the first draft, 624 words, and rounded up. Raised from 650 on 2026-10-08 for the
+# Intel files and About This Mac, at Mike's word to add them.
+words = 700
 
 [[page]]
 path = "source/tasks/l013.md"
