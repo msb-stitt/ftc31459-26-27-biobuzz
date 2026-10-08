@@ -42,7 +42,7 @@ What the picture must show, in one sentence.
 | `fig-l011-gradle-jvm` | Settings at Build, Execution, Deployment › Build Tools › Gradle, with *Gradle JVM criteria* and *Version: 17* | Screenshot, taken 2026-10-08 on Windows | pencilled |
 | `fig-l011-build-menu` | The Build menu open on Windows, with *Assemble Project* among its items | Screenshot, taken 2026-10-08 on Windows | pencilled |
 | `fig-l012-built` | Android Studio on macOS with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed* | Screenshot, taken 2026-10-08 on macOS | pencilled |
-| `fig-l012-archive` | The archive page in Safari with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-archive` | The archive page with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers | Screenshot, taken 2026-10-08 on macOS | pencilled |
 | `fig-l012-applications` | The opened disk image with Android Studio beside the Applications folder | Screenshot, taken 2026-10-08 on macOS | pencilled |
 | `fig-l012-wizard-standard` | The setup wizard's *Install Type* page on macOS with *Standard* picked | Screenshot, taken 2026-10-08 on macOS | pencilled |
 | `fig-l012-advantagescope` | AdvantageScope on macOS, started for the first time, on its empty Line Graph, with *No data available* in the sidebar | Screenshot, taken 2026-10-08 on macOS | pencilled |
