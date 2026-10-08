@@ -1,0 +1,7 @@
+# L010: getting started
+
+Put the robot's code on your laptop and build it. Use the lesson for your computer:
+
+- Windows: [L011](l011.md)
+- a Mac: [L012](l012.md)
+- Ubuntu: [L013](l013.md)

@@ -12,7 +12,7 @@ moves yet.
 ::::{only} mentor
 **Before you start.**
 
-- Android Studio has the project open. Ask a mentor to get it there.
+- [L010](l010.md) is done: Android Studio has the project open.
 - AdvantageScope is installed on the same laptop.
 - A gamepad is plugged into the laptop.
 - No robot is needed.
