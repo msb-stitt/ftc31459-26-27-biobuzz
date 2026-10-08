@@ -31,7 +31,7 @@ What the picture must show, in one sentence.
 | `fig-speed-loop` | The loop drawn once round: the stick asking for 40 in/s, the feedforward guess at the power, the encoder's measured speed coming back, and the error being added in | A drawing | pencilled |
 | `fig-l010-built` | Android Studio with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed* | Screenshot, taken 2026-10-08 on macOS | pencilled |
 | `fig-l010-archive` | The archive page with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers and zip files | Screenshot, taken 2026-10-08 on Windows | pencilled |
-| `fig-l010-windows-setup` | Android Studio Setup's *Choose Components* page with *Android Studio* and *Android Virtual Device* ticked | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l010-windows-setup` | Android Studio Setup's *Choose Components* page with *Android Studio* and *Android Virtual Device* listed | Screenshot, taken 2026-10-08 on Windows | pencilled |
 | `fig-l010-macos-applications` | The opened disk image with Android Studio beside the Applications folder | Screenshot, taken 2026-10-08 on macOS | pencilled |
 | `fig-l010-ubuntu-apt` | Terminal on Ubuntu with the `sudo apt install` line, the list of packages it installs, and *Continue? [Y/n]* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
 | `fig-l010-wizard-standard` | The setup wizard's *Install Type* page with *Standard* picked | Screenshot, taken 2026-10-08 on macOS | pencilled |
