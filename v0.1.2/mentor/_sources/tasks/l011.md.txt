@@ -1,0 +1,241 @@
+# L011: getting started on Windows
+
+:::{figure} ../_static/figures/fig-l011-built.png
+:name: fig-l011-built
+
+Android Studio on Windows with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed*.
+:::
+
+Put the robot's code on a Windows laptop and build it. After this, every lesson starts in Android
+Studio with the project open.
+
+::::{only} mentor
+**Before you start.**
+
+- A Windows laptop, signed in to an account that may install programs.
+- The internet.
+- No robot and no gamepad are needed.
+
+Nothing else has to be installed first. Android Studio fetches Java 17 for the project by itself,
+and git is installed in L011S040 when Android Studio asks for it.
+::::
+
+## The steps
+
+### L011S010: install Android Studio
+
+The robot's code is written in Android Studio. The team uses one version of it, **Quail 4**, so
+everyone sees the same screens. It is not the newest, so it comes from the page of older versions.
+
+**Download.**
+
+{.steps}
+- Open <https://developer.android.com/studio/archive> and click **I agree** under the terms.
+
+- Click **Android Studio Quail 4 | 2026.1.4 Patch 1** to open it.
+
+- Click `android-studio-quail4-patch1-windows.exe`. It is about 1.5 GB.
+
+:::{figure} ../_static/figures/fig-l011-archive.png
+:name: fig-l011-archive
+
+The archive page in Edge with *Android Studio Quail 4 | 2026.1.4 Patch 1* open, listing its installers and zip files.
+:::
+
+**Install.**
+
+{.steps}
+- Open the downloaded file. Click **Yes** when Windows asks to let it change your device.
+
+- In Android Studio Setup, click **Next** on each page, then **Install**.
+
+- When it is done, click **Next**, then **Finish**.
+
+:::{figure} ../_static/figures/fig-l011-setup.png
+:name: fig-l011-setup
+
+Android Studio Setup's *Choose Components* page with *Android Studio* and *Android Virtual Device* listed.
+:::
+
+**Check.**
+
+- Android Studio starts and asks to *Help improve Android Studio*. Click **Don't send**.
+
+### L011S020: let Android Studio fetch what it needs
+
+The first time it starts, Android Studio's setup wizard downloads the Android tools the code is
+built with.
+
+**Setup.**
+
+{.steps}
+- Click **Next** on *Welcome*.
+
+- Pick **Standard** and click **Next**.
+
+- Click **Next** on *Verify Settings*.
+
+- Click each licence on the left, pick **Accept**, and click **Next**.
+
+- Wait while it downloads, then click **Finish**.
+
+:::{figure} ../_static/figures/fig-l011-wizard-standard.png
+:name: fig-l011-wizard-standard
+
+The setup wizard's *Install Type* page on Windows with *Standard* picked.
+:::
+
+**Check.**
+
+- The last page of the wizard reads *Android SDK is up to date*. A red line may be under it:
+  *SDK emulator directory is missing*. That is fine.
+
+- *Welcome to Android Studio* opens, with **New Project**, **Open** and **Clone Repository**.
+
+If a note says *Rabbit 1 available*, leave it. The team stays on Quail 4.
+
+### L011S030: install AdvantageScope
+
+AdvantageScope draws what the robot is doing: where it is on the field, and graphs of its numbers.
+
+**Download.** Open <https://github.com/Mechanical-Advantage/AdvantageScope/releases/tag/v26.0.2>.
+Under **Assets**, click `advantagescope-win-x64-v26.0.2.exe`.
+
+**Install.**
+
+{.steps}
+- Edge may say the file *isn't commonly downloaded*. Click the three dots by it, then **Keep**,
+  then **Keep anyway**.
+
+- Open the file from your Downloads folder.
+
+- If you see *Windows protected your PC*, click **More info**, then **Run anyway**. It sets itself
+  up and starts.
+
+:::{figure} ../_static/figures/fig-l011-smartscreen.png
+:name: fig-l011-smartscreen
+
+*Windows protected your PC* after *More info*, with the app's name and the **Run anyway** button.
+:::
+
+**Check.**
+
+- AdvantageScope opens on its **Line Graph** tab, with *No data available* on the left.
+
+:::{figure} ../_static/figures/fig-l011-advantagescope.png
+:name: fig-l011-advantagescope
+
+AdvantageScope on Windows, started for the first time, on its empty Line Graph, with *No data available* in the sidebar.
+:::
+
+### L011S040: get the project
+
+The robot's code lives on GitHub. Android Studio copies it to the laptop with a tool called
+**git**.
+
+**Clone.**
+
+{.steps}
+- On *Welcome to Android Studio*, click **Clone Repository**.
+
+- Into **URL**, type `https://github.com/msb-stitt/ftc31459-26-27-biobuzz`. Leave **Directory** as
+  it is.
+
+- The first time, it says *Git is not installed*. Click **Download and Install** beside it. Click
+  **Yes** when Windows asks.
+
+- When it says *Git has been installed*, click **Clone**.
+
+:::{figure} ../_static/figures/fig-l011-git.png
+:name: fig-l011-git
+
+Clone Repository on Windows with the URL typed, *Git is not installed* in red and **Download and Install** on the right.
+:::
+
+**Trust.** Android Studio asks if you trust the project. A box about Microsoft Defender is ticked.
+Leave it ticked, and click **Trust Project**.
+
+:::{figure} ../_static/figures/fig-l011-trust.png
+:name: fig-l011-trust
+
+*Trust and Open Project 'ftc31459-26-27-biobuzz'?* with the Microsoft Defender box ticked and **Trust Project** highlighted.
+:::
+
+**Check.**
+
+- The project opens, and the Project window lists `FtcRobotController` and `TeamCode`.
+
+### L011S050: answer what Android Studio offers
+
+While the project loads, Android Studio reads it with **Gradle**, the tool that builds the code.
+This is called a *sync*. The first sync downloads Java 17 and more, and takes a few minutes.
+
+**Answer.** Notes pop up in the bottom right while it works. Answer each one like this:
+
+- **Agent Mode now available**: click **Do not show again**. The lessons do not use an AI helper.
+
+- **Project update recommended**, *Android Gradle plugin version 8.13.2 has an upgrade available*:
+  click **More**, then **Don't ask for this project**. The project needs version 8.13.2, so do not
+  upgrade it.
+
+- **Microsoft Defender may affect IDE**: click **Exclude folders**.
+
+- If Windows asks whether `adb` can use the network, click **Allow**.
+
+:::{figure} ../_static/figures/fig-l011-offers.png
+:name: fig-l011-offers
+
+Android Studio on Windows during the sync, with *Agent Mode now available* in the bottom right.
+:::
+
+:::{figure} ../_static/figures/fig-l011-agp-more.png
+:name: fig-l011-agp-more
+
+*Project update recommended* with its **More** menu open: *Remind me tomorrow*, *Don't ask for this project* and *Don't show again*.
+:::
+
+**Check.**
+
+- The Build window's **Sync** tab has a green tick beside the project.
+
+- Open **File → Settings**. Type `Gradle` in its search box and click **Gradle** under **Build
+  Tools**. Under *Gradle JVM criteria*, **Version** reads `17`.
+
+:::{figure} ../_static/figures/fig-l011-gradle-jvm.png
+:name: fig-l011-gradle-jvm
+
+Settings at Build, Execution, Deployment › Build Tools › Gradle, with *Gradle JVM criteria* and *Version: 17*.
+:::
+
+::::{only} mentor
+**If it didn't**, on a Windows laptop with an ARM chip, and the sync fails with
+`AccessDeniedException` while moving the downloaded JDK into `.gradle\jdks`, stop the Windows
+service `XtaCache` as an administrator and sync again with **File → Sync Project with Gradle
+Files**.
+::::
+
+### L011S060: build the code
+
+**Build.** Click **Build → Assemble Project**. The first build takes a few minutes.
+
+:::{figure} ../_static/figures/fig-l011-build-menu.png
+:name: fig-l011-build-menu
+
+The Build menu open on Windows, with *Assemble Project* among its items.
+:::
+
+**Check.**
+
+- The Build window's **Build Output** tab ends with *BUILD SUCCESSFUL* and *63 actionable tasks:
+  63 executed*.
+
+::::{only} mentor
+**What you just did.** Android Studio is where the code is written, and Gradle turns the code into
+an app for the robot. Clone copied the team's repository from GitHub onto the laptop. The sync read
+the project's Gradle files and downloaded what they ask for: Gradle 8.14.3, the Android Gradle
+plugin 8.13.2 and Java 17 among them. Assemble Project built `FtcRobotController` and `TeamCode`
+into `TeamCode-debug.apk`, the app that is sent to the robot.
+
+**Where next.** [L020](l020.md) copies the first starter into `mytry` and reads the gamepad's
+sticks.
+::::

@@ -1,0 +1,167 @@
+# L190
+
+2 file(s) copied, then 8 change(s) in 2 file(s), 20 line(s) of code to write.
+
+## Copies
+
+- `lessons/L190SpeedDriveTrain.java` to `mytry/L190SpeedDriveTrain.java`
+- `lessons/L190VelocityDriveOpMode.java` to `mytry/L190VelocityDriveOpMode.java`
+
+## L190SpeedDriveTrain
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -2,6 +2,7 @@
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.RobotHardware;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L190: the drivetrain that asks the wheels for a speed.
+```
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -39,5 +39,14 @@
+         // When on L190S060, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s060
+         // for what to do here.
++        double[] measured = measuredSpeeds.all();
++        double[] powers = new double[4];
++        for (int i = 0; i < 4; i++) {
++            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
++            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
++            powers[i] = clampToPower(feedforward + feedback);
++        }
++        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
++        publishWheelSpeeds(wanted, measured, powers);
+     }
+ }
+```
+
+## L190VelocityDriveOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -5,6 +5,8 @@
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.WheelTargets;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -39,6 +39,7 @@
+     // When on L190S030, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030
+     // for what to do here.
++    L190SpeedDriveTrain drivetrain;
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -49,6 +49,7 @@
+         // When on L190S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s040
+         // for what to do here.
++        drivetrain = new L190SpeedDriveTrain(hardware);
+ 
+         initAfter();
+     }
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -51,7 +51,7 @@
+         // for what to do here.
+         drivetrain = new L190SpeedDriveTrain(hardware);
+ 
+-        initAfter();
++        initAfter(drivetrain);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```
+
+### A change
+
+Delete 3 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -77,9 +77,9 @@
+         // When on L190S050, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
+         // for what to do here.
+-        double forwardInPerS = 0;
+-        double strafeInPerS = 0;
+-        double turnRadPerS = 0;
++        double forwardInPerS = deadband(-leftStickY, band) * MAX_IPS;
++        double strafeInPerS = deadband(-leftStickX, band) * MAX_IPS;
++        double turnRadPerS = deadband(-rightStickX, band) * MAX_TURN_RADPS;
+         Tracker.publish("command/forward_ips", forwardInPerS);
+         Tracker.publish("command/left_ips", strafeInPerS);
+         Tracker.publish("command/turn_radps", turnRadPerS);
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -83,6 +83,8 @@
+         Tracker.publish("command/forward_ips", forwardInPerS);
+         Tracker.publish("command/left_ips", strafeInPerS);
+         Tracker.publish("command/turn_radps", turnRadPerS);
++        double[] target = WheelTargets.forMecanum(forwardInPerS, strafeInPerS, turnRadPerS, Constants.turnRadiusInches);
++        drivetrain.setCommandedWheelSpeeds(target[0], target[1], target[2], target[3]);
+ 
+         loopAfter();
+     }
+```
