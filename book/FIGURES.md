@@ -29,6 +29,39 @@ What the picture must show, in one sentence.
 | `fig-odometry-step` | One loop of dead reckoning: the four wheel travels since the last loop, the forward and left arrows those add up to, the same pair turned to point along the robot's heading, and the old estimate with that pair added on the end | A drawing | pencilled |
 | `fig-field-relative` | The field from above as AdvantageScope draws it, with the driver at the left edge, the robot facing up the field, the stick's direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward and sideways it turns into | A drawing | pencilled |
 | `fig-speed-loop` | The loop drawn once round: the stick asking for 40 in/s, the feedforward guess at the power, the encoder's measured speed coming back, and the error being added in | A drawing | pencilled |
+| `fig-l011-built` | Android Studio on Windows with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed* | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-archive` | The archive page in Edge with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers and zip files | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-setup` | Android Studio Setup's *Choose Components* page with *Android Studio* and *Android Virtual Device* listed | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-wizard-standard` | The setup wizard's *Install Type* page on Windows with *Standard* picked | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-smartscreen` | *Windows protected your PC* after *More info*, with the app's name and the **Run anyway** button | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-advantagescope` | AdvantageScope on Windows, started for the first time, on its empty Line Graph, with *No data available* in the sidebar | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-git` | Clone Repository on Windows with the URL typed, *Git is not installed* in red and **Download and Install** on the right | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-trust` | *Trust and Open Project 'ftc31459-26-27-biobuzz'?* with the Microsoft Defender box ticked and **Trust Project** highlighted | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-offers` | Android Studio on Windows during the sync, with *Agent Mode now available* in the bottom right | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-agp-more` | *Project update recommended* with its **More** menu open: *Remind me tomorrow*, *Don't ask for this project* and *Don't show again* | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-gradle-jvm` | Settings at Build, Execution, Deployment › Build Tools › Gradle, with *Gradle JVM criteria* and *Version: 17* | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l011-build-menu` | The Build menu open on Windows, with *Assemble Project* among its items | Screenshot, taken 2026-10-08 on Windows | pencilled |
+| `fig-l012-built` | Android Studio on macOS with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed* | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-archive` | The archive page with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-applications` | The opened disk image with Android Studio beside the Applications folder | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-wizard-standard` | The setup wizard's *Install Type* page on macOS with *Standard* picked | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-advantagescope` | AdvantageScope on macOS, started for the first time, on its empty Line Graph, with *No data available* in the sidebar | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-tools` | macOS asking *The "git" command requires the command line developer tools*, with **Install** | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-trust` | *Trust and Open Project 'ftc31459-26-27-biobuzz'?* on macOS with **Trust Project** highlighted | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-offers` | The project open after its sync, with *Project update recommended* and *Agent Mode now available* in the bottom right | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-agp-more` | *Project update recommended* with its **More** menu open: *Remind me tomorrow*, *Don't ask for this project* and *Don't show again* | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-gradle-jvm` | Settings at Build, Execution, Deployment › Build Tools › Gradle, with *Gradle JVM criteria* and *Version: 17* | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l012-build-menu` | The Build menu open on macOS, with *Assemble Project* among its items | Screenshot, taken 2026-10-08 on macOS | pencilled |
+| `fig-l013-built` | Android Studio on Ubuntu with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-archive` | The archive page in Firefox with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers and zip files | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-apt` | Terminal on Ubuntu with the `sudo apt install` line, the list of packages it installs, and *Continue? [Y/n]* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-wizard-standard` | The setup wizard's *Install Type* page on Ubuntu with *Standard* picked | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-advantagescope` | AdvantageScope on Ubuntu, on its empty Line Graph, with *No data available* in the sidebar | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-git` | Clone Repository on Ubuntu with the URL typed and *Git is not installed* in red | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-trust` | *Trust and Open Project 'ftc31459-26-27-biobuzz'?* on Ubuntu with **Trust Project** highlighted | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-agp-more` | *Project update recommended* on Ubuntu with its **More** menu open: *Remind me tomorrow*, *Don't ask for this project* and *Don't show again* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-gradle-jvm` | Settings at Build, Execution, Deployment › Build Tools › Gradle, with *Gradle JVM criteria* and *Version: 17* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l013-build-menu` | The Build menu open on Ubuntu, with *Assemble Project* among its items | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
 | `fig-l020-copy-class` | The Copy Class box with New name `L020SticksOpMode` and Destination package `org.firstinspires.ftc.teamcode.mytry` | Screenshot of the box, taken 2026-10-06 | pencilled |
 | `fig-l020-copied` | The Project window with `lessons` and `mytry` both open, `L020SticksOpMode` in each, and the copy open in the editor with its first line ending in `mytry;` | Screenshot, taken 2026-10-06 | pencilled |
 | `fig-l020-complete` | The list under `gamepad1.` after typing `left_st`, with `left_stick_y` highlighted and marked `float` | Screenshot, taken 2026-10-05 and cropped from the full screen | pencilled |

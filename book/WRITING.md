@@ -10,8 +10,8 @@ picture has to be, and what a simplification may do.
 ## A lesson page is one page for both books
 
 A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tasks/l020.md`, titled
-`# L020: read the sticks`. The pages named `l2a` to `l17` keep the five parts below until the lesson
-that takes their content replaces them.
+`# L020: read the sticks`. L010 points to one lesson per computer, L011 to L013. The pages named
+`l2a` to `l17` keep the five parts below until the lesson that takes their content replaces them.
 
 **What the student book shows**, the shape backed by the research in `ftc-claude`'s
 `.docs/2026-10-03-two-books.md`:
