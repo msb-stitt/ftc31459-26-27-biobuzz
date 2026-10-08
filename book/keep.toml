@@ -27,8 +27,23 @@ words = 240
 # hold. Mike sets the real one when he reads the page.
 [[page]]
 path = "source/tasks/l010.md"
-# Measured off the first draft, 904 words, and rounded up.
-words = 950
+# Measured off the first draft, 42 words, and rounded up.
+words = 50
+
+[[page]]
+path = "source/tasks/l011.md"
+# Measured off the first draft, 655 words, and rounded up.
+words = 700
+
+[[page]]
+path = "source/tasks/l012.md"
+# Measured off the first draft, 624 words, and rounded up.
+words = 650
+
+[[page]]
+path = "source/tasks/l013.md"
+# Measured off the first draft, 604 words, and rounded up.
+words = 650
 
 [[page]]
 path = "source/tasks/l020.md"

@@ -10,6 +10,9 @@
 :caption: Get started
 
 tasks/l010
+tasks/l011
+tasks/l012
+tasks/l013
 ```
 
 ```{toctree}
