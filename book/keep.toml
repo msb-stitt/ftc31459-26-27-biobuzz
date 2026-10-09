@@ -51,8 +51,9 @@ words = 650
 path = "source/tasks/l020.md"
 # Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
 # short student explanations. Raised to 1050 on 2026-10-09 for the What's happening the outline
-# gives L020, in the sticky-note picture.
-words = 1050
+# gives L020, in the sticky-note picture. Raised to 1300 on 2026-10-09 for Android Studio's window,
+# which the outline asks to be taught early.
+words = 1300
 
 [[page]]
 path = "source/tasks/l030.md"

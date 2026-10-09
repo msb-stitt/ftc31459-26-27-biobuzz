@@ -1,7 +1,7 @@
 # Keyboard shortcuts
 
-These are the Android Studio keys the lessons use. Click in the code first, so the keys go to the
-editor.
+The lessons use these keys in Android Studio. Click in the code first. Then the keys go to the
+code.
 
 | What it does | Windows and Ubuntu | Mac |
 | --- | --- | --- |

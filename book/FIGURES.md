@@ -62,6 +62,7 @@ What the picture must show, in one sentence.
 | `fig-l013-agp-more` | *Project update recommended* on Ubuntu with its **More** menu open: *Remind me tomorrow*, *Don't ask for this project* and *Don't show again* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
 | `fig-l013-gradle-jvm` | Settings at Build, Execution, Deployment › Build Tools › Gradle, with *Gradle JVM criteria* and *Version: 17* | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
 | `fig-l013-build-menu` | The Build menu open on Ubuntu, with *Assemble Project* among its items | Screenshot, taken 2026-10-08 on Ubuntu | pencilled |
+| `fig-l020-window` | Android Studio's window with Project on the left, the editor, and the Terminal below; the toolbar, the tool window bar and the status bar | Screenshot, taken 2026-10-09 | pencilled |
 | `fig-l020-copy-class` | The Copy Class box with New name `L020SticksOpMode` and Destination package `org.firstinspires.ftc.teamcode.mytry` | Screenshot of the box, taken 2026-10-06 | pencilled |
 | `fig-l020-copied` | The Project window with `lessons` and `mytry` both open, `L020SticksOpMode` in each, and the copy open in the editor with its first line ending in `mytry;` | Screenshot, taken 2026-10-06 | pencilled |
 | `fig-l020-complete` | The list under `gamepad1.` after typing `left_st`, with `left_stick_y` highlighted and marked `float` | Screenshot, taken 2026-10-05 and cropped from the full screen | pencilled |
