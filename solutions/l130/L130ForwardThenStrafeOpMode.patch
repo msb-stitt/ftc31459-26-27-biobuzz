@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
-index 15d3204..f5d2cf8 100644
+index 526ce3a..b6ac8f6 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
 @@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mytry;
@@ -12,7 +12,7 @@ index 15d3204..f5d2cf8 100644
  import com.pedropathing.ivy.Command;
 @@ -82,10 +83,12 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
      @Override
-     protected Command routine() {
+     public Command routine() {
          return sequential(
 -                follow(follower, line(start, corner).constant(start))
 +                follow(follower, line(start, corner).constant(start)),
