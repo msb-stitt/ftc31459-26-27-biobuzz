@@ -72,9 +72,11 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
         Tracker.publish("speed/right", rightSpeed);
 
         double band = 0.05;
-        double leftPower = squared(deadband(leftSpeed, band));
+        double leftPower = deadband(leftSpeed, band);
+        leftPower = signedSquared(leftPower);
         Tracker.publish("power/left", leftPower);
-        double rightPower = squared(deadband(rightSpeed, band));
+        double rightPower = deadband(rightSpeed, band);
+        rightPower = signedSquared(rightPower);
         Tracker.publish("power/right", rightPower);
 
         hardware.frontLeft.setPower(leftPower);
@@ -101,13 +103,15 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }

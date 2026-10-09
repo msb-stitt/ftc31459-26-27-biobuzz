@@ -127,9 +127,11 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightX", rightStickX);
 
         double band = 0.05;
-        double forward = squared(deadband(-leftStickY, band));
+        double forward = deadband(-leftStickY, band);
+        forward = signedSquared(forward);
         Tracker.publish("arcade/forward", forward);
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
         turn = hold.turn(follower, turn);
         Tracker.publish("heading/holding", hold.target() != null);
@@ -137,7 +139,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
             Tracker.publish("heading/target_deg", Math.toDegrees(hold.target()));
         }
 
-        double strafe = squared(deadband(-leftStickX, band));
+        double strafe = deadband(-leftStickX, band);
+        strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
         boolean driverWantsControl = Math.abs(leftStickY) > band
@@ -166,13 +169,15 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }
