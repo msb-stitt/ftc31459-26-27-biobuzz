@@ -838,9 +838,47 @@ def pinpoint_mounting():
     s.save("fig-pinpoint-mounting")
 
 
+def l020_sticky():
+    s = Sketch(1400, 880, 31)
+    s.text((700, 64), "double leftStickY = gamepad1.left_stick_y;", 30, code=True)
+    sticky(s, 390, 130, 500, 400, MARKER_BLUE, "Gamepad", tilt=-1.0, lift=40)
+    dot_arrow(s, label(s, 110, 185, "gamepad1"), (384, 212))
+    end = label(s, 412, 270, "left_stick_y", tilt=-1.0, size=26)
+    sticky(s, 625, 335, 225, 160, MARKER_YELLOW, "float", "-0.7", tilt=1.5, lift=26,
+           value_size=48)
+    dot_arrow(s, end, (662, 332), bend=-0.3)
+    sticky(s, 450, 600, 260, 200, MARKER_YELLOW, "double", "-0.7", tilt=-1.5)
+    dot_arrow(s, label(s, 110, 665, "leftStickY"), (444, 698))
+    s.marker_arrow((842, 470), (716, 668), MARKER_ORANGE, nib=9, bend=-0.3)
+    s.lines((900, 640), ["= copies the value", "onto leftStickY's note"], 30, anchor="start")
+    s.save("fig-l020-sticky")
+
+
+def l040_sticky():
+    s = Sketch(1500, 900, 37)
+    s.lines((750, 60), ["hardware.frontLeft.setPower(leftSpeed);",
+                        "hardware.backLeft.setPower(leftSpeed);"], 26, gap=1.4, code=True)
+    sticky(s, 330, 170, 600, 560, MARKER_BLUE, "RobotHardware", tilt=-1.0, lift=44)
+    dot_arrow(s, label(s, 60, 230, "hardware"), (324, 258))
+    for i, (name, words) in enumerate((("frontLeft", "front left"), ("backLeft", "back left"))):
+        y = 250 + 220 * i
+        end = label(s, 352, y + 30, name, size=24)
+        sticky(s, 610, y, 270, 160, MARKER_BLUE, "DcMotorEx", words, tilt=1.0 - 2.0 * i,
+               lift=26, value_size=34)
+        dot_arrow(s, end, (604, y + 52))
+    s.text((370, 690), "and frontRight, backRight", 26, anchor="start")
+    sticky(s, 1110, 420, 240, 180, MARKER_YELLOW, "double", "0.7", tilt=1.5)
+    end = label(s, 1110, 300, "leftSpeed")
+    dot_arrow(s, end, (end[0], 414))
+    s.marker_arrow((1104, 470), (886, 330), MARKER_ORANGE, nib=9, bend=0.15)
+    s.marker_arrow((1104, 520), (886, 550), MARKER_ORANGE, nib=9, bend=-0.1)
+    s.lines((1000, 700), ["setPower hands 0.7", "to each motor"], 30, anchor="start")
+    s.save("fig-l040-sticky")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
-            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting]
+            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_sticky, l040_sticky]
 
 if __name__ == "__main__":
     for draw in PLOTS + PICTURES:
