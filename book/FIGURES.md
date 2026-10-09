@@ -18,14 +18,14 @@ What the picture must show, in one sentence.
 
 | id | What it must show | How it is obtained | Status |
 | --- | --- | --- | --- |
-| `fig-robot-front` | The robot from the front, on the floor, with both gamepads beside it, so a student can match what is in front of them to what the guide calls each part | Photo of the robot | pencilled |
-| `fig-gamepad-sticks` | Gamepad 1 from above, with the left stick, the right stick and the A button labeled, and an arrow showing which way each y axis counts up | Photo of a gamepad | pencilled |
-| `fig-wheel-names` | The robot from above with its nose marked, and each of the four wheels labeled front left, front right, back left and back right | Photo of the robot, labeled | pencilled |
-| `fig-wheel-forward` | One wheel from the side, with an arrow on the top of the tire showing which way it travels when that wheel is driving the robot forward | Photo of the robot, labeled | pencilled |
-| `fig-stick-shaping` | Three graphs side by side, each with the stick from -1 to 1 along the bottom and the power out from -1 to 1 up the side: the raw stick straight, the deadbanded stick with a flat step at the middle, and the squared stick as an S | A drawing | pencilled |
+| `fig-robot-front` | The robot from the front, on the floor, with both gamepads beside it, so a student can match what is in front of them to what the guide calls each part | A drawing | pencilled |
+| `fig-gamepad-sticks` | Gamepad 1 from above, with the left stick, the right stick and the A button labeled, and an arrow showing which way each y axis counts up | A drawing | pencilled |
+| `fig-wheel-names` | The robot from above with its nose marked, and each of the four wheels labeled front left, front right, back left and back right | A drawing | pencilled |
+| `fig-wheel-forward` | One wheel from the side, with an arrow on the top of the tire showing which way it travels when that wheel is driving the robot forward | A drawing | pencilled |
+| `fig-stick-shaping` | Three graphs side by side, each with the stick from -1.0 to +1.0 along the bottom and the power out from -1.0 to +1.0 up the side: the raw stick straight, the deadbanded stick with a flat step at the middle, and the squared stick as an S | A drawing | pencilled |
 | `fig-mecanum-x` | The robot from above with its nose marked, and the top roller of each of the four wheels drawn as a line at 45 degrees, so the four lines make an X across the robot | A drawing | pencilled |
 | `fig-wheel-handover` | Two arrows reaching the same four wheels, one from the path follower and one from the driver's sticks, with the commanded-wheels switch between them showing which one gets through | A drawing | pencilled |
-| `fig-pinpoint-mounting` | The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles to each other, each labeled with the socket it plugs into, and the sticker side marked facing up | Photo of the robot, labeled | pencilled |
+| `fig-pinpoint-mounting` | The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles to each other, each labeled with the socket it plugs into, and the sticker side marked facing up | A drawing | pencilled |
 | `fig-odometry-step` | One loop of dead reckoning: the four wheel travels since the last loop, the forward and left arrows those add up to, the same pair turned to point along the robot's heading, and the old estimate with that pair added on the end | A drawing | pencilled |
 | `fig-field-relative` | The field from above as AdvantageScope draws it, with the driver at the left edge, the robot facing up the field, the stick's direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward and sideways it turns into | A drawing | pencilled |
 | `fig-speed-loop` | The loop drawn once around: the stick asking for 40 in/s, the feedforward guess at the power, the encoder's measured speed coming back, and the error being added in | A drawing | pencilled |
