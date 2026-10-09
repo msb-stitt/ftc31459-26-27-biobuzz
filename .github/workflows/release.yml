@@ -1,0 +1,140 @@
+# Publishes the books on gh-pages, and makes a release.
+#
+# - A tag vX.Y.Z: the books built from the tag and from the solutions its
+#   book/keep.toml pins, which has to be a tag made by tools/pin.py. They go into
+#   vX.Y.Z/ and, if it is the newest release, to the top level, where the code's
+#   links point. A GitHub Release gets both PDFs.
+# - A tag such as v0.1.1-rc.1: the same, as a pre-release, which never takes the
+#   top level.
+# - A push to main: the same build, into dev/.
+# - A push to a release-* branch, or a run by hand: the same build, kept as an
+#   artifact, and nothing published.
+#
+# gh-pages' src/site.py lays out the front page and versions.json from the
+# version folders. The figures come from gh-pages' src/figures/.
+name: Release
+
+on:
+  push:
+    tags: ['v*', '!v*-solutions']
+    branches: [main, 'release-*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Every run that publishes pushes to gh-pages. Do not cancel one in progress:
+# each publishes its own version.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # The solutions branch and gh-pages are read by name.
+      - name: Every branch as a local branch
+        run: git fetch --update-head-ok origin '+refs/heads/*:refs/heads/*'
+
+      - name: What this run publishes, and from which solutions
+        id: what
+        run: |
+          # keep.toml names the solutions the answer pages and cheat sheet were
+          # generated from; a release pins them to a tag, so it can be rebuilt.
+          solutions=$(python3 -c 'import tomllib; a = tomllib.load(open("book/keep.toml", "rb"))["answers"]; print(a["solutions_commit"] or a["solutions"])')
+          if [ "$GITHUB_REF_TYPE" = tag ]; then
+            version="$GITHUB_REF_NAME"
+            if ! git rev-parse --verify --quiet "refs/tags/$solutions" >/dev/null; then
+              echo "keep.toml names $solutions, which is not a tag. Run tools/pin.py, commit what it writes, and tag again."
+              exit 1
+            fi
+          else
+            if [ "$GITHUB_REF" = refs/heads/main ]; then version=dev; else version=; fi
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
+          echo "Publishing '${version:-nothing}', with the solutions at $solutions."
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Point the build at the runner's Android SDK
+        run: echo "sdk.dir=${ANDROID_SDK_ROOT}" > local.properties
+
+      - name: Tests
+        run: ./gradlew --no-daemon :TeamCode:test
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ninja -r book/requirements.txt -r book/requirements-publish.txt
+
+      - name: The guide's checks
+        working-directory: book
+        env:
+          PYTHONPATH: tools
+        run: |
+          ninja check-sphinx check-wrap check-reading check-keep check-words check-figures
+          python tools/answers.py --check
+          python tools/cheatsheet.py --check
+
+      # Builds the review too, which checks that each lesson's changes rebuild its patch.
+      - name: Both books, the review and both PDFs
+        working-directory: book
+        run: python tools/run.py publish_check --solutions '${{ steps.what.outputs.solutions }}'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publish
+          path: book/build/publish
+
+      - name: Publish on gh-pages
+        if: steps.what.outputs.version != ''
+        env:
+          VERSION: ${{ steps.what.outputs.version }}
+        run: |
+          git worktree add pages gh-pages
+          rm -rf "pages/$VERSION"
+          mkdir "pages/$VERSION"
+          cp -R book/build/publish/. "pages/$VERSION/"
+          cd pages
+          python src/site.py
+          git add -A
+          git -c user.name="Mike S.B. Stitt" -c user.email=mike@stitt.cc \
+            commit -q -m "$VERSION, built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
+          git push origin gh-pages
+
+      - name: A GitHub Release with both PDFs
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.what.outputs.version }}
+          SOLUTIONS: ${{ steps.what.outputs.solutions }}
+        run: |
+          site="https://msb-stitt.github.io/ftc31459-26-27-biobuzz/$VERSION"
+          {
+            git tag -l --format='%(contents)' "$VERSION"
+            echo
+            echo "- Student guide: $site/guide/"
+            echo "- Mentor guide: $site/mentor/"
+            echo "- What the student writes: $site/review/"
+            echo
+            echo "The answer pages and cheat sheet are built from the solutions at the tag \`$SOLUTIONS\`."
+          } > notes.md
+          case "$VERSION" in
+            *-*) pre=--prerelease ;;
+            *)   pre= ;;
+          esac
+          gh release create "$VERSION" book/build/publish/*.pdf --title "$VERSION" $pre --notes-file notes.md

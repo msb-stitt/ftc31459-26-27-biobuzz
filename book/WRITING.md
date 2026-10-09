@@ -10,8 +10,8 @@ picture has to be, and what a simplification may do.
 ## A lesson page is one page for both books
 
 A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tasks/l020.md`, titled
-`# L020: read the sticks`. The pages named `l2a` to `l17` keep the five parts below until the lesson
-that takes their content replaces them.
+`# L020: read the sticks`. L010 points to one lesson per computer, L011 to L013. The pages named
+`l2a` to `l17` keep the five parts below until the lesson that takes their content replaces them.
 
 **What the student book shows**, the shape backed by the research in `ftc-claude`'s
 `.docs/2026-10-03-two-books.md`:
@@ -104,7 +104,8 @@ looking for something that never appears, which is worse than saying nothing.
 A page, a README or a comment in this repository says what to do and what you will see. It does
 not say whether a step has been performed, when something was tried or seen, or what is still
 unknown. That record is kept in the `ftc-claude` repository, and only there. Naming a source, such
-as Pedro's tuning page, is not a record and stays.
+as Pedro's tuning page, is not a record and stays. Neither is a dated measurement in a code comment,
+such as "Measured on 2026-09-28: …", which says why the code is the way it is.
 
 ## Put the explanation in the step that needs it
 
@@ -147,6 +148,11 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.
 
+## Pinning the solutions and releasing are in the README
+
+How `keep.toml` names the solutions the answer pages come from, a round of lesson work, and
+building and making a release: [Lesson work and releases](../README.md#lesson-work-and-releases).
+
 ## Seeing what a lesson asks a student to do
 
 ```
@@ -160,9 +166,8 @@ change at a time, so the context carries the changes already made. Changes made 
 are shown and labelled, because a page that says where code goes has to account for them.
 
 It comes from applying `solutions/` in order, the same as the answer pages, and checks that the
-changes applied one at a time rebuild what each patch left.
+changes applied one at a time rebuild what each patch left. `ninja book` builds it too.
 
-It is a view for reading, not a gate and not part of the guide: `ninja book` does not run it, and
-its pages are not committed. The answer pages under `source/answers/` say what each lesson's patch
-changes in each file, from applying `solutions/` in order; this says what each lesson asks, and how
-much work it is.
+It is a view for reading, not part of the guide: its pages are not committed. The answer pages
+under `source/answers/` say what each lesson's patch changes in each file, from applying
+`solutions/` in order; this says what each lesson asks, and how much work it is.

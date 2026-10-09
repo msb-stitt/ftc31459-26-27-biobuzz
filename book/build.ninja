@@ -81,16 +81,38 @@ build check-cheatsheet: cheatsheet | tools/cheatsheet.py tools/answers.py tools/
     tools/register.py keep.toml
 
 build book: phony check-sphinx check-wrap check-reading check-keep check-words check-figures $
-    check-answers check-cheatsheet
+    check-answers check-cheatsheet review
 
 default book
 
-# Not a check, and not part of `ninja book`: a view of what each blank asks a
-# student to write, for reading rather than gating. Its pages are generated and
-# not committed.
+# A view of what each blank asks a student to write, published beside the
+# books. Part of `ninja book`, because building it checks that the changes,
+# applied one at a time, rebuild what each patch left. Its pages are generated
+# and not committed.
 rule diffs
   command = $run diffs --build
   description = what the student writes, one blank at a time
   pool = console
 
 build review: diffs | tools/diffs.py tools/answers.py tools/register.py keep.toml
+
+# Not part of `ninja book`: builds what a release publishes, both books with
+# every figure, the review and both PDFs, into build/publish/, and publishes
+# nothing. It runs gh-pages' src/build.py and needs requirements-publish.txt.
+# See tools/publish_check.py.
+rule publish
+  command = $run publish_check
+  description = what a release publishes builds, with every figure in place
+  pool = console
+
+build publish-check: publish | tools/publish_check.py tools/answers.py keep.toml
+
+# Not part of `ninja book`: tags the solutions branch keep.toml follows, pins the
+# tag and regenerates the answer pages and the cheat sheet, committing nothing.
+# The last step of a round of lesson work. See tools/pin.py.
+rule pin
+  command = $run pin
+  description = the solutions pinned to a new tag, and the pages regenerated
+  pool = console
+
+build pin: pin | tools/pin.py tools/answers.py tools/cheatsheet.py keep.toml
