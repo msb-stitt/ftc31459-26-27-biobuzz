@@ -13,7 +13,7 @@ public abstract class CorbelsTeleOp extends CorbelsOpMode {
     protected Buttons buttons;
 
     /** Connect buttons to commands. Runs once, when the OpMode starts. */
-    protected void bindings() {
+    public void bindings() {
     }
 
     @Override
