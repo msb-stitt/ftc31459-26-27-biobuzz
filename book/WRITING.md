@@ -37,6 +37,9 @@ A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tas
 
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
 
+L020 opens with *Android Studio's window*, ahead of *The steps*. It changes no code, so it has no
+step name, and its parts are named for what the student does: **Click**, **Drag** and **Theme**.
+
 **Break a skill into its parts the first times it is taught, then trust the student with it.** A
 skill is what the pages ask for again and again: copying a starter, switching a copy on, running
 the simulator, connecting AdvantageScope, sending the code and running it on the robot, importing a
