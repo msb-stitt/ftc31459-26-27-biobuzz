@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-index 9e2f50a..eec437d 100644
+index 59eea8d..c1652de 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-@@ -74,7 +74,10 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -77,7 +77,10 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l140.html#l140s040
          // for what to do here.

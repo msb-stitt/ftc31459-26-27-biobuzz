@@ -1,15 +1,17 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
-index 752297a..5ea6068 100644
+index 19249a1..c1a63fe 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
-@@ -64,12 +64,17 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
+@@ -64,12 +64,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
          // When on L060S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
          // for what to do here.
 +        double band = 0.05;
-+        double leftPower = squared(deadband(leftSpeed, band));
++        double leftPower = deadband(leftSpeed, band);
++        leftPower = signedSquared(leftPower);
 +        Tracker.publish("power/left", leftPower);
-+        double rightPower = squared(deadband(rightSpeed, band));
++        double rightPower = deadband(rightSpeed, band);
++        rightPower = signedSquared(rightPower);
 +        Tracker.publish("power/right", rightPower);
  
 -        hardware.frontLeft.setPower(leftSpeed);
@@ -24,13 +26,15 @@ index 752297a..5ea6068 100644
  
          loopAfter();
      }
-@@ -83,8 +88,17 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
+@@ -83,8 +90,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
      // When on L060S030, see
      // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
      // for what to do here.
 +    double deadband(double value, double band) {
-+        if (Math.abs(value) < band) {
-+            return 0;
++        double alwaysPositiveMagnitude = Math.abs(value);
++        boolean isCloseToZero = alwaysPositiveMagnitude < band;
++        if (isCloseToZero) {
++            return 0.0;
 +        }
 +        return value;
 +    }
@@ -38,7 +42,7 @@ index 752297a..5ea6068 100644
      // When on L060S050, see
      // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
      // for what to do here.
-+    double squared(double value) {
++    double signedSquared(double value) {
 +        return value * Math.abs(value);
 +    }
  }

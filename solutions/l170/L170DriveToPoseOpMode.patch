@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
-index 9a9e842..6cc5dac 100644
+index b5b3054..55f0a47 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
 @@ -1,6 +1,7 @@
@@ -21,7 +21,7 @@ index 9a9e842..6cc5dac 100644
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
-@@ -124,6 +129,16 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
+@@ -127,6 +132,16 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
          // When on L170S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
          // for what to do here.

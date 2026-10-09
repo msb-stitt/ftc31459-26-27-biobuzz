@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
-index 4947cd1..9c60e12 100644
+index 50f5cea..db8f732 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
 @@ -31,6 +31,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
@@ -21,7 +21,7 @@ index 4947cd1..9c60e12 100644
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
-@@ -78,6 +80,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+@@ -81,6 +83,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
          // When on L110S060, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s060
          // for what to do here.
