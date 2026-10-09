@@ -29,8 +29,8 @@ After L120:
         double backLeft = wheels[2] - lastWheels[2];
         double backRight = wheels[3] - lastWheels[3];
 
-        double forward = (frontLeft + frontRight + backLeft + backRight) / 4;
-        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4;
+        double forward = (frontLeft + frontRight + backLeft + backRight) / 4.0;
+        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4.0;
 ```
 
 ### A change

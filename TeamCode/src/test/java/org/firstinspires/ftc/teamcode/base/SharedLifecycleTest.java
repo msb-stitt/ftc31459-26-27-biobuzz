@@ -27,8 +27,8 @@ public class SharedLifecycleTest {
     public static class SampleTeleOp extends CorbelsTeleOp {
         public final List<String> calls = new ArrayList<>();
 
-        @Override protected void bindings() { calls.add("bindings"); }
-        @Override protected void shadowLocalizers() { calls.add("shadowLocalizers"); }
+        @Override public void bindings() { calls.add("bindings"); }
+        @Override public void shadowLocalizers() { calls.add("shadowLocalizers"); }
 
         @Override public void init() { initBefore(); initAfter(); }
 
@@ -45,17 +45,17 @@ public class SharedLifecycleTest {
         public final List<String> calls = new ArrayList<>();
         public boolean ran;
 
-        @Override protected Pose startPose() {
+        @Override public Pose startPose() {
             calls.add("startPose");
             return POSES.of(24, 24, 45);
         }
 
-        @Override protected Command routine() {
+        @Override public Command routine() {
             calls.add("routine");
             return Commands.instant(() -> ran = true);
         }
 
-        @Override protected void shadowLocalizers() { calls.add("shadowLocalizers"); }
+        @Override public void shadowLocalizers() { calls.add("shadowLocalizers"); }
 
         @Override public void init() { initBefore(); initAfter(); }
 

@@ -94,9 +94,9 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void shadowLocalizers() {
+    public void shadowLocalizers() {
         // When on L120S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
         // for what to do here.

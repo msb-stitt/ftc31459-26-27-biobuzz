@@ -44,9 +44,9 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     Pose target = poses.of(120.0, 72.0, 90.0);
     boolean drivingItself;
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void bindings() {
+    public void bindings() {
         buttons.whenPressed(() -> gamepad1.y, Commands.instant(() -> {
             follower.hold(target);
             drivingItself = true;
@@ -96,9 +96,9 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void shadowLocalizers() {
+    public void shadowLocalizers() {
         // When on L180S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
         // for what to do here.

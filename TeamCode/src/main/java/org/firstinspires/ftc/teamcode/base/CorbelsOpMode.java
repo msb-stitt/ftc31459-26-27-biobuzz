@@ -71,7 +71,7 @@ public abstract class CorbelsOpMode extends OpMode {
     }
 
     /** Extra localizers to watch. Runs once, when the OpMode starts. */
-    protected void shadowLocalizers() {
+    public void shadowLocalizers() {
     }
 
     // ------------------------------------------------------------ logging

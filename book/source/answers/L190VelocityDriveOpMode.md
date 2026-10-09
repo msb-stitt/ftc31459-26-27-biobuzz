@@ -69,9 +69,9 @@ After L190:
 Before L190:
 
 ```java
-        double forwardInPerS = 0;
-        double strafeInPerS = 0;
-        double turnRadPerS = 0;
+        double forwardInPerS = 0.0;
+        double strafeInPerS = 0.0;
+        double turnRadPerS = 0.0;
 ```
 
 After L190:
