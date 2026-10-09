@@ -9,8 +9,8 @@ pictures live here, so the lessons branch carries no image.
 - `figures/` holds one PNG per figure id in `book/FIGURES.md`. The L2a screenshots and the
   AdvantageScope one were taken in Android Studio and AdvantageScope on 2026-10-02 and 2026-10-03;
   the rest come from `draw.py`.
-- `draw.py` draws the drawings, and the stand-ins for figures meant to be photos, from the numbers
-  in the code.
+- `draw.py` draws the plots and the drawings from the numbers in the code, and the one stand-in,
+  for a Panels screenshot still to be taken. Its docstring sets the drawings' style.
 - `build.py` checks the lessons branch out, puts each figure in place of its pencilled box with the
   box's words as its caption, and builds `guide/`, `review/` and `ftc31459-book.pdf`.
 - `site.py` copies the newest release's folder to the top level, where the code's links point,
@@ -28,4 +28,4 @@ is not there. The lessons branch's `ninja publish-check` runs it into a scratch 
 `.github/workflows/release.yml` runs that, then `site.py`, to publish a release or `dev/`.
 
 `build.py` needs a Python with the book's `requirements.txt` and `requirements-publish.txt`;
-`draw.py` needs `matplotlib`.
+`draw.py` needs `matplotlib`, and the Marker Felt and Menlo fonts that come with macOS.
