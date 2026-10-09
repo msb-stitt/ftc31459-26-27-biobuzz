@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 public class L190VelocityDriveOpMode extends CorbelsTeleOp {
 
     /** How fast full stick asks for, forward and sideways. Inches per second. */
-    static final double MAX_IPS = 40;
+    static final double MAX_IPS = 40.0;
 
     /** How fast full stick asks for in turn. Radians per second, half a turn. */
     static final double MAX_TURN_RADPS = Math.PI;
@@ -74,9 +74,9 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
         // When on L190S050, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
         // for what to do here.
-        double forwardInPerS = 0;
-        double strafeInPerS = 0;
-        double turnRadPerS = 0;
+        double forwardInPerS = 0.0;
+        double strafeInPerS = 0.0;
+        double turnRadPerS = 0.0;
         Tracker.publish("command/forward_ips", forwardInPerS);
         Tracker.publish("command/left_ips", strafeInPerS);
         Tracker.publish("command/turn_radps", turnRadPerS);

@@ -41,7 +41,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 
     PoseFactory poses = PoseFactory.degrees();
-    Pose target = poses.of(120, 72, 90);
+    Pose target = poses.of(120.0, 72.0, 90.0);
     boolean drivingItself;
 
     // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
@@ -53,7 +53,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         }));
         buttons.whenPressed(() -> gamepad1.a, Commands.instant(() -> {
             drivingItself = false;
-            hold.aimAt(Math.toRadians(45));
+            hold.aimAt(Math.toRadians(45.0));
         }));
     }
 
@@ -152,7 +152,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
                 return;
             }
             drivingItself = false;
-            follower.manual(0, 0, 0);
+            follower.manual(0.0, 0.0, 0.0);
             hold.release();
         }
         Tracker.publish("drive/mode", "DRIVER");

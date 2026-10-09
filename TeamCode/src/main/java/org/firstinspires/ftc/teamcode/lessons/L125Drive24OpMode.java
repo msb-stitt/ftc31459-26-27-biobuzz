@@ -35,8 +35,8 @@ public class L125Drive24OpMode extends CorbelsAuto {
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
     double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
-    Pose start = poses.of(72, botStartYIn, 90);
-    Pose end = poses.of(72, botStartYIn + 24, 90);
+    Pose start = poses.of(72.0, botStartYIn, 90.0);
+    Pose end = poses.of(72.0, botStartYIn + 24.0, 90.0);
 
     CorbelsMecanum drivetrain;
 

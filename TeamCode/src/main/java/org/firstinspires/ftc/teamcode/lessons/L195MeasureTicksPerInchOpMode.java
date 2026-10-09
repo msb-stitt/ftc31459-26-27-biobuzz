@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
-    static final double NEEDED_INCHES = 36;
+    static final double NEEDED_INCHES = 36.0;
 
     int[] startTicks;
     double startX, startY;
@@ -83,7 +83,7 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
-        drivetrain.setCommandedWheels(0, 0, 0, 0);       // no power: we are pushing
+        drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);       // no power: we are pushing
 
         int[] now = drivetrain.wheelTicks();
         ticks = Calibration.forwardPart(now[0] - startTicks[0], now[1] - startTicks[1],
