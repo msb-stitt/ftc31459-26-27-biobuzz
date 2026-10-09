@@ -27,8 +27,9 @@ words = 240
 # hold. Mike sets the real one when he reads the page.
 [[page]]
 path = "source/tasks/l010.md"
-# Measured off the first draft, 42 words, and rounded up.
-words = 50
+# Measured off the first draft, 42 words, and rounded up. Raised to 150 on 2026-10-09 for the two
+# computers, the IDE and the scope, as the outline's L010 section gives them.
+words = 150
 
 [[page]]
 path = "source/tasks/l011.md"
