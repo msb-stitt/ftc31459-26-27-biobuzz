@@ -96,13 +96,15 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }

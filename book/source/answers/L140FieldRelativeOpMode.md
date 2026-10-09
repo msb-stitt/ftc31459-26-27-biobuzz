@@ -1,7 +1,7 @@
 # L140FieldRelativeOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-l010.1`:
+applying `solutions/` on `solutions-rules`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java`
 

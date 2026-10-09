@@ -64,15 +64,18 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightX", rightStickX);
 
         double band = 0.05;
-        double forward = squared(deadband(-leftStickY, band));
+        double forward = deadband(-leftStickY, band);
+        forward = signedSquared(forward);
         Tracker.publish("arcade/forward", forward);
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
         // When on L160S040, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
         // for what to do here.
 
-        double strafe = squared(deadband(-leftStickX, band));
+        double strafe = deadband(-leftStickX, band);
+        strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
         double heading = follower.pose().heading();
@@ -108,13 +111,15 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }

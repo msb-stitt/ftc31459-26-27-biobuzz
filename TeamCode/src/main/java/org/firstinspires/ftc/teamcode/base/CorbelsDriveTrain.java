@@ -208,7 +208,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     }
 
     /** The number times itself, with the sign it started with. */
-    public double squared(double value) {
+    public double signedSquared(double value) {
         double magnitude = value * value;
         if (value < 0.0) {
             return -magnitude;
