@@ -49,8 +49,9 @@ words = 650
 [[page]]
 path = "source/tasks/l020.md"
 # Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
-# short student explanations.
-words = 850
+# short student explanations. Raised to 1050 on 2026-10-09 for the What's happening the outline
+# gives L020, in the sticky-note picture.
+words = 1050
 
 [[page]]
 path = "source/tasks/l030.md"
