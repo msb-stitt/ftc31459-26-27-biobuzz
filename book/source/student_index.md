@@ -84,6 +84,7 @@ reference/pedro-routes
 :caption: The back of the book
 
 tasks/glossary
+tasks/shortcuts
 tasks/cheatsheet
 tasks/sources
 ```
