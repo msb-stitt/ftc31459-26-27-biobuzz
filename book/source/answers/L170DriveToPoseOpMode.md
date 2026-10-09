@@ -56,7 +56,7 @@ After L170:
                 return;
             }
             drivingItself = false;
-            follower.manual(0, 0, 0);
+            follower.manual(0.0, 0.0, 0.0);
         }
         Tracker.publish("drive/mode", "DRIVER");
 ```
