@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java
-index fdb4fd7..e0ee10b 100644
+index f12b3af..82f04f7 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java
 @@ -51,10 +51,26 @@ class L120EncoderLocalizer implements Localizer {
@@ -17,8 +17,8 @@ index fdb4fd7..e0ee10b 100644
 +        double backLeft = wheels[2] - lastWheels[2];
 +        double backRight = wheels[3] - lastWheels[3];
 +
-+        double forward = (frontLeft + frontRight + backLeft + backRight) / 4;
-+        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4;
++        double forward = (frontLeft + frontRight + backLeft + backRight) / 4.0;
++        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4.0;
  
          // When on L120S050, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s050

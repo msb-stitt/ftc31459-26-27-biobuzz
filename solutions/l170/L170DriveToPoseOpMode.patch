@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
-index b5b3054..55f0a47 100644
+index 1a92739..fda6a78 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
 @@ -1,6 +1,7 @@
@@ -32,7 +32,7 @@ index b5b3054..55f0a47 100644
 +                return;
 +            }
 +            drivingItself = false;
-+            follower.manual(0, 0, 0);
++            follower.manual(0.0, 0.0, 0.0);
 +        }
 +        Tracker.publish("drive/mode", "DRIVER");
          double heading = follower.pose().heading();
