@@ -37,7 +37,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 
     PoseFactory poses = PoseFactory.degrees();
-    Pose target = poses.of(120, 72, 90);
+    Pose target = poses.of(120.0, 72.0, 90.0);
     boolean drivingItself;
 
     // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.

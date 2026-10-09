@@ -33,9 +33,9 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
     double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
-    Pose start = poses.of(72, botStartYIn, 90);
-    Pose corner = poses.of(72, 72, 90);
-    Pose end = poses.of(96, 72, 90);
+    Pose start = poses.of(72.0, botStartYIn, 90.0);
+    Pose corner = poses.of(72.0, 72.0, 90.0);
+    Pose end = poses.of(96.0, 72.0, 90.0);
 
     CorbelsMecanum drivetrain;
 

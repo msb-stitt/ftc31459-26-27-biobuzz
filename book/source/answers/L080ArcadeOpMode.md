@@ -19,9 +19,11 @@ After L080:
 
 ```java
         double band = 0.05;
-        double forward = squared(deadband(-leftStickY, band));
+        double forward = deadband(-leftStickY, band);
+        forward = signedSquared(forward);
         Tracker.publish("arcade/forward", forward);
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
 ```
 
@@ -38,7 +40,10 @@ After L080:
 ```java
         double leftPower = forward - turn;
         double rightPower = forward + turn;
-        double biggest = Math.max(1, Math.max(Math.abs(leftPower), Math.abs(rightPower)));
+        double leftSize = Math.abs(leftPower);
+        double rightSize = Math.abs(rightPower);
+        double biggest = Math.max(leftSize, rightSize);
+        biggest = Math.max(1.0, biggest);
         leftPower = leftPower / biggest;
         rightPower = rightPower / biggest;
         Tracker.publish("power/left", leftPower);
