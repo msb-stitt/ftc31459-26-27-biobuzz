@@ -1,0 +1,19 @@
+# L010: getting started
+
+Put the robot's code on your laptop and build it.
+
+There are two computers. One is inside the REV Control Hub, on the robot. The other is your laptop.
+It runs Windows, macOS or Ubuntu, and you write the program on it.
+
+Android Studio is an **IDE**. That is short for Integrated Development Environment. You write the
+robot's program in it, in Java. Then it puts the program on the robot's computer. The program tells
+that computer what numbers to work out. It also says where to put them.
+
+AdvantageScope is a **scope**, as in telescope or microscope. It shows the numbers inside the
+running program.
+
+Use the lesson for your computer:
+
+- Windows: [L011](l011.md)
+- a Mac: [L012](l012.md)
+- Ubuntu: [L013](l013.md)

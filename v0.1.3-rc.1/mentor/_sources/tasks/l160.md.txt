@@ -1,0 +1,155 @@
+# L160: hold the heading the driver left
+
+:::{figure} ../_static/figures/fig-l160-held.png
+:name: fig-l160-held
+
+AdvantageScope's 2D Field with the robot near the bottom of the field, right of the middle, its arrow still pointing up the field, and the list showing `arcade/turn` at -0.040, `heading/holding` green, and `pinPoint/heading_deg` at 90 and `x_in` at 96.164.
+:::
+
+Let go of the turn stick and the robot keeps pointing where it was left. Push the turn stick and
+the driver has it back at once.
+
+::::{only} mentor
+**Before you start.**
+
+- L150 is done.
+- AdvantageScope is installed on the same laptop. No gamepad is needed until the last step.
+- The robot, the Driver Station, a gamepad, and about 2 m by 2 m of clear floor for the last step.
+::::
+
+## The steps
+
+### L160S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click `L160HeadingHoldOpMode` once and copy it. Click `mytry` once and
+paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
+Git, click **Add**.
+
+**Check.**
+
+- `mytry` holds `L160HeadingHoldOpMode`, and the new file is open.
+
+### L160S020: switch your copy on
+
+**Change.** Delete the line `@Disabled`, under the comment that names this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L160S030: watch the nose creep
+
+:::{figure} ../_static/figures/fig-l160-creep.png
+:name: fig-l160-creep
+
+AdvantageScope's 2D Field with the robot near the bottom of the field, right of the middle, turned so its arrow points up and to the right, and the list showing `arcade/turn` at -0.040 and `pinPoint/heading_deg` at 30.070.
+:::
+
+The starter is L150's finished OpMode. This run pretends the turn stick rests a little off center,
+the way a worn stick does.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L160HeadingHoldOpMode --left_stick_y=-0.3 --right_stick_x=0.2"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the `arcade`
+folder, then `Localizer` and `pinPoint`.
+
+**Check.**
+
+- `turn` reads -0.040, which is small.
+- The robot drives to the right, and it turns as it goes.
+- `heading_deg` started at 90 and keeps dropping.
+
+### L160S040: hold the heading
+
+`HeadingHold` is written for you, in `base`. While the turn stick is pushed, it hands the stick
+straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
+After that it hands back the turn that steers the robot back to that heading.
+
+Its own deadband is 0.05, so a stick that is nearly centered counts as let go. `turn` at -0.040 is
+inside it.
+
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. Find the line
+`CorbelsMecanum drivetrain;` near the top of the class. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 2
+
+    CorbelsMecanum drivetrain;
+    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
+```
+
+`Constants.foresightConfig` holds the follower's own settings. `headingFeedback` is the part that
+steers the heading in autonomous. Tune the follower, and this hold gets the same tuning.
+
+`HeadingHold` and `Constants` turn red. Click each one and press Option+Enter, as in L120. The
+popup for `Constants` names `org.firstinspires.ftc.teamcode.pedro.Constants`.
+
+**Change.** In `loop()`, find the comment that names this step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 7-8
+
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
+        Tracker.publish("arcade/turn", turn);
+        // When on L160S040, see
+        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
+        // for what to do here.
+        turn = hold.turn(follower, turn);
+        Tracker.publish("heading/holding", hold.target() != null);
+```
+
+The first new line swaps the stick's turn for the hold's. Both `sticks` calls below use `turn`, so
+both drive with it. Android Studio now underlines `turn` everywhere. That marks a variable that
+changes after it is made. It is not an error.
+
+**Simulator.** Run the same command again, and connect AdvantageScope. Open the `heading` folder
+too.
+
+**Check.**
+
+- `holding` is green.
+- The robot drives to the right, its nose still pointing up the field, and `heading_deg` stays at
+  90.
+
+### L160S050: drive it and then push it
+
+**Robot.** Stop the simulator. Send the code, and run `L160 Heading Hold` from the Driver Station.
+
+**Check.**
+
+- Drive a long diagonal with the left stick, and do not touch the turn stick.
+- The nose stays where it was.
+- Then take hold of the robot and twist it a little. It turns back on its own.
+
+::::{only} mentor
+**No gamepad.** The two runs above need none. With `--pad`, a driver can turn, let go, and watch
+the hold take over.
+
+**If it didn't**, and `LessonsTest.l160_theRobotHoldsItsHeadingWhenTheStickIsReleased` fails with
+`it steers back`, nothing listens to the hold. Either the line is missing, or it reads
+`hold.turn(follower, turn);` without `turn =` in front, so its answer is thrown away.
+
+**If it didn't**, and it fails with
+`while steering, the stick wins expected:<-1.0> but was:<1.0>`, the hold got `rightStickX` instead
+of `turn`. That skips the minus sign that makes a push to the right turn clockwise.
+
+**If it didn't**, and on the floor the robot fights back and overshoots, that is the follower's
+tuning, not this lesson. L117 tunes it. If the nose drifts slowly anyway, the hold is working and
+the follower's heading is drifting with it.
+
+The simulator turns the robot only when told to, so nothing there pushes it off its heading. The
+creep in L160S030 is a stick resting off center, not a bump.
+
+**What you just did.** Three things want to turn the robot, and they take turns in a fixed order.
+The driver's stick beats the hold. The hold beats doing nothing. The person with their hands on
+the gamepad wins, and everything else fills in when they let go.
+
+**Where next.** [L170](l170.md) gives a button a pose, and the robot drives there by itself while
+the driver watches.
+::::

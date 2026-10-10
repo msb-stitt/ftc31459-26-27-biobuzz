@@ -1,0 +1,607 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L013: getting started on Ubuntu" href="l013.html"><link rel="prev" title="L011: getting started on Windows" href="l011.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>L012: getting started on macOS - BIOBUZZ lessons</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">BIOBUZZ lessons</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">BIOBUZZ lessons</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Get started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="l010.html">L010: getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l011.html">L011: getting started on Windows</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L012: getting started on macOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l013.html">L013: getting started on Ubuntu</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Drive it with the sticks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l020.html">L020: read the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l030.html">L030: turn the sticks into speeds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l040.html">L040: drive like a tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l050.html">L050: drive the robot on blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l060.html">L060: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l070.html">L070: read the buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l080.html">L080: drive like an arcade game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l090.html">L090: slide it sideways</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">See what it is doing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panels.html">Watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bench.html">Check your work without a robot</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hand the wheels to the follower</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">L110: hand the wheels to the path follower</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Know where it is</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l115.html">L115: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l117.html">L117: let AutoTune tune the robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">L120: work out where the robot is from the drive wheels</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Drive it without a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l125.html">L125: the first autonomous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l130.html">L130: two legs, forward then sideways</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Drive it like a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l140.html">L140: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l150.html">L150: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l160.html">L160: hold the heading the driver left</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l170.html">L170: press Y and the robot drives itself there</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l180.html">L180: one OpMode a driver could take to a match</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l190.html">L190: ask the wheels for a speed</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Measure the robot</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l195.html">L195: measure the two numbers L190 trusted</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/pedro-routes.html">Pedro routes: a cheat sheet</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The answers</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../answers/index.html">Answers</a><input aria-label="Toggle navigation of Answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L020SticksOpMode.html">L020SticksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L030SpeedsOpMode.html">L030SpeedsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L040TankOpMode.html">L040TankOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../answers/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tasks/l012.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="l012-getting-started-on-macos">
+<h1>L012: getting started on macOS<a class="headerlink" href="#l012-getting-started-on-macos" title="Link to this heading">¶</a></h1>
+<figure class="align-default" id="fig-l012-built">
+<img alt="../_images/fig-l012-built.png" src="../_images/fig-l012-built.png" />
+<figcaption>
+<p><span class="caption-text">Android Studio on macOS with the project open and the Build window reading <em>BUILD SUCCESSFUL</em> and <em>63 actionable tasks: 63 executed</em>.</span><a class="headerlink" href="#fig-l012-built" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Put the robot’s code on a Mac and build it. After this, every lesson starts in Android Studio with
+the project open.</p>
+<p><strong>Before you start.</strong></p>
+<ul class="simple">
+<li><p>A Mac, signed in to an account that may install programs.</p></li>
+<li><p>The internet.</p></li>
+<li><p>No robot and no gamepad are needed.</p></li>
+</ul>
+<p>Nothing else has to be installed first. Android Studio fetches Java 17 for the project by itself,
+and git is installed in L012S040 when macOS asks for it.</p>
+<section id="the-steps">
+<h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
+<section id="l012s010">
+<span id="l012s010-install-android-studio"></span><h3>L012S010: install Android Studio<a class="headerlink" href="#l012s010" title="Link to this heading">¶</a></h3>
+<p>The robot’s code is written in Android Studio. The team uses one version of it, <strong>Quail 4</strong>, so
+everyone sees the same screens. It is not the newest, so it comes from the page of older versions.</p>
+<p><strong>Chip.</strong> Click the Apple menu, then <strong>About This Mac</strong>. It shows whether the Mac has an Apple chip
+or an Intel chip. The files below differ for each.</p>
+<p><strong>Download.</strong></p>
+<ul class="steps simple">
+<li><p>Open <a class="reference external" href="https://developer.android.com/studio/archive">https://developer.android.com/studio/archive</a> and click <strong>I agree</strong> under the terms.</p></li>
+<li><p>Click <strong>Android Studio Quail 4 | 2026.1.4 Patch 1</strong> to open it.</p></li>
+<li><p>Click the file for your Mac: <code class="docutils literal notranslate"><span class="pre">android-studio-quail4-patch1-mac_arm.dmg</span></code> for an Apple chip, or
+<code class="docutils literal notranslate"><span class="pre">android-studio-quail4-patch1-mac.dmg</span></code> for an Intel chip. It is about 1.5 GB. If Safari asks to
+allow downloads, click <strong>Allow</strong>.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-archive">
+<img alt="../_images/fig-l012-archive.png" src="../_images/fig-l012-archive.png" />
+<figcaption>
+<p><span class="caption-text">The archive page with <em>Android Studio Quail 4 | 2026.1.4 Patch 1</em> open, listing its installers.</span><a class="headerlink" href="#fig-l012-archive" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Install.</strong></p>
+<ul class="steps simple">
+<li><p>Open the downloaded file.</p></li>
+<li><p>Drag Android Studio onto the Applications folder.</p></li>
+<li><p>Start Android Studio from Applications. If macOS says it came from the internet, click <strong>Open</strong>.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-applications">
+<img alt="../_images/fig-l012-applications.png" src="../_images/fig-l012-applications.png" />
+<figcaption>
+<p><span class="caption-text">The opened disk image with Android Studio beside the Applications folder.</span><a class="headerlink" href="#fig-l012-applications" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Android Studio starts and asks to <em>Help improve Android Studio</em>. Click <strong>Don’t send</strong>.</p></li>
+</ul>
+</section>
+<section id="l012s020">
+<span id="l012s020-let-android-studio-fetch-what-it-needs"></span><h3>L012S020: let Android Studio fetch what it needs<a class="headerlink" href="#l012s020" title="Link to this heading">¶</a></h3>
+<p>The first time it starts, Android Studio’s setup wizard downloads the Android tools the code is
+built with.</p>
+<p><strong>Setup.</strong></p>
+<ul class="steps simple">
+<li><p>Click <strong>Next</strong> on <em>Welcome</em>.</p></li>
+<li><p>Pick <strong>Standard</strong> and click <strong>Next</strong>.</p></li>
+<li><p>Click <strong>Next</strong> on <em>Verify Settings</em>.</p></li>
+<li><p>Click each license on the left, pick <strong>Accept</strong>, and click <strong>Next</strong>.</p></li>
+<li><p>Wait while it downloads, then click <strong>Finish</strong>.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-wizard-standard">
+<img alt="../_images/fig-l012-wizard-standard.png" src="../_images/fig-l012-wizard-standard.png" />
+<figcaption>
+<p><span class="caption-text">The setup wizard’s <em>Install Type</em> page on macOS with <em>Standard</em> picked.</span><a class="headerlink" href="#fig-l012-wizard-standard" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The last page of the wizard reads <em>Android SDK is up to date</em>.</p></li>
+<li><p><em>Welcome to Android Studio</em> opens, with <strong>New Project</strong>, <strong>Open</strong> and <strong>Clone Repository</strong>.</p></li>
+</ul>
+<p>If a note says <em>Rabbit 1 available</em>, leave it. The team stays on Quail 4.</p>
+</section>
+<section id="l012s030">
+<span id="l012s030-install-advantagescope"></span><h3>L012S030: install AdvantageScope<a class="headerlink" href="#l012s030" title="Link to this heading">¶</a></h3>
+<p>AdvantageScope draws what the robot is doing: where it is on the field, and graphs of its numbers.</p>
+<p><strong>Download.</strong> Open <a class="reference external" href="https://github.com/Mechanical-Advantage/AdvantageScope/releases/tag/v26.0.2">https://github.com/Mechanical-Advantage/AdvantageScope/releases/tag/v26.0.2</a>.
+Under <strong>Assets</strong>, click the file for your Mac:</p>
+<ul class="simple">
+<li><p>an Apple chip: <code class="docutils literal notranslate"><span class="pre">advantagescope-mac-arm64-v26.0.2.dmg</span></code></p></li>
+<li><p>an Intel chip: <code class="docutils literal notranslate"><span class="pre">advantagescope-mac-x64-v26.0.2.dmg</span></code></p></li>
+</ul>
+<p><strong>Install.</strong> Open the file. Drag AdvantageScope onto the Applications folder. Start it from there.
+If macOS asks, click <strong>Open</strong>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>AdvantageScope opens on its <strong>Line Graph</strong> tab, with <em>No data available</em> on the left.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-advantagescope">
+<img alt="../_images/fig-l012-advantagescope.png" src="../_images/fig-l012-advantagescope.png" />
+<figcaption>
+<p><span class="caption-text">AdvantageScope on macOS, started for the first time, on its empty Line Graph, with <em>No data available</em> in the sidebar.</span><a class="headerlink" href="#fig-l012-advantagescope" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="l012s040">
+<span id="l012s040-get-the-project"></span><h3>L012S040: get the project<a class="headerlink" href="#l012s040" title="Link to this heading">¶</a></h3>
+<p>The robot’s code lives on GitHub. Android Studio copies it to the laptop with a tool called
+<strong>git</strong>.</p>
+<p><strong>Git.</strong></p>
+<ul class="steps simple">
+<li><p>On <em>Welcome to Android Studio</em>, click <strong>Clone Repository</strong>. It says <em>Git is not installed</em>.</p></li>
+<li><p>macOS asks whether to install the command line developer tools. Click <strong>Install</strong>, then
+<strong>Agree</strong>, and wait for it to finish.</p></li>
+<li><p>Quit Android Studio with <strong>⌘Q</strong>, and start it again from Applications.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-tools">
+<img alt="../_images/fig-l012-tools.png" src="../_images/fig-l012-tools.png" />
+<figcaption>
+<p><span class="caption-text">macOS asking <em>The “git” command requires the command line developer tools</em>, with <strong>Install</strong>.</span><a class="headerlink" href="#fig-l012-tools" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Clone.</strong></p>
+<ul class="steps simple">
+<li><p>On <em>Welcome to Android Studio</em>, click <strong>Clone Repository</strong>.</p></li>
+<li><p>Into <strong>URL</strong>, type <code class="docutils literal notranslate"><span class="pre">https://github.com/msb-stitt/ftc31459-26-27-biobuzz</span></code>. Leave <strong>Directory</strong> as
+it is.</p></li>
+<li><p>Click <strong>Clone</strong>.</p></li>
+</ul>
+<p><strong>Trust.</strong> When it asks <em>Trust and Open Project</em>, click <strong>Trust Project</strong>.</p>
+<figure class="align-default" id="fig-l012-trust">
+<img alt="../_images/fig-l012-trust.png" src="../_images/fig-l012-trust.png" />
+<figcaption>
+<p><span class="caption-text"><em>Trust and Open Project ‘ftc31459-26-27-biobuzz’?</em> on macOS with <strong>Trust Project</strong> highlighted.</span><a class="headerlink" href="#fig-l012-trust" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The project opens, and the Project window lists <code class="docutils literal notranslate"><span class="pre">FtcRobotController</span></code> and <code class="docutils literal notranslate"><span class="pre">TeamCode</span></code>.</p></li>
+</ul>
+<p><strong>If it didn’t</strong>, and <em>Git is not installed</em> stays after the tools finish, Android Studio has not
+looked again. Quit it with ⌘Q, not just its window, and start it again.</p>
+</section>
+<section id="l012s050">
+<span id="l012s050-answer-what-android-studio-offers"></span><h3>L012S050: answer what Android Studio offers<a class="headerlink" href="#l012s050" title="Link to this heading">¶</a></h3>
+<p>While the project loads, Android Studio reads it with <strong>Gradle</strong>, the tool that builds the code.
+This is called a <em>sync</em>. The first sync downloads Java 17 and more, and takes a few minutes.</p>
+<p><strong>Answer.</strong> Notes pop up in the bottom right while it works. Answer each one like this:</p>
+<ul class="simple">
+<li><p><strong>Agent Mode now available</strong>: click <strong>Do not show again</strong>. The lessons do not use an AI helper.</p></li>
+<li><p><strong>Project update recommended</strong>, <em>Android Gradle plugin version 8.13.2 has an upgrade available</em>:
+click <strong>More</strong>, then <strong>Don’t ask for this project</strong>. The project needs version 8.13.2, so do not
+upgrade it.</p></li>
+<li><p>If macOS asks whether Android Studio may find devices on the local network, click <strong>Allow</strong>.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-offers">
+<img alt="../_images/fig-l012-offers.png" src="../_images/fig-l012-offers.png" />
+<figcaption>
+<p><span class="caption-text">The project open after its sync, with <em>Project update recommended</em> and <em>Agent Mode now available</em> in the bottom right.</span><a class="headerlink" href="#fig-l012-offers" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-l012-agp-more">
+<img alt="../_images/fig-l012-agp-more.png" src="../_images/fig-l012-agp-more.png" />
+<figcaption>
+<p><span class="caption-text"><em>Project update recommended</em> with its <strong>More</strong> menu open: <em>Remind me tomorrow</em>, <em>Don’t ask for this project</em> and <em>Don’t show again</em>.</span><a class="headerlink" href="#fig-l012-agp-more" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Build window’s <strong>Sync</strong> tab has a green tick beside the project.</p></li>
+<li><p>Open <strong>Android Studio → Settings</strong>. Type <code class="docutils literal notranslate"><span class="pre">Gradle</span></code> in its search box and click <strong>Gradle</strong> under
+<strong>Build Tools</strong>. Under <em>Gradle JVM criteria</em>, <strong>Version</strong> reads <code class="docutils literal notranslate"><span class="pre">17</span></code>.</p></li>
+</ul>
+<figure class="align-default" id="fig-l012-gradle-jvm">
+<img alt="../_images/fig-l012-gradle-jvm.png" src="../_images/fig-l012-gradle-jvm.png" />
+<figcaption>
+<p><span class="caption-text">Settings at Build, Execution, Deployment › Build Tools › Gradle, with <em>Gradle JVM criteria</em> and <em>Version: 17</em>.</span><a class="headerlink" href="#fig-l012-gradle-jvm" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="l012s060">
+<span id="l012s060-build-the-code"></span><h3>L012S060: build the code<a class="headerlink" href="#l012s060" title="Link to this heading">¶</a></h3>
+<p><strong>Build.</strong> Click <strong>Build → Assemble Project</strong>. The first build takes a few minutes.</p>
+<figure class="align-default" id="fig-l012-build-menu">
+<img alt="../_images/fig-l012-build-menu.png" src="../_images/fig-l012-build-menu.png" />
+<figcaption>
+<p><span class="caption-text">The Build menu open on macOS, with <em>Assemble Project</em> among its items.</span><a class="headerlink" href="#fig-l012-build-menu" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Build window’s <strong>Build Output</strong> tab ends with <em>BUILD SUCCESSFUL</em> and <em>63 actionable tasks:
+63 executed</em>.</p></li>
+</ul>
+<p><strong>What you just did.</strong> Android Studio is where the code is written, and Gradle turns the code into
+an app for the robot. Clone copied the team’s repository from GitHub onto the laptop. The sync read
+the project’s Gradle files and downloaded what they ask for: Gradle 8.14.3, the Android Gradle
+plugin 8.13.2 and Java 17 among them. Assemble Project built <code class="docutils literal notranslate"><span class="pre">FtcRobotController</span></code> and <code class="docutils literal notranslate"><span class="pre">TeamCode</span></code>
+into <code class="docutils literal notranslate"><span class="pre">TeamCode-debug.apk</span></code>, the app that is sent to the robot.</p>
+<p><strong>Where next.</strong> <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a> copies the first starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and reads the gamepad’s
+sticks.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="l013.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">L013: getting started on Ubuntu</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="l011.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">L011: getting started on Windows</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, Catholic Central Spires Robotics
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">L012: getting started on macOS</a><ul>
+<li><a class="reference internal" href="#the-steps">The steps</a><ul>
+<li><a class="reference internal" href="#l012s010-install-android-studio">L012S010: install Android Studio</a></li>
+<li><a class="reference internal" href="#l012s020-let-android-studio-fetch-what-it-needs">L012S020: let Android Studio fetch what it needs</a></li>
+<li><a class="reference internal" href="#l012s030-install-advantagescope">L012S030: install AdvantageScope</a></li>
+<li><a class="reference internal" href="#l012s040-get-the-project">L012S040: get the project</a></li>
+<li><a class="reference internal" href="#l012s050-answer-what-android-studio-offers">L012S050: answer what Android Studio offers</a></li>
+<li><a class="reference internal" href="#l012s060-build-the-code">L012S060: build the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
