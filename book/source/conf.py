@@ -8,9 +8,9 @@ Built with -W: a broken link or a missing image fails the build rather than
 printing a warning nobody reads.
 """
 
-project = "BIOBUZZ lessons"
-author = "Catholic Central Spires Robotics"
-copyright = "2026, Catholic Central Spires Robotics"
+project = "Corbels FTC Programming Lessons in Java"
+author = "Mike Stitt"
+copyright = "2026, Mike Stitt"
 
 extensions = ["myst_parser"]
 myst_enable_extensions = ["attrs_block", "colon_fence", "deflist"]
@@ -18,10 +18,10 @@ myst_enable_extensions = ["attrs_block", "colon_fence", "deflist"]
 
 # The tag `mentor` picks the book. With it, the mentor book, rooted at index.md.
 # Without it, the student book, rooted at student_index.md and leaving out the
-# pages only a mentor reads. _intro.md is the front page both roots include.
-MENTOR_ONLY = ["index.md", "tasks/panels.md", "tasks/bench.md"]
+# pages only a mentor reads. B003, the welcome, is the first page of both.
+MENTOR_ONLY = ["index.md", "tasks/h093.md", "tasks/h095.md"]
 
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "_intro.md"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 if tags.has("mentor"):  # noqa: F821, Sphinx puts `tags` in this file's namespace
     exclude_patterns.append("student_index.md")
 else:
@@ -29,7 +29,7 @@ else:
     exclude_patterns += MENTOR_ONLY
 
 html_theme = "furo"
-html_title = "BIOBUZZ lessons"
+html_title = "Corbels FTC Programming Lessons in Java"
 html_static_path = ["_static"]
 html_css_files = ["pencil.css", "steps.css"]
 
@@ -66,13 +66,14 @@ def setup(app):
 
     def step_anchors(app, doctree):
         """Give a step `### L020S010: read the left stick` the id `l020s010`, so
-        the code a student copies can link to it."""
+        the code a student copies can link to it. A how-to's step, `H011S010`,
+        gets one the same way."""
         import re
 
         from docutils import nodes
 
         for section in doctree.findall(nodes.section):
-            step = re.match(r"L\d{3}S\d{3}\b", section[0].astext())
+            step = re.match(r"[LH]\d{3}S\d{3}\b", section[0].astext())
             if step and step.group().lower() not in section["ids"]:
                 section["ids"].insert(0, step.group().lower())
 

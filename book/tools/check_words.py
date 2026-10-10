@@ -13,11 +13,11 @@ import sys
 from bookpaths import relative, tracked
 from register import PATH, pages
 
-# Generated, and not prose: source/answers/ is what tools/answers.py writes out of
-# the two lesson lines, and source/tasks/cheatsheet.md is what tools/cheatsheet.py
+# Generated, and not prose: source/r950/ is what tools/answers.py writes out of
+# the two lesson lines, and source/tasks/r930.md is what tools/cheatsheet.py
 # reads out of them. A ceiling on a page nobody writes by hand would be a ceiling
 # on how much code a lesson may have, or how many log keys it may publish.
-GENERATED = ("source/answers/", "source/tasks/cheatsheet.md")
+GENERATED = ("source/r950/", "source/tasks/r930.md")
 
 
 def words(path) -> int:

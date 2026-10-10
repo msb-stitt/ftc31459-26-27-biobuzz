@@ -26,7 +26,7 @@ from bookpaths import book_root
 from register import load
 
 LESSONS_DIR = "TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons"
-OUT = "source/answers"
+OUT = "source/r950"
 
 
 def pins() -> tuple[str, str]:
@@ -150,7 +150,7 @@ def page(path: str, patches: list[Patched], solutions: str) -> str:
         kept, comments = blanks(patch.before, patch.after)
         for i1, i2, j1, j2 in kept:
             heading = todo_numbers(patch.before[i1:i2])
-            out.append(f"### {'A change' if heading == 'An unmarked difference' else heading}")
+            out.append(f"### {'a change' if heading == 'An unmarked difference' else heading}")
             out.append("")
             out.append(f"Before {label(patch.lesson)}:")
             out.append("")
@@ -172,7 +172,7 @@ def page(path: str, patches: list[Patched], solutions: str) -> str:
 def index(names: list[str]) -> str:
     entries = "\n".join(names)
     return (
-        "# Answers\n"
+        "# 950 reference: answers\n"
         "\n"
         "What each lesson changes, file by file, out of the solutions line. Use it when you are\n"
         "stuck, not instead of being stuck.\n"

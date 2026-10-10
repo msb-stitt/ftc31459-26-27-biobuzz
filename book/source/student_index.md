@@ -1,27 +1,32 @@
-# BIOBUZZ lessons
-
-```{include} _intro.md
-```
-
-## The tasks
+# Corbels FTC Programming Lessons in Java
 
 ```{toctree}
 :maxdepth: 1
-:caption: Get started
+:caption: welcome
 
-tasks/l010
-tasks/l011
-tasks/l012
-tasks/l013
+tasks/b003
 ```
 
 ```{toctree}
 :maxdepth: 1
-:caption: Drive it with the sticks
+:caption: get started
+
+tasks/b010
+tasks/h011
+tasks/h012
+tasks/h013
+tasks/h017
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: drive it with the sticks
 
 tasks/l020
+tasks/e021
 tasks/l030
 tasks/l040
+tasks/e041
 tasks/l050
 tasks/l060
 tasks/l070
@@ -31,14 +36,14 @@ tasks/l090
 
 ```{toctree}
 :maxdepth: 1
-:caption: Hand the wheels to the follower
+:caption: hand the wheels to the follower
 
 tasks/l110
 ```
 
 ```{toctree}
 :maxdepth: 1
-:caption: Know where it is
+:caption: know where it is
 
 tasks/l115
 tasks/l117
@@ -47,7 +52,7 @@ tasks/l120
 
 ```{toctree}
 :maxdepth: 1
-:caption: Drive it without a driver
+:caption: drive it without a driver
 
 tasks/l125
 tasks/l130
@@ -55,7 +60,7 @@ tasks/l130
 
 ```{toctree}
 :maxdepth: 1
-:caption: Drive it like a driver
+:caption: drive it like a driver
 
 tasks/l140
 tasks/l150
@@ -67,31 +72,19 @@ tasks/l190
 
 ```{toctree}
 :maxdepth: 1
-:caption: Measure the robot
+:caption: measure the robot
 
 tasks/l195
 ```
 
 ```{toctree}
 :maxdepth: 1
-:caption: Reference
+:caption: the back of the book
 
-reference/pedro-routes
-```
-
-```{toctree}
-:maxdepth: 1
-:caption: The back of the book
-
-tasks/glossary
-tasks/shortcuts
-tasks/cheatsheet
-tasks/sources
-```
-
-```{toctree}
-:maxdepth: 1
-:caption: The answers
-
-answers/index
+tasks/r900
+tasks/r910
+tasks/r920
+tasks/r930
+r950/index
+tasks/b990
 ```

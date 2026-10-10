@@ -6,7 +6,7 @@
 
 This guide is licensed **Creative Commons Attribution-NonCommercial 4.0 International**
 (<https://creativecommons.org/licenses/by-nc/4.0/>). You may share it and adapt it, for
-non-commercial purposes, with credit to Catholic Central Spires Robotics and a link to the license.
+non-commercial purposes, with credit to Mike Stitt and a link to the license.
 
 The repository's root `LICENSE` is FIRST's BSD-style notice over the FTC SDK, and it covers the SDK
 and the team's code, not these pages.
