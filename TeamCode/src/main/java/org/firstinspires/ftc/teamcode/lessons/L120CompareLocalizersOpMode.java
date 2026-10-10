@@ -66,12 +66,15 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightX", rightStickX);
 
         double band = 0.05;
-        double forward = squared(deadband(-leftStickY, band));
+        double forward = deadband(-leftStickY, band);
+        forward = signedSquared(forward);
         Tracker.publish("arcade/forward", forward);
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
 
-        double strafe = squared(deadband(-leftStickX, band));
+        double strafe = deadband(-leftStickX, band);
+        strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
         drivetrain.sticks(forward, strafe, turn);
@@ -91,9 +94,9 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void shadowLocalizers() {
+    public void shadowLocalizers() {
         // When on L120S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
         // for what to do here.
@@ -106,13 +109,15 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }

@@ -37,12 +37,12 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 
     PoseFactory poses = PoseFactory.degrees();
-    Pose target = poses.of(120, 72, 90);
+    Pose target = poses.of(120.0, 72.0, 90.0);
     boolean drivingItself;
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void bindings() {
+    public void bindings() {
         // When on L170S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s030
         // for what to do here.
@@ -110,14 +110,17 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightX", rightStickX);
 
         double band = 0.05;
-        double forward = squared(deadband(-leftStickY, band));
+        double forward = deadband(-leftStickY, band);
+        forward = signedSquared(forward);
         Tracker.publish("arcade/forward", forward);
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
         turn = hold.turn(follower, turn);
         Tracker.publish("heading/holding", hold.target() != null);
 
-        double strafe = squared(deadband(-leftStickX, band));
+        double strafe = deadband(-leftStickX, band);
+        strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
         boolean driverWantsControl = Math.abs(leftStickY) > band
@@ -138,13 +141,15 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }

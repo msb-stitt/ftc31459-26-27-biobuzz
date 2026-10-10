@@ -69,7 +69,7 @@ class L120EncoderLocalizer implements Localizer {
     @Override
     public MotionState state() {
         return MotionState.ofTwist(
-                poses.of(x, y, lastRawHeading + headingOffset), new Twist(0, 0, 0));
+                poses.of(x, y, lastRawHeading + headingOffset), new Twist(0.0, 0.0, 0.0));
     }
 
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
@@ -83,8 +83,8 @@ class L120EncoderLocalizer implements Localizer {
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void reset() {
-        x = 0;
-        y = 0;
+        x = 0.0;
+        y = 0.0;
         headingOffset = -lastRawHeading;
         lastWheels = null;
     }

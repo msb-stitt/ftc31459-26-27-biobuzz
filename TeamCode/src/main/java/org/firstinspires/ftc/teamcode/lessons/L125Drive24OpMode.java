@@ -35,8 +35,8 @@ public class L125Drive24OpMode extends CorbelsAuto {
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
     double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
-    Pose start = poses.of(72, botStartYIn, 90);
-    Pose end = poses.of(72, botStartYIn + 24, 90);
+    Pose start = poses.of(72.0, botStartYIn, 90.0);
+    Pose end = poses.of(72.0, botStartYIn + 24.0, 90.0);
 
     CorbelsMecanum drivetrain;
 
@@ -74,15 +74,15 @@ public class L125Drive24OpMode extends CorbelsAuto {
         stopAfter();
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected Pose startPose() {
+    public Pose startPose() {
         return start;
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected Command routine() {
+    public Command routine() {
         // When on L125S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s030
         // for what to do here.

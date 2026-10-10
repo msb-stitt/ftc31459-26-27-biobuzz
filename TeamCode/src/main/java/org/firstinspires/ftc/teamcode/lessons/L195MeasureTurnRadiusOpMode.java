@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
 
-    static final double NEEDED_TURNS = 2;
+    static final double NEEDED_TURNS = 2.0;
 
     int[] startTicks;
     double previousHeading;
@@ -81,7 +81,7 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
-        drivetrain.setCommandedWheels(0, 0, 0, 0);
+        drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);
 
         double heading = follower.pose().heading();
         radians += Calibration.unwrap(previousHeading, heading);
@@ -98,9 +98,9 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
         Tracker.publish("measure/turnRadius_in", measured);
 
         Tracker.printToDs("Spin the robot  %.2f of %.0f turns",
-                Math.abs(radians) / (2 * Math.PI), NEEDED_TURNS);
+                Math.abs(radians) / (2.0 * Math.PI), NEEDED_TURNS);
         Tracker.printToDs("Wheels travelled  %.1f inches", wheelInches);
-        if (Math.abs(radians) >= NEEDED_TURNS * 2 * Math.PI) {
+        if (Math.abs(radians) >= NEEDED_TURNS * 2.0 * Math.PI) {
             Tracker.printToDs();
             Tracker.printToDs("turn radius  %.2f inches", measured);
             Tracker.printToDs("Measure the diagonal between wheels and halve it; they should agree.");

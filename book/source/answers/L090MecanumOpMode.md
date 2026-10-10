@@ -1,7 +1,7 @@
 # L090MecanumOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-l010.1`:
+applying `solutions/` on `solutions-rules.1`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java`
 
@@ -18,7 +18,8 @@ Before L090:
 After L090:
 
 ```java
-        double strafe = squared(deadband(-leftStickX, band));
+        double strafe = deadband(-leftStickX, band);
+        strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 ```
 
@@ -37,8 +38,14 @@ After L090:
         double frontRightPower = forward + strafe + turn;
         double backLeftPower = forward + strafe - turn;
         double backRightPower = forward - strafe + turn;
-        double biggest = Math.max(1, Math.max(Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower)),
-                Math.max(Math.abs(backLeftPower), Math.abs(backRightPower))));
+        double frontLeftSize = Math.abs(frontLeftPower);
+        double frontRightSize = Math.abs(frontRightPower);
+        double backLeftSize = Math.abs(backLeftPower);
+        double backRightSize = Math.abs(backRightPower);
+        double biggest = Math.max(frontLeftSize, frontRightSize);
+        biggest = Math.max(biggest, backLeftSize);
+        biggest = Math.max(biggest, backRightSize);
+        biggest = Math.max(1.0, biggest);
         frontLeftPower = frontLeftPower / biggest;
         frontRightPower = frontRightPower / biggest;
         backLeftPower = backLeftPower / biggest;

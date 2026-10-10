@@ -31,8 +31,14 @@ A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tas
     **Push**, **Spin** or **Drive**.
 - **Check**: after each part that changes what the student sees, a bulleted list of what they see
   when it worked, one thing to look at or do per item.
+- **What's happening**: where a step needs it, after the **Change**, **AdvantageScope**, **Log** or
+  **Robot** part it explains, what the code just did, drawn as sticky notes, or why it works. The
+  student does nothing in it.
 
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
+
+L020 opens with *Android Studio's window*, ahead of *The steps*. It changes no code, so it has no
+step name, and its parts are named for what the student does: **Click**, **Drag** and **Theme**.
 
 **Break a skill into its parts the first times it is taught, then trust the student with it.** A
 skill is what the pages ask for again and again: copying a starter, switching a copy on, running
@@ -119,11 +125,50 @@ introduced it.
 never says something a student will later have to unlearn silently: where a simplification gets
 corrected later, the page says so in one line and names the task that corrects it.
 
+These simplifications are made everywhere, and are not marked:
+
+- **A field is called a variable.** `gamepad1` and `hardware` are fields of the OpMode.
+- **A class used through its static methods is called an object.** `Tracker` is a class.
+- **A variable that refers to an object is not called a reference.**
+- **What a variable holds before its first assignment is not said.**
+
+## Write the code a student types one idea at a time
+
+- **One idea per statement.** A value worked out, named and tested is three statements, and each
+  result has a name: `double alwaysPositiveMagnitude = Math.abs(value);`, then
+  `boolean isCloseToZero = alwaysPositiveMagnitude < band;`, then `if (isCloseToZero) {`.
+- **No call inside another call's arguments.** Each result gets its own variable first:
+  `double forward = deadband(-leftStickY, band);` then `forward = signedSquared(forward);`. A call
+  that reads a setting or builds a path stays inside, as
+  `hardware.mecanumConfig.frontLeftDirection.get()` and `line(start, end).constant(start)` do.
+- **`Math.max` takes two numbers**, so the largest of four is a chain of calls, each on its own
+  line.
+- **A whole-number `double` is written with `.0`**, in the code and on the page: `1.0`, `0.0`,
+  `-1.0`.
+
+## Say nothing about what the lessons do not teach
+
+What just works for a student and no lesson teaches, such as `.gitignore`, is not named on a page.
+
+## Write American English
+
+Tire, color, labeled, center.
+
 ## A picture is registered before it is drawn
 
 Every figure has a row in [`FIGURES.md`](FIGURES.md) and an id of the form `fig-<something>`. A
 figure that does not exist yet is a pencilled box in the page, so the gap is visible to a reader and
 not blocking to a writer. `tools/check_figures.py` checks both directions.
+
+## Draw in the marker-sketch style
+
+A drawing, as against a screenshot or a plot, is drawn by `gh-pages`' `src/draw.py` in the look of
+an industrial designer's marker sketch, made flat: ink lines that run past their corners, faint
+construction lines, slanted marker fills, a red or orange accent, white highlights and soft
+shadows, words in Marker Felt and code in Menlo. A variable is a white label with an arrow to a
+sticky note that curls off the page and is colored by its type: yellow for `double` and `float`,
+green for `boolean`, blue for an object. A plot of numbers, such as `fig-stick-shaping`, stays
+plain. `draw.py`'s docstring holds the details.
 
 ## One source makes two books
 

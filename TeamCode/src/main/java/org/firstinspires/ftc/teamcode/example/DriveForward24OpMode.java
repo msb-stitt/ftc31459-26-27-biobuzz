@@ -47,12 +47,12 @@ public class DriveForward24OpMode extends CorbelsAuto {
     }
 
     @Override
-    protected Pose startPose() {
+    public Pose startPose() {
         return start;
     }
 
     @Override
-    protected Command routine() {
+    public Command routine() {
         return sequential(
                 follow(follower, driveForward())
                 // Add more steps here; each runs after the previous finishes.

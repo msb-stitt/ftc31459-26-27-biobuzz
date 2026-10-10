@@ -41,19 +41,19 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 
     PoseFactory poses = PoseFactory.degrees();
-    Pose target = poses.of(120, 72, 90);
+    Pose target = poses.of(120.0, 72.0, 90.0);
     boolean drivingItself;
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void bindings() {
+    public void bindings() {
         buttons.whenPressed(() -> gamepad1.y, Commands.instant(() -> {
             follower.hold(target);
             drivingItself = true;
         }));
         buttons.whenPressed(() -> gamepad1.a, Commands.instant(() -> {
             drivingItself = false;
-            hold.aimAt(Math.toRadians(45));
+            hold.aimAt(Math.toRadians(45.0));
         }));
     }
 
@@ -96,9 +96,9 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         loopAfter();
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected void shadowLocalizers() {
+    public void shadowLocalizers() {
         // When on L180S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
         // for what to do here.
@@ -127,9 +127,11 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightX", rightStickX);
 
         double band = 0.05;
-        double forward = squared(deadband(-leftStickY, band));
+        double forward = deadband(-leftStickY, band);
+        forward = signedSquared(forward);
         Tracker.publish("arcade/forward", forward);
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
         turn = hold.turn(follower, turn);
         Tracker.publish("heading/holding", hold.target() != null);
@@ -137,7 +139,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
             Tracker.publish("heading/target_deg", Math.toDegrees(hold.target()));
         }
 
-        double strafe = squared(deadband(-leftStickX, band));
+        double strafe = deadband(-leftStickX, band);
+        strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
         boolean driverWantsControl = Math.abs(leftStickY) > band
@@ -149,7 +152,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
                 return;
             }
             drivingItself = false;
-            follower.manual(0, 0, 0);
+            follower.manual(0.0, 0.0, 0.0);
             hold.release();
         }
         Tracker.publish("drive/mode", "DRIVER");
@@ -166,13 +169,15 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     }
 
     double deadband(double value, double band) {
-        if (Math.abs(value) < band) {
-            return 0;
+        double alwaysPositiveMagnitude = Math.abs(value);
+        boolean isCloseToZero = alwaysPositiveMagnitude < band;
+        if (isCloseToZero) {
+            return 0.0;
         }
         return value;
     }
 
-    double squared(double value) {
+    double signedSquared(double value) {
         return value * Math.abs(value);
     }
 }

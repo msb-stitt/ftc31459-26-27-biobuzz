@@ -103,7 +103,7 @@ lessons.L040TankOpMode running. Connect AdvantageScope to 127.0.0.1 as NetworkTa
 Open AdvantageScope and connect to `127.0.0.1` as NetworkTables 4. The topics arrive under `sim/`.
 Add a 2D field and give it `sim/Pose`.
 
-**You'll know it worked when** the robot moves. `sim/wheels/frontLeft` and its three neighbours say
+**You'll know it worked when** the robot moves. `sim/wheels/frontLeft` and its three neighbors say
 what reached each motor, and `sim/vel/forward_ips` says how fast the robot is going.
 
 **If it didn't**, and the robot sits still with all four wheels reading 0, that lesson is still
@@ -117,7 +117,7 @@ the kind is NetworkTables 4 rather than a log file.
 Ctrl-C stops it. The flight log is in the project's top folder, which the first line it prints
 names.
 
-:::{admonition} Which way round the field gets drawn
+:::{admonition} Which way around the field gets drawn
 :class: note
 The corner the arrow starts in and the way it points do not agree with the numbers going out.
 Trust that the robot moves, and how far it moves, rather than which way it faces on the screen.

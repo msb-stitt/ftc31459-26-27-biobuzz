@@ -16,10 +16,10 @@ public abstract class CorbelsAuto extends CorbelsOpMode {
     protected final boolean isAuto() { return true; }
 
     /** Where the robot is placed before the match. */
-    protected abstract Pose startPose();
+    public abstract Pose startPose();
 
     /** What the robot should do. */
-    protected abstract Command routine();
+    public abstract Command routine();
 
     @Override
     protected final void onInit() {

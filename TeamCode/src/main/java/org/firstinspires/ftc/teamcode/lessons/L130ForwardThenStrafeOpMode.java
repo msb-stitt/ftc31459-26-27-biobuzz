@@ -33,9 +33,9 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
     double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
-    Pose start = poses.of(72, botStartYIn, 90);
-    Pose corner = poses.of(72, 72, 90);
-    Pose end = poses.of(96, 72, 90);
+    Pose start = poses.of(72.0, botStartYIn, 90.0);
+    Pose corner = poses.of(72.0, 72.0, 90.0);
+    Pose end = poses.of(96.0, 72.0, 90.0);
 
     CorbelsMecanum drivetrain;
 
@@ -73,15 +73,15 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
         stopAfter();
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected Pose startPose() {
+    public Pose startPose() {
         return start;
     }
 
-    // 'protected' to match the parent class. 'protected' allows access from this package and from sub-classes.
+    // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    protected Command routine() {
+    public Command routine() {
         return sequential(
                 follow(follower, line(start, corner).constant(start))
                 // When on L130S030, see
