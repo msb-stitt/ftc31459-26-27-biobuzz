@@ -1,7 +1,7 @@
 # L125Drive24OpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-rules`:
+applying `solutions/` on `solutions-rules.1`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L125Drive24OpMode.java`
 
