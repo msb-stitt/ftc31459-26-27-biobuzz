@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -442,8 +443,8 @@ changed.</p>
 </section>
 <section id="l070s060">
 <span id="l070s060-read-the-sticks-sideways"></span><h3>L070S060: read the sticks sideways<a class="headerlink" href="#l070s060" title="Link to this heading">¶</a></h3>
-<p>Each stick also moves left and right. Pushed right, it reads above 0. Pushed left, it reads below
-0. Tank drive does not use these yet. Later lessons drive sideways with them.</p>
+<p>Each stick also moves left and right. Pushed right, it reads above 0.0. Pushed left, it reads below
+0.0. Tank drive does not use these yet. Later lessons drive sideways with them.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Near the top of <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, find the
 comment that names this step, under the lines that read the sticks up and down. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L070S060, see</span>
@@ -458,14 +459,14 @@ comment that names this step, under the lines that read the sticks up and down. 
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick to the right, and <code class="docutils literal notranslate"><span class="pre">stick/leftX</span></code> goes above 0.</p></li>
-<li><p>Push the right stick to the left, and <code class="docutils literal notranslate"><span class="pre">stick/rightX</span></code> goes below 0.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> stay at 0, and the robot does not move.</p></li>
+<li><p>Push the left stick to the right, and <code class="docutils literal notranslate"><span class="pre">stick/leftX</span></code> goes above 0.0.</p></li>
+<li><p>Push the right stick to the left, and <code class="docutils literal notranslate"><span class="pre">stick/rightX</span></code> goes below 0.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> stay at 0.0, and the robot does not move.</p></li>
 </ul>
 <figure class="align-default" id="fig-l070-sideways">
 <img alt="../_images/fig-l070-sideways.png" src="../_images/fig-l070-sideways.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s list with the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder open, showing <code class="docutils literal notranslate"><span class="pre">leftX</span></code> at 0.500 and <code class="docutils literal notranslate"><span class="pre">rightX</span></code> at -0.250, <code class="docutils literal notranslate"><span class="pre">leftY</span></code> and <code class="docutils literal notranslate"><span class="pre">rightY</span></code> at 0, and <code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> at 0.</span><a class="headerlink" href="#fig-l070-sideways" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s list with the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder open, showing <code class="docutils literal notranslate"><span class="pre">leftX</span></code> at 0.500 and <code class="docutils literal notranslate"><span class="pre">rightX</span></code> at -0.250, <code class="docutils literal notranslate"><span class="pre">leftY</span></code> and <code class="docutils literal notranslate"><span class="pre">rightY</span></code> at 0.0, and <code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> at 0.0.</span><a class="headerlink" href="#fig-l070-sideways" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>

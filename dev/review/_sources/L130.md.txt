@@ -36,7 +36,7 @@ Delete 1 line, write 1 line.
 +++ after it
 @@ -83,7 +83,7 @@
      @Override
-     protected Command routine() {
+     public Command routine() {
          return sequential(
 -                follow(follower, line(start, corner).constant(start))
 +                follow(follower, line(start, corner).constant(start)),

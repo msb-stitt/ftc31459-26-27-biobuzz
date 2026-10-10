@@ -245,6 +245,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -352,7 +353,7 @@ Git, click <strong>Add</strong>.</p>
 <p><span class="caption-text">AdvantageScope’s 2D Field with the robot near the bottom of the field, right of the middle, turned so its arrow points up and to the right, and the list showing <code class="docutils literal notranslate"><span class="pre">arcade/turn</span></code> at -0.040 and <code class="docutils literal notranslate"><span class="pre">pinPoint/heading_deg</span></code> at 30.070.</span><a class="headerlink" href="#fig-l160-creep" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>The starter is L150’s finished OpMode. This run pretends the turn stick rests a little off centre,
+<p>The starter is L150’s finished OpMode. This run pretends the turn stick rests a little off center,
 the way a worn stick does.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L160HeadingHoldOpMode --left_stick_y=-0.3 --right_stick_x=0.2"</span>
@@ -372,7 +373,7 @@ folder, then <code class="docutils literal notranslate"><span class="pre">Locali
 <p><code class="docutils literal notranslate"><span class="pre">HeadingHold</span></code> is written for you, in <code class="docutils literal notranslate"><span class="pre">base</span></code>. While the turn stick is pushed, it hands the stick
 straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
 After that it hands back the turn that steers the robot back to that heading.</p>
-<p>Its own deadband is 0.05, so a stick that is nearly centred counts as let go. <code class="docutils literal notranslate"><span class="pre">turn</span></code> at -0.040 is
+<p>Its own deadband is 0.05, so a stick that is nearly centered counts as let go. <code class="docutils literal notranslate"><span class="pre">turn</span></code> at -0.040 is
 inside it.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the line
 <code class="docutils literal notranslate"><span class="pre">CorbelsMecanum</span> <span class="pre">drivetrain;</span></code> near the top of the class. Under it, type:</p>
@@ -385,7 +386,8 @@ steers the heading in autonomous. Tune the follower, and this hold gets the same
 <p><code class="docutils literal notranslate"><span class="pre">HeadingHold</span></code> and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> turn red. Click each one and press Option+Enter, as in L120. The
 popup for <code class="docutils literal notranslate"><span class="pre">Constants</span></code> names <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode.pedro.Constants</span></code>.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, find the comment that names this step. Under it, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">squared</span><span class="p">(</span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">rightStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">));</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">rightStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
+<span class="w">        </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">turn</span><span class="p">);</span>
 <span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"arcade/turn"</span><span class="p">,</span><span class="w"> </span><span class="n">turn</span><span class="p">);</span>
 <span class="w">        </span><span class="c1">// When on L160S040, see</span>
 <span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040</span>

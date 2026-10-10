@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -323,7 +324,7 @@
 <figure class="align-default" id="fig-l080-scaled">
 <img alt="../_images/fig-l080-scaled.png" src="../_images/fig-l080-scaled.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s Line Graph with <code class="docutils literal notranslate"><span class="pre">NT:/power/left</span></code> at 1 and <code class="docutils literal notranslate"><span class="pre">NT:/power/right</span></code> at 0.6 on <strong>Left Axis</strong>, and the list showing <code class="docutils literal notranslate"><span class="pre">arcade/forward</span></code> at 1 and <code class="docutils literal notranslate"><span class="pre">arcade/turn</span></code> at -0.250.</span><a class="headerlink" href="#fig-l080-scaled" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s Line Graph with <code class="docutils literal notranslate"><span class="pre">NT:/power/left</span></code> at 1.0 and <code class="docutils literal notranslate"><span class="pre">NT:/power/right</span></code> at 0.6 on <strong>Left Axis</strong>, and the list showing <code class="docutils literal notranslate"><span class="pre">arcade/forward</span></code> at 1.0 and <code class="docutils literal notranslate"><span class="pre">arcade/turn</span></code> at -0.250.</span><a class="headerlink" href="#fig-l080-scaled" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Drive with one stick for going and one for turning: arcade drive. When the sticks ask for more power
@@ -367,9 +368,11 @@ not drive the wheels yet.</p>
 <span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">band</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">squared</span><span class="p">(</span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickY</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">));</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickY</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">forward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">forward</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"arcade/forward"</span><span class="p">,</span><span class="w"> </span><span class="n">forward</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">squared</span><span class="p">(</span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">rightStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">));</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">rightStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">turn</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"arcade/turn"</span><span class="p">,</span><span class="w"> </span><span class="n">turn</span><span class="p">);</span>
 </span></pre></div>
 </div>
@@ -398,7 +401,7 @@ counter-clockwise, is positive.</p>
 <section id="l080s040">
 <span id="l080s040-mix-them-into-two-sides"></span><h3>L080S040: mix them into two sides<a class="headerlink" href="#l080s040" title="Link to this heading">¶</a></h3>
 <p>To turn right, the left side goes faster and the right side goes slower. A turn to the right is
-below 0, so taking <code class="docutils literal notranslate"><span class="pre">turn</span></code> away from the left side speeds it up, and adding it to the right side
+below 0.0, so taking <code class="docutils literal notranslate"><span class="pre">turn</span></code> away from the left side speeds it up, and adding it to the right side
 slows that side down.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the comment that names this
 step. Under it, type:</p>
@@ -430,36 +433,40 @@ robot from L040 is still in <strong>Poses</strong>.</p>
 <figure class="align-default" id="fig-l080-too-much">
 <img alt="../_images/fig-l080-too-much.png" src="../_images/fig-l080-too-much.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s Line Graph with <code class="docutils literal notranslate"><span class="pre">NT:/power/left</span></code> at 1.25 and <code class="docutils literal notranslate"><span class="pre">NT:/power/right</span></code> at 0.75 on <strong>Left Axis</strong>, and the list showing <code class="docutils literal notranslate"><span class="pre">arcade/forward</span></code> at 1 and <code class="docutils literal notranslate"><span class="pre">arcade/turn</span></code> at -0.250.</span><a class="headerlink" href="#fig-l080-too-much" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s Line Graph with <code class="docutils literal notranslate"><span class="pre">NT:/power/left</span></code> at 1.25 and <code class="docutils literal notranslate"><span class="pre">NT:/power/right</span></code> at 0.75 on <strong>Left Axis</strong>, and the list showing <code class="docutils literal notranslate"><span class="pre">arcade/forward</span></code> at 1.0 and <code class="docutils literal notranslate"><span class="pre">arcade/turn</span></code> at -0.250.</span><a class="headerlink" href="#fig-l080-too-much" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>A motor’s power only goes from -1 to 1. On the robot, the Control Hub cuts 1.25 down to 1 and
+<p>A motor’s power only goes from -1.0 to +1.0. On the robot, the Control Hub cuts 1.25 down to 1.0 and
 leaves 0.75 alone. The left side loses some of what it asked for and the right side loses none, so
 the robot drives a wider curve than the sticks asked for. The simulator does not cut it, so the
 curve there looks right. The number gives it away.</p>
 </section>
 <section id="l080s050">
 <span id="l080s050-scale-don-t-cut"></span><h3>L080S050: scale, don’t cut<a class="headerlink" href="#l080s050" title="Link to this heading">¶</a></h3>
-<p>The fix is to divide both sides by the bigger one. 1.25 and 0.75 become 1 and 0.6. The robot goes
+<p>The fix is to divide both sides by the bigger one. 1.25 and 0.75 become 1.0 and 0.6. The robot goes
 a little slower, and the curve stays the one the driver asked for.</p>
 <p><strong>Change.</strong> Press Ctrl+C to stop the simulator. Go back to the two lines from L080S040 that make
 <code class="docutils literal notranslate"><span class="pre">leftPower</span></code> and <code class="docutils literal notranslate"><span class="pre">rightPower</span></code>. Under them, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">leftPower</span><span class="p">),</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">rightPower</span><span class="p">)));</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">leftPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">rightPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">leftSize</span><span class="p">,</span><span class="w"> </span><span class="n">rightSize</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">biggest</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">leftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">rightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rightPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Math.max</span></code> gives back the bigger of two numbers. The inner one finds the bigger power, with its
-minus sign taken off. The outer one makes sure <code class="docutils literal notranslate"><span class="pre">biggest</span></code> is never less than 1. Without it, a gentle
-0.25 would be divided by 0.25 and become full power.</p>
-<p>The last two lines have no <code class="docutils literal notranslate"><span class="pre">double</span></code> in front. <code class="docutils literal notranslate"><span class="pre">leftPower</span></code> already exists, so they change it rather
-than making a new one.</p>
+<p><code class="docutils literal notranslate"><span class="pre">leftSize</span></code> and <code class="docutils literal notranslate"><span class="pre">rightSize</span></code> are the powers with their minus signs taken off. <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> gives back
+the bigger of two numbers, so the first <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> finds the bigger size. The second makes sure
+<code class="docutils literal notranslate"><span class="pre">biggest</span></code> is never less than 1.0. Without it, a gentle 0.25 would be divided by 0.25 and become full
+power.</p>
+<p>The last three lines have no <code class="docutils literal notranslate"><span class="pre">double</span></code> in front. <code class="docutils literal notranslate"><span class="pre">biggest</span></code> and <code class="docutils literal notranslate"><span class="pre">leftPower</span></code> already exist, so these
+lines change them rather than making new ones.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick all the way forward and the right stick halfway right. <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 1,
+<li><p>Push the left stick all the way forward and the right stick halfway right. <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 1.0,
 and <code class="docutils literal notranslate"><span class="pre">power/right</span></code> reads 0.6.</p></li>
 <li><p>Push the left stick halfway forward alone, and both read 0.25, the same as before this step.</p></li>
 </ul>
@@ -479,11 +486,11 @@ two, before and after L080S050. The simulator has no walls, so a robot left runn
 field.</p>
 <p><strong>If it didn’t</strong>, and the robot turns left when the right stick is pushed right, the minus sign is
 missing from <code class="docutils literal notranslate"><span class="pre">-rightStickX</span></code>, or <code class="docutils literal notranslate"><span class="pre">-</span></code> and <code class="docutils literal notranslate"><span class="pre">+</span></code> are swapped in the two mix lines.</p>
-<p><strong>If it didn’t</strong>, and the robot goes full speed with a gentle push, <code class="docutils literal notranslate"><span class="pre">biggest</span></code> starts below 1. Check
-the <code class="docutils literal notranslate"><span class="pre">1</span></code> in the outer <code class="docutils literal notranslate"><span class="pre">Math.max</span></code>.</p>
+<p><strong>If it didn’t</strong>, and the robot goes full speed with a gentle push, <code class="docutils literal notranslate"><span class="pre">biggest</span></code> starts below 1.0.
+Check the <code class="docutils literal notranslate"><span class="pre">1</span></code> in the outer <code class="docutils literal notranslate"><span class="pre">Math.max</span></code>.</p>
 <p><strong>What you just did.</strong> Arcade drive mixes two things the driver wants into two things the wheels
 do. When the mix asks for more than a motor has, dividing keeps the shape of the request and gives
-up some speed. Cutting at 1 keeps the speed and changes the shape. The Control Hub cuts; it is the
+up some speed. Cutting at 1.0 keeps the speed and changes the shape. The Control Hub cuts; it is the
 code’s job to scale first.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a> drives a mecanum robot, which adds a third thing to do with the
 sticks: going sideways.</p>

@@ -283,7 +283,7 @@
 <span class="gi">+++ after it</span>
 <span class="gu">@@ -83,7 +83,7 @@</span>
 <span class="w"> </span>    @Override
-<span class="w"> </span>    protected Command routine() {
+<span class="w"> </span>    public Command routine() {
 <span class="w"> </span>        return sequential(
 <span class="gd">-                follow(follower, line(start, corner).constant(start))</span>
 <span class="gi">+                follow(follower, line(start, corner).constant(start)),</span>

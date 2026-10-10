@@ -1,7 +1,7 @@
 # L190VelocityDriveOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-l010.1`:
+applying `solutions/` on `solutions-rules.1`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java`
 
@@ -69,9 +69,9 @@ After L190:
 Before L190:
 
 ```java
-        double forwardInPerS = 0;
-        double strafeInPerS = 0;
-        double turnRadPerS = 0;
+        double forwardInPerS = 0.0;
+        double strafeInPerS = 0.0;
+        double turnRadPerS = 0.0;
 ```
 
 After L190:

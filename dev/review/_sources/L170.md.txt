@@ -54,7 +54,7 @@ Delete 0 lines, write 10 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -129,6 +129,16 @@
+@@ -132,6 +132,16 @@
          // When on L170S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
          // for what to do here.
@@ -65,7 +65,7 @@ Delete 0 lines, write 10 lines.
 +                return;
 +            }
 +            drivingItself = false;
-+            follower.manual(0, 0, 0);
++            follower.manual(0.0, 0.0, 0.0);
 +        }
 +        Tracker.publish("drive/mode", "DRIVER");
          double heading = follower.pose().heading();

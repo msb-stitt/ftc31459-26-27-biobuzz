@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -323,7 +324,7 @@
 <figure class="align-default" id="fig-l170-drove-there">
 <img alt="../_images/fig-l170-drove-there.png" src="../_images/fig-l170-drove-there.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot right of the middle of the field, its arrow pointing up the field, and the list showing <code class="docutils literal notranslate"><span class="pre">drive/mode</span></code> at AUTO, every stick at 0, and <code class="docutils literal notranslate"><span class="pre">pinPoint/x_in</span></code> at 119.999, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 71.999 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> at 90.</span><a class="headerlink" href="#fig-l170-drove-there" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot right of the middle of the field, its arrow pointing up the field, and the list showing <code class="docutils literal notranslate"><span class="pre">drive/mode</span></code> at AUTO, every stick at 0.0, and <code class="docutils literal notranslate"><span class="pre">pinPoint/x_in</span></code> at 119.999, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 71.999 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> at 90.</span><a class="headerlink" href="#fig-l170-drove-there" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Press Y and the robot drives itself to a spot on the field. Push any stick and the driver has it
@@ -360,7 +361,7 @@ Git, click <strong>Add</strong>.</p>
 <figure class="align-default" id="fig-l170-stands-still">
 <img alt="../_images/fig-l170-stands-still.png" src="../_images/fig-l170-stands-still.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing every stick at 0 and <code class="docutils literal notranslate"><span class="pre">pinPoint/x_in</span></code> at 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 10.500 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> at 90.</span><a class="headerlink" href="#fig-l170-stands-still" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing every stick at 0.0 and <code class="docutils literal notranslate"><span class="pre">pinPoint/x_in</span></code> at 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> at 10.500 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> at 90.</span><a class="headerlink" href="#fig-l170-stands-still" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The starter is L160’s finished OpMode, moved around a little. All the driving now sits in
@@ -414,7 +415,7 @@ comment that names this step. Under it, type:</p>
 </span><span class="hll"><span class="w">                </span><span class="k">return</span><span class="p">;</span>
 </span><span class="hll"><span class="w">            </span><span class="p">}</span>
 </span><span class="hll"><span class="w">            </span><span class="n">drivingItself</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
-</span><span class="hll"><span class="w">            </span><span class="n">follower</span><span class="p">.</span><span class="na">manual</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">follower</span><span class="p">.</span><span class="na">manual</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drive/mode"</span><span class="p">,</span><span class="w"> </span><span class="s">"DRIVER"</span><span class="p">);</span>
 </span></pre></div>
@@ -450,8 +451,8 @@ press Y and take over with a stick.</p>
 driving after Y. The binding is missing, the <code class="docutils literal notranslate"><span class="pre">return</span></code> is missing, or the <code class="docutils literal notranslate"><span class="pre">if</span></code> reads
 <code class="docutils literal notranslate"><span class="pre">driverWantsControl</span></code> without the <code class="docutils literal notranslate"><span class="pre">!</span></code>.</p>
 <p><strong>If it didn’t</strong>, and it fails with <code class="docutils literal notranslate"><span class="pre">manual</span> <span class="pre">control</span> <span class="pre">returns</span> <span class="pre">expected:&lt;MANUAL&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;HOLD&gt;</span></code>, the
-follower never lets go. Either <code class="docutils literal notranslate"><span class="pre">follower.manual(0,</span> <span class="pre">0,</span> <span class="pre">0);</span></code> is missing, or the binding leaves out
-<code class="docutils literal notranslate"><span class="pre">drivingItself</span> <span class="pre">=</span> <span class="pre">true;</span></code>, so the sticks never take the follower back.</p>
+follower never lets go. Either <code class="docutils literal notranslate"><span class="pre">follower.manual(0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0);</span></code> is missing, or the binding leaves
+out <code class="docutils literal notranslate"><span class="pre">drivingItself</span> <span class="pre">=</span> <span class="pre">true;</span></code>, so the sticks never take the follower back.</p>
 <p>Two lines can go missing and the test still passes. Neither has been run; both are read from the
 code.</p>
 <ul class="simple">

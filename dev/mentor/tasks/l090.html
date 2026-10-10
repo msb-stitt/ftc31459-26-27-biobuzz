@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -377,11 +378,12 @@ left stick, sideways.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L090S030, see</span>
 <span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">squared</span><span class="p">(</span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">));</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">strafe</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"arcade/strafe"</span><span class="p">,</span><span class="w"> </span><span class="n">strafe</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p><strong>Strafe</strong> is the robot word for sliding sideways. The stick reads above 0 to the right, and the
+<p><strong>Strafe</strong> is the robot word for sliding sideways. The stick reads above 0.0 to the right, and the
 minus sign makes a slide to the left positive, the same way a turn to the left is.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -460,35 +462,41 @@ and <code class="docutils literal notranslate"><span class="pre">power</span></c
 <section id="l090s050">
 <span id="l090s050-scale-all-four"></span><h3>L090S050: scale all four<a class="headerlink" href="#l090s050" title="Link to this heading">¶</a></h3>
 <p>Push the left stick into a corner, all the way forward and all the way left. <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">strafe</span></code>
-are both 1, so the front right and back left wheels ask for 2. That is twice what a motor has.</p>
+are both 1.0, so the front right and back left wheels ask for 2.0. That is twice what a motor has.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Go back to the four lines that make
 the wheel powers. Under them, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">frontLeftPower</span><span class="p">),</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">frontRightPower</span><span class="p">)),</span>
-</span><span class="hll"><span class="w">                </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">backLeftPower</span><span class="p">),</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">backRightPower</span><span class="p">))));</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontLeftSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">frontLeftPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontRightSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">frontRightPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backLeftSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">backLeftPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backRightSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">backRightPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">frontLeftSize</span><span class="p">,</span><span class="w"> </span><span class="n">frontRightSize</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">biggest</span><span class="p">,</span><span class="w"> </span><span class="n">backLeftSize</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">biggest</span><span class="p">,</span><span class="w"> </span><span class="n">backRightSize</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">biggest</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p>This is L080’s scaling, for four wheels. The two inner <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> calls find the bigger of each
-pair, and the next one finds the biggest of all four. Type it as two lines, pressing Enter where the
-first one ends, and Android Studio moves the second one in for you.</p>
+<p>This is L080’s scaling, for four wheels. <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> takes two numbers, so finding the biggest of
+four sizes takes three calls: the first compares the two front wheels, and each of the next two
+brings in one more wheel. The last <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> keeps <code class="docutils literal notranslate"><span class="pre">biggest</span></code> from going below 1.0, as in L080.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick into the forward-left corner. The front right and back left wheels read 1, and
-the other two read 0.</p></li>
+<li><p>Push the left stick into the forward-left corner. The front right and back left wheels read 1.0,
+and the other two read 0.0.</p></li>
 <li><p>The robot drives diagonally, forward and to its left, with its nose still pointing forward.</p></li>
 </ul>
 <figure class="align-default" id="fig-l090-corner">
 <img alt="../_images/fig-l090-corner.png" src="../_images/fig-l090-corner.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field and list with the left stick in the forward-left corner: <code class="docutils literal notranslate"><span class="pre">arcade/forward</span></code> and <code class="docutils literal notranslate"><span class="pre">arcade/strafe</span></code> at 1, <code class="docutils literal notranslate"><span class="pre">power/frontRight</span></code> and <code class="docutils literal notranslate"><span class="pre">power/backLeft</span></code> at 1, <code class="docutils literal notranslate"><span class="pre">power/frontLeft</span></code> and <code class="docutils literal notranslate"><span class="pre">power/backRight</span></code> at 0, and the robot’s heading still 180.00°.</span><a class="headerlink" href="#fig-l090-corner" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field and list with the left stick in the forward-left corner: <code class="docutils literal notranslate"><span class="pre">arcade/forward</span></code> and <code class="docutils literal notranslate"><span class="pre">arcade/strafe</span></code> at 1.0, <code class="docutils literal notranslate"><span class="pre">power/frontRight</span></code> and <code class="docutils literal notranslate"><span class="pre">power/backLeft</span></code> at 1.0, <code class="docutils literal notranslate"><span class="pre">power/frontLeft</span></code> and <code class="docutils literal notranslate"><span class="pre">power/backRight</span></code> at 0.0, and the robot’s heading still 180.00°.</span><a class="headerlink" href="#fig-l090-corner" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
@@ -508,7 +516,7 @@ pushes add up.</p>
 Send the code, and run <code class="docutils literal notranslate"><span class="pre">L090</span> <span class="pre">Mecanum</span></code> from the Driver Station.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push each way gently and watch the top of each tyre:</p></li>
+<li><p>Push each way gently and watch the top of each tire:</p></li>
 </ul>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
@@ -565,7 +573,7 @@ first picture. <code class="docutils literal notranslate"><span class="pre">--le
 from <code class="docutils literal notranslate"><span class="pre">-leftStickX</span></code>, or the strafe signs are swapped in the four lines.</p>
 <p><strong>If it didn’t</strong>, and the robot turns or grinds instead of sliding, on the floor, a wheel is on the
 wrong corner. Forward still works with a wheel in the wrong place, because all four still push
-forward. It is the sideways pushes that stop cancelling. This is what the arithmetic says. No robot
+forward. It is the sideways pushes that stop canceling. This is what the arithmetic says. No robot
 here has been driven with a wheel on the wrong corner.</p>
 <p><strong>What you just did.</strong> Three numbers, four wheels, one line each. Those four lines are the whole of
 mecanum drive, and the path follower in later lessons uses the same four. The scaling is L080’s,

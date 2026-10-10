@@ -3,7 +3,7 @@
 :::{figure} ../_static/figures/fig-l030-live.png
 :name: fig-l030-live
 
-AdvantageScope's Line Graph connected to the simulator, with `NT:/stick/leftY` drawn at -1 and `NT:/speed/left` drawn at 1, and `speed/right` reading -0.500 beside `stick/rightY` at 0.500 in the list.
+AdvantageScope's Line Graph connected to the simulator, with `NT:/stick/leftY` drawn at -1.0 and `NT:/speed/left` drawn at 1.0, and `speed/right` reading -0.500 beside `stick/rightY` at 0.500 in the list.
 :::
 
 Turn each stick into a wheel speed, where forward is positive. Nothing on the robot moves yet.
@@ -51,8 +51,8 @@ the whole line, the way you did in L020.
 
 We are working toward tank drive, where the left stick drives the left wheels and the right
 stick drives the right wheels. Push a stick away from you and its wheels should turn forward. We
-call forward speeds positive and backward speeds negative. But in L020 a stick pushed away read -1,
-so its number has to be turned round to make a speed.
+call forward speeds positive and backward speeds negative. But in L020 a stick pushed away read
+-1.0, so its number has to be turned around to make a speed.
 
 The starter already has the four lines you wrote in L020. They read the sticks and write them
 down.
@@ -76,9 +76,9 @@ The list under `-leftS`, offering the variable `leftStickY`, marked `double`.
         Tracker.publish("speed/left", leftSpeed);
 ```
 
-The minus sign turns the number round: -1 becomes 1, and 0.5 becomes -0.5. `leftStickY` is still
-what the stick says, and `leftSpeed` is how fast the wheels should go. Keeping two names for the
-two ideas means each name always says what it holds.
+The minus sign turns the number around: -1.0 becomes 1.0, and 0.5 becomes -0.5. `leftStickY` is
+still what the stick says, and `leftSpeed` is how fast the wheels should go. Keeping two names for
+the two ideas means each name always says what it holds.
 
 **Simulator.** In the Terminal, run:
 
@@ -91,7 +91,7 @@ two ideas means each name always says what it holds.
 
 **Check.**
 
-- Push the left stick away from you. `stick/leftY` goes to -1, and `speed/left` goes to 1.
+- Push the left stick away from you. `stick/leftY` goes to -1.0, and `speed/left` goes to 1.0.
 - The two lines are always mirror images of each other.
 
 ### L030S040: the right speed
@@ -115,13 +115,13 @@ step, do the same for the right stick:
 
 **Check.**
 
-- Push both sticks away from you. Both speeds read 1.
-- Pull both back, and both read -1.
+- Push both sticks away from you. Both speeds read 1.0.
+- Pull both back, and both read -1.0.
 
 ::::{only} mentor
 **No gamepad.** `--args="mytry.L030SpeedsOpMode --left_stick_y=-1 --right_stick_y=0.5"` holds the
 left stick full forward and the right stick half back. The picture at the top was taken that way:
-`speed/left` reads 1 and `speed/right` reads -0.500.
+`speed/left` reads 1.0 and `speed/right` reads -0.500.
 
 **What you just did.** Each speed is its stick with a minus sign in front, so forward is positive
 from here on. The stick and the speed have separate names because they are separate things: one

@@ -68,13 +68,13 @@ Delete 0 lines, write 2 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -73,6 +73,8 @@
+@@ -75,6 +75,8 @@
          // When on L160S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
          // for what to do here.
 +        turn = hold.turn(follower, turn);
 +        Tracker.publish("heading/holding", hold.target() != null);
  
-         double strafe = squared(deadband(-leftStickX, band));
-         Tracker.publish("arcade/strafe", strafe);
+         double strafe = deadband(-leftStickX, band);
+         strafe = signedSquared(strafe);
 ```

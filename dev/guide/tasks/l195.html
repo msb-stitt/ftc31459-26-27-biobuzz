@@ -245,6 +245,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -318,7 +319,7 @@
 <figure class="align-default" id="fig-l195-nothing-pushed">
 <img alt="../_images/fig-l195-nothing-pushed.png" src="../_images/fig-l195-nothing-pushed.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 72, y 10.500 and heading 90, and <code class="docutils literal notranslate"><span class="pre">measure</span></code> with <code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> at 0 and <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> at NaN.</span><a class="headerlink" href="#fig-l195-nothing-pushed" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 72, y 10.500 and heading 90, and <code class="docutils literal notranslate"><span class="pre">measure</span></code> with <code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> at 0.0 and <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> at NaN.</span><a class="headerlink" href="#fig-l195-nothing-pushed" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Two numbers in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code> that came off this robot instead of somebody else’s: how many
@@ -375,11 +376,11 @@ the same shape pointing the other way: it brings four numbers back.</p>
 folder.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0.0.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.</p></li>
 </ul>
-<p>Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
-is not a number. The measuring is for the robot.</p>
+<p>Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0.0 divided by
+0.0 is not a number. The measuring is for the robot.</p>
 </section>
 <section id="l195s040">
 <span id="l195s040-push-the-robot-and-measure-an-inch"></span><h3>L195S040: push the robot and measure an inch<a class="headerlink" href="#l195s040" title="Link to this heading">¶</a></h3>

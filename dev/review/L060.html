@@ -250,7 +250,7 @@
         <article role="main" id="furo-main-content">
           <section id="l060">
 <h1>L060<a class="headerlink" href="#l060" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 5 change(s) in 1 file(s), 18 line(s) of code to write.</p>
+<p>1 file(s) copied, then 5 change(s) in 1 file(s), 22 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -262,17 +262,19 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 5 lines.</p>
+<p>Delete 0 lines, write 7 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -64,6 +64,11 @@</span>
+<span class="gu">@@ -64,6 +64,13 @@</span>
 <span class="w"> </span>        // When on L060S040, see
 <span class="w"> </span>        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double band = 0.05;</span>
-<span class="gi">+        double leftPower = squared(deadband(leftSpeed, band));</span>
+<span class="gi">+        double leftPower = deadband(leftSpeed, band);</span>
+<span class="gi">+        leftPower = signedSquared(leftPower);</span>
 <span class="gi">+        Tracker.publish("power/left", leftPower);</span>
-<span class="gi">+        double rightPower = squared(deadband(rightSpeed, band));</span>
+<span class="gi">+        double rightPower = deadband(rightSpeed, band);</span>
+<span class="gi">+        rightPower = signedSquared(rightPower);</span>
 <span class="gi">+        Tracker.publish("power/right", rightPower);</span>
 <span class="w"> </span>
 <span class="w"> </span>        hardware.frontLeft.setPower(leftSpeed);
@@ -285,8 +287,8 @@
 <p>Delete 2 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -70,8 +70,8 @@</span>
-<span class="w"> </span>        double rightPower = squared(deadband(rightSpeed, band));
+<span class="gu">@@ -72,8 +72,8 @@</span>
+<span class="w"> </span>        rightPower = signedSquared(rightPower);
 <span class="w"> </span>        Tracker.publish("power/right", rightPower);
 <span class="w"> </span>
 <span class="gd">-        hardware.frontLeft.setPower(leftSpeed);</span>
@@ -304,7 +306,7 @@
 <p>Delete 2 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -73,8 +73,8 @@</span>
+<span class="gu">@@ -75,8 +75,8 @@</span>
 <span class="w"> </span>        hardware.frontLeft.setPower(leftPower);
 <span class="w"> </span>        hardware.backLeft.setPower(leftPower);
 <span class="w"> </span>
@@ -320,16 +322,18 @@
 </section>
 <section id="id3">
 <h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 6 lines.</p>
+<p>Delete 0 lines, write 8 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -88,6 +88,12 @@</span>
+<span class="gu">@@ -90,6 +90,14 @@</span>
 <span class="w"> </span>    // When on L060S030, see
 <span class="w"> </span>    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
 <span class="w"> </span>    // for what to do here.
 <span class="gi">+    double deadband(double value, double band) {</span>
-<span class="gi">+        if (Math.abs(value) &lt; band) {</span>
-<span class="gi">+            return 0;</span>
+<span class="gi">+        double alwaysPositiveMagnitude = Math.abs(value);</span>
+<span class="gi">+        boolean isCloseToZero = alwaysPositiveMagnitude &lt; band;</span>
+<span class="gi">+        if (isCloseToZero) {</span>
+<span class="gi">+            return 0.0;</span>
 <span class="gi">+        }</span>
 <span class="gi">+        return value;</span>
 <span class="gi">+    }</span>
@@ -344,11 +348,11 @@
 <p>Delete 0 lines, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -98,4 +98,7 @@</span>
+<span class="gu">@@ -102,4 +102,7 @@</span>
 <span class="w"> </span>    // When on L060S050, see
 <span class="w"> </span>    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
 <span class="w"> </span>    // for what to do here.
-<span class="gi">+    double squared(double value) {</span>
+<span class="gi">+    double signedSquared(double value) {</span>
 <span class="gi">+        return value * Math.abs(value);</span>
 <span class="gi">+    }</span>
 <span class="w"> </span>}

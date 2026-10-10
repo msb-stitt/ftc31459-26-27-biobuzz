@@ -3,7 +3,7 @@
 :::{figure} ../_static/figures/fig-l195-nothing-pushed.png
 :name: fig-l195-nothing-pushed
 
-AdvantageScope's 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing `pinPoint` at x 72, y 10.500 and heading 90, and `measure` with `inches` and `ticks` at 0 and `ticksPerInch` at NaN.
+AdvantageScope's 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing `pinPoint` at x 72, y 10.500 and heading 90, and `measure` with `inches` and `ticks` at 0.0 and `ticksPerInch` at NaN.
 :::
 
 Two numbers in `Constants.java` that came off this robot instead of somebody else's: how many
@@ -83,11 +83,11 @@ folder.
 
 **Check.**
 
-- `inches` and `ticks` read 0.
+- `inches` and `ticks` read 0.0.
 - `ticksPerInch` reads NaN, which means "not a number".
 
-Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0 divided by 0
-is not a number. The measuring is for the robot.
+Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0.0 divided by
+0.0 is not a number. The measuring is for the robot.
 
 ### L195S040: push the robot and measure an inch
 
@@ -161,7 +161,7 @@ With `@Disabled` left in, every test passes. The OpMode is missing from the Driv
 **If it didn't**, on the robot, and it says `Encoders counted 0 ticks` while the inches climb,
 L195S030 is not on the robot you sent to.
 
-**If it didn't**, and the turn radius is about half what the tape says, the robot was swung round
+**If it didn't**, and the turn radius is about half what the tape says, the robot was swung around
 the room rather than spun on the spot. The Pinpoint counts the turning, and driving in a circle adds
 turning the wheels never made.
 

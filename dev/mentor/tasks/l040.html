@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -383,8 +384,8 @@ comment that names this step, type <code class="docutils literal notranslate"><s
 </span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>A power is a number from -1 to 1. It is how hard the motor pushes: 1 is full forward, -1 is full
-backward, and 0 is stop.</p>
+<p>A power is a number from -1.0 to +1.0. It is how hard the motor pushes: 1.0 is full forward, -1.0 is
+full backward, and 0.0 is stop.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Neither line has a red underline.</p></li>
@@ -415,15 +416,34 @@ OpMode moved it to its start, so you can ignore it.</p>
 <li><p>Push one forward and pull the other back, and it spins in place.</p></li>
 <li><p>Push the right stick further than the left, and it curves to the left.</p></li>
 </ul>
+<p><strong>What’s happening.</strong> Here is what one of the wheel lines does.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">);</span>
+</pre></div>
+</div>
+<figure class="align-default" id="fig-l040-sticky">
+<img alt="../_images/fig-l040-sticky.png" src="../_images/fig-l040-sticky.png" />
+<figcaption>
+<p><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">hardware.frontLeft.setPower(leftSpeed);</span></code> as sticky notes: the label <code class="docutils literal notranslate"><span class="pre">hardware</span></code> with an arrow to a blue <code class="docutils literal notranslate"><span class="pre">RobotHardware</span></code> note, the labels <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code> and <code class="docutils literal notranslate"><span class="pre">backLeft</span></code> on it each with an arrow to a blue <code class="docutils literal notranslate"><span class="pre">DcMotorEx</span></code> note, and orange arrows handing 0.7 from the yellow <code class="docutils literal notranslate"><span class="pre">double</span></code> note that <code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code> points to, to each motor.</span><a class="headerlink" href="#fig-l040-sticky" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>The computer finds the variable <code class="docutils literal notranslate"><span class="pre">hardware</span></code>, and the big blue note its arrow points to.</p></li>
+<li><p>On that note is the field <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>. Its arrow points to a motor’s note.</p></li>
+<li><p>A motor has a method, <code class="docutils literal notranslate"><span class="pre">setPower</span></code>, and the line hands it <code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code>. That is the <code class="docutils literal notranslate"><span class="pre">double</span></code> on
+<code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code>’s note, 0.7 in the picture.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setPower</span></code> is part of the FTC platform. It runs that motor full power forward at +1.0, not at
+all at 0.0, and full power backward at -1.0.</p></li>
+<li><p>The same happens for each of the four: <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>, <code class="docutils literal notranslate"><span class="pre">backLeft</span></code>, <code class="docutils literal notranslate"><span class="pre">frontRight</span></code> and <code class="docutils literal notranslate"><span class="pre">backRight</span></code>.</p></li>
+</ul>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L040TankOpMode</span> <span class="pre">--left_stick_y=-0.25</span> <span class="pre">--right_stick_y=-0.35&quot;</span></code> holds
 both sticks gently forward, the right a little further. The picture at the top was taken that
 way, 4 s after connecting. The simulator has no walls, so a robot left running drives off the
 field.</p>
-<p><strong>If it didn’t</strong>, and the robot creeps with both sticks let go, the sticks do not read exactly 0.
+<p><strong>If it didn’t</strong>, and the robot creeps with both sticks let go, the sticks do not read exactly 0.0.
 Nothing in L040 tidies that up; L060 does.</p>
 <p><strong>What you just did.</strong> Each pass through <code class="docutils literal notranslate"><span class="pre">loop</span></code> reads the sticks, turns them into speeds, and hands
 each speed to the two motors on its side. That is tank drive. In the simulator every motor turns
-its wheel forward for a positive power. On the robot, a motor mounted the other way round turns its
+its wheel forward for a positive power. On the robot, a motor mounted the other way around turns its
 wheel backward, and L050 is where that is found and fixed.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a> runs this on the robot, on blocks.</p>
 </section>

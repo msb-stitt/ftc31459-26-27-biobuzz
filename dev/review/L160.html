@@ -313,15 +313,15 @@
 <p>Delete 0 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -73,6 +73,8 @@</span>
+<span class="gu">@@ -75,6 +75,8 @@</span>
 <span class="w"> </span>        // When on L160S040, see
 <span class="w"> </span>        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        turn = hold.turn(follower, turn);</span>
 <span class="gi">+        Tracker.publish("heading/holding", hold.target() != null);</span>
 <span class="w"> </span>
-<span class="w"> </span>        double strafe = squared(deadband(-leftStickX, band));
-<span class="w"> </span>        Tracker.publish("arcade/strafe", strafe);
+<span class="w"> </span>        double strafe = deadband(-leftStickX, band);
+<span class="w"> </span>        strafe = signedSquared(strafe);
 </pre></div>
 </div>
 </section>

@@ -3,7 +3,7 @@
 :::{figure} ../_static/figures/fig-pinpoint-mounting.png
 :name: fig-pinpoint-mounting
 
-The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles to each other, each labelled with the socket it plugs into, and the sticker side marked facing up.
+The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles to each other, each labeled with the socket it plugs into, and the sticker side marked facing up.
 :::
 
 The Pinpoint is bolted on, its two pods are in the right sockets, and the Control Hub finds it when

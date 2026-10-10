@@ -300,7 +300,7 @@
 <p>Delete 0 lines, write 10 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -129,6 +129,16 @@</span>
+<span class="gu">@@ -132,6 +132,16 @@</span>
 <span class="w"> </span>        // When on L170S040, see
 <span class="w"> </span>        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
 <span class="w"> </span>        // for what to do here.
@@ -311,7 +311,7 @@
 <span class="gi">+                return;</span>
 <span class="gi">+            }</span>
 <span class="gi">+            drivingItself = false;</span>
-<span class="gi">+            follower.manual(0, 0, 0);</span>
+<span class="gi">+            follower.manual(0.0, 0.0, 0.0);</span>
 <span class="gi">+        }</span>
 <span class="gi">+        Tracker.publish("drive/mode", "DRIVER");</span>
 <span class="w"> </span>        double heading = follower.pose().heading();

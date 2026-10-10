@@ -250,7 +250,7 @@
         <article role="main" id="furo-main-content">
           <section id="l080">
 <h1>L080<a class="headerlink" href="#l080" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 2 change(s) in 1 file(s), 17 line(s) of code to write.</p>
+<p>1 file(s) copied, then 2 change(s) in 1 file(s), 22 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -262,17 +262,19 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 5 lines.</p>
+<p>Delete 0 lines, write 7 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -68,6 +68,11 @@</span>
+<span class="gu">@@ -68,6 +68,13 @@</span>
 <span class="w"> </span>        // When on L080S030, see
 <span class="w"> </span>        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double band = 0.05;</span>
-<span class="gi">+        double forward = squared(deadband(-leftStickY, band));</span>
+<span class="gi">+        double forward = deadband(-leftStickY, band);</span>
+<span class="gi">+        forward = signedSquared(forward);</span>
 <span class="gi">+        Tracker.publish("arcade/forward", forward);</span>
-<span class="gi">+        double turn = squared(deadband(-rightStickX, band));</span>
+<span class="gi">+        double turn = deadband(-rightStickX, band);</span>
+<span class="gi">+        turn = signedSquared(turn);</span>
 <span class="gi">+        Tracker.publish("arcade/turn", turn);</span>
 <span class="w"> </span>
 <span class="w"> </span>        // When on L080S040, see
@@ -282,16 +284,19 @@
 </section>
 <section id="id1">
 <h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 12 lines.</p>
+<p>Delete 0 lines, write 15 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -77,6 +77,18 @@</span>
+<span class="gu">@@ -79,6 +79,21 @@</span>
 <span class="w"> </span>        // When on L080S040, see
 <span class="w"> </span>        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double leftPower = forward - turn;</span>
 <span class="gi">+        double rightPower = forward + turn;</span>
-<span class="gi">+        double biggest = Math.max(1, Math.max(Math.abs(leftPower), Math.abs(rightPower)));</span>
+<span class="gi">+        double leftSize = Math.abs(leftPower);</span>
+<span class="gi">+        double rightSize = Math.abs(rightPower);</span>
+<span class="gi">+        double biggest = Math.max(leftSize, rightSize);</span>
+<span class="gi">+        biggest = Math.max(1.0, biggest);</span>
 <span class="gi">+        leftPower = leftPower / biggest;</span>
 <span class="gi">+        rightPower = rightPower / biggest;</span>
 <span class="gi">+        Tracker.publish("power/left", leftPower);</span>

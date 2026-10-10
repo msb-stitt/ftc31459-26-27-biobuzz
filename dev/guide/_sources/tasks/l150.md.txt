@@ -114,7 +114,7 @@ simulator has no walls, so a run left going drives off the field.
 
 **If it didn't**, and `LessonsTest.l150_theBumperSwitchesToRobotRelative` fails with
 `robot relative while held expected:<1.0> but was:<5.551115123125783E-17>`, the line still reads
-`drivetrain.sticks(robotForward, robotStrafe, turn);`. That long number is 0 with a rounding error
+`drivetrain.sticks(robotForward, robotStrafe, turn);`. That long number is 0.0 with a rounding error
 from the turn.
 
 **If it didn't**, and it fails with `field relative by default expected:<0.0> but was:<1.0>`, the

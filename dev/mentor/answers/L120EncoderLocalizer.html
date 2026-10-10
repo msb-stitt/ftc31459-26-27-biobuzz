@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/sources.html">Where this came from</a></li>
 </ul>
@@ -321,7 +322,7 @@
           <section id="l120encoderlocalizer">
 <h1>L120EncoderLocalizer<a class="headerlink" href="#l120encoderlocalizer" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l010.1</span></code>:</p>
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-rules.1</span></code>:</p>
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java</span></code></p>
 <section id="l120">
 <h2>L120<a class="headerlink" href="#l120" title="Link to this heading">¶</a></h2>
@@ -343,8 +344,8 @@ applying <code class="docutils literal notranslate"><span class="pre">solutions/
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wheels</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastWheels</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backRight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wheels</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastWheels</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="p">;</span>
 
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">frontLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">frontRight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backRight</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">frontLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">frontRight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backLeft</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">backRight</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">frontLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">frontRight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backRight</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">frontLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">frontRight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">backLeft</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">backRight</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>

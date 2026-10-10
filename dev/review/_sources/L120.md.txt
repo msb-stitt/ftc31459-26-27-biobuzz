@@ -35,7 +35,7 @@ Delete 0 lines, write 2 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -97,6 +97,8 @@
+@@ -100,6 +100,8 @@
          // When on L120S030, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
          // for what to do here.
@@ -72,8 +72,8 @@ Delete 0 lines, write 13 lines.
 +        double backLeft = wheels[2] - lastWheels[2];
 +        double backRight = wheels[3] - lastWheels[3];
 +
-+        double forward = (frontLeft + frontRight + backLeft + backRight) / 4;
-+        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4;
++        double forward = (frontLeft + frontRight + backLeft + backRight) / 4.0;
++        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4.0;
  
          // When on L120S050, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s050

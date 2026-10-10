@@ -1,7 +1,7 @@
 # L120EncoderLocalizer
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-l010.1`:
+applying `solutions/` on `solutions-rules.1`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java`
 
@@ -29,8 +29,8 @@ After L120:
         double backLeft = wheels[2] - lastWheels[2];
         double backRight = wheels[3] - lastWheels[3];
 
-        double forward = (frontLeft + frontRight + backLeft + backRight) / 4;
-        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4;
+        double forward = (frontLeft + frontRight + backLeft + backRight) / 4.0;
+        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4.0;
 ```
 
 ### A change

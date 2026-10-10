@@ -245,6 +245,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -385,7 +386,7 @@ below. Then change <code class="docutils literal notranslate"><span class="pre">
 <figure class="align-default" id="fig-l190-asks-standing-still">
 <img alt="../_images/fig-l190-asks-standing-still.png" src="../_images/fig-l190-asks-standing-still.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">command/forward_ips</span></code> at 20, <code class="docutils literal notranslate"><span class="pre">left_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">turn_radps</span></code> at 0, and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 72, y 10.500 and heading 90, with no <code class="docutils literal notranslate"><span class="pre">wheel</span></code> folder.</span><a class="headerlink" href="#fig-l190-asks-standing-still" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot at the bottom middle of the field, its arrow pointing up, and the list showing <code class="docutils literal notranslate"><span class="pre">command/forward_ips</span></code> at 20, <code class="docutils literal notranslate"><span class="pre">left_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">turn_radps</span></code> at 0.0, and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> at x 72, y 10.500 and heading 90, with no <code class="docutils literal notranslate"><span class="pre">wheel</span></code> folder.</span><a class="headerlink" href="#fig-l190-asks-standing-still" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">MAX_IPS</span></code> is 40, in inches per second. <code class="docutils literal notranslate"><span class="pre">MAX_TURN_RADPS</span></code> is pi radians per second, half a turn each
@@ -405,7 +406,7 @@ in <code class="docutils literal notranslate"><span class="pre">=</span> <span c
 </span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">setCommandedWheelSpeeds</span><span class="p">(</span><span class="n">target</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>The minus signs are the ones from L030. A stick pushed up reads less than 0.</p>
+<p>The minus signs are the ones from L030. A stick pushed up reads less than 0.0.</p>
 <p><code class="docutils literal notranslate"><span class="pre">WheelTargets.forMecanum</span></code> works out how fast each wheel has to turn for the robot to move like
 that. It hands back an array, front left first, then front right, back left and back right.
 <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> is how far each wheel sits from the middle of the robot.</p>
@@ -430,7 +431,7 @@ folder. Then open <code class="docutils literal notranslate"><span class="pre">L
 <figure class="align-default" id="fig-speed-loop">
 <img alt="../_images/fig-speed-loop.png" src="../_images/fig-speed-loop.png" />
 <figcaption>
-<p><span class="caption-text">The loop drawn once round: the stick asking for 40 in/s, the feedforward guess at the power, the encoder’s measured speed coming back, and the error being added in.</span><a class="headerlink" href="#fig-speed-loop" title="Link to this image">¶</a></p>
+<p><span class="caption-text">The loop drawn once around: the stick asking for 40 in/s, the feedforward guess at the power, the encoder’s measured speed coming back, and the error being added in.</span><a class="headerlink" href="#fig-speed-loop" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Open <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code>. It <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CorbelsMecanum</span></code>, so it has everything L180’s drivetrain
@@ -445,7 +446,7 @@ The difference between wanted and measured, times <code class="docutils literal 
 <p>The guess is always a little off, and the correction only grows once the wheel is off its speed.
 Together they get there and stay there.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">for</span></code> loop runs the lines inside its braces once for each wheel. <code class="docutils literal notranslate"><span class="pre">i</span></code> starts at 0 and goes up by
-1 each time, while it is less than 4. So <code class="docutils literal notranslate"><span class="pre">wanted[i]</span></code> is <code class="docutils literal notranslate"><span class="pre">wanted[FL]</span></code> the first time round, then
+1 each time, while it is less than 4. So <code class="docutils literal notranslate"><span class="pre">wanted[i]</span></code> is <code class="docutils literal notranslate"><span class="pre">wanted[FL]</span></code> the first time around, then
 <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code>.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code>, find
 the comment that names this step. Under it, type:</p>
@@ -464,7 +465,7 @@ the comment that names this step. Under it, type:</p>
 </span></pre></div>
 </div>
 <p>Android Studio types the <code class="docutils literal notranslate"><span class="pre">}</span></code> of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop for you, when you press Enter after the <code class="docutils literal notranslate"><span class="pre">{</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">clampToPower</span></code> keeps each power between -1 and 1. <code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> sends the four powers to
+<p><code class="docutils literal notranslate"><span class="pre">clampToPower</span></code> keeps each power between -1.0 and +1.0. <code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> sends the four powers to
 the wheels, as in L110. <code class="docutils literal notranslate"><span class="pre">publishWheelSpeeds</span></code> puts each wheel’s numbers in the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> folder.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Constants</span></code> turns red. Import it as in L190S050.</p>
 <p><strong>Simulator.</strong> Run the command again, with the stick pushed less so the robot stays on the field
@@ -481,7 +482,7 @@ longer:</p>
 turning.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second and settles a little above 8, so <code class="docutils literal notranslate"><span class="pre">error_ips</span></code>
-settles a little below 0. <code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.13 and stays there. The guess was a little too
+settles a little below 0.0. <code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.13 and stays there. The guess was a little too
 much for the simulated robot, and the correction takes off what it needs.</p>
 </section>
 <section id="l190s070">

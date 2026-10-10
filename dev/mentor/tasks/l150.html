@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -416,7 +417,7 @@ Station. Stand off the robot’s left side, as in L140.</p>
 simulator has no walls, so a run left going drives off the field.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l150_theBumperSwitchesToRobotRelative</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">robot</span> <span class="pre">relative</span> <span class="pre">while</span> <span class="pre">held</span> <span class="pre">expected:&lt;1.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;5.551115123125783E-17&gt;</span></code>, the line still reads
-<code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(robotForward,</span> <span class="pre">robotStrafe,</span> <span class="pre">turn);</span></code>. That long number is 0 with a rounding error
+<code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(robotForward,</span> <span class="pre">robotStrafe,</span> <span class="pre">turn);</span></code>. That long number is 0.0 with a rounding error
 from the turn.</p>
 <p><strong>If it didn’t</strong>, and it fails with <code class="docutils literal notranslate"><span class="pre">field</span> <span class="pre">relative</span> <span class="pre">by</span> <span class="pre">default</span> <span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>, the
 two branches are swapped. The bumper is the exception, so the <code class="docutils literal notranslate"><span class="pre">if</span></code> reads the bumper, not <code class="docutils literal notranslate"><span class="pre">!</span></code> the

@@ -46,7 +46,7 @@ Git, click **Add**.
 AdvantageScope's 2D Field with the robot near the bottom of the field, right of the middle, turned so its arrow points up and to the right, and the list showing `arcade/turn` at -0.040 and `pinPoint/heading_deg` at 30.070.
 :::
 
-The starter is L150's finished OpMode. This run pretends the turn stick rests a little off centre,
+The starter is L150's finished OpMode. This run pretends the turn stick rests a little off center,
 the way a worn stick does.
 
 **Simulator.** In the Terminal, run:
@@ -70,7 +70,7 @@ folder, then `Localizer` and `pinPoint`.
 straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
 After that it hands back the turn that steers the robot back to that heading.
 
-Its own deadband is 0.05, so a stick that is nearly centred counts as let go. `turn` at -0.040 is
+Its own deadband is 0.05, so a stick that is nearly centered counts as let go. `turn` at -0.040 is
 inside it.
 
 **Change.** Press Ctrl+C in the Terminal to stop the simulator. Find the line
@@ -92,9 +92,10 @@ popup for `Constants` names `org.firstinspires.ftc.teamcode.pedro.Constants`.
 **Change.** In `loop()`, find the comment that names this step. Under it, type:
 
 ```{code-block} java
-:emphasize-lines: 6-7
+:emphasize-lines: 7-8
 
-        double turn = squared(deadband(-rightStickX, band));
+        double turn = deadband(-rightStickX, band);
+        turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
         // When on L160S040, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
@@ -143,7 +144,7 @@ tuning, not this lesson. L117 tunes it. If the nose drifts slowly anyway, the ho
 the follower's heading is drifting with it.
 
 The simulator turns the robot only when told to, so nothing there pushes it off its heading. The
-creep in L160S030 is a stick resting off centre, not a bump.
+creep in L160S030 is a stick resting off center, not a bump.
 
 **What you just did.** Three things want to turn the robot, and they take turns in a fixed order.
 The driver's stick beats the hold. The hold beats doing nothing. The person with their hands on

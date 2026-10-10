@@ -94,7 +94,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -80,6 +80,7 @@
+@@ -83,6 +83,7 @@
          // When on L110S060, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s060
          // for what to do here.

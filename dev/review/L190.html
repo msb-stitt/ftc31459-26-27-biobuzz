@@ -379,9 +379,9 @@
 <span class="w"> </span>        // When on L190S050, see
 <span class="w"> </span>        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
 <span class="w"> </span>        // for what to do here.
-<span class="gd">-        double forwardInPerS = 0;</span>
-<span class="gd">-        double strafeInPerS = 0;</span>
-<span class="gd">-        double turnRadPerS = 0;</span>
+<span class="gd">-        double forwardInPerS = 0.0;</span>
+<span class="gd">-        double strafeInPerS = 0.0;</span>
+<span class="gd">-        double turnRadPerS = 0.0;</span>
 <span class="gi">+        double forwardInPerS = deadband(-leftStickY, band) * MAX_IPS;</span>
 <span class="gi">+        double strafeInPerS = deadband(-leftStickX, band) * MAX_IPS;</span>
 <span class="gi">+        double turnRadPerS = deadband(-rightStickX, band) * MAX_TURN_RADPS;</span>

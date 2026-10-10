@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -323,7 +324,7 @@
 <figure class="align-default" id="fig-l020-live">
 <img alt="../_images/fig-l020-live.png" src="../_images/fig-l020-live.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s Line Graph connected to the simulator, with <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code> drawn at -1 and <code class="docutils literal notranslate"><span class="pre">NT:/stick/rightY</span></code> drawn at 0.5, and both names in Left Axis.</span><a class="headerlink" href="#fig-l020-live" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s Line Graph connected to the simulator, with <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code> drawn at -1.0 and <code class="docutils literal notranslate"><span class="pre">NT:/stick/rightY</span></code> drawn at 0.5, and both names in Left Axis.</span><a class="headerlink" href="#fig-l020-live" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Push the gamepad’s sticks and watch the numbers they send, live on the laptop. Nothing on the robot
@@ -336,8 +337,57 @@ moves yet.</p>
 <li><p>No robot is needed.</p></li>
 </ul>
 <p>The student writes in one folder, <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, inside <code class="docutils literal notranslate"><span class="pre">TeamCode/java/org.firstinspires.ftc.teamcode</span></code>.
-It holds only a file called <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> until step L020S010 copies a starter into it. The
-<code class="docutils literal notranslate"><span class="pre">lessons</span></code> folder beside it holds the starting files.</p>
+It holds no lesson until step L020S010 copies a starter into it. The <code class="docutils literal notranslate"><span class="pre">lessons</span></code> folder beside it
+holds the starting files.</p>
+<section id="android-studio-s-window">
+<h2>Android Studio’s window<a class="headerlink" href="#android-studio-s-window" title="Link to this heading">¶</a></h2>
+<figure class="align-default" id="fig-l020-window">
+<img alt="../_images/fig-l020-window.png" src="../_images/fig-l020-window.png" />
+<figcaption>
+<p><span class="caption-text">Android Studio’s window with the Project tool window on the left, the editor on the right, and the Terminal below them; the toolbar along the top, the tool window bar down each side, and the status bar along the bottom.</span><a class="headerlink" href="#fig-l020-window" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Android Studio’s window has these parts:</p>
+<ul class="simple">
+<li><p><strong>Toolbar</strong>, along the top: runs the code and starts Android tools.</p></li>
+<li><p><strong>Editor</strong>, in the middle: where you read and write the code.</p></li>
+<li><p><strong>Tool windows</strong>, such as Project on the left and Terminal below: each does one kind of job.</p></li>
+<li><p><strong>Tool window bar</strong>, the buttons down each side: each one opens or closes a tool window.</p></li>
+<li><p><strong>Status bar</strong>, along the bottom: what Android Studio is doing. Its left end is the path to the
+open file. Click a folder in the path to see what it holds.</p></li>
+</ul>
+<p><strong>Click.</strong></p>
+<ul class="steps simple">
+<li><p>Click the folder button at the top of the left side.</p></li>
+<li><p>Click it again.</p></li>
+<li><p>Click the Terminal button, near the bottom of the left side.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The first click closes the Project window, and the second opens it again.</p></li>
+<li><p>The Terminal opens below the editor, and its button is lit.</p></li>
+</ul>
+<p><strong>Drag.</strong></p>
+<ul class="steps simple">
+<li><p>Drag the edge between Project and the editor to the right.</p></li>
+<li><p>Drag the top edge of the Terminal up or down.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Each name in the Project window shows in full.</p></li>
+<li><p>The Terminal grows or shrinks.</p></li>
+</ul>
+<p><strong>Theme.</strong></p>
+<ul class="steps simple">
+<li><p>Click the gear at the top right, then <strong>Theme…</strong>.</p></li>
+<li><p>Click <strong>Islands Light</strong>.</p></li>
+</ul>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Android Studio turns light. To go back, pick <strong>Islands Dark</strong> the same way.</p></li>
+</ul>
+<p>The pictures in this book use Islands Dark.</p>
+</section>
 <section id="the-steps">
 <h2>The steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l020s010">
@@ -361,7 +411,7 @@ own folder, <code class="docutils literal notranslate"><span class="pre">mytry</
 </figure>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code> beside <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>, the file is open, and its first line reads
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, the file is open, and its first line reads
 <code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">org.firstinspires.ftc.teamcode.mytry;</span></code>.</p></li>
 </ul>
 <figure class="align-default" id="fig-l020-copied">
@@ -377,7 +427,8 @@ and paste again.</p>
 <section id="l020s020">
 <span id="l020s020-switch-your-copy-on"></span><h3>L020S020: switch your copy on<a class="headerlink" href="#l020s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Find the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, just under the comment that names this step. Click on it and
-delete the whole line: ⌘⌫ on a Mac, Ctrl+Y on Windows.</p>
+delete the whole line: ⌘Delete on a Mac, Ctrl+Y on Windows and Ubuntu. The first time on Windows,
+Android Studio asks whether Ctrl+Y should Redo or Delete Line: click <strong>Delete Line</strong>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code> hides an OpMode from the robot’s list. The starter in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> keeps it, so the robot
 only ever lists your copy.</p>
 <p><strong>Check.</strong></p>
@@ -417,7 +468,7 @@ stick.</p></li>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftStickY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">left_stick_y</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">double</span></code> is Java’s word for a number with a decimal point, like 0.5 or -1. <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is a name
+<p><code class="docutils literal notranslate"><span class="pre">double</span></code> is Java’s word for a number with a decimal point, like 0.5 or -1.0. <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is a name
 you chose for one. The list said <code class="docutils literal notranslate"><span class="pre">float</span></code>, which is a smaller kind of decimal number. A <code class="docutils literal notranslate"><span class="pre">double</span></code>
 holds any <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
 <p>Now hold the pointer still over <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code>. A box opens and says what it is: <em>left analog stick
@@ -431,7 +482,7 @@ vertical axis</em>. You can do this with any name you are not sure about.</p>
 <figure class="align-default" id="fig-gamepad-sticks">
 <img alt="../_images/fig-gamepad-sticks.png" src="../_images/fig-gamepad-sticks.png" />
 <figcaption>
-<p><span class="caption-text">Gamepad 1 from above, with the left stick, the right stick and the A button labelled, and an arrow showing which way each y axis counts up.</span><a class="headerlink" href="#fig-gamepad-sticks" title="Link to this image">¶</a></p>
+<p><span class="caption-text">Gamepad 1 from above, with the left stick, the right stick and the A button labeled, and an arrow showing which way each y axis counts up.</span><a class="headerlink" href="#fig-gamepad-sticks" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p><strong>Check.</strong></p>
@@ -486,11 +537,11 @@ Enter:</p>
 <li><p>Drag <code class="docutils literal notranslate"><span class="pre">leftY</span></code> from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder down into <strong>Left Axis</strong>.</p></li>
 </ul>
 <p>Before you push the stick, guess. When you push the left stick all the way away from you, will the
-line go to 1 or to -1? Now push it and see!</p>
+line go to 1.0 or to -1.0? Now push it and see!</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>The line moves when you push.</p></li>
-<li><p>All the way forward it reads -1, and all the way back it reads 1.</p></li>
+<li><p>All the way forward it reads -1.0, and all the way back it reads 1.0.</p></li>
 </ul>
 <p><strong>No gamepad.</strong> The simulator takes stick positions as words instead:
 <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L020SticksOpMode</span> <span class="pre">--left_stick_y=-1</span> <span class="pre">--right_stick_y=0.5&quot;</span></code> holds the left stick full
@@ -501,7 +552,7 @@ same, because the code passes the stick on unchanged.</p>
 <figure class="align-default" id="fig-advantagescope-sim">
 <img alt="../_images/fig-advantagescope-sim.png" src="../_images/fig-advantagescope-sim.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s 2D Field with the robot <code class="docutils literal notranslate"><span class="pre">NT:sim/Pose</span></code> at its start. The list shows the four <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> at 0, <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> at -1 and <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> at 0.5.</span><a class="headerlink" href="#fig-advantagescope-sim" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s 2D Field with the robot <code class="docutils literal notranslate"><span class="pre">NT:sim/Pose</span></code> at its start. The list shows the four <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> at 0.0, <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> at -1.0 and <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> at 0.5.</span><a class="headerlink" href="#fig-advantagescope-sim" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The simulator also sends where the robot is and the four wheel powers, as above. They stay still in
@@ -524,8 +575,8 @@ way:</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Each line follows its own stick.</p></li>
-<li><p>Push each stick all the way both ways. The numbers never go past 1 or below -1, and forward is -1
-on both.</p></li>
+<li><p>Push each stick all the way both ways. The numbers never go past 1.0 or below -1.0, and forward is
+-1.0 on both.</p></li>
 </ul>
 <p><strong>Log.</strong></p>
 <ul class="steps simple">
@@ -537,7 +588,7 @@ file whose name starts <code class="docutils literal notranslate"><span class="p
 <figure class="align-default" id="fig-l020-log">
 <img alt="../_images/fig-l020-log.png" src="../_images/fig-l020-log.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s Line Graph of the flight log <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode-….wpilog</span></code>, with <code class="docutils literal notranslate"><span class="pre">/stick/leftY</span></code> at -1 and <code class="docutils literal notranslate"><span class="pre">/stick/rightY</span></code> at 0.5 for the whole run.</span><a class="headerlink" href="#fig-l020-log" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s Line Graph of the flight log <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode-….wpilog</span></code>, with <code class="docutils literal notranslate"><span class="pre">/stick/leftY</span></code> at -1.0 and <code class="docutils literal notranslate"><span class="pre">/stick/rightY</span></code> at 0.5 for the whole run.</span><a class="headerlink" href="#fig-l020-log" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p><strong>Check.</strong></p>
@@ -546,11 +597,42 @@ file whose name starts <code class="docutils literal notranslate"><span class="p
 <li><p>It is the same <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> and <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> you watched live, kept in a file you can open
 again later.</p></li>
 </ul>
+<p><strong>What’s happening.</strong> Each line you wrote is a <strong>statement</strong>: it tells the computer to do one
+thing.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">leftStickY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">left_stick_y</span><span class="p">;</span>
+</pre></div>
+</div>
+<figure class="align-default" id="fig-l020-sticky">
+<img alt="../_images/fig-l020-sticky.png" src="../_images/fig-l020-sticky.png" />
+<figcaption>
+<p><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">leftStickY</span> <span class="pre">=</span> <span class="pre">gamepad1.left_stick_y;</span></code> as sticky notes: the label <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> with an arrow to a blue <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> note, the label <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code> on it with an arrow to a yellow <code class="docutils literal notranslate"><span class="pre">float</span></code> note holding -0.7, and an orange arrow copying -0.7 onto the yellow <code class="docutils literal notranslate"><span class="pre">double</span></code> note that the label <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> points to.</span><a class="headerlink" href="#fig-l020-sticky" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>It makes a <strong>variable</strong>, <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>. A variable is a name, drawn as a white label, with an
+arrow to a sticky note. The note says what kind of value it holds: a <code class="docutils literal notranslate"><span class="pre">double</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> is a variable too. Its arrow points to the gamepad’s big blue note. On that note is
+the <strong>field</strong> <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code>, a name kept on another note. Its arrow points to a small note that
+holds a <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+<li><p>The FTC platform does a lot of work for us. It runs <code class="docutils literal notranslate"><span class="pre">loop()</span></code> over and over. Before each pass, it
+writes the stick’s newest position on that <code class="docutils literal notranslate"><span class="pre">float</span></code> note.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">=</span></code> copies that number onto <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s note. <code class="docutils literal notranslate"><span class="pre">=</span></code> is an action: put this value here.</p></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/leftY"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> has a <strong>method</strong>, <code class="docutils literal notranslate"><span class="pre">publish</span></code>: a piece of code with a name. This line runs it, the way
+the platform runs your <code class="docutils literal notranslate"><span class="pre">loop()</span></code>.</p></li>
+<li><p>The line hands it two things: a name for the value, in quotes, and <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish</span></code> sends the number on <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s note to AdvantageScope, and writes it in the flight
+log.</p></li>
+</ul>
 <p><strong>What you just did.</strong> <code class="docutils literal notranslate"><span class="pre">loop</span></code> runs over and over, from PLAY until STOP, and each pass is one look at
 the gamepad. The code read both sticks into <code class="docutils literal notranslate"><span class="pre">double</span></code>s and wrote each one down under a name.
 AdvantageScope showed the values live, and the flight log kept them to look at after the run. A
-stick reads from -1 to 1, and forward is -1, which is backwards from the way anybody thinks about
-driving. L030 turns it round.</p>
+stick reads from -1.0 to +1.0, and forward is -1.0, which is backwards from the way anybody thinks
+about driving. L030 turns it around.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l030.html"><span class="std std-doc">L030</span></a> puts a minus sign in front, so forward is positive.</p>
 </section>
 </section>
@@ -612,6 +694,7 @@ driving. L030 turns it round.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">L020: read the sticks</a><ul>
+<li><a class="reference internal" href="#android-studio-s-window">Android Studio’s window</a></li>
 <li><a class="reference internal" href="#the-steps">The steps</a><ul>
 <li><a class="reference internal" href="#l020s010-copy-the-starter-into-mytry">L020S010: copy the starter into mytry</a></li>
 <li><a class="reference internal" href="#l020s020-switch-your-copy-on">L020S020: switch your copy on</a></li>

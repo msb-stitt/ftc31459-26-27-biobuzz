@@ -17,7 +17,7 @@ Delete 1 line, write 4 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -74,7 +74,10 @@
+@@ -77,7 +77,10 @@
          // When on L140S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l140.html#l140s040
          // for what to do here.

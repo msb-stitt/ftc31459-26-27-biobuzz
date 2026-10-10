@@ -250,6 +250,7 @@
 <p class="caption" role="heading"><span class="caption-text">The back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shortcuts.html">Keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Where this came from</a></li>
 </ul>
@@ -323,7 +324,7 @@
 <figure class="align-default" id="fig-l030-live">
 <img alt="../_images/fig-l030-live.png" src="../_images/fig-l030-live.png" />
 <figcaption>
-<p><span class="caption-text">AdvantageScope’s Line Graph connected to the simulator, with <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code> drawn at -1 and <code class="docutils literal notranslate"><span class="pre">NT:/speed/left</span></code> drawn at 1, and <code class="docutils literal notranslate"><span class="pre">speed/right</span></code> reading -0.500 beside <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> at 0.500 in the list.</span><a class="headerlink" href="#fig-l030-live" title="Link to this image">¶</a></p>
+<p><span class="caption-text">AdvantageScope’s Line Graph connected to the simulator, with <code class="docutils literal notranslate"><span class="pre">NT:/stick/leftY</span></code> drawn at -1.0 and <code class="docutils literal notranslate"><span class="pre">NT:/speed/left</span></code> drawn at 1.0, and <code class="docutils literal notranslate"><span class="pre">speed/right</span></code> reading -0.500 beside <code class="docutils literal notranslate"><span class="pre">stick/rightY</span></code> at 0.500 in the list.</span><a class="headerlink" href="#fig-l030-live" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Turn each stick into a wheel speed, where forward is positive. Nothing on the robot moves yet.</p>
@@ -364,8 +365,8 @@ the whole line, the way you did in L020.</p>
 <span id="l030s030-the-left-speed"></span><h3>L030S030: the left speed<a class="headerlink" href="#l030s030" title="Link to this heading">¶</a></h3>
 <p>We are working toward tank drive, where the left stick drives the left wheels and the right
 stick drives the right wheels. Push a stick away from you and its wheels should turn forward. We
-call forward speeds positive and backward speeds negative. But in L020 a stick pushed away read -1,
-so its number has to be turned round to make a speed.</p>
+call forward speeds positive and backward speeds negative. But in L020 a stick pushed away read
+-1.0, so its number has to be turned around to make a speed.</p>
 <p>The starter already has the four lines you wrote in L020. They read the sticks and write them
 down.</p>
 <p><strong>Change.</strong> Under the comment that names this step, type <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">leftSpeed</span> <span class="pre">=</span> <span class="pre">-leftS</span></code>. The list
@@ -383,9 +384,9 @@ offers <code class="docutils literal notranslate"><span class="pre">leftStickY</
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"speed/left"</span><span class="p">,</span><span class="w"> </span><span class="n">leftSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>The minus sign turns the number round: -1 becomes 1, and 0.5 becomes -0.5. <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is still
-what the stick says, and <code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code> is how fast the wheels should go. Keeping two names for the
-two ideas means each name always says what it holds.</p>
+<p>The minus sign turns the number around: -1.0 becomes 1.0, and 0.5 becomes -0.5. <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is
+still what the stick says, and <code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code> is how fast the wheels should go. Keeping two names for
+the two ideas means each name always says what it holds.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L030SpeedsOpMode --pad"</span>
 </pre></div>
@@ -394,7 +395,7 @@ two ideas means each name always says what it holds.</p>
 <code class="docutils literal notranslate"><span class="pre">leftY</span></code> from the <code class="docutils literal notranslate"><span class="pre">stick</span></code> folder, and <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">speed</span></code> folder, into <strong>Left Axis</strong>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick away from you. <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> goes to -1, and <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes to 1.</p></li>
+<li><p>Push the left stick away from you. <code class="docutils literal notranslate"><span class="pre">stick/leftY</span></code> goes to -1.0, and <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes to 1.0.</p></li>
 <li><p>The two lines are always mirror images of each other.</p></li>
 </ul>
 </section>
@@ -413,12 +414,12 @@ step, do the same for the right stick:</p>
 <p><strong>AdvantageScope.</strong> Drag <code class="docutils literal notranslate"><span class="pre">rightY</span></code> from <code class="docutils literal notranslate"><span class="pre">stick</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> from <code class="docutils literal notranslate"><span class="pre">speed</span></code> into <strong>Left Axis</strong>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push both sticks away from you. Both speeds read 1.</p></li>
-<li><p>Pull both back, and both read -1.</p></li>
+<li><p>Push both sticks away from you. Both speeds read 1.0.</p></li>
+<li><p>Pull both back, and both read -1.0.</p></li>
 </ul>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L030SpeedsOpMode</span> <span class="pre">--left_stick_y=-1</span> <span class="pre">--right_stick_y=0.5&quot;</span></code> holds the
 left stick full forward and the right stick half back. The picture at the top was taken that way:
-<code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reads 1 and <code class="docutils literal notranslate"><span class="pre">speed/right</span></code> reads -0.500.</p>
+<code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reads 1.0 and <code class="docutils literal notranslate"><span class="pre">speed/right</span></code> reads -0.500.</p>
 <p><strong>What you just did.</strong> Each speed is its stick with a minus sign in front, so forward is positive
 from here on. The stick and the speed have separate names because they are separate things: one
 is what the driver’s hand does, the other is what the wheels should do. A name like

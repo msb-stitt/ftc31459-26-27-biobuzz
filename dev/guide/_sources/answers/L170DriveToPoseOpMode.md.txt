@@ -1,7 +1,7 @@
 # L170DriveToPoseOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-l010.1`:
+applying `solutions/` on `solutions-rules.1`:
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java`
 
@@ -56,7 +56,7 @@ After L170:
                 return;
             }
             drivingItself = false;
-            follower.manual(0, 0, 0);
+            follower.manual(0.0, 0.0, 0.0);
         }
         Tracker.publish("drive/mode", "DRIVER");
 ```

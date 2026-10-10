@@ -1,6 +1,6 @@
 # What the student writes
 
-Every lesson's copies and patches, from applying `solutions/` on `solutions-l010.1` in
+Every lesson's copies and patches, from applying `solutions/` on `solutions-rules.1` in
 order. Each page is one lesson, each section one file, and each diff is one edit
 a student makes, comments included.
 
@@ -13,10 +13,10 @@ numbering, so a run holding three markers is one edit and is named after all thr
 | [L030](L030.md) | 1 | 1 | 2 | 4 |
 | [L040](L040.md) | 1 | 1 | 2 | 4 |
 | [L050](L050.md) | 1 | 1 | 1 | 4 |
-| [L060](L060.md) | 1 | 1 | 5 | 18 |
+| [L060](L060.md) | 1 | 1 | 5 | 22 |
 | [L070](L070.md) | 1 | 1 | 4 | 15 |
-| [L080](L080.md) | 1 | 1 | 2 | 17 |
-| [L090](L090.md) | 1 | 1 | 2 | 21 |
+| [L080](L080.md) | 1 | 1 | 2 | 22 |
+| [L090](L090.md) | 1 | 1 | 2 | 28 |
 | [L110](L110.md) | 2 | 2 | 5 | 8 |
 | [L120](L120.md) | 2 | 2 | 4 | 19 |
 | [L125](L125.md) | 1 | 1 | 1 | 1 |
@@ -28,7 +28,7 @@ numbering, so a run holding three markers is one edit and is named after all thr
 | [L180](L180.md) | 1 | 1 | 2 | 3 |
 | [L190](L190.md) | 2 | 2 | 8 | 20 |
 | [L195](L195.md) | 3 | 1 | 1 | 4 |
-| **Total** | | | **55** | **178** |
+| **Total** | | | **55** | **194** |
 
 Applying every change in order reproduces what each patch left, which is checked
 each time this is generated.
