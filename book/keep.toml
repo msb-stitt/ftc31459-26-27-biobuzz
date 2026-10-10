@@ -59,7 +59,9 @@ words = 900
 [[page]]
 path = "source/tasks/h017.md"
 # Measured off the first draft, 225 words, and rounded up: L020's Android Studio's window, moved.
-words = 250
+# Raised to 450 on 2026-10-10, measured at 448, for the View, Find, Sync, Target and Build parts
+# and the video, at Mike's word.
+words = 450
 
 [[page]]
 path = "source/tasks/e021.md"

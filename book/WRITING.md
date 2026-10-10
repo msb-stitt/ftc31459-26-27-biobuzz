@@ -73,7 +73,8 @@ to one how-to per computer, H011 to H013.
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
 
 H017, *navigate Android Studio's panes*, comes before L020. It changes no code, so it has no step
-names, and its parts are named for what the student does: **Click**, **Drag** and **Theme**.
+names, and its parts are named for what the student does: **Click**, **Drag**, **Theme**, **View**,
+**Find**, **Sync**, **Target** and **Build**.
 
 **Break a skill into its parts the first times it is taught, then trust the student with it.** A
 skill is what the pages ask for again and again: copying a starter, switching a copy on, running
