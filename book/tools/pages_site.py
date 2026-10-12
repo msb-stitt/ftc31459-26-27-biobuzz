@@ -124,6 +124,9 @@ def main() -> None:
     (ROOT / "versions.json").write_text(json.dumps({"versions": listed}, indent=2) + "\n",
                                         encoding="utf-8")
     (ROOT / "index.html").write_text(front_page(versions, pre, dev), encoding="utf-8")
+    # Without it, GitHub Pages runs Jekyll, which leaves out every folder starting with _,
+    # _static among them.
+    (ROOT / ".nojekyll").touch()
     print(f"newest {versions[0]}; listed {', '.join(listed)}")
 
 

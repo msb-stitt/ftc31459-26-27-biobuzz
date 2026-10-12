@@ -76,8 +76,12 @@ cd ../corbels-lfs-lessons && git lfs install --local && git switch <the [media] 
   that ended the round; the release stops if it names anything else.
 - A tag such as `vX.Y.Z-rc.1` is a pre-release: it gets its own folder and a GitHub pre-release,
   and the links above keep the newest release.
-- [`release.yml`](.github/workflows/release.yml) publishes the books into `vX.Y.Z/` and at the
-  links above, and makes a GitHub Release with both PDFs.
+- [`release.yml`](.github/workflows/release.yml) archives what it built in corbels-lfs-lessons
+  under the tag `vX.Y.Z`, then makes `gh-pages` again as one commit with no history, from every
+  release archived there, so the books are in `vX.Y.Z/` and at the links above. It makes a GitHub
+  Release with both PDFs. A push to a `release-*` branch tries the same path: it archives on
+  corbels-lfs-lessons' branch `trial-<branch>` and lays the site out on this repository's branch
+  `trial-pages`, and both are deleted after looking.
 - Look at the published books after: a page of each guide and of each PDF.
 - The next round starts with `pin --follow`, as above.
 
