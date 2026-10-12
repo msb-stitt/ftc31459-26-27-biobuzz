@@ -23,7 +23,8 @@ MIN_WORDS = 20
 # Scoring code for reading level measures nothing.
 GENERATED = "source/r950/"
 
-MARKUP = re.compile(r"(``?[^`]*``?|\*\*?|__?|\[|\]\([^)]*\))")
+# Code, emphasis, link targets, and MyST substitutions such as {{ lessons }}, which conf.py fills.
+MARKUP = re.compile(r"(``?[^`]*``?|\*\*?|__?|\[|\]\([^)]*\)|\{\{[^}]*\}\})")
 DIRECTIVE = re.compile(r"^\s*(:{3,}|`{3,}|:[a-z_]+:|\{[a-z]+\}|#|\||-{3,})")
 
 

@@ -13,7 +13,50 @@ author = "Mike Stitt"
 copyright = "2026, Mike Stitt"
 
 extensions = ["myst_parser"]
-myst_enable_extensions = ["attrs_block", "colon_fence", "deflist"]
+myst_enable_extensions = ["attrs_block", "colon_fence", "deflist", "substitution"]
+
+
+def made_from() -> dict[str, str]:
+    """B003's three names for what this build was made from, by git describe.
+
+    tools/build.py builds a ref in a throwaway worktree, with the figures filled
+    in, and names its refs in BOOK_LESSONS, BOOK_SOLUTIONS and BOOK_MEDIA; those
+    are described as committed, since a filled-in worktree is always changed.
+    Without them, as under ninja book, the working tree is described, with
+    -dirty for an uncommitted change, and keep.toml's solutions pin; the
+    figures are boxes, so no media is read.
+    """
+    import os
+    import subprocess
+    import tomllib
+    from pathlib import Path
+
+    here = Path(__file__).resolve().parent
+
+    def describe(*args: str, cwd: Path = here) -> str:
+        done = subprocess.run(["git", "describe", "--abbrev=7", *args], cwd=cwd,
+                              capture_output=True, text=True)
+        return done.stdout.strip() or "unknown"
+
+    # The PDF is built from a copy of source/ beside book/, so keep.toml is found from the top.
+    top = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=here, capture_output=True,
+                         text=True, check=True).stdout.strip()
+    keep = tomllib.loads((Path(top) / "book" / "keep.toml").read_text())
+    lessons = os.environ.get("BOOK_LESSONS")
+    solutions = os.environ.get("BOOK_SOLUTIONS") or (keep["answers"]["solutions_commit"]
+                                                     or keep["answers"]["solutions"])
+    media = os.environ.get("BOOK_MEDIA")
+    tagged = ["--match", "v*", "--exclude", "*-solutions", "--always"]
+    return {
+        "lessons": f"`{describe(*tagged, lessons) if lessons else describe(*tagged, '--dirty')}`",
+        "media": f"`{keep['media']['ref']}`" + (
+            f" at `{describe('--tags', '--always', '--dirty', cwd=Path(media))}`" if media
+            else ", not read, since this build shows the figures as boxes"),
+        "solutions": f"`{describe('--tags', '--always', solutions)}`",
+    }
+
+
+myst_substitutions = made_from()
 
 
 # The tag `mentor` picks the book. With it, the mentor book, rooted at index.md.

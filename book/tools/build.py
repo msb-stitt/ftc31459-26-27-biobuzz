@@ -28,6 +28,7 @@ requirements.txt and requirements-publish.txt.
 """
 
 import argparse
+import os
 import re
 import shutil
 import subprocess
@@ -160,6 +161,9 @@ def main() -> int:
             return 1
 
         out = tree / "out"
+        # conf.py names these on B003, describing them as committed.
+        os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
+                          BOOK_MEDIA=str(FIGURES.parent))
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:
