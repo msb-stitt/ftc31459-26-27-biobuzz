@@ -1,34 +1,35 @@
 # Publishes the books on gh-pages, and makes a release.
 #
-# - A tag vX.Y.Z: the books built from the tag and from the solutions its
-#   book/keep.toml pins, which has to be a tag made by tools/pin.py. They go into
-#   vX.Y.Z/ and, if it is the newest release, to the top level, where the code's
-#   links point. A GitHub Release gets both PDFs.
-# - A tag such as v0.1.1-rc.1: the same, as a pre-release, which never takes the
-#   top level.
-# - A push to main: the same build, into dev/.
-# - A push to a release-* branch, or a run by hand: the same build, kept as an
-#   artifact, and nothing published. It is also archived in corbels-lfs-lessons
-#   on the branch trial-<branch>, and the site assembled onto this repository's
-#   branch trial-pages, to try the release path.
+# Lesson work merges into dev; a release fast-forwards main to a commit of dev
+# and tags it there.
 #
-# A release is archived in corbels-lfs-lessons under its tag, with the deploy key
-# in the secret CORBELS_LFS_DEPLOY_KEY. gh-pages is then made again as one commit
-# with no parent, from every archived release, the media ref's videos/, and the
-# old gh-pages' dev/; book/tools/assemble_pages.py lays it out. A push to main
-# only replaces dev/, with a commit on top, so it copies no past release.
+# - A push to dev: the books built from it and from the solutions and media its
+#   book/keep.toml pins, into dev/.
+# - A tag such as v0.1.4-rc.1, on a commit of dev: the same, as a pre-release,
+#   into its own folder, and a GitHub pre-release.
+# - A tag vX.Y.Z, at main's head and on dev: the same, as a release, to the top
+#   level, where the code's links point, and a GitHub Release.
+# - A push to main publishes nothing. A run by hand builds, keeps the books as
+#   an artifact, and publishes nothing.
 #
-# book/tools/pages_site.py lays out gh-pages' front page and versions.json from
-# the version folders. The figures come from corbels-lfs-lessons' figures/, at the
-# ref book/keep.toml's [media] names. Every LFS download counts against the
-# owner's monthly LFS bandwidth, so only what a run uses is pulled, and the LFS
-# objects are cached by media commit and archive tags.
+# A tag's GitHub Release carries both PDFs and the web pages as a zip, and its
+# media commit is tagged in corbels-lfs-lessons with the same name, with the
+# deploy key in the secret CORBELS_LFS_DEPLOY_KEY.
+#
+# gh-pages is made again on each publish, as one commit with no parent, by
+# book/tools/assemble_pages.py: the newest release at the top level, the newest
+# pre-release while it is newer, dev/ and videos/, and no older version. Its
+# front page links every version's GitHub Release. The figures come from
+# corbels-lfs-lessons' figures/, at the commit book/keep.toml's [media] pins.
+# Every LFS download counts against the owner's monthly LFS bandwidth, so only
+# figures/ is pulled, cached by media commit, and a release pulls a video only
+# when it differs from the one gh-pages serves.
 name: Release
 
 on:
   push:
     tags: ['v*', '!v*-solutions']
-    branches: [main, 'release-*']
+    branches: [dev]
   workflow_dispatch:
 
 permissions:
@@ -64,16 +65,29 @@ jobs:
               echo "keep.toml names $solutions, which is not a tag. Run tools/pin.py, commit what it writes, and tag again."
               exit 1
             fi
-            archive=tag
+            commit=$(git rev-parse "$version^{commit}")
+            if ! git merge-base --is-ancestor "$commit" dev; then
+              echo "$version is on $(git rev-parse --short "$commit"), which is not on dev. Tag a commit of dev."
+              exit 1
+            fi
+            case "$version" in
+              *-*) kind=pre ;;
+              *)   kind=release
+                   if [ "$commit" != "$(git rev-parse main)" ]; then
+                     echo "$version is on $(git rev-parse --short "$commit"), and main is at $(git rev-parse --short main). Fast-forward main to the commit, then tag main's head."
+                     exit 1
+                   fi ;;
+            esac
+          elif [ "$GITHUB_REF" = refs/heads/dev ]; then
+            version=dev kind=dev
           else
-            if [ "$GITHUB_REF" = refs/heads/main ]; then version=dev; else version=; fi
-            case "$GITHUB_REF_NAME" in release-*) archive=trial ;; *) archive= ;; esac
+            version= kind=
           fi
           media=$(python3 -c 'import tomllib; m = tomllib.load(open("book/keep.toml", "rb"))["media"]; print(m["commit"] or m["ref"])')
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
           echo "media=$media" >> "$GITHUB_OUTPUT"
-          echo "archive=$archive" >> "$GITHUB_OUTPUT"
+          echo "kind=$kind" >> "$GITHUB_OUTPUT"
           echo "Publishing '${version:-nothing}', with the solutions at $solutions."
 
       - name: The figures' repository, without its LFS files
@@ -84,27 +98,19 @@ jobs:
           path: media
           lfs: false
 
-      - name: Which media commit, and its archive tags
+      - name: Which media commit
         id: media
         run: |
-          # The checkout leaves LFS's filters and push hook out; add stores published/ through LFS.
+          # The checkout leaves LFS's filters and push hook out.
           git -C media lfs install --local
-          git -C media fetch -q --no-tags origin '+refs/tags/v*:refs/tags/v*'
           echo "commit=$(git -C media rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-          echo "tags=$(git -C media tag -l 'v*' | sha256sum | cut -c1-12)" >> "$GITHUB_OUTPUT"
 
-      # A run that assembles gh-pages needs every archived release; one that only
-      # builds needs only figures/. Each saves under its own key, and restores the
-      # nearest one saved before, so a past release is downloaded from LFS once.
       - name: The media's LFS objects, from the cache
         uses: actions/cache@v4
         with:
           path: media/.git/lfs/objects
-          key: lfs-media-${{ steps.media.outputs.commit }}-${{ steps.media.outputs.tags }}-${{ steps.what.outputs.archive || 'build' }}
-          restore-keys: |
-            lfs-media-${{ steps.media.outputs.commit }}-${{ steps.media.outputs.tags }}-
-            lfs-media-${{ steps.media.outputs.commit }}-
-            lfs-media-
+          key: lfs-figures-${{ steps.media.outputs.commit }}
+          restore-keys: lfs-figures-
 
       - name: The figures, and nothing else, from LFS
         run: git -C media lfs pull --include 'figures/'
@@ -149,78 +155,51 @@ jobs:
           name: publish
           path: book/build/publish
 
-      - name: The deploy key for corbels-lfs-lessons
-        if: steps.what.outputs.archive != ''
-        env:
-          KEY: ${{ secrets.CORBELS_LFS_DEPLOY_KEY }}
-        run: |
-          mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/corbels && chmod 600 ~/.ssh/corbels
-          ssh-keyscan github.com 2>/dev/null >> ~/.ssh/known_hosts
-          git -C media remote add archive git@github.com:msb-stitt/corbels-lfs-lessons.git
-          git -C media config core.sshCommand 'ssh -i ~/.ssh/corbels -o IdentitiesOnly=yes'
-
-      - name: Archived in corbels-lfs-lessons
-        if: steps.what.outputs.archive != ''
-        working-directory: book
-        run: |
-          if [ '${{ steps.what.outputs.archive }}' = tag ]; then
-            where=--tag
-          else
-            where="--branch trial-$GITHUB_REF_NAME"
-          fi
-          python tools/run.py archive_release --media ../media --built build/publish \
-            --name "${{ steps.what.outputs.version || 'trial' }}" --remote archive $where
-          git -C ../media fetch -q --no-tags origin '+refs/tags/v*:refs/tags/v*'
-
       - name: gh-pages made again, as one commit with no parent
-        if: steps.what.outputs.archive != ''
+        if: steps.what.outputs.kind != ''
+        env:
+          KIND: ${{ steps.what.outputs.kind }}
+          VERSION: ${{ steps.what.outputs.version }}
         run: |
           git worktree add old gh-pages
-          python book/tools/run.py assemble_pages --media media --out site --keep old
-          if [ '${{ steps.what.outputs.archive }}' = trial ]; then
-            target=trial-pages
-            mkdir -p site/trial && cp -R book/build/publish/. site/trial/
-          else
-            target=gh-pages
-          fi
+          # Only a release changes videos/; the others keep gh-pages' own.
+          if [ "$KIND" = release ]; then media="--media media"; else media=; fi
+          python book/tools/run.py assemble_pages --old old --built book/build/publish \
+            --as "$KIND" --version "$VERSION" --out site $media
           git worktree add --orphan -b new-pages fresh
           cp -R site/. fresh/
           cd fresh
           git add -A
           git -c user.name="Mike S.B. Stitt" -c user.email=mike@stitt.cc \
-            commit -q -m "The site as published, from corbels-lfs-lessons, built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
-          git push -f origin "new-pages:$target"
+            commit -q -m "The site as published, with $VERSION built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
+          git push -f origin new-pages:gh-pages
 
-      - name: dev/ published on gh-pages
-        if: steps.what.outputs.version == 'dev'
+      - name: The media commit tagged in corbels-lfs-lessons
+        if: github.ref_type == 'tag'
         env:
+          KEY: ${{ secrets.CORBELS_LFS_DEPLOY_KEY }}
           VERSION: ${{ steps.what.outputs.version }}
         run: |
-          git worktree add pages gh-pages
-          rm -rf "pages/$VERSION"
-          mkdir "pages/$VERSION"
-          cp -R book/build/publish/. "pages/$VERSION/"
-          cd pages
-          python ../book/tools/pages_site.py .
-          git add -A
-          git -c user.name="Mike S.B. Stitt" -c user.email=mike@stitt.cc \
-            commit -q -m "$VERSION, built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
-          git push origin gh-pages
+          mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/corbels && chmod 600 ~/.ssh/corbels
+          ssh-keyscan github.com 2>/dev/null >> ~/.ssh/known_hosts
+          git -C media remote add archive git@github.com:msb-stitt/corbels-lfs-lessons.git
+          git -C media config core.sshCommand 'ssh -i ~/.ssh/corbels -o IdentitiesOnly=yes'
+          git -C media tag "$VERSION" HEAD
+          git -C media push archive "refs/tags/$VERSION"
 
-      - name: A GitHub Release with both PDFs
+      - name: A GitHub Release with both PDFs and the web pages
         if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.what.outputs.version }}
           SOLUTIONS: ${{ steps.what.outputs.solutions }}
         run: |
-          site="https://msb-stitt.github.io/ftc31459-26-27-biobuzz/$VERSION"
+          (cd book/build/publish && zip -qr "../ftc31459-$VERSION-web.zip" guide mentor review)
           {
             git tag -l --format='%(contents)' "$VERSION"
             echo
-            echo "- Student guide: $site/guide/"
-            echo "- Mentor guide: $site/mentor/"
-            echo "- What the student writes: $site/review/"
+            echo "The newest release, and every version, are at https://msb-stitt.github.io/ftc31459-26-27-biobuzz/."
+            echo "This release's web pages are in \`ftc31459-$VERSION-web.zip\`: unzip it and open \`guide/index.html\`."
             echo
             echo "The answer pages and cheat sheet are built from the solutions at the tag \`$SOLUTIONS\`."
           } > notes.md
@@ -228,4 +207,5 @@ jobs:
             *-*) pre=--prerelease ;;
             *)   pre= ;;
           esac
-          gh release create "$VERSION" book/build/publish/*.pdf --title "$VERSION" $pre --notes-file notes.md
+          gh release create "$VERSION" book/build/publish/*.pdf "book/build/ftc31459-$VERSION-web.zip" \
+            --title "$VERSION" $pre --notes-file notes.md

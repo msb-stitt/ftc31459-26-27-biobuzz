@@ -1,133 +1,106 @@
-"""Status: controlling, for gh-pages' front page, versions.json and top-level books.
+"""Status: controlling, for gh-pages' front page, its index pages and versions.json.
 
-Lays out the site from the version folders at a gh-pages root: releases such as
-v0.1.0, pre-releases such as v0.1.1-rc.1, each holding guide/, mentor/, review/ and
-both PDFs, and dev/ if there is one.
+Writes the pages around the books at a gh-pages root: the newest release's books
+at the top level, the newest pre-release's in its own folder while it is newer, and
+dev/ if there is one. book/tools/assemble_pages.py puts the books there first.
 
-    python book/tools/pages_site.py SITE
+    python book/tools/pages_site.py SITE --newest VERSION [VERSION ...]
 
-SITE is a gh-pages worktree. Moved here from gh-pages' src/site.py on 2026-10-11, and renamed,
-since tools/ is put first on Python's path and a site.py there would stand in for Python's own.
-
-The newest release's books are copied to the top level, where the links in the
-code point; a pre-release's never are. Each version folder gets an index.html,
-and the front page and versions.json name every version. Nothing is listed by
-hand: the folders are the list.
+NEWEST is the release at the top level. The versions after it are every release
+and pre-release, each a tag; the front page links each to its GitHub Release,
+which carries its PDFs and its web pages. Moved here from gh-pages' src/site.py
+on 2026-10-11, and renamed, since tools/ is put first on Python's path and a
+site.py there would stand in for Python's own.
 """
 
+import argparse
 import json
 import re
-import shutil
-import sys
 from pathlib import Path
 
-ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else None
-BOOKS = ("guide", "mentor", "review")
-PDFS = ("ftc31459-book.pdf", "ftc31459-mentor-book.pdf")
+RELEASES = "https://github.com/msb-stitt/ftc31459-26-27-biobuzz/releases/tag"
 STYLE = "body{font:16px system-ui;margin:3rem auto;max-width:42rem;padding:0 1rem}"
+TITLE = "Corbels FTC Programming Lessons in Java"
+PRE = re.compile(r"v\d+\.\d+\.\d+-[0-9A-Za-z.]+")
 
 
-def folders(pattern: str) -> list[str]:
-    """The version folders whose names match, newest first."""
-    found = [d.name for d in ROOT.iterdir() if d.is_dir() and re.fullmatch(pattern, d.name)]
-
-    def key(name):
-        numbers, _, label = name[1:].partition("-")
-        return tuple(int(n) for n in numbers.split(".")), label
-
-    return sorted(found, key=key, reverse=True)
+def key(version: str) -> tuple:
+    """Sorts versions oldest first: v0.1.3-rc.1 before v0.1.3, both after v0.1.2."""
+    numbers, _, label = version[1:].partition("-")
+    return tuple(int(n) for n in numbers.split(".")), label == "", label
 
 
-def releases() -> list[str]:
-    return folders(r"v\d+\.\d+\.\d+")
+def books(prefix: str) -> str:
+    return f"""<ul>
+  <li><a href="{prefix}guide/">The student guide</a> and
+      <a href="{prefix}ftc31459-book.pdf">as a PDF</a>.</li>
+  <li><a href="{prefix}mentor/">The mentor guide</a> and
+      <a href="{prefix}ftc31459-mentor-book.pdf">as a PDF</a>.</li>
+  <li><a href="{prefix}review/">What the student writes</a>, each lesson's copies and every
+      change its patches make.</li>
+</ul>
+"""
 
 
-def prereleases() -> list[str]:
-    return folders(r"v\d+\.\d+\.\d+-[0-9A-Za-z.]+")
-
-
-def version_page(version: str, heading: str) -> str:
+def folder_page(heading: str) -> str:
     return f"""<!doctype html>
 <meta charset="utf-8">
-<title>Corbels FTC Programming Lessons in Java — {version}</title>
+<title>{TITLE} — {heading}</title>
 <style>{STYLE}</style>
-<h1>Corbels FTC Programming Lessons in Java, {heading}</h1>
-<ul>
-  <li><a href="guide/">The student guide</a> and <a href="ftc31459-book.pdf">as a PDF</a>.</li>
-  <li><a href="mentor/">The mentor guide</a> and <a href="ftc31459-mentor-book.pdf">as a PDF</a>.</li>
-  <li><a href="review/">What the student writes</a>.</li>
-  <li><a href="../">Every release</a>.</li>
-</ul>
+<h1>{TITLE}, {heading}</h1>
+{books("")}<p><a href="../">Every version</a>.</p>
 """
 
 
-def entry(version: str) -> str:
-    return f"""  <li><a href="{version}/">{version}</a>:
-      <a href="{version}/guide/">student guide</a>,
-      <a href="{version}/ftc31459-book.pdf">PDF</a>;
-      <a href="{version}/mentor/">mentor guide</a>,
-      <a href="{version}/ftc31459-mentor-book.pdf">PDF</a>;
-      <a href="{version}/review/">what the student writes</a>.</li>
-"""
-
-
-def front_page(versions: list[str], pre: list[str], dev: bool) -> str:
+def front_page(newest: str, pre: str | None, dev: bool, versions: list[str]) -> str:
     page = f"""<!doctype html>
 <meta charset="utf-8">
-<title>Corbels FTC Programming Lessons in Java</title>
+<title>{TITLE}</title>
 <style>{STYLE}code{{font-size:.9em}}</style>
-<h1>Corbels FTC Programming Lessons in Java</h1>
-<p>The newest release, {versions[0]}:</p>
-<ul>
-  <li><a href="guide/">The student guide</a> and <a href="ftc31459-book.pdf">as a PDF</a>.</li>
-  <li><a href="mentor/">The mentor guide</a> and <a href="ftc31459-mentor-book.pdf">as a PDF</a>.</li>
-  <li><a href="review/">What the student writes</a>, each lesson's copies and every change its
-      patches make.</li>
-</ul>
-<h2>Every release</h2>
-<ul>
-{"".join(entry(v) for v in versions)}</ul>
-"""
+<h1>{TITLE}</h1>
+<p>The newest release, {newest}:</p>
+{books("")}"""
     if pre:
-        page += f"""<h2>Pre-releases</h2>
-<ul>
-{"".join(entry(v) for v in pre)}</ul>
-"""
+        page += f"<p>The next release, being tried as {pre}:</p>\n{books(pre + '/')}"
     if dev:
-        page += """<h2>In development</h2>
+        page += ("<p>In development, built from <code>dev</code> on every push:</p>\n"
+                 + books("dev/"))
+    entries = "".join(f'  <li><a href="{RELEASES}/{v}">{v}</a></li>\n' for v in versions)
+    page += f"""<h2>Every version</h2>
+<p>Each is a release on GitHub, with both PDFs, and the newer ones with their web pages as a
+   zip.</p>
 <ul>
-  <li><a href="dev/">dev</a>, built from <code>main</code> on every push.</li>
-</ul>
+{entries}</ul>
 """
     return page
 
 
 def main() -> None:
-    if ROOT is None:
-        raise SystemExit("name the gh-pages worktree: python book/tools/pages_site.py SITE")
-    versions = releases()
-    pre = prereleases()
-    dev = (ROOT / "dev").is_dir()
-    newest = ROOT / versions[0]
-    for book in BOOKS:
-        shutil.rmtree(ROOT / book, ignore_errors=True)
-        shutil.copytree(newest / book, ROOT / book)
-    for pdf in PDFS:
-        shutil.copy(newest / pdf, ROOT / pdf)
-    for version in versions + pre:
-        (ROOT / version / "index.html").write_text(version_page(version, version),
-                                                   encoding="utf-8")
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
+    ap.add_argument("site", type=Path)
+    ap.add_argument("--newest", required=True)
+    ap.add_argument("versions", nargs="*")
+    args = ap.parse_args()
+    site = args.site
+    versions = sorted(set(args.versions) | {args.newest}, key=key, reverse=True)
+    pre = next((d.name for d in site.iterdir() if d.is_dir() and PRE.fullmatch(d.name)), None)
+    dev = (site / "dev").is_dir()
+    if pre:
+        (site / pre / "index.html").write_text(folder_page(f"{pre}, a pre-release"),
+                                               encoding="utf-8")
     if dev:
-        (ROOT / "dev" / "index.html").write_text(
-            version_page("dev", "in development, from main"), encoding="utf-8")
-    listed = versions + pre + (["dev"] if dev else [])
-    (ROOT / "versions.json").write_text(json.dumps({"versions": listed}, indent=2) + "\n",
-                                        encoding="utf-8")
-    (ROOT / "index.html").write_text(front_page(versions, pre, dev), encoding="utf-8")
+        (site / "dev" / "index.html").write_text(folder_page("in development, from dev"),
+                                                 encoding="utf-8")
+    (site / "versions.json").write_text(json.dumps(
+        {"newest": args.newest, "pre": pre, "dev": dev, "versions": versions}, indent=2) + "\n",
+        encoding="utf-8")
+    (site / "index.html").write_text(front_page(args.newest, pre, dev, versions),
+                                     encoding="utf-8")
     # Without it, GitHub Pages runs Jekyll, which leaves out every folder starting with _,
     # _static among them.
-    (ROOT / ".nojekyll").touch()
-    print(f"newest {versions[0]}; listed {', '.join(listed)}")
+    (site / ".nojekyll").touch()
+    print(f"newest {args.newest}; pre-release {pre or 'none'}; dev {'yes' if dev else 'no'};"
+          f" {len(versions)} versions listed")
 
 
 if __name__ == "__main__":
