@@ -199,3 +199,10 @@ lessons = "HEAD"
 lessons_commit = ""
 solutions = "solutions-rules.1"
 solutions_commit = ""
+
+# The corbels-lfs-lessons ref the figures and videos are read from: a branch named like
+# this one while the book is worked on. tools/publish_check.py fails when the
+# checkout it is given is not at this ref.
+[media]
+repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
+ref = "lessons-page-types"
