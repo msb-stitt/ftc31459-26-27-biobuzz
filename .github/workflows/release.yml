@@ -155,7 +155,7 @@ jobs:
           KEY: ${{ secrets.CORBELS_LFS_DEPLOY_KEY }}
         run: |
           mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/corbels && chmod 600 ~/.ssh/corbels
-          ssh-keyscan -q github.com >> ~/.ssh/known_hosts
+          ssh-keyscan github.com 2>/dev/null >> ~/.ssh/known_hosts
           git -C media remote add archive git@github.com:msb-stitt/corbels-lfs-lessons.git
           git -C media config core.sshCommand 'ssh -i ~/.ssh/corbels -o IdentitiesOnly=yes'
 
