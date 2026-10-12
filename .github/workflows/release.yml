@@ -49,9 +49,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      # The solutions branch and gh-pages are read by name.
-      - name: Every branch as a local branch
-        run: git fetch --update-head-ok origin '+refs/heads/*:refs/heads/*'
+      # The solutions branch and gh-pages are read by name. The checkout makes the tag
+      # that started the run a lightweight tag, which git describe skips and whose
+      # message is the commit's, so every tag is fetched again as it was made.
+      - name: Every branch as a local branch, and every tag as made
+        run: |
+          git fetch --update-head-ok origin '+refs/heads/*:refs/heads/*'
+          git fetch --force origin '+refs/tags/*:refs/tags/*'
 
       - name: What this run publishes, and from which solutions
         id: what
