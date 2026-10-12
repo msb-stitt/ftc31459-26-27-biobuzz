@@ -52,13 +52,24 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja publish-check
 ```
 
 `ninja publish-check` builds both books with every figure in place, the review and both PDFs into
-`book/build/publish/`, and publishes nothing. It runs `gh-pages`' `src/build.py`, with the figures
-from `gh-pages`' `src/figures/`, on the last commit, so commit first. It fails if a figure is still
-a pencilled box or a page shows an image that is not there. It is not part of `ninja book`.
+`book/build/publish/`, and publishes nothing. It runs `book/tools/build.py` on the last commit, so
+commit first. It fails if a figure is still a pencilled box or a page shows an image that is not
+there. It is not part of `ninja book`.
+
+The figures come from
+[corbels-lfs-lessons](https://github.com/msb-stitt/corbels-lfs-lessons), in Git LFS, at the ref
+`book/keep.toml`'s `[media]` names. `publish-check` reads a clone of it beside this repository, or
+the one `--media DIR` names, and fails if that clone is at another commit or its figures were not
+pulled from LFS:
+
+```
+git clone https://github.com/msb-stitt/corbels-lfs-lessons.git ../corbels-lfs-lessons
+cd ../corbels-lfs-lessons && git lfs install --local && git switch <the [media] ref> && git lfs pull
+```
 
 #### Making a release
 
-- Take any new screenshots into `gh-pages`' `src/figures/` first, and run
+- Take any new screenshots into corbels-lfs-lessons' `figures/` first, and run
   [`ninja publish-check`](#building-what-a-release-publishes), which fails on a figure still
   missing.
 - Tag `main` `vX.Y.Z` and push the tag. `keep.toml` on `main` already names the solutions tag

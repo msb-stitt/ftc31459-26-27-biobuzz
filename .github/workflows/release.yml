@@ -10,8 +10,11 @@
 # - A push to a release-* branch, or a run by hand: the same build, kept as an
 #   artifact, and nothing published.
 #
-# gh-pages' src/site.py lays out the front page and versions.json from the
-# version folders. The figures come from gh-pages' src/figures/.
+# book/tools/pages_site.py lays out gh-pages' front page and versions.json from
+# the version folders. The figures come from corbels-lfs-lessons' figures/, at the
+# ref book/keep.toml's [media] names; only figures/ is pulled from LFS, and its
+# objects are cached by commit, since every LFS download counts against the
+# owner's monthly LFS bandwidth.
 name: Release
 
 on:
@@ -56,9 +59,32 @@ jobs:
           else
             if [ "$GITHUB_REF" = refs/heads/main ]; then version=dev; else version=; fi
           fi
+          media=$(python3 -c 'import tomllib; print(tomllib.load(open("book/keep.toml", "rb"))["media"]["ref"])')
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
+          echo "media=$media" >> "$GITHUB_OUTPUT"
           echo "Publishing '${version:-nothing}', with the solutions at $solutions."
+
+      - name: The figures' repository, without its LFS files
+        uses: actions/checkout@v4
+        with:
+          repository: msb-stitt/corbels-lfs-lessons
+          ref: ${{ steps.what.outputs.media }}
+          path: media
+          lfs: false
+
+      - name: Which media commit
+        id: media
+        run: echo "commit=$(git -C media rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: The figures' LFS objects, from the cache when this commit's are there
+        uses: actions/cache@v4
+        with:
+          path: media/.git/lfs/objects
+          key: lfs-figures-${{ steps.media.outputs.commit }}
+
+      - name: The figures, and nothing else, from LFS
+        run: git -C media lfs pull --include 'figures/'
 
       - uses: actions/setup-java@v4
         with:
@@ -93,7 +119,7 @@ jobs:
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
       - name: Both books, the review and both PDFs
         working-directory: book
-        run: python tools/run.py publish_check --solutions '${{ steps.what.outputs.solutions }}'
+        run: python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}'
 
       - uses: actions/upload-artifact@v4
         with:
@@ -110,7 +136,7 @@ jobs:
           mkdir "pages/$VERSION"
           cp -R book/build/publish/. "pages/$VERSION/"
           cd pages
-          python src/site.py
+          python ../book/tools/pages_site.py .
           git add -A
           git -c user.name="Mike S.B. Stitt" -c user.email=mike@stitt.cc \
             commit -q -m "$VERSION, built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."

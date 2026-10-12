@@ -209,7 +209,7 @@ not blocking to a writer. `tools/check_figures.py` checks both directions.
 
 ## Draw in the marker-sketch style
 
-A drawing, as against a screenshot or a plot, is drawn by `gh-pages`' `src/draw.py` in the look of
+A drawing, as against a screenshot or a plot, is drawn by `tools/draw.py` in the look of
 an industrial designer's marker sketch, made flat: ink lines that run past their corners, faint
 construction lines, slanted marker fills, a red or orange accent, white highlights and soft
 shadows, words in Marker Felt and code in Menlo. A variable is a white label with an arrow to a
