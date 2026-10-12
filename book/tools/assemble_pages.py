@@ -53,6 +53,13 @@ def main() -> int:
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir(parents=True)
 
+    store = Path(git("rev-parse", "--git-common-dir", cwd=media))
+    store = (store if store.is_absolute() else media / store) / "lfs" / "objects"
+
+    def stored() -> int:
+        return sum(1 for p in store.rglob("*") if p.is_file()) if store.is_dir() else 0
+
+    before = stored()
     tags = [t for t in git("tag", "-l", "v*", cwd=media).split() if VERSION.fullmatch(t)]
     for ref, folder, dest in [(t, "published", t) for t in tags] + [("HEAD", "videos", "videos")]:
         tree = pulled(media, ref, folder)
@@ -64,6 +71,7 @@ def main() -> int:
                 print(f"{ref}: no {folder}/")
         finally:
             git("worktree", "remove", "--force", str(tree), cwd=media)
+    print(f"{stored() - before} LFS object(s) downloaded; {before} were already here")
     if args.keep and (args.keep / "dev").is_dir():
         shutil.copytree(args.keep / "dev", out / "dev")
         print("dev/ carried over")
