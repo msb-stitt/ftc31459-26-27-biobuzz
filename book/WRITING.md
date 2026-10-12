@@ -259,10 +259,10 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.
 
-## Pinning the solutions and releasing are in the README
+## Pinning the solutions and releasing are in RELEASING.md
 
 How `keep.toml` names the solutions the answer pages come from, a round of lesson work, and
-building and making a release: [Lesson work and releases](../README.md#lesson-work-and-releases).
+building and making a release: [Lesson work and releases](../RELEASING.md).
 
 ## Seeing what a lesson asks a student to do
 
