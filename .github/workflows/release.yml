@@ -69,7 +69,7 @@ jobs:
             if [ "$GITHUB_REF" = refs/heads/main ]; then version=dev; else version=; fi
             case "$GITHUB_REF_NAME" in release-*) archive=trial ;; *) archive= ;; esac
           fi
-          media=$(python3 -c 'import tomllib; print(tomllib.load(open("book/keep.toml", "rb"))["media"]["ref"])')
+          media=$(python3 -c 'import tomllib; m = tomllib.load(open("book/keep.toml", "rb"))["media"]; print(m["commit"] or m["ref"])')
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
           echo "media=$media" >> "$GITHUB_OUTPUT"

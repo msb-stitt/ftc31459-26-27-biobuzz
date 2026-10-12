@@ -200,9 +200,12 @@ lessons_commit = ""
 solutions = "solutions-rules.1"
 solutions_commit = ""
 
-# The corbels-lfs-lessons ref the figures and videos are read from: a branch named like
-# this one while the book is worked on. tools/publish_check.py fails when the
-# checkout it is given is not at this ref.
+# The corbels-lfs-lessons branch the figures and videos are read from, named like this
+# one, and the commit of it they are pinned to. tools/pin.py sets both: `pin` the
+# commit, at the end of a round, and `pin --follow` the branch, clearing the commit.
+# The build reads the commit, or the branch's tip while it is empty, and
+# tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-page-types"
+commit = "9d4eaf77b2629daf60037fef66fe2ae389a5e27d"
