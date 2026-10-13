@@ -208,4 +208,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-stephanie"
-commit = "d97d50d8f9325d58c1fea63f2b5abfe8f36d0c23"
+commit = "7bdd980406902e163bf6dbc68709287163dadeef"
