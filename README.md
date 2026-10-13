@@ -57,6 +57,18 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 | [AndyMark](https://www.andymark.com/) | field elements and more hardware |
 | [spiresfrc9106/ftc31459-26-27-biobuzz](https://github.com/spiresfrc9106/ftc31459-26-27-biobuzz) | the team's repository, which this one tracks |
 
+### goBILDA's StarterBot
+
+The robots are goBILDA's
+[StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
+stock, with a Pinpoint. **StarterBot TeleOp** drives one with the controls of goBILDA's example
+code, written in `StarterBotTeleOp`, `Intake` and `Launcher`.
+
+- Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
+  `imu`, `pinpoint`, and the five the mechanisms use.
+- Each value there marked `MEASURE` was measured on an earlier robot. Measure it on each robot
+  with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L195.
+
 ### TODO 
 - [ ] Monitor the sloth plugin for updates to Gradle version [see](PANELS.md#one-time-setup) - 1. Gradle version
 
