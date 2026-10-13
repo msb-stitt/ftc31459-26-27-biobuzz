@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // When on L030S020, see
 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s020
 // for what to do here.
-@Disabled
+
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L030SpeedsOpMode extends CorbelsTeleOp {
 
