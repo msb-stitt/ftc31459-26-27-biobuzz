@@ -73,7 +73,10 @@ public class HardwareRulesTest {
         assertNotNull("could not find the sources to scan", baseDirectory);
 
         String[] names = {OpModeHarness.FRONT_LEFT, OpModeHarness.FRONT_RIGHT,
-                OpModeHarness.BACK_LEFT, OpModeHarness.BACK_RIGHT, Constants.imuName};
+                OpModeHarness.BACK_LEFT, OpModeHarness.BACK_RIGHT, Constants.imuName,
+                Constants.intakeName, Constants.leftIntakeServoName,
+                Constants.rightIntakeServoName, Constants.launcherName,
+                Constants.windmillServoName};
         List<String> offenders = new ArrayList<>();
         try (Stream<Path> files = Files.walk(baseDirectory)) {
             for (Path file : files.filter(f -> f.toString().endsWith(".java"))
