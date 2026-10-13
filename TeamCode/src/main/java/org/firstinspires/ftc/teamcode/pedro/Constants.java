@@ -35,6 +35,17 @@ public class Constants {
 
     public static String imuName = "imu";
 
+    // goBILDA's StarterBot names for its mechanisms, as its example code has them.
+    public static String intakeName = "intake";
+    public static String leftIntakeServoName = "left_intake_servo";
+    public static String rightIntakeServoName = "right_intake_servo";
+    public static String launcherName = "launcher";
+    public static String windmillServoName = "windmillServo";
+
+    // ---- Every number below marked MEASURE was measured on an earlier robot,
+    // ---- and is a starting point until it is measured on each starter bot with
+    // ---- the tuner it names. The Pedro tuners are in Tuning, under AutoTune. --
+
     /**
      * Ticks per inch of wheel travel, and the fastest a wheel actually goes.
      * MEASURE BOTH on your robot: push it a known distance for the first, and
@@ -52,6 +63,7 @@ public class Constants {
      * feedforward. Strafing is slower than driving because mecanum rollers
      * waste some of it sideways.
      */
+    // MEASURE: Foresight Tuner, all three.
     public static double maxForwardInchesPerSecond = 64.43298446564829;
     public static double maxStrafeInchesPerSecond = 43.595132915165195;
     public static double powerPerInchPerSecond = 0.016695978563625216;
@@ -74,10 +86,11 @@ public class Constants {
         c.frontRightName.set("Front Right");
         c.backLeftName.set("Back Left");
         c.backRightName.set("Back Right");
-        c.frontLeftDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.frontRightDirection.set(DcMotorSimple.Direction.REVERSE);
-        c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.backRightDirection.set(DcMotorSimple.Direction.REVERSE);
+        // goBILDA's stock StarterBot reverses the left two. MEASURE: Mecanum Tuner.
+        c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
+        c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
 
         // Brake rather than coast when a driver releases the sticks.
         c.manualBrakeMode.set(true);
@@ -91,6 +104,7 @@ public class Constants {
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        // MEASURE: Pinpoint Tuner, the offsets and both directions.
         c.xPodOffset.set(1.0581908639021746);
         c.yPodOffset.set(3.359022666150191);
         c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED );
@@ -101,6 +115,8 @@ public class Constants {
 
     public static ForesightConfig foresightConfig = new ForesightConfig(
             c -> {
+                // MEASURE: Foresight Tuner, every number in this block but the
+                // hold tolerances and scalings at its end, which are choices.
                 Controller primaryTranslationalForward = Controller.proportional(0.368944499316663);
                 Controller secondaryTranslationalForward = Controller.proportional(0.13631513411892088);
                 Controller primaryTranslationalLateral = Controller.proportional(0.28643896916380074);
