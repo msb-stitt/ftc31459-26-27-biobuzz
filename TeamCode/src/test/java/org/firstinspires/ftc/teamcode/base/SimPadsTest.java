@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Assume;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -737,6 +738,7 @@ public final class SimPadsTest {
         SimPads.write(file, k("AAA"), k("BBB"));
         assertEquals(Arrays.asList("# do not check this in",
                         "sdk.dir=/Users/somebody/sdk",
+                        SimPads.VERSION + "=2",
                         SimPads.KEY1 + "=AAA",
                         SimPads.KEY2 + "=BBB"),
                 Files.readAllLines(file, StandardCharsets.UTF_8));
@@ -748,6 +750,7 @@ public final class SimPadsTest {
         SimPads.write(file, k("AAA"), k("BBB"));
         SimPads.write(file, k("CCC"), k("DDD"));
         assertEquals(Arrays.asList("sdk.dir=/sdk",
+                        SimPads.VERSION + "=2",
                         SimPads.KEY1 + "=CCC",
                         SimPads.KEY2 + "=DDD"),
                 Files.readAllLines(file, StandardCharsets.UTF_8));
@@ -758,7 +761,7 @@ public final class SimPadsTest {
     public void anUnclaimedPlayerLeavesNoLine() throws IOException {
         Path file = store("sdk.dir=/sdk", SimPads.KEY1 + "=AAA", SimPads.KEY2 + "=BBB");
         SimPads.write(file, k("AAA"), null);
-        assertEquals(Arrays.asList("sdk.dir=/sdk", SimPads.KEY1 + "=AAA"),
+        assertEquals(Arrays.asList("sdk.dir=/sdk", SimPads.VERSION + "=2", SimPads.KEY1 + "=AAA"),
                 Files.readAllLines(file, StandardCharsets.UTF_8));
         assertNull(SimPads.read(file).get(SimPads.KEY2));
     }
@@ -770,6 +773,7 @@ public final class SimPadsTest {
         SimPads.write(file, k("AAA"), null);
         assertEquals(Arrays.asList("#" + SimPads.KEY1 + "=OLD",
                         "sdk.dir=/sdk",
+                        SimPads.VERSION + "=2",
                         SimPads.KEY1 + "=AAA"),
                 Files.readAllLines(file, StandardCharsets.UTF_8));
     }
@@ -779,6 +783,7 @@ public final class SimPadsTest {
         Path file = store("sdk.dir=/sdk");
         SimPads.write(file, k(NONE, 2), k(EMPTY, 5));
         assertEquals(Arrays.asList("sdk.dir=/sdk",
+                        SimPads.VERSION + "=2",
                         SimPads.KEY1 + "=(no serial number)",
                         SimPads.ID1 + "=2",
                         SimPads.KEY2 + "=\"\"",
@@ -793,8 +798,118 @@ public final class SimPadsTest {
     public void aKeyThatLosesItsDeviceIdLosesItsIdLine() throws IOException {
         Path file = store("sdk.dir=/sdk", SimPads.KEY1 + "=SAME", SimPads.ID1 + "=1");
         SimPads.write(file, k("SAME"), null);
-        assertEquals(Arrays.asList("sdk.dir=/sdk", SimPads.KEY1 + "=SAME"),
+        assertEquals(Arrays.asList("sdk.dir=/sdk", SimPads.VERSION + "=2", SimPads.KEY1 + "=SAME"),
                 Files.readAllLines(file, StandardCharsets.UTF_8));
+    }
+
+    @Test
+    public void theVersionLineIsRewrittenInPlaceAndNotRepeated() throws IOException {
+        Path file = store("sdk.dir=/sdk", SimPads.VERSION + "=2", SimPads.KEY1 + "=AAA");
+        SimPads.write(file, k("BBB"), null);
+        SimPads.write(file, k("CCC"), null);
+        assertEquals(Arrays.asList("sdk.dir=/sdk", SimPads.VERSION + "=2", SimPads.KEY1 + "=CCC"),
+                Files.readAllLines(file, StandardCharsets.UTF_8));
+    }
+
+    // --- the version of the gamepad lines ---------------------------------
+
+    @Test
+    public void onlyTheInteger2IsVersion2() {
+        assertNull(SimPads.versionProblem(storedAs(SimPads.VERSION, "2")));
+        assertEquals("it had no sim.gamepad.version",
+                SimPads.versionProblem(storedAs(SimPads.KEY1, "AAA")));
+        assertEquals("sim.gamepad.version=1 is not 2",
+                SimPads.versionProblem(storedAs(SimPads.VERSION, "1")));
+        assertEquals("sim.gamepad.version=3 is not 2",
+                SimPads.versionProblem(storedAs(SimPads.VERSION, "3")));
+        assertEquals("sim.gamepad.version=2.0 is not an integer",
+                SimPads.versionProblem(storedAs(SimPads.VERSION, "2.0")));
+        assertEquals("sim.gamepad.version=two is not an integer",
+                SimPads.versionProblem(storedAs(SimPads.VERSION, "two")));
+    }
+
+    @Test
+    public void anyVersionBut2ResetsTheGamepadLinesAndKeepsTheRest() throws IOException {
+        for (String version : new String[] {null, "1", "3", "2.0", "two"}) {
+            List<String> lines = new ArrayList<>(Arrays.asList("# local", "sdk.dir=/sdk"));
+            if (version != null) {
+                lines.add(SimPads.VERSION + "=" + version);
+            }
+            lines.addAll(Arrays.asList(SimPads.KEY1 + "=AAA", SimPads.KEY2 + "=(no serial number)",
+                    SimPads.ID2 + "=2", "other=kept"));
+            Path file = folder.newFolder().toPath().resolve("local.properties");
+            Files.write(file, lines, StandardCharsets.UTF_8);
+
+            SimPads.Loaded loaded = SimPads.load(file);
+
+            assertTrue(version + ": " + loaded.said, loaded.said.startsWith(
+                    "  The gamepad lines in local.properties were reset, because "));
+            assertEquals(version, Arrays.asList("# local", "sdk.dir=/sdk",
+                            SimPads.VERSION + "=2", "other=kept"),
+                    Files.readAllLines(file, StandardCharsets.UTF_8));
+            assertNull(version, SimPads.storedKey(loaded.stored, 1));
+            assertNull(version, SimPads.storedKey(loaded.stored, 2));
+            assertNull(version + ": read again, it is version 2", SimPads.load(file).said);
+        }
+    }
+
+    @Test
+    public void aMissingFileIsCreatedHoldingTheVersionAlone() throws IOException {
+        Path file = folder.getRoot().toPath().resolve("nothing-here.properties");
+        SimPads.Loaded loaded = SimPads.load(file);
+        assertEquals("  The gamepad lines in local.properties were reset, because it had no "
+                + "sim.gamepad.version.", loaded.said);
+        assertEquals(Collections.singletonList(SimPads.VERSION + "=2"),
+                Files.readAllLines(file, StandardCharsets.UTF_8));
+    }
+
+    @Test
+    public void aVersion2FileIsReadAsItIs() throws IOException {
+        Path file = store("sdk.dir=/sdk", SimPads.VERSION + "=2", SimPads.KEY1 + "=AAA",
+                SimPads.KEY2 + "=SAME", SimPads.ID2 + "=4");
+        byte[] before = Files.readAllBytes(file);
+        SimPads.Loaded loaded = SimPads.load(file);
+        assertNull(loaded.said);
+        assertEquals(k("AAA"), SimPads.storedKey(loaded.stored, 1));
+        assertEquals(k("SAME", 4), SimPads.storedKey(loaded.stored, 2));
+        assertArrayEquals(before, Files.readAllBytes(file));
+    }
+
+    @Test
+    public void aFileThatThrowsOnReadingIsLeftAsItIs() throws IOException {
+        Path file = folder.newFile("local.properties").toPath();
+        byte[] notUtf8 = {'s', 'd', 'k', '=', (byte) 0xFF, (byte) 0xFE, '\n'};
+        Files.write(file, notUtf8);
+        SimPads.Loaded loaded = SimPads.load(file);
+        assertNull("nothing is remembered", loaded.stored);
+        assertTrue(loaded.said, loaded.said.startsWith("  local.properties could not be read ("));
+        assertArrayEquals(notUtf8, Files.readAllBytes(file));
+
+        Path directory = folder.newFolder("a-folder").toPath();
+        SimPads.Loaded fromFolder = SimPads.load(directory);
+        assertNull(fromFolder.stored);
+        assertTrue(fromFolder.said, fromFolder.said.startsWith("  local.properties could not be read ("));
+        assertTrue(Files.isDirectory(directory));
+    }
+
+    @Test
+    public void aFileThatCannotBeWrittenIsSaidAndNotThrown() throws IOException {
+        Path file = store("sdk.dir=/sdk", SimPads.KEY1 + "=AAA");
+        assertTrue(file.toFile().setWritable(false));
+        try {
+            Assume.assumeFalse("this user can write a read-only file", Files.isWritable(file));
+            String said = SimPads.save(file, k("BBB"), null);
+            assertTrue(said, said.startsWith("  local.properties could not be saved ("));
+
+            SimPads.Loaded loaded = SimPads.load(file);
+            assertNull("a reset that cannot be saved remembers nothing", loaded.stored);
+            assertTrue(loaded.said, loaded.said.contains("were reset")
+                    && loaded.said.contains("could not be saved"));
+            assertEquals(Arrays.asList("sdk.dir=/sdk", SimPads.KEY1 + "=AAA"),
+                    Files.readAllLines(file, StandardCharsets.UTF_8));
+        } finally {
+            file.toFile().setWritable(true);
+        }
     }
 
     @Test

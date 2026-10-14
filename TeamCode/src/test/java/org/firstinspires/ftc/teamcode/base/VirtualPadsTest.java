@@ -136,6 +136,9 @@ public final class VirtualPadsTest {
             }
 
             String census = new String(printed.toByteArray(), StandardCharsets.UTF_8);
+            assertTrue("an empty file is reset to version 2 and says so: " + census,
+                    census.contains("  The gamepad lines in local.properties were reset, because"
+                            + " it had no sim.gamepad.version.\n"));
             assertTrue(census, census.contains("\"" + NAME + "\", no serial number, id " + second
                     + " -- gamepad1, claimed this run"));
             assertTrue(census, census.contains("\"" + NAME + "\", no serial number, id " + first
@@ -143,6 +146,7 @@ public final class VirtualPadsTest {
             Map<String, String> file = SimPads.read(store);
             assertEquals(new SimPads.Key(SimPads.NO_SERIAL, second), SimPads.storedKey(file, 1));
             assertEquals(new SimPads.Key(SimPads.NO_SERIAL, first), SimPads.storedKey(file, 2));
+            assertEquals("2", file.get(SimPads.VERSION));
         } finally {
             SDL_Quit();
         }

@@ -40,6 +40,11 @@ public final class SimPads implements AutoCloseable {
 
     static final String ID2 = "sim.gamepad2.id";
 
+    static final String VERSION = "sim.gamepad.version";
+
+    /** The only version of the {@code sim.gamepad} lines this code reads. */
+    static final int FILE_VERSION = 2;
+
     /** How {@code local.properties} writes a missing serial number. */
     static final String NO_SERIAL = "(no serial number)";
 
@@ -203,6 +208,12 @@ public final class SimPads implements AutoCloseable {
      */
     private String lastCensus = "";
 
+    /**
+     * False once {@code local.properties} could not be read or written, after
+     * which the run goes on with nothing remembered and leaves the file alone.
+     */
+    private boolean remembering = true;
+
     SimPads(SimGamepad sdl, Path store, PrintStream out) {
         this.sdl = sdl;
         this.store = store;
@@ -328,7 +339,7 @@ public final class SimPads implements AutoCloseable {
      * available, which is what makes the simple rule enough.
      */
     private void assign() {
-        Opening open = opening(sdl.pads(), read(store), player1, player2);
+        Opening open = opening(sdl.pads(), stored(), player1, player2);
         if (open.pad1 == player1 && open.pad2 == player2) {
             return;
         }
@@ -574,11 +585,117 @@ public final class SimPads implements AutoCloseable {
         }
     }
 
+    /**
+     * The file's values, read through {@link #load}, or nothing once the file
+     * has been found unreadable or unwritable.
+     */
+    private Map<String, String> stored() {
+        if (!remembering) {
+            return new LinkedHashMap<>();
+        }
+        Loaded loaded = load(store);
+        if (loaded.said != null) {
+            out.println(loaded.said);
+        }
+        if (loaded.stored == null) {
+            remembering = false;
+            return new LinkedHashMap<>();
+        }
+        return loaded.stored;
+    }
+
     private void store() {
-        Map<String, String> stored = read(store);
+        Map<String, String> stored = stored();
+        if (!remembering) {
+            return;
+        }
         List<SimGamepad.Pad> all = sdl.pads();
-        write(store, slotLine(player1, storedKey(stored, 1), all),
+        String said = save(store, slotLine(player1, storedKey(stored, 1), all),
                 slotLine(player2, storedKey(stored, 2), all));
+        if (said != null) {
+            remembering = false;
+            out.println(said);
+        }
+    }
+
+    /**
+     * Why the file's {@code sim.gamepad} lines are not version 2, or null when
+     * they are.
+     */
+    static String versionProblem(Map<String, String> stored) {
+        String version = stored.get(VERSION);
+        if (version == null) {
+            return "it had no " + VERSION;
+        }
+        try {
+            if (Integer.parseInt(version) == FILE_VERSION) {
+                return null;
+            }
+            return VERSION + "=" + version + " is not " + FILE_VERSION;
+        } catch (NumberFormatException e) {
+            return VERSION + "=" + version + " is not an integer";
+        }
+    }
+
+    /**
+     * What a run reads from the file: its values, or null when nothing is to
+     * be remembered, and the line to print about it, or null.
+     */
+    static final class Loaded {
+        final Map<String, String> stored;
+        final String said;
+
+        Loaded(Map<String, String> stored, String said) {
+            this.stored = stored;
+            this.said = said;
+        }
+    }
+
+    /**
+     * Reads the file, and resets its {@code sim.gamepad} lines to an empty
+     * version 2 set when they are any other version.
+     *
+     * <p>Reading and parsing sit in one exception block. A file that throws on
+     * reading is left as it is, since its other lines, {@code sdk.dir} among
+     * them, cannot be kept without being read.
+     */
+    static Loaded load(Path file) {
+        Map<String, String> stored;
+        String problem;
+        try {
+            stored = read(file);
+            problem = versionProblem(stored);
+        } catch (RuntimeException e) {
+            return new Loaded(null, "  local.properties could not be read (" + reason(e)
+                    + "), so no gamepad is remembered this run.");
+        }
+        if (problem == null) {
+            return new Loaded(stored, null);
+        }
+        String said = "  The gamepad lines in local.properties were reset, because "
+                + problem + ".";
+        String failed = save(file, null, null);
+        if (failed != null) {
+            return new Loaded(null, said + "\n" + failed);
+        }
+        Map<String, String> fresh = new LinkedHashMap<>();
+        fresh.put(VERSION, Integer.toString(FILE_VERSION));
+        return new Loaded(fresh, said);
+    }
+
+    /** Writes the slots, or returns the line saying why it could not. */
+    static String save(Path file, Key key1, Key key2) {
+        try {
+            write(file, key1, key2);
+            return null;
+        } catch (RuntimeException e) {
+            return "  local.properties could not be saved (" + reason(e)
+                    + "), so no gamepad is remembered from now on.";
+        }
+    }
+
+    private static String reason(RuntimeException e) {
+        return String.valueOf(e.getCause() != null ? e.getCause() : e);
     }
 
     /**
@@ -601,15 +718,24 @@ public final class SimPads implements AutoCloseable {
 
     /**
      * Rewrites only the {@code sim.gamepad} lines, in place where they exist and
-     * appended where they do not.
+     * appended where they do not, the version line first.
      */
     static void write(Path file, Key key1, Key key2) {
         List<String> out = new ArrayList<>();
+        boolean wroteVersion = false;
         boolean wrote1 = false;
         boolean wrote2 = false;
         for (String line : lines(file)) {
             String name = line.trim().startsWith("#") ? "" : name(line);
-            if (KEY1.equals(name) || ID1.equals(name)) {
+            boolean ours = VERSION.equals(name) || KEY1.equals(name) || ID1.equals(name)
+                    || KEY2.equals(name) || ID2.equals(name);
+            if (ours && !wroteVersion) {
+                out.add(VERSION + "=" + FILE_VERSION);
+                wroteVersion = true;
+            }
+            if (VERSION.equals(name)) {
+                continue;
+            } else if (KEY1.equals(name) || ID1.equals(name)) {
                 if (!wrote1) {
                     add(out, KEY1, ID1, key1);
                     wrote1 = true;
@@ -622,6 +748,9 @@ public final class SimPads implements AutoCloseable {
             } else {
                 out.add(line);
             }
+        }
+        if (!wroteVersion) {
+            out.add(VERSION + "=" + FILE_VERSION);
         }
         if (!wrote1) {
             add(out, KEY1, ID1, key1);
@@ -663,7 +792,7 @@ public final class SimPads implements AutoCloseable {
      * saw it happen; this says where everything stands afterwards.
      */
     private void census() {
-        String body = censusText(sdl.pads(), player1, player2, source, read(store));
+        String body = censusText(sdl.pads(), player1, player2, source, stored());
         if (body.equals(lastCensus)) {
             return;
         }
@@ -797,7 +926,7 @@ public final class SimPads implements AutoCloseable {
      */
     public void report() {
         List<SimGamepad.Pad> all = sdl.pads();
-        Map<String, String> stored = read(store);
+        Map<String, String> stored = stored();
         StringBuilder text = new StringBuilder();
         for (SimGamepad.Pad pad : all) {
             State s = state(pad, player1, player2, stored);
