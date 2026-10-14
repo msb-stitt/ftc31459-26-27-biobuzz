@@ -138,7 +138,7 @@ public final class VirtualPadsTest {
             String census = new String(printed.toByteArray(), StandardCharsets.UTF_8);
             assertTrue("an empty file is reset to version 2 and says so: " + census,
                     census.contains("  The gamepad lines in local.properties were reset, because"
-                            + " it had no sim.gamepad.version.\n"));
+                            + " it had no sim.gamepad.version."));
             assertTrue(census, census.contains("\"" + NAME + "\", no serial number, id " + second
                     + " -- gamepad1, claimed this run"));
             assertTrue(census, census.contains("\"" + NAME + "\", no serial number, id " + first
