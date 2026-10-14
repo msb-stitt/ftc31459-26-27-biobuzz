@@ -86,8 +86,8 @@ public final class SimGamepad implements AutoCloseable {
 
         /**
          * The pad's own serial, or null where the pad or the backend has none.
-         * This is the only handle that survives unplugging and plugging in
-         * again, so it is what an assignment is stored against.
+         * {@link SimPads#key} makes what an assignment is stored against from
+         * it, and from the id where this is null, empty or shared.
          */
         public final String serial;
 
@@ -108,15 +108,17 @@ public final class SimGamepad implements AutoCloseable {
         /**
          * The name, then the serial number, then the device id.
          *
-         * <p>The device id comes last because it decides one thing only, which
-         * gamepad a serial number names when two report the same one. Leading
+         * <p>An empty serial number is printed as {@code serial ""}, so it is
+         * told apart from a missing one. The device id comes last, so it cannot
+         * be read as a slot. Leading
          * with it put a number next to a slot name with nothing to tell them
          * apart: {@code gamepad1 is now id 1 "Xbox 360 Controller"}.
          */
         @Override
         public String toString() {
             return "\"" + name + "\", "
-                    + (serial == null || serial.isEmpty() ? "no serial number" : "serial " + serial)
+                    + (serial == null ? "no serial number"
+                            : serial.isEmpty() ? "serial \"\"" : "serial " + serial)
                     + ", id " + id;
         }
     }

@@ -99,8 +99,8 @@ public final class SimGamepadTest {
     public void aPadWithNoSerialNumberSaysThatInItsLine() {
         assertEquals("\"Some Pad\", no serial number, id 2",
                 new SimGamepad.Pad(2, 0L, "Some Pad", null).toString());
-        assertEquals("an empty serial number reads the same way",
-                "\"Some Pad\", no serial number, id 2",
+        assertEquals("an empty serial number is told apart from a missing one",
+                "\"Some Pad\", serial \"\", id 2",
                 new SimGamepad.Pad(2, 0L, "Some Pad", "").toString());
     }
 
