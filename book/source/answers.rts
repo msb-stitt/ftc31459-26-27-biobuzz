@@ -4,6 +4,7 @@
 name=Corbels answers
 base=sphinx
 
-[answer diff : CodeBlock(has_class='answer-diff')]
+; ++ outranks the base sheet's own +CodeBlock rule for code blocks.
+[answer diff : ++CodeBlock(has_class='answer-diff')]
 base=code block
 font_size=7pt
