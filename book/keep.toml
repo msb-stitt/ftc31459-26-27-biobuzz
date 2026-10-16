@@ -212,5 +212,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-stephanie"
-commit = "7bdd980406902e163bf6dbc68709287163dadeef"
+ref = "lessons-mlt-fable"
+commit = "22994d156d450d76261b924b9e536a6ed9fe0424"
