@@ -1,7 +1,7 @@
 """Cross-check the pencilled figures against the register, both ways.
 
 A figure that has not been taken yet is a box in the page carrying its id and
-what it will show. FIGURES.md is the register: one row per figure, with what it
+what makes it. FIGURES.md is the register: one row per figure, with what it
 must show, how it will be obtained, and either `pencilled` or the path of the
 image.
 
