@@ -1,0 +1,9 @@
+; rinohtype's Sphinx style sheet, with the answer pages' diffs in 7 pt type, where other code is
+; 9 pt, so a diff's lines fit the page. tools/answers.py gives each diff the class answer-diff.
+[STYLESHEET]
+name=Corbels answers
+base=sphinx
+
+[answer diff : CodeBlock(has_class='answer-diff')]
+base=code block
+font_size=7pt

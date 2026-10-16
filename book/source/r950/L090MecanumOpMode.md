@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L090
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java  (before L090)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java  (after L090)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L090MecanumOpMode.java  (before L090)
++++ mytry/L090MecanumOpMode.java  (after L090)
 @@ lines 75 to 112 @@
    75         // When on L090S030, see
    76         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030

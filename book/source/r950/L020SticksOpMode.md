@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L020
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L020SticksOpMode.java  (before L020)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L020SticksOpMode.java  (after L020)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L020SticksOpMode.java  (before L020)
++++ mytry/L020SticksOpMode.java  (after L020)
 @@ lines 4 to 10 @@
     4 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
     5

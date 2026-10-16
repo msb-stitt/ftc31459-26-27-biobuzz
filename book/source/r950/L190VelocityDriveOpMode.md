@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L190
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java  (before L190)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java  (after L190)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L190VelocityDriveOpMode.java  (before L190)
++++ mytry/L190VelocityDriveOpMode.java  (after L190)
 @@ lines 5 to 12 @@
     5
     6 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;

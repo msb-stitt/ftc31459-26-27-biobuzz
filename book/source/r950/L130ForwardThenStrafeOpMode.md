@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L130
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java  (before L130)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java  (after L130)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L130ForwardThenStrafeOpMode.java  (before L130)
++++ mytry/L130ForwardThenStrafeOpMode.java  (after L130)
 @@ lines 3 to 9 @@
     3 import static com.pedropathing.api.Paths.line;
     4 import static com.pedropathing.ivy.groups.Groups.sequential;

@@ -1,0 +1,5 @@
+; The PDF's template: rinohtype's book, with answers.rts. conf.py's rinoh_documents names it.
+[TEMPLATE_CONFIGURATION]
+name=Corbels book
+template=book
+stylesheet=answers.rts

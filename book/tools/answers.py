@@ -132,11 +132,15 @@ def diff(path: str, lesson: str, before: list[str], groups: list[list[tuple]],
          after: list[str]) -> str:
     """One lesson's changes to one file, as a coloured diff numbered by the file after it.
 
+    The class `answer-diff` sets the diff in a smaller type in the PDF, through
+    source/answers.rts, so its lines fit the page.
+
     An unchanged line and an added one carry their line number in the file after the
     lesson; a removed line has none, since it is not in that file.
     """
-    out = ["```diff", f"--- {path}  (before {lesson})",
-           f"+++ {path}  (after {lesson})"]
+    short = path.split("/teamcode/", 1)[-1]  # from mytry/, the folder the student works in
+    out = ["```{code-block} diff", ":class: answer-diff", "", f"--- {short}  (before {lesson})",
+           f"+++ {short}  (after {lesson})"]
     for group in groups:
         out.append(f"@@ lines {group[0][3] + 1} to {group[-1][4]} @@")
         for tag, i1, i2, j1, j2 in group:

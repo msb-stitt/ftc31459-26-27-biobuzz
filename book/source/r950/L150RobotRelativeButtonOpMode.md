@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L150
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java  (before L150)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java  (after L150)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L150RobotRelativeButtonOpMode.java  (before L150)
++++ mytry/L150RobotRelativeButtonOpMode.java  (after L150)
 @@ lines 80 to 92 @@
    80         // When on L150S030, see
    81         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s030

@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L060
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java  (before L060)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java  (after L060)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L060ShapingOpMode.java  (before L060)
++++ mytry/L060ShapingOpMode.java  (after L060)
 @@ lines 64 to 82 @@
    64         // When on L060S040, see
    65         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040

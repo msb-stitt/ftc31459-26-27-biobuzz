@@ -6,9 +6,11 @@ is gone; each number is the line's place in the file after the lesson.
 
 ## L120
 
-```diff
---- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java  (before L120)
-+++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java  (after L120)
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L120EncoderLocalizer.java  (before L120)
++++ mytry/L120EncoderLocalizer.java  (after L120)
 @@ lines 51 to 76 @@
    51         // When on L120S040, see
    52         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s040
