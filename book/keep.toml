@@ -54,7 +54,12 @@ path = "source/tasks/l020.md"
 # gives L020, in the sticky-note picture. Raised to 1300 on 2026-10-09 for Android Studio's window,
 # which the outline asks to be taught early. Lowered to 900 on 2026-10-10, measured at 873, when
 # Android Studio's window moved to H017 and the What's happening to E021.
-words = 900
+# Raised to 1000 on 2026-10-16, measured at 966, for Fable's recommendations: Start and A, opening
+# AdvantageScope, the Default NetworkTables 4 item, forward is -1.0, and sorting the logs, at
+# Mike's word.
+# Raised to 1050 on 2026-10-16, measured at 1006, for the simulator check's line that it lists any
+# connected gamepads, at Mike's word.
+words = 1050
 
 [[page]]
 path = "source/tasks/h017.md"

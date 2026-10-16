@@ -878,9 +878,119 @@ def l040_sticky():
     s.save("fig-l040-sticky")
 
 
+def axis(s, o, end, name, xy, anchor="middle", color=MARKER_ORANGE):
+    """An axis drawn from o to end, its name written at xy."""
+    s.marker_arrow(o, end, color, nib=8)
+    s.text(xy, name, 30, anchor=anchor)
+
+
+def stick_to_robot():
+    # The stick's axes, as the SDK reads them, and Pedro's robot axes, as its mecanum mix and
+    # Twist use them: +x forward, +y left, counter-clockwise positive.
+    s = Sketch(1700, 1060, 29)
+    s.text((430, 70), "the stick", 34)
+    s.text((1230, 70), "Pedro's robot", 34)
+    cx, cy = 430, 420
+    gamepad(s, cx, cy, 660, 350)
+    for x, name in ((cx - 150, "left"), (cx + 150, "right")):
+        y = cy - 30
+        s.marker(ellipse((x, y), 50), GREY4, nib=12, opacity=0.8)
+        s.marker(ellipse((x, y), 26), GREY2, nib=9, opacity=0.9)
+        s.ink_circle((x, y), 50, width=2.2)
+        s.ink_circle((x, y), 26, width=1.6)
+        s.marker_arrow((x, y), (x + 110, y), MARKER_GREEN, nib=7)
+        s.marker_arrow((x, y), (x, y + 110), MARKER_GREEN, nib=7)
+        s.text((x + 124, y + 10), "+x", 28, PAPER, anchor="start")
+        s.text((x - 16, y + 120), "+y", 28, PAPER, anchor="end")
+        s.text((x, y - 72), name, 26, PAPER)
+    s.lines((cx, 690), ["+x: pushed right", "+y: pulled back, toward the driver"], 28)
+    s.text((cx, 800), "the driver holds it from this side", 26, GREY3)
+
+    rx, ry, side = 1230, 440, 240
+    frame_top(s, rx - side / 2, ry - side / 2, side, side, nose=False)
+    tri = [(rx - 50, ry - side / 2), (rx, ry - side / 2 - 60), (rx + 50, ry - side / 2)]
+    s.marker(tri, MARKER_RED, nib=12, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    axis(s, (rx, ry), (rx, ry - 280), "+x: forward, out the nose", (rx, ry - 304))
+    axis(s, (rx, ry), (rx - 280, ry), "+y: left", (rx - 290, ry - 26), "start")
+    turn = [(rx + 200 * math.cos(math.radians(a)), ry - 200 * math.sin(math.radians(a)))
+            for a in range(90, 156, 5)]   # from +x, where heading 0 is, toward +y
+    s.line(turn, MARKER_ORANGE, 8, 0.85)
+    s.line(turn, PEN, 1.6, 0.8)
+    s.marker_arrow(turn[-2], turn[-1], MARKER_ORANGE, nib=8)
+    s.lines((rx - 170, ry - 200), ["+ turn:", "counter-clockwise"], 28, anchor="end")
+    s.lines((rx, 690), ["position and velocity along these axes:", "twist vx forward, vy left,",
+                        "omega counter-clockwise"], 28)
+
+    s.text((850, 900), "turning a stick into a velocity is a change of axes:", 30)
+    s.text((850, 960), "forward = -left_stick_y    strafe = -left_stick_x    turn = -right_stick_x",
+           24, code=True)
+    s.save("fig-stick-to-robot")
+
+
+def pedro_field():
+    # Pedro's field axes, from its Coordinates page: (0, 0) in a corner, x and y 0 in to 144 in,
+    # heading 0 along +x and counter-clockwise positive. The red drive team stands on the left, as
+    # L140 puts the driver, and the blue drive team on the right.
+    s = Sketch(1300, 1060, 31)
+    fx, fy, fs = 190, 120, 760
+    s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
+    s.marker(rect(fx, fy, fs, fs), GREY1, nib=30, opacity=0.35)
+    s.highlight((fx + 20, fy + 16), (fx + fs - 40, fy + 16))
+    s.ink_poly(rect(fx, fy, fs, fs))
+    for k in (1, 2, 3, 4, 5):
+        s.construct((fx + fs * k / 6, fy), (fx + fs * k / 6, fy + fs))
+        s.construct((fx, fy + fs * k / 6), (fx + fs, fy + fs * k / 6))
+    s.text((110, fy + fs / 2), "red drive team", 32, MARKER_RED, rot=-90)
+    s.dot((140, fy + fs / 2), 10, MARKER_RED)
+    s.text((fx + fs + 80, fy + fs / 2), "blue drive team", 32, BLUE, rot=90)
+    s.dot((fx + fs + 50, fy + fs / 2), 10, BLUE)
+    o = (fx, fy + fs)
+    s.dot(o, 12)
+    s.text((fx - 10, fy + fs + 46), "(0, 0)", 24, anchor="end", code=True)
+    s.text((fx + fs + 10, fy + fs + 46), "(144, 0)", 24, anchor="start", code=True)
+    s.text((fx - 10, fy - 20), "(0, 144)", 24, anchor="end", code=True)
+    s.text((fx + fs + 10, fy - 20), "(144, 144) in", 24, anchor="start", code=True)
+    axis(s, o, (o[0] + 300, o[1]), "+x", (o[0] + 320, o[1] + 10), "start")
+    axis(s, o, (o[0], o[1] - 300), "+y", (o[0] + 18, o[1] - 300), "start")
+
+    c, r = (fx + fs * 0.3, fy + fs * 0.28), 120
+    s.ink_circle(c, 40, width=1.8)
+    for deg, name, xy, anchor in ((0, "0°, 0", (c[0] + r + 14, c[1] + 10), "start"),
+                                  (90, "90°, π/2", (c[0], c[1] - r - 14), "middle"),
+                                  (180, "180°, π", (c[0] - r - 14, c[1] + 10), "end"),
+                                  (270, "270°, 3π/2", (c[0], c[1] + r + 40), "middle")):
+        a = math.radians(deg)
+        s.marker_arrow(c, (c[0] + r * math.cos(a), c[1] - r * math.sin(a)), GREY3, nib=4)
+        s.text(xy, name, 26, anchor=anchor)
+    turn = [(c[0] + 70 * math.cos(math.radians(a)), c[1] - 70 * math.sin(math.radians(a)))
+            for a in range(0, 76, 5)]    # from 0, along +x
+    s.line(turn, MARKER_ORANGE, 7, 0.85)
+    s.marker_arrow(turn[-2], turn[-1], MARKER_ORANGE, nib=7)
+    s.text((c[0], c[1] + r + 90), "heading, counter-clockwise +", 26)
+
+    rc, side = (fx + fs * 0.68, fy + fs * 0.64), 150
+    frame_top(s, rc[0] - side / 2, rc[1] - side / 2, side, side, nose=False)
+    tri = [(rc[0] - 34, rc[1] - side / 2), (rc[0], rc[1] - side / 2 - 40),
+           (rc[0] + 34, rc[1] - side / 2)]
+    s.marker(tri, MARKER_RED, nib=10, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    s.marker_arrow(rc, (rc[0], rc[1] - 170), MARKER_RED, nib=6)
+    s.marker_arrow(rc, (rc[0] - 170, rc[1]), MARKER_RED, nib=6)
+    s.text((rc[0] + 12, rc[1] - 180), "robot +x", 24, anchor="start")
+    s.text((rc[0] - 176, rc[1] - 16), "robot +y", 24, anchor="start")
+    s.lines((rc[0], rc[1] + 124), ["this robot has a 90° heading", "in the field coordinate system,",
+                                    "so the robot's +x", "is the field's +y"], 24)
+
+    s.lines((650, 980), ["pose x, y in inches and heading in radians;",
+                         "follower.velocity() along the field's x and y"], 28)
+    s.save("fig-pedro-field")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
-            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_sticky, l040_sticky]
+            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_sticky, l040_sticky,
+            stick_to_robot, pedro_field]
 
 if __name__ == "__main__":
     if OUT is None:
