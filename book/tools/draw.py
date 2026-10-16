@@ -468,12 +468,12 @@ def gamepad_outline(cx, cy, w, h):
             + quad(ln, (cx - 0.2 * w, cy + 0.62 * h), lg) + quad(lg, (cx - 0.6 * w, cy), tl))
 
 
-def gamepad(s, cx, cy, w, h):
+def gamepad(s, cx, cy, w, h, shine=0.44):
     shape = gamepad_outline(cx, cy, w, h)
     s.shadow([(x + 0.02 * w, y + 0.05 * h) for x, y in shape], sigma=0.02 * w)
     s.marker(shape, GREY3, nib=0.03 * w, opacity=0.65)
     s.shade(shape, color=GREY4, nib=0.025 * w, within=rect(cx - 0.6 * w, cy, 1.2 * w, h))
-    s.highlight((cx - 0.36 * w, cy - 0.44 * h), (cx + 0.15 * w, cy - 0.44 * h), width=4)
+    s.highlight((cx - 0.36 * w, cy - shine * h), (cx + 0.15 * w, cy - shine * h), width=4)
     s.line(shape, PEN, 2.4, 0.9, closed=True)
 
 
@@ -795,25 +795,27 @@ def robot_front():
 
 
 def gamepad_sticks():
-    s = Sketch(1100, 760, 23)
-    cx, cy = 550, 390
-    gamepad(s, cx, cy, 820, 430)
-    for x, name, side in ((370, "left stick", -1), (630, "right stick", 1)):
+    s = Sketch(1300, 720, 23)
+    cx, cy = 650, 430  # low enough that the pulled-back labels clear the notch
+    gamepad(s, cx, cy, 1000, 430, shine=0.475)
+    for x, name, side in ((400, "left stick", 1), (900, "right stick", -1)):  # arrows between them
         y = 360
         s.marker(ellipse((x, y), 62), GREY4, nib=14, opacity=0.8)
         s.marker(ellipse((x, y), 32), GREY2, nib=10, opacity=0.9)
         s.ink_circle((x, y), 62, width=2.2)
         s.ink_circle((x, y), 32, width=1.6)
         s.text((x, y - 84), name, 28, PAPER)
-        s.marker_arrow((x + side * 95, y - 50), (x + side * 95, y + 60), MARKER_GREEN, nib=7)
-        s.lines((x + side * 112, y - 4), ["pulled back", "+1.0"], 22, color=PAPER,
+        s.marker_arrow((x + side * 95, y - 8), (x + side * 95, y - 95), MARKER_GREEN, nib=7)
+        s.lines((x + side * 112, y - 70), ["pushed away", "-1.0"], 22, color=PAPER,
                 anchor="start" if side > 0 else "end")
-    s.marker(ellipse((820, 260), 30), MARKER_GREEN, nib=10, opacity=0.9)
-    s.ink_circle((820, 260), 30, width=2.0)
-    s.text((820, 270), "A", 30)
-    s.text((820, 214), "A button", 26, PAPER)
+        s.marker_arrow((x + side * 95, y + 8), (x + side * 95, y + 95), MARKER_GREEN, nib=7)
+        s.lines((x + side * 112, y + 42), ["pulled back", "+1.0"], 22, color=PAPER,
+                anchor="start" if side > 0 else "end")
+    s.marker(ellipse((1040, 300), 30), MARKER_GREEN, nib=10, opacity=0.9)
+    s.ink_circle((1040, 300), 30, width=2.0)
+    s.text((1040, 310), "A", 30)
+    s.text((1040, 254), "A button", 26, PAPER)
     s.text((cx, 80), "a stick pushed away from the driver reads -1.0, pulled back +1.0", 28)
-    s.text((cx, 720), "the driver holds it from this side", 28)
     s.save("fig-gamepad-sticks")
 
 
@@ -904,7 +906,6 @@ def stick_to_robot():
         s.text((x - 16, y + 120), "+y", 28, PAPER, anchor="end")
         s.text((x, y - 72), name, 26, PAPER)
     s.lines((cx, 690), ["+x: pushed right", "+y: pulled back, toward the driver"], 28)
-    s.text((cx, 800), "the driver holds it from this side", 26, GREY3)
 
     rx, ry, side = 1230, 440, 240
     frame_top(s, rx - side / 2, ry - side / 2, side, side, nose=False)
