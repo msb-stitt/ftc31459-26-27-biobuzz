@@ -73,9 +73,11 @@ else:
 
 # The PDF: rinohtype's book template, with source/answers.rts setting the answer pages' diffs
 # smaller than other code, so their lines fit the page. The title is the one rinohtype gave the
-# book before this was set.
+# book before this was set. The subtitle, beside the title at the top of each page, is the version
+# tag the lessons were built from, where rinohtype put "Release" and an empty release.
 rinoh_documents = [dict(doc=globals().get("root_doc", "index"), target="book", title=project,
-                        author=author, template="book.rtt")]
+                        subtitle=myst_substitutions["lessons"].strip("`"), author=author,
+                        template="book.rtt")]
 
 html_theme = "furo"
 html_title = "Corbels FTC Programming Lessons in Java"
