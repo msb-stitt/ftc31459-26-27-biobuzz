@@ -8,3 +8,7 @@ base=sphinx
 [answer diff : ++CodeBlock(has_class='answer-diff')]
 base=code block
 font_size=7pt
+
+; The front page's title in 22 pt, where the base sheet's 25 pt wraps it on a 7 in line.
+[title page title]
+font_size=22pt
