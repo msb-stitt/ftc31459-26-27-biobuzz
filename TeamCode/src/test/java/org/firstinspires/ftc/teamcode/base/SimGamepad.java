@@ -40,10 +40,12 @@ import static org.lwjgl.sdl.SDLInit.SDL_INIT_GAMEPAD;
 import static org.lwjgl.sdl.SDLInit.SDL_INIT_JOYSTICK;
 import static org.lwjgl.sdl.SDLInit.SDL_Init;
 import static org.lwjgl.sdl.SDLInit.SDL_Quit;
+import static org.lwjgl.sdl.SDLInit.SDL_WasInit;
 import static org.lwjgl.sdl.SDLJoystick.SDL_AttachVirtualJoystick;
 import static org.lwjgl.sdl.SDLJoystick.SDL_CloseJoystick;
 import static org.lwjgl.sdl.SDLJoystick.SDL_DetachVirtualJoystick;
 import static org.lwjgl.sdl.SDLJoystick.SDL_GetJoystickGUIDForID;
+import static org.lwjgl.sdl.SDLJoystick.SDL_IsJoystickVirtual;
 import static org.lwjgl.sdl.SDLJoystick.SDL_JOYSTICK_TYPE_GAMEPAD;
 import static org.lwjgl.sdl.SDLJoystick.SDL_OpenJoystick;
 import static org.lwjgl.sdl.SDLJoystick.SDL_SetJoystickVirtualAxis;
@@ -108,6 +110,9 @@ public final class SimGamepad implements AutoCloseable {
          */
         public final String serial;
 
+        /** True for a gamepad {@link #attachVirtual} made, which a script drives. */
+        public final boolean virtual;
+
         private final long handle;
 
         /**
@@ -116,10 +121,15 @@ public final class SimGamepad implements AutoCloseable {
          * {@code SimPadsTest} needs.
          */
         Pad(int id, long handle, String name, String serial) {
+            this(id, handle, name, serial, false);
+        }
+
+        Pad(int id, long handle, String name, String serial, boolean virtual) {
             this.id = id;
             this.handle = handle;
             this.name = name;
             this.serial = serial;
+            this.virtual = virtual;
         }
 
         /**
@@ -129,11 +139,13 @@ public final class SimGamepad implements AutoCloseable {
          * told apart from a missing one. The device id comes last, so it cannot
          * be read as a slot. Leading
          * with it put a number next to a slot name with nothing to tell them
-         * apart: {@code gamepad1 is now id 1 "Xbox 360 Controller"}.
+         * apart: {@code gamepad1 is now id 1 "Xbox 360 Controller"}. A virtual
+         * gamepad says so first, outside the quotes, since its name is the one
+         * a real gamepad has.
          */
         @Override
         public String toString() {
-            return "\"" + name + "\", "
+            return (virtual ? "virtual " : "") + "\"" + name + "\", "
                     + (serial == null ? "no serial number"
                             : serial.isEmpty() ? "serial \"\"" : "serial " + serial)
                     + ", id " + id;
@@ -159,12 +171,24 @@ public final class SimGamepad implements AutoCloseable {
      * @throws IllegalStateException if SDL will not start at all
      */
     public static SimGamepad open() {
+        return open(null);
+    }
+
+    /**
+     * {@link #open()}, running {@code started} once SDL has started and before
+     * it looks for pads, so a virtual gamepad attached there is found with the
+     * rest. Null runs nothing.
+     */
+    public static SimGamepad open(Runnable started) {
         SDL_SetHint(SDL_HINT_JOYSTICK_MFI, "0");
         if (!SDL_Init(SDL_INIT_GAMEPAD | SDL_INIT_JOYSTICK | SDL_INIT_EVENTS)) {
             throw new IllegalStateException("SDL would not start: " + SDL_GetError());
         }
         List<Pad> pads = new ArrayList<>();
         try {
+            if (started != null) {
+                started.run();
+            }
             int[] ids = new int[0];
             for (long waited = 0; waited <= DISCOVERY_MS; waited += DISCOVERY_STEP_MS) {
                 SDL_PumpEvents();
@@ -181,7 +205,7 @@ public final class SimGamepad implements AutoCloseable {
                     continue;
                 }
                 pads.add(new Pad(id, handle, SDL_GetGamepadName(handle),
-                        SDL_GetGamepadSerial(handle)));
+                        SDL_GetGamepadSerial(handle), SDL_IsJoystickVirtual(id)));
             }
         } catch (RuntimeException e) {
             for (Pad pad : pads) {
@@ -234,7 +258,7 @@ public final class SimGamepad implements AutoCloseable {
                 continue;
             }
             Pad pad = new Pad(id, handle, SDL_GetGamepadName(handle),
-                    SDL_GetGamepadSerial(handle));
+                    SDL_GetGamepadSerial(handle), SDL_IsJoystickVirtual(id));
             pads.add(pad);
             added.add(pad);
         }
@@ -391,7 +415,7 @@ public final class SimGamepad implements AutoCloseable {
     // --- virtual gamepads --------------------------------------------------
 
     /** What a virtual gamepad calls itself. */
-    static final String VIRTUAL_NAME = "Virtual Xbox 360 Controller";
+    static final String VIRTUAL_NAME = "Xbox 360 Controller";
 
     /** A virtual gamepad's axes, in the order its mapping numbers them. */
     static final List<String> VIRTUAL_AXES = Collections.unmodifiableList(Arrays.asList(
@@ -485,8 +509,15 @@ public final class SimGamepad implements AutoCloseable {
         }
     }
 
-    /** Closes and detaches a virtual gamepad, which then departs like a cable coming out. */
+    /**
+     * Closes and detaches a virtual gamepad, which then departs like a cable
+     * coming out. Once SDL has quit it has detached them all itself, and this
+     * does nothing.
+     */
     static void detachVirtual(Virtual pad) {
+        if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
+            return;
+        }
         SDL_CloseJoystick(pad.joystick);
         SDL_DetachVirtualJoystick(pad.id);
     }

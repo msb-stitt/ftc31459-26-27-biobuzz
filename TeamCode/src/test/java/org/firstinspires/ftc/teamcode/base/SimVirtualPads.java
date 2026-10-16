@@ -21,7 +21,8 @@ import java.util.Map;
  * to it sets one control of one virtual gamepad: {@code pad 1 left_stick_y
  * -0.73}. The first line naming a number attaches a gamepad through
  * {@link SimGamepad}, and from there it is a gamepad like any other to
- * {@link SimPads}. A value holds until it is set again; nothing here moves a
+ * {@link SimPads}. simRun attaches gamepad 1 before it looks for gamepads,
+ * with {@link #attachFirst}. A value holds until it is set again; nothing here moves a
  * control over time.
  *
  * <p>Read on the loop's own thread, once per pass, so SDL is only ever called
@@ -76,6 +77,7 @@ final class SimVirtualPads implements AutoCloseable {
      * gamepads, a value that is not a port, and a port that cannot be opened
      * each print one line, and the run goes on with no virtual gamepads.
      * Port 0 asks the system for a free one, which {@link #port} then names.
+     * An opened port prints nothing.
      */
     static SimVirtualPads open(String variable, boolean usePads, PrintStream out) {
         if (variable == null) {
@@ -108,10 +110,15 @@ final class SimVirtualPads implements AutoCloseable {
                     + " virtual gamepads this run.");
             return null;
         }
-        SimVirtualPads virtual = new SimVirtualPads(server);
-        out.println("  Virtual gamepads: send commands to 127.0.0.1:" + virtual.port()
-                + ", one per line, such as \"pad 1 left_stick_y -0.73\".");
-        return virtual;
+        return new SimVirtualPads(server);
+    }
+
+    /**
+     * Attaches gamepad 1, which a run attaches before it looks for gamepads, so
+     * the census finds it as if it were plugged in and never says none is.
+     */
+    void attachFirst() {
+        pads.put(1, SimGamepad.attachVirtual());
     }
 
     int port() {

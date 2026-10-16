@@ -104,6 +104,12 @@ public final class SimGamepadTest {
                 new SimGamepad.Pad(2, 0L, "Some Pad", "").toString());
     }
 
+    @Test
+    public void aVirtualPadSaysSoBeforeItsName() {
+        assertEquals("virtual \"Xbox 360 Controller\", no serial number, id 1",
+                new SimGamepad.Pad(1, 0L, "Xbox 360 Controller", null, true).toString());
+    }
+
     /**
      * The device id is last, so nothing in a line can be read as a slot. A slot
      * is {@code gamepad1} or {@code gamepad2} and never a bare number.

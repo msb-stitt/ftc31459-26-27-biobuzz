@@ -224,7 +224,12 @@ public final class SimPads implements AutoCloseable {
 
     /** Opens SDL, loads any stored assignment, and says what it found. */
     public static SimPads open() {
-        return new SimPads(SimGamepad.open(), localProperties(), System.out);
+        return open(null);
+    }
+
+    /** {@link #open()}, with {@code started} run as {@link SimGamepad#open(Runnable)} runs it. */
+    public static SimPads open(Runnable started) {
+        return new SimPads(SimGamepad.open(started), localProperties(), System.out);
     }
 
     /**

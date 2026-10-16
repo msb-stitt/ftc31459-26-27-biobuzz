@@ -215,6 +215,7 @@ public final class SimVirtualPadsTest {
                 SimGamepad.Pad pad = virtuals.get(i);
                 assertEquals(SimGamepad.VIRTUAL_NAME, pad.name);
                 assertNull("no serial number", pad.serial);
+                assertTrue("virtual", pad.virtual);
                 if (i > 0) {
                     assertTrue("ids follow in the order attached",
                             pad.id > virtuals.get(i - 1).id);
@@ -246,10 +247,40 @@ public final class SimVirtualPadsTest {
         }
 
         String census = new String(printed.toByteArray(), StandardCharsets.UTF_8);
-        assertTrue(census, census.contains("Virtual gamepads: send commands to 127.0.0.1:"));
-        assertTrue(census, census.contains("\"" + SimGamepad.VIRTUAL_NAME
+        assertTrue(census, census.contains("virtual \"" + SimGamepad.VIRTUAL_NAME
                 + "\", no serial number, id " + virtuals.get(2).id
                 + " -- gamepad1, claimed this run"));
+    }
+
+    /**
+     * Gamepad 1 attached as SDL starts is in the first census, as a gamepad
+     * plugged in before the run is, and the port says nothing of itself. SDL
+     * quits before the port closes, as in simRun, and the close still runs.
+     */
+    @Test
+    public void gamepad1AttachedAtStartIsInTheFirstCensusAndCommandsReachIt() throws Exception {
+        Path store = folder.newFile("local.properties").toPath();
+        ByteArrayOutputStream printed = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(printed, true, "UTF-8");
+        int attached;
+        try (SimVirtualPads virtual = SimVirtualPads.open("0", true, out);
+                SimGamepad sdl = SimGamepad.open(virtual::attachFirst);
+                SimPads pads = new SimPads(sdl, store, out);
+                Script script = new Script(virtual)) {
+            List<SimGamepad.Pad> all = sdl.pads();
+            attached = all.size();
+            assertTrue("gamepad 1 is found at start", all.stream().anyMatch(p -> p.virtual));
+            assertEquals("ok", script.send("pad 1 left_stick_y -0.73"));
+            pads.rescan();
+            assertEquals("pad 1 is the gamepad already attached", attached,
+                    sdl.pads().size());
+        }
+        String census = new String(printed.toByteArray(), StandardCharsets.UTF_8);
+        assertTrue(census, census.contains("virtual \"" + SimGamepad.VIRTUAL_NAME
+                + "\", no serial number, id "));
+        assertTrue(census, !census.contains("No gamepad is plugged in"));
+        assertTrue(census, !census.contains("new gamepad:"));
+        assertTrue(census, !census.contains("127.0.0.1"));
     }
 
     @Test
