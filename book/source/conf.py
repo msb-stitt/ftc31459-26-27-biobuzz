@@ -74,7 +74,7 @@ else:
 html_theme = "furo"
 html_title = "Corbels FTC Programming Lessons in Java"
 html_static_path = ["_static"]
-html_css_files = ["pencil.css", "steps.css"]
+html_css_files = ["pencil.css", "steps.css", "diff.css"]
 
 
 def setup(app):

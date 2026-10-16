@@ -1,97 +1,56 @@
 # L060ShapingOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-rules.1`:
-
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java`
+applying `solutions/` on `solutions-rules.1`. A line marked + is new, and a line marked -
+is gone; each number is the line's place in the file after the lesson.
 
 ## L060
 
-### a change
-
-Before L060:
-
-```java
-(nothing)
-```
-
-After L060:
-
-```java
-        double band = 0.05;
-        double leftPower = deadband(leftSpeed, band);
-        leftPower = signedSquared(leftPower);
-        Tracker.publish("power/left", leftPower);
-        double rightPower = deadband(rightSpeed, band);
-        rightPower = signedSquared(rightPower);
-        Tracker.publish("power/right", rightPower);
-```
-
-### a change
-
-Before L060:
-
-```java
-        hardware.frontLeft.setPower(leftSpeed);
-        hardware.backLeft.setPower(leftSpeed);
-```
-
-After L060:
-
-```java
-        hardware.frontLeft.setPower(leftPower);
-        hardware.backLeft.setPower(leftPower);
-```
-
-### a change
-
-Before L060:
-
-```java
-        hardware.frontRight.setPower(rightSpeed);
-        hardware.backRight.setPower(rightSpeed);
-```
-
-After L060:
-
-```java
-        hardware.frontRight.setPower(rightPower);
-        hardware.backRight.setPower(rightPower);
-```
-
-### a change
-
-Before L060:
-
-```java
-(nothing)
-```
-
-After L060:
-
-```java
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-```
-
-### a change
-
-Before L060:
-
-```java
-(nothing)
-```
-
-After L060:
-
-```java
-    double signedSquared(double value) {
-        return value * Math.abs(value);
-    }
+```diff
+--- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java  (before L060)
++++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java  (after L060)
+@@ lines 64 to 82 @@
+   64         // When on L060S040, see
+   65         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
+   66         // for what to do here.
++  67         double band = 0.05;
++  68         double leftPower = deadband(leftSpeed, band);
++  69         leftPower = signedSquared(leftPower);
++  70         Tracker.publish("power/left", leftPower);
++  71         double rightPower = deadband(rightSpeed, band);
++  72         rightPower = signedSquared(rightPower);
++  73         Tracker.publish("power/right", rightPower);
+   74
+-             hardware.frontLeft.setPower(leftSpeed);
+-             hardware.backLeft.setPower(leftSpeed);
++  75         hardware.frontLeft.setPower(leftPower);
++  76         hardware.backLeft.setPower(leftPower);
+   77
+-             hardware.frontRight.setPower(rightSpeed);
+-             hardware.backRight.setPower(rightSpeed);
++  78         hardware.frontRight.setPower(rightPower);
++  79         hardware.backRight.setPower(rightPower);
+   80
+   81         loopAfter();
+   82     }
+@@ lines 90 to 108 @@
+   90     // When on L060S030, see
+   91     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
+   92     // for what to do here.
++  93     double deadband(double value, double band) {
++  94         double alwaysPositiveMagnitude = Math.abs(value);
++  95         boolean isCloseToZero = alwaysPositiveMagnitude < band;
++  96         if (isCloseToZero) {
++  97             return 0.0;
++  98         }
++  99         return value;
++ 100     }
+  101
+  102     // When on L060S050, see
+  103     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+  104     // for what to do here.
++ 105     double signedSquared(double value) {
++ 106         return value * Math.abs(value);
++ 107     }
+  108 }
 ```
