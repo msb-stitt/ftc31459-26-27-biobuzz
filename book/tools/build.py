@@ -6,10 +6,14 @@ guide/, review/ and ftc31459-book.pdf. Moved here from gh-pages' src/ on
 2026-10-11; tools/publish_check.py runs it.
 
     python tools/run.py build --figures DIR --solutions REF --out OUT [--lessons REF] [--mentor]
+        [--as KIND --version V]
 
 `--mentor` builds the mentor book, with Sphinx's `mentor` tag, into mentor/ and
 ftc31459-mentor-book.pdf, and leaves the review alone. Without it, the student
 book goes into guide/ and ftc31459-book.pdf. `--lessons` is HEAD unless named.
+`--as` and `--version` name the version being published, as assemble_pages.py
+takes them, for the links conf.py's `{video}` role writes; without them, the
+release at the top level.
 
 It fails, and writes nothing, if a pencilled box has no picture in --figures.
 It fails, and writes nothing, if the PDF step cannot open an image. It fails
@@ -141,6 +145,8 @@ def main() -> int:
     ap.add_argument("--figures", type=Path, required=True)
     ap.add_argument("--mentor", action="store_true")
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--as", dest="kind", choices=("release", "pre", "dev"))
+    ap.add_argument("--version", default="")
     args = ap.parse_args()
     global FIGURES
     FIGURES = args.figures.resolve()
@@ -161,9 +167,11 @@ def main() -> int:
             return 1
 
         out = tree / "out"
-        # conf.py names these on B003, describing them as committed.
+        # conf.py names these on B003, describing them as committed, and links videos by the
+        # version.
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
-                          BOOK_MEDIA=str(FIGURES.parent))
+                          BOOK_MEDIA=str(FIGURES.parent), BOOK_AS=args.kind or "",
+                          BOOK_VERSION=args.version)
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:
