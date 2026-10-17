@@ -73,8 +73,9 @@ words = 550
 [[page]]
 path = "source/tasks/e021.md"
 # Measured off the first draft, 230 words, and rounded up: L020's What's happening, moved.
-# Raised for Mike to read the page at 285 words, with its three sticky-note drawings, 2026-10-17.
-words = 300
+# Raised for Mike to read the page at 285 words, with its three sticky-note drawings, 2026-10-17,
+# and again at 389 words, with his paragraphs on the equals sign.
+words = 400
 
 [[page]]
 path = "source/tasks/l030.md"
