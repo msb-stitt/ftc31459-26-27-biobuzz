@@ -43,8 +43,10 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja publish-check
 
 `ninja publish-check` builds both books with every figure in place, the review and both PDFs into
 `book/build/publish/`, and publishes nothing. It runs `book/tools/build.py` on the last commit, so
-commit first. It fails if a figure is still a pencilled box or a page shows an image that is not
-there. It is not part of `ninja book`.
+commit first. It fails if a figure is still a pencilled box, a page shows an image that is not
+there, or a page links a video the media pin does not have. Its PDFs link the top level's videos;
+`release.yml` passes `--as` and `--version`, so a published PDF links its own version's. It is not
+part of `ninja book`.
 
 The figures come from
 [corbels-lfs-lessons](https://github.com/msb-stitt/corbels-lfs-lessons), in Git LFS, at the commit
@@ -75,9 +77,12 @@ cd ../corbels-lfs-lessons && git lfs install --local && git checkout <the [media
 
 - [`release.yml`](.github/workflows/release.yml) makes `gh-pages` again as one commit with no
   history: the newest release at the top level, where the links in the code point, a newer
-  pre-release in its own folder, `dev/` and `videos/`, and no older version. The front page links
-  every version's GitHub Release. The GitHub Release carries both PDFs and the web pages as
-  `ftc31459-vX.Y.Z-web.zip`, and the media commit is tagged in corbels-lfs-lessons with the same
-  name. A video is pulled from LFS only when it differs from the one `gh-pages` serves.
+  pre-release in its own folder, `dev/`, and no older version. Each has its own `videos/`, from
+  its media pin, which its pages link relatively; a page written `` {video}`l020` `` links it. The
+  front page links every version's GitHub Release. The GitHub Release carries both PDFs, the
+  videos, and the web pages with the videos as `ftc31459-vX.Y.Z-web.zip`, and the media commit is
+  tagged in corbels-lfs-lessons with the same name. A tag's PDFs link the videos in its GitHub
+  Release, and `dev`'s link `dev/videos/`. A video is pulled from LFS only when `gh-pages` serves
+  no copy of it.
 - Look at the published books after: a page of each guide and of each PDF.
 - The next round starts with `pin --follow`, as above.

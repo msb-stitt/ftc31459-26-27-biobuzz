@@ -129,3 +129,31 @@ def setup(app):
                 section["ids"].insert(0, step.group().lower())
 
     app.connect("doctree-read", step_anchors)
+
+    def video(name, rawtext, text, lineno, inliner, options=None, content=None):
+        """{video}`l020`: a link to l020.mp4 in this version's videos/.
+
+        A page links its own version's copy, beside its book: relative, so dev/ plays dev's
+        video and the release plays its own. A PDF has no folder to be relative to, so it links
+        a release's or pre-release's GitHub Release, and dev's videos/ on the site. BOOK_AS and
+        BOOK_VERSION, set by tools/build.py, name the version; without them, as under ninja
+        book, the release at the top level.
+        """
+        import os
+
+        from docutils import nodes
+
+        site = "https://msb-stitt.github.io/ftc31459-26-27-biobuzz/"
+        kind, version = os.environ.get("BOOK_AS"), os.environ.get("BOOK_VERSION")
+        root = {"dev": site + "dev/", "pre": f"{site}{version}/"}.get(kind, site)
+        mp4 = f"{text}.mp4"
+        env = inliner.document.settings.env
+        if env.app.builder.name == "rinoh":
+            release = "https://github.com/msb-stitt/ftc31459-26-27-biobuzz/releases/download/"
+            uri = f"{release}{version}/{mp4}" if kind in ("release", "pre") else \
+                f"{root}videos/{mp4}"
+        else:
+            uri = "../" * (env.docname.count("/") + 1) + f"videos/{mp4}"
+        return [nodes.reference(rawtext, f"{root}videos/{mp4}", refuri=uri)], []
+
+    app.add_role("video", video)
