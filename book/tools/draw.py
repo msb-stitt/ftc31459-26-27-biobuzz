@@ -842,19 +842,48 @@ def pinpoint_mounting():
     s.save("fig-pinpoint-mounting")
 
 
-def l020_sticky():
-    s = Sketch(1400, 880, 31)
-    s.text((700, 64), "double leftStickY = gamepad1.left_stick_y;", 30, code=True)
+def gamepad_notes(s):
+    """gamepad1's label, its Gamepad note, and the float note left_stick_y points to."""
     sticky(s, 390, 130, 500, 400, MARKER_BLUE, "Gamepad", tilt=-1.0, lift=40)
     dot_arrow(s, label(s, 110, 185, "gamepad1"), (384, 212))
     end = label(s, 412, 270, "left_stick_y", tilt=-1.0, size=26)
     sticky(s, 625, 335, 225, 160, MARKER_YELLOW, "float", "-0.7", tilt=1.5, lift=26,
            value_size=48)
     dot_arrow(s, end, (662, 332), bend=-0.3)
-    sticky(s, 450, 600, 260, 200, MARKER_YELLOW, "double", "-0.7", tilt=-1.5)
+
+
+def l020_platform():
+    s = Sketch(1000, 680, 41)
+    box = rect(60, 80, 880, 540)
+    s.marker(box, GREY1, nib=22, opacity=0.25, layers=1)
+    s.ink_poly(box, width=1.8)
+    gamepad_notes(s)
+    s.text((500, 590), "the FTC platform", 32, anchor="middle")
+    s.save("fig-l020-platform")
+
+
+def l020_variable():
+    s = Sketch(900, 360, 43)
+    s.text((450, 50), "double leftStickY", 30, code=True)
+    sticky(s, 450, 110, 260, 200, MARKER_YELLOW, "double", tilt=-1.5)
+    dot_arrow(s, label(s, 80, 175, "leftStickY"), (444, 208))
+    s.save("fig-l020-variable")
+
+
+def l020_sticky():
+    s = Sketch(1400, 880, 31)
+    s.text((700, 64), "double leftStickY = gamepad1.left_stick_y;", 30, code=True)
+    gamepad_notes(s)
+    sticky(s, 450, 600, 260, 200, MARKER_YELLOW, "double", tilt=-1.5)
     dot_arrow(s, label(s, 110, 665, "leftStickY"), (444, 698))
-    s.marker_arrow((842, 470), (716, 668), MARKER_ORANGE, nib=9, bend=-0.3)
-    s.lines((900, 640), ["= copies the value", "onto leftStickY's note"], 30, anchor="start")
+    # a copy of -0.7 leaves the float's value and is landing on the double's note
+    for (x, y, size), grey in zip(((684, 524, 40), (662, 580, 44), (638, 634, 48), (614, 686, 52)),
+                                  ("#e2e3e4", GREY1, "#b6b9bb", GREY2)):  # lightest farthest back
+        s.text((x, y), "-0.7", size, grey)
+    s.text((588, 732), "-0.7", 54)
+    s.marker_arrow((745, 458), (676, 694), MARKER_ORANGE, nib=9, bend=-0.15)
+    s.lines((900, 640), ["The equals symbol '='", "tells the program to do", "an assignment action."],
+            30, anchor="start")
     s.save("fig-l020-sticky")
 
 
@@ -990,8 +1019,8 @@ def pedro_field():
 
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
-            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_sticky, l040_sticky,
-            stick_to_robot, pedro_field]
+            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
+            l020_variable, l020_sticky, l040_sticky, stick_to_robot, pedro_field]
 
 if __name__ == "__main__":
     if OUT is None:
