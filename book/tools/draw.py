@@ -43,7 +43,9 @@ from matplotlib.collections import LineCollection  # noqa: E402
 from matplotlib.colors import to_rgba  # noqa: E402
 from matplotlib.font_manager import FontProperties  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Polygon  # noqa: E402
+from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, PathPatch, Polygon  # noqa: E402,E501
+from matplotlib.textpath import TextPath  # noqa: E402
+from matplotlib.transforms import Affine2D  # noqa: E402
 import numpy as np  # noqa: E402
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else None  # set before drawing; see the end
@@ -1091,11 +1093,183 @@ def pedro_field():
     s.save("fig-pedro-field")
 
 
+# -- E035: from the number line to the stick's axes and the robot's speeds, one idea a figure.
+# No heading, turn or strafe; z is drawn only to show that the stick's axes are flipped.
+
+def glyphs(s, xy, word, size=30, color=PEN, mirrored=False, code=False):
+    """A word drawn as ink on the page, centered on xy. Mirrored, it is the word seen through the
+    back of a card turned over top to bottom: upside down, and mirrored left to right."""
+    path = TextPath((0, 0), word, size=size, prop=s.code if code else s.hand)
+    box = path.get_extents()
+    flip = 1 if mirrored else -1    # the page's y counts down, so upright text is flipped once
+    move = Affine2D().translate(-(box.x0 + box.x1) / 2, -(box.y0 + box.y1) / 2).scale(1, flip)
+    move = move.translate(*xy)
+    s.add(PathPatch(move.transform_path(path), facecolor=color, edgecolor="none",
+                    transform=s.ax.transData))
+
+
+def card_axes(s, o, reach, y_down=False, z=False):
+    """x, y and perhaps z from o, with 1 and 2 marked on x and y. y_down draws them as a card
+    turned over top to bottom: y points down the page, z into it, every word seen mirrored."""
+    step = reach / 2.6
+    yd = 1 if y_down else -1
+    zx, zy = (-0.55, 0.55) if not y_down else (0.55, -0.55)   # z drawn on a slant
+    s.marker_arrow(o, (o[0] + reach, o[1]), MARKER_ORANGE, nib=8)
+    s.marker_arrow(o, (o[0], o[1] + yd * reach), MARKER_ORANGE, nib=8)
+    if z:
+        s.marker_arrow(o, (o[0] + zx * reach * 0.8, o[1] + zy * reach * 0.8), MARKER_ORANGE,
+                       nib=8)
+        tip = reach * 0.8 + 50          # the name just past the arrow's tip
+        glyphs(s, (o[0] + zx * tip, o[1] + zy * tip), "z", 40, mirrored=y_down)
+    s.dot(o, 7)
+    glyphs(s, (o[0] - 26, o[1] - yd * 26 * -1), "0", 30, mirrored=y_down)
+    glyphs(s, (o[0] + reach + 34, o[1]), "x", 40, mirrored=y_down)
+    glyphs(s, (o[0], o[1] + yd * (reach + 36)), "y", 40, mirrored=y_down)
+    for k in (1, 2):
+        tx, ty = o[0] + k * step, o[1] + yd * k * step
+        s.ink_line((tx, o[1] - 10), (tx, o[1] + 10), width=2.0, over=2, passes=1)
+        s.ink_line((o[0] - 10, ty), (o[0] + 10, ty), width=2.0, over=2, passes=1)
+        glyphs(s, (tx, o[1] - yd * 34), f"+{k}", 28, mirrored=y_down)
+        glyphs(s, (o[0] + 40, ty), f"+{k}", 28, mirrored=y_down)
+
+
+def e035_numberline():
+    s = Sketch(1300, 330, 41)
+    y, left, step = 170, 170, 160
+    s.construct((60, y), (1240, y))
+    s.marker_arrow((left - 70, y), (left + 6 * step + 80, y), MARKER_ORANGE, nib=7)
+    for k in range(-3, 4):
+        x = left + (k + 3) * step
+        s.ink_line((x, y - 16), (x, y + 16), width=2.2, over=3, passes=1)
+        s.text((x, y + 62), f"{k:+d}" if k else "0", 34)
+    s.text((left + 6 * step + 110, y + 16), "+", 60, anchor="start")
+    s.text((650, 80), "numbers grow to the right", 32)
+    s.save("fig-e035-numberline")
+
+
+def e035_xy():
+    s = Sketch(900, 820, 43)
+    o = (300, 560)
+    s.construct((o[0] - 120, o[1]), (o[0] + 520, o[1]))
+    s.construct((o[0], o[1] + 120), (o[0], o[1] - 480))
+    card_axes(s, o, 380)
+    s.lines((450, 700), ["+x to the right,", "+y up the page"], 30)
+    s.save("fig-e035-xy")
+
+
+def e035_xyz():
+    s = Sketch(900, 820, 47)
+    o = (360, 520)
+    card_axes(s, o, 340, z=True)
+    s.lines((560, 690), ["+z comes out of the page,", "toward you"], 30)
+    s.save("fig-e035-xyz")
+
+
+def e035_flip():
+    s = Sketch(1800, 900, 53)
+    for x0, y_down in ((90, False), (1050, True)):
+        card = rect(x0, 160, 660, 600)
+        s.shadow([(x + 10, y + 14) for x, y in card], sigma=10, alpha=0.22)
+        s.marker(card, MARKER_YELLOW if not y_down else "#f3e7b0", nib=30, opacity=0.35)
+        s.ink_poly(card)
+        o = (x0 + 250, 160 + (420 if not y_down else 180))
+        card_axes(s, o, 300, y_down=y_down, z=True)
+    s.text((420, 110), "the card", 34)
+    s.text((1380, 110), "the same card, flipped top to bottom", 34)
+    s.construct((40, 460), (1760, 460))     # the line the card turns over on
+    turn = [(800 + 150 * math.sin(math.radians(a)), 460 - 260 * math.cos(math.radians(a)))
+            for a in range(0, 181, 6)]       # over the top, toward you, and down
+    s.line(turn, MARKER_ORANGE, 9, 0.85)
+    s.line(turn, PEN, 1.6, 0.8)
+    s.marker_arrow(turn[-1], (1020, turn[-1][1]), MARKER_ORANGE, nib=9)
+    s.lines((1380, 820), ["+x still points right; +y points down,",
+                          "+z into the page, and the words read upside down"], 28)
+    s.save("fig-e035-flip")
+
+
+def stick_top(s, c, rad=150):
+    """One stick from above, big."""
+    s.shadow(ellipse((c[0] + 10, c[1] + 14), rad), sigma=10, alpha=0.25)
+    s.marker(ellipse(c, rad), GREY4, nib=24, opacity=0.8)
+    s.marker(ellipse(c, rad * 0.5), GREY2, nib=14, opacity=0.9)
+    s.highlight((c[0] - rad * 0.5, c[1] - rad * 0.6), (c[0] + rad * 0.1, c[1] - rad * 0.8))
+    s.ink_circle(c, rad)
+    s.ink_circle(c, rad * 0.5, width=1.8)
+
+
+def e035_stick():
+    s = Sketch(1000, 1000, 59)
+    c = (430, 500)
+    stick_top(s, c)
+    s.marker_arrow(c, (c[0] + 260, c[1]), MARKER_ORANGE, nib=8)
+    s.marker_arrow(c, (c[0], c[1] + 260), MARKER_ORANGE, nib=8)
+    s.text((c[0] + 290, c[1] + 12), "+x", 34, anchor="start")
+    s.text((c[0] - 24, c[1] + 270), "+y", 34, anchor="end")
+    s.marker_arrow((c[0] + 230, c[1] - 60), (c[0] + 230, c[1] - 300), MARKER_GREEN, nib=8)
+    s.lines((c[0] + 260, c[1] - 260), ["pushed away", "-1.0"], 32, anchor="start")
+    s.marker_arrow((c[0] + 230, c[1] + 60), (c[0] + 230, c[1] + 300), MARKER_GREEN, nib=8)
+    s.lines((c[0] + 260, c[1] + 220), ["pulled back", "+1.0"], 32, anchor="start")
+    s.text((c[0], 940), "you, the driver, are down here", 30)
+    s.text((c[0], 70), "the left stick, from above", 34)
+    s.save("fig-e035-stick")
+
+
+def e035_robot():
+    s = Sketch(1000, 1000, 61)
+    c, side = (560, 560), 360
+    robot_inside(s, c[0], c[1], side, nose=False)
+    tri = [(c[0] - 55, c[1] - side / 2), (c[0], c[1] - side / 2 - 70), (c[0] + 55, c[1] - side / 2)]
+    s.marker(tri, MARKER_RED, nib=14, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    s.text((c[0] - 70, c[1] - side / 2 - 20), "nose", 32, MARKER_RED, "end")
+    axis(s, c, (c[0], c[1] - 400), "+x: forward, out the nose", (c[0] + 20, c[1] - 420), "start")
+    axis(s, c, (c[0] - 400, c[1]), "+y: left", (c[0] - 400, c[1] - 26), "start")
+    s.text((500, 960), "the robot, from above", 34)
+    s.save("fig-e035-robot")
+
+
+def e035_speeds():
+    s = Sketch(1100, 820, 67)
+    c, side = (550, 420), 360
+    wheels = robot_inside(s, c[0], c[1], side)
+    for name in ("left", "right"):
+        x = wheels[f"front {name}"][0]
+        out = -1 if name == "left" else 1
+        s.marker_arrow((x + out * 130, c[1] + 120), (x + out * 130, c[1] - 160), MARKER_RED, nib=9)
+        s.lines((x + out * 160, c[1] - 120), [f"{name}Speed", "1.0"], 30,
+                anchor="end" if out < 0 else "start", code=False)
+    s.lines((550, 730), ["forward is +, backward is -,", "and 1.0 is full speed"], 30)
+    s.save("fig-e035-speeds")
+
+
+def e035_switch():
+    s = Sketch(1900, 800, 71)
+    c = (260, 420)
+    stick_top(s, c, 120)
+    s.marker_arrow((c[0], c[1] - 20), (c[0], c[1] - 230), MARKER_GREEN, nib=8)
+    s.text((c[0], 110), "pushed away", 32)
+    s.text((c[0], 640), "leftStickY: -1.0", 30, code=True)
+    s.marker_arrow((470, 420), (620, 420), MARKER_ORANGE, nib=9)
+    box = rect(650, 360, 600, 110)
+    s.marker(box, GREY1, nib=20, opacity=0.5)
+    s.ink_poly(box)
+    s.text((950, 428), "double leftSpeed = -leftStickY;", 26, code=True)
+    s.text((950, 540), "the minus sign turns it around", 30)
+    s.marker_arrow((1280, 420), (1430, 420), MARKER_ORANGE, nib=9)
+    rc, side = (1640, 440), 260
+    wheels = robot_inside(s, rc[0], rc[1], side)
+    x = wheels["front left"][0] - 100
+    s.marker_arrow((x, rc[1] + 90), (x, rc[1] - 130), MARKER_RED, nib=9)
+    s.text((rc[0], 690), "leftSpeed: 1.0, full speed forward", 30, code=False)
+    s.save("fig-e035-switch")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
-            stick_to_robot, pedro_field]
+            stick_to_robot, pedro_field, e035_numberline, e035_xy, e035_xyz, e035_flip,
+            e035_stick, e035_robot, e035_speeds, e035_switch]
 
 if __name__ == "__main__":
     if OUT is None:
