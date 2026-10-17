@@ -18,9 +18,9 @@ after writing if a built page shows an image file that is not there.
 Run it in a Python that has the book's requirements and rinohtype. The lessons
 ref is checked out into a throwaway worktree, so nothing here is touched. In
 that copy, every pencilled box (`:::{admonition} fig-...` with `:class: pencil`)
-whose id has a picture in --figures becomes a figure with the box's own words as
-its caption. The lessons ref keeps its boxes; the pictures live in
-corbels-lfs-lessons.
+whose id has a picture in --figures becomes that picture, with no caption: the
+box's words only stand in for it. The lessons ref keeps its boxes; the pictures
+live in corbels-lfs-lessons.
 
 The PDF needs the route diagrams as PNG, because rinohtype places no SVG; they
 are drawn with Pillow, so the build runs on any computer with the book's
@@ -60,7 +60,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
 
         def figure(m):
             nonlocal filled
-            fig, caption = m.group(1), " ".join(m.group(2).split())
+            fig = m.group(1)
             png = FIGURES / f"{fig}.png"
             if not png.exists():
                 left.append(fig)
@@ -68,7 +68,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
             shutil.copy(png, static / png.name)
             filled += 1
             path = "../" * depth + f"_static/figures/{png.name}"
-            return f":::{{figure}} {path}\n:name: {fig}\n\n{caption}\n:::"
+            return f":::{{figure}} {path}\n:name: {fig}\n:::"
 
         new = PENCIL.sub(figure, text)
         if new != text:

@@ -1,56 +1,47 @@
 # L080ArcadeOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-rules.1`:
-
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java`
+applying `solutions/` on `solutions-mlt-fable.1`. A line marked + is new, and a line marked -
+is gone; each number is the line's place in the file after the lesson.
 
 ## L080
 
-### a change
+```{code-block} diff
+:class: answer-diff
 
-Before L080:
-
-```java
-(nothing)
-```
-
-After L080:
-
-```java
-        double band = 0.05;
-        double forward = deadband(-leftStickY, band);
-        forward = signedSquared(forward);
-        Tracker.publish("arcade/forward", forward);
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
-```
-
-### a change
-
-Before L080:
-
-```java
-(nothing)
-```
-
-After L080:
-
-```java
-        double leftPower = forward - turn;
-        double rightPower = forward + turn;
-        double leftSize = Math.abs(leftPower);
-        double rightSize = Math.abs(rightPower);
-        double biggest = Math.max(leftSize, rightSize);
-        biggest = Math.max(1.0, biggest);
-        leftPower = leftPower / biggest;
-        rightPower = rightPower / biggest;
-        Tracker.publish("power/left", leftPower);
-        Tracker.publish("power/right", rightPower);
-
-        hardware.frontLeft.setPower(leftPower);
-        hardware.backLeft.setPower(leftPower);
-        hardware.frontRight.setPower(rightPower);
-        hardware.backRight.setPower(rightPower);
+--- mytry/L080ArcadeOpMode.java  (before L080)
++++ mytry/L080ArcadeOpMode.java  (after L080)
+@@ lines 68 to 99 @@
+   68         // When on L080S030, see
+   69         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030
+   70         // for what to do here.
++  71         double band = 0.05;
++  72         double forward = deadband(-leftStickY, band);
++  73         forward = signedSquared(forward);
++  74         Tracker.publish("arcade/forward", forward);
++  75         double turn = deadband(-rightStickX, band);
++  76         turn = signedSquared(turn);
++  77         Tracker.publish("arcade/turn", turn);
+   78
+   79         // When on L080S040, see
+   80         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
+   81         // for what to do here.
++  82         double leftPower = forward - turn;
++  83         double rightPower = forward + turn;
++  84         double leftSize = Math.abs(leftPower);
++  85         double rightSize = Math.abs(rightPower);
++  86         double biggest = Math.max(leftSize, rightSize);
++  87         biggest = Math.max(1.0, biggest);
++  88         leftPower = leftPower / biggest;
++  89         rightPower = rightPower / biggest;
++  90         Tracker.publish("power/left", leftPower);
++  91         Tracker.publish("power/right", rightPower);
++  92
++  93         hardware.frontLeft.setPower(leftPower);
++  94         hardware.backLeft.setPower(leftPower);
++  95         hardware.frontRight.setPower(rightPower);
++  96         hardware.backRight.setPower(rightPower);
+   97
+   98         boolean buttonA = gamepad1.a;
+   99         Tracker.publish("button/a", buttonA);
 ```

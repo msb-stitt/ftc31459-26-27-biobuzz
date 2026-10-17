@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import static org.lwjgl.sdl.SDLError.SDL_GetError;
+import static org.lwjgl.sdl.SDLGUID.SDL_GUIDToString;
+import static org.lwjgl.sdl.SDLGamepad.SDL_AddGamepadMapping;
 import static org.lwjgl.sdl.SDLEvents.SDL_PumpEvents;
 import static org.lwjgl.sdl.SDLGamepad.SDL_CloseGamepad;
 import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_LEFTX;
@@ -38,14 +40,31 @@ import static org.lwjgl.sdl.SDLInit.SDL_INIT_GAMEPAD;
 import static org.lwjgl.sdl.SDLInit.SDL_INIT_JOYSTICK;
 import static org.lwjgl.sdl.SDLInit.SDL_Init;
 import static org.lwjgl.sdl.SDLInit.SDL_Quit;
+import static org.lwjgl.sdl.SDLInit.SDL_WasInit;
+import static org.lwjgl.sdl.SDLJoystick.SDL_AttachVirtualJoystick;
+import static org.lwjgl.sdl.SDLJoystick.SDL_CloseJoystick;
+import static org.lwjgl.sdl.SDLJoystick.SDL_DetachVirtualJoystick;
+import static org.lwjgl.sdl.SDLJoystick.SDL_GetJoystickGUIDForID;
+import static org.lwjgl.sdl.SDLJoystick.SDL_IsJoystickVirtual;
+import static org.lwjgl.sdl.SDLJoystick.SDL_JOYSTICK_TYPE_GAMEPAD;
+import static org.lwjgl.sdl.SDLJoystick.SDL_OpenJoystick;
+import static org.lwjgl.sdl.SDLJoystick.SDL_SetJoystickVirtualAxis;
+import static org.lwjgl.sdl.SDLJoystick.SDL_SetJoystickVirtualButton;
 import static org.lwjgl.sdl.SDLStdinc.SDL_free;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.lwjgl.sdl.SDL_GUID;
+import org.lwjgl.sdl.SDL_VirtualJoystickDesc;
+import org.lwjgl.system.MemoryStack;
 
 /**
  * The gamepads plugged into the laptop, as {@link Gamepad} fields.
@@ -86,10 +105,13 @@ public final class SimGamepad implements AutoCloseable {
 
         /**
          * The pad's own serial, or null where the pad or the backend has none.
-         * This is the only handle that survives unplugging and plugging in
-         * again, so it is what an assignment is stored against.
+         * {@link SimPads#key} makes what an assignment is stored against from
+         * it, and from the id where this is null, empty or shared.
          */
         public final String serial;
+
+        /** True for a gamepad {@link #attachVirtual} made, which a script drives. */
+        public final boolean virtual;
 
         private final long handle;
 
@@ -99,24 +121,33 @@ public final class SimGamepad implements AutoCloseable {
          * {@code SimPadsTest} needs.
          */
         Pad(int id, long handle, String name, String serial) {
+            this(id, handle, name, serial, false);
+        }
+
+        Pad(int id, long handle, String name, String serial, boolean virtual) {
             this.id = id;
             this.handle = handle;
             this.name = name;
             this.serial = serial;
+            this.virtual = virtual;
         }
 
         /**
          * The name, then the serial number, then the device id.
          *
-         * <p>The device id comes last because it decides one thing only, which
-         * gamepad a serial number names when two report the same one. Leading
+         * <p>An empty serial number is printed as {@code serial ""}, so it is
+         * told apart from a missing one. The device id comes last, so it cannot
+         * be read as a slot. Leading
          * with it put a number next to a slot name with nothing to tell them
-         * apart: {@code gamepad1 is now id 1 "Xbox 360 Controller"}.
+         * apart: {@code gamepad1 is now id 1 "Xbox 360 Controller"}. A virtual
+         * gamepad says so first, outside the quotes, since its name is the one
+         * a real gamepad has.
          */
         @Override
         public String toString() {
-            return "\"" + name + "\", "
-                    + (serial == null || serial.isEmpty() ? "no serial number" : "serial " + serial)
+            return (virtual ? "virtual " : "") + "\"" + name + "\", "
+                    + (serial == null ? "no serial number"
+                            : serial.isEmpty() ? "serial \"\"" : "serial " + serial)
                     + ", id " + id;
         }
     }
@@ -140,12 +171,24 @@ public final class SimGamepad implements AutoCloseable {
      * @throws IllegalStateException if SDL will not start at all
      */
     public static SimGamepad open() {
+        return open(null);
+    }
+
+    /**
+     * {@link #open()}, running {@code started} once SDL has started and before
+     * it looks for pads, so a virtual gamepad attached there is found with the
+     * rest. Null runs nothing.
+     */
+    public static SimGamepad open(Runnable started) {
         SDL_SetHint(SDL_HINT_JOYSTICK_MFI, "0");
         if (!SDL_Init(SDL_INIT_GAMEPAD | SDL_INIT_JOYSTICK | SDL_INIT_EVENTS)) {
             throw new IllegalStateException("SDL would not start: " + SDL_GetError());
         }
         List<Pad> pads = new ArrayList<>();
         try {
+            if (started != null) {
+                started.run();
+            }
             int[] ids = new int[0];
             for (long waited = 0; waited <= DISCOVERY_MS; waited += DISCOVERY_STEP_MS) {
                 SDL_PumpEvents();
@@ -162,7 +205,7 @@ public final class SimGamepad implements AutoCloseable {
                     continue;
                 }
                 pads.add(new Pad(id, handle, SDL_GetGamepadName(handle),
-                        SDL_GetGamepadSerial(handle)));
+                        SDL_GetGamepadSerial(handle), SDL_IsJoystickVirtual(id)));
             }
         } catch (RuntimeException e) {
             for (Pad pad : pads) {
@@ -215,7 +258,7 @@ public final class SimGamepad implements AutoCloseable {
                 continue;
             }
             Pad pad = new Pad(id, handle, SDL_GetGamepadName(handle),
-                    SDL_GetGamepadSerial(handle));
+                    SDL_GetGamepadSerial(handle), SDL_IsJoystickVirtual(id));
             pads.add(pad);
             added.add(pad);
         }
@@ -367,6 +410,125 @@ public final class SimGamepad implements AutoCloseable {
     /** One trigger reading as FTC's 0.0 to 1.0. A resting trigger reads 0. */
     static float triggerScale(short raw) {
         return raw <= 0 ? 0f : raw / FULL_POSITIVE;
+    }
+
+    // --- virtual gamepads --------------------------------------------------
+
+    /** What a virtual gamepad calls itself. */
+    static final String VIRTUAL_NAME = "Xbox 360 Controller";
+
+    /** A virtual gamepad's axes, in the order its mapping numbers them. */
+    static final List<String> VIRTUAL_AXES = Collections.unmodifiableList(Arrays.asList(
+            "left_stick_x", "left_stick_y", "right_stick_x", "right_stick_y",
+            "left_trigger", "right_trigger"));
+
+    /** Its buttons, in the order its mapping numbers them. */
+    static final List<String> VIRTUAL_BUTTONS = Collections.unmodifiableList(Arrays.asList(
+            "a", "b", "x", "y", "back", "guide", "start",
+            "left_stick_button", "right_stick_button", "left_bumper", "right_bumper",
+            "dpad_up", "dpad_down", "dpad_left", "dpad_right"));
+
+    /** SDL's names for the same axes, in the same order. */
+    private static final String[] MAPPED_AXES = {
+        "leftx", "lefty", "rightx", "righty", "lefttrigger", "righttrigger"};
+
+    /** SDL's names for the same buttons, in the same order. */
+    private static final String[] MAPPED_BUTTONS = {
+        "a", "b", "x", "y", "back", "guide", "start", "leftstick", "rightstick",
+        "leftshoulder", "rightshoulder", "dpup", "dpdown", "dpleft", "dpright"};
+
+    /** One virtual gamepad: its device id, and the joystick its controls are set through. */
+    static final class Virtual {
+        final int id;
+        final long joystick;
+
+        Virtual(int id, long joystick) {
+            this.id = id;
+            this.joystick = joystick;
+        }
+    }
+
+    /**
+     * Attaches one virtual gamepad, with no serial number, and gives it a
+     * mapping, which SDL needs before it lists the device as a gamepad.
+     *
+     * <p>SDL must already be started, by {@link #open}. The gamepad is found
+     * like any other, by {@link #arrived}. The triggers are mapped to half an
+     * axis, so an axis at rest reads as a trigger at rest.
+     */
+    static Virtual attachVirtual() {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            SDL_VirtualJoystickDesc desc = SDL_VirtualJoystickDesc.calloc(stack)
+                    .version(SDL_VirtualJoystickDesc.SIZEOF)
+                    .type((short) SDL_JOYSTICK_TYPE_GAMEPAD)
+                    .naxes((short) VIRTUAL_AXES.size())
+                    .nbuttons((short) VIRTUAL_BUTTONS.size())
+                    .name(stack.UTF8(VIRTUAL_NAME));
+            int id = SDL_AttachVirtualJoystick(desc);
+            if (id == 0) {
+                throw new IllegalStateException("virtual gamepad: " + SDL_GetError());
+            }
+            SDL_GUID guid = SDL_GetJoystickGUIDForID(id, SDL_GUID.malloc(stack));
+            ByteBuffer text = stack.malloc(33);
+            SDL_GUIDToString(guid, text);
+            StringBuilder mapping = new StringBuilder(
+                    StandardCharsets.US_ASCII.decode(text).toString().replace("\0", "").trim())
+                    .append(',').append(VIRTUAL_NAME).append(',');
+            for (int i = 0; i < MAPPED_BUTTONS.length; i++) {
+                mapping.append(MAPPED_BUTTONS[i]).append(":b").append(i).append(',');
+            }
+            for (int i = 0; i < MAPPED_AXES.length; i++) {
+                boolean trigger = MAPPED_AXES[i].endsWith("trigger");
+                mapping.append(MAPPED_AXES[i]).append(trigger ? ":+a" : ":a").append(i).append(',');
+            }
+            if (SDL_AddGamepadMapping(mapping) < 0) {
+                throw new IllegalStateException("virtual gamepad mapping: " + SDL_GetError());
+            }
+            long joystick = SDL_OpenJoystick(id);
+            if (joystick == 0L) {
+                throw new IllegalStateException("virtual gamepad open: " + SDL_GetError());
+            }
+            return new Virtual(id, joystick);
+        }
+    }
+
+    /**
+     * Sets one control of a virtual gamepad, which holds until it is set again.
+     *
+     * <p>{@code control} is one of {@link #VIRTUAL_AXES} or
+     * {@link #VIRTUAL_BUTTONS}; a button is pressed for any value but 0. It is
+     * read at the next {@link #update}.
+     */
+    static void setVirtual(Virtual pad, String control, float value) {
+        int axis = VIRTUAL_AXES.indexOf(control);
+        if (axis >= 0) {
+            SDL_SetJoystickVirtualAxis(pad.joystick, axis, rawAxis(value));
+        } else {
+            SDL_SetJoystickVirtualButton(pad.joystick, VIRTUAL_BUTTONS.indexOf(control),
+                    value != 0f);
+        }
+    }
+
+    /**
+     * Closes and detaches a virtual gamepad, which then departs like a cable
+     * coming out. Once SDL has quit it has detached them all itself, and this
+     * does nothing.
+     */
+    static void detachVirtual(Virtual pad) {
+        if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
+            return;
+        }
+        SDL_CloseJoystick(pad.joystick);
+        SDL_DetachVirtualJoystick(pad.id);
+    }
+
+    /**
+     * The raw reading that {@link #stickScale} or {@link #triggerScale} turns
+     * back into {@code value}, the same two divisors run the other way.
+     */
+    static short rawAxis(float value) {
+        long raw = Math.round(value < 0 ? value * FULL_NEGATIVE : value * FULL_POSITIVE);
+        return (short) Math.max(Short.MIN_VALUE, Math.min(Short.MAX_VALUE, raw));
     }
 
     @Override

@@ -25,6 +25,8 @@ The marker-sketch style, as the lesson outline sets it:
   the pushes add up to.
 - A variable is a sticky note, its color its type, its value written on it; its name is a white
   label with an arrow to the note. A note's corner curls up and casts a soft shadow.
+- A method is a lavender box on its object's note, touching the note's left edge. What the FTC
+  platform provides is drawn inside a grey box, labeled the FTC platform.
 - Handwriting is Marker Felt and code is Menlo, both in macOS, so the drawings are drawn on a Mac.
   The script stops when either font is missing rather than draw in another.
 """
@@ -181,6 +183,8 @@ MARKER_ORANGE = "#f39a1e"   # a motion, or a copy
 MARKER_YELLOW = "#ffd84a"   # a double or float note
 MARKER_GREEN = "#8fd16a"    # a boolean note
 MARKER_BLUE = "#7fb6f0"     # an object's note
+MARKER_LAVENDER = "#b99be6"  # a method's box, on its object's note
+MARKER_PINK = "#f4a6c4"     # a String note
 PX = 0.72                   # points to a drawing pixel, at 100 drawing pixels to the inch
 
 
@@ -468,12 +472,12 @@ def gamepad_outline(cx, cy, w, h):
             + quad(ln, (cx - 0.2 * w, cy + 0.62 * h), lg) + quad(lg, (cx - 0.6 * w, cy), tl))
 
 
-def gamepad(s, cx, cy, w, h):
+def gamepad(s, cx, cy, w, h, shine=0.44):
     shape = gamepad_outline(cx, cy, w, h)
     s.shadow([(x + 0.02 * w, y + 0.05 * h) for x, y in shape], sigma=0.02 * w)
     s.marker(shape, GREY3, nib=0.03 * w, opacity=0.65)
     s.shade(shape, color=GREY4, nib=0.025 * w, within=rect(cx - 0.6 * w, cy, 1.2 * w, h))
-    s.highlight((cx - 0.36 * w, cy - 0.44 * h), (cx + 0.15 * w, cy - 0.44 * h), width=4)
+    s.highlight((cx - 0.36 * w, cy - shine * h), (cx + 0.15 * w, cy - shine * h), width=4)
     s.line(shape, PEN, 2.4, 0.9, closed=True)
 
 
@@ -795,25 +799,27 @@ def robot_front():
 
 
 def gamepad_sticks():
-    s = Sketch(1100, 760, 23)
-    cx, cy = 550, 390
-    gamepad(s, cx, cy, 820, 430)
-    for x, name, side in ((370, "left stick", -1), (630, "right stick", 1)):
+    s = Sketch(1300, 720, 23)
+    cx, cy = 650, 430  # low enough that the pulled-back labels clear the notch
+    gamepad(s, cx, cy, 1000, 430, shine=0.475)
+    for x, name, side in ((400, "left stick", 1), (900, "right stick", -1)):  # arrows between them
         y = 360
         s.marker(ellipse((x, y), 62), GREY4, nib=14, opacity=0.8)
         s.marker(ellipse((x, y), 32), GREY2, nib=10, opacity=0.9)
         s.ink_circle((x, y), 62, width=2.2)
         s.ink_circle((x, y), 32, width=1.6)
         s.text((x, y - 84), name, 28, PAPER)
-        s.marker_arrow((x + side * 95, y - 50), (x + side * 95, y + 60), MARKER_GREEN, nib=7)
-        s.lines((x + side * 112, y - 4), ["pulled back", "+1.0"], 22, color=PAPER,
+        s.marker_arrow((x + side * 95, y - 8), (x + side * 95, y - 95), MARKER_GREEN, nib=7)
+        s.lines((x + side * 112, y - 70), ["pushed away", "-1.0"], 22, color=PAPER,
                 anchor="start" if side > 0 else "end")
-    s.marker(ellipse((820, 260), 30), MARKER_GREEN, nib=10, opacity=0.9)
-    s.ink_circle((820, 260), 30, width=2.0)
-    s.text((820, 270), "A", 30)
-    s.text((820, 214), "A button", 26, PAPER)
+        s.marker_arrow((x + side * 95, y + 8), (x + side * 95, y + 95), MARKER_GREEN, nib=7)
+        s.lines((x + side * 112, y + 42), ["pulled back", "+1.0"], 22, color=PAPER,
+                anchor="start" if side > 0 else "end")
+    s.marker(ellipse((1040, 300), 30), MARKER_GREEN, nib=10, opacity=0.9)
+    s.ink_circle((1040, 300), 30, width=2.0)
+    s.text((1040, 310), "A", 30)
+    s.text((1040, 254), "A button", 26, PAPER)
     s.text((cx, 80), "a stick pushed away from the driver reads -1.0, pulled back +1.0", 28)
-    s.text((cx, 720), "the driver holds it from this side", 28)
     s.save("fig-gamepad-sticks")
 
 
@@ -840,19 +846,118 @@ def pinpoint_mounting():
     s.save("fig-pinpoint-mounting")
 
 
-def l020_sticky():
-    s = Sketch(1400, 880, 31)
-    s.text((700, 64), "double leftStickY = gamepad1.left_stick_y;", 30, code=True)
+def gamepad_notes(s):
+    """gamepad1's label, its Gamepad note, and the float note left_stick_y points to."""
     sticky(s, 390, 130, 500, 400, MARKER_BLUE, "Gamepad", tilt=-1.0, lift=40)
     dot_arrow(s, label(s, 110, 185, "gamepad1"), (384, 212))
     end = label(s, 412, 270, "left_stick_y", tilt=-1.0, size=26)
     sticky(s, 625, 335, 225, 160, MARKER_YELLOW, "float", "-0.7", tilt=1.5, lift=26,
            value_size=48)
     dot_arrow(s, end, (662, 332), bend=-0.3)
-    sticky(s, 450, 600, 260, 200, MARKER_YELLOW, "double", "-0.7", tilt=-1.5)
+
+
+def platform(s, x, y, w, h, name_x=None):
+    """The grey box of what the FTC platform provides, its name along the bottom, centered on
+    name_x where arrows cross the middle."""
+    box = rect(x, y, w, h)
+    s.marker(box, GREY1, nib=22, opacity=0.25, layers=1)
+    s.ink_poly(box, width=1.8)
+    s.text((name_x or x + w / 2, y + h - 30), "the FTC platform", 32, anchor="middle")
+
+
+def method_box(s, x, y, w, h):
+    """A method's lavender box, its left edge on the note's."""
+    shape = rect(x, y, w, h)
+    s.marker(shape, MARKER_LAVENDER, nib=14, opacity=0.8)
+    s.ink_poly(shape, width=1.8)
+
+
+def tracker_note(s):
+    """Tracker's label and note, inside the platform, with publish's box on the note."""
+    sticky(s, 330, 90, 440, 260, MARKER_BLUE, "Tracker", tilt=-0.5, lift=34)
+    dot_arrow(s, label(s, 80, 98, "Tracker"), (324, 122))
+
+
+def l020_platform():
+    s = Sketch(1000, 680, 41)
+    platform(s, 60, 80, 880, 540)
+    gamepad_notes(s)
+    s.save("fig-l020-platform")
+
+
+def l020_tracker_note():
+    s = Sketch(880, 480, 47)
+    platform(s, 40, 40, 800, 400)
+    tracker_note(s)
+    method_box(s, 330, 170, 220, 80)
+    s.text((350, 220), "publish()", 26, anchor="start", code=True)
+    s.save("fig-l020-tracker-note")
+
+
+def l020_publish():
+    s = Sketch(1600, 1100, 53)
+    s.text((800, 50), 'Tracker.publish("stick/leftY", leftStickY);', 30, code=True)
+    platform(s, 40, 80, 800, 420, name_x=190)
+    tracker_note(s)
+    method_box(s, 330, 170, 360, 80)
+    s.text((345, 220), "publish(", 26, anchor="start", code=True)
+    first = label(s, 480, 190, "", size=24)
+    s.text((548, 222), ",", 26, anchor="start", code=True)
+    second = label(s, 570, 190, "", size=24)
+    s.text((640, 220), ")", 26, anchor="start", code=True)
+    sticky(s, 80, 620, 340, 170, MARKER_PINK, "String", '"stick/leftY"', tilt=-1.0, lift=26,
+           value_size=34)
+    dot_arrow(s, first, (330, 614), bend=0.15)
+    # publish gets a copy of leftStickY's number on a note of its own: passing by value, which the
+    # page models and does not explain
+    sticky(s, 300, 840, 240, 180, MARKER_YELLOW, "double", "-0.7", tilt=-1.0, value_size=48)
+    dot_arrow(s, label(s, 40, 1000, "leftStickY"), (294, 960), bend=-0.2)
+    sticky(s, 760, 620, 240, 180, MARKER_YELLOW, "double", tilt=1.0)
+    dot_arrow(s, second, (840, 614), bend=-0.15)
+    for (x, y, size), grey in zip(((556, 860, 36), (620, 830, 40), (684, 800, 44), (748, 770, 48)),
+                                  ("#e2e3e4", GREY1, "#b6b9bb", GREY2)):  # lightest farthest back
+        s.text((x, y), "-0.7", size, grey)
+    s.text((850, 748), "-0.7", 48)
+    s.marker_arrow((600, 960), (780, 852), MARKER_ORANGE, nib=9, bend=0.15)
+    # the log, outside the platform: publish writes the name and the number as one row
+    log = rect(1020, 320, 520, 200)
+    s.line(log, None, fill="#ffffff", closed=True)
+    s.ink_poly(log, width=2.2)
+    s.ink_line((1020, 400), (1540, 400), width=1.6, over=4, passes=1)
+    s.ink_line((1280, 320), (1280, 520), width=1.6, over=4, passes=1)
+    s.text((1280, 300), "the AdvantageScope log", 30)
+    s.text((1150, 372), "name", 26)
+    s.text((1410, 372), "value", 26)
+    s.text((1150, 460), "stick/leftY", 24, code=True)
+    s.text((1410, 462), "-0.7", 34)
+    s.marker_arrow((700, 210), (1012, 440), MARKER_ORANGE, nib=9, bend=-0.2)
+    s.lines((1200, 600), ["publish writes the name", "and the number in the log"], 28,
+            anchor="start")
+    s.save("fig-l020-publish")
+
+
+def l020_variable():
+    s = Sketch(900, 360, 43)
+    s.text((450, 50), "double leftStickY", 30, code=True)
+    sticky(s, 450, 110, 260, 200, MARKER_YELLOW, "double", tilt=-1.5)
+    dot_arrow(s, label(s, 80, 175, "leftStickY"), (444, 208))
+    s.save("fig-l020-variable")
+
+
+def l020_sticky():
+    s = Sketch(1400, 880, 31)
+    s.text((700, 64), "double leftStickY = gamepad1.left_stick_y;", 30, code=True)
+    gamepad_notes(s)
+    sticky(s, 450, 600, 260, 200, MARKER_YELLOW, "double", tilt=-1.5)
     dot_arrow(s, label(s, 110, 665, "leftStickY"), (444, 698))
-    s.marker_arrow((842, 470), (716, 668), MARKER_ORANGE, nib=9, bend=-0.3)
-    s.lines((900, 640), ["= copies the value", "onto leftStickY's note"], 30, anchor="start")
+    # a copy of -0.7 leaves the float's value and is landing on the double's note
+    for (x, y, size), grey in zip(((684, 524, 40), (662, 580, 44), (638, 634, 48), (614, 686, 52)),
+                                  ("#e2e3e4", GREY1, "#b6b9bb", GREY2)):  # lightest farthest back
+        s.text((x, y), "-0.7", size, grey)
+    s.text((588, 732), "-0.7", 54)
+    s.marker_arrow((745, 458), (676, 694), MARKER_ORANGE, nib=9, bend=-0.15)
+    s.lines((900, 640), ["The equals symbol '='", "tells the program to do", "an assignment action."],
+            30, anchor="start")
     s.save("fig-l020-sticky")
 
 
@@ -878,9 +983,119 @@ def l040_sticky():
     s.save("fig-l040-sticky")
 
 
+def axis(s, o, end, name, xy, anchor="middle", color=MARKER_ORANGE):
+    """An axis drawn from o to end, its name written at xy."""
+    s.marker_arrow(o, end, color, nib=8)
+    s.text(xy, name, 30, anchor=anchor)
+
+
+def stick_to_robot():
+    # The stick's axes, as the SDK reads them, and Pedro's robot axes, as its mecanum mix and
+    # Twist use them: +x forward, +y left, counter-clockwise positive.
+    s = Sketch(1700, 1060, 29)
+    s.text((430, 70), "the stick", 34)
+    s.text((1230, 70), "Pedro's robot", 34)
+    cx, cy = 430, 420
+    gamepad(s, cx, cy, 660, 350)
+    for x, name in ((cx - 150, "left"), (cx + 150, "right")):
+        y = cy - 30
+        s.marker(ellipse((x, y), 50), GREY4, nib=12, opacity=0.8)
+        s.marker(ellipse((x, y), 26), GREY2, nib=9, opacity=0.9)
+        s.ink_circle((x, y), 50, width=2.2)
+        s.ink_circle((x, y), 26, width=1.6)
+        s.marker_arrow((x, y), (x + 110, y), MARKER_GREEN, nib=7)
+        s.marker_arrow((x, y), (x, y + 110), MARKER_GREEN, nib=7)
+        s.text((x + 124, y + 10), "+x", 28, PAPER, anchor="start")
+        s.text((x - 16, y + 120), "+y", 28, PAPER, anchor="end")
+        s.text((x, y - 72), name, 26, PAPER)
+    s.lines((cx, 690), ["+x: pushed right", "+y: pulled back, toward the driver"], 28)
+
+    rx, ry, side = 1230, 440, 240
+    frame_top(s, rx - side / 2, ry - side / 2, side, side, nose=False)
+    tri = [(rx - 50, ry - side / 2), (rx, ry - side / 2 - 60), (rx + 50, ry - side / 2)]
+    s.marker(tri, MARKER_RED, nib=12, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    axis(s, (rx, ry), (rx, ry - 280), "+x: forward, out the nose", (rx, ry - 304))
+    axis(s, (rx, ry), (rx - 280, ry), "+y: left", (rx - 290, ry - 26), "start")
+    turn = [(rx + 200 * math.cos(math.radians(a)), ry - 200 * math.sin(math.radians(a)))
+            for a in range(90, 156, 5)]   # from +x, where heading 0 is, toward +y
+    s.line(turn, MARKER_ORANGE, 8, 0.85)
+    s.line(turn, PEN, 1.6, 0.8)
+    s.marker_arrow(turn[-2], turn[-1], MARKER_ORANGE, nib=8)
+    s.lines((rx - 170, ry - 200), ["+ turn:", "counter-clockwise"], 28, anchor="end")
+    s.lines((rx, 690), ["position and velocity along these axes:", "twist vx forward, vy left,",
+                        "omega counter-clockwise"], 28)
+
+    s.text((850, 900), "turning a stick into a velocity is a change of axes:", 30)
+    s.text((850, 960), "forward = -left_stick_y    strafe = -left_stick_x    turn = -right_stick_x",
+           24, code=True)
+    s.save("fig-stick-to-robot")
+
+
+def pedro_field():
+    # Pedro's field axes, from its Coordinates page: (0, 0) in a corner, x and y 0 in to 144 in,
+    # heading 0 along +x and counter-clockwise positive. The red drive team stands on the left, as
+    # L140 puts the driver, and the blue drive team on the right.
+    s = Sketch(1300, 1060, 31)
+    fx, fy, fs = 190, 120, 760
+    s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
+    s.marker(rect(fx, fy, fs, fs), GREY1, nib=30, opacity=0.35)
+    s.highlight((fx + 20, fy + 16), (fx + fs - 40, fy + 16))
+    s.ink_poly(rect(fx, fy, fs, fs))
+    for k in (1, 2, 3, 4, 5):
+        s.construct((fx + fs * k / 6, fy), (fx + fs * k / 6, fy + fs))
+        s.construct((fx, fy + fs * k / 6), (fx + fs, fy + fs * k / 6))
+    s.text((110, fy + fs / 2), "red drive team", 32, MARKER_RED, rot=-90)
+    s.dot((140, fy + fs / 2), 10, MARKER_RED)
+    s.text((fx + fs + 80, fy + fs / 2), "blue drive team", 32, BLUE, rot=90)
+    s.dot((fx + fs + 50, fy + fs / 2), 10, BLUE)
+    o = (fx, fy + fs)
+    s.dot(o, 12)
+    s.text((fx - 10, fy + fs + 46), "(0, 0)", 24, anchor="end", code=True)
+    s.text((fx + fs + 10, fy + fs + 46), "(144, 0)", 24, anchor="start", code=True)
+    s.text((fx - 10, fy - 20), "(0, 144)", 24, anchor="end", code=True)
+    s.text((fx + fs + 10, fy - 20), "(144, 144) in", 24, anchor="start", code=True)
+    axis(s, o, (o[0] + 300, o[1]), "+x", (o[0] + 320, o[1] + 10), "start")
+    axis(s, o, (o[0], o[1] - 300), "+y", (o[0] + 18, o[1] - 300), "start")
+
+    c, r = (fx + fs * 0.3, fy + fs * 0.28), 120
+    s.ink_circle(c, 40, width=1.8)
+    for deg, name, xy, anchor in ((0, "0°, 0", (c[0] + r + 14, c[1] + 10), "start"),
+                                  (90, "90°, π/2", (c[0], c[1] - r - 14), "middle"),
+                                  (180, "180°, π", (c[0] - r - 14, c[1] + 10), "end"),
+                                  (270, "270°, 3π/2", (c[0], c[1] + r + 40), "middle")):
+        a = math.radians(deg)
+        s.marker_arrow(c, (c[0] + r * math.cos(a), c[1] - r * math.sin(a)), GREY3, nib=4)
+        s.text(xy, name, 26, anchor=anchor)
+    turn = [(c[0] + 70 * math.cos(math.radians(a)), c[1] - 70 * math.sin(math.radians(a)))
+            for a in range(0, 76, 5)]    # from 0, along +x
+    s.line(turn, MARKER_ORANGE, 7, 0.85)
+    s.marker_arrow(turn[-2], turn[-1], MARKER_ORANGE, nib=7)
+    s.text((c[0], c[1] + r + 90), "heading, counter-clockwise +", 26)
+
+    rc, side = (fx + fs * 0.68, fy + fs * 0.64), 150
+    frame_top(s, rc[0] - side / 2, rc[1] - side / 2, side, side, nose=False)
+    tri = [(rc[0] - 34, rc[1] - side / 2), (rc[0], rc[1] - side / 2 - 40),
+           (rc[0] + 34, rc[1] - side / 2)]
+    s.marker(tri, MARKER_RED, nib=10, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    s.marker_arrow(rc, (rc[0], rc[1] - 170), MARKER_RED, nib=6)
+    s.marker_arrow(rc, (rc[0] - 170, rc[1]), MARKER_RED, nib=6)
+    s.text((rc[0] + 12, rc[1] - 180), "robot +x", 24, anchor="start")
+    s.text((rc[0] - 176, rc[1] - 16), "robot +y", 24, anchor="start")
+    s.lines((rc[0], rc[1] + 124), ["this robot has a 90° heading", "in the field coordinate system,",
+                                    "so the robot's +x", "is the field's +y"], 24)
+
+    s.lines((650, 980), ["pose x, y in inches and heading in radians;",
+                         "follower.velocity() along the field's x and y"], 28)
+    s.save("fig-pedro-field")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
-            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_sticky, l040_sticky]
+            gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
+            l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
+            stick_to_robot, pedro_field]
 
 if __name__ == "__main__":
     if OUT is None:
