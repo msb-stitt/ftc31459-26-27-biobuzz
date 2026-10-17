@@ -48,7 +48,9 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
     public void start() {
         startBefore();
         Scheduler.schedule(intake.run(() -> gamepad1.right_trigger - gamepad1.left_trigger
-                + (launcher.feeding() ? Launcher.INTAKE_BOOST : 0)));
+                //+ (launcher.feeding() ? Launcher.INTAKE_BOOST : 0)
+                )
+        );
         startAfter();
     }
 

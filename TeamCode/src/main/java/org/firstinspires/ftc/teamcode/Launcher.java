@@ -52,8 +52,9 @@ public class Launcher {
     public Command fire() {
         return Command.build()
                 .setExecute(() -> {
-                    motor.setVelocity(TARGET_TICKS_PER_SECOND);
+                    motor.setVelocity(TARGET_TICKS_PER_SECOND/5);
                     feeding = motor.getVelocity() > FEED_ABOVE_TICKS_PER_SECOND;
+                    feeding = false;
                     windmill.setPower(feeding ? 1 : 0);
                 })
                 .setDone(() -> false)

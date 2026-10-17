@@ -89,7 +89,7 @@ public class Constants {
         // goBILDA's stock StarterBot reverses the left two. MEASURE: Mecanum Tuner.
         c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
         c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
         c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
 
         // Brake rather than coast when a driver releases the sticks.
