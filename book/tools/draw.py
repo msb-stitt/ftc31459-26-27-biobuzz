@@ -895,7 +895,7 @@ def l020_tracker_note():
 
 
 def l020_publish():
-    s = Sketch(1600, 1000, 53)
+    s = Sketch(1600, 1100, 53)
     s.text((800, 50), 'Tracker.publish("stick/leftY", leftStickY);', 30, code=True)
     platform(s, 40, 80, 800, 420, name_x=190)
     tracker_note(s)
@@ -908,9 +908,17 @@ def l020_publish():
     sticky(s, 80, 620, 340, 170, MARKER_PINK, "String", '"stick/leftY"', tilt=-1.0, lift=26,
            value_size=34)
     dot_arrow(s, first, (330, 614), bend=0.15)
-    sticky(s, 560, 640, 240, 180, MARKER_YELLOW, "double", "-0.7", tilt=1.0, value_size=48)
-    dot_arrow(s, second, (640, 634), bend=-0.1)
-    dot_arrow(s, label(s, 300, 880, "leftStickY"), (554, 760), bend=-0.2)
+    # publish gets a copy of leftStickY's number on a note of its own: passing by value, which the
+    # page models and does not explain
+    sticky(s, 300, 840, 240, 180, MARKER_YELLOW, "double", "-0.7", tilt=-1.0, value_size=48)
+    dot_arrow(s, label(s, 40, 1000, "leftStickY"), (294, 960), bend=-0.2)
+    sticky(s, 760, 620, 240, 180, MARKER_YELLOW, "double", tilt=1.0)
+    dot_arrow(s, second, (840, 614), bend=-0.15)
+    for (x, y, size), grey in zip(((556, 860, 36), (620, 830, 40), (684, 800, 44), (748, 770, 48)),
+                                  ("#e2e3e4", GREY1, "#b6b9bb", GREY2)):  # lightest farthest back
+        s.text((x, y), "-0.7", size, grey)
+    s.text((850, 748), "-0.7", 48)
+    s.marker_arrow((600, 960), (780, 852), MARKER_ORANGE, nib=9, bend=0.15)
     # the log, outside the platform: publish writes the name and the number as one row
     log = rect(1020, 320, 520, 200)
     s.line(log, None, fill="#ffffff", closed=True)
