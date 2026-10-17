@@ -44,6 +44,7 @@ from matplotlib.colors import to_rgba  # noqa: E402
 from matplotlib.font_manager import FontProperties  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, PathPatch, Polygon  # noqa: E402,E501
+from matplotlib.path import Path as MplPath  # noqa: E402
 from matplotlib.textpath import TextPath  # noqa: E402
 from matplotlib.transforms import Affine2D  # noqa: E402
 import numpy as np  # noqa: E402
@@ -1165,26 +1166,131 @@ def e035_xyz():
     s.save("fig-e035-xyz")
 
 
+# Onshape's isometric view, z up: +x to the lower right, +y to the upper right, +z up the page.
+ISO_RIGHT = (1 / math.sqrt(2), 1 / math.sqrt(2), 0.0)
+ISO_UP = (-1 / math.sqrt(6), 1 / math.sqrt(6), 2 / math.sqrt(6))
+AXIS_X, AXIS_Y, AXIS_Z = "#d8432c", "#3f9f45", "#2f6fd0"   # Onshape's red, green and blue
+SHEET = "#bfe0f0"                                           # a clear plastic sheet
+
+
+class Iso:
+    """Points in space, drawn at o on the page, k drawing pixels to a unit; turn moves a point
+    before it is drawn, as turning a sheet over moves everything printed on it."""
+
+    def __init__(self, s, o, k, turn=lambda q: q):
+        self.s, self.o, self.k, self.turn = s, o, k, turn
+
+    def p(self, q):
+        q = self.turn(q)
+        return (self.o[0] + self.k * sum(a * b for a, b in zip(q, ISO_RIGHT)),
+                self.o[1] - self.k * sum(a * b for a, b in zip(q, ISO_UP)))
+
+    def word(self, c, a, b, text, h, color=PEN):
+        """text printed flat in the plane through c, reading along a, its top toward b."""
+        path = TextPath((0, 0), text, size=1, prop=self.s.hand)
+        box = path.get_extents()
+        mx, my = (box.x0 + box.x1) / 2, (box.y0 + box.y1) / 2
+        pts = [self.p(tuple(ci + (gx - mx) * h * ai + (gy - my) * h * bi
+                            for ci, ai, bi in zip(c, a, b))) for gx, gy in path.vertices]
+        self.s.add(PathPatch(MplPath(pts, path.codes), facecolor=color, edgecolor="none",
+                             transform=self.s.ax.transData))
+
+
+X3, Y3, Z3 = (1, 0, 0), (0, 1, 0), (0, 0, 1)
+
+
+def sheet_axes(v, z_under=False):
+    """A clear sheet with x and y printed on it from -3 to +3, and z standing up out of it.
+    z_under draws z first, so a sheet turned over lies on top of it."""
+    edge = 3.7
+    corners = [(-edge, -edge, 0), (edge, -edge, 0), (edge, edge, 0), (-edge, edge, 0)]
+    z = lambda: (v.s.marker_arrow(v.p((0, 0, 0)), v.p((0, 0, 2.6)), AXIS_Z, nib=8),
+                 v.word((0.3, 0, 2.75), X3, Z3, "z", 0.42))
+    if z_under:
+        z()
+    v.s.shadow([(x + 8, y + 26) for x, y in map(v.p, corners)], sigma=12, alpha=0.12)
+    v.s.line([v.p(q) for q in corners], None, fill=SHEET, fill_alpha=0.35, closed=True)
+    v.s.line([v.p(q) for q in corners], GREY3, 2.0, 0.8, closed=True)
+    for a, b in (((-3.3, 3.35), (-0.6, 3.35)), ((-3.35, 3.0), (-3.35, 1.6))):   # glare by a corner
+        v.s.line([v.p((*a, 0)), v.p((*b, 0))], "#ffffff", 5, 0.8)
+    v.s.marker_arrow(v.p((-3.3, 0, 0)), v.p((3.4, 0, 0)), AXIS_X, nib=7)
+    v.s.marker_arrow(v.p((0, -3.3, 0)), v.p((0, 3.4, 0)), AXIS_Y, nib=7)
+    for n in (-3, -2, -1, 1, 2, 3):
+        name = f"+{n}" if n > 0 else f"-{-n}"
+        v.s.ink_line(v.p((n, -0.13, 0)), v.p((n, 0.13, 0)), width=2.0, over=2, passes=1)
+        v.s.ink_line(v.p((-0.13, n, 0)), v.p((0.13, n, 0)), width=2.0, over=2, passes=1)
+        v.word((n, -0.42, 0), X3, Y3, name, 0.3)
+        v.word((-0.5, n, 0), X3, Y3, name, 0.3)
+    v.s.dot(v.p((0, 0, 0)), 7)
+    v.word((-0.38, -0.38, 0), X3, Y3, "0", 0.3)
+    v.word((3.75, 0.0, 0), X3, Y3, "x", 0.42)
+    v.word((0.0, 3.75, 0), X3, Y3, "y", 0.42)
+    if not z_under:
+        z()
+
+
 def e035_flip():
-    s = Sketch(1800, 900, 53)
-    for x0, y_down in ((90, False), (1050, True)):
-        card = rect(x0, 160, 660, 600)
-        s.shadow([(x + 10, y + 14) for x, y in card], sigma=10, alpha=0.22)
-        s.marker(card, MARKER_YELLOW if not y_down else "#f3e7b0", nib=30, opacity=0.35)
-        s.ink_poly(card)
-        o = (x0 + 250, 160 + (420 if not y_down else 180))
-        card_axes(s, o, 300, y_down=y_down, z=True)
-    s.text((420, 110), "the card", 34)
-    s.text((1380, 110), "the same card, flipped top to bottom", 34)
-    s.construct((40, 460), (1760, 460))     # the line the card turns over on
-    turn = [(800 + 150 * math.sin(math.radians(a)), 460 - 260 * math.cos(math.radians(a)))
-            for a in range(0, 181, 6)]       # over the top, toward you, and down
+    s = Sketch(1500, 900, 53)
+    v = Iso(s, (660, 430), 92)
+    s.line([v.p((-5.2, 0, 0)), v.p((6.4, 0, 0))], GREY3, 1.6, 0.7)   # the line it turns on
+    sheet_axes(v)
+    turn = [v.p((5.6, 3.7 * math.cos(math.radians(a)), 3.7 * math.sin(math.radians(a))))
+            for a in range(6, 175, 6)]           # the far edge's path, up, over and toward you
     s.line(turn, MARKER_ORANGE, 9, 0.85)
     s.line(turn, PEN, 1.6, 0.8)
-    s.marker_arrow(turn[-1], (1020, turn[-1][1]), MARKER_ORANGE, nib=9)
-    s.lines((1380, 820), ["+x still points right; +y points down,",
-                          "+z into the page, and the words read upside down"], 28)
+    s.marker_arrow(turn[-3], turn[-1], MARKER_ORANGE, nib=9)
+    s.text((750, 80), "a clear sheet, ready to flip over, top to bottom", 34)
+    s.lines((1130, 830), ["it turns on the x axis:", "the far edge comes up and over, toward you"],
+            26)
     s.save("fig-e035-flip")
+
+
+def iso_stick(v, c):
+    """One stick on a gamepad lying flat, seen in the same view."""
+    ring = [v.p((c[0] + 0.42 * math.cos(a), c[1] + 0.42 * math.sin(a), 0))
+            for a in (i * math.pi / 24 for i in range(48))]
+    cap = [v.p((c[0] + 0.22 * math.cos(a), c[1] + 0.22 * math.sin(a), 0.3))
+           for a in (i * math.pi / 24 for i in range(48))]
+    v.s.marker(ring, GREY4, nib=10, opacity=0.8)
+    v.s.line(ring, PEN, 2.0, 0.9, closed=True)
+    v.s.line([v.p((c[0], c[1], 0)), v.p((c[0], c[1], 0.3))], GREY1, 8, 0.9)
+    v.s.marker(cap, GREY2, nib=8, opacity=0.95)
+    v.s.line(cap, PEN, 1.8, 0.9, closed=True)
+
+
+def e035_flipped():
+    s = Sketch(2100, 860, 54)
+    flipped = Iso(s, (560, 430), 82, turn=lambda q: (q[0], -q[1], -q[2]))
+    sheet_axes(flipped, z_under=True)
+    pad = Iso(s, (1560, 400), 82)
+    w, h = 7.4, 3.2                      # the gamepad's width and depth, in the sheet's units
+    flat = [(u * w / 1000, -v * h / 430) for u, v in gamepad_outline(0, 0, 1000, 430)]
+    outline = [pad.p((x, y, 0)) for x, y in flat]      # gamepad_outline's page, laid flat
+    under = [pad.p((x, y, -0.45)) for x, y in flat]    # its bottom, for its sides
+    s.shadow([(x + 8, y + 22) for x, y in under], sigma=10, alpha=0.25)
+    for i in range(len(flat)):                         # its sides, then its top over them
+        j = (i + 1) % len(flat)
+        s.line([outline[i], outline[j], under[j], under[i]], GREY4, 1.0, 1.0, fill=GREY4,
+               closed=True)
+    s.line(under, PEN, 2.4, 0.9, closed=True)
+    s.line(outline, None, fill="#9a9ea1", closed=True)
+    s.marker(outline, GREY3, nib=18, opacity=0.65)
+    s.line(outline, PEN, 2.4, 0.9, closed=True)
+    left, right = (-1.85, 0.5), (1.85, 0.5)
+    iso_stick(pad, right)
+    iso_stick(pad, left)
+    s.marker_arrow(pad.p((left[0] + 0.5, left[1], 0.3)), pad.p((left[0] + 2.2, left[1], 0.3)),
+                   AXIS_X, nib=7)
+    s.marker_arrow(pad.p((left[0], left[1] - 0.5, 0.3)), pad.p((left[0], left[1] - 2.9, 0.3)),
+                   AXIS_Y, nib=7)
+    pad.word((left[0] + 2.65, left[1], 0.3), X3, Y3, "+x", 0.42)
+    pad.word((left[0], left[1] - 3.35, 0.3), X3, Y3, "+y", 0.42)
+    s.text(pad.p((-1.2, -5.0, 0)), "you, the driver, sit on this side", 26)
+    s.text((560, 70), "the sheet, flipped over", 34)
+    s.text((1560, 70), "a gamepad's left stick, the same way round", 34)
+    s.lines((1050, 780), ["+x points the same way on both,",
+                          "and +y points back toward the driver"], 28)
+    s.save("fig-e035-flipped")
 
 
 def stick_top(s, c, rad=150):
@@ -1269,7 +1375,7 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
             stick_to_robot, pedro_field, e035_numberline, e035_xy, e035_xyz, e035_flip,
-            e035_stick, e035_robot, e035_speeds, e035_switch]
+            e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch]
 
 if __name__ == "__main__":
     if OUT is None:

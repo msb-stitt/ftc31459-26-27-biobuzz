@@ -84,8 +84,9 @@ words = 700
 
 [[page]]
 path = "source/tasks/e035.md"
-# Measured off the first draft, 475 words, and rounded up.
-words = 500
+# Measured off the first draft, 475 words, and rounded up. Raised at 523 words, when the flip
+# became a clear sheet in two drawings at Mike's word, 2026-10-17.
+words = 550
 
 [[page]]
 path = "source/tasks/l040.md"
