@@ -22,7 +22,7 @@ from answers import pins, resolved
 from applied import apply_all
 from bookpaths import book_root
 
-OUT = "source/tasks/cheatsheet.md"
+OUT = "source/tasks/r930.md"
 
 OPMODE_NAME = re.compile(r'@(TeleOp|Autonomous)\(name\s*=\s*"([^"]*)"')
 LESSON_ID = re.compile(r"^L(\d+[ab]?)")
@@ -142,11 +142,11 @@ def publishes_table(files: dict[str, list[str]]) -> list[str]:
 
 def page(files: dict[str, list[str]], tests_in: dict[str, list[str]], solutions: str) -> str:
     out = [
-        "# Cheat sheet",
+        "# 930 reference: cheat sheet",
         "",
         "Every table here is read straight out of the lesson code, so it says what the code says.",
         "",
-        "## What to run",
+        "## what to run",
         "",
         "One OpMode name for the Driver Station, one command for the laptop. Each command runs only",
         "that lesson's own tests, which is what makes a red one easy to read. A dash means no test",
@@ -154,7 +154,7 @@ def page(files: dict[str, list[str]], tests_in: dict[str, list[str]], solutions:
         "",
         *lessons_table(files, tests_in),
         "",
-        "## What shows up in AdvantageScope",
+        "## what shows up in AdvantageScope",
         "",
         "A key ending in `...` has a name added to the end of it, one per wheel or per localizer.",
         "",

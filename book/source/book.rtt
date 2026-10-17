@@ -1,0 +1,59 @@
+; The PDF's template: rinohtype's book on US Letter, 0.75 in side margins, with answers.rts.
+; conf.py's rinoh_documents names it.
+[TEMPLATE_CONFIGURATION]
+name=Corbels book
+template=book
+stylesheet=answers.rts
+
+[VARIABLES]
+paper_size=letter
+
+; Every page template the book template has: an option set on a base template does not reach
+; the templates built on it.
+[page]
+left_margin=0.75in
+right_margin=0.75in
+
+[cover_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[title_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[front_matter_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[front_matter_right_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[front_matter_left_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[contents_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[contents_right_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[contents_left_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[back_matter_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[back_matter_right_page]
+left_margin=0.75in
+right_margin=0.75in
+
+[back_matter_left_page]
+left_margin=0.75in
+right_margin=0.75in

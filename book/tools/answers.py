@@ -26,7 +26,7 @@ from bookpaths import book_root
 from register import load
 
 LESSONS_DIR = "TeamCode/src/main/java/org/firstinspires/ftc/teamcode/lessons"
-OUT = "source/answers"
+OUT = "source/r950"
 
 
 def pins() -> tuple[str, str]:
@@ -68,20 +68,6 @@ def lesson_files(lessons: str) -> list[str]:
     return found
 
 
-def todo_numbers(block: list[str]) -> str:
-    """How a block of lessons-line lines names itself, for the heading."""
-    numbers = []
-    for line in block:
-        marker = line.find("TODO")
-        if marker < 0:
-            continue
-        rest = line[marker + 4:].strip().rstrip(":")
-        numbers.append("TODO " + rest.split(":")[0].strip() if rest else "TODO")
-    if not numbers:
-        return "An unmarked difference"
-    return numbers[0]
-
-
 def only_comment(block: list[str]) -> bool:
     """Is this block nothing but comment lines?
 
@@ -119,16 +105,52 @@ def differences(blank: list[str],
     return out
 
 
-def blanks(blank: list[str], filled: list[str]) -> tuple[list[tuple[int, int, int, int]], int]:
-    """The differences that are blanks, and how many differences were not."""
-    found = differences(blank, filled)
-    kept = [(i1, i2, j1, j2) for i1, i2, j1, j2, is_blank in found if is_blank]
-    return kept, len(found) - len(kept)
+CONTEXT = 3  # unchanged lines shown on each side of a change
 
 
-def fence(block: list[str]) -> str:
-    body = "\n".join(line.rstrip() for line in block) or "(nothing)"
-    return f"```java\n{body}\n```"
+def hunks(before: list[str], after: list[str]) -> tuple[list[list[tuple]], int]:
+    """The groups of changes a diff shows, and how many runs of comment lines it leaves out.
+
+    A group whose every change is comment lines carrying no TODO is left out, as
+    `differences` labels them: a `Passes when:` line is not something a student
+    writes. A comment change inside a group with code in it is shown with the code.
+    """
+    matcher = difflib.SequenceMatcher(None, before, after, autojunk=False)
+    comment_only = {(i1, i2, j1, j2) for i1, i2, j1, j2, is_blank in differences(before, after)
+                    if not is_blank}
+    shown, hidden = [], 0
+    for group in matcher.get_grouped_opcodes(CONTEXT):
+        changes = [tuple(op[1:]) for op in group if op[0] != "equal"]
+        if all(change in comment_only for change in changes):
+            hidden += len(changes)
+        else:
+            shown.append(group)
+    return shown, hidden
+
+
+def diff(path: str, lesson: str, before: list[str], groups: list[list[tuple]],
+         after: list[str]) -> str:
+    """One lesson's changes to one file, as a coloured diff numbered by the file after it.
+
+    The class `answer-diff` sets the diff in a smaller type in the PDF, through
+    source/answers.rts, so its lines fit the page.
+
+    An unchanged line and an added one carry their line number in the file after the
+    lesson; a removed line has none, since it is not in that file.
+    """
+    short = path.split("/teamcode/", 1)[-1]  # from mytry/, the folder the student works in
+    out = ["```{code-block} diff", ":class: answer-diff", "", f"--- {short}  (before {lesson})",
+           f"+++ {short}  (after {lesson})"]
+    for group in groups:
+        out.append(f"@@ lines {group[0][3] + 1} to {group[-1][4]} @@")
+        for tag, i1, i2, j1, j2 in group:
+            if tag == "equal":
+                out += [f"  {k + 1:3} {after[k]}".rstrip() for k in range(j1, j2)]
+                continue
+            out += [f"-     {before[k]}".rstrip() for k in range(i1, i2)]
+            out += [f"+ {k + 1:3} {after[k]}".rstrip() for k in range(j1, j2)]
+    out.append("```")
+    return "\n".join(out)
 
 
 def label(lesson: str) -> str:
@@ -140,29 +162,20 @@ def page(path: str, patches: list[Patched], solutions: str) -> str:
     name = Path(path).stem
     out = [f"# {name}", ""]
     out.append(f"What each lesson's patch does to this file, in the order the lessons come, from")
-    out.append(f"applying `solutions/` on `{solutions}`:")
-    out.append("")
-    out.append(f"`{path}`")
+    out.append(f"applying `solutions/` on `{solutions}`. A line marked + is new, and a line marked -")
+    out.append("is gone; each number is the line's place in the file after the lesson.")
     out.append("")
     for patch in patches:
         out.append(f"## {label(patch.lesson)}")
         out.append("")
-        kept, comments = blanks(patch.before, patch.after)
-        for i1, i2, j1, j2 in kept:
-            heading = todo_numbers(patch.before[i1:i2])
-            out.append(f"### {'A change' if heading == 'An unmarked difference' else heading}")
-            out.append("")
-            out.append(f"Before {label(patch.lesson)}:")
-            out.append("")
-            out.append(fence(patch.before[i1:i2]))
-            out.append("")
-            out.append(f"After {label(patch.lesson)}:")
-            out.append("")
-            out.append(fence(patch.after[j1:j2]))
-            out.append("")
-        if not kept:
+        before = [line.rstrip("\n") for line in patch.before]
+        after = [line.rstrip("\n") for line in patch.after]
+        groups, comments = hunks(before, after)
+        if groups:
+            out.append(diff(path, label(patch.lesson), before, groups, after))
+        else:
             out.append("Nothing but comments changes in this lesson.")
-            out.append("")
+        out.append("")
         if comments:
             out.append(f"It also changes {comments} run(s) of comment lines, which are not shown.")
             out.append("")
@@ -172,7 +185,7 @@ def page(path: str, patches: list[Patched], solutions: str) -> str:
 def index(names: list[str]) -> str:
     entries = "\n".join(names)
     return (
-        "# Answers\n"
+        "# 950 reference: answers\n"
         "\n"
         "What each lesson changes, file by file, out of the solutions line. Use it when you are\n"
         "stuck, not instead of being stuck.\n"

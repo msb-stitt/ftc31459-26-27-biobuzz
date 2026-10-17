@@ -13,10 +13,10 @@
 path = "source/index.md"
 words = 240
 
-# The front page's words moved to _intro.md, which both books' front pages
-# include; each of the three keeps the front page's ceiling.
+# The front page's words moved to B003 on 2026-10-10; both front pages hold
+# only the contents now, and each keeps the ceiling it had.
 [[page]]
-path = "source/_intro.md"
+path = "source/tasks/b003.md"
 words = 240
 
 [[page]]
@@ -26,24 +26,24 @@ words = 240
 # Measured off the first draft and rounded up, so the check has something to
 # hold. Mike sets the real one when he reads the page.
 [[page]]
-path = "source/tasks/l010.md"
+path = "source/tasks/b010.md"
 # Measured off the first draft, 42 words, and rounded up. Raised to 150 on 2026-10-09 for the two
 # computers, the IDE and the scope, as the outline's L010 section gives them.
 words = 150
 
 [[page]]
-path = "source/tasks/l011.md"
+path = "source/tasks/h011.md"
 # Measured off the first draft, 655 words, and rounded up.
 words = 700
 
 [[page]]
-path = "source/tasks/l012.md"
+path = "source/tasks/h012.md"
 # Measured off the first draft, 624 words, and rounded up. Raised from 650 on 2026-10-08 for the
 # Intel files and About This Mac, at Mike's word to add them.
 words = 700
 
 [[page]]
-path = "source/tasks/l013.md"
+path = "source/tasks/h013.md"
 # Measured off the first draft, 604 words, and rounded up.
 words = 650
 
@@ -52,8 +52,31 @@ path = "source/tasks/l020.md"
 # Raised from 800 on 2026-10-06 for what an OpMode is and Ctrl+C on a Mac, at Mike's word to add
 # short student explanations. Raised to 1050 on 2026-10-09 for the What's happening the outline
 # gives L020, in the sticky-note picture. Raised to 1300 on 2026-10-09 for Android Studio's window,
-# which the outline asks to be taught early.
-words = 1300
+# which the outline asks to be taught early. Lowered to 900 on 2026-10-10, measured at 873, when
+# Android Studio's window moved to H017 and the What's happening to E021.
+# Raised to 1000 on 2026-10-16, measured at 966, for Fable's recommendations: Start and A, opening
+# AdvantageScope, the Default NetworkTables 4 item, forward is -1.0, and sorting the logs, at
+# Mike's word.
+# Raised to 1050 on 2026-10-16, measured at 1006, for the simulator check's line that it lists any
+# connected gamepads, at Mike's word.
+words = 1050
+
+[[page]]
+path = "source/tasks/h017.md"
+# Measured off the first draft, 225 words, and rounded up: L020's Android Studio's window, moved.
+# Raised to 500 on 2026-10-10, measured at 465, for the View, Find, Sync, Target and Build parts
+# and the video, at Mike's word.
+# Raised to 550 on 2026-10-11, measured at 515, for left-click, Sync's why and the Android view's
+# three parts, to match the video, at Mike's word.
+words = 550
+
+[[page]]
+path = "source/tasks/e021.md"
+# Measured off the first draft, 230 words, and rounded up: L020's What's happening, moved.
+# Raised for Mike to read the page at 285 words, with its three sticky-note drawings, 2026-10-17,
+# and again at 389 words, with his paragraphs on the equals sign, and at 416 words, with Tracker's
+# two drawings.
+words = 450
 
 [[page]]
 path = "source/tasks/l030.md"
@@ -62,6 +85,11 @@ words = 700
 [[page]]
 path = "source/tasks/l040.md"
 words = 800
+
+[[page]]
+path = "source/tasks/e041.md"
+# Measured off the first draft, 143 words, and rounded up: L040's What's happening, moved.
+words = 150
 
 [[page]]
 path = "source/tasks/l050.md"
@@ -136,7 +164,7 @@ path = "source/tasks/l195.md"
 words = 1700
 
 [[page]]
-path = "source/tasks/panels.md"
+path = "source/tasks/h093.md"
 words = 1000
 
 # Raised from 1000 on 2026-09-28. The split build gave the page a second command
@@ -151,19 +179,19 @@ words = 1000
 # "no OpMode called ..." and exit 2. The commands and the sentence explaining them
 # carry the package now. Mike raised the ceiling rather than cut a sentence.
 [[page]]
-path = "source/tasks/bench.md"
+path = "source/tasks/h095.md"
 words = 1150
 
 [[page]]
-path = "source/tasks/glossary.md"
+path = "source/tasks/r910.md"
 words = 400
 
 [[page]]
-path = "source/tasks/shortcuts.md"
+path = "source/tasks/r920.md"
 words = 200
 
 [[page]]
-path = "source/tasks/sources.md"
+path = "source/tasks/b990.md"
 words = 400
 
 # The solutions line the answers, the cheat sheet and the review are generated
@@ -177,5 +205,15 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-rules"
+solutions = "solutions-rules.1"
 solutions_commit = ""
+
+# The corbels-lfs-lessons branch the figures and videos are read from, named like this
+# one, and the commit of it they are pinned to. tools/pin.py sets both: `pin` the
+# commit, at the end of a round, and `pin --follow` the branch, clearing the commit.
+# The build reads the commit, or the branch's tip while it is empty, and
+# tools/publish_check.py fails when the checkout it is given is anywhere else.
+[media]
+repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
+ref = "lessons-mlt-fable"
+commit = "9bdddd9a12447664c4eda05fe7e374b421c317a7"

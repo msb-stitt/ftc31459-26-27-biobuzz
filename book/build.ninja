@@ -57,6 +57,11 @@ rule figures
   description = pencilled figures match FIGURES.md
   pool = console
 
+rule order
+  command = $run check_order
+  description = pages named, titled and listed in number order
+  pool = console
+
 rule cheatsheet
   command = $run cheatsheet --check
   description = the cheat sheet matches the applied patches
@@ -76,12 +81,13 @@ build check-reading: reading | tools/check_reading_level.py tools/bookpaths.py
 build check-keep: keep | tools/check_keep.py tools/register.py keep.toml
 build check-words: words | tools/check_words.py tools/register.py keep.toml
 build check-figures: figures | tools/check_figures.py tools/bookpaths.py FIGURES.md
+build check-order: order | tools/check_order.py tools/bookpaths.py
 build check-answers: answers | tools/answers.py tools/applied.py tools/register.py keep.toml
 build check-cheatsheet: cheatsheet | tools/cheatsheet.py tools/answers.py tools/applied.py $
     tools/register.py keep.toml
 
 build book: phony check-sphinx check-wrap check-reading check-keep check-words check-figures $
-    check-answers check-cheatsheet review
+    check-order check-answers check-cheatsheet review
 
 default book
 

@@ -1,17 +1,52 @@
 # How the guide is written
 
-**Status: controlling.** Written 2026-09-27; the lesson page format added 2026-10-05.
+**Status: controlling.** Written 2026-09-27; the lesson page format added 2026-10-05; page types
+added 2026-10-10.
 
 The register and the voice belong to
 [`prose-style.md`](../../.claude/rules/parts/prose-style.md) and nothing here repeats it. What is
 here is what that file does not say: the shape of a task page, how words are introduced, what a
 picture has to be, and what a simplification may do.
 
+## Every page has a type and a number
+
+A page is one of the four types [Diátaxis](https://diataxis.fr/) names, or a body page. Each type
+has a letter:
+
+- **L, a lesson**: the student builds something, one step at a time. Diátaxis calls it a tutorial.
+- **H, a how-to**: the steps for one job, such as installing the tools or working Android Studio's
+  panes.
+- **R, a reference**: something to look up, such as the glossary or the keyboard shortcuts.
+- **E, an explanation**: what is happening inside the computer when the code a lesson wrote runs.
+- **B, a body page**: the words that join the book together, such as the welcome.
+
+Every page has one number, from 000 to 999, and the numbers are the book's order, whatever the
+type. A page's id is its letter and its number, `L020` or `E021`, and its file is the id in lower
+case, `source/tasks/l020.md`. The answers, which `tools/answers.py` writes, are a folder,
+`source/r950/`.
+
+**A page's title is its number, then its type in words**: `# 020 lesson: read the sticks`,
+`# 011 how-to: get started on Windows`, `# 900 reference: Pedro routes` and
+`# 021 what's happening: assignments`. A body page has a title of its own after its number:
+`# 003 welcome`.
+
+**Write every title and heading in lower case**, except a proper noun: `## the steps`,
+`## Android Studio's window`, and a contents caption such as `get started`. The book's own name,
+Corbels FTC Programming Lessons in Java, is a name. A part's bold label inside a step, **Copy.** or
+**Check.**, starts a sentence and keeps its capital.
+
+**An E page opens with what the computer does with a program**, in these words: "When the
+computer runs your program, it reads one line of code at a time. It moves words and numbers around
+in its memory. It is like moving sticky notes around on your desk." Then it takes the lesson's
+lines one at a time. It comes right after its lesson, which links to it at the end.
+
+`tools/check_order.py`, in `ninja book`, checks each file's name and title, and that both front
+pages list the pages in number order.
+
 ## A lesson page is one page for both books
 
-A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tasks/l020.md`, titled
-`# L020: read the sticks`. L010 points to one lesson per computer, L011 to L013. The pages named
-`l2a` to `l17` keep the five parts below until the lesson that takes their content replaces them.
+A lesson's steps are named L*nnn*S*nnn*, counting by 10s, and a how-to's H*nnn*S*nnn*. B010 points
+to one how-to per computer, H011 to H013.
 
 **What the student book shows**, the shape backed by the research in `ftc-claude`'s
 `.docs/2026-10-03-two-books.md`:
@@ -31,14 +66,15 @@ A lesson is named L*nnn*, counting by 10s from L020, and its page is `source/tas
     **Push**, **Spin** or **Drive**.
 - **Check**: after each part that changes what the student sees, a bulleted list of what they see
   when it worked, one thing to look at or do per item.
-- **What's happening**: where a step needs it, after the **Change**, **AdvantageScope**, **Log** or
-  **Robot** part it explains, what the code just did, drawn as sticky notes, or why it works. The
-  student does nothing in it.
+- **What's happening**: not on the lesson page. What the code just did, drawn as sticky notes, or
+  why it works, is an E page after the lesson, and the lesson's last line links to it. The student
+  does nothing in it.
 
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
 
-L020 opens with *Android Studio's window*, ahead of *The steps*. It changes no code, so it has no
-step name, and its parts are named for what the student does: **Click**, **Drag** and **Theme**.
+H017, *navigate Android Studio's panes*, comes before L020. It changes no code, so it has no step
+names, and its parts are named for what the student does: **Click**, **Drag**, **Theme**, **View**,
+**Find**, **Sync**, **Target** and **Build**.
 
 **Break a skill into its parts the first times it is taught, then trust the student with it.** A
 skill is what the pages ask for again and again: copying a starter, switching a copy on, running
@@ -146,6 +182,17 @@ These simplifications are made everywhere, and are not marked:
 - **A whole-number `double` is written with `.0`**, in the code and on the page: `1.0`, `0.0`,
   `-1.0`.
 
+## The code a student copies is plain Java
+
+- **Package-private by default.** A modifier is written only where the code will not work without
+  it, and then it is `public`. No lesson teaches `protected`.
+- **Every modifier has a comment on the line before it**, saying what forced it and what it allows.
+  The phrases are in `ftc-claude`'s `.docs/modifiers-explanation.md`.
+- **The code we give the students has Javadoc**, and no lesson asks a student to write any.
+- **`mytry` holds no `package-info.java`.**
+- **A student page uses AdvantageScope, not Panels.** Panels stays in the code for driving the robot
+  without a Driver Station, and its page, H093, is in the mentor book only.
+
 ## Say nothing about what the lessons do not teach
 
 What just works for a student and no lesson teaches, such as `.gitignore`, is not named on a page.
@@ -162,20 +209,39 @@ not blocking to a writer. `tools/check_figures.py` checks both directions.
 
 ## Draw in the marker-sketch style
 
-A drawing, as against a screenshot or a plot, is drawn by `gh-pages`' `src/draw.py` in the look of
+A drawing, as against a screenshot or a plot, is drawn by `tools/draw.py` in the look of
 an industrial designer's marker sketch, made flat: ink lines that run past their corners, faint
 construction lines, slanted marker fills, a red or orange accent, white highlights and soft
 shadows, words in Marker Felt and code in Menlo. A variable is a white label with an arrow to a
 sticky note that curls off the page and is colored by its type: yellow for `double` and `float`,
 green for `boolean`, blue for an object. A plot of numbers, such as `fig-stick-shaping`, stays
-plain. `draw.py`'s docstring holds the details.
+plain. A drawing is the guide's picture, not a stand-in for a photo. `draw.py`'s docstring holds the
+details.
+
+**Draw a variable as a sticky note**, the picture Ned Batchelder's
+[*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses
+for names and values:
+
+- **A variable or a field is a white label** holding its name in Menlo, with an arrow from a dot at
+  its end to a sticky note.
+- **The sticky note is labeled with its type** along its glue strip: a primitive type such as
+  `double` or `boolean`, or a class name.
+- **A primitive's sticky note holds its value**, large, such as `0.7`.
+- **An object's sticky note holds a label for each of its fields**, each with its own arrow to a
+  smaller sticky note on the big one.
+- **Each name sits close to its sticky note**, with a short arrow straight down or straight to the
+  right.
+- **An assignment is an orange arrow** carrying the value from where it is copied to where it goes.
+
+`=` is an action, assignment: put this value in this variable. The test for equality is `==`, which
+gives `true` or `false`.
 
 ## One source makes two books
 
 - **The student book** is built with no tag, from `source/student_index.md`, into `build/html`.
 - **The mentor book** is built with `-t mentor`, from `source/index.md`, into `build/mentor`.
 
-`ninja book` builds both. Both front pages include `source/_intro.md`. `MENTOR_ONLY` in
+`ninja book` builds both. B003, the welcome, is the first page of both. `MENTOR_ONLY` in
 `source/conf.py` lists the pages only the mentor book has.
 
 A mentor paragraph inside a shared page goes in a `{only} mentor` block, and so does any link to a
@@ -193,10 +259,10 @@ cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.
 
-## Pinning the solutions and releasing are in the README
+## Pinning the solutions and releasing are in RELEASING.md
 
 How `keep.toml` names the solutions the answer pages come from, a round of lesson work, and
-building and making a release: [Lesson work and releases](../README.md#lesson-work-and-releases).
+building and making a release: [Lesson work and releases](../RELEASING.md).
 
 ## Seeing what a lesson asks a student to do
 
@@ -214,5 +280,5 @@ It comes from applying `solutions/` in order, the same as the answer pages, and 
 changes applied one at a time rebuild what each patch left. `ninja book` builds it too.
 
 It is a view for reading, not part of the guide: its pages are not committed. The answer pages
-under `source/answers/` say what each lesson's patch changes in each file, from applying
+under `source/r950/` say what each lesson's patch changes in each file, from applying
 `solutions/` in order; this says what each lesson asks, and how much work it is.

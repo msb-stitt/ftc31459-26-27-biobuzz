@@ -3,8 +3,11 @@
 keep.toml's [answers] solutions names the solutions line that tools/answers.py,
 tools/cheatsheet.py and tools/diffs.py apply, and every answer page and the
 cheat sheet name it in their text. While a lesson is being worked on it names
-the solutions branch, so the tools read its tip. On main it names a tag, the
-branch's name, a dot and a number, so the pages stay the pages of one commit.
+the solutions branch, so the tools read its tip. On dev and main it names a tag,
+the branch's name, a dot and a number, so the pages stay the pages of one commit.
+keep.toml's [media] is pinned the same way: `pin` sets its commit to its branch's
+tip on corbels-lfs-lessons' origin, read from the clone beside this repository,
+and --follow clears it.
 
     python tools/run.py pin [BRANCH]           tag BRANCH's tip, pin the tag, regenerate
     python tools/run.py pin --follow [BRANCH]  pin BRANCH itself, regenerate
@@ -15,7 +18,8 @@ made from. Pinning is the last commit of a round of lesson work, and --follow
 the first. Neither commits nor pushes: look at the diff, commit it, then push
 the tag before the commit, since CI fetches the tag keep.toml names.
 
---check fails on main when keep.toml names anything but a tag. On a lessons
+--check fails on dev and main when keep.toml names anything but a solutions tag,
+or pins no media commit. On a lessons
 branch it fails when the pinned tag's solutions/ is not the branch tip's, which
 means the patches changed after pinning. The tip moving is not enough: merging
 lessons into solutions moves it without touching solutions/.
@@ -74,16 +78,40 @@ def tags_of(branch: str) -> dict[int, str]:
     return found
 
 
-def write_pin(ref: str) -> None:
-    """Name ref in keep.toml, leaving every other line and comment as it was."""
+def write_pin(ref: str, media: str) -> None:
+    """Name ref, and the media commit, in keep.toml, leaving every other line as it was."""
     path = book_root() / PATH
     text = path.read_text(encoding="utf-8")
-    for key, value in (("solutions", ref), ("solutions_commit", "")):
+    for key, value in (("solutions", ref), ("solutions_commit", ""), ("commit", media)):
         text, count = re.subn(rf'^{key} = ".*"$', f'{key} = "{value}"', text,
                               flags=re.MULTILINE)
         if count != 1:
             sys.exit(f"pin: {PATH} has {count} lines setting {key}; expected one")
     path.write_text(text, encoding="utf-8")
+
+
+def media_tip() -> str | None:
+    """The commit at the tip of keep.toml's [media] branch on corbels-lfs-lessons' origin.
+
+    Read from the clone beside this repository, after fetching, so a commit not yet
+    pushed is not pinned: CI checks out what keep.toml names from GitHub.
+    """
+    branch = load()["media"]["ref"]
+    clone = book_root().parent.parent / "corbels-lfs-lessons"
+    fetched = subprocess.run(["git", "fetch", "-q", "origin", branch], cwd=clone,
+                             capture_output=True, text=True)
+    if fetched.returncode != 0:
+        print(f"pin: could not fetch {branch} into {clone}: {fetched.stderr.strip()}")
+        return None
+    def at(ref: str) -> str:
+        return subprocess.run(["git", "rev-parse", "--verify", "--quiet", ref], cwd=clone,
+                              capture_output=True, text=True).stdout.strip()
+    tip, local = at(f"origin/{branch}"), at(f"refs/heads/{branch}")
+    if local and local != tip:
+        print(f"pin: {branch} in {clone} is at {local[:7]}, and origin's at {tip[:7]};"
+              f" push it, or pull it, first")
+        return None
+    return tip
 
 
 def regenerate() -> None:
@@ -101,12 +129,17 @@ def pin(branch: str) -> int:
     if not tree:
         print(f"pin: {branch} has no solutions/ to pin")
         return 1
+    media = media_tip()
+    if media is None:
+        return 1
     tags = tags_of(branch)
     for number in sorted(tags):
         if solutions_tree(tags[number]) == tree:
-            print(f"pin: {tags[number]} already holds {branch}'s solutions/;"
-                  f" keep.toml can name it")
-            return 1
+            write_pin(tags[number], media)
+            regenerate()
+            print(f"\n{tags[number]} already holds {branch}'s solutions/; pinned it, and the"
+                  f" media at {media[:7]}, in {PATH}. Look at the diff and commit it.")
+            return 0
     tag = f"{branch}.{max(tags, default=0) + 1}"
     commit = git("rev-parse", "--short", f"{ref}^{{commit}}").stdout.strip()
     made = git("tag", "--annotate", tag, f"{ref}^{{commit}}", "--message",
@@ -114,9 +147,10 @@ def pin(branch: str) -> int:
     if made.returncode != 0:
         print(f"pin: could not tag {tag}: {made.stderr.strip()}")
         return 1
-    write_pin(tag)
+    write_pin(tag, media)
     regenerate()
-    print(f"\nTagged {tag} on {commit} and pinned it in {PATH}. Look at the diff, commit"
+    print(f"\nTagged {tag} on {commit}, and pinned it and the media at {media[:7]} in {PATH}."
+          f" Look at the diff, commit"
           f" it, then push the tag before the commit:\n    git push origin {tag}")
     return 0
 
@@ -129,18 +163,25 @@ def follow(branch: str) -> int:
     if not solutions_tree(ref):
         print(f"pin: {branch} has no solutions/ to follow")
         return 1
-    write_pin(branch)
+    write_pin(branch, "")
     regenerate()
-    print(f"\n{PATH} follows {branch}. Look at the diff and commit it.")
+    print(f"\n{PATH} follows {branch}, and the media its branch's tip. Look at the diff and"
+          f" commit it.")
     return 0
 
 
 def check(on: str) -> int:
     ref = pinned()
     tag = is_tag(ref)
-    if on == "main" and not tag:
-        print(f"pin: on main, {PATH} has to name a solutions tag, and names {ref}."
+    # main only ever becomes a commit of dev, so it is held to the same pins.
+    if on in ("dev", "main") and not tag:
+        print(f"pin: on {on}, {PATH} has to name a solutions tag, and names {ref}."
               f" Run `python tools/run.py pin` and commit what it writes.")
+        return 1
+    if on in ("dev", "main") and not load()["media"]["commit"]:
+        print(f"pin: on {on}, {PATH} has to pin the media to a commit, and follows"
+              f" {load()['media']['ref']}. Run `python tools/run.py pin` and commit what it"
+              f" writes.")
         return 1
     if on.startswith("lessons") and tag:
         branch = branch_of(ref)

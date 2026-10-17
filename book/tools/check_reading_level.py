@@ -19,11 +19,12 @@ from bookpaths import relative, tracked
 THRESHOLD = 8.0
 MIN_WORDS = 20
 
-# Generated, and mostly Java: source/answers/ is what tools/answers.py writes.
+# Generated, and mostly Java: source/r950/ is what tools/answers.py writes.
 # Scoring code for reading level measures nothing.
-GENERATED = "source/answers/"
+GENERATED = "source/r950/"
 
-MARKUP = re.compile(r"(``?[^`]*``?|\*\*?|__?|\[|\]\([^)]*\))")
+# Code, emphasis, link targets, and MyST substitutions such as {{ lessons }}, which conf.py fills.
+MARKUP = re.compile(r"(``?[^`]*``?|\*\*?|__?|\[|\]\([^)]*\)|\{\{[^}]*\}\})")
 DIRECTIVE = re.compile(r"^\s*(:{3,}|`{3,}|:[a-z_]+:|\{[a-z]+\}|#|\||-{3,})")
 
 
