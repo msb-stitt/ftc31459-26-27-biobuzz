@@ -1,0 +1,115 @@
+# L060
+
+1 file(s) copied, then 5 change(s) in 1 file(s), 22 line(s) of code to write.
+
+## Copies
+
+- `lessons/L060ShapingOpMode.java` to `mytry/L060ShapingOpMode.java`
+
+## L060ShapingOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java`
+
+### A change
+
+Delete 0 lines, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -64,6 +64,13 @@
+         // When on L060S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
+         // for what to do here.
++        double band = 0.05;
++        double leftPower = deadband(leftSpeed, band);
++        leftPower = signedSquared(leftPower);
++        Tracker.publish("power/left", leftPower);
++        double rightPower = deadband(rightSpeed, band);
++        rightPower = signedSquared(rightPower);
++        Tracker.publish("power/right", rightPower);
+ 
+         hardware.frontLeft.setPower(leftSpeed);
+         hardware.backLeft.setPower(leftSpeed);
+```
+
+### A change
+
+Delete 2 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -72,8 +72,8 @@
+         rightPower = signedSquared(rightPower);
+         Tracker.publish("power/right", rightPower);
+ 
+-        hardware.frontLeft.setPower(leftSpeed);
+-        hardware.backLeft.setPower(leftSpeed);
++        hardware.frontLeft.setPower(leftPower);
++        hardware.backLeft.setPower(leftPower);
+ 
+         hardware.frontRight.setPower(rightSpeed);
+         hardware.backRight.setPower(rightSpeed);
+```
+
+### A change
+
+Delete 2 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -75,8 +75,8 @@
+         hardware.frontLeft.setPower(leftPower);
+         hardware.backLeft.setPower(leftPower);
+ 
+-        hardware.frontRight.setPower(rightSpeed);
+-        hardware.backRight.setPower(rightSpeed);
++        hardware.frontRight.setPower(rightPower);
++        hardware.backRight.setPower(rightPower);
+ 
+         loopAfter();
+     }
+```
+
+### A change
+
+Delete 0 lines, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -90,6 +90,14 @@
+     // When on L060S030, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
+     // for what to do here.
++    double deadband(double value, double band) {
++        double alwaysPositiveMagnitude = Math.abs(value);
++        boolean isCloseToZero = alwaysPositiveMagnitude < band;
++        if (isCloseToZero) {
++            return 0.0;
++        }
++        return value;
++    }
+ 
+     // When on L060S050, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -102,4 +102,7 @@
+     // When on L060S050, see
+     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+     // for what to do here.
++    double signedSquared(double value) {
++        return value * Math.abs(value);
++    }
+ }
+```

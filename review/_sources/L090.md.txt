@@ -1,0 +1,71 @@
+# L090
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 28 line(s) of code to write.
+
+## Copies
+
+- `lessons/L090MecanumOpMode.java` to `mytry/L090MecanumOpMode.java`
+
+## L090MecanumOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -75,6 +75,9 @@
+         // When on L090S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030
+         // for what to do here.
++        double strafe = deadband(-leftStickX, band);
++        strafe = signedSquared(strafe);
++        Tracker.publish("arcade/strafe", strafe);
+ 
+         // When on L090S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+```
+
+### A change
+
+Delete 0 lines, write 25 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -82,6 +82,31 @@
+         // When on L090S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+         // for what to do here.
++        double frontLeftPower = forward - strafe - turn;
++        double frontRightPower = forward + strafe + turn;
++        double backLeftPower = forward + strafe - turn;
++        double backRightPower = forward - strafe + turn;
++        double frontLeftSize = Math.abs(frontLeftPower);
++        double frontRightSize = Math.abs(frontRightPower);
++        double backLeftSize = Math.abs(backLeftPower);
++        double backRightSize = Math.abs(backRightPower);
++        double biggest = Math.max(frontLeftSize, frontRightSize);
++        biggest = Math.max(biggest, backLeftSize);
++        biggest = Math.max(biggest, backRightSize);
++        biggest = Math.max(1.0, biggest);
++        frontLeftPower = frontLeftPower / biggest;
++        frontRightPower = frontRightPower / biggest;
++        backLeftPower = backLeftPower / biggest;
++        backRightPower = backRightPower / biggest;
++        Tracker.publish("power/frontLeft", frontLeftPower);
++        Tracker.publish("power/frontRight", frontRightPower);
++        Tracker.publish("power/backLeft", backLeftPower);
++        Tracker.publish("power/backRight", backRightPower);
++
++        hardware.frontLeft.setPower(frontLeftPower);
++        hardware.frontRight.setPower(frontRightPower);
++        hardware.backLeft.setPower(backLeftPower);
++        hardware.backRight.setPower(backRightPower);
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
+```

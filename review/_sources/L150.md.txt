@@ -1,0 +1,35 @@
+# L150
+
+1 file(s) copied, then 1 change(s) in 1 file(s), 7 line(s) of code to write.
+
+## Copies
+
+- `lessons/L150RobotRelativeButtonOpMode.java` to `mytry/L150RobotRelativeButtonOpMode.java`
+
+## L150RobotRelativeButtonOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java`
+
+### A change
+
+Delete 1 line, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -80,7 +80,13 @@
+         // When on L150S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s030
+         // for what to do here.
+-        drivetrain.sticks(robotForward, robotStrafe, turn);
++        boolean robotRelative = gamepad1.right_bumper;
++        Tracker.publish("drive/robotRelative", robotRelative);
++        if (robotRelative) {
++            drivetrain.sticks(forward, strafe, turn);
++        } else {
++            drivetrain.sticks(robotForward, robotStrafe, turn);
++        }
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
+```

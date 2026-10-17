@@ -1,0 +1,65 @@
+# L080
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 22 line(s) of code to write.
+
+## Copies
+
+- `lessons/L080ArcadeOpMode.java` to `mytry/L080ArcadeOpMode.java`
+
+## L080ArcadeOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java`
+
+### A change
+
+Delete 0 lines, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -68,6 +68,13 @@
+         // When on L080S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030
+         // for what to do here.
++        double band = 0.05;
++        double forward = deadband(-leftStickY, band);
++        forward = signedSquared(forward);
++        Tracker.publish("arcade/forward", forward);
++        double turn = deadband(-rightStickX, band);
++        turn = signedSquared(turn);
++        Tracker.publish("arcade/turn", turn);
+ 
+         // When on L080S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
+```
+
+### A change
+
+Delete 0 lines, write 15 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -79,6 +79,21 @@
+         // When on L080S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
+         // for what to do here.
++        double leftPower = forward - turn;
++        double rightPower = forward + turn;
++        double leftSize = Math.abs(leftPower);
++        double rightSize = Math.abs(rightPower);
++        double biggest = Math.max(leftSize, rightSize);
++        biggest = Math.max(1.0, biggest);
++        leftPower = leftPower / biggest;
++        rightPower = rightPower / biggest;
++        Tracker.publish("power/left", leftPower);
++        Tracker.publish("power/right", rightPower);
++
++        hardware.frontLeft.setPower(leftPower);
++        hardware.backLeft.setPower(leftPower);
++        hardware.frontRight.setPower(rightPower);
++        hardware.backRight.setPower(rightPower);
+ 
+         boolean buttonA = gamepad1.a;
+         Tracker.publish("button/a", buttonA);
+```

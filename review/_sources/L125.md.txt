@@ -1,0 +1,28 @@
+# L125
+
+1 file(s) copied, then 1 change(s) in 1 file(s), 1 line(s) of code to write.
+
+## Copies
+
+- `lessons/L125Drive24OpMode.java` to `mytry/L125Drive24OpMode.java`
+
+## L125Drive24OpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L125Drive24OpMode.java`
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -85,6 +85,6 @@
+         // When on L125S030, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s030
+         // for what to do here.
+-        return Command.NOOP;
++        return sequential(follow(follower, line(start, end).constant(start)));
+     }
+ }
+```

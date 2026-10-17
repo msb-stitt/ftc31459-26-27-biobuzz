@@ -1,0 +1,64 @@
+# L130
+
+1 file(s) copied, then 3 change(s) in 1 file(s), 4 line(s) of code to write.
+
+## Copies
+
+- `lessons/L130ForwardThenStrafeOpMode.java` to `mytry/L130ForwardThenStrafeOpMode.java`
+
+## L130ForwardThenStrafeOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -3,6 +3,7 @@
+ import static com.pedropathing.api.Paths.line;
+ import static com.pedropathing.ivy.groups.Groups.sequential;
+ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
++import static com.pedropathing.ivy.pedro.PedroCommands.hold;
+ 
+ import com.pedropathing.api.PoseFactory;
+ import com.pedropathing.ivy.Command;
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -83,7 +83,7 @@
+     @Override
+     public Command routine() {
+         return sequential(
+-                follow(follower, line(start, corner).constant(start))
++                follow(follower, line(start, corner).constant(start)),
+                 // When on L130S030, see
+                 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l130.html#l130s030
+                 // for what to do here.
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -87,6 +87,8 @@
+                 // When on L130S030, see
+                 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l130.html#l130s030
+                 // for what to do here.
++                follow(follower, line(corner, end).constant(start)),
++                hold(follower, end)
+         );
+     }
+ }
+```

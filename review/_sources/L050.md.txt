@@ -1,0 +1,31 @@
+# L050
+
+1 file(s) copied, then 1 change(s) in 1 file(s), 4 line(s) of code to write.
+
+## Copies
+
+- `lessons/L050BlocksOpMode.java` to `mytry/L050BlocksOpMode.java`
+
+## L050BlocksOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java`
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -33,6 +33,10 @@
+         // When on L050S040, see
+         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+         // for what to do here.
++        hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
++        hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());
++        hardware.backLeft.setDirection(hardware.mecanumConfig.backLeftDirection.get());
++        hardware.backRight.setDirection(hardware.mecanumConfig.backRightDirection.get());
+ 
+         initAfter();
+     }
+```
