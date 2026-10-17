@@ -216,4 +216,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-mlt-fable"
-commit = "4505c2ed45b9c5c975673ee802cddd7a10d069c9"
+commit = "9bdddd9a12447664c4eda05fe7e374b421c317a7"
