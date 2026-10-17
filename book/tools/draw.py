@@ -25,6 +25,8 @@ The marker-sketch style, as the lesson outline sets it:
   the pushes add up to.
 - A variable is a sticky note, its color its type, its value written on it; its name is a white
   label with an arrow to the note. A note's corner curls up and casts a soft shadow.
+- A method is a lavender box on its object's note, touching the note's left edge. What the FTC
+  platform provides is drawn inside a grey box, labeled the FTC platform.
 - Handwriting is Marker Felt and code is Menlo, both in macOS, so the drawings are drawn on a Mac.
   The script stops when either font is missing rather than draw in another.
 """
@@ -181,6 +183,8 @@ MARKER_ORANGE = "#f39a1e"   # a motion, or a copy
 MARKER_YELLOW = "#ffd84a"   # a double or float note
 MARKER_GREEN = "#8fd16a"    # a boolean note
 MARKER_BLUE = "#7fb6f0"     # an object's note
+MARKER_LAVENDER = "#b99be6"  # a method's box, on its object's note
+MARKER_PINK = "#f4a6c4"     # a String note
 PX = 0.72                   # points to a drawing pixel, at 100 drawing pixels to the inch
 
 
@@ -852,14 +856,76 @@ def gamepad_notes(s):
     dot_arrow(s, end, (662, 332), bend=-0.3)
 
 
-def l020_platform():
-    s = Sketch(1000, 680, 41)
-    box = rect(60, 80, 880, 540)
+def platform(s, x, y, w, h, name_x=None):
+    """The grey box of what the FTC platform provides, its name along the bottom, centered on
+    name_x where arrows cross the middle."""
+    box = rect(x, y, w, h)
     s.marker(box, GREY1, nib=22, opacity=0.25, layers=1)
     s.ink_poly(box, width=1.8)
+    s.text((name_x or x + w / 2, y + h - 30), "the FTC platform", 32, anchor="middle")
+
+
+def method_box(s, x, y, w, h):
+    """A method's lavender box, its left edge on the note's."""
+    shape = rect(x, y, w, h)
+    s.marker(shape, MARKER_LAVENDER, nib=14, opacity=0.8)
+    s.ink_poly(shape, width=1.8)
+
+
+def tracker_note(s):
+    """Tracker's label and note, inside the platform, with publish's box on the note."""
+    sticky(s, 330, 90, 440, 260, MARKER_BLUE, "Tracker", tilt=-0.5, lift=34)
+    dot_arrow(s, label(s, 80, 98, "Tracker"), (324, 122))
+
+
+def l020_platform():
+    s = Sketch(1000, 680, 41)
+    platform(s, 60, 80, 880, 540)
     gamepad_notes(s)
-    s.text((500, 590), "the FTC platform", 32, anchor="middle")
     s.save("fig-l020-platform")
+
+
+def l020_tracker_note():
+    s = Sketch(880, 480, 47)
+    platform(s, 40, 40, 800, 400)
+    tracker_note(s)
+    method_box(s, 330, 170, 220, 80)
+    s.text((350, 220), "publish", 26, anchor="start", code=True)
+    s.save("fig-l020-tracker-note")
+
+
+def l020_publish():
+    s = Sketch(1600, 1000, 53)
+    s.text((800, 50), 'Tracker.publish("stick/leftY", leftStickY);', 30, code=True)
+    platform(s, 40, 80, 800, 420, name_x=190)
+    tracker_note(s)
+    method_box(s, 330, 170, 360, 80)
+    s.text((345, 220), "publish(", 26, anchor="start", code=True)
+    first = label(s, 480, 190, "", size=24)
+    s.text((548, 222), ",", 26, anchor="start", code=True)
+    second = label(s, 570, 190, "", size=24)
+    s.text((640, 220), ")", 26, anchor="start", code=True)
+    sticky(s, 80, 620, 340, 170, MARKER_PINK, "String", '"stick/leftY"', tilt=-1.0, lift=26,
+           value_size=34)
+    dot_arrow(s, first, (330, 614), bend=0.15)
+    sticky(s, 560, 640, 240, 180, MARKER_YELLOW, "double", "-0.7", tilt=1.0, value_size=48)
+    dot_arrow(s, second, (640, 634), bend=-0.1)
+    dot_arrow(s, label(s, 300, 880, "leftStickY"), (554, 760), bend=-0.2)
+    # the log, outside the platform: publish writes the name and the number as one row
+    log = rect(1020, 320, 520, 200)
+    s.line(log, None, fill="#ffffff", closed=True)
+    s.ink_poly(log, width=2.2)
+    s.ink_line((1020, 400), (1540, 400), width=1.6, over=4, passes=1)
+    s.ink_line((1280, 320), (1280, 520), width=1.6, over=4, passes=1)
+    s.text((1280, 300), "the AdvantageScope log", 30)
+    s.text((1150, 372), "name", 26)
+    s.text((1410, 372), "value", 26)
+    s.text((1150, 460), "stick/leftY", 24, code=True)
+    s.text((1410, 462), "-0.7", 34)
+    s.marker_arrow((700, 210), (1012, 440), MARKER_ORANGE, nib=9, bend=-0.2)
+    s.lines((1040, 600), ["publish writes the name", "and the number in the log"], 28,
+            anchor="start")
+    s.save("fig-l020-publish")
 
 
 def l020_variable():
@@ -1020,7 +1086,8 @@ def pedro_field():
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
-            l020_variable, l020_sticky, l040_sticky, stick_to_robot, pedro_field]
+            l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
+            stick_to_robot, pedro_field]
 
 if __name__ == "__main__":
     if OUT is None:
