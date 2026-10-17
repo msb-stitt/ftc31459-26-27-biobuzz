@@ -890,7 +890,7 @@ def l020_tracker_note():
     platform(s, 40, 40, 800, 400)
     tracker_note(s)
     method_box(s, 330, 170, 220, 80)
-    s.text((350, 220), "publish", 26, anchor="start", code=True)
+    s.text((350, 220), "publish()", 26, anchor="start", code=True)
     s.save("fig-l020-tracker-note")
 
 
