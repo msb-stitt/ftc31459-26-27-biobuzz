@@ -931,7 +931,7 @@ def l020_publish():
     s.text((1150, 460), "stick/leftY", 24, code=True)
     s.text((1410, 462), "-0.7", 34)
     s.marker_arrow((700, 210), (1012, 440), MARKER_ORANGE, nib=9, bend=-0.2)
-    s.lines((1040, 600), ["publish writes the name", "and the number in the log"], 28,
+    s.lines((1200, 600), ["publish writes the name", "and the number in the log"], 28,
             anchor="start")
     s.save("fig-l020-publish")
 
