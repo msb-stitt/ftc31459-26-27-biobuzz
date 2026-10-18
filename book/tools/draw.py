@@ -1097,43 +1097,6 @@ def pedro_field():
 # -- E035: from the number line to the stick's axes and the robot's speeds, one idea a figure.
 # No heading, turn or strafe; z is drawn only to show that the stick's axes are flipped.
 
-def glyphs(s, xy, word, size=30, color=PEN, mirrored=False, code=False):
-    """A word drawn as ink on the page, centered on xy. Mirrored, it is the word seen through the
-    back of a card turned over top to bottom: upside down, and mirrored left to right."""
-    path = TextPath((0, 0), word, size=size, prop=s.code if code else s.hand)
-    box = path.get_extents()
-    flip = 1 if mirrored else -1    # the page's y counts down, so upright text is flipped once
-    move = Affine2D().translate(-(box.x0 + box.x1) / 2, -(box.y0 + box.y1) / 2).scale(1, flip)
-    move = move.translate(*xy)
-    s.add(PathPatch(move.transform_path(path), facecolor=color, edgecolor="none",
-                    transform=s.ax.transData))
-
-
-def card_axes(s, o, reach, y_down=False, z=False):
-    """x, y and perhaps z from o, with 1 and 2 marked on x and y. y_down draws them as a card
-    turned over top to bottom: y points down the page, z into it, every word seen mirrored."""
-    step = reach / 2.6
-    yd = 1 if y_down else -1
-    zx, zy = (-0.55, 0.55) if not y_down else (0.55, -0.55)   # z drawn on a slant
-    s.marker_arrow(o, (o[0] + reach, o[1]), MARKER_ORANGE, nib=8)
-    s.marker_arrow(o, (o[0], o[1] + yd * reach), MARKER_ORANGE, nib=8)
-    if z:
-        s.marker_arrow(o, (o[0] + zx * reach * 0.8, o[1] + zy * reach * 0.8), MARKER_ORANGE,
-                       nib=8)
-        tip = reach * 0.8 + 50          # the name just past the arrow's tip
-        glyphs(s, (o[0] + zx * tip, o[1] + zy * tip), "z", 40, mirrored=y_down)
-    s.dot(o, 7)
-    glyphs(s, (o[0] - 26, o[1] - yd * 26 * -1), "0", 30, mirrored=y_down)
-    glyphs(s, (o[0] + reach + 34, o[1]), "x", 40, mirrored=y_down)
-    glyphs(s, (o[0], o[1] + yd * (reach + 36)), "y", 40, mirrored=y_down)
-    for k in (1, 2):
-        tx, ty = o[0] + k * step, o[1] + yd * k * step
-        s.ink_line((tx, o[1] - 10), (tx, o[1] + 10), width=2.0, over=2, passes=1)
-        s.ink_line((o[0] - 10, ty), (o[0] + 10, ty), width=2.0, over=2, passes=1)
-        glyphs(s, (tx, o[1] - yd * 34), f"+{k}", 28, mirrored=y_down)
-        glyphs(s, (o[0] + 40, ty), f"+{k}", 28, mirrored=y_down)
-
-
 def e035_numberline():
     s = Sketch(1300, 330, 41)
     y, left, step = 170, 170, 160
@@ -1148,42 +1111,29 @@ def e035_numberline():
     s.save("fig-e035-numberline")
 
 
-def e035_xy():
-    s = Sketch(900, 820, 43)
-    o = (300, 560)
-    s.construct((o[0] - 120, o[1]), (o[0] + 520, o[1]))
-    s.construct((o[0], o[1] + 120), (o[0], o[1] - 480))
-    card_axes(s, o, 380)
-    s.lines((450, 700), ["+x to the right,", "+y up the page"], 30)
-    s.save("fig-e035-xy")
 
-
-def e035_xyz():
-    s = Sketch(900, 820, 47)
-    o = (360, 520)
-    card_axes(s, o, 340, z=True)
-    s.lines((560, 690), ["+z comes out of the page,", "toward you"], 30)
-    s.save("fig-e035-xyz")
-
-
-# Onshape's isometric view, z up: +x to the lower right, +y to the upper right, +z up the page.
+# Onshape's views. Isometric, z up: +x to the lower right, +y to the upper right, +z up the page.
+# Top: +x to the right, +y up the page.
 ISO_RIGHT = (1 / math.sqrt(2), 1 / math.sqrt(2), 0.0)
 ISO_UP = (-1 / math.sqrt(6), 1 / math.sqrt(6), 2 / math.sqrt(6))
+TOP_RIGHT, TOP_UP = (1.0, 0.0, 0.0), (0.0, 1.0, 0.0)
 AXIS_X, AXIS_Y, AXIS_Z = "#d8432c", "#3f9f45", "#2f6fd0"   # Onshape's red, green and blue
 SHEET = "#bfe0f0"                                           # a clear plastic sheet
 
 
 class Iso:
-    """Points in space, drawn at o on the page, k drawing pixels to a unit; turn moves a point
-    before it is drawn, as turning a sheet over moves everything printed on it."""
+    """Points in space, drawn at o on the page, k drawing pixels to a unit, in the view that right
+    and up name; turn moves a point before it is drawn, as turning a sheet over moves everything
+    printed on it."""
 
-    def __init__(self, s, o, k, turn=lambda q: q):
+    def __init__(self, s, o, k, turn=lambda q: q, right=ISO_RIGHT, up=ISO_UP):
         self.s, self.o, self.k, self.turn = s, o, k, turn
+        self.right, self.up = right, up
 
     def p(self, q):
         q = self.turn(q)
-        return (self.o[0] + self.k * sum(a * b for a, b in zip(q, ISO_RIGHT)),
-                self.o[1] - self.k * sum(a * b for a, b in zip(q, ISO_UP)))
+        return (self.o[0] + self.k * sum(a * b for a, b in zip(q, self.right)),
+                self.o[1] - self.k * sum(a * b for a, b in zip(q, self.up)))
 
     def word(self, c, a, b, text, h, color=PEN):
         """text printed flat in the plane through c, reading along a, its top toward b."""
@@ -1199,19 +1149,26 @@ class Iso:
 X3, Y3, Z3 = (1, 0, 0), (0, 1, 0), (0, 0, 1)
 
 
-def sheet_axes(v, z_under=False):
-    """A clear sheet with x and y printed on it from -3 to +3, and z standing up out of it.
-    z_under draws z first, so a sheet turned over lies on top of it."""
-    edge = 3.7
-    corners = [(-edge, -edge, 0), (edge, -edge, 0), (edge, edge, 0), (-edge, edge, 0)]
-    z = lambda: (v.s.marker_arrow(v.p((0, 0, 0)), v.p((0, 0, 2.6)), AXIS_Z, nib=8),
-                 v.word((0.3, 0, 2.75), X3, Z3, "z", 0.42))
-    if z_under:
-        z()
-    v.s.shadow([(x + 8, y + 26) for x, y in map(v.p, corners)], sigma=12, alpha=0.12)
-    v.s.line([v.p(q) for q in corners], None, fill=SHEET, fill_alpha=0.35, closed=True)
-    v.s.line([v.p(q) for q in corners], GREY3, 2.0, 0.8, closed=True)
-    for a, b in (((-3.3, 3.35), (-0.6, 3.35)), ((-3.35, 3.0), (-3.35, 1.6))):   # glare by a corner
+def sheet_axes(v, z=True, z_under=False):
+    """x and y from -3 to +3, with a clear sheet ruled in units over the corner where both are
+    positive, and perhaps z standing up out of it. z_under draws z first, so a sheet turned over
+    lies on top of it."""
+    edge = 3.5
+    sheet = [(0, 0, 0), (edge, 0, 0), (edge, edge, 0), (0, edge, 0)]
+
+    def z_axis():
+        v.s.marker_arrow(v.p((0, 0, 0)), v.p((0, 0, 2.6)), AXIS_Z, nib=8)
+        v.word((0.3, 0, 2.75), X3, Z3, "z", 0.42)
+
+    if z and z_under:
+        z_axis()
+    v.s.shadow([(x + 6, y + 18) for x, y in map(v.p, sheet)], sigma=10, alpha=0.10)
+    v.s.line([v.p(q) for q in sheet], None, fill=SHEET, fill_alpha=0.45, closed=True)
+    for n in (1, 2, 3):                                  # the unit lines
+        v.s.line([v.p((n, 0, 0)), v.p((n, edge, 0))], GREY2, 1.4, 0.7)
+        v.s.line([v.p((0, n, 0)), v.p((edge, n, 0))], GREY2, 1.4, 0.7)
+    v.s.line([v.p(q) for q in sheet], GREY3, 2.0, 0.8, closed=True)
+    for a, b in (((1.4, 3.3), (3.1, 3.3)), ((3.3, 2.0), (3.3, 3.1))):   # glare by a corner
         v.s.line([v.p((*a, 0)), v.p((*b, 0))], "#ffffff", 5, 0.8)
     v.s.marker_arrow(v.p((-3.3, 0, 0)), v.p((3.4, 0, 0)), AXIS_X, nib=7)
     v.s.marker_arrow(v.p((0, -3.3, 0)), v.p((0, 3.4, 0)), AXIS_Y, nib=7)
@@ -1225,8 +1182,23 @@ def sheet_axes(v, z_under=False):
     v.word((-0.38, -0.38, 0), X3, Y3, "0", 0.3)
     v.word((3.75, 0.0, 0), X3, Y3, "x", 0.42)
     v.word((0.0, 3.75, 0), X3, Y3, "y", 0.42)
-    if not z_under:
-        z()
+    if z and not z_under:
+        z_axis()
+
+
+def e035_xy():
+    s = Sketch(1000, 1000, 43)
+    sheet_axes(Iso(s, (430, 560), 110, right=TOP_RIGHT, up=TOP_UP), z=False)
+    s.lines((760, 820), ["+x to the right,", "+y up the page"], 30)
+    s.save("fig-e035-xy")
+
+
+def e035_xyz():
+    s = Sketch(1150, 680, 47)
+    sheet_axes(Iso(s, (440, 310), 92))
+    s.lines((575, 580), ["the sheet laid flat, as Onshape shows it:", "+z points up, out of it"],
+            28)
+    s.save("fig-e035-xyz")
 
 
 def e035_flip():
@@ -1234,7 +1206,7 @@ def e035_flip():
     v = Iso(s, (660, 430), 92)
     s.line([v.p((-5.2, 0, 0)), v.p((6.4, 0, 0))], GREY3, 1.6, 0.7)   # the line it turns on
     sheet_axes(v)
-    turn = [v.p((5.6, 3.7 * math.cos(math.radians(a)), 3.7 * math.sin(math.radians(a))))
+    turn = [v.p((4.9, 3.5 * math.cos(math.radians(a)), 3.5 * math.sin(math.radians(a))))
             for a in range(6, 175, 6)]           # the far edge's path, up, over and toward you
     s.line(turn, MARKER_ORANGE, 9, 0.85)
     s.line(turn, PEN, 1.6, 0.8)
@@ -1307,13 +1279,13 @@ def e035_stick():
     s = Sketch(1000, 1000, 59)
     c = (430, 500)
     stick_top(s, c)
-    s.marker_arrow(c, (c[0] + 260, c[1]), MARKER_ORANGE, nib=8)
-    s.marker_arrow(c, (c[0], c[1] + 260), MARKER_ORANGE, nib=8)
+    s.marker_arrow(c, (c[0] + 260, c[1]), AXIS_X, nib=8)
+    s.marker_arrow(c, (c[0], c[1] + 260), AXIS_Y, nib=8)
     s.text((c[0] + 290, c[1] + 12), "+x", 34, anchor="start")
     s.text((c[0] - 24, c[1] + 270), "+y", 34, anchor="end")
-    s.marker_arrow((c[0] + 230, c[1] - 60), (c[0] + 230, c[1] - 300), MARKER_GREEN, nib=8)
+    s.marker_arrow((c[0] + 230, c[1] - 60), (c[0] + 230, c[1] - 300), MARKER_ORANGE, nib=8)
     s.lines((c[0] + 260, c[1] - 260), ["pushed away", "-1.0"], 32, anchor="start")
-    s.marker_arrow((c[0] + 230, c[1] + 60), (c[0] + 230, c[1] + 300), MARKER_GREEN, nib=8)
+    s.marker_arrow((c[0] + 230, c[1] + 60), (c[0] + 230, c[1] + 300), MARKER_ORANGE, nib=8)
     s.lines((c[0] + 260, c[1] + 220), ["pulled back", "+1.0"], 32, anchor="start")
     s.text((c[0], 940), "you, the driver, are down here", 30)
     s.text((c[0], 70), "the left stick, from above", 34)
@@ -1328,8 +1300,9 @@ def e035_robot():
     s.marker(tri, MARKER_RED, nib=14, opacity=0.8)
     s.ink_poly(tri, width=2.2)
     s.text((c[0] - 70, c[1] - side / 2 - 20), "nose", 32, MARKER_RED, "end")
-    axis(s, c, (c[0], c[1] - 400), "+x: forward, out the nose", (c[0] + 20, c[1] - 420), "start")
-    axis(s, c, (c[0] - 400, c[1]), "+y: left", (c[0] - 400, c[1] - 26), "start")
+    axis(s, c, (c[0], c[1] - 400), "+x: forward, out the nose", (c[0] + 20, c[1] - 420), "start",
+         color=AXIS_X)
+    axis(s, c, (c[0] - 400, c[1]), "+y: left", (c[0] - 400, c[1] - 26), "start", color=AXIS_Y)
     s.text((500, 960), "the robot, from above", 34)
     s.save("fig-e035-robot")
 
