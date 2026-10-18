@@ -69,6 +69,29 @@ code, written in `StarterBotTeleOp`, `Intake` and `Launcher`.
 - Each value there marked `MEASURE` was measured on an earlier robot. Measure it on each robot
   with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L195.
 
+**Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
+nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
+per second; D-pad up and down step the fraction by 0.1, from 0.1 to 1.0, starting at 0.2. While
+the launcher spins, here and in StarterBot TeleOp, its flight log carries `launcher/target_tps`,
+`launcher/measured_tps` and `launcher/current_amps`; graph them together in AdvantageScope to see
+whether it holds its speed.
+
+If the launcher stutters rather than holding its speed, try these in order:
+
+- Run it at 1250, the full target. At a fifth, its feedforward asks for about a tenth of full
+  power, little enough for the wheels to stick and surge.
+- At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
+  means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
+  motor.
+- In the Robot Configuration, `launcher` is a goBILDA 5203 series 6000 rpm motor.
+- With the robot off, the launcher wheels spin freely by hand, nothing rubs the frame, and the
+  belt does not slip.
+- Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
+  fraction, to the wiring or the gains.
+- If the speed swings around the target, lower `Launcher.VELOCITY_P`; if it never reaches it, raise
+  `Launcher.VELOCITY_F`. goBILDA's DECODE StarterBot used `(300, 0, 0, 10)`.
+- Use a battery above 12.5 V.
+
 ### TODO 
 - [ ] Monitor the sloth plugin for updates to Gradle version [see](PANELS.md#one-time-setup) - 1. Gradle version
 
