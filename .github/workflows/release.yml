@@ -179,7 +179,7 @@ jobs:
           cp -R site/. fresh/
           cd fresh
           git add -A
-          git -c user.name="Mike S.B. Stitt" -c user.email=mike@stitt.cc \
+          git -c user.name="Mike S.B. Stitt" -c user.email=msb@stitt.cc \
             commit -q -m "The site as published, with $VERSION built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
           git push -f origin new-pages:gh-pages
 
