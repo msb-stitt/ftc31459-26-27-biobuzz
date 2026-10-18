@@ -1160,16 +1160,23 @@ class Iso:
 X3, Y3, Z3 = (1, 0, 0), (0, 1, 0), (0, 0, 1)
 
 
-def sheet_axes(v, z=True, z_under=False, drop=True):
+def sheet_axes(v, z=True, z_under=False, drop=True, upright=False):
     """x and y from -3 to +3, with a clear sheet ruled in units over the corner where both are
     positive, and perhaps z standing up out of it. z_under draws z first, so a sheet turned over
-    lies on top of it."""
+    lies on top of it; upright prints its letters and numbers unturned where they have moved to."""
     edge = 3.5
+    plain = Iso(v.s, v.o, v.k, right=v.right, up=v.up)
+
+    def word(c, a, b, text, h):
+        if upright:
+            plain.word(v.turn(c), a, b, text, h)
+        else:
+            v.word(c, a, b, text, h)
     sheet = [(0, 0, 0), (edge, 0, 0), (edge, edge, 0), (0, edge, 0)]
 
     def z_axis():
         v.s.marker_arrow(v.p((0, 0, 0)), v.p((0, 0, 2.6)), AXIS_Z, nib=8)
-        v.word((0.3, 0, 2.75), X3, Z3, "z", 0.42)
+        word((0.3, 0, 2.75), X3, Z3, "z", 0.42)
 
     if z and z_under:
         z_axis()
@@ -1188,23 +1195,23 @@ def sheet_axes(v, z=True, z_under=False, drop=True):
         name = f"+{n}" if n > 0 else f"-{-n}"
         v.s.ink_line(v.p((n, -0.13, 0)), v.p((n, 0.13, 0)), width=2.0, over=2, passes=1)
         v.s.ink_line(v.p((-0.13, n, 0)), v.p((0.13, n, 0)), width=2.0, over=2, passes=1)
-        v.word((n, -0.42, 0), X3, Y3, name, 0.3)
-        v.word((-0.5, n, 0), X3, Y3, name, 0.3)
+        word((n, -0.42, 0), X3, Y3, name, 0.3)
+        word((0.45 if upright else -0.5, n, 0), X3, Y3, name, 0.3)
     v.s.dot(v.p((0, 0, 0)), 7)
-    v.word((-0.38, -0.38, 0), X3, Y3, "0", 0.3)
-    v.word((3.75, 0.0, 0), X3, Y3, "x", 0.42)
-    v.word((0.0, 3.75, 0), X3, Y3, "y", 0.42)
+    word((-0.38, -0.38, 0), X3, Y3, "0", 0.3)
+    word((3.75, 0.0, 0), X3, Y3, "x", 0.42)
+    word((0.8, 3.6, 0) if upright else (0.0, 3.75, 0), X3, Y3, "y", 0.42)
     if z and not z_under:
         z_axis()
 
 
 # The room the 3D drawings stand in: a floor at z = -4, a light above, in front of and to the right
-# of the viewer, and a student standing at (1.75, -5, 0) on a pedestal, looking at the sheet. Only
+# of the viewer, and a student standing at (1.5, -5.5, 0) on a pedestal, looking at the sheet. Only
 # the sheet and what is printed on it turns over.
 FLOOR = -4.0
 LIGHT = tuple(a + 0.6 * b + 0.6 * c for a, b, c in
               zip((1 / math.sqrt(3), -1 / math.sqrt(3), 1 / math.sqrt(3)), ISO_RIGHT, ISO_UP))
-STAND, STAND_HALF, STAND_TOP = (1.75, -5.0), 0.7, 0.0
+STAND, STAND_HALF, STAND_TOP = (1.5, -5.5), 0.5, 0.0
 
 
 def landing(q):
@@ -1256,39 +1263,28 @@ def stroke_shadows(v, a, b, width, n=24):
 
 
 STUDENT_FEET = STAND_TOP
-STUDENT = [((1.55, -5.0, STUDENT_FEET), (1.75, -5.0, STUDENT_FEET + 1.15)),   # legs
-           ((1.95, -5.0, STUDENT_FEET), (1.75, -5.0, STUDENT_FEET + 1.15)),
-           ((1.75, -5.0, STUDENT_FEET + 1.15), (1.75, -5.0, STUDENT_FEET + 2.05)),   # body
-           ((1.75, -5.0, STUDENT_FEET + 1.95), (1.4, -4.85, STUDENT_FEET + 1.25)),    # arms
-           ((1.75, -5.0, STUDENT_FEET + 1.95), (2.1, -4.85, STUDENT_FEET + 1.25))]
-HEAD, HEAD_R = (1.75, -5.0, STUDENT_FEET + 2.4), 0.32
+_SX, _SY = STAND
+STUDENT = [((_SX - 0.2, _SY, STUDENT_FEET), (_SX, _SY, STUDENT_FEET + 1.15)),         # legs
+           ((_SX + 0.2, _SY, STUDENT_FEET), (_SX, _SY, STUDENT_FEET + 1.15)),
+           ((_SX, _SY, STUDENT_FEET + 1.15), (_SX, _SY, STUDENT_FEET + 2.05)),        # body
+           ((_SX, _SY, STUDENT_FEET + 1.95), (_SX - 0.35, _SY + 0.15, STUDENT_FEET + 1.25)),  # arms
+           ((_SX, _SY, STUDENT_FEET + 1.95), (_SX + 0.35, _SY + 0.15, STUDENT_FEET + 1.25))]
+HEAD, HEAD_R = (_SX, _SY, STUDENT_FEET + 2.4), 0.32
 
 
-def floor_grid(v, c, reach=5.0):
-    """The floor ruled in units around c, fading out by reach, and a plumb line from 0 down to it,
-    so a reader can see where on the floor each thing stands."""
-    def fade(x, y):
-        return max(0.0, 1 - math.hypot(x - c[0], y - c[1]) / reach)
+def quadrant_grid(v):
+    """The z = 0 plane ruled in units where x is positive and y negative, out to the pedestal."""
+    for x in range(0, 4):
+        v.s.line([v.page((x, 0, 0)), v.page((x, -6, 0))], GREY3, 1.4, 0.6)
+    for y in range(-1, -7, -1):
+        v.s.line([v.page((0, y, 0)), v.page((3, y, 0))], GREY3, 1.4, 0.6)
 
-    r = int(reach) + 1
-    for i in range(-r, r + 1):
-        for j in range(-r, r):
-            for q0, q1 in (((c[0] + i, c[1] + j), (c[0] + i, c[1] + j + 1)),
-                           ((c[0] + j, c[1] + i), (c[0] + j + 1, c[1] + i))):
-                fx, fy = round(q0[0]), round(q0[1])
-                ex, ey = fx + q1[0] - q0[0], fy + q1[1] - q0[1]
-                alpha = 0.5 * fade((fx + ex) / 2, (fy + ey) / 2)
-                if alpha > 0.02:
-                    v.s.line([v.page((fx, fy, FLOOR)), v.page((ex, ey, FLOOR))], GREY3, 1.2,
-                             alpha)
+
+def room(v, light=(), lines=(), solids=()):
+    """The floor's shadows of the clear shapes in light, the lines, the solid shapes, the
+    pedestal and the student, and a plumb line from 0 down to the floor; returns the shadows on
+    the pedestal's top. The things themselves go on top, drawn by the caller."""
     v.s.line([v.page((0, 0, 0)), v.page((0, 0, FLOOR))], GREY3, 1.2, 0.6)
-
-
-def room(v, c, light=(), lines=(), solids=()):
-    """The floor ruled around c, and on it the shadows of the clear shapes in light, the lines,
-    the solid shapes, the pedestal and the student; returns the shadows on the pedestal's top.
-    The things themselves go on top, drawn by the caller."""
-    floor_grid(v, c)
     floor, top = [], []
     v.s.cast([[v.page(landing(q)) for q in shape] for shape in light], sigma=5, alpha=0.2)
     for a, b in lines:
@@ -1313,8 +1309,8 @@ CAP, BRIM = "#7b5ea7", "#55407a"
 CAP_TILT = math.radians(25)        # the brim, tilted up from level, facing +y
 
 
-def pedestal_and_student(v, top, look):
-    """The pedestal, and the student on it in a cap, looking at look, a point in space."""
+def pedestal(v, top):
+    """The pedestal, from the floor up to the student's feet, and the shadows top on it."""
     (cx, cy), hw, h0, h1 = STAND, STAND_HALF, FLOOR, STAND_TOP
     faces = [([(cx + hw, cy - hw, h0), (cx + hw, cy + hw, h0), (cx + hw, cy + hw, h1),
                (cx + hw, cy - hw, h1)], "#b9bcbe"),                       # +x, half lit
@@ -1328,6 +1324,10 @@ def pedestal_and_student(v, top, look):
         v.s.marker(pts, color, nib=12, opacity=0.5, layers=1)
         v.s.line(pts, PEN, 2.0, 0.85, closed=True)
     v.s.cast(top, sigma=2, alpha=0.45)
+
+
+def student(v, look):
+    """The student on the pedestal in a cap, looking at look, a point in space."""
     for a, b in STUDENT:
         v.s.ink_line(v.page(a), v.page(b), width=4.2, over=2, passes=1, wobble=0.8)
     v.s.construct(v.page(HEAD), v.page(look))                 # where the student is looking
@@ -1386,16 +1386,18 @@ def head_in_cap(v):
     v.s.line(arc + rim, PEN, 2.6, 0.95, fill=CAP, closed=True)
 
 
-def sheet_in_room(v, z_under=False):
+def sheet_in_room(v, z_under=False, upright=False):
     """sheet_axes in the room, its shadows cast by the light."""
     edge = 3.5
     corners = [v.turn(q) for q in ((0, 0, 0), (edge, 0, 0), (edge, edge, 0), (0, edge, 0))]
     lines = [(v.turn((-3.3, 0, 0)), v.turn((3.4, 0, 0))),
              (v.turn((0, -3.3, 0)), v.turn((0, 3.4, 0))),
              (v.turn((0, 0, 0)), v.turn((0, 0, 2.6)))]
-    top = room(v, (0.0, -2.0), light=[corners], lines=lines)
-    sheet_axes(v, z_under=z_under, drop=False)
-    pedestal_and_student(v, top, v.turn((1.75, 1.75, 0)))
+    top = room(v, light=[corners], lines=lines)
+    pedestal(v, top)
+    quadrant_grid(v)
+    sheet_axes(v, z_under=z_under, drop=False, upright=upright)
+    student(v, v.turn((STAND[0], 1.75, 0)))                  # gazing along x = 1.5
 
 
 def e035_xy():
@@ -1445,15 +1447,16 @@ def iso_stick(v, c):
 def e035_flipped():
     s = Sketch(2300, 1220, 54)
     flipped = Iso(s, (560, 380), 82, turn=lambda q: (q[0], -q[1], -q[2]))
-    sheet_in_room(flipped, z_under=True)
+    sheet_in_room(flipped, z_under=True, upright=True)
     pad = Iso(s, (1500, 380), 82)          # the left stick at 0, so the student stands as before
     w, h = 7.4, 3.2                        # the gamepad's width and depth, in the sheet's units
     middle = (1.85, -0.5)                  # the gamepad's middle, from the left stick
     flat = [(middle[0] + u * w / 1000, middle[1] - v * h / 430)
             for u, v in gamepad_outline(0, 0, 1000, 430)]
     arrows = [((0.5, 0, 0.3), (2.2, 0, 0.3)), ((0, -0.5, 0.3), (0, -2.9, 0.3))]
-    top = room(pad, (1.5, -2.0), lines=arrows,
-               solids=[[(x, y, z) for x, y in flat] for z in (0, -0.45)])
+    top = room(pad, lines=arrows, solids=[[(x, y, z) for x, y in flat] for z in (0, -0.45)])
+    pedestal(pad, top)
+    quadrant_grid(pad)
     outline = [pad.p((x, y, 0)) for x, y in flat]      # gamepad_outline's page, laid flat
     under = [pad.p((x, y, -0.45)) for x, y in flat]    # its bottom, for its sides
     for i in range(len(flat)):                         # its sides, then its top over them
@@ -1469,14 +1472,12 @@ def e035_flipped():
     s.marker_arrow(pad.p(arrows[0][0]), pad.p(arrows[0][1]), AXIS_X, nib=7)
     s.marker_arrow(pad.p(arrows[1][0]), pad.p(arrows[1][1]), AXIS_Y, nib=7)
     pad.word((2.65, 0, 0.3), X3, Y3, "+x", 0.42)
-    pad.word((-0.6, -2.6, 0.3), X3, Y3, "+y", 0.42)
-    pedestal_and_student(pad, top, (*middle, 0))
-    x, y = pad.page((2.6, -4.3, -2.6))
-    s.text((x + 15, y), "you, the driver", 26, anchor="start")
+    pad.word((0.6, -3.2, 0.3), X3, Y3, "+y", 0.42)
+    student(pad, (STAND[0], middle[1], 0))
     s.text((560, 70), "the sheet, flipped over", 34)
     s.text((1700, 70), "a gamepad's left stick, the same way round", 34)
-    s.lines((1150, 1140), ["+x points the same way on both,",
-                          "and +y points back toward the driver"], 28)
+    s.lines((1150, 1140), ["+x and +y point the same on the gamepad sticks and the flipped axes",
+                          "from a person's expected point of view."], 28)
     s.save("fig-e035-flipped")
 
 
