@@ -39,7 +39,7 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-from matplotlib.collections import LineCollection  # noqa: E402
+from matplotlib.collections import LineCollection, PolyCollection  # noqa: E402
 from matplotlib.colors import to_rgba  # noqa: E402
 from matplotlib.font_manager import FontProperties  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
@@ -252,13 +252,15 @@ def blur(image, sigma):
 
 
 class Soft:
-    """An agg_filter that blurs what it is given by sigma drawing pixels."""
+    """An agg_filter that blurs what it is given by sigma drawing pixels, and fades it to alpha,
+    so shapes drawn solid and overlapping make one even shadow."""
 
-    def __init__(self, sigma):
-        self.sigma = sigma
+    def __init__(self, sigma, alpha=1.0):
+        self.sigma, self.alpha = sigma, alpha
 
     def __call__(self, image, dpi):
         out, r = blur(image, self.sigma * dpi / 100)
+        out[..., 3] *= self.alpha
         return out, -r, -r
 
 
@@ -373,6 +375,12 @@ class Sketch:
         """A soft grey shadow."""
         self.line(shape, None, fill="#3a3a3a", fill_alpha=alpha, closed=True).set_agg_filter(
             Soft(sigma))
+
+    def cast(self, shapes, sigma=10, alpha=0.3):
+        """One soft shadow made of many shapes."""
+        if shapes:
+            self.add(PolyCollection(shapes, facecolors="#3a3a3a", edgecolors="none")
+                     ).set_agg_filter(Soft(sigma, alpha))
 
     def highlight(self, p0, p1, width=5):
         self.ink_line(p0, p1, width=width, over=-12, passes=1, color="#ffffff", wobble=0.8)
@@ -1101,7 +1109,7 @@ def e035_numberline():
     s = Sketch(1300, 330, 41)
     y, left, step = 170, 170, 160
     s.construct((60, y), (1240, y))
-    s.marker_arrow((left - 70, y), (left + 6 * step + 80, y), MARKER_ORANGE, nib=7)
+    s.marker_arrow((left - 70, y), (left + 6 * step + 80, y), AXIS_X, nib=7)
     for k in range(-3, 4):
         x = left + (k + 3) * step
         s.ink_line((x, y - 16), (x, y + 16), width=2.2, over=3, passes=1)
@@ -1131,7 +1139,10 @@ class Iso:
         self.right, self.up = right, up
 
     def p(self, q):
-        q = self.turn(q)
+        return self.page(self.turn(q))
+
+    def page(self, q):
+        """q drawn where it is, not turned."""
         return (self.o[0] + self.k * sum(a * b for a, b in zip(q, self.right)),
                 self.o[1] - self.k * sum(a * b for a, b in zip(q, self.up)))
 
@@ -1149,7 +1160,7 @@ class Iso:
 X3, Y3, Z3 = (1, 0, 0), (0, 1, 0), (0, 0, 1)
 
 
-def sheet_axes(v, z=True, z_under=False):
+def sheet_axes(v, z=True, z_under=False, drop=True):
     """x and y from -3 to +3, with a clear sheet ruled in units over the corner where both are
     positive, and perhaps z standing up out of it. z_under draws z first, so a sheet turned over
     lies on top of it."""
@@ -1162,7 +1173,8 @@ def sheet_axes(v, z=True, z_under=False):
 
     if z and z_under:
         z_axis()
-    v.s.shadow([(x + 6, y + 18) for x, y in map(v.p, sheet)], sigma=10, alpha=0.10)
+    if drop:
+        v.s.shadow([(x + 6, y + 18) for x, y in map(v.p, sheet)], sigma=10, alpha=0.10)
     v.s.line([v.p(q) for q in sheet], None, fill=SHEET, fill_alpha=0.45, closed=True)
     for n in (1, 2, 3):                                  # the unit lines
         v.s.line([v.p((n, 0, 0)), v.p((n, edge, 0))], GREY2, 1.4, 0.7)
@@ -1186,6 +1198,127 @@ def sheet_axes(v, z=True, z_under=False):
         z_axis()
 
 
+# The room the 3D drawings stand in: a floor at z = -4, a light above, in front of and to the right
+# of the viewer, and a student on a pedestal at (1.75, -5) looking at the sheet. Only the sheet and
+# what is printed on it turns over.
+FLOOR = -4.0
+LIGHT = tuple(a + 0.6 * b + 0.6 * c for a, b, c in
+              zip((1 / math.sqrt(3), -1 / math.sqrt(3), 1 / math.sqrt(3)), ISO_RIGHT, ISO_UP))
+STAND, STAND_HALF, STAND_TOP = (1.75, -5.0), 0.7, -1.7
+
+
+def landing(q):
+    """Where the light past q lands: on the pedestal's top, or else on the floor."""
+    for h, box in ((STAND_TOP, STAND_HALF), (FLOOR, None)):
+        if q[2] <= h:
+            continue
+        t = (q[2] - h) / LIGHT[2]
+        x, y = q[0] - LIGHT[0] * t, q[1] - LIGHT[1] * t
+        if box is None or (abs(x - STAND[0]) <= box and abs(y - STAND[1]) <= box):
+            return (x, y, h)
+    return None
+
+
+def hull(pts):
+    """The convex hull of page points."""
+    pts = sorted(set(pts))
+    if len(pts) < 3:
+        return pts
+
+    def side(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    lower, upper = [], []
+    for p in pts:
+        while len(lower) >= 2 and side(lower[-2], lower[-1], p) <= 0:
+            lower.pop()
+        lower.append(p)
+    for p in reversed(pts):
+        while len(upper) >= 2 and side(upper[-2], upper[-1], p) <= 0:
+            upper.pop()
+        upper.append(p)
+    return lower[:-1] + upper[:-1]
+
+
+def stroke_shadows(v, a, b, width, n=24):
+    """A world segment's shadow, as page quads, split by the plane each piece lands on."""
+    out = {STAND_TOP: [], FLOOR: []}
+    pts = [landing(tuple(a[i] + (b[i] - a[i]) * j / n for i in range(3))) for j in range(n + 1)]
+    for p0, p1 in zip(pts, pts[1:]):
+        if p0 is None or p1 is None or p0[2] != p1[2]:
+            continue
+        (x0, y0), (x1, y1) = v.page(p0), v.page(p1)
+        d = math.hypot(x1 - x0, y1 - y0) or 1
+        nx, ny = -(y1 - y0) / d * width / 2, (x1 - x0) / d * width / 2
+        out[p0[2]].append([(x0 + nx, y0 + ny), (x1 + nx, y1 + ny), (x1 - nx, y1 - ny),
+                           (x0 - nx, y0 - ny)])
+    return out
+
+
+STUDENT_FEET = STAND_TOP
+STUDENT = [((1.55, -5.0, STUDENT_FEET), (1.75, -5.0, STUDENT_FEET + 1.15)),   # legs
+           ((1.95, -5.0, STUDENT_FEET), (1.75, -5.0, STUDENT_FEET + 1.15)),
+           ((1.75, -5.0, STUDENT_FEET + 1.15), (1.75, -5.0, STUDENT_FEET + 2.05)),   # body
+           ((1.75, -5.0, STUDENT_FEET + 1.95), (1.4, -4.85, STUDENT_FEET + 1.25)),    # arms
+           ((1.75, -5.0, STUDENT_FEET + 1.95), (2.1, -4.85, STUDENT_FEET + 1.25))]
+HEAD, HEAD_R = (1.75, -5.0, STUDENT_FEET + 2.4), 0.32
+
+
+def room(v, sheet_corners, sheet_lines):
+    """The floor's shadows of the sheet, its lines, the pedestal and the student; then the
+    pedestal and the student's shadow on its top. The sheet goes between, drawn by the caller."""
+    floor, top = [], []
+    v.s.cast([[v.page(landing(q)) for q in sheet_corners]], sigma=5, alpha=0.2)   # clear, light
+    for a, b in sheet_lines:
+        floor += stroke_shadows(v, a, b, 6)[FLOOR]
+    (cx, cy), hw = STAND, STAND_HALF
+    box = [(cx + dx, cy + dy, h) for dx in (-hw, hw) for dy in (-hw, hw) for h in (FLOOR, STAND_TOP)]
+    floor.append(hull([v.page(landing(q) if q[2] > FLOOR else q) for q in box]))
+    for a, b in STUDENT:
+        cast = stroke_shadows(v, a, b, 7)
+        floor += cast[FLOOR]
+        top += cast[STAND_TOP]
+    head = landing(HEAD)
+    disk = [v.page((head[0] + HEAD_R * 1.25 * math.cos(u), head[1] + HEAD_R * math.sin(u),
+                    head[2])) for u in (i * math.pi / 12 for i in range(24))]
+    (floor if head[2] == FLOOR else top).append(disk)
+    v.s.cast(floor, sigma=3, alpha=0.5)
+    return top
+
+
+def pedestal_and_student(v, top):
+    (cx, cy), hw, h0, h1 = STAND, STAND_HALF, FLOOR, STAND_TOP
+    faces = [([(cx + hw, cy - hw, h0), (cx + hw, cy + hw, h0), (cx + hw, cy + hw, h1),
+               (cx + hw, cy - hw, h1)], "#b9bcbe"),                       # +x, half lit
+             ([(cx - hw, cy - hw, h0), (cx + hw, cy - hw, h0), (cx + hw, cy - hw, h1),
+               (cx - hw, cy - hw, h1)], "#8d9194"),                       # -y, in its own shade
+             ([(cx - hw, cy - hw, h1), (cx + hw, cy - hw, h1), (cx + hw, cy + hw, h1),
+               (cx - hw, cy + hw, h1)], "#e4e5e5")]                       # top, lit
+    for face, color in faces:
+        pts = [v.page(q) for q in face]
+        v.s.line(pts, None, fill=color, closed=True)
+        v.s.marker(pts, color, nib=12, opacity=0.5, layers=1)
+        v.s.line(pts, PEN, 2.0, 0.85, closed=True)
+    v.s.cast(top, sigma=2, alpha=0.45)
+    for a, b in STUDENT:
+        v.s.ink_line(v.page(a), v.page(b), width=4.2, over=2, passes=1, wobble=0.8)
+    v.s.construct(v.page(HEAD), v.p((1.75, 1.75, 0)))         # where the student is looking
+    c = v.page(HEAD)
+    v.s.line(ellipse(c, HEAD_R * v.k), PEN, 3.4, 0.95, fill=PAPER, closed=True)
+
+
+def sheet_in_room(v, z_under=False):
+    """sheet_axes in the room, its shadows cast by the light."""
+    edge = 3.5
+    corners = [v.turn(q) for q in ((0, 0, 0), (edge, 0, 0), (edge, edge, 0), (0, edge, 0))]
+    lines = [(v.turn((-3.3, 0, 0)), v.turn((3.4, 0, 0))),
+             (v.turn((0, -3.3, 0)), v.turn((0, 3.4, 0))),
+             (v.turn((0, 0, 0)), v.turn((0, 0, 2.6)))]
+    top = room(v, corners, lines)
+    sheet_axes(v, z_under=z_under, drop=False)
+    pedestal_and_student(v, top)
+
+
 def e035_xy():
     s = Sketch(1000, 1000, 43)
     sheet_axes(Iso(s, (430, 560), 110, right=TOP_RIGHT, up=TOP_UP), z=False)
@@ -1194,25 +1327,25 @@ def e035_xy():
 
 
 def e035_xyz():
-    s = Sketch(1150, 680, 47)
-    sheet_axes(Iso(s, (440, 310), 92))
-    s.lines((575, 580), ["the sheet laid flat, as Onshape shows it:", "+z points up, out of it"],
+    s = Sketch(1450, 1000, 47)
+    sheet_in_room(Iso(s, (760, 330), 92))
+    s.lines((1100, 900), ["the sheet laid flat, as Onshape shows it:", "+z points up, out of it"],
             28)
     s.save("fig-e035-xyz")
 
 
 def e035_flip():
-    s = Sketch(1500, 900, 53)
+    s = Sketch(1500, 1180, 53)
     v = Iso(s, (660, 430), 92)
     s.line([v.p((-5.2, 0, 0)), v.p((6.4, 0, 0))], GREY3, 1.6, 0.7)   # the line it turns on
-    sheet_axes(v)
+    sheet_in_room(v)
     turn = [v.p((4.9, 3.5 * math.cos(math.radians(a)), 3.5 * math.sin(math.radians(a))))
             for a in range(6, 175, 6)]           # the far edge's path, up, over and toward you
     s.line(turn, MARKER_ORANGE, 9, 0.85)
     s.line(turn, PEN, 1.6, 0.8)
     s.marker_arrow(turn[-3], turn[-1], MARKER_ORANGE, nib=9)
     s.text((750, 80), "a clear sheet, ready to flip over, top to bottom", 34)
-    s.lines((1130, 830), ["it turns on the x axis:", "the far edge comes up and over, toward you"],
+    s.lines((1130, 1090), ["it turns on the x axis:", "the far edge comes up and over, toward you"],
             26)
     s.save("fig-e035-flip")
 
@@ -1231,15 +1364,16 @@ def iso_stick(v, c):
 
 
 def e035_flipped():
-    s = Sketch(2100, 860, 54)
+    s = Sketch(2100, 1080, 54)
     flipped = Iso(s, (560, 430), 82, turn=lambda q: (q[0], -q[1], -q[2]))
-    sheet_axes(flipped, z_under=True)
+    sheet_in_room(flipped, z_under=True)
     pad = Iso(s, (1560, 400), 82)
     w, h = 7.4, 3.2                      # the gamepad's width and depth, in the sheet's units
     flat = [(u * w / 1000, -v * h / 430) for u, v in gamepad_outline(0, 0, 1000, 430)]
     outline = [pad.p((x, y, 0)) for x, y in flat]      # gamepad_outline's page, laid flat
     under = [pad.p((x, y, -0.45)) for x, y in flat]    # its bottom, for its sides
-    s.shadow([(x + 8, y + 22) for x, y in under], sigma=10, alpha=0.25)
+    s.cast([[pad.page((x - LIGHT[0] / LIGHT[2] * 0.6, y - LIGHT[1] / LIGHT[2] * 0.6, -0.45))
+             for x, y in flat]], sigma=4, alpha=0.45)
     for i in range(len(flat)):                         # its sides, then its top over them
         j = (i + 1) % len(flat)
         s.line([outline[i], outline[j], under[j], under[i]], GREY4, 1.0, 1.0, fill=GREY4,
@@ -1260,7 +1394,7 @@ def e035_flipped():
     s.text(pad.p((-1.2, -5.0, 0)), "you, the driver, sit on this side", 26)
     s.text((560, 70), "the sheet, flipped over", 34)
     s.text((1560, 70), "a gamepad's left stick, the same way round", 34)
-    s.lines((1050, 780), ["+x points the same way on both,",
+    s.lines((1050, 1000), ["+x points the same way on both,",
                           "and +y points back toward the driver"], 28)
     s.save("fig-e035-flipped")
 
