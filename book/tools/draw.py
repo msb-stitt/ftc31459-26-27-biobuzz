@@ -1209,8 +1209,11 @@ def sheet_axes(v, z=True, z_under=False, drop=True, upright=False):
 # of the viewer, and a student standing at (1.5, -5.5, 0) on a pedestal, looking at the sheet. Only
 # the sheet and what is printed on it turns over.
 FLOOR = -4.0
-LIGHT = tuple(a + 0.6 * b + 0.6 * c for a, b, c in
-              zip((1 / math.sqrt(3), -1 / math.sqrt(3), 1 / math.sqrt(3)), ISO_RIGHT, ISO_UP))
+_LIT = tuple(a + 0.6 * b + 0.6 * c for a, b, c in
+             zip((1 / math.sqrt(3), -1 / math.sqrt(3), 1 / math.sqrt(3)), ISO_RIGHT, ISO_UP))
+_SWING = math.radians(-30)         # turned about z, further behind the viewer: shadows 30° up more
+LIGHT = (math.cos(_SWING) * _LIT[0] - math.sin(_SWING) * _LIT[1],
+         math.sin(_SWING) * _LIT[0] + math.cos(_SWING) * _LIT[1], _LIT[2])
 STAND, STAND_HALF, STAND_TOP = (1.5, -5.5), 0.5, 0.0
 
 
