@@ -1217,14 +1217,14 @@ LIGHT = (math.cos(_SWING) * _LIT[0] - math.sin(_SWING) * _LIT[1],
 STAND, STAND_HALF, STAND_TOP = (1.5, -5.5), 0.5, 0.0
 
 
-def landing(q):
-    """Where the light past q lands: on the pedestal's top, or else on the floor."""
+def landing(q, at=STAND):
+    """Where the light past q lands: on the top of the pedestal at at, or else on the floor."""
     for h, box in ((STAND_TOP, STAND_HALF), (FLOOR, None)):
         if q[2] <= h:
             continue
         t = (q[2] - h) / LIGHT[2]
         x, y = q[0] - LIGHT[0] * t, q[1] - LIGHT[1] * t
-        if box is None or (abs(x - STAND[0]) <= box and abs(y - STAND[1]) <= box):
+        if box is None or (abs(x - at[0]) <= box and abs(y - at[1]) <= box):
             return (x, y, h)
     return None
 
@@ -1250,10 +1250,11 @@ def hull(pts):
     return lower[:-1] + upper[:-1]
 
 
-def stroke_shadows(v, a, b, width, n=24):
+def stroke_shadows(v, a, b, width, n=24, at=STAND):
     """A world segment's shadow, as page quads, split by the plane each piece lands on."""
     out = {STAND_TOP: [], FLOOR: []}
-    pts = [landing(tuple(a[i] + (b[i] - a[i]) * j / n for i in range(3))) for j in range(n + 1)]
+    pts = [landing(tuple(a[i] + (b[i] - a[i]) * j / n for i in range(3)), at)
+           for j in range(n + 1)]
     for p0, p1 in zip(pts, pts[1:]):
         if p0 is None or p1 is None or p0[2] != p1[2]:
             continue
@@ -1266,13 +1267,18 @@ def stroke_shadows(v, a, b, width, n=24):
 
 
 STUDENT_FEET = STAND_TOP
-_SX, _SY = STAND
-STUDENT = [((_SX - 0.2, _SY, STUDENT_FEET), (_SX, _SY, STUDENT_FEET + 1.15)),         # legs
-           ((_SX + 0.2, _SY, STUDENT_FEET), (_SX, _SY, STUDENT_FEET + 1.15)),
-           ((_SX, _SY, STUDENT_FEET + 1.15), (_SX, _SY, STUDENT_FEET + 2.05)),        # body
-           ((_SX, _SY, STUDENT_FEET + 1.95), (_SX - 0.35, _SY + 0.15, STUDENT_FEET + 1.25)),  # arms
-           ((_SX, _SY, STUDENT_FEET + 1.95), (_SX + 0.35, _SY + 0.15, STUDENT_FEET + 1.25))]
-HEAD, HEAD_R = (_SX, _SY, STUDENT_FEET + 2.4), 0.32
+HEAD_R = 0.32
+
+
+def figure(at):
+    """The student's limbs, as segments, and the middle of the head, standing at at."""
+    sx, sy = at
+    return ([((sx - 0.2, sy, STUDENT_FEET), (sx, sy, STUDENT_FEET + 1.15)),           # legs
+             ((sx + 0.2, sy, STUDENT_FEET), (sx, sy, STUDENT_FEET + 1.15)),
+             ((sx, sy, STUDENT_FEET + 1.15), (sx, sy, STUDENT_FEET + 2.05)),          # body
+             ((sx, sy, STUDENT_FEET + 1.95), (sx - 0.35, sy + 0.15, STUDENT_FEET + 1.25)),  # arms
+             ((sx, sy, STUDENT_FEET + 1.95), (sx + 0.35, sy + 0.15, STUDENT_FEET + 1.25))],
+            (sx, sy, STUDENT_FEET + 2.4))
 
 
 def quadrant_grid(v):
@@ -1283,24 +1289,25 @@ def quadrant_grid(v):
         v.s.line([v.page((0, y, 0)), v.page((3, y, 0))], GREY3, 1.4, 0.6)
 
 
-def room(v, light=(), lines=(), solids=()):
+def room(v, light=(), lines=(), solids=(), at=STAND):
     """The floor's shadows of the clear shapes in light, the lines, the solid shapes, the
-    pedestal and the student, and a plumb line from 0 down to the floor; returns the shadows on
-    the pedestal's top. The things themselves go on top, drawn by the caller."""
+    pedestal at at and the student on it, and a plumb line from 0 down to the floor; returns the
+    shadows on the pedestal's top. The things themselves go on top, drawn by the caller."""
     v.s.line([v.page((0, 0, 0)), v.page((0, 0, FLOOR))], GREY3, 1.2, 0.6)
     floor, top = [], []
-    v.s.cast([[v.page(landing(q)) for q in shape] for shape in light], sigma=5, alpha=0.2)
+    v.s.cast([[v.page(landing(q, at)) for q in shape] for shape in light], sigma=5, alpha=0.2)
     for a, b in lines:
-        floor += stroke_shadows(v, a, b, 6)[FLOOR]
-    floor += [[v.page(landing(q)) for q in shape] for shape in solids]
-    (cx, cy), hw = STAND, STAND_HALF
+        floor += stroke_shadows(v, a, b, 6, at=at)[FLOOR]
+    floor += [[v.page(landing(q, at)) for q in shape] for shape in solids]
+    (cx, cy), hw = at, STAND_HALF
     box = [(cx + dx, cy + dy, h) for dx in (-hw, hw) for dy in (-hw, hw) for h in (FLOOR, STAND_TOP)]
-    floor.append(hull([v.page(landing(q) if q[2] > FLOOR else q) for q in box]))
-    for a, b in STUDENT:
-        cast = stroke_shadows(v, a, b, 7)
+    floor.append(hull([v.page(landing(q, at) if q[2] > FLOOR else q) for q in box]))
+    limbs, head = figure(at)
+    for a, b in limbs:
+        cast = stroke_shadows(v, a, b, 7, at=at)
         floor += cast[FLOOR]
         top += cast[STAND_TOP]
-    head = landing(HEAD)
+    head = landing(head, at)
     disk = [v.page((head[0] + HEAD_R * 1.25 * math.cos(u), head[1] + HEAD_R * math.sin(u),
                     head[2])) for u in (i * math.pi / 12 for i in range(24))]
     (floor if head[2] == FLOOR else top).append(disk)
@@ -1312,9 +1319,9 @@ CAP, BRIM = "#7b5ea7", "#55407a"
 CAP_TILT = math.radians(25)        # the brim, tilted up from level, facing +y
 
 
-def pedestal(v, top):
-    """The pedestal, from the floor up to the student's feet, and the shadows top on it."""
-    (cx, cy), hw, h0, h1 = STAND, STAND_HALF, FLOOR, STAND_TOP
+def pedestal(v, top, at=STAND):
+    """The pedestal at at, from the floor up to the student's feet, and the shadows top on it."""
+    (cx, cy), hw, h0, h1 = at, STAND_HALF, FLOOR, STAND_TOP
     faces = [([(cx + hw, cy - hw, h0), (cx + hw, cy + hw, h0), (cx + hw, cy + hw, h1),
                (cx + hw, cy - hw, h1)], "#b9bcbe"),                       # +x, half lit
              ([(cx - hw, cy - hw, h0), (cx + hw, cy - hw, h0), (cx + hw, cy - hw, h1),
@@ -1329,15 +1336,16 @@ def pedestal(v, top):
     v.s.cast(top, sigma=2, alpha=0.45)
 
 
-def student(v, look):
-    """The student on the pedestal in a cap, looking at look, a point in space."""
-    for a, b in STUDENT:
+def student(v, look, at=STAND):
+    """The student on the pedestal at at, in a cap, looking at look, a point in space."""
+    limbs, head = figure(at)
+    for a, b in limbs:
         v.s.ink_line(v.page(a), v.page(b), width=4.2, over=2, passes=1, wobble=0.8)
-    v.s.construct(v.page(HEAD), v.page(look))                 # where the student is looking
-    head_in_cap(v)
+    v.s.construct(v.page(head), v.page(look))                 # where the student is looking
+    head_in_cap(v, head)
 
 
-def head_in_cap(v):
+def head_in_cap(v, head):
     """The head, a sphere, in a cap: the crown is the sphere above a band circle tilted back with
     the brim, and the brim lies flat in the band's plane, out in front. Only the half of the crown
     facing the viewer shows; the brim, on the far side, shows past the head."""
@@ -1352,7 +1360,7 @@ def head_in_cap(v):
     fwd = (0.0, math.cos(CAP_TILT), math.sin(CAP_TILT))     # the brim's way, tilted up
     side = (1.0, 0.0, 0.0)
     h = 0.15                                                # the band, 0.15 radii above middle
-    centre, rb = at(HEAD, (h * HEAD_R, up)), HEAD_R * math.sqrt(1 - h * h)
+    centre, rb = at(head, (h * HEAD_R, up)), HEAD_R * math.sqrt(1 - h * h)
 
     def band(phi, r=rb):
         return at(centre, (r * math.cos(phi), side), (r * math.sin(phi), fwd))
@@ -1363,10 +1371,10 @@ def head_in_cap(v):
         for a in span]
     v.s.line([v.page(q) for q in brim], PEN, 2.4, 0.9, fill=BRIM, closed=True)
 
-    c, r = v.page(HEAD), HEAD_R * v.k
+    c, r = v.page(head), HEAD_R * v.k
     v.s.line(ellipse(c, r), PEN, 3.4, 0.95, fill=PAPER, closed=True)
     steps = [math.radians(d) for d in range(0, 360, 2)]
-    seen = [dot(tuple(a - b for a, b in zip(band(a), HEAD)), toward) >= 0 for a in steps]
+    seen = [dot(tuple(a - b for a, b in zip(band(a), head)), toward) >= 0 for a in steps]
     first = next(i for i in range(len(steps)) if seen[i] and not seen[i - 1])
     arc = []
     for i in range(len(steps)):                   # the band's near half, in order
@@ -1375,7 +1383,7 @@ def head_in_cap(v):
             break
         arc.append(v.page(band(steps[j])))
     lean = tuple(a - dot(up, toward) * b for a, b in zip(up, toward))
-    top = v.page(at(HEAD, (HEAD_R / math.sqrt(dot(lean, lean)), lean)))
+    top = v.page(at(head, (HEAD_R / math.sqrt(dot(lean, lean)), lean)))
 
     def angle(p):
         return math.atan2(p[1] - c[1], p[0] - c[0])
@@ -1447,19 +1455,21 @@ def iso_stick(v, c):
     v.s.line(cap, PEN, 1.8, 0.9, closed=True)
 
 
-def e035_flipped():
-    s = Sketch(2300, 1220, 54)
-    flipped = Iso(s, (560, 380), 82, turn=lambda q: (q[0], -q[1], -q[2]))
-    sheet_in_room(flipped, z_under=True, upright=True)
-    pad = Iso(s, (1500, 380), 82)          # the left stick at 0, so the student stands as before
+PAD_MIDDLE = (1.85, -0.5)                  # the gamepad's middle, from the left stick at 0
+
+
+def gamepad_in_room(pad, lines, grid=True, at=STAND):
+    """A gamepad lying flat in the room, its left stick at 0, the pedestal at at, and the floor's
+    shadows of it and of lines."""
+    s = pad.s
     w, h = 7.4, 3.2                        # the gamepad's width and depth, in the sheet's units
-    middle = (1.85, -0.5)                  # the gamepad's middle, from the left stick
+    middle = PAD_MIDDLE
     flat = [(middle[0] + u * w / 1000, middle[1] - v * h / 430)
             for u, v in gamepad_outline(0, 0, 1000, 430)]
-    arrows = [((0.5, 0, 0.3), (2.2, 0, 0.3)), ((0, -0.5, 0.3), (0, -2.9, 0.3))]
-    top = room(pad, lines=arrows, solids=[[(x, y, z) for x, y in flat] for z in (0, -0.45)])
-    pedestal(pad, top)
-    quadrant_grid(pad)
+    top = room(pad, lines=lines, solids=[[(x, y, z) for x, y in flat] for z in (0, -0.45)], at=at)
+    pedestal(pad, top, at)
+    if grid:
+        quadrant_grid(pad)
     outline = [pad.p((x, y, 0)) for x, y in flat]      # gamepad_outline's page, laid flat
     under = [pad.p((x, y, -0.45)) for x, y in flat]    # its bottom, for its sides
     for i in range(len(flat)):                         # its sides, then its top over them
@@ -1472,6 +1482,16 @@ def e035_flipped():
     s.line(outline, PEN, 2.4, 0.9, closed=True)
     iso_stick(pad, (3.7, 0))
     iso_stick(pad, (0, 0))
+
+
+def e035_flipped():
+    s = Sketch(2300, 1220, 54)
+    flipped = Iso(s, (560, 380), 82, turn=lambda q: (q[0], -q[1], -q[2]))
+    sheet_in_room(flipped, z_under=True, upright=True)
+    pad = Iso(s, (1500, 380), 82)          # the left stick at 0, so the student stands as before
+    middle = PAD_MIDDLE
+    arrows = [((0.5, 0, 0.3), (2.2, 0, 0.3)), ((0, -0.5, 0.3), (0, -2.9, 0.3))]
+    gamepad_in_room(pad, arrows)
     s.marker_arrow(pad.p(arrows[0][0]), pad.p(arrows[0][1]), AXIS_X, nib=7)
     s.marker_arrow(pad.p(arrows[1][0]), pad.p(arrows[1][1]), AXIS_Y, nib=7)
     pad.word((2.65, 0, 0.3), X3, Y3, "+x", 0.42)
@@ -1506,7 +1526,6 @@ def e035_stick():
     s.lines((c[0] + 260, c[1] - 260), ["pushed away", "-1.0"], 32, anchor="start")
     s.marker_arrow((c[0] + 230, c[1] + 60), (c[0] + 230, c[1] + 300), MARKER_ORANGE, nib=8)
     s.lines((c[0] + 260, c[1] + 220), ["pulled back", "+1.0"], 32, anchor="start")
-    s.text((c[0], 940), "you, the driver, are down here", 30)
     s.text((c[0], 70), "the left stick, from above", 34)
     s.save("fig-e035-stick")
 
@@ -1562,12 +1581,223 @@ def e035_switch():
     s.save("fig-e035-switch")
 
 
+
+# -- E035 from where the student stands: each 2D drawing again in the room, the student on the
+# pedestal behind it. The robot is turned into the room, its x onto the room's +y and its y onto
+# the room's -x, so its x runs up the page to the right, its y up to the left, and the student
+# behind it faces +y as in the drawings before.
+AHEAD = (0.0, -5.5)                        # the student's place, behind 0 and facing +y
+
+
+def flat_axis(v, end, color, name, ticks=True):
+    """An axis lying at z 0 from -end to end, ticked and numbered in units, named at its + end."""
+    a = tuple(-0.97 * c for c in end)
+    v.s.marker_arrow(v.p(a + (0,)), v.p(tuple(end) + (0,)), color, nib=7)
+    along = (1, 0) if end[0] else (0, 1)
+    for n in (-3, -2, -1, 1, 2, 3):
+        c = (along[0] * n, along[1] * n)
+        tick = (0.13 * along[1], 0.13 * along[0])
+        v.s.ink_line(v.p((c[0] - tick[0], c[1] - tick[1], 0)),
+                     v.p((c[0] + tick[0], c[1] + tick[1], 0)), width=2.0, over=2, passes=1)
+        at = (n, -0.42, 0) if along[0] else (-0.5, n, 0)
+        v.word(at, X3, Y3, f"+{n}" if n > 0 else f"-{-n}", 0.3)
+    nx, ny = (end[0] + 0.45, 0) if along[0] else (0, end[1] + 0.4)
+    v.word((nx, ny, 0), X3, Y3, name, 0.42)
+
+
+def e035_numberline_3d():
+    s = Sketch(1450, 900, 73)
+    v = Iso(s, (820, 300), 92)
+    line = ((-3.4, 0, 0), (3.5, 0, 0))
+    top = room(v, lines=[line], at=AHEAD)
+    pedestal(v, top, AHEAD)
+    flat_axis(v, (3.5, 0), AXIS_X, "+x")
+    v.word((-0.0, -0.42, 0), X3, Y3, "0", 0.3)
+    student(v, (0, 0, 0), AHEAD)
+    s.text((1080, 820), "+ is to the person's right", 30)
+    s.save("fig-e035-numberline-3d")
+
+
+def e035_xy_3d():
+    s = Sketch(1450, 1000, 79)
+    v = Iso(s, (820, 330), 92)
+    lines = [((-3.4, 0, 0), (3.5, 0, 0)), ((0, -3.4, 0), (0, 3.5, 0))]
+    top = room(v, lines=lines, at=AHEAD)
+    pedestal(v, top, AHEAD)
+    flat_axis(v, (3.5, 0), AXIS_X, "x")
+    flat_axis(v, (0, 3.5), AXIS_Y, "y")
+    v.s.dot(v.p((0, 0, 0)), 7)
+    v.word((-0.38, -0.38, 0), X3, Y3, "0", 0.3)
+    student(v, (0, 0, 0), AHEAD)
+    s.text((1080, 910), "+x to the person's right, +y away from them", 30)
+    s.save("fig-e035-xy-3d")
+
+
+def e035_stick_3d():
+    s = Sketch(1600, 1100, 83)
+    pad = Iso(s, (700, 400), 92)
+    axes = [((0.5, 0, 0.3), (2.2, 0, 0.3)), ((0, -0.5, 0.3), (0, -2.9, 0.3))]
+    moves = [((-1.1, 0.4, 0.3), (-1.1, 2.4, 0.3)), ((-1.1, -0.4, 0.3), (-1.1, -1.9, 0.3))]
+    gamepad_in_room(pad, axes + moves, grid=False)
+    s.marker_arrow(pad.p(axes[0][0]), pad.p(axes[0][1]), AXIS_X, nib=7)
+    s.marker_arrow(pad.p(axes[1][0]), pad.p(axes[1][1]), AXIS_Y, nib=7)
+    pad.word((2.65, 0, 0.3), X3, Y3, "+x", 0.42)
+    pad.word((0.6, -3.2, 0.3), X3, Y3, "+y", 0.42)
+    for (a, b), words in zip(moves, (("pushed away", "-1.0"), ("pulled back", "+1.0"))):
+        s.marker_arrow(pad.p(a), pad.p(b), MARKER_ORANGE, nib=8)
+        y = 1.9 if b[1] > 0 else -1.2                      # beside the arrow, clear of the head
+        pad.word((-2.4, y, 0.3), X3, Y3, words[0], 0.34)
+        pad.word((-2.4, y - 0.45, 0.3), X3, Y3, words[1], 0.34)
+    student(pad, (STAND[0], PAD_MIDDLE[1], 0))
+    s.text((800, 1040), "the left stick, from where the person stands", 30)
+    s.save("fig-e035-stick-3d")
+
+
+def turned(q):
+    """A point in the robot's coordinates, turned into the room's."""
+    return (-q[1], q[0], q[2])
+
+
+TANK_LONG, TANK_WIDE, TANK_LOW, TANK_HIGH = 2.2, 1.5, 0.15, 0.65      # the body, robot's units
+WHEEL_R, WHEEL_W, WHEELS_X = 0.3, 0.24, 0.72                            # the wheels
+
+
+def tank_parts():
+    """The tank in room coordinates: the body's corners, each wheel's two rims, left wheels first,
+    and the nose."""
+    hx, hy = TANK_LONG / 2, TANK_WIDE / 2
+    body = [turned((x, y, z)) for x in (-hx, hx) for y in (-hy, hy) for z in (TANK_LOW, TANK_HIGH)]
+    wheels = []
+    for side in (1, -1):                                      # left, the far side, first
+        for x in (WHEELS_X, -WHEELS_X):
+            rims = [[turned((x + WHEEL_R * math.cos(a), side * y, WHEEL_R + WHEEL_R * math.sin(a)))
+                     for a in (i * math.pi / 16 for i in range(32))]
+                    for y in (hy + 0.04, hy + 0.04 + WHEEL_W)]
+            wheels.append((side, rims))
+    nose = [turned(q) for q in ((hx - 0.05, 0.32, TANK_HIGH), (hx + 0.42, 0, TANK_HIGH),
+                                (hx - 0.05, -0.32, TANK_HIGH))]
+    return body, wheels, nose
+
+
+def tank_shadows():
+    """The tank's solid shapes, for the floor's shadows."""
+    body, wheels, nose = tank_parts()
+    faces = [[body[i] for i in f] for f in ((0, 2, 6, 4), (1, 3, 7, 5), (0, 1, 3, 2), (4, 5, 7, 6),
+                                             (0, 1, 5, 4), (2, 3, 7, 6))]
+    return faces + [rim for _, rims in wheels for rim in rims] + [nose]
+
+
+def wheel(v, rims, alpha=1.0):
+    """A wheel: its tread, the hull of both rims, then the rim toward the viewer, and a hub."""
+    near = rims[1] if rims[1][0][0] > rims[0][0][0] else rims[0]
+    v.s.line(hull([v.p(q) for rim in rims for q in rim]), PEN, 2.0, 0.9, fill="#3c3f42",
+             fill_alpha=alpha, closed=True)
+    v.s.line([v.p(q) for q in near], PEN, 2.0, 0.9, fill="#5d6164", fill_alpha=alpha, closed=True)
+    hub = tuple(sum(c) / len(near) for c in zip(*near))
+    v.s.dot(v.p(hub), 5, GREY2)
+
+
+def tank(v, see_through=False):
+    """The tank, drawn far to near: the left wheels, the body, the nose, the right wheels."""
+    body, wheels, nose = tank_parts()
+    alpha = 0.45 if see_through else 1.0
+    for side, rims in wheels:
+        if side == 1:
+            wheel(v, rims, alpha)
+    for f, color in (((0, 1, 3, 2), "#8d9194"),         # the back, toward the student, in shade
+                     ((0, 1, 5, 4), "#b9bcbe"),         # the right side, half lit
+                     ((1, 3, 7, 5), "#e4e5e5")):        # the top, lit
+        pts = [v.p(body[i]) for i in f]
+        v.s.line(pts, None, fill=color, fill_alpha=alpha, closed=True)
+        if not see_through:
+            v.s.marker(pts, color, nib=12, opacity=0.5, layers=1)
+        v.s.line(pts, PEN, 2.0, 0.85, closed=True)
+    v.s.marker([v.p(q) for q in nose], MARKER_RED, nib=12, opacity=0.8)
+    v.s.ink_poly([v.p(q) for q in nose], width=2.0)
+    for side, rims in wheels:
+        if side == -1:
+            wheel(v, rims, alpha)
+
+
+TANK_AXES = [((0, 0, 0), (3.3, 0, 0)), ((0, 0, 0), (0, 3.0, 0))]       # the robot's +x and +y
+
+
+def robot_axes(v, z):
+    """The robot's +x and +y from 0, at height z, named."""
+    for (a, b), color in zip(TANK_AXES, (AXIS_X, AXIS_Y)):
+        v.s.marker_arrow(v.p(turned(a[:2] + (z,))), v.p(turned(b[:2] + (z,))), color, nib=7)
+    v.word(turned((3.75, 0, z)), X3, Y3, "+x", 0.42)
+    v.word(turned((0, 3.35, z)), X3, Y3, "+y", 0.42)
+    v.s.dot(v.p((0, 0, z)), 7)
+
+
+def tank_room(v, axes="below", at=AHEAD, speeds=False, left_only=False):
+    """The tank in the room with the student behind it. axes is where its +x and +y are drawn:
+    "below" it at z 0, "through" a see-through tank, "above" it, or None."""
+    z = TANK_HIGH + 0.05 if axes == "above" else 0
+    lines = [(turned(a[:2] + (z,)), turned(b[:2] + (z,))) for a, b in TANK_AXES] if axes else []
+    arrows = []
+    if speeds:
+        for side in ((1,) if left_only else (1, -1)):
+            y = side * (TANK_WIDE / 2 + WHEEL_W + 0.45)
+            arrows.append((side, turned((-0.9, y, WHEEL_R)), turned((1.5, y, WHEEL_R))))
+    top = room(v, lines=lines + [(a, b) for _, a, b in arrows], solids=tank_shadows(), at=at)
+    pedestal(v, top, at)
+    if axes in ("below", "through"):
+        robot_axes(v, 0)
+    tank(v, see_through=axes == "through")
+    if axes == "above":
+        robot_axes(v, z)
+    for side, a, b in arrows:
+        v.s.marker_arrow(v.p(a), v.p(b), MARKER_RED, nib=9)
+        name = "leftSpeed" if side == 1 else "rightSpeed"
+        v.word(turned((-1.45, side * (TANK_WIDE / 2 + WHEEL_W + 0.95), WHEEL_R)), X3, Y3,
+               f"{name}  1.0", 0.3)                    # behind its arrow's tail, to the outside
+    student(v, (0, 0, TANK_HIGH / 2), at)
+
+
+def e035_robot_3d(axes="below", name="fig-e035-robot-3d"):
+    s = Sketch(1450, 1050, 89)
+    tank_room(Iso(s, (800, 380), 110), axes)
+    s.text((725, 70), "the robot, from where the person stands behind it", 30)
+    s.save(name)
+
+
+def e035_speeds_3d():
+    s = Sketch(1450, 1050, 97)
+    tank_room(Iso(s, (800, 380), 110), None, speeds=True)
+    s.text((725, 70), "forward is +, and 1.0 is full speed", 30)
+    s.save("fig-e035-speeds-3d")
+
+
+def e035_switch_3d():
+    s = Sketch(3000, 1150, 101)
+    pad = Iso(s, (560, 420), 76)
+    away = ((0, 0.4, 0.3), (0, 2.6, 0.3))
+    gamepad_in_room(pad, [away], grid=False)
+    s.marker_arrow(pad.p(away[0]), pad.p(away[1]), MARKER_ORANGE, nib=9)
+    pad.word((0, 3.1, 0.3), X3, Y3, "pushed away", 0.34)
+    student(pad, (STAND[0], PAD_MIDDLE[1], 0))
+    s.text((640, 1010), "leftStickY: -1.0", 30, code=True)
+    s.marker_arrow((940, 560), (1170, 560), MARKER_ORANGE, nib=9)
+    box = rect(1180, 500, 560, 110)
+    s.marker(box, GREY1, nib=20, opacity=0.5)
+    s.ink_poly(box)
+    s.text((1460, 568), "double leftSpeed = -leftStickY;", 25, code=True)
+    s.text((1460, 680), "the minus sign turns it around", 30)
+    s.marker_arrow((1750, 560), (1980, 560), MARKER_ORANGE, nib=9)
+    tank_room(Iso(s, (2500, 420), 92), None, speeds=True, left_only=True)
+    s.text((2500, 1010), "leftSpeed: 1.0, full speed forward", 30)
+    s.save("fig-e035-switch-3d")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
             stick_to_robot, pedro_field, e035_numberline, e035_xy, e035_xyz, e035_flip,
-            e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch]
+            e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch, e035_numberline_3d,
+            e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_speeds_3d, e035_switch_3d]
 
 if __name__ == "__main__":
     if OUT is None:
