@@ -1264,13 +1264,36 @@ STUDENT = [((1.55, -5.0, STUDENT_FEET), (1.75, -5.0, STUDENT_FEET + 1.15)),   # 
 HEAD, HEAD_R = (1.75, -5.0, STUDENT_FEET + 2.4), 0.32
 
 
-def room(v, sheet_corners, sheet_lines):
-    """The floor's shadows of the sheet, its lines, the pedestal and the student; then the
-    pedestal and the student's shadow on its top. The sheet goes between, drawn by the caller."""
+def floor_grid(v, c, reach=5.0):
+    """The floor ruled in units around c, fading out by reach, and a plumb line from 0 down to it,
+    so a reader can see where on the floor each thing stands."""
+    def fade(x, y):
+        return max(0.0, 1 - math.hypot(x - c[0], y - c[1]) / reach)
+
+    r = int(reach) + 1
+    for i in range(-r, r + 1):
+        for j in range(-r, r):
+            for q0, q1 in (((c[0] + i, c[1] + j), (c[0] + i, c[1] + j + 1)),
+                           ((c[0] + j, c[1] + i), (c[0] + j + 1, c[1] + i))):
+                fx, fy = round(q0[0]), round(q0[1])
+                ex, ey = fx + q1[0] - q0[0], fy + q1[1] - q0[1]
+                alpha = 0.5 * fade((fx + ex) / 2, (fy + ey) / 2)
+                if alpha > 0.02:
+                    v.s.line([v.page((fx, fy, FLOOR)), v.page((ex, ey, FLOOR))], GREY3, 1.2,
+                             alpha)
+    v.s.line([v.page((0, 0, 0)), v.page((0, 0, FLOOR))], GREY3, 1.2, 0.6)
+
+
+def room(v, c, light=(), lines=(), solids=()):
+    """The floor ruled around c, and on it the shadows of the clear shapes in light, the lines,
+    the solid shapes, the pedestal and the student; returns the shadows on the pedestal's top.
+    The things themselves go on top, drawn by the caller."""
+    floor_grid(v, c)
     floor, top = [], []
-    v.s.cast([[v.page(landing(q)) for q in sheet_corners]], sigma=5, alpha=0.2)   # clear, light
-    for a, b in sheet_lines:
+    v.s.cast([[v.page(landing(q)) for q in shape] for shape in light], sigma=5, alpha=0.2)
+    for a, b in lines:
         floor += stroke_shadows(v, a, b, 6)[FLOOR]
+    floor += [[v.page(landing(q)) for q in shape] for shape in solids]
     (cx, cy), hw = STAND, STAND_HALF
     box = [(cx + dx, cy + dy, h) for dx in (-hw, hw) for dy in (-hw, hw) for h in (FLOOR, STAND_TOP)]
     floor.append(hull([v.page(landing(q) if q[2] > FLOOR else q) for q in box]))
@@ -1286,7 +1309,12 @@ def room(v, sheet_corners, sheet_lines):
     return top
 
 
-def pedestal_and_student(v, top):
+CAP, BRIM = "#7b5ea7", "#55407a"
+CAP_TILT = math.radians(25)        # the brim, tilted up from level, facing +y
+
+
+def pedestal_and_student(v, top, look):
+    """The pedestal, and the student on it in a cap, looking at look, a point in space."""
     (cx, cy), hw, h0, h1 = STAND, STAND_HALF, FLOOR, STAND_TOP
     faces = [([(cx + hw, cy - hw, h0), (cx + hw, cy + hw, h0), (cx + hw, cy + hw, h1),
                (cx + hw, cy - hw, h1)], "#b9bcbe"),                       # +x, half lit
@@ -1302,9 +1330,19 @@ def pedestal_and_student(v, top):
     v.s.cast(top, sigma=2, alpha=0.45)
     for a, b in STUDENT:
         v.s.ink_line(v.page(a), v.page(b), width=4.2, over=2, passes=1, wobble=0.8)
-    v.s.construct(v.page(HEAD), v.p((1.75, 1.75, 0)))         # where the student is looking
-    c = v.page(HEAD)
-    v.s.line(ellipse(c, HEAD_R * v.k), PEN, 3.4, 0.95, fill=PAPER, closed=True)
+    v.s.construct(v.page(HEAD), v.page(look))                 # where the student is looking
+    fwd = (0.0, math.cos(CAP_TILT), math.sin(CAP_TILT))
+    base = (HEAD[0], HEAD[1] + HEAD_R * 0.8, HEAD[2] + HEAD_R * 0.35)
+    brim = [v.page((base[0] + HEAD_R * 0.8 * math.sin(u),
+                    base[1] + HEAD_R * 1.0 * math.cos(u) * fwd[1],
+                    base[2] + HEAD_R * 1.0 * math.cos(u) * fwd[2]))
+            for u in (math.radians(d) for d in range(-90, 91, 10))]
+    v.s.line(brim, PEN, 2.4, 0.9, fill=BRIM, closed=True)     # behind the head: it faces away
+    c, r = v.page(HEAD), HEAD_R * v.k
+    v.s.line(ellipse(c, r), PEN, 3.4, 0.95, fill=PAPER, closed=True)
+    crown = [(c[0] + r * math.cos(a), c[1] - r * math.sin(a))
+             for a in (math.radians(d) for d in range(-12, 193, 6))]
+    v.s.line(crown, PEN, 2.6, 0.95, fill=CAP, closed=True)
 
 
 def sheet_in_room(v, z_under=False):
@@ -1314,9 +1352,9 @@ def sheet_in_room(v, z_under=False):
     lines = [(v.turn((-3.3, 0, 0)), v.turn((3.4, 0, 0))),
              (v.turn((0, -3.3, 0)), v.turn((0, 3.4, 0))),
              (v.turn((0, 0, 0)), v.turn((0, 0, 2.6)))]
-    top = room(v, corners, lines)
+    top = room(v, (0.0, -2.0), light=[corners], lines=lines)
     sheet_axes(v, z_under=z_under, drop=False)
-    pedestal_and_student(v, top)
+    pedestal_and_student(v, top, v.turn((1.75, 1.75, 0)))
 
 
 def e035_xy():
@@ -1364,16 +1402,19 @@ def iso_stick(v, c):
 
 
 def e035_flipped():
-    s = Sketch(2100, 1080, 54)
-    flipped = Iso(s, (560, 430), 82, turn=lambda q: (q[0], -q[1], -q[2]))
+    s = Sketch(2300, 1220, 54)
+    flipped = Iso(s, (560, 380), 82, turn=lambda q: (q[0], -q[1], -q[2]))
     sheet_in_room(flipped, z_under=True)
-    pad = Iso(s, (1560, 400), 82)
-    w, h = 7.4, 3.2                      # the gamepad's width and depth, in the sheet's units
-    flat = [(u * w / 1000, -v * h / 430) for u, v in gamepad_outline(0, 0, 1000, 430)]
+    pad = Iso(s, (1500, 380), 82)          # the left stick at 0, so the student stands as before
+    w, h = 7.4, 3.2                        # the gamepad's width and depth, in the sheet's units
+    middle = (1.85, -0.5)                  # the gamepad's middle, from the left stick
+    flat = [(middle[0] + u * w / 1000, middle[1] - v * h / 430)
+            for u, v in gamepad_outline(0, 0, 1000, 430)]
+    arrows = [((0.5, 0, 0.3), (2.2, 0, 0.3)), ((0, -0.5, 0.3), (0, -2.9, 0.3))]
+    top = room(pad, (1.5, -2.0), lines=arrows,
+               solids=[[(x, y, z) for x, y in flat] for z in (0, -0.45)])
     outline = [pad.p((x, y, 0)) for x, y in flat]      # gamepad_outline's page, laid flat
     under = [pad.p((x, y, -0.45)) for x, y in flat]    # its bottom, for its sides
-    s.cast([[pad.page((x - LIGHT[0] / LIGHT[2] * 0.6, y - LIGHT[1] / LIGHT[2] * 0.6, -0.45))
-             for x, y in flat]], sigma=4, alpha=0.45)
     for i in range(len(flat)):                         # its sides, then its top over them
         j = (i + 1) % len(flat)
         s.line([outline[i], outline[j], under[j], under[i]], GREY4, 1.0, 1.0, fill=GREY4,
@@ -1382,19 +1423,18 @@ def e035_flipped():
     s.line(outline, None, fill="#9a9ea1", closed=True)
     s.marker(outline, GREY3, nib=18, opacity=0.65)
     s.line(outline, PEN, 2.4, 0.9, closed=True)
-    left, right = (-1.85, 0.5), (1.85, 0.5)
-    iso_stick(pad, right)
-    iso_stick(pad, left)
-    s.marker_arrow(pad.p((left[0] + 0.5, left[1], 0.3)), pad.p((left[0] + 2.2, left[1], 0.3)),
-                   AXIS_X, nib=7)
-    s.marker_arrow(pad.p((left[0], left[1] - 0.5, 0.3)), pad.p((left[0], left[1] - 2.9, 0.3)),
-                   AXIS_Y, nib=7)
-    pad.word((left[0] + 2.65, left[1], 0.3), X3, Y3, "+x", 0.42)
-    pad.word((left[0], left[1] - 3.35, 0.3), X3, Y3, "+y", 0.42)
-    s.text(pad.p((-1.2, -5.0, 0)), "you, the driver, sit on this side", 26)
+    iso_stick(pad, (3.7, 0))
+    iso_stick(pad, (0, 0))
+    s.marker_arrow(pad.p(arrows[0][0]), pad.p(arrows[0][1]), AXIS_X, nib=7)
+    s.marker_arrow(pad.p(arrows[1][0]), pad.p(arrows[1][1]), AXIS_Y, nib=7)
+    pad.word((2.65, 0, 0.3), X3, Y3, "+x", 0.42)
+    pad.word((-0.6, -2.6, 0.3), X3, Y3, "+y", 0.42)
+    pedestal_and_student(pad, top, (*middle, 0))
+    x, y = pad.page((2.6, -4.3, -2.6))
+    s.text((x + 15, y), "you, the driver", 26, anchor="start")
     s.text((560, 70), "the sheet, flipped over", 34)
-    s.text((1560, 70), "a gamepad's left stick, the same way round", 34)
-    s.lines((1050, 1000), ["+x points the same way on both,",
+    s.text((1700, 70), "a gamepad's left stick, the same way round", 34)
+    s.lines((1150, 1140), ["+x points the same way on both,",
                           "and +y points back toward the driver"], 28)
     s.save("fig-e035-flipped")
 
