@@ -1114,7 +1114,7 @@ def e035_numberline():
         x = left + (k + 3) * step
         s.ink_line((x, y - 16), (x, y + 16), width=2.2, over=3, passes=1)
         s.text((x, y + 62), f"{k:+d}" if k else "0", 34)
-    s.text((left + 6 * step + 110, y + 16), "+", 60, anchor="start")
+    s.text((left + 6 * step + 110, y + 16), "+x", 60, anchor="start")
     s.text((650, 80), "numbers grow to the right", 32)
     s.save("fig-e035-numberline")
 
@@ -1448,7 +1448,7 @@ def iso_stick(v, c):
 
 
 def e035_flipped():
-    s = Sketch(2300, 1220, 54)
+    s = Sketch(2300, 1300, 54)
     flipped = Iso(s, (560, 380), 82, turn=lambda q: (q[0], -q[1], -q[2]))
     sheet_in_room(flipped, z_under=True, upright=True)
     pad = Iso(s, (1500, 380), 82)          # the left stick at 0, so the student stands as before
@@ -1480,7 +1480,9 @@ def e035_flipped():
     s.text((560, 70), "the sheet, flipped over", 34)
     s.text((1700, 70), "a gamepad's left stick, the same way round", 34)
     s.lines((1150, 1140), ["+x and +y point the same on the gamepad sticks and the flipped axes",
-                          "from a person's expected point of view."], 28)
+                          "from a person's expected point of view.", "",
+                          "The axes on the sticks on gamepads are flipped upside down from what",
+                          "people normally expect."], 28)
     s.save("fig-e035-flipped")
 
 
