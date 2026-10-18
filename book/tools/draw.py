@@ -1199,12 +1199,12 @@ def sheet_axes(v, z=True, z_under=False, drop=True):
 
 
 # The room the 3D drawings stand in: a floor at z = -4, a light above, in front of and to the right
-# of the viewer, and a student on a pedestal at (1.75, -5) looking at the sheet. Only the sheet and
-# what is printed on it turns over.
+# of the viewer, and a student standing at (1.75, -5, 0) on a pedestal, looking at the sheet. Only
+# the sheet and what is printed on it turns over.
 FLOOR = -4.0
 LIGHT = tuple(a + 0.6 * b + 0.6 * c for a, b, c in
               zip((1 / math.sqrt(3), -1 / math.sqrt(3), 1 / math.sqrt(3)), ISO_RIGHT, ISO_UP))
-STAND, STAND_HALF, STAND_TOP = (1.75, -5.0), 0.7, -1.7
+STAND, STAND_HALF, STAND_TOP = (1.75, -5.0), 0.7, 0.0
 
 
 def landing(q):
@@ -1331,18 +1331,59 @@ def pedestal_and_student(v, top, look):
     for a, b in STUDENT:
         v.s.ink_line(v.page(a), v.page(b), width=4.2, over=2, passes=1, wobble=0.8)
     v.s.construct(v.page(HEAD), v.page(look))                 # where the student is looking
-    fwd = (0.0, math.cos(CAP_TILT), math.sin(CAP_TILT))
-    base = (HEAD[0], HEAD[1] + HEAD_R * 0.8, HEAD[2] + HEAD_R * 0.35)
-    brim = [v.page((base[0] + HEAD_R * 0.8 * math.sin(u),
-                    base[1] + HEAD_R * 1.0 * math.cos(u) * fwd[1],
-                    base[2] + HEAD_R * 1.0 * math.cos(u) * fwd[2]))
-            for u in (math.radians(d) for d in range(-90, 91, 10))]
-    v.s.line(brim, PEN, 2.4, 0.9, fill=BRIM, closed=True)     # behind the head: it faces away
+    head_in_cap(v)
+
+
+def head_in_cap(v):
+    """The head, a sphere, in a cap: the crown is the sphere above a band circle tilted back with
+    the brim, and the brim lies flat in the band's plane, out in front. Only the half of the crown
+    facing the viewer shows; the brim, on the far side, shows past the head."""
+    def at(c, *terms):
+        return tuple(ci + sum(k * w[i] for k, w in terms) for i, ci in enumerate(c))
+
+    def dot(a, b):
+        return sum(x * y for x, y in zip(a, b))
+
+    toward = (1 / math.sqrt(3), -1 / math.sqrt(3), 1 / math.sqrt(3))   # toward the viewer
+    up = (0.0, -math.sin(CAP_TILT), math.cos(CAP_TILT))     # the crown's top, tilted back
+    fwd = (0.0, math.cos(CAP_TILT), math.sin(CAP_TILT))     # the brim's way, tilted up
+    side = (1.0, 0.0, 0.0)
+    h = 0.15                                                # the band, 0.15 radii above middle
+    centre, rb = at(HEAD, (h * HEAD_R, up)), HEAD_R * math.sqrt(1 - h * h)
+
+    def band(phi, r=rb):
+        return at(centre, (r * math.cos(phi), side), (r * math.sin(phi), fwd))
+
+    span = [math.radians(d) for d in range(35, 146, 5)]
+    brim = [band(a) for a in reversed(span)] + [
+        band(a, rb + 0.65 * HEAD_R * math.sin(math.pi * (a - span[0]) / (span[-1] - span[0])))
+        for a in span]
+    v.s.line([v.page(q) for q in brim], PEN, 2.4, 0.9, fill=BRIM, closed=True)
+
     c, r = v.page(HEAD), HEAD_R * v.k
     v.s.line(ellipse(c, r), PEN, 3.4, 0.95, fill=PAPER, closed=True)
-    crown = [(c[0] + r * math.cos(a), c[1] - r * math.sin(a))
-             for a in (math.radians(d) for d in range(-12, 193, 6))]
-    v.s.line(crown, PEN, 2.6, 0.95, fill=CAP, closed=True)
+    steps = [math.radians(d) for d in range(0, 360, 2)]
+    seen = [dot(tuple(a - b for a, b in zip(band(a), HEAD)), toward) >= 0 for a in steps]
+    first = next(i for i in range(len(steps)) if seen[i] and not seen[i - 1])
+    arc = []
+    for i in range(len(steps)):                   # the band's near half, in order
+        j = (first + i) % len(steps)
+        if not seen[j]:
+            break
+        arc.append(v.page(band(steps[j])))
+    lean = tuple(a - dot(up, toward) * b for a, b in zip(up, toward))
+    top = v.page(at(HEAD, (HEAD_R / math.sqrt(dot(lean, lean)), lean)))
+
+    def angle(p):
+        return math.atan2(p[1] - c[1], p[0] - c[0])
+
+    a0, a1, at_top = angle(arc[-1]), angle(arc[0]), angle(top)
+    ccw = (a1 - a0) % (2 * math.pi)
+    if (at_top - a0) % (2 * math.pi) > ccw:      # round the outline the other way, by the top
+        ccw -= 2 * math.pi
+    rim = [(c[0] + r * math.cos(a0 + ccw * i / 40), c[1] + r * math.sin(a0 + ccw * i / 40))
+           for i in range(1, 40)]
+    v.s.line(arc + rim, PEN, 2.6, 0.95, fill=CAP, closed=True)
 
 
 def sheet_in_room(v, z_under=False):
