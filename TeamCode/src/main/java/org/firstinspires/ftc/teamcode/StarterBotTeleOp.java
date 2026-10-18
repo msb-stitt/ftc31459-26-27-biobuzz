@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -41,23 +42,46 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
 
     @Override
     public void bindings() {
-        buttons.whileHeld(() -> gamepad1.right_bumper, launcher.fire());
+        Command fireTheLauncher = launcher.fire();
+        buttons.whileHeld(this::rightBumperIsHeld, fireTheLauncher);
     }
 
     @Override
     public void start() {
         startBefore();
-        Scheduler.schedule(intake.run(() -> gamepad1.right_trigger - gamepad1.left_trigger
-                //+ (launcher.feeding() ? Launcher.INTAKE_BOOST : 0)
-                )
-        );
+        Command runTheIntake = intake.run(this::intakePowerThisLoop);
+        Scheduler.schedule(runTheIntake);
         startAfter();
     }
 
     @Override
     public void loop() {
         loopBefore();
-        drivetrain.sticks(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x);
+        double forwardSpeed = -gamepad1.left_stick_y;
+        double strafeLeftSpeed = -gamepad1.left_stick_x;
+        double turnCounterclockwiseSpeed = -gamepad1.right_stick_x;
+        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCounterclockwiseSpeed);
         loopAfter();
+    }
+
+    /** The right bumper spins the launcher up while it is held. */
+    private boolean rightBumperIsHeld() {
+        return gamepad1.right_bumper;
+    }
+
+    /**
+     * The right trigger pulls in, the left pushes out, and while the launcher
+     * feeds the intake gets goBILDA's boost.
+     */
+    private double intakePowerThisLoop() {
+        double pullInPower = gamepad1.right_trigger;
+        double pushOutPower = gamepad1.left_trigger;
+        double triggersPower = pullInPower - pushOutPower;
+        double boostWhileFeeding = 0;
+        if (launcher.feeding()) {
+            boostWhileFeeding = Launcher.INTAKE_BOOST;
+        }
+        double intakePower = triggersPower + boostWhileFeeding;
+        return intakePower;
     }
 }

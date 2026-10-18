@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
+import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,6 +71,7 @@ public class StarterBotTest {
     public void tearDown() {
         StarterBotTeleOp.intakes = Intake::from;
         StarterBotTeleOp.launchers = Launcher::from;
+        LauncherCheck.launchers = Launcher::from;
     }
 
     @Test
@@ -145,6 +147,71 @@ public class StarterBotTest {
         assertEquals("let go, the launcher stops", 0, launcherMotor.targetVelocity, 0);
         assertEquals(0, windmill.power, 0);
 
+        h.stop();
+    }
+
+    @Test
+    public void theLauncherPublishesItsTargetSpeedAndCurrentWhileItSpins() {
+        Command fire = launcher.fire();
+        Scheduler.schedule(fire);
+        launcherMotor.velocity = 1180;
+        Scheduler.execute();
+        assertEquals(1250.0, (Double) Tracker.values().get("launcher/target_tps"), 0);
+        assertEquals(1180.0, (Double) Tracker.values().get("launcher/measured_tps"), 0);
+        assertTrue(Tracker.values().containsKey("launcher/current_amps"));
+        Scheduler.cancel(fire);
+    }
+
+    @Test
+    public void theLauncherCheckStartsAtAFifthAndStepsByATenthFromATenthToAll() {
+        LauncherCheck.launchers = map -> launcher;
+        LauncherCheck check = new LauncherCheck();
+        OpModeHarness h = new OpModeHarness(check);
+        h.init();
+        h.start();
+        assertEquals(0.2, check.fractionOfTarget(), 1e-9);
+
+        h.gamepad1.dpad_up = true;
+        h.loop();
+        h.gamepad1.dpad_up = false;
+        h.loop();
+        assertEquals("one press, one step", 0.3, check.fractionOfTarget(), 1e-9);
+
+        for (int i = 0; i < 12; i++) {
+            h.gamepad1.dpad_up = true;
+            h.loop();
+            h.gamepad1.dpad_up = false;
+            h.loop();
+        }
+        assertEquals("no further than all", 1.0, check.fractionOfTarget(), 1e-9);
+
+        for (int i = 0; i < 12; i++) {
+            h.gamepad1.dpad_down = true;
+            h.loop();
+            h.gamepad1.dpad_down = false;
+            h.loop();
+        }
+        assertEquals("no slower than a tenth", 0.1, check.fractionOfTarget(), 1e-9);
+        h.stop();
+    }
+
+    @Test
+    public void theLauncherCheckSpinsAtItsFractionAndNeverFeeds() {
+        LauncherCheck.launchers = map -> launcher;
+        OpModeHarness h = new OpModeHarness(new LauncherCheck());
+        h.init();
+        h.start();
+
+        h.gamepad1.right_bumper = true;
+        launcherMotor.velocity = 1300;
+        h.loop();
+        assertEquals("a fifth of 1250", 250, launcherMotor.targetVelocity, 1e-9);
+        assertEquals("fast, and still not feeding", 0, windmill.power, 0);
+        assertFalse(launcher.feeding());
+
+        h.gamepad1.right_bumper = false;
+        h.loop();
+        assertEquals("let go, the motor stops", 0, launcherMotor.targetVelocity, 0);
         h.stop();
     }
 }

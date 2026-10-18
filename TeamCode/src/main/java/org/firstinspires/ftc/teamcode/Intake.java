@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.pedropathing.ivy.Command;
-import com.pedropathing.ivy.commands.Commands;
+import com.pedropathing.ivy.behaviors.EndCondition;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -18,9 +18,17 @@ import java.util.function.DoubleSupplier;
  */
 public class Intake {
 
+    /** The intake still. */
+    public static final double STOPPED_POWER = 0;
+    /** The most power, out or in. */
+    public static final double MOST_POWER_OUT = -1;
+    public static final double MOST_POWER_IN = 1;
+
     private final DcMotor motor;
     private final CRServo leftServo;
     private final CRServo rightServo;
+    /** Where {@link #run} reads its power each loop. */
+    private DoubleSupplier powerToRunAt;
 
     public Intake(DcMotor motor, CRServo leftServo, CRServo rightServo) {
         this.motor = motor;
@@ -28,28 +36,50 @@ public class Intake {
         this.rightServo = rightServo;
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        setPower(0);
+        setPower(STOPPED_POWER);
     }
 
     /** The three devices, by the names in {@link Constants}. */
     public static Intake from(HardwareMap map) {
-        return new Intake(map.get(DcMotor.class, Constants.intakeName),
-                map.get(CRServo.class, Constants.leftIntakeServoName),
-                map.get(CRServo.class, Constants.rightIntakeServoName));
+        DcMotor intakeMotor = map.get(DcMotor.class, Constants.intakeName);
+        CRServo leftIntakeServo = map.get(CRServo.class, Constants.leftIntakeServoName);
+        CRServo rightIntakeServo = map.get(CRServo.class, Constants.rightIntakeServoName);
+        Intake intake = new Intake(intakeMotor, leftIntakeServo, rightIntakeServo);
+        return intake;
     }
 
     /** One power for all three, clipped to -1 to 1. */
     public void setPower(double power) {
-        double clipped = Range.clip(power, -1, 1);
-        motor.setPower(clipped);
-        leftServo.setPower(clipped);
-        rightServo.setPower(clipped);
+        double clippedPower = Range.clip(power, MOST_POWER_OUT, MOST_POWER_IN);
+        motor.setPower(clippedPower);
+        leftServo.setPower(clippedPower);
+        rightServo.setPower(clippedPower);
     }
 
     /** Runs at the power given, read every loop, until cancelled; then stops. */
     public Command run(DoubleSupplier power) {
-        return Commands.infinite(() -> setPower(power.getAsDouble()))
-                .setEnd(end -> setPower(0))
+        powerToRunAt = power;
+        Command runAtThePowerGiven = Command.build()
+                .setExecute(this::runAtThePowerGivenThisLoop)
+                .setDone(this::runsUntilCancelled)
+                .setEnd(this::stopWhenItEnds)
                 .requiring(this);
+        return runAtThePowerGiven;
+    }
+
+    /** One loop of {@link #run}: the power read now, and set. */
+    private void runAtThePowerGivenThisLoop() {
+        double powerThisLoop = powerToRunAt.getAsDouble();
+        setPower(powerThisLoop);
+    }
+
+    /** {@link #run} never finishes by itself; it is cancelled. */
+    private boolean runsUntilCancelled() {
+        return false;
+    }
+
+    /** How {@link #run} ends: the intake stopped. */
+    private void stopWhenItEnds(EndCondition howItEnded) {
+        setPower(STOPPED_POWER);
     }
 }
