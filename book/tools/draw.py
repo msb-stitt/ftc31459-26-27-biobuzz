@@ -1146,9 +1146,9 @@ class Iso:
         return (self.o[0] + self.k * sum(a * b for a, b in zip(q, self.right)),
                 self.o[1] - self.k * sum(a * b for a, b in zip(q, self.up)))
 
-    def word(self, c, a, b, text, h, color=PEN):
+    def word(self, c, a, b, text, h, color=PEN, code=False):
         """text printed flat in the plane through c, reading along a, its top toward b."""
-        path = TextPath((0, 0), text, size=1, prop=self.s.hand)
+        path = TextPath((0, 0), text, size=1, prop=self.s.code if code else self.s.hand)
         box = path.get_extents()
         mx, my = (box.x0 + box.x1) / 2, (box.y0 + box.y1) / 2
         pts = [self.p(tuple(ci + (gx - mx) * h * ai + (gy - my) * h * bi
@@ -1396,7 +1396,7 @@ def e035_xy():
 def e035_xyz():
     s = Sketch(1450, 830, 47)
     sheet_in_room(Iso(s, (760, 330), 92))
-    s.lines((1100, 724), ["the sheet laid flat, as Onshape shows it:", "+z points up, out of it"],
+    s.lines((1100, 724), ["the sheet laid flat:", "+z points up, out of it"],
             28)
     s.save("fig-e035-xyz")
 
@@ -1766,18 +1766,17 @@ def e035_speeds_3d():
 def e035_switch_3d():
     """The stick pushed away, the line of code, and the left wheels going forward, stacked top to
     bottom."""
-    s = Sketch(1500, 2050, 101)
-    pad, tank_at = (620, 330), (820, 1550)
-    stick_words = (1060, 760)
-    arrows = [((750, 820), (750, 930)), ((750, 1210), (750, 1320))]
-    code, minus, speed_words = (750, 1030), (750, 1170), (1010, 1990)
+    s = Sketch(1500, 1920, 101)
+    pad, tank_at = (620, 380), (820, 1420)
+    arrows = [((750, 690), (750, 800)), ((750, 1080), (750, 1190))]
+    code, minus, speed_words = (750, 900), (750, 1040), (1010, 1860)
     v = Iso(s, pad, 92)
     away = ((0, 0.4, STICK_Z), (0, 2.6, STICK_Z))
     gamepad_in_room(v, [away])
     s.marker_arrow(v.p(away[0]), v.p(away[1]), MARKER_ORANGE, nib=9)
-    v.word((0, 3.3, STICK_Z), X3, Y3, "pushed away", 0.6)
+    v.word((0, 4.2, STICK_Z), X3, Y3, "pushed away", 0.6)
+    v.word((0, 3.3, STICK_Z), X3, Y3, "leftStickY: -1.0", 0.5, code=True)
     student(v, (STAND[0], PAD_MIDDLE[1], 0))
-    s.text(stick_words, "leftStickY: -1.0", 60, code=True)
     for a, b in arrows:
         s.marker_arrow(a, b, MARKER_ORANGE, nib=12)
     box = rect(code[0] - 590, code[1] - 80, 1180, 140)
