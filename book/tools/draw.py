@@ -1462,10 +1462,10 @@ def gamepad_in_room(pad, lines, grid=True, at=STAND):
 
 
 def e035_flipped():
-    s = Sketch(2300, 815, 54)
-    flipped = Iso(s, (560, 380), 82, turn=lambda q: (q[0], -q[1], -q[2]))
+    s = Sketch(1500, 1940, 54)
+    flipped = Iso(s, (864, 344), 150, turn=lambda q: (q[0], -q[1], -q[2]))
     sheet_in_room(flipped, z_under=True, upright=True)
-    pad = Iso(s, (1500, 380), 82)          # the left stick at 0, so the student stands as before
+    pad = Iso(s, (750, 1210), 150)         # the left stick at 0, so the student stands as before
     middle = PAD_MIDDLE
     arrows = [((0.5, 0, STICK_Z), (2.2, 0, STICK_Z)), ((0, -0.5, STICK_Z), (0, -2.9, STICK_Z))]
     gamepad_in_room(pad, arrows)
@@ -1474,10 +1474,10 @@ def e035_flipped():
     pad.word((2.65, 0, STICK_Z), X3, Y3, "+x", 0.42)
     pad.word((0.6, -3.2, STICK_Z), X3, Y3, "+y", 0.42)
     student(pad, (STAND[0], middle[1], 0))
-    s.text((560, 70), "the sheet, flipped over", 34)
-    s.text((1700, 70), "a gamepad's left stick, the same way round", 34)
-    s.lines((1150, 735), ["The axes on the sticks on gamepads are flipped upside down from what",
-                          "people normally expect."], 28)
+    s.text((750, 80), "the sheet flipped over", 50)
+    s.text((750, 960), "a gamepad's left stick, the same way round", 50)
+    s.lines((750, 1830), ["The axes on the sticks on gamepads are flipped upside",
+                          "down from what people normally expect."], 44)
     s.save("fig-e035-flipped")
 
 
