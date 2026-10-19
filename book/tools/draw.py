@@ -1146,11 +1146,13 @@ class Iso:
         return (self.o[0] + self.k * sum(a * b for a, b in zip(q, self.right)),
                 self.o[1] - self.k * sum(a * b for a, b in zip(q, self.up)))
 
-    def word(self, c, a, b, text, h, color=PEN, code=False):
-        """text printed flat in the plane through c, reading along a, its top toward b."""
+    def word(self, c, a, b, text, h, color=PEN, code=False, anchor="middle"):
+        """text printed flat in the plane through c, reading along a, its top toward b; anchor
+        "start" or "end" puts that end of it at c."""
         path = TextPath((0, 0), text, size=1, prop=self.s.code if code else self.s.hand)
         box = path.get_extents()
-        mx, my = (box.x0 + box.x1) / 2, (box.y0 + box.y1) / 2
+        mx = {"start": box.x0, "end": box.x1}.get(anchor, (box.x0 + box.x1) / 2)
+        my = (box.y0 + box.y1) / 2
         pts = [self.p(tuple(ci + (gx - mx) * h * ai + (gy - my) * h * bi
                             for ci, ai, bi in zip(c, a, b))) for gx, gy in path.vertices]
         self.s.add(PathPatch(MplPath(pts, path.codes), facecolor=color, edgecolor="none",
@@ -1396,8 +1398,7 @@ def e035_xy():
 def e035_xyz():
     s = Sketch(1450, 830, 47)
     sheet_in_room(Iso(s, (760, 330), 92))
-    s.lines((1100, 724), ["the sheet laid flat:", "+z points up, out of it"],
-            28)
+    s.text((1050, 760), "+x to the person's right, +y away from them, +z up", 30)
     s.save("fig-e035-xyz")
 
 
@@ -1611,7 +1612,7 @@ def e035_numberline_3d():
     flat_axis(v, (3.5, 0), AXIS_X, "+x")
     v.word((-0.0, -0.42, 0), X3, Y3, "0", 0.3)
     student(v, (0, 0, 0), AHEAD)
-    s.text((1080, 690), "+ is to the person's right", 30)
+    s.text((1080, 690), "+x is to the person's right", 30)
     s.save("fig-e035-numberline-3d")
 
 
@@ -1621,6 +1622,11 @@ def e035_xy_3d():
     lines = [((-3.4, 0, 0), (3.5, 0, 0)), ((0, -3.4, 0), (0, 3.5, 0))]
     room(v, lines=lines, at=AHEAD)
     floor_grid(v, (-3, 3), (-6, 3))
+    sheet = [v.p(q) for q in ((0, 0, 0), (3.5, 0, 0), (3.5, 3.5, 0), (0, 3.5, 0))]
+    v.s.line(sheet, None, fill=SHEET, fill_alpha=0.45, closed=True)
+    v.s.line(sheet, GREY3, 2.0, 0.8, closed=True)
+    for a, b in (((1.4, 3.3), (3.1, 3.3)), ((3.3, 2.0), (3.3, 3.1))):   # glare by a corner
+        v.s.line([v.p((*a, 0)), v.p((*b, 0))], "#ffffff", 5, 0.8)
     flat_axis(v, (3.5, 0), AXIS_X, "x")
     flat_axis(v, (0, 3.5), AXIS_Y, "y")
     v.s.dot(v.p((0, 0, 0)), 7)
@@ -1722,8 +1728,9 @@ def robot_axes(v):
     """The robot's +x and +y from 0, at z 0, named."""
     for (a, b), color in zip(TANK_AXES, (AXIS_X, AXIS_Y)):
         v.s.marker_arrow(v.p(turned(a)), v.p(turned(b)), color, nib=7)
-    v.word(turned((3.75, 0, 0)), X3, Y3, "+x", 0.42)
-    v.word(turned((0, 3.35, 0)), X3, Y3, "+y", 0.42)
+    v.word((0.3, 3.55, 0), X3, Y3, "+x: forward,", 0.42, anchor="start")
+    v.word((0.3, 3.0, 0), X3, Y3, "out the nose", 0.42, anchor="start")
+    v.word((-3.25, 0, 0), X3, Y3, "+y: left", 0.42, anchor="end")
     v.s.dot(v.p((0, 0, 0)), 7)
 
 
@@ -1752,7 +1759,7 @@ def tank_room(v, axes=True, at=AHEAD, speeds=False, left_only=False):
 def e035_robot_3d():
     s = Sketch(1450, 800, 89)
     tank_room(Iso(s, (800, 380), 110))
-    s.text((725, 70), "the robot, from where the person stands behind it", 30)
+    s.text((725, 70), "the robot with a person standing behind it", 30)
     s.save("fig-e035-robot-3d")
 
 
