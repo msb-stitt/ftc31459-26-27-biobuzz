@@ -1531,13 +1531,20 @@ def e035_stick():
 
 
 def e035_robot():
+    """The tank of the 3D drawings, from above, its nose up the page."""
     s = Sketch(1000, 1000, 61)
-    c, side = (560, 560), 360
-    robot_inside(s, c[0], c[1], side, nose=False)
-    tri = [(c[0] - 55, c[1] - side / 2), (c[0], c[1] - side / 2 - 70), (c[0] + 55, c[1] - side / 2)]
+    c, k = (560, 560), 200                 # the middle, and pixels to the robot's unit
+    w, h = TANK_WIDE * k, TANK_LONG * k
+    out = (TANK_WIDE / 2 + 0.04 + WHEEL_W / 2) * k
+    for dx in (-out, out):
+        for dy in (-WHEELS_X * k, WHEELS_X * k):
+            wheel_top(s, c[0] + dx, c[1] + dy, WHEEL_W * k, 2 * WHEEL_R * k)
+    frame_top(s, c[0] - w / 2, c[1] - h / 2, w, h, nose=False)
+    top = c[1] - h / 2
+    tri = [(c[0] - 0.32 * k, top), (c[0], top - 0.42 * k), (c[0] + 0.32 * k, top)]
     s.marker(tri, MARKER_RED, nib=14, opacity=0.8)
     s.ink_poly(tri, width=2.2)
-    s.text((c[0] - 70, c[1] - side / 2 - 20), "nose", 32, MARKER_RED, "end")
+    s.text((c[0] - 80, top - 20), "nose", 32, MARKER_RED, "end")
     axis(s, c, (c[0], c[1] - 400), "+x: forward, out the nose", (c[0] + 20, c[1] - 420), "start",
          color=AXIS_X)
     axis(s, c, (c[0] - 400, c[1]), "+y: left", (c[0] - 400, c[1] - 26), "start", color=AXIS_Y)
@@ -1586,7 +1593,16 @@ def e035_switch():
 # pedestal behind it. The robot is turned into the room, its x onto the room's +y and its y onto
 # the room's -x, so its x runs up the page to the right, its y up to the left, and the student
 # behind it faces +y as in the drawings before.
-AHEAD = (0.0, -5.5)                        # the student's place, behind 0 and facing +y
+AHEAD = (0.5, -5.5)                        # the student's place, behind 0 and facing +y, the
+                                           # pedestal's top one square of the floor_grid
+
+
+def floor_grid(v, xs, ys):
+    """The z = 0 plane ruled in units, x from xs[0] to xs[1] and y from ys[0] to ys[1]."""
+    for x in range(xs[0], xs[1] + 1):
+        v.s.line([v.page((x, ys[0], 0)), v.page((x, ys[1], 0))], GREY3, 1.4, 0.6)
+    for y in range(ys[0], ys[1] + 1):
+        v.s.line([v.page((xs[0], y, 0)), v.page((xs[1], y, 0))], GREY3, 1.4, 0.6)
 
 
 def flat_axis(v, end, color, name, ticks=True):
@@ -1611,6 +1627,7 @@ def e035_numberline_3d():
     line = ((-3.4, 0, 0), (3.5, 0, 0))
     top = room(v, lines=[line], at=AHEAD)
     pedestal(v, top, AHEAD)
+    floor_grid(v, (-3, 3), (-6, 1))
     flat_axis(v, (3.5, 0), AXIS_X, "+x")
     v.word((-0.0, -0.42, 0), X3, Y3, "0", 0.3)
     student(v, (0, 0, 0), AHEAD)
@@ -1624,6 +1641,7 @@ def e035_xy_3d():
     lines = [((-3.4, 0, 0), (3.5, 0, 0)), ((0, -3.4, 0), (0, 3.5, 0))]
     top = room(v, lines=lines, at=AHEAD)
     pedestal(v, top, AHEAD)
+    floor_grid(v, (-3, 3), (-6, 3))
     flat_axis(v, (3.5, 0), AXIS_X, "x")
     flat_axis(v, (0, 3.5), AXIS_Y, "y")
     v.s.dot(v.p((0, 0, 0)), 7)
@@ -1638,7 +1656,7 @@ def e035_stick_3d():
     pad = Iso(s, (700, 400), 92)
     axes = [((0.5, 0, 0.3), (2.2, 0, 0.3)), ((0, -0.5, 0.3), (0, -2.9, 0.3))]
     moves = [((-1.1, 0.4, 0.3), (-1.1, 2.4, 0.3)), ((-1.1, -0.4, 0.3), (-1.1, -1.9, 0.3))]
-    gamepad_in_room(pad, axes + moves, grid=False)
+    gamepad_in_room(pad, axes + moves)
     s.marker_arrow(pad.p(axes[0][0]), pad.p(axes[0][1]), AXIS_X, nib=7)
     s.marker_arrow(pad.p(axes[1][0]), pad.p(axes[1][1]), AXIS_Y, nib=7)
     pad.word((2.65, 0, 0.3), X3, Y3, "+x", 0.42)
@@ -1697,10 +1715,11 @@ def wheel(v, rims, alpha=1.0):
     v.s.dot(v.p(hub), 5, GREY2)
 
 
-def tank(v, see_through=False):
-    """The tank, drawn far to near: the left wheels, the body, the nose, the right wheels."""
+def tank(v):
+    """The tank, see-through, drawn far to near: the left wheels, the body, the nose, the right
+    wheels."""
     body, wheels, nose = tank_parts()
-    alpha = 0.45 if see_through else 1.0
+    alpha = 0.45
     for side, rims in wheels:
         if side == 1:
             wheel(v, rims, alpha)
@@ -1709,8 +1728,6 @@ def tank(v, see_through=False):
                      ((1, 3, 7, 5), "#e4e5e5")):        # the top, lit
         pts = [v.p(body[i]) for i in f]
         v.s.line(pts, None, fill=color, fill_alpha=alpha, closed=True)
-        if not see_through:
-            v.s.marker(pts, color, nib=12, opacity=0.5, layers=1)
         v.s.line(pts, PEN, 2.0, 0.85, closed=True)
     v.s.marker([v.p(q) for q in nose], MARKER_RED, nib=12, opacity=0.8)
     v.s.ink_poly([v.p(q) for q in nose], width=2.0)
@@ -1722,20 +1739,19 @@ def tank(v, see_through=False):
 TANK_AXES = [((0, 0, 0), (3.3, 0, 0)), ((0, 0, 0), (0, 3.0, 0))]       # the robot's +x and +y
 
 
-def robot_axes(v, z):
-    """The robot's +x and +y from 0, at height z, named."""
+def robot_axes(v):
+    """The robot's +x and +y from 0, at z 0, named."""
     for (a, b), color in zip(TANK_AXES, (AXIS_X, AXIS_Y)):
-        v.s.marker_arrow(v.p(turned(a[:2] + (z,))), v.p(turned(b[:2] + (z,))), color, nib=7)
-    v.word(turned((3.75, 0, z)), X3, Y3, "+x", 0.42)
-    v.word(turned((0, 3.35, z)), X3, Y3, "+y", 0.42)
-    v.s.dot(v.p((0, 0, z)), 7)
+        v.s.marker_arrow(v.p(turned(a)), v.p(turned(b)), color, nib=7)
+    v.word(turned((3.75, 0, 0)), X3, Y3, "+x", 0.42)
+    v.word(turned((0, 3.35, 0)), X3, Y3, "+y", 0.42)
+    v.s.dot(v.p((0, 0, 0)), 7)
 
 
-def tank_room(v, axes="below", at=AHEAD, speeds=False, left_only=False):
-    """The tank in the room with the student behind it. axes is where its +x and +y are drawn:
-    "below" it at z 0, "through" a see-through tank, "above" it, or None."""
-    z = TANK_HIGH + 0.05 if axes == "above" else 0
-    lines = [(turned(a[:2] + (z,)), turned(b[:2] + (z,))) for a, b in TANK_AXES] if axes else []
+def tank_room(v, axes=True, at=AHEAD, speeds=False, left_only=False):
+    """The see-through tank in the room with the student behind it, looking at the middle of its
+    top, and its +x and +y at z 0 if axes."""
+    lines = [(turned(a), turned(b)) for a, b in TANK_AXES] if axes else []
     arrows = []
     if speeds:
         for side in ((1,) if left_only else (1, -1)):
@@ -1743,52 +1759,64 @@ def tank_room(v, axes="below", at=AHEAD, speeds=False, left_only=False):
             arrows.append((side, turned((-0.9, y, WHEEL_R)), turned((1.5, y, WHEEL_R))))
     top = room(v, lines=lines + [(a, b) for _, a, b in arrows], solids=tank_shadows(), at=at)
     pedestal(v, top, at)
-    if axes in ("below", "through"):
-        robot_axes(v, 0)
-    tank(v, see_through=axes == "through")
-    if axes == "above":
-        robot_axes(v, z)
+    floor_grid(v, (-3, 2), (-6, 3))
+    if axes:
+        robot_axes(v)
+    tank(v)
     for side, a, b in arrows:
         v.s.marker_arrow(v.p(a), v.p(b), MARKER_RED, nib=9)
         name = "leftSpeed" if side == 1 else "rightSpeed"
         v.word(turned((-1.45, side * (TANK_WIDE / 2 + WHEEL_W + 0.95), WHEEL_R)), X3, Y3,
                f"{name}  1.0", 0.3)                    # behind its arrow's tail, to the outside
-    student(v, (0, 0, TANK_HIGH / 2), at)
+    student(v, (0, 0, TANK_HIGH), at)
 
 
-def e035_robot_3d(axes="below", name="fig-e035-robot-3d"):
+def e035_robot_3d():
     s = Sketch(1450, 1050, 89)
-    tank_room(Iso(s, (800, 380), 110), axes)
+    tank_room(Iso(s, (800, 380), 110))
     s.text((725, 70), "the robot, from where the person stands behind it", 30)
-    s.save(name)
+    s.save("fig-e035-robot-3d")
 
 
 def e035_speeds_3d():
     s = Sketch(1450, 1050, 97)
-    tank_room(Iso(s, (800, 380), 110), None, speeds=True)
+    tank_room(Iso(s, (800, 380), 110), speeds=True)
     s.text((725, 70), "forward is +, and 1.0 is full speed", 30)
     s.save("fig-e035-speeds-3d")
 
 
-def e035_switch_3d():
-    s = Sketch(3000, 1150, 101)
-    pad = Iso(s, (560, 420), 76)
+def e035_switch_3d(stacked=True, name="fig-e035-switch-3d"):
+    """The stick pushed away, the line of code, and the left wheels going forward: stacked top to
+    bottom, or side by side."""
+    if stacked:
+        s = Sketch(1500, 2330, 101)
+        pad, tank_at = (620, 330), (820, 1690)
+        stick_words = (1060, 900)
+        arrows = [((750, 960), (750, 1070)), ((750, 1350), (750, 1460))]
+        code, minus, speed_words = (750, 1170), (750, 1310), (1010, 2290)
+    else:
+        s = Sketch(3400, 1150, 101)
+        pad, tank_at = (560, 420), (2950, 420)
+        stick_words = (640, 1080)
+        arrows = [((940, 560), (1110, 560)), ((2340, 560), (2510, 560))]
+        code, minus, speed_words = (1725, 570), (1725, 720), (2950, 1080)
+    v = Iso(s, pad, 92 if stacked else 76)
     away = ((0, 0.4, 0.3), (0, 2.6, 0.3))
-    gamepad_in_room(pad, [away], grid=False)
-    s.marker_arrow(pad.p(away[0]), pad.p(away[1]), MARKER_ORANGE, nib=9)
-    pad.word((0, 3.1, 0.3), X3, Y3, "pushed away", 0.34)
-    student(pad, (STAND[0], PAD_MIDDLE[1], 0))
-    s.text((640, 1010), "leftStickY: -1.0", 30, code=True)
-    s.marker_arrow((940, 560), (1170, 560), MARKER_ORANGE, nib=9)
-    box = rect(1180, 500, 560, 110)
+    gamepad_in_room(v, [away])
+    s.marker_arrow(v.p(away[0]), v.p(away[1]), MARKER_ORANGE, nib=9)
+    v.word((0, 3.3, 0.3), X3, Y3, "pushed away", 0.6)
+    student(v, (STAND[0], PAD_MIDDLE[1], 0))
+    s.text(stick_words, "leftStickY: -1.0", 60, code=True)
+    for a, b in arrows:
+        s.marker_arrow(a, b, MARKER_ORANGE, nib=12)
+    box = rect(code[0] - 590, code[1] - 80, 1180, 140)
     s.marker(box, GREY1, nib=20, opacity=0.5)
     s.ink_poly(box)
-    s.text((1460, 568), "double leftSpeed = -leftStickY;", 25, code=True)
-    s.text((1460, 680), "the minus sign turns it around", 30)
-    s.marker_arrow((1750, 560), (1980, 560), MARKER_ORANGE, nib=9)
-    tank_room(Iso(s, (2500, 420), 92), None, speeds=True, left_only=True)
-    s.text((2500, 1010), "leftSpeed: 1.0, full speed forward", 30)
-    s.save("fig-e035-switch-3d")
+    s.text((code[0], code[1] + 16), "double leftSpeed = -leftStickY;", 50, code=True)
+    s.text(minus, "the minus sign turns it around", 60)
+    tank_room(Iso(s, tank_at, 110 if stacked else 92), axes=False, speeds=True, left_only=True)
+    s.text(speed_words, "leftSpeed: 1.0, full speed forward", 60)
+    s.save(name)
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph]
