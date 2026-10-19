@@ -1574,8 +1574,8 @@ def e035_switch():
 # pedestal behind it. The robot is turned into the room, its x onto the room's +y and its y onto
 # the room's -x, so its x runs up the page to the right, its y up to the left, and the student
 # behind it faces +y as in the drawings before.
-AHEAD = (0.5, -5.5)                        # the student's place, behind 0 and facing +y, the
-                                           # pedestal's top one square of the floor_grid
+AHEAD = (0.0, -5.5)                        # the student's place, behind 0 and facing +y, on
+                                           # the line x = 0 they gaze along
 
 
 def floor_grid(v, xs, ys):
