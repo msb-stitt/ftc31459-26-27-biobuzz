@@ -1,11 +1,17 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
-index 19249a1..c1a63fe 100644
+index b2d8467..f47998e 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
-@@ -64,12 +64,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
+@@ -75,12 +75,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
          // When on L060S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
          // for what to do here.
+-
+-        hardware.frontLeft.setPower(leftSpeed);
+-        hardware.backLeft.setPower(leftSpeed);
+-
+-        hardware.frontRight.setPower(rightSpeed);
+-        hardware.backRight.setPower(rightSpeed);
 +        double band = 0.05;
 +        double leftPower = deadband(leftSpeed, band);
 +        leftPower = signedSquared(leftPower);
@@ -13,20 +19,16 @@ index 19249a1..c1a63fe 100644
 +        double rightPower = deadband(rightSpeed, band);
 +        rightPower = signedSquared(rightPower);
 +        Tracker.publish("power/right", rightPower);
- 
--        hardware.frontLeft.setPower(leftSpeed);
--        hardware.backLeft.setPower(leftSpeed);
++
 +        hardware.frontLeft.setPower(leftPower);
 +        hardware.backLeft.setPower(leftPower);
- 
--        hardware.frontRight.setPower(rightSpeed);
--        hardware.backRight.setPower(rightSpeed);
++
 +        hardware.frontRight.setPower(rightPower);
 +        hardware.backRight.setPower(rightPower);
- 
-         loopAfter();
      }
-@@ -83,8 +90,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+@@ -92,8 +99,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
      // When on L060S030, see
      // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
      // for what to do here.

@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java
-index 000988e..3aea15f 100644
+index 057d064..2689ab4 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java
-@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  
  import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
  import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -11,7 +11,7 @@ index 000988e..3aea15f 100644
  
  /**
   * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
-@@ -37,6 +39,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
+@@ -42,6 +44,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
      // When on L190S030, see
      // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030
      // for what to do here.
@@ -19,7 +19,7 @@ index 000988e..3aea15f 100644
  
      // 'public' to match the parent class. 'public' allows access from any code.
      @Override
-@@ -46,8 +49,9 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
+@@ -51,8 +54,9 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
          // When on L190S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s040
          // for what to do here.
@@ -30,7 +30,7 @@ index 000988e..3aea15f 100644
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
-@@ -73,12 +77,14 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
+@@ -84,12 +88,14 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
          // When on L190S050, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
          // for what to do here.
@@ -45,6 +45,6 @@ index 000988e..3aea15f 100644
          Tracker.publish("command/turn_radps", turnRadPerS);
 +        double[] target = WheelTargets.forMecanum(forwardInPerS, strafeInPerS, turnRadPerS, Constants.turnRadiusInches);
 +        drivetrain.setCommandedWheelSpeeds(target[0], target[1], target[2], target[3]);
- 
-         loopAfter();
      }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.

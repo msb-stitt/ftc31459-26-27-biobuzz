@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L125Drive24OpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L125Drive24OpMode.java
-index 05b50cc..0a129b9 100644
+index d5c38a2..7c2d9b7 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L125Drive24OpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L125Drive24OpMode.java
 @@ -85,6 +85,6 @@ public class L125Drive24OpMode extends CorbelsAuto {

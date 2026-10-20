@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
-index 4910938..31854b6 100644
+index 5c9ae79..111a5ed 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
-@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  
  import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
  import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
@@ -12,7 +12,7 @@ index 4910938..31854b6 100644
  
  /**
   * L160: hold the heading the driver left. Let go of the turn stick and the
-@@ -29,6 +31,7 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+@@ -34,6 +36,7 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
      boolean previousButtonA;
  
      CorbelsMecanum drivetrain;
@@ -20,7 +20,7 @@ index 4910938..31854b6 100644
  
      // 'public' to match the parent class. 'public' allows access from any code.
      @Override
-@@ -72,6 +75,8 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+@@ -83,6 +86,8 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
          // When on L160S040, see
          // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
          // for what to do here.
