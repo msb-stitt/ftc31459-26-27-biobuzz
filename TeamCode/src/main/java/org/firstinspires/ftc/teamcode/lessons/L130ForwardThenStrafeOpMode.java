@@ -6,6 +6,7 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,6 +18,9 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 /**
  * L130: two legs in a row. Drive forward, then slide sideways to the right
  * without turning, and hold there.
+ *
+ * <p>{@code start} schedules the drive as a command, and the follower does the
+ * driving.
  *
  * <p>Passes when: LessonsTest.l130_autoDrivesForwardThenStrafesSideways
  */
@@ -51,11 +55,13 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
+        Command forwardThenStrafe = driveForwardThenStrafe();
+        Scheduler.schedule(forwardThenStrafe);
         startAfter();
     }
 
     /**
-     * The scheduler runs {@link #routine()} from inside {@code loopAfter()}. The
+     * The scheduler runs the drive from inside {@code loopAfter()}. The
      * one line here is for the driver's screen, which shows nothing unless a
      * lesson asks it to.
      */
@@ -79,9 +85,7 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
         return start;
     }
 
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public Command routine() {
+    Command driveForwardThenStrafe() {
         return sequential(
                 follow(follower, line(start, corner).constant(start))
                 // When on L130S030, see

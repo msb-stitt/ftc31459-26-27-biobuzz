@@ -39,9 +39,6 @@ public class FlightLogTest {
         @Override public void loop() { loopBefore(); loopAfter(); }
 
         @Override public Pose startPose() { return POSES.of(12, 12, 0); }
-        @Override public com.pedropathing.ivy.Command routine() {
-            return com.pedropathing.ivy.commands.Commands.instant(() -> { });
-        }
     }
 
     @Test
