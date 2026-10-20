@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
 import com.pedropathing.api.PoseFactory;
+import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.behaviors.EndCondition;
+import com.pedropathing.ivy.behaviors.InterruptedBehavior;
 import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -23,7 +27,9 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
  * until STOP, and {@code stop} once at the end. The {@code Before} and
  * {@code After} calls are the robot's own housekeeping: the hardware, the
- * flight log and the live values. The code between them is the lesson's.
+ * flight log and the live values. {@code start} schedules the lesson's code as
+ * a command, and the scheduler runs it inside {@code loopAfter()}, once every
+ * loop.
  *
  * <p>Passes when: LessonsTest.l180_everythingTogether
  */
@@ -36,26 +42,16 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 public class L180CombinedOpMode extends CorbelsTeleOp {
 
     boolean previousButtonA;
+    boolean previousButtonY;
+    boolean previousButtonAForAiming;
 
     CorbelsMecanum drivetrain;
     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 
     PoseFactory poses = PoseFactory.degrees();
     Pose target = poses.of(120.0, 72.0, 90.0);
-    boolean drivingItself;
-
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public void bindings() {
-        buttons.whenPressed(() -> gamepad1.y, Commands.instant(() -> {
-            follower.hold(target);
-            drivingItself = true;
-        }));
-        buttons.whenPressed(() -> gamepad1.a, Commands.instant(() -> {
-            drivingItself = false;
-            hold.aimAt(Math.toRadians(45.0));
-        }));
-    }
+    Command driveToTheTarget;
+    Command aimAtFortyFive;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -71,27 +67,39 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
+        Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks)
+                .requiring(drivetrain)
+                .setInterruptedBehavior(InterruptedBehavior.SUSPEND);
+        Scheduler.schedule(driveFromTheSticksEveryLoop);
+        driveToTheTarget = Command.build()
+                .setStart(this::startDrivingToTheTarget)
+                .setExecute(this::letTheFollowerDrive)
+                .setDone(this::driverWantsControl)
+                .setEnd(this::giveTheDriverTheWheels)
+                .requiring(drivetrain);
+        aimAtFortyFive = Commands.instant(this::aimAtFortyFiveDegrees);
         startAfter();
     }
 
+    /** The buttons that schedule a command. */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
 
-        driveTheRobot();
+        boolean buttonY = gamepad1.y;
+        boolean buttonYJustPressed = buttonY && !previousButtonY;
+        if (buttonYJustPressed) {
+            Scheduler.schedule(driveToTheTarget);
+        }
+        previousButtonY = buttonY;
 
         boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
+        boolean buttonAJustPressed = buttonA && !previousButtonAForAiming;
+        if (buttonAJustPressed) {
+            Scheduler.schedule(aimAtFortyFive);
         }
-        previousButtonA = buttonA;
+        previousButtonAForAiming = buttonA;
 
         loopAfter();
     }
@@ -111,11 +119,10 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     }
 
     /**
-     * The driving, in its own method so that it can stop early with return.
-     * loop() still goes on to loopAfter(), where the follower updates and the
-     * flight log is written.
+     * Once every loop, from PLAY until STOP. A command that also needs the
+     * drivetrain sets it aside while it runs, and it comes back when that ends.
      */
-    void driveTheRobot() {
+    void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
         Tracker.publish("stick/leftY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
@@ -143,18 +150,6 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
-        boolean driverWantsControl = Math.abs(leftStickY) > band
-                || Math.abs(leftStickX) > band || Math.abs(rightStickX) > band;
-        if (drivingItself) {
-            if (!driverWantsControl) {
-                Tracker.publish("drive/mode", "AUTO");
-                drivetrain.releaseCommandedWheels();
-                return;
-            }
-            drivingItself = false;
-            follower.manual(0.0, 0.0, 0.0);
-            hold.release();
-        }
         Tracker.publish("drive/mode", "DRIVER");
         double heading = follower.pose().heading();
         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
@@ -166,6 +161,57 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         } else {
             drivetrain.sticks(robotForward, robotStrafe, turn);
         }
+
+        boolean buttonA = gamepad1.a;
+        Tracker.publish("button/a", buttonA);
+
+        if (buttonA != previousButtonA) {
+            if (buttonA) {
+                Tracker.publish("button/event", "A pressed");
+            } else {
+                Tracker.publish("button/event", "A released");
+            }
+        }
+        previousButtonA = buttonA;
+    }
+
+    /** How the drive to the target begins. */
+    void startDrivingToTheTarget() {
+        follower.hold(target);
+        drivetrain.releaseCommandedWheels();
+    }
+
+    /** Each loop of the drive to the target: the follower drives, not the sticks. */
+    void letTheFollowerDrive() {
+        Tracker.publish("drive/mode", "AUTO");
+    }
+
+    /** The drive to the target is done when any stick is pushed past the deadband. */
+    boolean driverWantsControl() {
+        double band = 0.05;
+        double leftStickYMagnitude = Math.abs(gamepad1.left_stick_y);
+        double leftStickXMagnitude = Math.abs(gamepad1.left_stick_x);
+        double rightStickXMagnitude = Math.abs(gamepad1.right_stick_x);
+        boolean driverWantsControl = leftStickYMagnitude > band
+                || leftStickXMagnitude > band || rightStickXMagnitude > band;
+        return driverWantsControl;
+    }
+
+    /**
+     * How the drive to the target ends: the follower stops, the heading it held
+     * before Y is forgotten, and the sticks drive again.
+     */
+    void giveTheDriverTheWheels(EndCondition howItEnded) {
+        follower.manual(0.0, 0.0, 0.0);
+        hold.release();
+        Tracker.publish("drive/mode", "DRIVER");
+    }
+
+    /** A's command: any drive to the target is cancelled, and the hold aims at 45 degrees. */
+    void aimAtFortyFiveDegrees() {
+        Scheduler.cancel(driveToTheTarget);
+        double fortyFiveDegrees = Math.toRadians(45.0);
+        hold.aimAt(fortyFiveDegrees);
     }
 
     double deadband(double value, double band) {

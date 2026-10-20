@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
 import com.pedropathing.api.PoseFactory;
+import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.behaviors.EndCondition;
+import com.pedropathing.ivy.behaviors.InterruptedBehavior;
+import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -19,7 +24,9 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
  * until STOP, and {@code stop} once at the end. The {@code Before} and
  * {@code After} calls are the robot's own housekeeping: the hardware, the
- * flight log and the live values. The code between them is the lesson's.
+ * flight log and the live values. {@code start} schedules the lesson's code as
+ * a command, and the scheduler runs it inside {@code loopAfter()}, once every
+ * loop.
  *
  * <p>Passes when: LessonsTest.l170_pressingYDrivesToAPoseAndTheDriverCanTakeOver
  */
@@ -32,21 +39,14 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 public class L170DriveToPoseOpMode extends CorbelsTeleOp {
 
     boolean previousButtonA;
+    boolean previousButtonY;
 
     CorbelsMecanum drivetrain;
     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
 
     PoseFactory poses = PoseFactory.degrees();
     Pose target = poses.of(120.0, 72.0, 90.0);
-    boolean drivingItself;
-
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public void bindings() {
-        // When on L170S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s030
-        // for what to do here.
-    }
+    Command driveToTheTarget;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -62,27 +62,28 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
+        Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks)
+                .requiring(drivetrain)
+                .setInterruptedBehavior(InterruptedBehavior.SUSPEND);
+        Scheduler.schedule(driveFromTheSticksEveryLoop);
+        driveToTheTarget = Command.build()
+                .setStart(this::startDrivingToTheTarget)
+                .setExecute(this::letTheFollowerDrive)
+                .setDone(this::driverWantsControl)
+                .setEnd(this::giveTheDriverTheWheels)
+                .requiring(drivetrain);
         startAfter();
     }
 
+    /** The buttons that schedule a command. */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
 
-        driveTheRobot();
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
-        }
-        previousButtonA = buttonA;
+        // When on L170S030, see
+        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s030
+        // for what to do here.
 
         loopAfter();
     }
@@ -94,11 +95,10 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     }
 
     /**
-     * The driving, in its own method so that it can stop early with return.
-     * loop() still goes on to loopAfter(), where the follower updates and the
-     * flight log is written.
+     * Once every loop, from PLAY until STOP. A command that also needs the
+     * drivetrain sets it aside while it runs, and it comes back when that ends.
      */
-    void driveTheRobot() {
+    void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
         Tracker.publish("stick/leftY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
@@ -123,11 +123,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         strafe = signedSquared(strafe);
         Tracker.publish("arcade/strafe", strafe);
 
-        boolean driverWantsControl = Math.abs(leftStickY) > band
-                || Math.abs(leftStickX) > band || Math.abs(rightStickX) > band;
-        // When on L170S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
-        // for what to do here.
+        Tracker.publish("drive/mode", "DRIVER");
         double heading = follower.pose().heading();
         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
         double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
@@ -138,6 +134,47 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         } else {
             drivetrain.sticks(robotForward, robotStrafe, turn);
         }
+
+        boolean buttonA = gamepad1.a;
+        Tracker.publish("button/a", buttonA);
+
+        if (buttonA != previousButtonA) {
+            if (buttonA) {
+                Tracker.publish("button/event", "A pressed");
+            } else {
+                Tracker.publish("button/event", "A released");
+            }
+        }
+        previousButtonA = buttonA;
+    }
+
+    /** How the drive to the target begins. */
+    void startDrivingToTheTarget() {
+        // When on L170S040, see
+        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
+        // for what to do here.
+    }
+
+    /** Each loop of the drive to the target: the follower drives, not the sticks. */
+    void letTheFollowerDrive() {
+        Tracker.publish("drive/mode", "AUTO");
+    }
+
+    /** The drive to the target is done when any stick is pushed past the deadband. */
+    boolean driverWantsControl() {
+        double band = 0.05;
+        double leftStickYMagnitude = Math.abs(gamepad1.left_stick_y);
+        double leftStickXMagnitude = Math.abs(gamepad1.left_stick_x);
+        double rightStickXMagnitude = Math.abs(gamepad1.right_stick_x);
+        boolean driverWantsControl = leftStickYMagnitude > band
+                || leftStickXMagnitude > band || rightStickXMagnitude > band;
+        return driverWantsControl;
+    }
+
+    /** How the drive to the target ends: the follower stops, and the sticks drive again. */
+    void giveTheDriverTheWheels(EndCondition howItEnded) {
+        follower.manual(0.0, 0.0, 0.0);
+        Tracker.publish("drive/mode", "DRIVER");
     }
 
     double deadband(double value, double band) {
