@@ -6,6 +6,7 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -54,6 +55,12 @@ public class DriveForward24OpMode extends CorbelsAuto {
     }
 
     @Override
+    public void start() {
+        startBefore();
+        Scheduler.schedule(routine());
+        startAfter();
+    }
+
     public Command routine() {
         return sequential(
                 follow(follower, driveForward())
