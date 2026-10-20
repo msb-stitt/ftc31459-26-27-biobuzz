@@ -42,13 +42,13 @@ class Launcher {
     static final double WINDMILL_STOPPED_POWER = 0;
 
     /**
-     * The launcher motor's velocity gains: P, I, D and F. These hold its speed
-     * without stuttering; goBILDA's example used 40, 0, 0 and 12.5.
+     * The launcher motor's velocity gains: P, I, D and F. goBILDA's example
+     * used 40, 0, 0 and 12.5; P is lowered to 10.
      */
     static final double VELOCITY_P = 10;
     static final double VELOCITY_I = 0;
     static final double VELOCITY_D = 0;
-    static final double VELOCITY_F = 12.5/4;
+    static final double VELOCITY_F = 12.5;
 
     final DcMotorEx motor;
     final CRServo windmill;
