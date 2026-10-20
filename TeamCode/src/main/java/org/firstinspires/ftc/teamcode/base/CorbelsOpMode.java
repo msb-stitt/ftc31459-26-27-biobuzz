@@ -185,10 +185,12 @@ public abstract class CorbelsOpMode extends OpMode {
     protected void pollInputs() {
     }
 
-    /** The follower, the scheduler and the logs. The last thing a lesson's loop() calls. */
+    /** The scheduler, the follower and the logs. The last thing a lesson's loop() calls. */
     protected final void loopAfter() {
-        follower.update();
+        // The commands first, so what they ask of the drivetrain this loop
+        // reaches the wheels in this loop's follower update.
         Scheduler.execute();
+        follower.update();
         shadowLocalizers.update();
         afterLoop();
         // Counts the loop, records Pedro, closes the file's record for this loop,
