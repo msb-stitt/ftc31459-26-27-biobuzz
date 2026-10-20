@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.logcheck;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import io.github.mikestitt.corbelsflightlog.FlightLog;
@@ -30,6 +31,7 @@ import java.util.function.Consumer;
  * <p>For practice only: FTC rule R704 forbids third-party telemetry over Wi-Fi
  * at competitions, and this OpMode turns the server on.
  */
+@Disabled
 @TeleOp(name = "Log 9: NetworkTables API", group = "LogCheck")
 public class LogCheck9NtApiOpMode extends OpMode {
 

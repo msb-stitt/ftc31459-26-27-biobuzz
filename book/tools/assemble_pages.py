@@ -5,19 +5,20 @@ still served, with this run's build, BUILT, put in its place. A publish makes
 gh-pages one commit of OUT, with no parent.
 
     python tools/run.py assemble_pages --old OLD --built BUILT --as KIND --version V
-        --out OUT [--media DIR]
+        --out OUT --media DIR
 
 KIND is where BUILT goes: `release`, to the top level, as V, the newest release;
 `pre`, into the folder V; `dev`, into dev/. From OLD it keeps the newest
-release's books at the top level, dev/, videos/, and the newest pre-release's
+release's books and videos/ at the top level, dev/, and the newest pre-release's
 folder while it is newer than the newest release; no older version is served.
 
-With --media, a corbels-lfs-lessons checkout at keep.toml's [media] pin, videos/
-becomes that commit's: a video whose bytes OLD already serves is copied from
-there, and only a changed one is pulled from LFS. A release passes it; dev and a
-pre-release keep OLD's videos, which the top-level books link. It fails if OUT
-is left holding an LFS pointer in place of a file. Then pages_site.py writes the
-front page and versions.json, listing every v* tag in this repository.
+Each version's folder holds its own videos/, which its pages link relatively.
+BUILT's is the MP4s of DIR's videos/, a corbels-lfs-lessons checkout at
+keep.toml's [media] pin: a video whose bytes OLD already serves, in any
+version's videos/, is copied from there, and only a new one is pulled from LFS.
+It fails if OUT is left holding an LFS pointer in place of a file. Then
+pages_site.py writes the front page and versions.json, listing every v* tag in
+this repository.
 """
 
 import argparse
@@ -62,22 +63,31 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def videos(media: Path, old: Path, out: Path) -> None:
-    """OUT's videos/ as MEDIA's, copying from OLD each one OLD already serves."""
-    (out / "videos").mkdir()
-    for pointer in sorted((media / "videos").glob("*")):
-        text = pointer.read_bytes()
-        served = old / "videos" / pointer.name
+def served_copy(old: Path, oid: str, size: int) -> Path | None:
+    """A video OLD serves, in any version's videos/, whose bytes have this SHA-256."""
+    for served in sorted(old.glob("videos/*.mp4")) + sorted(old.glob("*/videos/*.mp4")):
+        if served.stat().st_size == size and sha256(served) == oid:
+            return served
+    return None
+
+
+def videos(media: Path, old: Path, dest: Path) -> None:
+    """DEST/videos/ as MEDIA's MP4s, copying from OLD each one OLD already serves."""
+    (dest / "videos").mkdir()
+    for pointer in sorted((media / "videos").glob("*.mp4")):
+        text = pointer.read_bytes()[:200]
         if text.startswith(POINTER):
             oid = re.search(rb"oid sha256:([0-9a-f]{64})", text)[1].decode()
-            if served.is_file() and sha256(served) == oid:
-                shutil.copy2(served, out / "videos" / pointer.name)
-                print(f"videos/{pointer.name}: unchanged, copied from gh-pages")
+            size = int(re.search(rb"size (\d+)", text)[1])
+            served = served_copy(old, oid, size)
+            if served:
+                shutil.copy2(served, dest / "videos" / pointer.name)
+                print(f"{served.relative_to(old)} copied from gh-pages for {pointer.name}")
                 continue
             subprocess.run(["git", "lfs", "pull", "--include", f"videos/{pointer.name}"],
                            cwd=media, check=True)
-            print(f"videos/{pointer.name}: changed, pulled from LFS")
-        shutil.copy2(pointer, out / "videos" / pointer.name)
+            print(f"videos/{pointer.name}: new, pulled from LFS")
+        shutil.copy2(pointer, dest / "videos" / pointer.name)
 
 
 def main() -> int:
@@ -87,18 +97,22 @@ def main() -> int:
     ap.add_argument("--as", dest="kind", choices=("release", "pre", "dev"), required=True)
     ap.add_argument("--version", required=True)
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--media", type=Path)
+    ap.add_argument("--media", type=Path, required=True)
     args = ap.parse_args()
     old, built, out = args.old.resolve(), args.built.resolve(), args.out.resolve()
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir(parents=True)
 
     newest = newest_release(old)
-    top = built if args.kind == "release" else old
-    for name in TOP:
-        copy(top / name, out / name)
     if args.kind == "release":
+        for name in TOP:
+            copy(built / name, out / name)
+        videos(args.media.resolve(), old, out)
         newest = args.version
+    else:
+        for name in (*TOP, "videos"):
+            if (old / name).exists():
+                copy(old / name, out / name)
     pre = [d.name for d in old.iterdir() if d.is_dir() and PRE.fullmatch(d.name)]
     if args.kind == "pre":
         pre.append(args.version)
@@ -106,13 +120,13 @@ def main() -> int:
     if pre:
         latest = max(pre, key=key)
         copy(built if latest == args.version else old / latest, out / latest)
-    dev = built if args.kind == "dev" else old / "dev"
-    if dev.is_dir():
-        copy(dev, out / "dev")
-    if args.media:
-        videos(args.media.resolve(), old, out)
-    elif (old / "videos").is_dir():
-        copy(old / "videos", out / "videos")
+        if latest == args.version:
+            videos(args.media.resolve(), old, out / latest)
+    if args.kind == "dev":
+        copy(built, out / "dev")
+        videos(args.media.resolve(), old, out / "dev")
+    elif (old / "dev").is_dir():
+        copy(old / "dev", out / "dev")
 
     pointers = [str(p.relative_to(out)) for p in out.rglob("*")
                 if p.is_file() and p.stat().st_size < 200 and p.read_bytes().startswith(POINTER)]

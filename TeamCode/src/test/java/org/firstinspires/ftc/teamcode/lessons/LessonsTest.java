@@ -599,6 +599,7 @@ public class LessonsTest {
         h.gamepad1.left_stick_y = -1.0f;           // the driver grabs the stick
         h.loop();
         assertEquals("manual control returns", Follower.Mode.MANUAL, follower.mode());
+        h.loop();                                  // the sticks drive from the next loop
         assertEquals(1.0, h.wheelsForward(), 1e-3);
         h.stop();
     }
@@ -780,16 +781,22 @@ public class LessonsTest {
         return (Boolean) MyTry.call(drivetrain, "getEffectiveBrakeMode");
     }
 
-    /** Runs loops until the follower stops following, or the time runs out. */
+    /**
+     * Runs loops until the follower stops following, or the time runs out.
+     * Between two legs the follower holds for one loop with no path, so it is
+     * done only once it has stayed that way for three loops.
+     */
     private static void runUntilDone(OpModeHarness h, Follower follower, double seconds) {
         long deadline = System.nanoTime() + (long) (seconds * 1e9);
         boolean followed = false;
-        while (System.nanoTime() < deadline) {
+        int loopsIdle = 0;
+        while (loopsIdle < 3 && System.nanoTime() < deadline) {
             h.loop();
             if (follower.mode() == Follower.Mode.FOLLOW) followed = true;
             if (followed && follower.mode() != Follower.Mode.FOLLOW && follower.currentPath() == null) {
-                h.loop();
-                break;
+                loopsIdle++;
+            } else {
+                loopsIdle = 0;
             }
             OpModeHarness.sleep(5);
         }

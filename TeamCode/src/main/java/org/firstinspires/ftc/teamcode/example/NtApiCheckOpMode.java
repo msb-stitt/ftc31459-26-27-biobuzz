@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.example;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import io.github.mikestitt.corbelsflightlog.FlightLog;
@@ -26,6 +27,7 @@ import java.util.function.Consumer;
  * <p>Passes when: NtApiCheckOpModeTest, and {@code ./gradlew :TeamCode:ntApiCheck}
  * against it running
  */
+@Disabled
 @TeleOp(name = "NetworkTables API check", group = "Corbels")
 public class NtApiCheckOpMode extends CorbelsTeleOp {
 

@@ -57,6 +57,51 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 | [AndyMark](https://www.andymark.com/) | field elements and more hardware |
 | [spiresfrc9106/ftc31459-26-27-biobuzz](https://github.com/spiresfrc9106/ftc31459-26-27-biobuzz) | the team's repository, which this one tracks |
 
+### goBILDA's StarterBot
+
+The robots are goBILDA's
+[StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
+stock, with a Pinpoint. **StarterBot TeleOp** drives one with the controls of goBILDA's example
+code, written in `StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson
+L130's route: forward from the wall to (72, 72) inches, then 24 inches to the right, facing +y the
+whole way. These two and Launcher Check are the only OpModes on the Driver Station; every other is
+`@Disabled`.
+
+StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
+one runs the intake from the triggers, one fires the launcher while the right bumper is held. A
+command that needs the drivetrain, the intake or the launcher sets aside the one using it, and
+that one comes back when it ends. Each stick, trigger and button read, the drive asked for,
+`intake/power` and each wheel's `wheel/<wheel>/power` go to the flight log; Pedro's pose is under
+`Robot/Pose`.
+
+- Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
+  `imu`, `pinpoint`, and the five the mechanisms use.
+- Each value there marked `MEASURE` was measured on an earlier robot. Measure it on each robot
+  with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L195.
+
+**Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
+nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
+per second; D-pad up and down step the fraction by 0.1, from 0.1 to 1.0, starting at 0.2. Each
+loop, here and in StarterBot TeleOp, the flight log carries `launcher/target_tps`,
+`launcher/measured_tps`, `launcher/current_amps` and `launcher/feeding`, spinning or stopped;
+graph them together in AdvantageScope to see whether it holds its speed.
+
+If the launcher stutters rather than holding its speed, try these in order:
+
+- Run it at 1250, the full target. At a fifth, its feedforward asks for about a tenth of full
+  power, little enough for the wheels to stick and surge.
+- At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
+  means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
+  motor.
+- In the Robot Configuration, `launcher` is a goBILDA 5203 series 6000 rpm motor.
+- With the robot off, the launcher wheels spin freely by hand, nothing rubs the frame, and the
+  belt does not slip.
+- Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
+  fraction, to the wiring or the gains.
+- If the speed swings around the target, lower `Launcher.VELOCITY_P`; if it never reaches it, raise
+  `Launcher.VELOCITY_F`. goBILDA's DECODE StarterBot used `(300, 0, 0, 10)`.
+- Use a battery above 12.5 V.
+
 ### TODO 
 - [ ] Monitor the sloth plugin for updates to Gradle version [see](PANELS.md#one-time-setup) - 1. Gradle version
 

@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.commands.Commands;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -14,7 +17,9 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
  * until STOP, and {@code stop} once at the end. The {@code Before} and
  * {@code After} calls are the robot's own housekeeping: the hardware, the
- * flight log and the live values. The code between them is the lesson's.
+ * flight log and the live values. {@code start} schedules the lesson's code as
+ * a command, and the scheduler runs it inside {@code loopAfter()}, once every
+ * loop.
  *
  * <p>Passes when: LessonsTest.l110_theFollowerDrivesTheSticks and
  * LessonsTest.l110_aCornerOfTheStickIsStillScaled
@@ -49,6 +54,8 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
+        Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
+        Scheduler.schedule(driveFromTheSticksEveryLoop);
         startAfter();
     }
 
@@ -56,7 +63,11 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
+        loopAfter();
+    }
 
+    /** Once every loop, from PLAY until STOP: the scheduler runs it. */
+    void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
         Tracker.publish("stick/leftY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
@@ -94,8 +105,6 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
             }
         }
         previousButtonA = buttonA;
-
-        loopAfter();
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.

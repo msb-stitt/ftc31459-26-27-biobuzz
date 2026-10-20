@@ -99,6 +99,44 @@ public class BaseTest {
         assertNull(hold.target());
     }
 
+    // ------------------------------------------------------- Loop order
+
+    /** A teleop whose only work is a command that drives forward at full power. */
+    static final class DrivesForwardFromACommand extends CorbelsTeleOp {
+        CorbelsMecanum drivetrain;
+
+        @Override
+        public void init() {
+            initBefore();
+            drivetrain = new CorbelsMecanum(hardware);
+            initAfter(drivetrain);
+        }
+
+        @Override
+        public void start() {
+            startBefore();
+            Scheduler.schedule(Commands.infinite(() -> drivetrain.sticks(1.0, 0.0, 0.0)));
+            startAfter();
+        }
+
+        @Override
+        public void loop() {
+            loopBefore();
+            loopAfter();
+        }
+    }
+
+    @Test
+    public void aCommandReachesTheWheelsInTheLoopItRuns() {
+        OpModeHarness h = new OpModeHarness(new DrivesForwardFromACommand());
+        h.init();
+        h.start();
+        h.loop();
+        assertTrue("the first loop's command drives the wheels that loop",
+                h.motors.get(OpModeHarness.FRONT_LEFT).power > 0);
+        h.stop();
+    }
+
     // -------------------------------------------------------------- Buttons
 
     @Test
