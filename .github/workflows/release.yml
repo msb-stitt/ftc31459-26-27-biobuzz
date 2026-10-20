@@ -12,18 +12,19 @@
 # - A push to main publishes nothing. A run by hand builds, keeps the books as
 #   an artifact, and publishes nothing.
 #
-# A tag's GitHub Release carries both PDFs and the web pages as a zip, and its
-# media commit is tagged in corbels-lfs-lessons with the same name, with the
-# deploy key in the secret CORBELS_LFS_DEPLOY_KEY.
+# A tag's GitHub Release carries both PDFs, its videos, and the web pages with
+# its videos as a zip, and its media commit is tagged in corbels-lfs-lessons
+# with the same name, with the deploy key in the secret CORBELS_LFS_DEPLOY_KEY.
 #
 # gh-pages is made again on each publish, as one commit with no parent, by
 # book/tools/assemble_pages.py: the newest release at the top level, the newest
-# pre-release while it is newer, dev/ and videos/, and no older version. Its
-# front page links every version's GitHub Release. The figures come from
-# corbels-lfs-lessons' figures/, at the commit book/keep.toml's [media] pins.
-# Every LFS download counts against the owner's monthly LFS bandwidth, so only
-# figures/ is pulled, cached by media commit, and a release pulls a video only
-# when it differs from the one gh-pages serves.
+# pre-release while it is newer, dev/, and no older version, each with its own
+# videos/, which its pages link relatively. A PDF links a tag's videos in its
+# GitHub Release, and dev's in dev/videos/. The front page links every
+# version's GitHub Release. The figures and videos come from corbels-lfs-lessons
+# at the commit book/keep.toml's [media] pins. Every LFS download counts against
+# the owner's monthly LFS bandwidth, so only figures/ is pulled, cached by media
+# commit, and a video is pulled only when gh-pages serves no copy of it.
 name: Release
 
 on:
@@ -152,7 +153,13 @@ jobs:
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
       - name: Both books, the review and both PDFs
         working-directory: book
-        run: python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}'
+        env:
+          KIND: ${{ steps.what.outputs.kind }}
+          VERSION: ${{ steps.what.outputs.version }}
+        run: |
+          # The PDFs link the videos of the version they are published as.
+          if [ -n "$KIND" ]; then version="--as $KIND --version $VERSION"; else version=; fi
+          python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}' $version
 
       - uses: actions/upload-artifact@v4
         with:
@@ -166,15 +173,13 @@ jobs:
           VERSION: ${{ steps.what.outputs.version }}
         run: |
           git worktree add old gh-pages
-          # Only a release changes videos/; the others keep gh-pages' own.
-          if [ "$KIND" = release ]; then media="--media media"; else media=; fi
           python book/tools/run.py assemble_pages --old old --built book/build/publish \
-            --as "$KIND" --version "$VERSION" --out site $media
+            --as "$KIND" --version "$VERSION" --out site --media media
           git worktree add --orphan -b new-pages fresh
           cp -R site/. fresh/
           cd fresh
           git add -A
-          git -c user.name="Mike S.B. Stitt" -c user.email=mike@stitt.cc \
+          git -c user.name="Mike S.B. Stitt" -c user.email=msb@stitt.cc \
             commit -q -m "The site as published, with $VERSION built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
           git push -f origin new-pages:gh-pages
 
@@ -191,14 +196,22 @@ jobs:
           git -C media tag "$VERSION" HEAD
           git -C media push archive "refs/tags/$VERSION"
 
-      - name: A GitHub Release with both PDFs and the web pages
+      - name: A GitHub Release with both PDFs, the videos and the web pages
         if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.what.outputs.version }}
           SOLUTIONS: ${{ steps.what.outputs.solutions }}
         run: |
-          (cd book/build/publish && zip -qr "../ftc31459-$VERSION-web.zip" guide mentor review)
+          # The version's videos, as assemble_pages laid them out, for the PDFs' links and
+          # beside the web pages in the zip, where the pages' relative links find them.
+          case "$VERSION" in
+            *-*) videos="$PWD/site/$VERSION" ;;
+            *)   videos="$PWD/site" ;;
+          esac
+          zipped="$PWD/book/build/ftc31459-$VERSION-web.zip"
+          (cd book/build/publish && zip -qr "$zipped" guide mentor review)
+          (cd "$videos" && zip -qr "$zipped" videos)
           {
             git tag -l --format='%(contents)' "$VERSION"
             echo
@@ -211,5 +224,5 @@ jobs:
             *-*) pre=--prerelease ;;
             *)   pre= ;;
           esac
-          gh release create "$VERSION" book/build/publish/*.pdf "book/build/ftc31459-$VERSION-web.zip" \
+          gh release create "$VERSION" book/build/publish/*.pdf "$videos"/videos/*.mp4 "$zipped" \
             --title "$VERSION" $pre --notes-file notes.md

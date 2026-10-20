@@ -6,10 +6,14 @@ guide/, review/ and ftc31459-book.pdf. Moved here from gh-pages' src/ on
 2026-10-11; tools/publish_check.py runs it.
 
     python tools/run.py build --figures DIR --solutions REF --out OUT [--lessons REF] [--mentor]
+        [--as KIND --version V]
 
 `--mentor` builds the mentor book, with Sphinx's `mentor` tag, into mentor/ and
 ftc31459-mentor-book.pdf, and leaves the review alone. Without it, the student
 book goes into guide/ and ftc31459-book.pdf. `--lessons` is HEAD unless named.
+`--as` and `--version` name the version being published, as assemble_pages.py
+takes them, for the links conf.py's `{video}` role writes; without them, the
+release at the top level.
 
 It fails, and writes nothing, if a pencilled box has no picture in --figures.
 It fails, and writes nothing, if the PDF step cannot open an image. It fails
@@ -18,9 +22,9 @@ after writing if a built page shows an image file that is not there.
 Run it in a Python that has the book's requirements and rinohtype. The lessons
 ref is checked out into a throwaway worktree, so nothing here is touched. In
 that copy, every pencilled box (`:::{admonition} fig-...` with `:class: pencil`)
-whose id has a picture in --figures becomes a figure with the box's own words as
-its caption. The lessons ref keeps its boxes; the pictures live in
-corbels-lfs-lessons.
+whose id has a picture in --figures becomes that picture, with no caption: the
+box's words only stand in for it. The lessons ref keeps its boxes; the pictures
+live in corbels-lfs-lessons.
 
 The PDF needs the route diagrams as PNG, because rinohtype places no SVG; they
 are drawn with Pillow, so the build runs on any computer with the book's
@@ -60,7 +64,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
 
         def figure(m):
             nonlocal filled
-            fig, caption = m.group(1), " ".join(m.group(2).split())
+            fig = m.group(1)
             png = FIGURES / f"{fig}.png"
             if not png.exists():
                 left.append(fig)
@@ -68,7 +72,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
             shutil.copy(png, static / png.name)
             filled += 1
             path = "../" * depth + f"_static/figures/{png.name}"
-            return f":::{{figure}} {path}\n:name: {fig}\n\n{caption}\n:::"
+            return f":::{{figure}} {path}\n:name: {fig}\n:::"
 
         new = PENCIL.sub(figure, text)
         if new != text:
@@ -141,6 +145,8 @@ def main() -> int:
     ap.add_argument("--figures", type=Path, required=True)
     ap.add_argument("--mentor", action="store_true")
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--as", dest="kind", choices=("release", "pre", "dev"))
+    ap.add_argument("--version", default="")
     args = ap.parse_args()
     global FIGURES
     FIGURES = args.figures.resolve()
@@ -161,9 +167,11 @@ def main() -> int:
             return 1
 
         out = tree / "out"
-        # conf.py names these on B003, describing them as committed.
+        # conf.py names these on B003, describing them as committed, and links videos by the
+        # version.
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
-                          BOOK_MEDIA=str(FIGURES.parent))
+                          BOOK_MEDIA=str(FIGURES.parent), BOOK_AS=args.kind or "",
+                          BOOK_VERSION=args.version)
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:

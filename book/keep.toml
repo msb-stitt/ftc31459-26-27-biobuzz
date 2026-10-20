@@ -54,7 +54,12 @@ path = "source/tasks/l020.md"
 # gives L020, in the sticky-note picture. Raised to 1300 on 2026-10-09 for Android Studio's window,
 # which the outline asks to be taught early. Lowered to 900 on 2026-10-10, measured at 873, when
 # Android Studio's window moved to H017 and the What's happening to E021.
-words = 900
+# Raised to 1000 on 2026-10-16, measured at 966, for Fable's recommendations: Start and A, opening
+# AdvantageScope, the Default NetworkTables 4 item, forward is -1.0, and sorting the logs, at
+# Mike's word.
+# Raised to 1050 on 2026-10-16, measured at 1006, for the simulator check's line that it lists any
+# connected gamepads, at Mike's word.
+words = 1050
 
 [[page]]
 path = "source/tasks/h017.md"
@@ -68,7 +73,10 @@ words = 550
 [[page]]
 path = "source/tasks/e021.md"
 # Measured off the first draft, 230 words, and rounded up: L020's What's happening, moved.
-words = 250
+# Raised for Mike to read the page at 285 words, with its three sticky-note drawings, 2026-10-17,
+# and again at 389 words, with his paragraphs on the equals sign, and at 416 words, with Tracker's
+# two drawings.
+words = 450
 
 [[page]]
 path = "source/tasks/l030.md"
@@ -197,7 +205,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-rules.1"
+solutions = "solutions-mlt-fable.1"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -207,5 +215,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-page-types"
-commit = "9d4eaf77b2629daf60037fef66fe2ae389a5e27d"
+ref = "lessons-mlt-fable"
+commit = "184d46edc316fcb1b9026c7c8da2cf84735c6a0f"

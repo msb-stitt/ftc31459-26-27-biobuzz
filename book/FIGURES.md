@@ -3,23 +3,24 @@
 **Status: controlling.** The register every figure in the guide is listed in.
 
 A figure that does not exist yet is **pencilled**: the page shows a visible box carrying the
-figure's id and what the picture must show, so a reader can see the guide is unfinished there and a
-writer can keep going. `tools/check_figures.py` checks both directions, and it is the only place the
-number of pencilled figures is counted.
+figure's id and what makes it, so a reader can see the guide is unfinished there and a writer can
+keep going. What the picture must show is its row here. The release build puts the picture in the
+box's place, with no caption. `tools/check_figures.py` checks both directions, and it is the only
+place the number of pencilled figures is counted.
 
 How to add one: put the box in the page and the row here, in the same commit.
 
 ```
 :::{admonition} fig-robot-front
 :class: pencil
-What the picture must show, in one sentence.
+Stand-in for `fig-robot-front`, made by `book/tools/draw.py`.
 :::
 ```
 
 | id | What it must show | How it is obtained | Status |
 | --- | --- | --- | --- |
 | `fig-robot-front` | The robot from the front, on the floor, with both gamepads beside it, so a student can match what is in front of them to what the guide calls each part | A drawing | pencilled |
-| `fig-gamepad-sticks` | Gamepad 1 from above, with the left stick, the right stick and the A button labeled, and an arrow showing which way each y axis counts up | A drawing | pencilled |
+| `fig-gamepad-sticks` | Gamepad 1 from above, with the left stick, the right stick and the A button labeled, and on each stick an arrow away labeled "pushed away -1.0" and an arrow back labeled "pulled back 1.0" | A drawing | pencilled |
 | `fig-wheel-names` | The robot from above with its nose marked, and each of the four wheels labeled front left, front right, back left and back right | A drawing | pencilled |
 | `fig-wheel-forward` | One wheel from the side, with an arrow on the top of the tire showing which way it travels when that wheel is driving the robot forward | A drawing | pencilled |
 | `fig-stick-shaping` | Three graphs side by side, each with the stick from -1.0 to +1.0 along the bottom and the power out from -1.0 to +1.0 up the side: the raw stick straight, the deadbanded stick with a flat step at the middle, and the squared stick as an S | A drawing | pencilled |
@@ -28,6 +29,8 @@ What the picture must show, in one sentence.
 | `fig-pinpoint-mounting` | The Pinpoint on the robot from above, with the forward pod and the strafe pod drawn at right angles to each other, each labeled with the socket it plugs into, and the sticker side marked facing up | A drawing | pencilled |
 | `fig-odometry-step` | One loop of dead reckoning: the four wheel travels since the last loop, the forward and left arrows those add up to, the same pair turned to point along the robot's heading, and the old estimate with that pair added on the end | A drawing | pencilled |
 | `fig-field-relative` | The field from above as AdvantageScope draws it, with the driver at the left edge, the robot facing up the field, the stick's direction as an arrow on the field, and the same arrow drawn again on the robot showing what forward and sideways it turns into | A drawing | pencilled |
+| `fig-stick-to-robot` | The gamepad from above with +x to the right and +y toward the driver on each stick, beside the robot from above with Pedro's +x out the nose, +y to its left and a counter-clockwise turn positive, and under both `forward = -left_stick_y`, `strafe = -left_stick_x` and `turn = -right_stick_x` | A drawing | pencilled |
+| `fig-pedro-field` | Pedro's field from above with (0, 0) at the bottom left corner and (144, 144) in at the top right, +x to the right and +y up, the red drive team at the left edge and the blue drive team at the right, a heading compass with 0°, 90°, 180° and 270° and their radians and counter-clockwise positive, and a robot at heading 90° with its own +x and +y | A drawing | pencilled |
 | `fig-speed-loop` | The loop drawn once around: the stick asking for 40 in/s, the feedforward guess at the power, the encoder's measured speed coming back, and the error being added in | A drawing | pencilled |
 | `fig-l011-built` | Android Studio on Windows with the project open and the Build window reading *BUILD SUCCESSFUL* and *63 actionable tasks: 63 executed* | Screenshot, taken 2026-10-08 on Windows | pencilled |
 | `fig-l011-archive` | The archive page in Edge with *Android Studio Quail 4 \| 2026.1.4 Patch 1* open, listing its installers and zip files | Screenshot, taken 2026-10-08 on Windows | pencilled |
@@ -68,9 +71,13 @@ What the picture must show, in one sentence.
 | `fig-l020-complete` | The list under `gamepad1.` after typing `left_st`, with `left_stick_y` highlighted and marked `float` | Screenshot, taken 2026-10-05 and cropped from the full screen | pencilled |
 | `fig-l020-hover` | The box over `left_stick_y` reading `public volatile float left_stick_y` and *left analog stick vertical axis* | Screenshot, taken 2026-10-05 and cropped from the full screen | pencilled |
 | `fig-l020-tracker` | The list under `Track`, with `Tracker` from `org.firstinspires.ftc.teamcode.base` highlighted at the top and `Tracker` from `org.opencv.video` under it | Screenshot, taken 2026-10-05 and cropped from the full screen | pencilled |
-| `fig-l020-live` | AdvantageScope's Line Graph connected to the simulator, with `NT:/stick/leftY` drawn at -1 and `NT:/stick/rightY` drawn at 0.5, and both names in Left Axis | Screenshot, taken 2026-10-05 with the sticks set by `--left_stick_y=-1 --right_stick_y=0.5` | pencilled |
-| `fig-l020-log` | AdvantageScope's Line Graph of the flight log `L020SticksOpMode-….wpilog`, with `/stick/leftY` at -1 and `/stick/rightY` at 0.5 for the whole run | Screenshot, taken 2026-10-05 of `L020SticksOpMode-20261005-131029.wpilog` | pencilled |
-| `fig-l020-sticky` | `double leftStickY = gamepad1.left_stick_y;` as sticky notes: `gamepad1` pointing to a `Gamepad` note whose `left_stick_y` points to a `float` holding -0.7, copied by an orange arrow onto the `double` that `leftStickY` points to | A drawing | pencilled |
+| `fig-l020-live` | AdvantageScope's Line Graph connected to the simulator, with `NT:/stick/leftY` and `NT:/stick/rightY` in Left Axis, each line following its own stick as both are pushed and let go | Screenshot, of a run with a gamepad moved as L020's video moves it | pencilled |
+| `fig-l020-log` | AdvantageScope's Line Graph of the flight log `L020SticksOpMode-….wpilog`, with `/stick/leftY` and `/stick/rightY` showing every push of the run: rightY to -1.0 and to 1.0, then both sticks rocked around the same time, close to together, then both let go | Screenshot, of the flight log of a run with a gamepad moved as L020's video moves it | pencilled |
+| `fig-l020-platform` | Inside a box labeled "the FTC platform": the label `gamepad1` pointing to a `Gamepad` note, whose label `left_stick_y` points to a `float` note holding -0.7 | A drawing | pencilled |
+| `fig-l020-variable` | `double leftStickY` above the label `leftStickY` pointing to a `double` note with no value on it | A drawing | pencilled |
+| `fig-l020-sticky` | `double leftStickY = gamepad1.left_stick_y;` as sticky notes: `gamepad1` pointing to a `Gamepad` note whose `left_stick_y` points to a `float` holding -0.7, and `leftStickY` pointing to a `double`. An orange arrow runs from the `float`'s -0.7 to the `double`'s, with fading copies of -0.7 along it, so a copy is seen arriving; beside it, "The equals symbol '=' tells the program to do an assignment action." | A drawing | pencilled |
+| `fig-l020-tracker-note` | Inside the FTC platform's grey box: the label `Tracker` pointing to a `Tracker` note, with a lavender box touching the note's left edge that holds `publish()` | A drawing | pencilled |
+| `fig-l020-publish` | `Tracker.publish("stick/leftY", leftStickY);`: inside the platform, the `Tracker` note's lavender box holds `publish(` two blank labels `)`. The first points to a pink `String` note holding "stick/leftY", the second to a yellow `double` of its own. Below, `leftStickY` still points to its `double` holding -0.7, and a copy of the -0.7, four fading grey copies and an orange arrow, is arriving on the second label's `double`. At Mike's word of 2026-10-17: "We're modeling the action as passing parameters by value, but not explaining it at this time." An orange arrow runs from `publish` to a table, the AdvantageScope log, with a row `stick/leftY` and -0.7 | A drawing | pencilled |
 | `fig-l030-complete` | The list under `-leftS`, offering the variable `leftStickY`, marked `double` | Screenshot, taken 2026-10-05 and cropped from the full screen | pencilled |
 | `fig-l030-live` | AdvantageScope's Line Graph connected to the simulator, with `NT:/stick/leftY` drawn at -1 and `NT:/speed/left` drawn at 1, and `speed/right` reading -0.500 beside `stick/rightY` at 0.500 in the list | Screenshot, taken 2026-10-05 with the sticks set by `--left_stick_y=-1 --right_stick_y=0.5` | pencilled |
 | `fig-l040-field` | AdvantageScope's 2D Field connected to the simulator, with the robot `NT:sim/Pose` near the left wall after curving left from its start, `speed/left` reading 0.250 and `speed/right` 0.350 | Screenshot, taken 2026-10-05 with the sticks set by `--left_stick_y=-0.25 --right_stick_y=-0.35` | pencilled |

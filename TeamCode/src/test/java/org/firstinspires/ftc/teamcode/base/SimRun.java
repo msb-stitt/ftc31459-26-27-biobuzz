@@ -122,7 +122,10 @@ public final class SimRun {
                 || plan.form == SimArgs.Form.PAD_CHECK;
 
         try (SimPublisher out = harness == null ? null : new SimPublisher(harness);
-                SimPads pads = usePads ? SimPads.open() : null) {
+                SimVirtualPads virtual = SimVirtualPads.open(
+                        System.getenv(SimVirtualPads.VARIABLE), usePads, System.out);
+                SimPads pads = !usePads ? null
+                        : SimPads.open(virtual == null ? null : virtual::attachFirst)) {
             if (harness != null) {
                 System.out.println("Flight log: " + harness.logFolder);
                 System.out.println(plan.opMode + " running. Connect AdvantageScope to 127.0.0.1"
@@ -138,6 +141,9 @@ public final class SimRun {
             long lastGestures = -1;
             long lastReport = -1;
             while (running) {
+                if (virtual != null) {
+                    virtual.poll();
+                }
                 if (pads != null) {
                     pads.read(slot1, slot2);
                 }
