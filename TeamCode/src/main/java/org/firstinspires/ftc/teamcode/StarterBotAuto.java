@@ -7,6 +7,7 @@ import static com.pedropathing.ivy.pedro.PedroCommands.hold;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -19,7 +20,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * middle of the field, then sideways to the right without turning, and hold
  * there, facing away from the wall the whole way.
  *
- * <p>The routine is one command, scheduled when PLAY is pressed. Each wheel's
+ * <p>The drive is one command, built and scheduled in {@code start()} when PLAY
+ * is pressed, the way StarterBot TeleOp schedules its three. Each wheel's
  * power goes to the flight log; Pedro's pose is already there, under
  * {@code Robot/Pose}.
  */
@@ -37,6 +39,7 @@ public class StarterBotAuto extends CorbelsAuto {
     Pose end = poses.of(96.0, 72.0, 90.0);
 
     CorbelsMecanum drivetrain;
+    Command forwardThenStrafeThenHold;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -50,10 +53,12 @@ public class StarterBotAuto extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
+        forwardThenStrafeThenHold = driveForwardThenStrafeThenHold();
+        Scheduler.schedule(forwardThenStrafeThenHold);
         startAfter();
     }
 
-    /** The routine runs inside loopAfter(); this line is for the driver's screen. */
+    /** The drive runs inside loopAfter(); this line is for the driver's screen. */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
@@ -75,9 +80,7 @@ public class StarterBotAuto extends CorbelsAuto {
     }
 
     /** Forward to the corner, sideways to the end, then hold the end. */
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public Command routine() {
+    Command driveForwardThenStrafeThenHold() {
         Command driveForwardToTheCorner = follow(follower, line(start, corner).constant(start));
         Command strafeRightToTheEnd = follow(follower, line(corner, end).constant(start));
         Command holdTheEnd = hold(follower, end);
