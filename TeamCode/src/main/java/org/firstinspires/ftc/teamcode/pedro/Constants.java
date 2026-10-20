@@ -18,7 +18,6 @@ import com.pedropathing.revhub.localizers.PinpointLocalizer;
 import com.pedropathing.tuning.autotune.Procedure;
 import com.pedropathing.tuning.autotune.Tuner;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -28,6 +27,16 @@ import org.firstinspires.ftc.teamcode.pedro.procedures.Tests;
 
 
 public class Constants {
+
+    /** The robots this code is built for. Each has its own file: Bot88888 and so on. */
+    enum Robot { BOT_88888, BOT_37523, BOT_31459 }
+
+    /**
+     * The robot this code is going onto. Change this line when you switch
+     * robots. What differs between robots is in that robot's own file; what
+     * they share is in this one.
+     */
+    static Robot thisRobot = Robot.BOT_37523;
 
     // ---- Device names. These must match the Robot Controller configuration,
     // ---- and nothing outside this file should name a device. The drivetrain's
@@ -86,11 +95,15 @@ public class Constants {
         c.frontRightName.set("Front Right");
         c.backLeftName.set("Back Left");
         c.backRightName.set("Back Right");
-        // goBILDA's stock StarterBot reverses the left two. MEASURE: Mecanum Tuner.
-        c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
-        c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
+        // Which way each motor is mounted differs between robots, so it is in
+        // the file of the robot thisRobot names.
+        if (thisRobot == Robot.BOT_88888) {
+            Bot88888.drivetrain(c);
+        } else if (thisRobot == Robot.BOT_37523) {
+            Bot37523.drivetrain(c);
+        } else {
+            Bot31459.drivetrain(c);
+        }
 
         // Brake rather than coast when a driver releases the sticks.
         c.manualBrakeMode.set(true);
