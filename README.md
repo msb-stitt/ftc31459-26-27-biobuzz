@@ -89,7 +89,7 @@ graph them together in AdvantageScope to see whether it holds its speed.
 
 If the launcher stutters rather than holding its speed, try these in order:
 
-- Run it at 1250, the full target. At a fifth, its feedforward asks for about a tenth of full
+- Run it at 1250, the full target. At a fifth, its feedforward asks for about a fortieth of full
   power, little enough for the wheels to stick and surge.
 - At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
   means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
@@ -100,7 +100,8 @@ If the launcher stutters rather than holding its speed, try these in order:
 - Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
   fraction, to the wiring or the gains.
 - If the speed swings around the target, lower `Launcher.VELOCITY_P`; if it never reaches it, raise
-  `Launcher.VELOCITY_F`. goBILDA's DECODE StarterBot used `(300, 0, 0, 10)`.
+  `Launcher.VELOCITY_F`. P 10 and F 12.5/4 stopped the stutter on our robot; goBILDA's example
+  used `(40, 0, 0, 12.5)`, and its DECODE StarterBot `(300, 0, 0, 10)`.
 - Use a battery above 12.5 V.
 
 ### TODO 
