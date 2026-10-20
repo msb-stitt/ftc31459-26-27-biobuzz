@@ -31,7 +31,7 @@ is gone; each number is the line's place in the file after the lesson.
 +  47             powers[i] = clampToPower(feedforward + feedback);
 +  48         }
 +  49         setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
-+  50         publishWheelSpeeds(wanted, measured, powers);
++  50         publishWheelSpeeds(wanted, measured);
    51     }
    52 }
 ```
