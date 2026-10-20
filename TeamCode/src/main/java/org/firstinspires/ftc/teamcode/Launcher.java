@@ -41,8 +41,11 @@ class Launcher {
     /** The windmill still. */
     static final double WINDMILL_STOPPED_POWER = 0;
 
-    /** goBILDA's velocity gains for the launcher motor: P, I, D and F. */
-    static final double VELOCITY_P = 40;
+    /**
+     * The launcher motor's velocity gains: P, I, D and F. goBILDA's example
+     * used 40, 0, 0 and 12.5; P is lowered to 10.
+     */
+    static final double VELOCITY_P = 10;
     static final double VELOCITY_I = 0;
     static final double VELOCITY_D = 0;
     static final double VELOCITY_F = 12.5;
