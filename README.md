@@ -65,7 +65,8 @@ stock, with a Pinpoint. **StarterBot TeleOp** drives one with the controls of go
 code, written in `StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson
 L130's route: forward from the wall to (72, 72) inches, then 24 inches to the right, facing +y the
 whole way. These two and Launcher Check are the only OpModes on the Driver Station; every other is
-`@Disabled`.
+`@Disabled`. All three send the flight log live to AdvantageScope as well, for practice;
+[NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
 one runs the intake from the triggers, one fires the launcher while the right bumper is held. A
