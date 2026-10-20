@@ -27,7 +27,6 @@ public class SharedLifecycleTest {
     public static class SampleTeleOp extends CorbelsTeleOp {
         public final List<String> calls = new ArrayList<>();
 
-        @Override public void bindings() { calls.add("bindings"); }
         @Override public void shadowLocalizers() { calls.add("shadowLocalizers"); }
 
         @Override public void init() { initBefore(); initAfter(); }
@@ -72,9 +71,8 @@ public class SharedLifecycleTest {
         assertEquals("no hooks yet", 0, opMode.calls.size());
 
         h.start();
-        assertEquals("bindings before the shadow localizers",
-                "[bindings, shadowLocalizers]", opMode.calls.toString());
-        assertNotNull(opMode.buttons);
+        assertEquals("the shadow localizers at start",
+                "[shadowLocalizers]", opMode.calls.toString());
 
         h.loop();
         assertTrue(opMode.calls.contains("drive"));
