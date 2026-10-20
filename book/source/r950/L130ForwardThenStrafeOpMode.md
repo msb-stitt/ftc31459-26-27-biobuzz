@@ -1,7 +1,7 @@
 # L130ForwardThenStrafeOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-remove-buttons.2`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-auto-schedules.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L130
@@ -19,18 +19,18 @@ is gone; each number is the line's place in the file after the lesson.
     7
     8 import com.pedropathing.api.PoseFactory;
     9 import com.pedropathing.ivy.Command;
-@@ lines 83 to 94 @@
-   83     @Override
-   84     public Command routine() {
-   85         return sequential(
+@@ lines 87 to 98 @@
+   87
+   88     Command driveForwardThenStrafe() {
+   89         return sequential(
 -                     follow(follower, line(start, corner).constant(start))
-+  86                 follow(follower, line(start, corner).constant(start)),
-   87                 // When on L130S030, see
-   88                 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l130.html#l130s030
-   89                 // for what to do here.
-+  90                 follow(follower, line(corner, end).constant(start)),
-+  91                 hold(follower, end)
-   92         );
-   93     }
-   94 }
++  90                 follow(follower, line(start, corner).constant(start)),
+   91                 // When on L130S030, see
+   92                 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l130.html#l130s030
+   93                 // for what to do here.
++  94                 follow(follower, line(corner, end).constant(start)),
++  95                 hold(follower, end)
+   96         );
+   97     }
+   98 }
 ```
