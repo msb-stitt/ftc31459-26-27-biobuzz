@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.sysid;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
@@ -44,6 +45,7 @@ import org.firstinspires.ftc.teamcode.base.WheelVelocities;
  *       reading can be trusted per loop.</li>
  * </ul>
  */
+@Disabled
 @TeleOp(name = "SysId: voltage response", group = "SysId")
 public class VoltageResponseOpMode extends CorbelsTeleOp {
 
@@ -147,7 +149,7 @@ public class VoltageResponseOpMode extends CorbelsTeleOp {
     }
 
     @Override
-    protected void afterLoop() {
+    public void afterLoop() {
         if (!running) drivetrain.setCommandedWheels(0, 0, 0, 0);
     }
 }

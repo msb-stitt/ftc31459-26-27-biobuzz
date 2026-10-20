@@ -67,7 +67,7 @@ public abstract class CorbelsOpMode extends OpMode {
     }
 
     /** Every loop, after the scheduler and the shadow localizers. */
-    protected void afterLoop() {
+    public void afterLoop() {
     }
 
     /** Extra localizers to watch. Runs once, when the OpMode starts. */

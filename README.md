@@ -62,7 +62,17 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 The robots are goBILDA's
 [StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
 stock, with a Pinpoint. **StarterBot TeleOp** drives one with the controls of goBILDA's example
-code, written in `StarterBotTeleOp`, `Intake` and `Launcher`.
+code, written in `StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson
+L130's route: forward from the wall to (72, 72) inches, then 24 inches to the right, facing +y the
+whole way. These two and Launcher Check are the only OpModes on the Driver Station; every other is
+`@Disabled`.
+
+StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
+one runs the intake from the triggers, one fires the launcher while the right bumper is held. A
+command that needs the drivetrain, the intake or the launcher sets aside the one using it, and
+that one comes back when it ends. Each stick, trigger and button read, the drive asked for,
+`intake/power` and each wheel's `wheel/<wheel>/power` go to the flight log; Pedro's pose is under
+`Robot/Pose`.
 
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
@@ -71,10 +81,10 @@ code, written in `StarterBotTeleOp`, `Intake` and `Launcher`.
 
 **Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
 nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
-per second; D-pad up and down step the fraction by 0.1, from 0.1 to 1.0, starting at 0.2. While
-the launcher spins, here and in StarterBot TeleOp, its flight log carries `launcher/target_tps`,
-`launcher/measured_tps` and `launcher/current_amps`; graph them together in AdvantageScope to see
-whether it holds its speed.
+per second; D-pad up and down step the fraction by 0.1, from 0.1 to 1.0, starting at 0.2. Each
+loop, here and in StarterBot TeleOp, the flight log carries `launcher/target_tps`,
+`launcher/measured_tps`, `launcher/current_amps` and `launcher/feeding`, spinning or stopped;
+graph them together in AdvantageScope to see whether it holds its speed.
 
 If the launcher stutters rather than holding its speed, try these in order:
 
