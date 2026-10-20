@@ -205,7 +205,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-mlt-fable.1"
+solutions = "solutions-remove-buttons.1"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -215,5 +215,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-mlt-fable"
-commit = "184d46edc316fcb1b9026c7c8da2cf84735c6a0f"
+ref = "remove-buttons"
+commit = "d1a615f7f6cfb51e41d746ce213cc5e683c52edd"

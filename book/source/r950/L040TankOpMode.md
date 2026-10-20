@@ -1,7 +1,7 @@
 # L040TankOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-mlt-fable.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-remove-buttons.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L040
@@ -11,19 +11,19 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L040TankOpMode.java  (before L040)
 +++ mytry/L040TankOpMode.java  (after L040)
-@@ lines 58 to 71 @@
-   58         // When on L040S030, see
-   59         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s030
-   60         // for what to do here.
-+  61         hardware.frontLeft.setPower(leftSpeed);
-+  62         hardware.backLeft.setPower(leftSpeed);
-   63
-   64         // When on L040S040, see
-   65         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s040
-   66         // for what to do here.
-+  67         hardware.frontRight.setPower(rightSpeed);
-+  68         hardware.backRight.setPower(rightSpeed);
-   69
-   70         loopAfter();
-   71     }
+@@ lines 69 to 82 @@
+   69         // When on L040S030, see
+   70         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s030
+   71         // for what to do here.
++  72         hardware.frontLeft.setPower(leftSpeed);
++  73         hardware.backLeft.setPower(leftSpeed);
+   74
+   75         // When on L040S040, see
+   76         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s040
+   77         // for what to do here.
++  78         hardware.frontRight.setPower(rightSpeed);
++  79         hardware.backRight.setPower(rightSpeed);
+   80     }
+   81
+   82     // 'public' to match the parent class. 'public' allows access from any code.
 ```

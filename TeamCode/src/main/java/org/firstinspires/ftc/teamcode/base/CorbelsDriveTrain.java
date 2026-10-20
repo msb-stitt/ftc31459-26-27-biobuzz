@@ -101,13 +101,18 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
 
     /**
      * Sends {@link #wheelPowers} to the motors, each slot to the motor
-     * {@link #FL} and the others name.
+     * {@link #FL} and the others name, and logs each as
+     * {@code wheel/<wheel>/power}.
      */
     protected void writeWheels() {
         motors[FL].setPower(wheelPowers[FL]);
         motors[FR].setPower(wheelPowers[FR]);
         motors[BL].setPower(wheelPowers[BL]);
         motors[BR].setPower(wheelPowers[BR]);
+        Tracker.publish("wheel/frontLeft/power", wheelPowers[FL]);
+        Tracker.publish("wheel/frontRight/power", wheelPowers[FR]);
+        Tracker.publish("wheel/backLeft/power", wheelPowers[BL]);
+        Tracker.publish("wheel/backRight/power", wheelPowers[BR]);
     }
 
     // ------------------------------------------------------- scaling
@@ -272,7 +277,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         }
 
         setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
-        publishWheelSpeeds(wanted, measured, powers);
+        publishWheelSpeeds(wanted, measured);
     }
 
     // ------------------------------------------------------- reading the wheels back
@@ -468,14 +473,16 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         return Math.min(1.0, notTooLow);
     }
 
-    /** What a wanted speed, a measured speed and the power between them were. */
-    public void publishWheelSpeeds(double[] wanted, double[] measured, double[] powers) {
+    /**
+     * What each wheel's wanted and measured speeds were. Its power is logged
+     * when it is written, by {@link #writeWheels}.
+     */
+    public void publishWheelSpeeds(double[] wanted, double[] measured) {
         String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
         for (int i = 0; i < names.length; i++) {
             Tracker.publish("wheel/" + names[i] + "/target_ips", wanted[i]);
             Tracker.publish("wheel/" + names[i] + "/actual_ips", measured[i]);
             Tracker.publish("wheel/" + names[i] + "/error_ips", wanted[i] - measured[i]);
-            Tracker.publish("wheel/" + names[i] + "/power", powers[i]);
         }
     }
 

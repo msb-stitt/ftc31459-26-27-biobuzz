@@ -173,22 +173,16 @@ public abstract class CorbelsOpMode extends OpMode {
         shadowLocalizers.publishOnly("pinPoint", follower.localizer);
     }
 
-    /**
-     * Reads the gamepads. The first thing a lesson's loop() calls, so a button
-     * pressed now is seen by the lesson's own code now.
-     */
+    /** The first thing a lesson's loop() calls. The framework has nothing to do there. */
     protected final void loopBefore() {
-        pollInputs();
     }
 
-    /** Where {@link CorbelsTeleOp} reads its buttons. Nothing for an auto to do. */
-    protected void pollInputs() {
-    }
-
-    /** The follower, the scheduler and the logs. The last thing a lesson's loop() calls. */
+    /** The scheduler, the follower and the logs. The last thing a lesson's loop() calls. */
     protected final void loopAfter() {
-        follower.update();
+        // The commands first, so what they ask of the drivetrain this loop
+        // reaches the wheels in this loop's follower update.
         Scheduler.execute();
+        follower.update();
         shadowLocalizers.update();
         afterLoop();
         // Counts the loop, records Pedro, closes the file's record for this loop,

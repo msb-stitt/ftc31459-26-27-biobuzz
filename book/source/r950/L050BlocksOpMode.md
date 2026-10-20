@@ -1,7 +1,7 @@
 # L050BlocksOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-mlt-fable.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-remove-buttons.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L050
@@ -11,15 +11,15 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L050BlocksOpMode.java  (before L050)
 +++ mytry/L050BlocksOpMode.java  (after L050)
-@@ lines 33 to 42 @@
-   33         // When on L050S040, see
-   34         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
-   35         // for what to do here.
-+  36         hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
-+  37         hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());
-+  38         hardware.backLeft.setDirection(hardware.mecanumConfig.backLeftDirection.get());
-+  39         hardware.backRight.setDirection(hardware.mecanumConfig.backRightDirection.get());
-   40
-   41         initAfter();
-   42     }
+@@ lines 38 to 47 @@
+   38         // When on L050S040, see
+   39         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+   40         // for what to do here.
++  41         hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
++  42         hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());
++  43         hardware.backLeft.setDirection(hardware.mecanumConfig.backLeftDirection.get());
++  44         hardware.backRight.setDirection(hardware.mecanumConfig.backRightDirection.get());
+   45
+   46         initAfter();
+   47     }
 ```
