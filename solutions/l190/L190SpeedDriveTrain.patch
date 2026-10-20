@@ -22,6 +22,6 @@ index d346e1c..598b52d 100644
 +            powers[i] = clampToPower(feedforward + feedback);
 +        }
 +        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
-+        publishWheelSpeeds(wanted, measured, powers);
++        publishWheelSpeeds(wanted, measured);
      }
  }
