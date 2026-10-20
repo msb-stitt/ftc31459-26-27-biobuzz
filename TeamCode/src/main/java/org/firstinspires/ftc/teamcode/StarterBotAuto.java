@@ -68,21 +68,6 @@ public class StarterBotAuto extends CorbelsAuto {
         stopAfter();
     }
 
-    /** Each wheel's power, after the follower has written them this loop. */
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public void afterLoop() {
-        double[] wheelPowers = drivetrain.wheelPowers();
-        double frontLeftPower = wheelPowers[0];
-        double frontRightPower = wheelPowers[1];
-        double backLeftPower = wheelPowers[2];
-        double backRightPower = wheelPowers[3];
-        Tracker.publish("wheel/frontLeft/power", frontLeftPower);
-        Tracker.publish("wheel/frontRight/power", frontRightPower);
-        Tracker.publish("wheel/backLeft/power", backLeftPower);
-        Tracker.publish("wheel/backRight/power", backRightPower);
-    }
-
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public Pose startPose() {

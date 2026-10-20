@@ -77,21 +77,6 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
         loopAfter();
     }
 
-    /** Each wheel's power, after the follower has written them this loop. */
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public void afterLoop() {
-        double[] wheelPowers = drivetrain.wheelPowers();
-        double frontLeftPower = wheelPowers[0];
-        double frontRightPower = wheelPowers[1];
-        double backLeftPower = wheelPowers[2];
-        double backRightPower = wheelPowers[3];
-        Tracker.publish("wheel/frontLeft/power", frontLeftPower);
-        Tracker.publish("wheel/frontRight/power", frontRightPower);
-        Tracker.publish("wheel/backLeft/power", backLeftPower);
-        Tracker.publish("wheel/backRight/power", backRightPower);
-    }
-
     /**
      * Drives from the sticks for as long as the OpMode runs. A command that
      * also needs the drivetrain sets it aside, and it comes back when that ends.

@@ -157,7 +157,7 @@ public class SysIdDriveOpMode extends CorbelsTeleOp {
     }
 
     @Override
-    public void afterLoop() {
+    protected void afterLoop() {
         if (!running) drivetrain.setCommandedWheels(0, 0, 0, 0);
     }
 }
