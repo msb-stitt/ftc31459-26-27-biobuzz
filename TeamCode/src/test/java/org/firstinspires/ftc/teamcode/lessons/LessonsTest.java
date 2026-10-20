@@ -600,7 +600,9 @@ public class LessonsTest {
         h.loop();
         assertEquals("manual control returns", Follower.Mode.MANUAL, follower.mode());
         h.loop();                                  // the sticks drive from the next loop
-        assertEquals(1.0, h.wheelsForward(), 1e-3);
+        // Within 0.01: the follower has begun turning toward the target's heading,
+        // and the sticks drive field relative.
+        assertEquals(1.0, h.wheelsForward(), 0.01);
         h.stop();
     }
 
