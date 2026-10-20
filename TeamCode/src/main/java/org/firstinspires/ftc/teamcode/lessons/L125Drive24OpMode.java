@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
-import static com.pedropathing.api.Paths.line;
-import static com.pedropathing.ivy.groups.Groups.sequential;
-import static com.pedropathing.ivy.pedro.PedroCommands.follow;
-
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.math.Pose;
