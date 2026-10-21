@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.sysid;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
@@ -32,6 +33,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * channels for voltage, position and velocity, and set the units to
  * <b>Inches</b>.
  */
+@Disabled
 @TeleOp(name = "SysId: drivetrain", group = "SysId")
 public class SysIdDriveOpMode extends CorbelsTeleOp {
 

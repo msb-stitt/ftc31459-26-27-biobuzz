@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.commands.Commands;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -64,6 +67,8 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         startTicks = drivetrain.wheelTicks();
         startX = follower.pose().x();
         startY = follower.pose().y();
+        Command measureTicksPerInchEveryLoop = Commands.infinite(this::measureTicksPerInch);
+        Scheduler.schedule(measureTicksPerInchEveryLoop);
         startAfter();
     }
 
@@ -83,6 +88,11 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
+        loopAfter();
+    }
+
+    /** Once every loop, from PLAY until STOP: the scheduler runs it. */
+    void measureTicksPerInch() {
         drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);       // no power: we are pushing
 
         int[] now = drivetrain.wheelTicks();
@@ -107,7 +117,5 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
             Tracker.printToDs("Currently  %.2f ticks per inch", measured);
         }
         Tracker.printToDs("Configured now  %.2f", Constants.ticksPerInch);
-
-        loopAfter();
     }
 }

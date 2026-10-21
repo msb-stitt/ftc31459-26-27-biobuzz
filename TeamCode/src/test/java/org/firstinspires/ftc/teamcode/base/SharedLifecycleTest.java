@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
 
@@ -27,7 +29,6 @@ public class SharedLifecycleTest {
     public static class SampleTeleOp extends CorbelsTeleOp {
         public final List<String> calls = new ArrayList<>();
 
-        @Override public void bindings() { calls.add("bindings"); }
         @Override public void shadowLocalizers() { calls.add("shadowLocalizers"); }
 
         @Override public void init() { initBefore(); initAfter(); }
@@ -50,9 +51,15 @@ public class SharedLifecycleTest {
             return POSES.of(24, 24, 45);
         }
 
-        @Override public Command routine() {
+        Command routine() {
             calls.add("routine");
             return Commands.instant(() -> ran = true);
+        }
+
+        @Override public void start() {
+            startBefore();
+            Scheduler.schedule(routine());
+            startAfter();
         }
 
         @Override public void shadowLocalizers() { calls.add("shadowLocalizers"); }
@@ -60,6 +67,30 @@ public class SharedLifecycleTest {
         @Override public void init() { initBefore(); initAfter(); }
 
         @Override public void loop() { loopBefore(); loopAfter(); }
+    }
+
+    /** An auto whose start() schedules nothing. */
+    public static class AutoThatSchedulesNothing extends CorbelsAuto {
+        public boolean ran;
+
+        @Override public Pose startPose() { return POSES.of(24, 24, 45); }
+
+        Command routine() { return Commands.instant(() -> ran = true); }
+
+        @Override public void init() { initBefore(); initAfter(); }
+
+        @Override public void loop() { loopBefore(); loopAfter(); }
+    }
+
+    @Test
+    public void anAutoRunsOnlyWhatItsOwnStartSchedules() {
+        AutoThatSchedulesNothing opMode = new AutoThatSchedulesNothing();
+        OpModeHarness h = new OpModeHarness(opMode);
+        h.init();
+        h.start();
+        h.loop();
+        assertFalse("nothing ran that start() did not schedule", opMode.ran);
+        h.stop();
     }
 
     @Test
@@ -72,9 +103,8 @@ public class SharedLifecycleTest {
         assertEquals("no hooks yet", 0, opMode.calls.size());
 
         h.start();
-        assertEquals("bindings before the shadow localizers",
-                "[bindings, shadowLocalizers]", opMode.calls.toString());
-        assertNotNull(opMode.buttons);
+        assertEquals("the shadow localizers at start",
+                "[shadowLocalizers]", opMode.calls.toString());
 
         h.loop();
         assertTrue(opMode.calls.contains("drive"));
@@ -87,7 +117,7 @@ public class SharedLifecycleTest {
     }
 
     @Test
-    public void anAutoGetsTheSameTreatmentPlusItsStartPoseAndRoutine() {
+    public void anAutoGetsTheSameTreatmentPlusItsStartPoseAndRunsWhatItsStartSchedules() {
         SampleAutoOpMode opMode = new SampleAutoOpMode();
         OpModeHarness h = new OpModeHarness(opMode);
 

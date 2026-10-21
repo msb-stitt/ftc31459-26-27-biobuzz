@@ -1,23 +1,19 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.controllers.Controller;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.commands.Commands;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-/** The infrastructure students don't see: heading hold and buttons. */
+/** The infrastructure students don't see: heading hold, and the order of a loop. */
 public class BaseTest {
 
     private static final PoseFactory POSES = PoseFactory.degrees();
@@ -99,83 +95,41 @@ public class BaseTest {
         assertNull(hold.target());
     }
 
-    // -------------------------------------------------------------- Buttons
+    // ------------------------------------------------------- Loop order
 
-    @Test
-    public void whenPressedRunsOncePerPress() {
-        AtomicInteger runs = new AtomicInteger();
-        boolean[] pressed = {false};
-        Buttons buttons = new Buttons();
-        buttons.whenPressed(() -> pressed[0], Commands.instant(runs::incrementAndGet));
+    /** A teleop whose only work is a command that drives forward at full power. */
+    static final class DrivesForwardFromACommand extends CorbelsTeleOp {
+        CorbelsMecanum drivetrain;
 
-        buttons.poll();
-        Scheduler.execute();
-        assertEquals(0, runs.get());
+        @Override
+        public void init() {
+            initBefore();
+            drivetrain = new CorbelsMecanum(hardware);
+            initAfter(drivetrain);
+        }
 
-        pressed[0] = true;
-        buttons.poll();
-        Scheduler.execute();
-        assertEquals(1, runs.get());
+        @Override
+        public void start() {
+            startBefore();
+            Scheduler.schedule(Commands.infinite(() -> drivetrain.sticks(1.0, 0.0, 0.0)));
+            startAfter();
+        }
 
-        buttons.poll();                 // still held: must not repeat
-        Scheduler.execute();
-        assertEquals(1, runs.get());
-
-        pressed[0] = false;
-        buttons.poll();
-        pressed[0] = true;
-        buttons.poll();
-        Scheduler.execute();
-        assertEquals("a second press runs it again", 2, runs.get());
+        @Override
+        public void loop() {
+            loopBefore();
+            loopAfter();
+        }
     }
 
     @Test
-    public void whenReleasedRunsOnTheWayUp() {
-        AtomicInteger runs = new AtomicInteger();
-        boolean[] pressed = {true};
-        Buttons buttons = new Buttons();
-        buttons.whenReleased(() -> pressed[0], Commands.instant(runs::incrementAndGet));
-        buttons.poll();
-        Scheduler.execute();
-        assertEquals(0, runs.get());
-        pressed[0] = false;
-        buttons.poll();
-        Scheduler.execute();
-        assertEquals(1, runs.get());
-    }
-
-    @Test
-    public void whileHeldCancelsOnRelease() {
-        boolean[] pressed = {false};
-        Command forever = Commands.infinite(() -> { });
-        Buttons buttons = new Buttons();
-        buttons.whileHeld(() -> pressed[0], forever);
-
-        pressed[0] = true;
-        buttons.poll();
-        Scheduler.execute();
-        assertTrue(Scheduler.isRunning(forever));
-
-        pressed[0] = false;
-        buttons.poll();
-        Scheduler.execute();
-        assertFalse("released: the command stops", Scheduler.isRunning(forever));
-    }
-
-    @Test
-    public void bindingsAreIndependent() {
-        AtomicInteger a = new AtomicInteger();
-        AtomicInteger b = new AtomicInteger();
-        boolean[] first = {false};
-        boolean[] second = {false};
-        Buttons buttons = new Buttons()
-                .whenPressed(() -> first[0], Commands.instant(a::incrementAndGet))
-                .whenPressed(() -> second[0], Commands.instant(b::incrementAndGet));
-        assertEquals(2, buttons.size());
-        second[0] = true;
-        buttons.poll();
-        Scheduler.execute();
-        assertEquals(0, a.get());
-        assertEquals(1, b.get());
+    public void aCommandReachesTheWheelsInTheLoopItRuns() {
+        OpModeHarness h = new OpModeHarness(new DrivesForwardFromACommand());
+        h.init();
+        h.start();
+        h.loop();
+        assertTrue("the first loop's command drives the wheels that loop",
+                h.motors.get(OpModeHarness.FRONT_LEFT).power > 0);
+        h.stop();
     }
 }

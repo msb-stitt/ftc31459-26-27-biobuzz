@@ -1,7 +1,7 @@
 # L120CompareLocalizersOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-mlt-fable.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-auto-schedules.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L120
@@ -11,21 +11,21 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L120CompareLocalizersOpMode.java  (before L120)
 +++ mytry/L120CompareLocalizersOpMode.java  (after L120)
-@@ lines 6 to 12 @@
-    6 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
-    7 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
-    8 import org.firstinspires.ftc.teamcode.base.Tracker;
-+   9 import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
-   10
-   11 /**
-   12  * L120: drive around while two localizers disagree. Your localizer reads the
-@@ lines 100 to 107 @@
-  100         // When on L120S030, see
-  101         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
-  102         // for what to do here.
-+ 103         shadowLocalizers.add("driveWheelEncoders",
-+ 104                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
-  105     }
-  106
-  107     // 'public' to match the parent class. 'public' allows access from any code.
+@@ lines 9 to 15 @@
+    9 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+   10 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+   11 import org.firstinspires.ftc.teamcode.base.Tracker;
++  12 import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+   13
+   14 /**
+   15  * L120: drive around while two localizers disagree. Your localizer reads the
+@@ lines 109 to 116 @@
+  109         // When on L120S030, see
+  110         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
+  111         // for what to do here.
++ 112         shadowLocalizers.add("driveWheelEncoders",
++ 113                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
+  114     }
+  115
+  116     // 'public' to match the parent class. 'public' allows access from any code.
 ```

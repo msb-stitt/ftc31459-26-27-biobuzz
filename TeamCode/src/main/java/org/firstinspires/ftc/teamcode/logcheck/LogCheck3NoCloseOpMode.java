@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.logcheck;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import io.github.mikestitt.corbelsflightlog.FlightLog;
@@ -15,6 +16,7 @@ import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
  * <p>PASS: the file contains data right up to when you pressed stop, including
  * the "final value" event.
  */
+@Disabled
 @TeleOp(name = "Log 3: forgot to close", group = "LogCheck")
 public class LogCheck3NoCloseOpMode extends OpMode {
 

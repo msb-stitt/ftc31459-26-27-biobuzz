@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
+import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.commands.Commands;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -62,6 +65,8 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
         drivetrain.forceCoastForCharacterization();
         startTicks = drivetrain.wheelTicks();
         previousHeading = follower.pose().heading();
+        Command measureTurnRadiusEveryLoop = Commands.infinite(this::measureTurnRadius);
+        Scheduler.schedule(measureTurnRadiusEveryLoop);
         startAfter();
     }
 
@@ -81,6 +86,11 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
+        loopAfter();
+    }
+
+    /** Once every loop, from PLAY until STOP: the scheduler runs it. */
+    void measureTurnRadius() {
         drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);
 
         double heading = follower.pose().heading();
@@ -108,7 +118,5 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
             Tracker.printToDs("Currently  %.2f inches", measured);
         }
         Tracker.printToDs("ticksPerInch in use  %.2f", Constants.ticksPerInch);
-
-        loopAfter();
     }
 }

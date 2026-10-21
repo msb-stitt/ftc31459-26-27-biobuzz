@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.logcheck;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import io.github.mikestitt.corbelsflightlog.FlightLog;
@@ -39,6 +40,7 @@ import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
  * <p>Afterwards, run an FFT of {@code /loop/ms} against time and look for a line
  * at 3 Hz with harmonics.
  */
+@Disabled
 @TeleOp(name = "Log 8: 3 Hz flush beat", group = "LogCheck")
 public class LogCheck8FlushBeatOpMode extends OpMode {
 

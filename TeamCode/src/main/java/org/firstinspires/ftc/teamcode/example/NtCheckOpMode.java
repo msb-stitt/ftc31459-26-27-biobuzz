@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.example;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
@@ -26,6 +27,7 @@ import java.io.IOException;
  *
  * <p>Passes when: NtCheckOpModeTest
  */
+@Disabled
 @TeleOp(name = "NetworkTables check", group = "Corbels")
 public class NtCheckOpMode extends CorbelsTeleOp {
 

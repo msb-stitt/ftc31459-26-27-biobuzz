@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode.lessons;
 
-import static com.pedropathing.api.Paths.line;
-import static com.pedropathing.ivy.groups.Groups.sequential;
-import static com.pedropathing.ivy.pedro.PedroCommands.follow;
-
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,8 +14,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 /**
  * L125: the first autonomous. Drive 24 inches forward, and stop there.
  *
- * <p>An autonomous puts its driving in {@code routine}, and the follower does
- * the driving. Nobody touches a stick.
+ * <p>{@code start} schedules the drive as a command, and the follower does the
+ * driving. Nobody touches a stick.
  *
  * <p>Passes when: LessonsTest.l125_autoDrives24InchesForwardAndStops
  */
@@ -52,11 +49,13 @@ public class L125Drive24OpMode extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
+        Command drive24Inches = driveForward24();
+        Scheduler.schedule(drive24Inches);
         startAfter();
     }
 
     /**
-     * The scheduler runs {@link #routine()} from inside {@code loopAfter()}. The
+     * The scheduler runs the drive from inside {@code loopAfter()}. The
      * one line here is for the driver's screen, which shows nothing unless a
      * lesson asks it to.
      */
@@ -80,9 +79,7 @@ public class L125Drive24OpMode extends CorbelsAuto {
         return start;
     }
 
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public Command routine() {
+    Command driveForward24() {
         // When on L125S030, see
         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s030
         // for what to do here.
