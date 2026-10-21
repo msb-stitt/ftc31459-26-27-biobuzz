@@ -1665,9 +1665,9 @@ TANK_LONG, TANK_WIDE, TANK_LOW, TANK_HIGH = 2.2, 1.5, 0.15, 0.65      # the body
 WHEEL_R, WHEEL_W, WHEELS_X = 0.3, 0.24, 0.72                            # the wheels
 
 
-def tank_parts():
-    """The tank in room coordinates: the body's corners, each wheel's two rims, left wheels first,
-    and the nose."""
+def tank_parts(scale=1.0):
+    """The tank in room coordinates, scale times the size: the body's corners, each wheel's two
+    rims, left wheels first, and the nose."""
     hx, hy = TANK_LONG / 2, TANK_WIDE / 2
     body = [turned((x, y, z)) for x in (-hx, hx) for y in (-hy, hy) for z in (TANK_LOW, TANK_HIGH)]
     wheels = []
@@ -1679,12 +1679,16 @@ def tank_parts():
             wheels.append((side, rims))
     nose = [turned(q) for q in ((hx - 0.05, 0.32, TANK_HIGH), (hx + 0.42, 0, TANK_HIGH),
                                 (hx - 0.05, -0.32, TANK_HIGH))]
-    return body, wheels, nose
+
+    def big(q):
+        return tuple(scale * c for c in q)
+    return ([big(q) for q in body], [(side, [[big(q) for q in rim] for rim in rims])
+                                     for side, rims in wheels], [big(q) for q in nose])
 
 
-def tank_shadows():
+def tank_shadows(scale=1.0):
     """The tank's solid shapes, for the floor's shadows."""
-    body, wheels, nose = tank_parts()
+    body, wheels, nose = tank_parts(scale)
     faces = [[body[i] for i in f] for f in ((0, 2, 6, 4), (1, 3, 7, 5), (0, 1, 3, 2), (4, 5, 7, 6),
                                              (0, 1, 5, 4), (2, 3, 7, 6))]
     return faces + [rim for _, rims in wheels for rim in rims] + [nose]
@@ -1700,10 +1704,10 @@ def wheel(v, rims, alpha=1.0):
     v.s.dot(v.p(hub), 5, GREY2)
 
 
-def tank(v):
-    """The tank, see-through, drawn far to near: the left wheels, the body, the nose, the right
-    wheels."""
-    body, wheels, nose = tank_parts()
+def tank(v, scale=1.0, inside=lambda: None):
+    """The tank, see-through, drawn far to near: the left wheels, the body, what inside draws, the
+    nose, the right wheels."""
+    body, wheels, nose = tank_parts(scale)
     alpha = 0.45
     for side, rims in wheels:
         if side == 1:
@@ -1714,6 +1718,7 @@ def tank(v):
         pts = [v.p(body[i]) for i in f]
         v.s.line(pts, None, fill=color, fill_alpha=alpha, closed=True)
         v.s.line(pts, PEN, 2.0, 0.85, closed=True)
+    inside()
     v.s.marker([v.p(q) for q in nose], MARKER_RED, nib=12, opacity=0.8)
     v.s.ink_poly([v.p(q) for q in nose], width=2.0)
     for side, rims in wheels:
@@ -1796,13 +1801,88 @@ def e035_switch_3d():
     s.save("fig-e035-switch-3d")
 
 
+# -- E035's drivetrain: the rear left wheel's drive shaft, gearbox, motor shaft and motor, inside
+# the see-through tank at three times its size, each in the robot's units along the wheel's axle, from
+# the wheel in toward the middle: (y where it starts, y where it ends, its half-width, its outline).
+DRIVE = [("drive shaft", 0.79, 0.47, 0.05, "round", "#c9cccf", "#e4e5e5"),
+         ("gearbox", 0.47, 0.29, 0.15, "square", "#d9a521", "#efc75e"),
+         ("motor shaft", 0.29, 0.03, 0.035, "round", "#c9cccf", "#e4e5e5"),
+         ("motor", 0.03, -0.29, 0.15, "round", "#3c3f42", "#5d6164")]
+DRIVE_SCALE = 3.0
+SPIN_FROM = 160                            # degrees round the axle from the nose: an arrow's tail
+BEHIND = (0.0, -8.5)                       # the student's place, back from the bigger tank
+CALLOUTS = {"wheel": (True, -40, -150), "drive shaft": (False, -110, 150),   # above the part?
+            "gearbox": (True, -40, -150), "motor shaft": (True, 20, -110),   # and where its
+            "motor": (False, None, None)}                       # name goes; None: straight back
+
+
+def rear_left(q):
+    """A point by the rear left wheel's axle, in the robot's units, turned and scaled into the
+    room's."""
+    return tuple(DRIVE_SCALE * c for c in turned((-WHEELS_X + q[0], q[1], WHEEL_R + q[2])))
+
+
+def drive_part(v, y0, y1, half, shape, side_fill, end_fill):
+    """One part on the axle: its two ends, the hull of them filled, then the end toward the
+    viewer, which is the one nearer the robot's middle."""
+    if shape == "round":
+        ring = [(half * math.cos(a), half * math.sin(a))
+                for a in (i * math.pi / 16 for i in range(32))]
+    else:
+        ring = [(-half, -half), (half, -half), (half, half), (-half, half)]
+    ends = [[rear_left((x, y, z)) for x, z in ring] for y in (y0, y1)]
+    v.s.line(hull([v.p(q) for end in ends for q in end]), PEN, 2.0, 0.9, fill=side_fill,
+             closed=True)
+    v.s.line([v.p(q) for q in ends[1]], PEN, 2.0, 0.9, fill=end_fill, closed=True)
+
+
+def spin(v, y, r):
+    """An orange arrow round the axle at y, r from it, over the top toward the nose: forward."""
+    pts = [v.p(rear_left((r * math.cos(a), y, r * math.sin(a))))
+           for a in (math.radians(d) for d in range(SPIN_FROM, 15, -5))]
+    v.s.line(pts, MARKER_ORANGE, 7, 0.85)
+    v.s.marker_arrow(pts[-3], pts[-1], MARKER_ORANGE, nib=8)
+
+
+def e035_motor_wheel_gear_box():
+    s = Sketch(1720, 1160, 103)
+    v = Iso(s, (1020, 590), 100)
+    wheel_y, wheel_r = TANK_WIDE / 2 + 0.04 + WHEEL_W, WHEEL_R + 0.06
+
+    def drivetrain():
+        for _, y0, y1, half, shape, side_fill, end_fill in DRIVE:
+            drive_part(v, y0, y1, half, shape, side_fill, end_fill)
+        spin(v, wheel_y, wheel_r)                                      # the wheel
+        for name, y0, y1, half, _, _, _ in DRIVE:            # the motor and gearbox stand still
+            if name.endswith("shaft"):
+                spin(v, (y0 + y1) / 2, half + 0.06)
+
+    room(v, solids=tank_shadows(DRIVE_SCALE), at=BEHIND)
+    floor_grid(v, (-4, 4), (-9, 5))
+    tank(v, DRIVE_SCALE, drivetrain)
+    tail = math.radians(SPIN_FROM)                         # looking at the wheel arrow's tail
+    student(v, rear_left((wheel_r * math.cos(tail), wheel_y, wheel_r * math.sin(tail))), BEHIND)
+    names = [("wheel", TANK_WIDE / 2 + 0.04 + WHEEL_W / 2, WHEEL_R)]
+    names += [(name, (y0 + y1) / 2, half) for name, y0, y1, half, *_ in DRIVE]
+    for name, y, half in names:
+        up, out, drop = CALLOUTS[name]
+        tip = v.p(rear_left((0, y, half if up else -half)))
+        at = ((tip[0] + out, tip[1] + drop) if out is not None
+              else v.p(rear_left((-1.1, y, -half))))       # behind it, past the tank's back
+        s.ink_line((at[0], at[1] + (12 if up else -34)), tip, width=1.6, over=0, passes=1)
+        s.text(at, name, 30)
+    s.text((850, 70), "the rear left wheel's drivetrain, its shafts and wheel turning forward", 30)
+    s.save("fig-e035-motor-wheel-gear-box")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
             stick_to_robot, pedro_field, e035_numberline, e035_xy, e035_xyz, e035_flip,
             e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch, e035_numberline_3d,
-            e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_speeds_3d, e035_switch_3d]
+            e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_speeds_3d, e035_switch_3d,
+            e035_motor_wheel_gear_box]
 
 if __name__ == "__main__":
     if OUT is None:
