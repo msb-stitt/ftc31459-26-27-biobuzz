@@ -2,8 +2,9 @@
 
 A figure that has not been taken yet is a box in the page carrying its id and
 what makes it. FIGURES.md is the register: one row per figure, with what it
-must show, how it will be obtained, and either `pencilled` or the path of the
-image.
+must show, how it will be obtained, and `pencilled`, `unused` or the path of the
+image. An unused figure keeps its row, and draw.py keeps what draws it, so it can
+come back; no page shows it.
 
 Both directions are checked, because either one alone lets the guide lie: a box
 with no row is a figure nobody is going to take, and a row with no box is a
@@ -13,6 +14,7 @@ down anywhere; ask this check for it.
 
 import re
 import sys
+from pathlib import Path
 
 from bookpaths import book_root, relative, tracked
 
@@ -40,16 +42,25 @@ def boxes() -> dict[str, str]:
     return found
 
 
-def rows() -> dict[str, str]:
-    """Registered figure id to its status: `pencilled` or an image path."""
+def cells(root: Path = None) -> dict[str, list[str]]:
+    """Registered figure id to its row's cells after the id: what it must show, how it is
+    obtained and its status."""
     found = {}
-    for line in (book_root() / REGISTER).read_text(encoding="utf-8").splitlines():
+    for line in ((root or book_root()) / REGISTER).read_text(encoding="utf-8").splitlines():
         match = ROW.match(line)
-        if not match:
-            continue
-        cells = [cell.strip() for cell in match.group("rest").split("|")]
-        found[match.group("id")] = cells[-1].strip("`")
+        if match:
+            found[match.group("id")] = [cell.strip() for cell in match.group("rest").split("|")]
     return found
+
+
+def rows() -> dict[str, str]:
+    """Registered figure id to its status: `pencilled`, `unused` or an image path."""
+    return {figure: row[-1].strip("`") for figure, row in cells().items()}
+
+
+def descriptions(root: Path = None) -> dict[str, str]:
+    """Registered figure id to what it must show; conf.py puts it in the figure's box."""
+    return {figure: row[0] for figure, row in cells(root).items()}
 
 
 def main() -> int:
@@ -61,6 +72,9 @@ def main() -> int:
         if figure not in registered:
             print(f"{page}: {figure} is pencilled in and not in {REGISTER}")
             problems += 1
+        elif registered[figure] == "unused":
+            print(f"{page}: {figure} is pencilled in, and {REGISTER} says it is unused")
+            problems += 1
         elif registered[figure] != "pencilled":
             print(f"{page}: {figure} is pencilled in, and {REGISTER} says it exists as"
                   f" {registered[figure]}")
@@ -71,15 +85,17 @@ def main() -> int:
             if figure not in drawn:
                 print(f"{REGISTER}: {figure} is pencilled and no page shows a box for it")
                 problems += 1
-        elif not (book_root() / status).exists():
+        elif status != "unused" and not (book_root() / status).exists():
             print(f"{REGISTER}: {figure} names {status}, which does not exist")
             problems += 1
 
     if problems:
         print(f"\n{problems} figure(s) out of step between the pages and {REGISTER}.")
         return 1
+    statuses = list(registered.values())
     print(f"{len(drawn)} figure(s) pencilled in, "
-          f"{sum(1 for s in registered.values() if s != 'pencilled')} taken.")
+          f"{sum(1 for s in statuses if s not in ('pencilled', 'unused'))} taken, "
+          f"{statuses.count('unused')} unused.")
     return 0
 
 
