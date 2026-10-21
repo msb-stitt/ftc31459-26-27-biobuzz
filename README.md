@@ -75,6 +75,9 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
 `intake/power` and each wheel's `wheel/<wheel>/power` go to the flight log; Pedro's pose is under
 `Robot/Pose`.
 
+- Set `thisRobot` in `pedro/Constants.java` to the robot the code is going onto: 88888, 37523 or
+  31459, with 37523 the default. What differs between them is in that robot's own file in `pedro`,
+  `Bot88888`, `Bot37523` or `Bot31459`; today that is the four drive directions.
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value there marked `MEASURE` was measured on an earlier robot. Measure it on each robot
