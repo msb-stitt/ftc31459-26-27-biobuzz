@@ -23,7 +23,7 @@ Stand-in for `fig-robot-front`, made by `book/tools/draw.py`.
 
 | id | What it must show | How it is obtained | Status |
 | --- | --- | --- | --- |
-| `fig-robot-front` | The robot from the front, on the floor, with both gamepads beside it, so a student can match what is in front of them to what the guide calls each part | A drawing | pencilled |
+| `fig-robot-front` | The robot from the front, on the floor, with a Driver Station on its stand, one gamepad and an open laptop beside it, each named, so a student can match what is in front of them to what the guide calls each part | A drawing | pencilled |
 | `fig-gamepad-sticks` | Gamepad 1 from above, with the left stick, the right stick and the A button labeled, and on each stick an arrow away labeled "pushed away -1.0" and an arrow back labeled "pulled back 1.0" | A drawing | pencilled |
 | `fig-wheel-names` | The robot from above with its nose marked, and each of the four wheels labeled front left, front right, back left and back right | A drawing | pencilled |
 | `fig-wheel-forward` | One wheel from the side, with an arrow on the top of the tire showing which way it travels when that wheel is driving the robot forward | A drawing | pencilled |

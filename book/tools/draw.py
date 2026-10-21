@@ -783,10 +783,21 @@ def field_relative():
     s.save("fig-field-relative")
 
 
+def screen_device(s, x, y, w, h, bezel):
+    """A device seen from the front: a light case, bezel wide, around a dark screen."""
+    s.shadow([(px + 6, py + 10) for px, py in rect(x, y, w, h)], sigma=8)
+    s.marker(rect(x, y, w, h), GREY1, nib=12, opacity=0.9)
+    s.ink_poly(rect(x, y, w, h), width=2.2, over=5)
+    sx, sy, sw, sh = x + bezel, y + bezel, w - 2 * bezel, h - 2 * bezel
+    s.marker(rect(sx, sy, sw, sh), "#3c3f42", nib=12, opacity=0.9)
+    s.highlight((sx + 0.12 * sw, sy + 0.18 * sh), (sx + 0.55 * sw, sy + 0.18 * sh), width=4)
+    s.ink_poly(rect(sx, sy, sw, sh), width=1.8, over=3)
+
+
 def robot_front():
-    s = Sketch(1300, 620, 19)
+    s = Sketch(1800, 620, 19)
     ground = 520
-    s.construct((40, ground), (1260, ground))
+    s.construct((40, ground), (1760, ground))
     s.construct((400, 150), (400, 580))       # the robot's center line
     s.marker(ellipse((400, ground + 6), 300, 14), GREY2, nib=12, opacity=0.5, layers=1)
     bx, by, bw, bh = 150, 240, 500, 200
@@ -803,9 +814,17 @@ def robot_front():
     s.ink_poly(hub, width=2.0, over=5)
     s.text((400, 342), "Control Hub", 22)
     s.text((400, 200), "the robot, from the front", 30)
-    for gx, name in ((880, "gamepad 1"), (1130, "gamepad 2")):
-        gamepad(s, gx, ground - 50, 200, 90)
-        s.text((gx, ground - 120), name, 28)
+    s.marker(rect(860, ground - 24, 120, 24), GREY3, nib=10, opacity=0.8)    # the Driver Station's stand
+    s.ink_poly(rect(860, ground - 24, 120, 24), width=2.0, over=4)
+    screen_device(s, 820, ground - 140, 200, 118, 14)
+    s.text((920, ground - 175), "Driver Station", 28)
+    gamepad(s, 1210, ground - 50, 200, 90)
+    s.text((1210, ground - 120), "gamepad", 28)
+    screen_device(s, 1400, ground - 215, 280, 190, 14)                    # the laptop's lid
+    s.marker(rect(1375, ground - 25, 330, 25), GREY1, nib=10, opacity=0.9)  # and its base
+    s.shade(rect(1375, ground - 12, 330, 12), color=GREY3)
+    s.ink_poly(rect(1375, ground - 25, 330, 25), width=2.2, over=5)
+    s.text((1540, ground - 250), "laptop", 28)
     s.save("fig-robot-front")
 
 
