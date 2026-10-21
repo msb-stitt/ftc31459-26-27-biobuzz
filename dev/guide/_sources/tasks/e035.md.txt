@@ -1,0 +1,122 @@
+# 035 what's happening: sticks into speeds
+
+This page is about one line you wrote in [L030](l030.md), and why it has a minus sign.
+
+```java
+double leftSpeed = -leftStickY;
+```
+
+We draw number lines like this. Zero is in the middle and numbers grow to the right. Numbers get
+smaller and more negative on the left.
+
+:::{figure} ../_static/figures/fig-e035-numberline.png
+:name: fig-e035-numberline
+:::
+
+We look at number lines from our point of view.
+
+:::{figure} ../_static/figures/fig-e035-numberline-3d.png
+:name: fig-e035-numberline-3d
+:::
+
+We use a number line to plot one quantity. It could be how many apples we have. On a robot, it
+could be how far to our right the robot is.
+
+When we plot two quantities at the same time, we need a number grid.
+
+:::{figure} ../_static/figures/fig-e035-xy.png
+:name: fig-e035-xy
+:::
+
+We call the axis that increases to the right the **x** axis. We call the axis that increases
+up the page the **y** axis. We're used to larger **+y** values going farther up the page.
+
+We call the **xy** grid a coordinate grid. We expect larger **+y** values to
+be farther away from us from our point of view.
+
+:::{figure} ../_static/figures/fig-e035-xy-3d.png
+:name: fig-e035-xy-3d
+:::
+
+When we plot three values at the same time, like how far to the right, how far away, and how far up
+something is, we add a third axis. A **z** axis. We expect **+z** to be up.
+
+:::{figure} ../_static/figures/fig-e035-xyz.png
+:name: fig-e035-xyz
+:::
+
+The gamepad joysticks surprise us because they don't follow our normal convention.
+
+:::{figure} ../_static/figures/fig-e035-stick.png
+:name: fig-e035-stick
+:::
+
+The **y** axis measures how far the stick is towards us or away from us. That's good.
+But **+1.0** is all the way towards us, and **-1.0** is all the way away from us. It's backwards!
+
+Coordinate grids can use an unexpected point of view or orientation. When we write
+robot programs, we need to know what each number means. Is **+** towards us or
+away from us? Is the **y** axis towards and away, or is it left and right?
+
+We use a software library called [Pedro Pathing](https://pedropathing.com) as part of our software
+platform to steer our robots.
+
+It uses a different coordinate grid orientation for steering our robot. When we program robots,
+we often attach a coordinate grid to an object, such as the robot. A coordinate grid attached to
+an object is called a reference frame. When the robot moves or turns, its reference frame moves
+and turns with it.
+
+:::{figure} ../_static/figures/fig-e035-robot-3d.png
+:name: fig-e035-robot-3d
+:::
+
+:::{figure} ../_static/figures/fig-e035-robot-frame-3d.png
+:name: fig-e035-robot-frame-3d
+:::
+
+In the robot's reference frame in Pedro Pathing, **+x** is forward, out the nose of the robot.
+**+y** is to the left.
+
+A speed tells the wheels how fast to go, and which way. We like forward to be positive. A speed of
+1.0 is full speed forward, 0.0 is stopped, and -1.0 is full speed backward. In tank drive,
+`leftSpeed` is for the left wheels and `rightSpeed` is for the right wheels.
+
+:::{figure} ../_static/figures/fig-e035-speeds-3d.png
+:name: fig-e035-speeds-3d
+:::
+
+We expect a joystick to control the speed of the robot. Moving at a speed for some time changes
+the robot's position. When we let go of the sticks we get **zeros** from the sticks and we expect
+the robot to stop, to have a speed of **0**. The further we push the sticks, the faster we expect
+the robot to move.
+
+:::{figure} ../_static/figures/fig-e035-switch.png
+:name: fig-e035-switch
+:::
+
+:::{figure} ../_static/figures/fig-e035-switch-3d.png
+:name: fig-e035-switch-3d
+:::
+
+When you drive, pushing a stick away from you should drive the robot forward. Pushed away, the
+stick reads -1.0. Its wheels should go full speed forward, 1.0. The stick's +y points back at you,
+and the robot's forward points away from you, so the two numbers have opposite signs.
+
+The minus sign switches from the stick's reference frame to the robot's reference frame. It turns
+-1.0 into 1.0, and 1.0 into -1.0. Forward is **+x** in the robot's reference frame:
+
+```java
+double leftSpeed = -leftStickY;
+double rightSpeed = -rightStickY;
+```
+
+`leftStickY` is what the stick says. `leftSpeed` is how fast the wheels should go. They are numbers
+in two different reference frames, so they get two different names.
+
+Motors turn gear boxes which turn wheels. When each part turns, it turns at a speed.
+Either turns per second, or revolutions per minute. Or for the wheel, inches per second at
+the outside of the wheel.
+
+:::{figure} ../_static/figures/fig-e035-motor-wheel-gear-box.png
+:name: fig-e035-motor-wheel-gear-box
+:::
