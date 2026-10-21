@@ -83,6 +83,14 @@ path = "source/tasks/l030.md"
 words = 700
 
 [[page]]
+path = "source/tasks/e035.md"
+# Measured off the first draft, 475 words, and rounded up. Raised at 523 words, when the flip
+# became a clear sheet in two drawings at Mike's word, 2026-10-17.
+# Raised to 700 on 2026-10-21, measured at 648, for the reference frame, the robot's own grid and
+# the gear box, at Mike's word.
+words = 700
+
+[[page]]
 path = "source/tasks/l040.md"
 words = 800
 
@@ -215,5 +223,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "auto-schedules"
-commit = "0a6c0d7eb95d110294d59a8b45e6cef99222f69b"
+ref = "lessons-e035-pedestals"
+commit = "b0a4e8801d746ad463c61a267382a3fa22de1704"

@@ -130,6 +130,31 @@ def setup(app):
 
     app.connect("doctree-read", step_anchors)
 
+    import re
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    top = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=app.confdir,
+                              capture_output=True, text=True, check=True).stdout.strip())
+    sys.path.insert(0, str(top / "book" / "tools"))
+    from check_figures import descriptions
+
+    shows = descriptions(top / "book")
+
+    def describe_pencilled(app, docname, source):
+        """Put each pencilled box's row from FIGURES.md, what the figure must show, under its
+        own words, so the description has one home. tools/check_figures.py finds a box with
+        no row."""
+        def box(m):
+            what = shows.get(m.group(1))
+            return f"{m.group(0)[:-4]}\n\n{what}\n:::" if what else m.group(0)
+
+        source[0] = re.sub(r"^:::\{admonition\} (fig-[\w-]+)\n:class: pencil\n.*?\n:::$", box,
+                           source[0], flags=re.M | re.S)
+
+    app.connect("source-read", describe_pencilled)
+
     def video(name, rawtext, text, lineno, inliner, options=None, content=None):
         """{video}`l020`: a link to l020.mp4 in this version's videos/.
 

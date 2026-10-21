@@ -43,12 +43,12 @@ class Launcher {
 
     /**
      * The launcher motor's velocity gains: P, I, D and F. goBILDA's example
-     * used 40, 0, 0 and 12.5; P is lowered to 10.
+     * used 40, 0, 0 and 12.5;
      */
-    static final double VELOCITY_P = 10;
+    static final double VELOCITY_P = 40;
     static final double VELOCITY_I = 0;
     static final double VELOCITY_D = 0;
-    static final double VELOCITY_F = 12.5;
+    static final double VELOCITY_F = 12.5*1.1;
 
     final DcMotorEx motor;
     final CRServo windmill;
