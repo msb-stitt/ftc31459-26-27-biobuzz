@@ -1704,11 +1704,10 @@ def wheel(v, rims, alpha=1.0):
     v.s.dot(v.p(hub), 5, GREY2)
 
 
-def tank(v, scale=1.0, inside=lambda: None):
-    """The tank, see-through, drawn far to near: the left wheels, the body, what inside draws, the
-    nose, the right wheels."""
+def tank(v, scale=1.0, inside=lambda: None, alpha=0.45):
+    """The tank, see-through unless alpha is 1, drawn far to near: the left wheels, the body, what
+    inside draws, the nose, the right wheels."""
     body, wheels, nose = tank_parts(scale)
-    alpha = 0.45
     for side, rims in wheels:
         if side == 1:
             wheel(v, rims, alpha)
@@ -1768,6 +1767,60 @@ def e035_robot_3d():
     s.save("fig-e035-robot-3d")
 
 
+FRAME_UNIT = 0.55                        # one unit of the robot's grid, in the room's units
+FRAME_EDGE = 3.5                         # the robot's grid runs from -FRAME_EDGE to +FRAME_EDGE
+
+
+def grid_top(x, y):
+    """A point of the robot's grid, in its units, on the tank's top, turned into the room's."""
+    return turned((FRAME_UNIT * x, FRAME_UNIT * y, TANK_HIGH))
+
+
+FRAME_SHEET = [grid_top(x, y) for x, y in ((-FRAME_EDGE, -FRAME_EDGE), (FRAME_EDGE, -FRAME_EDGE),
+                                            (FRAME_EDGE, FRAME_EDGE), (-FRAME_EDGE, FRAME_EDGE))]
+
+
+def robot_frame(v):
+    """The xy grid of fig-e035-xy-3d on the tank's top, its 0 at the top's centre, a unit
+    FRAME_UNIT, +x out the nose and +y to the left, on a ruled sheet 0.8 opaque; its words in
+    fig-e035-xy-3d's proportions, printed square to the room."""
+    u, e = FRAME_UNIT, FRAME_EDGE
+    sheet = [v.p(q) for q in FRAME_SHEET]
+    v.s.line(sheet, None, fill=SHEET, fill_alpha=0.8, closed=True)
+    for n in range(-3, 4):
+        v.s.line([v.p(grid_top(n, -e)), v.p(grid_top(n, e))], GREY3, 1.4, 0.6)
+        v.s.line([v.p(grid_top(-e, n)), v.p(grid_top(e, n))], GREY3, 1.4, 0.6)
+    v.s.line(sheet, GREY3, 2.0, 0.8, closed=True)
+    for a, b in (((1.4, 3.3), (3.1, 3.3)), ((3.3, 2.0), (3.3, 3.1))):   # glare by a corner
+        v.s.line([v.p(grid_top(*a)), v.p(grid_top(*b))], "#ffffff", 5, 0.8)
+    for end, color in (((e, 0), AXIS_X), ((0, e), AXIS_Y)):
+        v.s.marker_arrow(v.p(grid_top(-0.97 * end[0], -0.97 * end[1])), v.p(grid_top(*end)),
+                         color, nib=7)
+        along = (1, 0) if end[0] else (0, 1)
+        for n in (-3, -2, -1, 1, 2, 3):
+            c, t = (along[0] * n, along[1] * n), (0.13 * along[1], 0.13 * along[0])
+            v.s.ink_line(v.p(grid_top(c[0] - t[0], c[1] - t[1])),
+                         v.p(grid_top(c[0] + t[0], c[1] + t[1])), width=2.0, over=2, passes=1)
+            at = grid_top(n, -0.42) if along[0] else grid_top(-0.5, n)
+            v.word(at, X3, Y3, f"+{n}" if n > 0 else f"-{-n}", 0.3 * u)
+    v.word(grid_top(e + 0.45, 0), X3, Y3, "+x", 0.42 * u)
+    v.word(grid_top(0, e + 0.4), X3, Y3, "+y", 0.42 * u)
+    v.s.dot(v.p(grid_top(0, 0)), 7)
+    v.word(grid_top(-0.38, -0.38), X3, Y3, "0", 0.3 * u)
+
+
+def e035_robot_frame_3d():
+    s = Sketch(1450, 800, 107)
+    v = Iso(s, (800, 380), 110)
+    room(v, solids=tank_shadows() + [FRAME_SHEET], at=AHEAD)
+    floor_grid(v, (-3, 2), (-6, 3))
+    tank(v, alpha=1.0)
+    robot_frame(v)                       # on the top, so over the near wheels and the nose
+    student(v, turned((0, 0, TANK_HIGH)), AHEAD)
+    s.text((725, 70), "the robot's reference frame, attached to the top of the robot", 30)
+    s.save("fig-e035-robot-frame-3d")
+
+
 def e035_speeds_3d():
     s = Sketch(1450, 800, 97)
     tank_room(Iso(s, (800, 380), 110), speeds=True)
@@ -1805,14 +1858,14 @@ def e035_switch_3d():
 # the see-through tank at three times its size, each in the robot's units along the wheel's axle, from
 # the wheel in toward the middle: (y where it starts, y where it ends, its half-width, its outline).
 DRIVE = [("drive shaft", 0.79, 0.47, 0.05, "round", "#c9cccf", "#e4e5e5"),
-         ("gearbox", 0.47, 0.29, 0.15, "square", "#d9a521", "#efc75e"),
+         ("gear box", 0.47, 0.29, 0.15, "square", "#d9a521", "#efc75e"),
          ("motor shaft", 0.29, 0.03, 0.035, "round", "#c9cccf", "#e4e5e5"),
          ("motor", 0.03, -0.29, 0.15, "round", "#3c3f42", "#5d6164")]
 DRIVE_SCALE = 3.0
 SPIN_FROM = 160                            # degrees round the axle from the nose: an arrow's tail
 BEHIND = (0.0, -8.5)                       # the student's place, back from the bigger tank
 CALLOUTS = {"wheel": (True, -40, -150), "drive shaft": (False, -110, 150),   # above the part?
-            "gearbox": (True, -40, -150), "motor shaft": (True, 20, -110),   # and where its
+            "gear box": (True, -40, -150), "motor shaft": (True, 20, -110),   # and where its
             "motor": (False, None, None)}                       # name goes; None: straight back
 
 
@@ -1881,8 +1934,8 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
             stick_to_robot, pedro_field, e035_numberline, e035_xy, e035_xyz, e035_flip,
             e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch, e035_numberline_3d,
-            e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_speeds_3d, e035_switch_3d,
-            e035_motor_wheel_gear_box]
+            e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_robot_frame_3d, e035_speeds_3d,
+            e035_switch_3d, e035_motor_wheel_gear_box]
 
 if __name__ == "__main__":
     if OUT is None:
