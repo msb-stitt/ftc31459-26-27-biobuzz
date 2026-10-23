@@ -2,7 +2,7 @@
 
 Runs tools/build.py twice, for the student book and the mentor book, from this
 branch's HEAD and the solutions ref pinned in keep.toml, into build/publish/:
-guide/, review/, mentor/ and both PDFs, with every figure in place. build.py
+guide/, review/ and mentor/, with every figure in place. build.py
 fails if a figure is still pencilled or a page shows an image that is not there,
 and so does this.
 
@@ -13,7 +13,7 @@ another commit, or if a figure there is still an LFS pointer. It fails if a page
 links a video, by a relative link, other than an MP4 in MEDIA's videos/ at
 build/publish/videos/, where assemble_pages.py puts the version's videos.
 
-It runs in a Python with requirements.txt and requirements-publish.txt.
+It runs in a Python with requirements.txt.
 
     python tools/run.py publish_check [--media DIR] [--solutions REF] [--as KIND --version V]
 
@@ -101,7 +101,7 @@ def main() -> int:
     if bad:
         print("FAILED: pages link videos the media pin does not have:\n  " + "\n  ".join(bad))
         return 1
-    print(f"\nBuilt both books, the review and both PDFs into {out}")
+    print(f"\nBuilt both books and the review into {out}")
     return 0
 
 

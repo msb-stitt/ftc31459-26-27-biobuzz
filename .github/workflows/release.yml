@@ -139,7 +139,7 @@ jobs:
       - name: Tools
         run: |
           python -m pip install --upgrade pip
-          python -m pip install ninja -r book/requirements.txt -r book/requirements-publish.txt
+          python -m pip install ninja -r book/requirements.txt
 
       - name: The guide's checks
         working-directory: book
@@ -151,13 +151,12 @@ jobs:
           python tools/cheatsheet.py --check
 
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
-      - name: Both books, the review and both PDFs
+      - name: Both books and the review
         working-directory: book
         env:
           KIND: ${{ steps.what.outputs.kind }}
           VERSION: ${{ steps.what.outputs.version }}
         run: |
-          # The PDFs link the videos of the version they are published as.
           if [ -n "$KIND" ]; then version="--as $KIND --version $VERSION"; else version=; fi
           python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}' $version
 
@@ -196,7 +195,7 @@ jobs:
           git -C media tag "$VERSION" HEAD
           git -C media push archive "refs/tags/$VERSION"
 
-      - name: A GitHub Release with both PDFs, the videos and the web pages
+      - name: A GitHub Release with the videos and the web pages
         if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -224,5 +223,5 @@ jobs:
             *-*) pre=--prerelease ;;
             *)   pre= ;;
           esac
-          gh release create "$VERSION" book/build/publish/*.pdf "$videos"/videos/*.mp4 "$zipped" \
+          gh release create "$VERSION" "$videos"/videos/*.mp4 "$zipped" \
             --title "$VERSION" $pre --notes-file notes.md

@@ -132,8 +132,8 @@ def diff(path: str, lesson: str, before: list[str], groups: list[list[tuple]],
          after: list[str]) -> str:
     """One lesson's changes to one file, as a coloured diff numbered by the file after it.
 
-    The class `answer-diff` sets the diff in a smaller type in the PDF, through
-    source/answers.rts, so its lines fit the page.
+    The class `answer-diff` set the diff in a smaller type in the PDF, which is no longer
+    made; no style reads it now.
 
     An unchanged line and an added one carry their line number in the file after the
     lesson; a removed line has none, since it is not in that file.
