@@ -1,0 +1,9 @@
+/ftc-lessons-java/ver/:version/media/:name /ftc-lessons-java/media/:name 301
+/ftc-lessons-java/guide /ftc-lessons-java/ver/dev/guide/ 302
+/ftc-lessons-java/guide/* /ftc-lessons-java/ver/dev/guide/:splat 302
+/ftc-lessons-java/mentor /ftc-lessons-java/ver/dev/mentor/ 302
+/ftc-lessons-java/mentor/* /ftc-lessons-java/ver/dev/mentor/:splat 302
+/ftc-lessons-java/review /ftc-lessons-java/ver/dev/review/ 302
+/ftc-lessons-java/review/* /ftc-lessons-java/ver/dev/review/:splat 302
+/ftc-lessons-java /ftc-lessons-java/ver/dev/guide/ 302
+/ftc-lessons-java/ /ftc-lessons-java/ver/dev/guide/ 302

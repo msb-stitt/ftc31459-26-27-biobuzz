@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "include": [
+    "/ftc-lessons-java/media/*"
+  ],
+  "exclude": [
+    "/ftc-lessons-java/media/media-index.jsonc"
+  ]
+}
