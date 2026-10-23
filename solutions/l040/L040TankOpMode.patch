@@ -4,13 +4,13 @@ index 4676e47..5d1b107 100644
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L040TankOpMode.java
 @@ -69,10 +69,14 @@ public class L040TankOpMode extends CorbelsTeleOp {
          // When on L040S030, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s030
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l040.html#l040s030
          // for what to do here.
 +        hardware.frontLeft.setPower(leftSpeed);
 +        hardware.backLeft.setPower(leftSpeed);
  
          // When on L040S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l040.html#l040s040
          // for what to do here.
 +        hardware.frontRight.setPower(rightSpeed);
 +        hardware.backRight.setPower(rightSpeed);

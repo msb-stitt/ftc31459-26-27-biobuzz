@@ -12,7 +12,7 @@ index 0cb5b67..859fc88 100644
  /**
 @@ -109,6 +110,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
          // When on L180S030, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
          // for what to do here.
 +        shadowLocalizers.add("driveWheelEncoders",
 +                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));

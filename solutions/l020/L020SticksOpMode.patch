@@ -12,17 +12,17 @@ index 90275a5..a941a72 100644
   * L020: read the two sticks and write down what they say. Nothing moves.
 @@ -56,14 +57,18 @@ public class L020SticksOpMode extends CorbelsTeleOp {
          // When on L020S030, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s030
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s030
          // for what to do here.
 +        double leftStickY = gamepad1.left_stick_y;
  
          // When on L020S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
          // for what to do here.
 +        Tracker.publish("stick/leftY", leftStickY);
  
          // When on L020S050, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s050
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
          // for what to do here.
 +        double rightStickY = gamepad1.right_stick_y;
 +        Tracker.publish("stick/rightY", rightStickY);

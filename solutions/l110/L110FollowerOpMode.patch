@@ -4,7 +4,7 @@ index a4e0a02..ee11df0 100644
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
 @@ -36,6 +36,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
      // When on L110S040, see
-     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s040
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s040
      // for what to do here.
 +    L110FollowerDriveTrain drivetrain;
  
@@ -12,7 +12,7 @@ index a4e0a02..ee11df0 100644
      @Override
 @@ -45,8 +46,9 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
          // When on L110S050, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s050
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s050
          // for what to do here.
 +        drivetrain = new L110FollowerDriveTrain(hardware);
  
@@ -23,7 +23,7 @@ index a4e0a02..ee11df0 100644
      // 'public' to match the parent class. 'public' allows access from any code.
 @@ -92,6 +94,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
          // When on L110S060, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s060
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
          // for what to do here.
 +        drivetrain.sticks(forward, strafe, turn);
  

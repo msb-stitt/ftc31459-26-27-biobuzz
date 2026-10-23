@@ -4,7 +4,7 @@ index b2d8467..f47998e 100644
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L060ShapingOpMode.java
 @@ -75,12 +75,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
          // When on L060S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040
          // for what to do here.
 -
 -        hardware.frontLeft.setPower(leftSpeed);
@@ -30,7 +30,7 @@ index b2d8467..f47998e 100644
      // 'public' to match the parent class. 'public' allows access from any code.
 @@ -92,8 +99,19 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
      // When on L060S030, see
-     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
      // for what to do here.
 +    double deadband(double value, double band) {
 +        double alwaysPositiveMagnitude = Math.abs(value);
@@ -42,7 +42,7 @@ index b2d8467..f47998e 100644
 +    }
  
      // When on L060S050, see
-     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
      // for what to do here.
 +    double signedSquared(double value) {
 +        return value * Math.abs(value);

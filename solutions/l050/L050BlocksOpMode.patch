@@ -4,7 +4,7 @@ index cc50f01..5118d25 100644
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
 @@ -38,6 +38,10 @@ public class L050BlocksOpMode extends CorbelsTeleOp {
          // When on L050S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l050.html#l050s040
          // for what to do here.
 +        hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
 +        hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());
