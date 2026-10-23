@@ -49,11 +49,11 @@ class L120EncoderLocalizer implements Localizer {
         double rawHeading = source.headingRadians();
 
         // When on L120S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
         // for what to do here.
 
         // When on L120S050, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s050
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
         // for what to do here.
 
         lastWheels = wheels.clone();

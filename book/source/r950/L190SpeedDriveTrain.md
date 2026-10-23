@@ -1,7 +1,7 @@
 # L190SpeedDriveTrain
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-auto-schedules.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L190
@@ -21,7 +21,7 @@ is gone; each number is the line's place in the file after the lesson.
     8  * L190: the drivetrain that asks the wheels for a speed.
 @@ lines 39 to 52 @@
    39         // When on L190S060, see
-   40         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s060
+   40         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
    41         // for what to do here.
 +  42         double[] measured = measuredSpeeds.all();
 +  43         double[] powers = new double[4];

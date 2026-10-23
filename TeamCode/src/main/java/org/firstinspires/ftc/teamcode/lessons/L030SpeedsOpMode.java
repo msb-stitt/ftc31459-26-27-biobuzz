@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L030 Speeds", group = "Lessons")
 // When on L030S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -61,11 +61,11 @@ public class L030SpeedsOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightY", rightStickY);
 
         // When on L030S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
         // for what to do here.
 
         // When on L030S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
         // for what to do here.
     }
 

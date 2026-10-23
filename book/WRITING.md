@@ -118,7 +118,7 @@ The code a student copies carries a comment where each step changes it, linking 
 
 ```java
 // When on L020S010, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s010
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s010
 // for what to do here.
 ```
 

@@ -35,7 +35,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  */
 @TeleOp(name = "L195 Measure turn radius", group = "Lessons")
 // When on L195S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l195.html#l195s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l195.html#l195s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.

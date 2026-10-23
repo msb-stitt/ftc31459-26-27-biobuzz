@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L150 Robot Relative Button", group = "Lessons")
 // When on L150S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -90,7 +90,7 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
         double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
         // When on L150S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
         // for what to do here.
         drivetrain.sticks(robotForward, robotStrafe, turn);
 

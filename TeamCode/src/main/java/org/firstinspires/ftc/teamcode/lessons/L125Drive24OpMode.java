@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @Autonomous(name = "L125 Drive 24", group = "Lessons")
 // When on L125S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l125.html#l125s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -81,7 +81,7 @@ public class L125Drive24OpMode extends CorbelsAuto {
 
     Command driveForward24() {
         // When on L125S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l125.html#l125s030
         // for what to do here.
         return Command.NOOP;
     }

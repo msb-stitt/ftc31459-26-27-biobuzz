@@ -28,7 +28,7 @@ class L195TicksDriveTrain extends CorbelsMecanum {
     public int[] wheelTicks() {
         int[] ticks = new int[4];
         // When on L195S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l195.html#l195s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l195.html#l195s030
         // for what to do here.
         return ticks;
     }

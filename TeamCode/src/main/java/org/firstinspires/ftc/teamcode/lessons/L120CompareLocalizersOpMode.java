@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L120 Compare Localizers", group = "Lessons")
 // When on L120S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -107,7 +107,7 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
     @Override
     public void shadowLocalizers() {
         // When on L120S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
         // for what to do here.
     }
 

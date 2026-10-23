@@ -32,7 +32,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  */
 @TeleOp(name = "L170 Drive To Pose", group = "Lessons")
 // When on L170S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -82,7 +82,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         loopBefore();
 
         // When on L170S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s030
         // for what to do here.
 
         loopAfter();
@@ -151,7 +151,7 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     /** How the drive to the target begins. */
     void startDrivingToTheTarget() {
         // When on L170S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
         // for what to do here.
     }
 
