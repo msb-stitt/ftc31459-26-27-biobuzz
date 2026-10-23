@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "95ca55a1e1d291f4dfde47c0b19e5e6f022d69da",
+      "built_from_commit": "303dd4dfc77f764791464b0644fd2ad0c75d2af6",
       "media_used": [
         "fig-advantagescope-sim_e48f8bbfd585.png",
         "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
