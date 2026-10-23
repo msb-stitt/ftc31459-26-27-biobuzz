@@ -28,7 +28,7 @@ def report(site: Path, in_r2: dict[str, int]) -> list[str]:
         f"Pages, {under[0]} files, {under[1]:,} bytes: the files under {LESSONS}/ in the folder "
         f"deployed, the media index included.",
         f"Pages, {whole[0]} files, {whole[1]:,} bytes: every file in the folder deployed, "
-        f"coding.stitt.cc's own index.html, _redirects and _routes.json included, and the "
+        f"coding.stitt.cc's own index.html, _redirects, _routes.json and _headers included, and the "
         f"Function not.",
         f"R2, {len(ours)} objects, {sum(ours):,} bytes: the objects in {r2.BUCKET} whose keys "
         f"start {LESSONS}/, from Cloudflare's list of them.",

@@ -14,6 +14,7 @@ it writes:
   302 to the newest release, or the newest pre-release while there is none, or dev while there
   is neither; and ftc-lessons-java/ver/<v>/media/<name> 301 to ftc-lessons-java/media/<name>;
 - _routes.json, sending ftc-lessons-java/media/ to the Function, but for the index;
+- _headers, serving the index as JSON, so a browser shows it;
 - index.html, the welcome page, from index.html here;
 - ftc-lessons-java/media/media-index.jsonc, by media_index.py.
 
@@ -66,6 +67,10 @@ def redirects(landing: str) -> str:
 def routes() -> str:
     return json.dumps({"version": 1, "include": [f"/{LESSONS}/media/*"],
                        "exclude": [f"/{media_index.INDEX.as_posix()}"]}, indent=2) + "\n"
+
+
+def headers() -> str:
+    return f"/{media_index.INDEX.as_posix()}\n  Content-Type: application/json; charset=utf-8\n"
 
 
 def versions_page(versions: list[str], built_from: dict[str, str], landing: str) -> str:
@@ -130,8 +135,8 @@ def main() -> int:
         if not args.offline:
             r2.put(media[name], media_index.PREFIX + name)
         in_r2[name] = media[name].stat().st_size
-    print(f"{len(media)} media file(s) linked by {args.version}; {len(new)} new to R2"
-          + (", not uploaded: offline" if args.offline else ", uploaded"))
+    print(f"{len(media)} media file(s) linked by {args.version}; {len(new)} new to R2, "
+          + ("not uploaded: offline" if args.offline else "uploaded"))
 
     hashes = {name: media_index.sha256(path) for name, path in media.items()}
     index = media_index.make(site, in_r2, hashes, {args.version: args.commit})
@@ -143,6 +148,7 @@ def main() -> int:
                                                   encoding="utf-8")
     (site / "_redirects").write_text(redirects(landing), encoding="utf-8")
     (site / "_routes.json").write_text(routes(), encoding="utf-8")
+    (site / "_headers").write_text(headers(), encoding="utf-8")
     shutil.copy(HERE / "index.html", site / "index.html")
     print(f"versions {', '.join(versions)}; landing {landing}")
     return 0

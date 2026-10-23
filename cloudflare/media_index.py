@@ -165,7 +165,10 @@ def check(site: Path, in_r2: dict[str, int], fetch=None) -> list[str]:
 
 
 def served(name: str) -> bytes:
-    with urllib.request.urlopen(f"{SERVED}{PREFIX}{name}") as answer:
+    # Cloudflare answers 403 to Python's own User-Agent.
+    request = urllib.request.Request(f"{SERVED}{PREFIX}{name}",
+                                     headers={"User-Agent": "ftc31459-media-index"})
+    with urllib.request.urlopen(request) as answer:
         return answer.read()
 
 
