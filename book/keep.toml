@@ -213,7 +213,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-auto-schedules.1"
+solutions = "solutions-coding-stitt-cc"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -224,4 +224,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-e035-pedestals"
-commit = "b0a4e8801d746ad463c61a267382a3fa22de1704"
+commit = ""
