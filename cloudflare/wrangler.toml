@@ -1,0 +1,9 @@
+# Status: controlling. The Pages project coding-stitt-cc, for `wrangler pages deploy`: site/ is a
+# checkout of the branch site, and MEDIA is the R2 bucket functions/[[path]].js serves media from.
+name = "coding-stitt-cc"
+pages_build_output_dir = "site"
+compatibility_date = "2026-10-23"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "coding-stitt-cc-media"

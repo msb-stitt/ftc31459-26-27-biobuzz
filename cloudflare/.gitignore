@@ -1,0 +1,6 @@
+/site/
+/node_modules/
+/.npm-cache/
+/.state/
+/.wrangler/
+__pycache__/
