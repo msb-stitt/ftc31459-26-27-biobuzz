@@ -1,7 +1,7 @@
 # L090MecanumOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L090
@@ -13,14 +13,14 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L090MecanumOpMode.java  (after L090)
 @@ lines 86 to 123 @@
    86         // When on L090S030, see
-   87         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030
+   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
    88         // for what to do here.
 +  89         double strafe = deadband(-leftStickX, band);
 +  90         strafe = signedSquared(strafe);
 +  91         Tracker.publish("arcade/strafe", strafe);
    92
    93         // When on L090S040, see
-   94         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+   94         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
    95         // for what to do here.
 +  96         double frontLeftPower = forward - strafe - turn;
 +  97         double frontRightPower = forward + strafe + turn;

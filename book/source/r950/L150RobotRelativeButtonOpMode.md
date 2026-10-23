@@ -1,7 +1,7 @@
 # L150RobotRelativeButtonOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L150
@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L150RobotRelativeButtonOpMode.java  (after L150)
 @@ lines 91 to 103 @@
    91         // When on L150S030, see
-   92         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s030
+   92         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
    93         // for what to do here.
 -             drivetrain.sticks(robotForward, robotStrafe, turn);
 +  94         boolean robotRelative = gamepad1.right_bumper;

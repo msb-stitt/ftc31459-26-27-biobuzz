@@ -1,7 +1,7 @@
 # L180CombinedOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L180
@@ -21,7 +21,7 @@ is gone; each number is the line's place in the file after the lesson.
    20 /**
 @@ lines 110 to 117 @@
   110         // When on L180S030, see
-  111         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
+  111         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
   112         // for what to do here.
 + 113         shadowLocalizers.add("driveWheelEncoders",
 + 114                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));

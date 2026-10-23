@@ -1,7 +1,7 @@
 # L120CompareLocalizersOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L120
@@ -21,7 +21,7 @@ is gone; each number is the line's place in the file after the lesson.
    15  * L120: drive around while two localizers disagree. Your localizer reads the
 @@ lines 109 to 116 @@
   109         // When on L120S030, see
-  110         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030
+  110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
   111         // for what to do here.
 + 112         shadowLocalizers.add("driveWheelEncoders",
 + 113                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
