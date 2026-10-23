@@ -5,14 +5,15 @@ asks, from a lessons ref and its solutions ref, into OUT's guide/ and review/.
 Moved here from gh-pages' src/ on 2026-10-11; tools/publish_check.py runs it.
 
     python tools/run.py build --figures DIR --solutions REF --out OUT [--lessons REF] [--mentor]
-        [--as KIND --version V]
 
 `--mentor` builds the mentor book, with Sphinx's `mentor` tag, into mentor/, and
 leaves the review alone. Without it, the student book goes into guide/.
 `--lessons` is HEAD unless named.
-`--as` and `--version` name the version being published, as assemble_pages.py
-takes them, for the links conf.py's `{video}` role writes; without them, the
-release at the top level.
+
+Every figure, each file Sphinx puts in a book's _images/, goes into OUT's media/,
+beside the books, named NAME_HASH.SUFFIX, where HASH is the first 12 hex digits
+of the file's SHA-256, and the pages link it there. conf.py's `{video}` role
+links the videos by the same names; tools/publish_check.py puts them there.
 
 It fails, and writes nothing, if a pencilled box has no picture in --figures.
 It fails after writing if a built page shows an image file that is not there.
@@ -26,6 +27,7 @@ live in corbels-lfs-lessons.
 """
 
 import argparse
+import hashlib
 import os
 import re
 import shutil
@@ -45,8 +47,9 @@ def run(*args, cwd=None):
 
 
 def fill(source: Path) -> tuple[int, list[str]]:
-    """Every pencilled box with a picture becomes a figure. Returns filled, and ids left."""
-    static = source / "_static" / "figures"
+    """Every pencilled box with a picture becomes a figure. Returns filled, and ids left.
+    The pictures go in _figures/, not _static/, which Sphinx copies whole beside _images/."""
+    static = source / "_figures"
     static.mkdir(parents=True, exist_ok=True)
     filled, left = 0, []
     for page in sorted(source.rglob("*.md")):
@@ -62,13 +65,46 @@ def fill(source: Path) -> tuple[int, list[str]]:
                 return m.group(0)
             shutil.copy(png, static / png.name)
             filled += 1
-            path = "../" * depth + f"_static/figures/{png.name}"
+            path = "../" * depth + f"_figures/{png.name}"
             return f":::{{figure}} {path}\n:name: {fig}\n:::"
 
         new = PENCIL.sub(figure, text)
         if new != text:
             page.write_text(new, encoding="utf-8")
     return filled, left
+
+
+def hashed(path: Path, sha256: str | None = None) -> str:
+    """NAME_HASH.SUFFIX for a media file: HASH is the first 12 hex digits of its SHA-256."""
+    if sha256 is None:
+        digest = hashlib.sha256()
+        with open(path, "rb") as fh:
+            for block in iter(lambda: fh.read(1 << 20), b""):
+                digest.update(block)
+        sha256 = digest.hexdigest()
+    return f"{path.stem}_{sha256[:12]}{path.suffix}"
+
+
+def to_media(site: Path, media: Path) -> int:
+    """Moves SITE's _images/ into MEDIA by hashed name, and points SITE's pages there.
+    A page links `../` once per folder it is in, then `_images/`; that becomes `../` once
+    more, then `media/`, so media/ sits beside the book. Returns the files moved."""
+    images = site / "_images"
+    if not images.is_dir():
+        return 0
+    media.mkdir(exist_ok=True)
+    names = {}
+    for each in sorted(images.iterdir()):
+        names[each.name] = hashed(each)
+        shutil.copy2(each, media / names[each.name])
+    shutil.rmtree(images)
+    link = re.compile(r'((?:\.\./)*)_images/([^"\'#?\s)]+)')
+    for page in site.rglob("*.html"):
+        text = page.read_text(encoding="utf-8")
+        new = link.sub(lambda m: f"{m[1]}../media/{names[m[2]]}", text)
+        if new != text:
+            page.write_text(new, encoding="utf-8")
+    return len(names)
 
 
 def missing_images(site: Path) -> list[str]:
@@ -90,8 +126,6 @@ def main() -> int:
     ap.add_argument("--figures", type=Path, required=True)
     ap.add_argument("--mentor", action="store_true")
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--as", dest="kind", choices=("release", "pre", "dev"))
-    ap.add_argument("--version", default="")
     args = ap.parse_args()
     global FIGURES
     FIGURES = args.figures.resolve()
@@ -111,11 +145,10 @@ def main() -> int:
             return 1
 
         out = tree / "out"
-        # conf.py names these on B003, describing them as committed, and links videos by the
-        # version.
+        # conf.py names these on B003, describing them as committed, and names the videos from
+        # BOOK_MEDIA's videos/.
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
-                          BOOK_MEDIA=str(FIGURES.parent), BOOK_AS=args.kind or "",
-                          BOOK_VERSION=args.version)
+                          BOOK_MEDIA=str(FIGURES.parent))
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:
@@ -125,6 +158,7 @@ def main() -> int:
 
         dest.mkdir(parents=True, exist_ok=True)
         for each in built:
+            print(f"{each}: {to_media(out / each, dest / 'media')} figure(s) into media/")
             shutil.rmtree(dest / each, ignore_errors=True)
             shutil.copytree(out / each, dest / each)
             shutil.rmtree(dest / each / ".doctrees", ignore_errors=True)

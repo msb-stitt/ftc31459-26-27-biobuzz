@@ -147,23 +147,34 @@ def setup(app):
     app.connect("source-read", describe_pencilled)
 
     def video(name, rawtext, text, lineno, inliner, options=None, content=None):
-        """{video}`l020`: a link to l020.mp4 in this version's videos/.
+        """{video}`l020`: a link to l020.mp4 in this version's media/, by its hashed name.
 
-        A page links its own version's copy, beside its book: relative, so dev/ plays dev's
-        video and the release plays its own. BOOK_AS and BOOK_VERSION, set by tools/build.py,
-        name the version for the link's text; without them, as under ninja book, the release at
-        the top level.
+        The name is l020_HASH.mp4, where HASH is the first 12 hex digits of the video's
+        SHA-256, as tools/build.py names the figures. BOOK_MEDIA, set by tools/build.py, is a
+        corbels-lfs-lessons checkout; the SHA-256 is read from its videos/l020.mp4, or from the
+        LFS pointer there when the video is not pulled. Without it, as under ninja book, the
+        link is to l020.mp4 with no hash. The link is relative, so each version plays its own
+        copy, and the text is the address every version's copy is served from.
         """
+        import hashlib
         import os
+        import re
 
         from docutils import nodes
 
-        site = "https://msb-stitt.github.io/ftc31459-26-27-biobuzz/"
-        kind, version = os.environ.get("BOOK_AS"), os.environ.get("BOOK_VERSION")
-        root = {"dev": site + "dev/", "pre": f"{site}{version}/"}.get(kind, site)
         mp4 = f"{text}.mp4"
+        media = os.environ.get("BOOK_MEDIA")
+        if media:
+            path = Path(media) / "videos" / mp4
+            head = path.read_bytes()[:200]
+            pointer = re.search(rb"^oid sha256:([0-9a-f]{64})$", head, re.M) \
+                if head.startswith(b"version https://git-lfs") else None
+            sha256 = pointer[1].decode() if pointer else \
+                hashlib.sha256(path.read_bytes()).hexdigest()
+            mp4 = f"{text}_{sha256[:12]}.mp4"
         env = inliner.document.settings.env
-        uri = "../" * (env.docname.count("/") + 1) + f"videos/{mp4}"
-        return [nodes.reference(rawtext, f"{root}videos/{mp4}", refuri=uri)], []
+        uri = "../" * (env.docname.count("/") + 1) + f"media/{mp4}"
+        shown = f"https://coding.stitt.cc/ftc-lessons-java/media/{mp4}"
+        return [nodes.reference(rawtext, shown, refuri=uri)], []
 
     app.add_role("video", video)

@@ -153,12 +153,7 @@ jobs:
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
       - name: Both books and the review
         working-directory: book
-        env:
-          KIND: ${{ steps.what.outputs.kind }}
-          VERSION: ${{ steps.what.outputs.version }}
-        run: |
-          if [ -n "$KIND" ]; then version="--as $KIND --version $VERSION"; else version=; fi
-          python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}' $version
+        run: python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}'
 
       - uses: actions/upload-artifact@v4
         with:
