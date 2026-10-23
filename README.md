@@ -5,9 +5,11 @@ the 2026-27 BIOBUZZ season.
 
 ### The Corbels Programming Lessons and answers on the web
 
-[msb-stitt.github.io/ftc31459-26-27-biobuzz](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/)
-has the newest release of the guide, the mentor guide and what the student writes, with both PDFs,
-and lists every version.
+The most recent release is at
+[coding.stitt.cc/ftc-lessons-java/guide](https://coding.stitt.cc/ftc-lessons-java/guide/), with
+[the mentor guide](https://coding.stitt.cc/ftc-lessons-java/mentor/) and
+[what the student writes](https://coding.stitt.cc/ftc-lessons-java/review/) beside it.
+[versions.html](https://coding.stitt.cc/ftc-lessons-java/versions.html) lists more versions.
 
 ### Cheat sheet: the commands
 
