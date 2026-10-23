@@ -364,7 +364,7 @@ this step.</p>
 <span id="l190s030-make-room-for-the-drivetrain"></span><h3>L190S030: make room for the drivetrain<a class="headerlink" href="#l190s030" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Near the top of the class, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L190S030, see</span>
-<span class="w">    </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">    </span><span class="n">L190SpeedDriveTrain</span><span class="w"> </span><span class="n">drivetrain</span><span class="p">;</span>
 </span></pre></div>
@@ -380,7 +380,7 @@ this step.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">init()</span></code>, find the comment that names this step. Under it, type the first line
 below. Then change <code class="docutils literal notranslate"><span class="pre">initAfter();</span></code> to <code class="docutils literal notranslate"><span class="pre">initAfter(drivetrain);</span></code>:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S040, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s040</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L190SpeedDriveTrain</span><span class="p">(</span><span class="n">hardware</span><span class="p">);</span>
 </span>
@@ -404,7 +404,7 @@ second. Both are near the top of the class.</p>
 lines that end in <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">0;</span></code>. Change each <code class="docutils literal notranslate"><span class="pre">0</span></code> as below. Then, under the three <code class="docutils literal notranslate"><span class="pre">publish</span></code> lines, type the
 last two lines:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S050, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forwardInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickY</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_IPS</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafeInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_IPS</span><span class="p">;</span>
@@ -458,7 +458,7 @@ Together they get there and stay there.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code>, find
 the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S060, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s060</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">measured</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measuredSpeeds</span><span class="p">.</span><span class="na">all</span><span class="p">();</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">powers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span><span class="p">;</span>

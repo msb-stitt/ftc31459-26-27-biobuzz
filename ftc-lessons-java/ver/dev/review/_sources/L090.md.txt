@@ -19,14 +19,14 @@ Delete 0 lines, write 3 lines.
 +++ after it
 @@ -86,6 +86,9 @@
          // When on L090S030, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
          // for what to do here.
 +        double strafe = deadband(-leftStickX, band);
 +        strafe = signedSquared(strafe);
 +        Tracker.publish("arcade/strafe", strafe);
  
          // When on L090S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
 ```
 
 ### A change
@@ -38,7 +38,7 @@ Delete 0 lines, write 25 lines.
 +++ after it
 @@ -93,6 +93,31 @@
          // When on L090S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
          // for what to do here.
 +        double frontLeftPower = forward - strafe - turn;
 +        double frontRightPower = forward + strafe + turn;

@@ -56,7 +56,7 @@ directions.
         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
         double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
         // When on L150S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l150.html#l150s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
         // for what to do here.
         boolean robotRelative = gamepad1.right_bumper;
         Tracker.publish("drive/robotRelative", robotRelative);

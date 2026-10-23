@@ -1,7 +1,7 @@
 # L020SticksOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-auto-schedules.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L020
@@ -21,17 +21,17 @@ is gone; each number is the line's place in the file after the lesson.
    13  * L020: read the two sticks and write down what they say. Nothing moves.
 @@ lines 57 to 74 @@
    57         // When on L020S030, see
-   58         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s030
+   58         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s030
    59         // for what to do here.
 +  60         double leftStickY = gamepad1.left_stick_y;
    61
    62         // When on L020S040, see
-   63         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s040
+   63         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
    64         // for what to do here.
 +  65         Tracker.publish("stick/leftY", leftStickY);
    66
    67         // When on L020S050, see
-   68         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s050
+   68         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
    69         // for what to do here.
 +  70         double rightStickY = gamepad1.right_stick_y;
 +  71         Tracker.publish("stick/rightY", rightStickY);

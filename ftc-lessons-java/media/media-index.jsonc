@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "6aa2c6cb240b7a259398dfba3a70086ada595663",
+      "built_from_commit": "ebb4d660076be8eeedf0c73ca8163d1a9752353e",
       "media_used": [
         "fig-advantagescope-sim_e48f8bbfd585.png",
         "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
@@ -56,29 +56,29 @@
         "fig-l013-gradle-jvm_53f0191d49b0.png",
         "fig-l013-trust_65dc9c76febb.png",
         "fig-l013-wizard-standard_97e3a02f3d74.png",
-        "fig-l020-complete_fd0fe4482243.png",
-        "fig-l020-copied_75662b296b9e.png",
+        "fig-l020-complete_a7bfef7a5401.png",
+        "fig-l020-copied_ba826710cf6e.png",
         "fig-l020-copy-class_d05eb5aad2f1.png",
-        "fig-l020-hover_768ca23118fe.png",
+        "fig-l020-hover_c990a79d44ce.png",
         "fig-l020-live_15f707fb6e2d.png",
         "fig-l020-log_aa74c5c847f8.png",
         "fig-l020-platform_8b3cd980ac07.png",
         "fig-l020-publish_3bb3da107df5.png",
         "fig-l020-sticky_a051629b4d17.png",
         "fig-l020-tracker-note_9e0600fc648e.png",
-        "fig-l020-tracker_13bbd4907a20.png",
+        "fig-l020-tracker_0e1b30439d3c.png",
         "fig-l020-variable_0d0285e5c348.png",
-        "fig-l020-window_cb6209f40e9d.png",
-        "fig-l030-complete_0ba04ec74170.png",
+        "fig-l020-window_c51af20cec34.png",
+        "fig-l030-complete_9d6d554c01ff.png",
         "fig-l030-live_084b2fcffea0.png",
         "fig-l040-field_86942b3a00b2.png",
-        "fig-l040-hardware_570e94d0d289.png",
-        "fig-l040-setpower_8c1b3ef285a2.png",
+        "fig-l040-hardware_25d94e20b03c.png",
+        "fig-l040-setpower_392e1a190c45.png",
         "fig-l040-sticky_6caf2b0f3b43.png",
         "fig-l050-direction_aa0cfd6446ca.png",
         "fig-l060-deadband_d3ae6bebec9a.png",
         "fig-l060-squared_39437e2cb8a9.png",
-        "fig-l070-button_0e3700f4e357.png",
+        "fig-l070-button_e82d4c2f6703.png",
         "fig-l070-pressed_88c1aea37fa5.png",
         "fig-l070-sideways_26c23688eb11.png",
         "fig-l080-forward-turn_830bbf7fa6ba.png",
@@ -89,10 +89,10 @@
         "fig-l090-wheel-pushes_37409d515f56.png",
         "fig-l110-slide_df82c1df0003.png",
         "fig-l120-encoders-follow_17ee96a78410.png",
-        "fig-l120-import_4005d43c5fff.png",
+        "fig-l120-import_3a99aa449d64.png",
         "fig-l120-shadow-still_7eca34744b0f.png",
         "fig-l125-drive24_daad530b722c.png",
-        "fig-l125-import-static_ce2adfeb54dd.png",
+        "fig-l125-import-static_7d79bca47fcb.png",
         "fig-l130-two-legs_51953ca87286.png",
         "fig-l140-spin-and-slide_d4e732a3e9c4.png",
         "fig-l150-bumper-held_8a550779a477.png",
@@ -117,7 +117,7 @@
         "fig-wheel-handover_d6160d25008c.png",
         "fig-wheel-names_c5e72d252f39.png",
         "h017_c04cb17aa6c1.mp4",
-        "l020_a227022a8a0f.mp4",
+        "l020_d256186bc288.mp4",
         "route-compound_fb6d157d50ff.svg",
         "route-curve_7ece100f954f.svg",
         "route-facingpoint_3972b5e77521.svg",
@@ -464,16 +464,26 @@
         "dev"
       ]
     },
-    "fig-l020-complete_fd0fe4482243.png": {
-      "sha256": "fd0fe44822439e0ef7fca1873889cde9884dc5befeadfe928b8204d834ea720a",
-      "bytes": 174134,
+    "fig-l020-complete_a7bfef7a5401.png": {
+      "sha256": "a7bfef7a54014abd3bb3751c2b19fcb2972f86360f28e880e8c11664ebcaed4d",
+      "bytes": 157424,
       "used_by_versions": [
         "dev"
       ]
     },
+    "fig-l020-complete_fd0fe4482243.png": {
+      "sha256": "fd0fe44822439e0ef7fca1873889cde9884dc5befeadfe928b8204d834ea720a",
+      "bytes": 174134,
+      "used_by_versions": []
+    },
     "fig-l020-copied_75662b296b9e.png": {
       "sha256": "75662b296b9e51fbe1025f42cf6ba6a40d33ebefeb4d78edee5647ab358533c4",
       "bytes": 518101,
+      "used_by_versions": []
+    },
+    "fig-l020-copied_ba826710cf6e.png": {
+      "sha256": "ba826710cf6e34b75e524e7be1ff9c7c8a7258152838c64359e9aa513c7c8ba7",
+      "bytes": 475720,
       "used_by_versions": [
         "dev"
       ]
@@ -488,6 +498,11 @@
     "fig-l020-hover_768ca23118fe.png": {
       "sha256": "768ca23118fe43328ed1cff83dff995e243ee54f1af3385dcedbab6bc65c792a",
       "bytes": 214468,
+      "used_by_versions": []
+    },
+    "fig-l020-hover_c990a79d44ce.png": {
+      "sha256": "c990a79d44ce9bfa46ee4e0ec1ae3c7f06891e814a62aa6978a64e2b0967690f",
+      "bytes": 225102,
       "used_by_versions": [
         "dev"
       ]
@@ -534,12 +549,17 @@
         "dev"
       ]
     },
-    "fig-l020-tracker_13bbd4907a20.png": {
-      "sha256": "13bbd4907a2002259b690c607482fa9ef54fe83242bf1cb8e5b4249ba7295348",
-      "bytes": 320932,
+    "fig-l020-tracker_0e1b30439d3c.png": {
+      "sha256": "0e1b30439d3cb42d253d35595b54afaf23308deb4cc3f82dbcd6cf38dc1eebde",
+      "bytes": 272196,
       "used_by_versions": [
         "dev"
       ]
+    },
+    "fig-l020-tracker_13bbd4907a20.png": {
+      "sha256": "13bbd4907a2002259b690c607482fa9ef54fe83242bf1cb8e5b4249ba7295348",
+      "bytes": 320932,
+      "used_by_versions": []
     },
     "fig-l020-variable_0d0285e5c348.png": {
       "sha256": "0d0285e5c34870f2d03f7fd2af0b8c096461d6d11e42468d60102fdc13de4530",
@@ -548,16 +568,26 @@
         "dev"
       ]
     },
-    "fig-l020-window_cb6209f40e9d.png": {
-      "sha256": "cb6209f40e9dc15a8ee187e6b3a20ec9689f05e6183765703c16995e4f9e989b",
-      "bytes": 393982,
+    "fig-l020-window_c51af20cec34.png": {
+      "sha256": "c51af20cec34b26453ff64c00ae241eb7c54f9ffa94e11cf9ad7fabca271d656",
+      "bytes": 362592,
       "used_by_versions": [
         "dev"
       ]
     },
+    "fig-l020-window_cb6209f40e9d.png": {
+      "sha256": "cb6209f40e9dc15a8ee187e6b3a20ec9689f05e6183765703c16995e4f9e989b",
+      "bytes": 393982,
+      "used_by_versions": []
+    },
     "fig-l030-complete_0ba04ec74170.png": {
       "sha256": "0ba04ec74170cfb1bf2de2ca357554de19db50a39c5d57ea551b1a6bc2a2e45f",
       "bytes": 108562,
+      "used_by_versions": []
+    },
+    "fig-l030-complete_9d6d554c01ff.png": {
+      "sha256": "9d6d554c01ff6b993ffecaddf647c35fe0e8d3d0d6455a03e5a8fda8db991ae6",
+      "bytes": 99201,
       "used_by_versions": [
         "dev"
       ]
@@ -576,9 +606,21 @@
         "dev"
       ]
     },
+    "fig-l040-hardware_25d94e20b03c.png": {
+      "sha256": "25d94e20b03c1d7bf8b57fff79a52c7fd2e8d4509b0cf48d32d90cbb191b446b",
+      "bytes": 98562,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l040-hardware_570e94d0d289.png": {
       "sha256": "570e94d0d289dc160322e0320a8e05c39d60d031a75c9bc88845f77a61ca5a3f",
       "bytes": 105498,
+      "used_by_versions": []
+    },
+    "fig-l040-setpower_392e1a190c45.png": {
+      "sha256": "392e1a190c45904019e0ab5f3e59f134da0b8aa26d6b459fdb6e12c273264855",
+      "bytes": 291004,
       "used_by_versions": [
         "dev"
       ]
@@ -586,9 +628,7 @@
     "fig-l040-setpower_8c1b3ef285a2.png": {
       "sha256": "8c1b3ef285a20e4a12048bcd96833f81d657b63c730d23802f70352f37c1ac51",
       "bytes": 304644,
-      "used_by_versions": [
-        "dev"
-      ]
+      "used_by_versions": []
     },
     "fig-l040-sticky_6caf2b0f3b43.png": {
       "sha256": "6caf2b0f3b43a74176019bcbe8e01c0c362ca3b28c7cdb2aef03e15358d66a27",
@@ -621,6 +661,11 @@
     "fig-l070-button_0e3700f4e357.png": {
       "sha256": "0e3700f4e357a23f3f25c2a64f756ae6dfd256ab6bd60e386983ee2fc6095bfd",
       "bytes": 287247,
+      "used_by_versions": []
+    },
+    "fig-l070-button_e82d4c2f6703.png": {
+      "sha256": "e82d4c2f67036fddfe724632fe3ed1edcdd5cf2394e7dcb7d0fe35638920e42b",
+      "bytes": 278338,
       "used_by_versions": [
         "dev"
       ]
@@ -695,12 +740,17 @@
         "dev"
       ]
     },
-    "fig-l120-import_4005d43c5fff.png": {
-      "sha256": "4005d43c5fffb61108d473ca3dd42894f79c0c493f45be968f56490a57a6911a",
-      "bytes": 302561,
+    "fig-l120-import_3a99aa449d64.png": {
+      "sha256": "3a99aa449d6452b77f78d5ed8478e1743ff37f39ed0f610c6850e0da73d6246b",
+      "bytes": 300721,
       "used_by_versions": [
         "dev"
       ]
+    },
+    "fig-l120-import_4005d43c5fff.png": {
+      "sha256": "4005d43c5fffb61108d473ca3dd42894f79c0c493f45be968f56490a57a6911a",
+      "bytes": 302561,
+      "used_by_versions": []
     },
     "fig-l120-shadow-still_7eca34744b0f.png": {
       "sha256": "7eca34744b0f099436efeb04795f1b50e22df5ffcd2bfe4b62088dac58083bfb",
@@ -716,12 +766,17 @@
         "dev"
       ]
     },
-    "fig-l125-import-static_ce2adfeb54dd.png": {
-      "sha256": "ce2adfeb54dd7a399a303406a6638119a3f8f7214c9d1ca2da1988d5257ad02c",
-      "bytes": 263771,
+    "fig-l125-import-static_7d79bca47fcb.png": {
+      "sha256": "7d79bca47fcb71af8684d188b3b0b5961ceb63ba61420355b7f4185c67d20726",
+      "bytes": 255308,
       "used_by_versions": [
         "dev"
       ]
+    },
+    "fig-l125-import-static_ce2adfeb54dd.png": {
+      "sha256": "ce2adfeb54dd7a399a303406a6638119a3f8f7214c9d1ca2da1988d5257ad02c",
+      "bytes": 263771,
+      "used_by_versions": []
     },
     "fig-l130-two-legs_51953ca87286.png": {
       "sha256": "51953ca872865368f1c95a5953e0e3daf9e1bc602a7106fc0feb2cacdc58c122",
@@ -894,6 +949,11 @@
     "l020_a227022a8a0f.mp4": {
       "sha256": "a227022a8a0f1d6d3804ac82c9cc527a2d399a7afae38a8ac000e16381fc6aef",
       "bytes": 90880737,
+      "used_by_versions": []
+    },
+    "l020_d256186bc288.mp4": {
+      "sha256": "d256186bc288a5005f8bb9426efbf4ec9939991c209a08f649745bf790b56ff1",
+      "bytes": 89991465,
       "used_by_versions": [
         "dev"
       ]
@@ -941,5 +1001,18 @@
       ]
     }
   },
-  "media_used_by_no_supported_version": []
+  "media_used_by_no_supported_version": [
+    "fig-l020-complete_fd0fe4482243.png",
+    "fig-l020-copied_75662b296b9e.png",
+    "fig-l020-hover_768ca23118fe.png",
+    "fig-l020-tracker_13bbd4907a20.png",
+    "fig-l020-window_cb6209f40e9d.png",
+    "fig-l030-complete_0ba04ec74170.png",
+    "fig-l040-hardware_570e94d0d289.png",
+    "fig-l040-setpower_8c1b3ef285a2.png",
+    "fig-l070-button_0e3700f4e357.png",
+    "fig-l120-import_4005d43c5fff.png",
+    "fig-l125-import-static_ce2adfeb54dd.png",
+    "l020_a227022a8a0f.mp4"
+  ]
 }

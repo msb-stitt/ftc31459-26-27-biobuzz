@@ -320,7 +320,7 @@
           <section id="l090mecanumopmode">
 <h1>L090MecanumOpMode<a class="headerlink" href="#l090mecanumopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-auto-schedules.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l090">
 <h2>L090<a class="headerlink" href="#l090" title="Link to this heading">¶</a></h2>
@@ -328,14 +328,14 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gi">+++ mytry/L090MecanumOpMode.java  (after L090)</span>
 <span class="gu">@@ lines 86 to 123 @@</span>
 <span class="w"> </span>  86         // When on L090S030, see
-<span class="w"> </span>  87         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030
+<span class="w"> </span>  87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
 <span class="w"> </span>  88         // for what to do here.
 <span class="gi">+  89         double strafe = deadband(-leftStickX, band);</span>
 <span class="gi">+  90         strafe = signedSquared(strafe);</span>
 <span class="gi">+  91         Tracker.publish("arcade/strafe", strafe);</span>
 <span class="w"> </span>  92
 <span class="w"> </span>  93         // When on L090S040, see
-<span class="w"> </span>  94         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040
+<span class="w"> </span>  94         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
 <span class="w"> </span>  95         // for what to do here.
 <span class="gi">+  96         double frontLeftPower = forward - strafe - turn;</span>
 <span class="gi">+  97         double frontRightPower = forward + strafe + turn;</span>

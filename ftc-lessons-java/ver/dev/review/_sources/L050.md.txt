@@ -19,7 +19,7 @@ Delete 0 lines, write 4 lines.
 +++ after it
 @@ -38,6 +38,10 @@
          // When on L050S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l050.html#l050s040
          // for what to do here.
 +        hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
 +        hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());

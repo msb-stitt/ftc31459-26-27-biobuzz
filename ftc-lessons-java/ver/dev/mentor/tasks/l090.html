@@ -373,7 +373,7 @@ shows both:
 left stick, sideways.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L090S030, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s030</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">strafe</span><span class="p">);</span>
@@ -425,7 +425,7 @@ minus sign makes a slide to the left positive, the same way a turn to the left i
 </div>
 <p><strong>Change.</strong> Find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L090S040, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l090.html#l090s040</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>

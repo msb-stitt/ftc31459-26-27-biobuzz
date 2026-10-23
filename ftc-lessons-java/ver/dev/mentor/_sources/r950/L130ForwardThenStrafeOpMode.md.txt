@@ -1,7 +1,7 @@
 # L130ForwardThenStrafeOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-auto-schedules.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L130
@@ -26,7 +26,7 @@ is gone; each number is the line's place in the file after the lesson.
 -                     follow(follower, line(start, corner).constant(start))
 +  90                 follow(follower, line(start, corner).constant(start)),
    91                 // When on L130S030, see
-   92                 // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l130.html#l130s030
+   92                 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l130.html#l130s030
    93                 // for what to do here.
 +  94                 follow(follower, line(corner, end).constant(start)),
 +  95                 hold(follower, end)

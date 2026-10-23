@@ -1,7 +1,7 @@
 # L125Drive24OpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-auto-schedules.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L125
@@ -22,7 +22,7 @@ is gone; each number is the line's place in the file after the lesson.
     8 import com.pedropathing.ivy.Command;
 @@ lines 86 to 91 @@
    86         // When on L125S030, see
-   87         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s030
+   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l125.html#l125s030
    88         // for what to do here.
 -             return Command.NOOP;
 +  89         return sequential(follow(follower, line(start, end).constant(start)));

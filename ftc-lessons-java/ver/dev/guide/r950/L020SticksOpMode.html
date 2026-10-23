@@ -320,7 +320,7 @@
           <section id="l020sticksopmode">
 <h1>L020SticksOpMode<a class="headerlink" href="#l020sticksopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-auto-schedules.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l020">
 <h2>L020<a class="headerlink" href="#l020" title="Link to this heading">¶</a></h2>
@@ -336,17 +336,17 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  13  * L020: read the two sticks and write down what they say. Nothing moves.
 <span class="gu">@@ lines 57 to 74 @@</span>
 <span class="w"> </span>  57         // When on L020S030, see
-<span class="w"> </span>  58         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s030
+<span class="w"> </span>  58         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s030
 <span class="w"> </span>  59         // for what to do here.
 <span class="gi">+  60         double leftStickY = gamepad1.left_stick_y;</span>
 <span class="w"> </span>  61
 <span class="w"> </span>  62         // When on L020S040, see
-<span class="w"> </span>  63         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s040
+<span class="w"> </span>  63         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
 <span class="w"> </span>  64         // for what to do here.
 <span class="gi">+  65         Tracker.publish("stick/leftY", leftStickY);</span>
 <span class="w"> </span>  66
 <span class="w"> </span>  67         // When on L020S050, see
-<span class="w"> </span>  68         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s050
+<span class="w"> </span>  68         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
 <span class="w"> </span>  69         // for what to do here.
 <span class="gi">+  70         double rightStickY = gamepad1.right_stick_y;</span>
 <span class="gi">+  71         Tracker.publish("stick/rightY", rightStickY);</span>

@@ -19,13 +19,13 @@ Delete 0 lines, write 2 lines.
 +++ after it
 @@ -62,6 +62,8 @@
          // When on L030S030, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s030
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
          // for what to do here.
 +        double leftSpeed = -leftStickY;
 +        Tracker.publish("speed/left", leftSpeed);
  
          // When on L030S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
 ```
 
 ### A change
@@ -37,7 +37,7 @@ Delete 0 lines, write 2 lines.
 +++ after it
 @@ -68,6 +68,8 @@
          // When on L030S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l030.html#l030s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
          // for what to do here.
 +        double rightSpeed = -rightStickY;
 +        Tracker.publish("speed/right", rightSpeed);

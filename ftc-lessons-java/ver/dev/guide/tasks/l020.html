@@ -325,7 +325,7 @@
 <p>Push the gamepad’s sticks and watch the numbers they send, live on the laptop. Nothing on the robot
 moves yet.</p>
 <p>A video shows every step of this lesson:
-<a class="reference external" href="../../media/l020_a227022a8a0f.mp4">https://coding.stitt.cc/ftc-lessons-java/media/l020_a227022a8a0f.mp4</a>.</p>
+<a class="reference external" href="../../media/l020_d256186bc288.mp4">https://coding.stitt.cc/ftc-lessons-java/media/l020_d256186bc288.mp4</a>.</p>
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l020s010">
@@ -350,7 +350,7 @@ own folder, <code class="docutils literal notranslate"><span class="pre">mytry</
 <code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">org.firstinspires.ftc.teamcode.mytry;</span></code>.</p></li>
 </ul>
 <figure class="align-default" id="fig-l020-copied">
-<img alt="../../media/fig-l020-copied_75662b296b9e.png" src="../../media/fig-l020-copied_75662b296b9e.png" />
+<img alt="../../media/fig-l020-copied_ba826710cf6e.png" src="../../media/fig-l020-copied_ba826710cf6e.png" />
 </figure>
 </section>
 <section id="l020s020">
@@ -388,10 +388,10 @@ arrow keys first.</p></li>
 <li><p>Type <code class="docutils literal notranslate"><span class="pre">;</span></code> to end the line.</p></li>
 </ul>
 <figure class="align-default" id="fig-l020-complete">
-<img alt="../../media/fig-l020-complete_fd0fe4482243.png" src="../../media/fig-l020-complete_fd0fe4482243.png" />
+<img alt="../../media/fig-l020-complete_a7bfef7a5401.png" src="../../media/fig-l020-complete_a7bfef7a5401.png" />
 </figure>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L020S030, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s030</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftStickY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">left_stick_y</span><span class="p">;</span>
 </span></pre></div>
@@ -402,7 +402,7 @@ holds any <code class="docutils literal notranslate"><span class="pre">float</sp
 <p>Now hold the pointer still over <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code>. A box opens and says what it is: <em>left analog stick
 vertical axis</em>. You can do this with any name you are not sure about.</p>
 <figure class="align-default" id="fig-l020-hover">
-<img alt="../../media/fig-l020-hover_768ca23118fe.png" src="../../media/fig-l020-hover_768ca23118fe.png" />
+<img alt="../../media/fig-l020-hover_c990a79d44ce.png" src="../../media/fig-l020-hover_c990a79d44ce.png" />
 </figure>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -415,13 +415,13 @@ vertical axis</em>. You can do this with any name you are not sure about.</p>
 <code class="docutils literal notranslate"><span class="pre">Tracker</span></code>. Pick the one from <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode.base</span></code> and press Tab. Then finish the
 line:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L020S040, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s040</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/leftY"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <figure class="align-default" id="fig-l020-tracker">
-<img alt="../../media/fig-l020-tracker_13bbd4907a20.png" src="../../media/fig-l020-tracker_13bbd4907a20.png" />
+<img alt="../../media/fig-l020-tracker_0e1b30439d3c.png" src="../../media/fig-l020-tracker_0e1b30439d3c.png" />
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> takes a name and a value. It sends both to AdvantageScope while the code runs, and
 writes them in the flight log. Android Studio added an <code class="docutils literal notranslate"><span class="pre">import</span></code> line for <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> near the top of
@@ -473,7 +473,7 @@ line go to 1.0 or to -1.0? Now push it and see!</p>
 too, not ⌘C. Under the comment that names this step, read and write down the right stick the same
 way:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L020S050, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s050</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightStickY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">right_stick_y</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/rightY"</span><span class="p">,</span><span class="w"> </span><span class="n">rightStickY</span><span class="p">);</span>

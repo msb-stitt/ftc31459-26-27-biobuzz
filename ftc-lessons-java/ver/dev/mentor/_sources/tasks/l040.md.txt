@@ -61,7 +61,7 @@ Finish the line, and add the same for the back left wheel:
 :emphasize-lines: 4-5
 
         // When on L040S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l040.html#l040s030
         // for what to do here.
         hardware.frontLeft.setPower(leftSpeed);
         hardware.backLeft.setPower(leftSpeed);
@@ -82,7 +82,7 @@ full backward, and 0.0 is stop.
 :emphasize-lines: 4-5
 
         // When on L040S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l040.html#l040s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l040.html#l040s040
         // for what to do here.
         hardware.frontRight.setPower(rightSpeed);
         hardware.backRight.setPower(rightSpeed);

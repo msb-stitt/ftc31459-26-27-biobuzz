@@ -356,7 +356,7 @@ and published every loop, but it never steers the robot.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code>, find <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code> and the comment that names
 this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S030, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s030</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">shadowLocalizers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"driveWheelEncoders"</span><span class="p">,</span>
 </span><span class="hll"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">L120EncoderLocalizer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">HardwareWheelSource</span><span class="p">(</span><span class="n">hardware</span><span class="p">)));</span>
@@ -369,7 +369,7 @@ this step. Under it, type:</p>
 <li><p>Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span></code> line at the top of the file, and the red goes away.</p></li>
 </ul>
 <figure class="align-default" id="fig-l120-import">
-<img alt="../../media/fig-l120-import_4005d43c5fff.png" src="../../media/fig-l120-import_4005d43c5fff.png" />
+<img alt="../../media/fig-l120-import_3a99aa449d64.png" src="../../media/fig-l120-import_3a99aa449d64.png" />
 </figure>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L120CompareLocalizersOpMode --pad"</span>
@@ -395,7 +395,7 @@ remembers last loop’s numbers and takes them away.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Open <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>. In
 <code class="docutils literal notranslate"><span class="pre">update</span></code>, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S040, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s040</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lastWheels</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="n">lastWheels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wheels</span><span class="p">.</span><span class="na">clone</span><span class="p">();</span>
@@ -444,7 +444,7 @@ so its forward is the field’s y. L120S040 added it to x.</p>
 <p><strong>Change.</strong> Delete the two lines <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+=</span> <span class="pre">forward;</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">+=</span> <span class="pre">strafe;</span></code>. Find the comment that names
 this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S050, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s050</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rawHeading</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headingOffset</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>

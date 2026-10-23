@@ -49,7 +49,7 @@ write a method of your own:
 :emphasize-lines: 4-11
 
     // When on L060S030, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
     // for what to do here.
     double deadband(double value, double band) {
         double alwaysPositiveMagnitude = Math.abs(value);
@@ -88,7 +88,7 @@ side:
 :emphasize-lines: 4-8
 
         // When on L060S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040
         // for what to do here.
         double band = 0.05;
         double leftPower = deadband(leftSpeed, band);
@@ -138,7 +138,7 @@ step. Under it, write a second method:
 :emphasize-lines: 4-6
 
     // When on L060S050, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
     // for what to do here.
     double signedSquared(double value) {
         return value * Math.abs(value);

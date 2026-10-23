@@ -51,7 +51,7 @@ not drive the wheels yet.
 :emphasize-lines: 4-10
 
         // When on L080S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
         // for what to do here.
         double band = 0.05;
         double forward = deadband(-leftStickY, band);
@@ -98,7 +98,7 @@ step. Under it, type:
 :emphasize-lines: 4-12
 
         // When on L080S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
         // for what to do here.
         double leftPower = forward - turn;
         double rightPower = forward + turn;

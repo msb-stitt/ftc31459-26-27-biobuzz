@@ -355,7 +355,7 @@ tells the follower where the robot is at the start.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveForward24()</span></code>, find the comment that names this step. Delete the line
 <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">Command.NOOP;</span></code> under it, and type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L125S030, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l125.html#l125s030</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l125.html#l125s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sequential</span><span class="p">(</span><span class="n">follow</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">).</span><span class="na">constant</span><span class="p">(</span><span class="n">start</span><span class="p">)));</span>
 </span></pre></div>
@@ -371,7 +371,7 @@ method…</strong>, because each is a method, not a class. Pick it.</p></li>
 <li><p>Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">static</span></code> line at the top of the file.</p></li>
 </ul>
 <figure class="align-default" id="fig-l125-import-static">
-<img alt="../../media/fig-l125-import-static_ce2adfeb54dd.png" src="../../media/fig-l125-import-static_ce2adfeb54dd.png" />
+<img alt="../../media/fig-l125-import-static_7d79bca47fcb.png" src="../../media/fig-l125-import-static_7d79bca47fcb.png" />
 </figure>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L125Drive24OpMode"</span>

@@ -352,7 +352,7 @@ fixes that: any reading closer to the middle than the band counts as let go.</p>
 <p><strong>Change.</strong> Scroll to the bottom of the file and find the comment that names this step. Under it,
 write a method of your own:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L060S030, see</span>
-<span class="w">    </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">deadband</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">band</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">alwaysPositiveMagnitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
@@ -387,7 +387,7 @@ the way a <code class="docutils literal notranslate"><span class="pre">double</s
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, under the comment that names this step, make a power for each
 side:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L060S040, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">band</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
@@ -427,7 +427,7 @@ full push is still full power.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the comment that names this
 step. Under it, write a second method:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L060S050, see</span>
-<span class="w">    </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">signedSquared</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>

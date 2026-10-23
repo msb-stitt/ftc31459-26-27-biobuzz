@@ -70,7 +70,7 @@ Delete 0 lines, write 2 lines.
 +++ after it
 @@ -86,6 +86,8 @@
          // When on L160S040, see
-         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
          // for what to do here.
 +        turn = hold.turn(follower, turn);
 +        Tracker.publish("heading/holding", hold.target() != null);

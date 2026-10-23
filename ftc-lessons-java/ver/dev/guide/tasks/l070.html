@@ -353,11 +353,11 @@ it is down, <code class="docutils literal notranslate"><span class="pre">false</
 <code class="docutils literal notranslate"><span class="pre">setPower</span></code> lines. Under it, type <code class="docutils literal notranslate"><span class="pre">boolean</span> <span class="pre">buttonA</span> <span class="pre">=</span> <span class="pre">gamepad1.a</span></code>. The list offers <code class="docutils literal notranslate"><span class="pre">a</span></code>, marked
 <code class="docutils literal notranslate"><span class="pre">boolean</span></code>.</p>
 <figure class="align-default" id="fig-l070-button">
-<img alt="../../media/fig-l070-button_0e3700f4e357.png" src="../../media/fig-l070-button_0e3700f4e357.png" />
+<img alt="../../media/fig-l070-button_e82d4c2f6703.png" src="../../media/fig-l070-button_e82d4c2f6703.png" />
 </figure>
 <p>Pick <code class="docutils literal notranslate"><span class="pre">a</span></code>, and finish the lines:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L070S030, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s030</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">buttonA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">a</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"button/a"</span><span class="p">,</span><span class="w"> </span><span class="n">buttonA</span><span class="p">);</span>
@@ -385,7 +385,7 @@ gone when it ends, so this one goes outside it.</p>
 find the comment that names this step. Under it,
 type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L070S040, see</span>
-<span class="w">    </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s040</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s040</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">previousButtonA</span><span class="p">;</span>
 </span></pre></div>
@@ -401,7 +401,7 @@ field starts out <code class="docutils literal notranslate"><span class="pre">fa
 <span id="l070s050-say-when-the-button-changes"></span><h3>L070S050: say when the button changes<a class="headerlink" href="#l070s050" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Back in <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L070S050, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s050</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buttonA</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">previousButtonA</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buttonA</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -436,7 +436,7 @@ changed.</p>
 <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step, under the lines that read the sticks
 up and down. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L070S060, see</span>
-<span class="w">        </span><span class="c1">// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s060</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftStickX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">left_stick_x</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/leftX"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickX</span><span class="p">);</span>
