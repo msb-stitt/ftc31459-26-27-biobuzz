@@ -21,11 +21,15 @@ public class ConstantsTest {
     }
 
     @Test
-    public void robot88888ReversesItsBackLeftMotorWhere37523DoesNot() {
+    public void robot88888ReversesItsRightMotorsWhere37523ReversesItsFrontLeft() {
         MecanumConfig c = new MecanumConfig(config -> { });
         Bot88888.drivetrain(c);
-        assertEquals(Direction.REVERSE, c.backLeftDirection.get());
-        Bot37523.drivetrain(c);
+        assertEquals(Direction.FORWARD, c.frontLeftDirection.get());
+        assertEquals(Direction.REVERSE, c.frontRightDirection.get());
         assertEquals(Direction.FORWARD, c.backLeftDirection.get());
+        assertEquals(Direction.REVERSE, c.backRightDirection.get());
+        Bot37523.drivetrain(c);
+        assertEquals(Direction.REVERSE, c.frontLeftDirection.get());
+        assertEquals(Direction.FORWARD, c.frontRightDirection.get());
     }
 }
