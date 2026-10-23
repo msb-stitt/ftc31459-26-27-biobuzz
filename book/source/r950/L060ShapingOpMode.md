@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L060ShapingOpMode.java  (after L060)
 @@ lines 75 to 93 @@
    75         // When on L060S040, see
-   76         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
+   76         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040
    77         // for what to do here.
 +  78         double band = 0.05;
 +  79         double leftPower = deadband(leftSpeed, band);
@@ -37,7 +37,7 @@ is gone; each number is the line's place in the file after the lesson.
    93     // 'public' to match the parent class. 'public' allows access from any code.
 @@ lines 99 to 117 @@
    99     // When on L060S030, see
-  100     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
+  100     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
   101     // for what to do here.
 + 102     double deadband(double value, double band) {
 + 103         double alwaysPositiveMagnitude = Math.abs(value);
@@ -49,7 +49,7 @@ is gone; each number is the line's place in the file after the lesson.
 + 109     }
   110
   111     // When on L060S050, see
-  112     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+  112     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
   113     // for what to do here.
 + 114     double signedSquared(double value) {
 + 115         return value * Math.abs(value);

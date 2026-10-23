@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L050BlocksOpMode.java  (after L050)
 @@ lines 38 to 47 @@
    38         // When on L050S040, see
-   39         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+   39         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l050.html#l050s040
    40         // for what to do here.
 +  41         hardware.frontLeft.setDirection(hardware.mecanumConfig.frontLeftDirection.get());
 +  42         hardware.frontRight.setDirection(hardware.mecanumConfig.frontRightDirection.get());

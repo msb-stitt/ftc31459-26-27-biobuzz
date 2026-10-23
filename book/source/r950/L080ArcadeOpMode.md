@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L080ArcadeOpMode.java  (after L080)
 @@ lines 79 to 110 @@
    79         // When on L080S030, see
-   80         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030
+   80         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
    81         // for what to do here.
 +  82         double band = 0.05;
 +  83         double forward = deadband(-leftStickY, band);
@@ -24,7 +24,7 @@ is gone; each number is the line's place in the file after the lesson.
 +  88         Tracker.publish("arcade/turn", turn);
    89
    90         // When on L080S040, see
-   91         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
+   91         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
    92         // for what to do here.
 +  93         double leftPower = forward - turn;
 +  94         double rightPower = forward + turn;

@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L195TicksDriveTrain.java  (after L195)
 @@ lines 30 to 39 @@
    30         // When on L195S030, see
-   31         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l195.html#l195s030
+   31         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l195.html#l195s030
    32         // for what to do here.
 +  33         ticks[FL] = hardware.frontLeft.getCurrentPosition();
 +  34         ticks[FR] = hardware.frontRight.getCurrentPosition();

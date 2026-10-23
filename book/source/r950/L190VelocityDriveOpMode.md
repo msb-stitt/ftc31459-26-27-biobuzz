@@ -22,7 +22,7 @@ is gone; each number is the line's place in the file after the lesson.
    15  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
 @@ lines 44 to 50 @@
    44     // When on L190S030, see
-   45     // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030
+   45     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
    46     // for what to do here.
 +  47     L190SpeedDriveTrain drivetrain;
    48
@@ -30,7 +30,7 @@ is gone; each number is the line's place in the file after the lesson.
    50     @Override
 @@ lines 54 to 62 @@
    54         // When on L190S040, see
-   55         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s040
+   55         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
    56         // for what to do here.
 +  57         drivetrain = new L190SpeedDriveTrain(hardware);
    58
@@ -41,7 +41,7 @@ is gone; each number is the line's place in the file after the lesson.
    62     // 'public' to match the parent class. 'public' allows access from any code.
 @@ lines 88 to 101 @@
    88         // When on L190S050, see
-   89         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
+   89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
    90         // for what to do here.
 -             double forwardInPerS = 0.0;
 -             double strafeInPerS = 0.0;

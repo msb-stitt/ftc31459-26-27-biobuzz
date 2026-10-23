@@ -31,7 +31,7 @@ is gone; each number is the line's place in the file after the lesson.
    42     @Override
 @@ lines 86 to 93 @@
    86         // When on L160S040, see
-   87         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
+   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
    88         // for what to do here.
 +  89         turn = hold.turn(follower, turn);
 +  90         Tracker.publish("heading/holding", hold.target() != null);

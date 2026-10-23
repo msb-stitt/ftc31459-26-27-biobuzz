@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L120EncoderLocalizer.java  (after L120)
 @@ lines 51 to 76 @@
    51         // When on L120S040, see
-   52         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s040
+   52         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
    53         // for what to do here.
 +  54         if (lastWheels == null) {
 +  55             lastWheels = wheels.clone();
@@ -30,7 +30,7 @@ is gone; each number is the line's place in the file after the lesson.
 +  66         double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4.0;
    67
    68         // When on L120S050, see
-   69         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l120.html#l120s050
+   69         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
    70         // for what to do here.
 +  71         double heading = rawHeading + headingOffset;
 +  72         x += forward * Math.cos(heading) - strafe * Math.sin(heading);

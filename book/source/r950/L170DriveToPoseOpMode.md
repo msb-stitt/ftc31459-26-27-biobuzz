@@ -13,7 +13,7 @@ is gone; each number is the line's place in the file after the lesson.
 +++ mytry/L170DriveToPoseOpMode.java  (after L170)
 @@ lines 83 to 94 @@
    83         // When on L170S030, see
-   84         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s030
+   84         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s030
    85         // for what to do here.
 +  86         boolean buttonY = gamepad1.y;
 +  87         boolean buttonYJustPressed = buttonY && !previousButtonY;
@@ -26,7 +26,7 @@ is gone; each number is the line's place in the file after the lesson.
    94     }
 @@ lines 158 to 165 @@
   158         // When on L170S040, see
-  159         // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l170.html#l170s040
+  159         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
   160         // for what to do here.
 + 161         follower.hold(target);
 + 162         drivetrain.releaseCommandedWheels();
