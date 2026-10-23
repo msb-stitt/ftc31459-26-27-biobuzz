@@ -126,6 +126,128 @@
         "route-through_e6cc8a6e02df.svg"
       ]
     },
+    "v0.2.0": {
+      "pages": "ftc-lessons-java/ver/v0.2.0/",
+      "built_from_commit": "95ca55a1e1d291f4dfde47c0b19e5e6f022d69da",
+      "media_used": [
+        "fig-advantagescope-sim_e48f8bbfd585.png",
+        "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
+        "fig-e035-numberline-3d_a1504154d867.png",
+        "fig-e035-numberline_c8208c13327c.png",
+        "fig-e035-robot-3d_032b26748416.png",
+        "fig-e035-robot-frame-3d_6d65d0307746.png",
+        "fig-e035-speeds-3d_c6ee55501da0.png",
+        "fig-e035-stick_b6d2e5c7270e.png",
+        "fig-e035-switch-3d_cfeab5d0ee2f.png",
+        "fig-e035-switch_7f1981dfd636.png",
+        "fig-e035-xy-3d_e04b556528a6.png",
+        "fig-e035-xy_d5325e0ddee2.png",
+        "fig-e035-xyz_5ffe1a3d4bd3.png",
+        "fig-field-relative_199cd5d7d0ad.png",
+        "fig-gamepad-sticks_a484af7b6aeb.png",
+        "fig-l011-advantagescope_ac1908de02ed.png",
+        "fig-l011-agp-more_ebda5cbbf3aa.png",
+        "fig-l011-archive_cc0d51832b15.png",
+        "fig-l011-build-menu_df1dda3b4389.png",
+        "fig-l011-built_1edf8a09a00a.png",
+        "fig-l011-git_73efc58f7f42.png",
+        "fig-l011-gradle-jvm_d3ca85bb654f.png",
+        "fig-l011-offers_d1d13581b4d6.png",
+        "fig-l011-setup_0dc19f60a602.png",
+        "fig-l011-smartscreen_39525aad50d6.png",
+        "fig-l011-trust_19443416b95a.png",
+        "fig-l011-wizard-standard_16599ff3f281.png",
+        "fig-l012-advantagescope_5956e0eb21d5.png",
+        "fig-l012-agp-more_070272bfb056.png",
+        "fig-l012-applications_4b04cd309596.png",
+        "fig-l012-archive_35d702368a29.png",
+        "fig-l012-build-menu_26783f2cbc11.png",
+        "fig-l012-built_466c9b4744a6.png",
+        "fig-l012-gradle-jvm_a10e16db6749.png",
+        "fig-l012-offers_423ab8908bad.png",
+        "fig-l012-tools_c313dde8986d.png",
+        "fig-l012-trust_6af16aa43d07.png",
+        "fig-l012-wizard-standard_c50c3ab73551.png",
+        "fig-l013-advantagescope_3d85caad660f.png",
+        "fig-l013-agp-more_be688c46b080.png",
+        "fig-l013-apt_13e77973c3b4.png",
+        "fig-l013-archive_5a1388926596.png",
+        "fig-l013-build-menu_0c28de9b490d.png",
+        "fig-l013-built_e752ecbd8c00.png",
+        "fig-l013-git_9ff5f96bc55c.png",
+        "fig-l013-gradle-jvm_53f0191d49b0.png",
+        "fig-l013-trust_65dc9c76febb.png",
+        "fig-l013-wizard-standard_97e3a02f3d74.png",
+        "fig-l020-complete_a7bfef7a5401.png",
+        "fig-l020-copied_ba826710cf6e.png",
+        "fig-l020-copy-class_d05eb5aad2f1.png",
+        "fig-l020-hover_c990a79d44ce.png",
+        "fig-l020-live_15f707fb6e2d.png",
+        "fig-l020-log_aa74c5c847f8.png",
+        "fig-l020-platform_8b3cd980ac07.png",
+        "fig-l020-publish_3bb3da107df5.png",
+        "fig-l020-sticky_a051629b4d17.png",
+        "fig-l020-tracker-note_9e0600fc648e.png",
+        "fig-l020-tracker_0e1b30439d3c.png",
+        "fig-l020-variable_0d0285e5c348.png",
+        "fig-l020-window_c51af20cec34.png",
+        "fig-l030-complete_9d6d554c01ff.png",
+        "fig-l030-live_084b2fcffea0.png",
+        "fig-l040-field_86942b3a00b2.png",
+        "fig-l040-hardware_25d94e20b03c.png",
+        "fig-l040-setpower_392e1a190c45.png",
+        "fig-l040-sticky_6caf2b0f3b43.png",
+        "fig-l050-direction_aa0cfd6446ca.png",
+        "fig-l060-deadband_d3ae6bebec9a.png",
+        "fig-l060-squared_39437e2cb8a9.png",
+        "fig-l070-button_e82d4c2f6703.png",
+        "fig-l070-pressed_88c1aea37fa5.png",
+        "fig-l070-sideways_26c23688eb11.png",
+        "fig-l080-forward-turn_830bbf7fa6ba.png",
+        "fig-l080-scaled_b68f1e132510.png",
+        "fig-l080-too-much_59bf2ac2682e.png",
+        "fig-l090-corner_4043480a4451.png",
+        "fig-l090-slide_4cb7cf5a1403.png",
+        "fig-l090-wheel-pushes_37409d515f56.png",
+        "fig-l110-slide_df82c1df0003.png",
+        "fig-l120-encoders-follow_17ee96a78410.png",
+        "fig-l120-import_3a99aa449d64.png",
+        "fig-l120-shadow-still_7eca34744b0f.png",
+        "fig-l125-drive24_daad530b722c.png",
+        "fig-l125-import-static_7d79bca47fcb.png",
+        "fig-l130-two-legs_51953ca87286.png",
+        "fig-l140-spin-and-slide_d4e732a3e9c4.png",
+        "fig-l150-bumper-held_8a550779a477.png",
+        "fig-l160-creep_7656b702c820.png",
+        "fig-l160-held_24065b01fcad.png",
+        "fig-l170-drove-there_c7f48b744721.png",
+        "fig-l170-stands-still_c36e5a46902e.png",
+        "fig-l180-aiming_1980463d97b3.png",
+        "fig-l190-asks-standing-still_a8ec63ebac78.png",
+        "fig-l190-wheel-numbers_0de09fe3ea4f.png",
+        "fig-l195-nothing-pushed_b78bc5855097.png",
+        "fig-mecanum-x_1487c470aae6.png",
+        "fig-odometry-step_4d3452b4bec9.png",
+        "fig-panels-graph_2e38a782b132.png",
+        "fig-pedro-field_4267365f403c.png",
+        "fig-pinpoint-mounting_8567a84553c8.png",
+        "fig-robot-front_f3c5afc69f89.png",
+        "fig-speed-loop_d3d279442e38.png",
+        "fig-stick-shaping_491ad8686c3a.png",
+        "fig-stick-to-robot_b606195b4067.png",
+        "fig-wheel-forward_cc740ffaf4d7.png",
+        "fig-wheel-handover_d6160d25008c.png",
+        "fig-wheel-names_c5e72d252f39.png",
+        "h017_c04cb17aa6c1.mp4",
+        "l020_d256186bc288.mp4",
+        "route-compound_fb6d157d50ff.svg",
+        "route-curve_7ece100f954f.svg",
+        "route-facingpoint_3972b5e77521.svg",
+        "route-line_7fb94edcf266.svg",
+        "route-linear_da84b53b7f66.svg",
+        "route-through_e6cc8a6e02df.svg"
+      ]
+    },
     "v0.2.0-rc.1": {
       "pages": "ftc-lessons-java/ver/v0.2.0-rc.1/",
       "built_from_commit": "95ca55a1e1d291f4dfde47c0b19e5e6f022d69da",
@@ -255,6 +377,7 @@
       "bytes": 248529,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -263,6 +386,7 @@
       "bytes": 960149,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -271,6 +395,7 @@
       "bytes": 293979,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -279,6 +404,7 @@
       "bytes": 52863,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -287,6 +413,7 @@
       "bytes": 471164,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -295,6 +422,7 @@
       "bytes": 552767,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -303,6 +431,7 @@
       "bytes": 523628,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -311,6 +440,7 @@
       "bytes": 247602,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -319,6 +449,7 @@
       "bytes": 1078193,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -327,6 +458,7 @@
       "bytes": 453154,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -335,6 +467,7 @@
       "bytes": 408974,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -343,6 +476,7 @@
       "bytes": 92973,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -351,6 +485,7 @@
       "bytes": 365186,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -359,6 +494,7 @@
       "bytes": 376414,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -367,6 +503,7 @@
       "bytes": 708867,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -375,6 +512,7 @@
       "bytes": 122558,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -383,6 +521,7 @@
       "bytes": 335764,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -391,6 +530,7 @@
       "bytes": 303872,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -399,6 +539,7 @@
       "bytes": 327612,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -407,6 +548,7 @@
       "bytes": 313212,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -415,6 +557,7 @@
       "bytes": 183783,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -423,6 +566,7 @@
       "bytes": 348719,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -431,6 +575,7 @@
       "bytes": 365021,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -439,6 +584,7 @@
       "bytes": 48302,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -447,6 +593,7 @@
       "bytes": 65270,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -455,6 +602,7 @@
       "bytes": 328728,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -463,6 +611,7 @@
       "bytes": 141917,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -471,6 +620,7 @@
       "bytes": 80525,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -479,6 +629,7 @@
       "bytes": 350099,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -487,6 +638,7 @@
       "bytes": 103206,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -495,6 +647,7 @@
       "bytes": 309190,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -503,6 +656,7 @@
       "bytes": 447478,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -511,6 +665,7 @@
       "bytes": 348898,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -519,6 +674,7 @@
       "bytes": 306946,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -527,6 +683,7 @@
       "bytes": 381729,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -535,6 +692,7 @@
       "bytes": 185820,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -543,6 +701,7 @@
       "bytes": 250620,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -551,6 +710,7 @@
       "bytes": 154514,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -559,6 +719,7 @@
       "bytes": 104376,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -567,6 +728,7 @@
       "bytes": 301273,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -575,6 +737,7 @@
       "bytes": 279676,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -583,6 +746,7 @@
       "bytes": 541926,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -591,6 +755,7 @@
       "bytes": 315835,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -599,6 +764,7 @@
       "bytes": 289447,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -607,6 +773,7 @@
       "bytes": 175542,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -615,6 +782,7 @@
       "bytes": 349452,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -623,6 +791,7 @@
       "bytes": 263248,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -631,6 +800,7 @@
       "bytes": 153902,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -639,6 +809,7 @@
       "bytes": 157424,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -657,6 +828,7 @@
       "bytes": 475720,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -665,6 +837,7 @@
       "bytes": 124331,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -678,6 +851,7 @@
       "bytes": 225102,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -686,6 +860,7 @@
       "bytes": 171142,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -694,6 +869,7 @@
       "bytes": 177708,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -702,6 +878,7 @@
       "bytes": 576517,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -710,6 +887,7 @@
       "bytes": 1034923,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -718,6 +896,7 @@
       "bytes": 656668,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -726,6 +905,7 @@
       "bytes": 355847,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -734,6 +914,7 @@
       "bytes": 272196,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -747,6 +928,7 @@
       "bytes": 155687,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -755,6 +937,7 @@
       "bytes": 362592,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -773,6 +956,7 @@
       "bytes": 99201,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -781,6 +965,7 @@
       "bytes": 138591,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -789,6 +974,7 @@
       "bytes": 263203,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -797,6 +983,7 @@
       "bytes": 98562,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -810,6 +997,7 @@
       "bytes": 291004,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -823,6 +1011,7 @@
       "bytes": 856763,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -831,6 +1020,7 @@
       "bytes": 96317,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -839,6 +1029,7 @@
       "bytes": 194259,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -847,6 +1038,7 @@
       "bytes": 198862,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -860,6 +1052,7 @@
       "bytes": 278338,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -868,6 +1061,7 @@
       "bytes": 184980,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -876,6 +1070,7 @@
       "bytes": 155690,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -884,6 +1079,7 @@
       "bytes": 142188,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -892,6 +1088,7 @@
       "bytes": 152535,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -900,6 +1097,7 @@
       "bytes": 156821,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -908,6 +1106,7 @@
       "bytes": 252495,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -916,6 +1115,7 @@
       "bytes": 282425,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -924,6 +1124,7 @@
       "bytes": 728434,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -932,6 +1133,7 @@
       "bytes": 212721,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -940,6 +1142,7 @@
       "bytes": 243224,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -948,6 +1151,7 @@
       "bytes": 300721,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -961,6 +1165,7 @@
       "bytes": 233549,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -969,6 +1174,7 @@
       "bytes": 252612,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -977,6 +1183,7 @@
       "bytes": 255308,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -990,6 +1197,7 @@
       "bytes": 248058,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -998,6 +1206,7 @@
       "bytes": 289454,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1006,6 +1215,7 @@
       "bytes": 279366,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1014,6 +1224,7 @@
       "bytes": 288082,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1022,6 +1233,7 @@
       "bytes": 283769,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1030,6 +1242,7 @@
       "bytes": 280309,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1038,6 +1251,7 @@
       "bytes": 281934,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1046,6 +1260,7 @@
       "bytes": 268249,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1054,6 +1269,7 @@
       "bytes": 264858,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1062,6 +1278,7 @@
       "bytes": 256797,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1070,6 +1287,7 @@
       "bytes": 260606,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1078,6 +1296,7 @@
       "bytes": 400632,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1086,6 +1305,7 @@
       "bytes": 464608,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1094,6 +1314,7 @@
       "bytes": 87426,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1102,6 +1323,7 @@
       "bytes": 495346,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1110,6 +1332,7 @@
       "bytes": 332831,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1118,6 +1341,7 @@
       "bytes": 467907,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1126,6 +1350,7 @@
       "bytes": 85960,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1134,6 +1359,7 @@
       "bytes": 98485,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1142,6 +1368,7 @@
       "bytes": 796935,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1150,6 +1377,7 @@
       "bytes": 397282,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1158,6 +1386,7 @@
       "bytes": 384431,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1166,6 +1395,7 @@
       "bytes": 342468,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1174,6 +1404,7 @@
       "bytes": 52636928,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1187,6 +1418,7 @@
       "bytes": 89991465,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1195,6 +1427,7 @@
       "bytes": 2651,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1203,6 +1436,7 @@
       "bytes": 2669,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1211,6 +1445,7 @@
       "bytes": 2653,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1219,6 +1454,7 @@
       "bytes": 2656,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1227,6 +1463,7 @@
       "bytes": 2674,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     },
@@ -1235,6 +1472,7 @@
       "bytes": 2588,
       "used_by_versions": [
         "dev",
+        "v0.2.0",
         "v0.2.0-rc.1"
       ]
     }
