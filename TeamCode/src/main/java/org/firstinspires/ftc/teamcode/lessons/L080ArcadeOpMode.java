@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L080 Arcade", group = "Lessons")
 // When on L080S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -78,11 +78,11 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightX", rightStickX);
 
         // When on L080S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
         // for what to do here.
 
         // When on L080S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l080.html#l080s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
         // for what to do here.
 
         boolean buttonA = gamepad1.a;

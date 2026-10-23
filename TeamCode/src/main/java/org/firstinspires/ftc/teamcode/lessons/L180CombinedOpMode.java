@@ -35,7 +35,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  */
 @TeleOp(name = "L180 Combined", group = "Lessons")
 // When on L180S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -108,7 +108,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     @Override
     public void shadowLocalizers() {
         // When on L180S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l180.html#l180s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
         // for what to do here.
     }
 

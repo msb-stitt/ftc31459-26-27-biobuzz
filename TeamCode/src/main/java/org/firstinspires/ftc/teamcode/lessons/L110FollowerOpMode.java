@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L110 Follower", group = "Lessons")
 // When on L110S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -35,7 +35,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
     boolean previousButtonA;
 
     // When on L110S040, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s040
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s040
     // for what to do here.
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -44,7 +44,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
         initBefore();
 
         // When on L110S050, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s050
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s050
         // for what to do here.
 
         initAfter();
@@ -91,7 +91,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
         Tracker.publish("arcade/strafe", strafe);
 
         // When on L110S060, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s060
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
         // for what to do here.
 
         boolean buttonA = gamepad1.a;

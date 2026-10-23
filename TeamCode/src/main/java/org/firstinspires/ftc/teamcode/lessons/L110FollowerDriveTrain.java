@@ -42,7 +42,7 @@ class L110FollowerDriveTrain extends CorbelsDriveTrain {
         double[] wheels = new double[4];
 
         // When on L110S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l110.html#l110s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030
         // for what to do here.
 
         return wheels;

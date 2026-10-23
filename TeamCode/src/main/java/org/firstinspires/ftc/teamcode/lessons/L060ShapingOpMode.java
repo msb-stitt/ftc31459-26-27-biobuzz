@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L060 Shaping", group = "Lessons")
 // When on L060S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -74,7 +74,7 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
         Tracker.publish("speed/right", rightSpeed);
 
         // When on L060S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040
         // for what to do here.
 
         hardware.frontLeft.setPower(leftSpeed);
@@ -91,10 +91,10 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
     }
 
     // When on L060S030, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s030
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
     // for what to do here.
 
     // When on L060S050, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l060.html#l060s050
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
     // for what to do here.
 }

@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L050 Blocks", group = "Lessons")
 // When on L050S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l050.html#l050s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -37,7 +37,7 @@ public class L050BlocksOpMode extends CorbelsTeleOp {
         initBefore();
 
         // When on L050S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l050.html#l050s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l050.html#l050s040
         // for what to do here.
 
         initAfter();

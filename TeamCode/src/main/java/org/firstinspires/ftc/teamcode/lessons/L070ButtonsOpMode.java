@@ -27,14 +27,14 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L070 Buttons", group = "Lessons")
 // When on L070S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L070ButtonsOpMode extends CorbelsTeleOp {
 
     // When on L070S040, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s040
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s040
     // for what to do here.
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -74,7 +74,7 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
         Tracker.publish("stick/rightY", rightStickY);
 
         // When on L070S060, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s060
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
         // for what to do here.
 
         double leftSpeed = -leftStickY;
@@ -97,11 +97,11 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
         hardware.backRight.setPower(rightPower);
 
         // When on L070S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
         // for what to do here.
 
         // When on L070S050, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l070.html#l070s050
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
         // for what to do here.
     }
 
