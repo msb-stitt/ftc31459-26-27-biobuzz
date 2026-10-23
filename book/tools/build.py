@@ -1,47 +1,40 @@
-"""Status: controlling, for the published guide, review and PDFs.
+"""Status: controlling, for the published guide and review.
 
-Builds the guide with every figure in place, the review of what each lesson asks,
-and a PDF of the guide, from a lessons ref and its solutions ref, into OUT's
-guide/, review/ and ftc31459-book.pdf. Moved here from gh-pages' src/ on
-2026-10-11; tools/publish_check.py runs it.
+Builds the guide with every figure in place, and the review of what each lesson
+asks, from a lessons ref and its solutions ref, into OUT's guide/ and review/.
+Moved here from gh-pages' src/ on 2026-10-11; tools/publish_check.py runs it.
 
     python tools/run.py build --figures DIR --solutions REF --out OUT [--lessons REF] [--mentor]
-        [--as KIND --version V]
 
-`--mentor` builds the mentor book, with Sphinx's `mentor` tag, into mentor/ and
-ftc31459-mentor-book.pdf, and leaves the review alone. Without it, the student
-book goes into guide/ and ftc31459-book.pdf. `--lessons` is HEAD unless named.
-`--as` and `--version` name the version being published, as assemble_pages.py
-takes them, for the links conf.py's `{video}` role writes; without them, the
-release at the top level.
+`--mentor` builds the mentor book, with Sphinx's `mentor` tag, into mentor/, and
+leaves the review alone. Without it, the student book goes into guide/.
+`--lessons` is HEAD unless named.
+
+Every figure, each file Sphinx puts in a book's _images/, goes into OUT's media/,
+beside the books, named NAME_HASH.SUFFIX, where HASH is the first 12 hex digits
+of the file's SHA-256, and the pages link it there. conf.py's `{video}` role
+links the videos by the same names; tools/publish_check.py puts them there.
 
 It fails, and writes nothing, if a pencilled box has no picture in --figures.
-It fails, and writes nothing, if the PDF step cannot open an image. It fails
-after writing if a built page shows an image file that is not there.
+It fails after writing if a built page shows an image file that is not there.
 
-Run it in a Python that has the book's requirements and rinohtype. The lessons
+Run it in a Python that has the book's requirements. The lessons
 ref is checked out into a throwaway worktree, so nothing here is touched. In
 that copy, every pencilled box (`:::{admonition} fig-...` with `:class: pencil`)
 whose id has a picture in --figures becomes that picture, with no caption: the
 box's words only stand in for it. The lessons ref keeps its boxes; the pictures
 live in corbels-lfs-lessons.
-
-The PDF needs the route diagrams as PNG, because rinohtype places no SVG; they
-are drawn with Pillow, so the build runs on any computer with the book's
-requirements.txt and requirements-publish.txt.
 """
 
 import argparse
+import hashlib
 import os
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
-import xml.etree.ElementTree as ET
 from pathlib import Path
-
-from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]  # the repository: book/tools/build.py
 FIGURES = Path()  # set from --figures
@@ -54,8 +47,9 @@ def run(*args, cwd=None):
 
 
 def fill(source: Path) -> tuple[int, list[str]]:
-    """Every pencilled box with a picture becomes a figure. Returns filled, and ids left."""
-    static = source / "_static" / "figures"
+    """Every pencilled box with a picture becomes a figure. Returns filled, and ids left.
+    The pictures go in _figures/, not _static/, which Sphinx copies whole beside _images/."""
+    static = source / "_figures"
     static.mkdir(parents=True, exist_ok=True)
     filled, left = 0, []
     for page in sorted(source.rglob("*.md")):
@@ -71,7 +65,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
                 return m.group(0)
             shutil.copy(png, static / png.name)
             filled += 1
-            path = "../" * depth + f"_static/figures/{png.name}"
+            path = "../" * depth + f"_figures/{png.name}"
             return f":::{{figure}} {path}\n:name: {fig}\n:::"
 
         new = PENCIL.sub(figure, text)
@@ -80,50 +74,37 @@ def fill(source: Path) -> tuple[int, list[str]]:
     return filled, left
 
 
-def draw_svg(svg: Path, size: int = 1600) -> Image.Image:
-    """A route drawing as a size-pixel PNG. The drawings hold only lines, circles and
-    straight-segment paths; anything else is refused rather than left out."""
-    root = ET.parse(svg).getroot()
-    left, top, width, height = (float(n) for n in root.get("viewBox").split())
-    scale = 4 * size / width  # drawn four times over, then shrunk, to smooth the edges
-    image = Image.new("RGB", (4 * size, round(4 * size * height / width)), "white")
-    pen = ImageDraw.Draw(image)
-
-    def at(x, y):
-        return ((float(x) - left) * scale, (float(y) - top) * scale)
-
-    for shape in root:
-        kind = shape.tag.split("}")[-1]
-        stroke = round(float(shape.get("stroke-width", 0)) * scale)
-        if kind == "title":
-            continue
-        if kind == "line":
-            pen.line([at(shape.get("x1"), shape.get("y1")), at(shape.get("x2"), shape.get("y2"))],
-                     fill=shape.get("stroke"), width=stroke)
-        elif kind == "circle":
-            x, y = at(shape.get("cx"), shape.get("cy"))
-            r = float(shape.get("r")) * scale
-            pen.ellipse([x - r, y - r, x + r, y + r], fill=shape.get("fill"))
-        elif kind == "path" and re.fullmatch(r"(?:[ML][-\d.]+,[-\d.]+)+", shape.get("d")):
-            points = [at(x, y) for x, y in re.findall(r"[ML]([-\d.]+),([-\d.]+)", shape.get("d"))]
-            pen.line(points, fill=shape.get("stroke"), width=stroke, joint="curve")
-        else:
-            raise ValueError(f"{svg.name}: cannot draw <{kind}> {shape.attrib}")
-    return image.resize((size, round(size * height / width)), Image.LANCZOS)
+def hashed(path: Path, sha256: str | None = None) -> str:
+    """NAME_HASH.SUFFIX for a media file: HASH is the first 12 hex digits of its SHA-256."""
+    if sha256 is None:
+        digest = hashlib.sha256()
+        with open(path, "rb") as fh:
+            for block in iter(lambda: fh.read(1 << 20), b""):
+                digest.update(block)
+        sha256 = digest.hexdigest()
+    return f"{path.stem}_{sha256[:12]}{path.suffix}"
 
 
-def svg_to_png(source: Path) -> None:
-    """The route diagrams as PNG beside the SVG, and the reference page pointed at them."""
-    routes = source / "_static" / "routes"
-    for svg in routes.glob("*.svg"):
-        draw_svg(svg).save(str(svg) + ".png")
-    # The routes page is tasks/r900.rst since the page types of 2026-10-10, and
-    # reference/pedro-routes.rst on a lessons ref from before them.
-    page = source / "tasks" / "r900.rst"
-    if not page.exists():
-        page = source / "reference" / "pedro-routes.rst"
-    page.write_text(re.sub(r"(_static/routes/route-[a-z]+)\.svg", r"\1.svg.png",
-                           page.read_text(encoding="utf-8")), encoding="utf-8")
+def to_media(site: Path, media: Path) -> int:
+    """Moves SITE's _images/ into MEDIA by hashed name, and points SITE's pages there.
+    A page links `../` once per folder it is in, then `_images/`; that becomes `../` once
+    more, then `media/`, so media/ sits beside the book. Returns the files moved."""
+    images = site / "_images"
+    if not images.is_dir():
+        return 0
+    media.mkdir(exist_ok=True)
+    names = {}
+    for each in sorted(images.iterdir()):
+        names[each.name] = hashed(each)
+        shutil.copy2(each, media / names[each.name])
+    shutil.rmtree(images)
+    link = re.compile(r'((?:\.\./)*)_images/([^"\'#?\s)]+)')
+    for page in site.rglob("*.html"):
+        text = page.read_text(encoding="utf-8")
+        new = link.sub(lambda m: f"{m[1]}../media/{names[m[2]]}", text)
+        if new != text:
+            page.write_text(new, encoding="utf-8")
+    return len(names)
 
 
 def missing_images(site: Path) -> list[str]:
@@ -145,15 +126,12 @@ def main() -> int:
     ap.add_argument("--figures", type=Path, required=True)
     ap.add_argument("--mentor", action="store_true")
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--as", dest="kind", choices=("release", "pre", "dev"))
-    ap.add_argument("--version", default="")
     args = ap.parse_args()
     global FIGURES
     FIGURES = args.figures.resolve()
     dest = args.out.resolve()
     tag = ["-t", "mentor"] if args.mentor else []
-    name, pdf = ("mentor", "ftc31459-mentor-book.pdf") if args.mentor else \
-        ("guide", "ftc31459-book.pdf")
+    name = "mentor" if args.mentor else "guide"
     built = (name,) if args.mentor else (name, "review")
 
     tree = Path(tempfile.mkdtemp(prefix="book-"))
@@ -167,38 +145,23 @@ def main() -> int:
             return 1
 
         out = tree / "out"
-        # conf.py names these on B003, describing them as committed, and links videos by the
-        # version.
+        # conf.py names these on B003, describing them as committed, and names the videos from
+        # BOOK_MEDIA's videos/.
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
-                          BOOK_MEDIA=str(FIGURES.parent), BOOK_AS=args.kind or "",
-                          BOOK_VERSION=args.version)
+                          BOOK_MEDIA=str(FIGURES.parent))
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:
             run(sys.executable, "tools/run.py", "diffs", "--solutions", args.solutions, cwd=book)
             run(sys.executable, "-m", "sphinx", "-b", "html", "review/source", str(out / "review"),
                 cwd=book)
-        pdf_source = tree / "pdf-source"
-        shutil.copytree(book / "source", pdf_source)
-        svg_to_png(pdf_source)
-        # rinohtype leaves out an image it cannot open, warns, and still exits 0.
-        rinoh = subprocess.run(
-            [sys.executable, "-m", "sphinx", "-b", "rinoh", *tag, "-D",
-             "extensions=myst_parser,rinoh.frontend.sphinx", str(pdf_source), str(out / "pdf")],
-            check=True, stderr=subprocess.PIPE, text=True)
-        sys.stderr.write(rinoh.stderr)
-        unopened = [line for line in rinoh.stderr.replace("\r", "\n").splitlines()
-                    if "Error opening image file" in line]
-        if unopened:
-            print("FAILED: the PDF leaves out images:\n  " + "\n  ".join(unopened))
-            return 1
 
         dest.mkdir(parents=True, exist_ok=True)
         for each in built:
+            print(f"{each}: {to_media(out / each, dest / 'media')} figure(s) into media/")
             shutil.rmtree(dest / each, ignore_errors=True)
             shutil.copytree(out / each, dest / each)
             shutil.rmtree(dest / each / ".doctrees", ignore_errors=True)
-        shutil.copy(next((out / "pdf").glob("*.pdf")), dest / pdf)
         lessons = subprocess.run(["git", "rev-parse", "--short", args.lessons], cwd=ROOT,
                                  capture_output=True, text=True).stdout.strip()
         solutions = subprocess.run(["git", "rev-parse", "--short", args.solutions], cwd=ROOT,

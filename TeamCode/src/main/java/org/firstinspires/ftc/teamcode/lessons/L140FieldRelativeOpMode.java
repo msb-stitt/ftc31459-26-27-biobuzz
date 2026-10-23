@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L140 Field Relative", group = "Lessons")
 // When on L140S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l140.html#l140s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -87,7 +87,7 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
         Tracker.publish("arcade/strafe", strafe);
 
         // When on L140S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l140.html#l140s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
         // for what to do here.
         drivetrain.sticks(forward, strafe, turn);
 

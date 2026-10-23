@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
  */
 @TeleOp(name = "L020 Sticks", group = "Lessons")
 // When on L020S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -55,15 +55,15 @@ public class L020SticksOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void readTheSticks() {
         // When on L020S030, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s030
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s030
         // for what to do here.
 
         // When on L020S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
         // for what to do here.
 
         // When on L020S050, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s050
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
         // for what to do here.
     }
 

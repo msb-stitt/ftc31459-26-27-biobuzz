@@ -5,9 +5,11 @@ the 2026-27 BIOBUZZ season.
 
 ### The Corbels Programming Lessons and answers on the web
 
-[msb-stitt.github.io/ftc31459-26-27-biobuzz](https://msb-stitt.github.io/ftc31459-26-27-biobuzz/)
-has the newest release of the guide, the mentor guide and what the student writes, with both PDFs,
-and lists every version.
+The most recent release is at
+[coding.stitt.cc/ftc-lessons-java/guide](https://coding.stitt.cc/ftc-lessons-java/guide/), with
+[the mentor guide](https://coding.stitt.cc/ftc-lessons-java/mentor/) and
+[what the student writes](https://coding.stitt.cc/ftc-lessons-java/review/) beside it.
+[versions.html](https://coding.stitt.cc/ftc-lessons-java/versions.html) lists more versions.
 
 ### Cheat sheet: the commands
 
@@ -65,7 +67,8 @@ stock, with a Pinpoint. **StarterBot TeleOp** drives one with the controls of go
 code, written in `StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson
 L130's route: forward from the wall to (72, 72) inches, then 24 inches to the right, facing +y the
 whole way. These two and Launcher Check are the only OpModes on the Driver Station; every other is
-`@Disabled`.
+`@Disabled`. All three send the flight log live to AdvantageScope as well, for practice;
+[NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
 one runs the intake from the triggers, one fires the launcher while the right bumper is held. A
@@ -74,6 +77,9 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
 `intake/power` and each wheel's `wheel/<wheel>/power` go to the flight log; Pedro's pose is under
 `Robot/Pose`.
 
+- Set `thisRobot` in `pedro/Constants.java` to the robot the code is going onto: 88888, 37523 or
+  31459, with 37523 the default. What differs between them is in that robot's own file in `pedro`,
+  `Bot88888`, `Bot37523` or `Bot31459`; today that is the four drive directions.
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value there marked `MEASURE` was measured on an earlier robot. Measure it on each robot
@@ -99,7 +105,8 @@ If the launcher stutters rather than holding its speed, try these in order:
 - Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
   fraction, to the wiring or the gains.
 - If the speed swings around the target, lower `Launcher.VELOCITY_P`; if it never reaches it, raise
-  `Launcher.VELOCITY_F`. goBILDA's DECODE StarterBot used `(300, 0, 0, 10)`.
+  `Launcher.VELOCITY_F`. Ours are P 10 and F 12.5; goBILDA's example used `(40, 0, 0, 12.5)`,
+  and its DECODE StarterBot `(300, 0, 0, 10)`.
 - Use a battery above 12.5 V.
 
 ### TODO 

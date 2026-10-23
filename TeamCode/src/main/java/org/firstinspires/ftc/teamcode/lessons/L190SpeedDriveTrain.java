@@ -36,7 +36,7 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
         wanted[BR] = backRightInPerS;
 
         // When on L190S060, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s060
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
         // for what to do here.
     }
 }

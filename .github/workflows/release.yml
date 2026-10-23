@@ -1,30 +1,29 @@
-# Publishes the books on gh-pages, and makes a release.
+# Publishes the books on coding.stitt.cc, and makes a release.
 #
 # Lesson work merges into dev; a release fast-forwards main to a commit of dev
 # and tags it there.
 #
 # - A push to dev: the books built from it and from the solutions and media its
-#   book/keep.toml pins, into dev/.
+#   book/keep.toml pins, at /ftc-lessons-java/ver/dev/.
 # - A tag such as v0.1.4-rc.1, on a commit of dev: the same, as a pre-release,
-#   into its own folder, and a GitHub pre-release.
-# - A tag vX.Y.Z, at main's head and on dev: the same, as a release, to the top
-#   level, where the code's links point, and a GitHub Release.
+#   at /ftc-lessons-java/ver/<tag>/, and a GitHub pre-release.
+# - A tag vX.Y.Z, at main's head and on dev: the same, as a release, and a
+#   GitHub Release.
 # - A push to main publishes nothing. A run by hand builds, keeps the books as
 #   an artifact, and publishes nothing.
 #
-# A tag's GitHub Release carries both PDFs, its videos, and the web pages with
-# its videos as a zip, and its media commit is tagged in corbels-lfs-lessons
-# with the same name, with the deploy key in the secret CORBELS_LFS_DEPLOY_KEY.
+# A tag's GitHub Release carries the web pages with their media as a zip, and
+# its media commit is tagged in corbels-lfs-lessons with the same name, with the
+# deploy key in the secret CORBELS_LFS_DEPLOY_KEY.
 #
-# gh-pages is made again on each publish, as one commit with no parent, by
-# book/tools/assemble_pages.py: the newest release at the top level, the newest
-# pre-release while it is newer, dev/, and no older version, each with its own
-# videos/, which its pages link relatively. A PDF links a tag's videos in its
-# GitHub Release, and dev's in dev/videos/. The front page links every
-# version's GitHub Release. The figures and videos come from corbels-lfs-lessons
-# at the commit book/keep.toml's [media] pins. Every LFS download counts against
-# the owner's monthly LFS bandwidth, so only figures/ is pulled, cached by media
-# commit, and a video is pulled only when gh-pages serves no copy of it.
+# The branch site holds every version's pages, without media; each publish
+# commits its version there with cloudflare/assemble.py, which uploads to R2
+# each figure and video R2 does not hold, and deploys the branch to the Pages
+# project coding-stitt-cc, with the token in the secret CLOUDFLARE_API_TOKEN.
+# The figures and videos come from corbels-lfs-lessons at the commit
+# book/keep.toml's [media] pins. Every LFS download counts against the owner's
+# monthly LFS bandwidth, so only figures/ is pulled, cached by media commit, and
+# a video is pulled only when coding.stitt.cc serves no copy of it.
 name: Release
 
 on:
@@ -36,10 +35,10 @@ on:
 permissions:
   contents: write
 
-# Every run that publishes pushes to gh-pages. Do not cancel one in progress:
-# each publishes its own version.
+# Every run that publishes pushes to the branch site and deploys it. Do not
+# cancel one in progress: each publishes its own version.
 concurrency:
-  group: github-pages
+  group: coding-stitt-cc
   cancel-in-progress: false
 
 jobs:
@@ -50,7 +49,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # The solutions branch and gh-pages are read by name. The checkout makes the tag
+      # The solutions branch and site are read by name. The checkout makes the tag
       # that started the run a lightweight tag, which git describe skips and whose
       # message is the commit's, so every tag is fetched again as it was made.
       - name: Every branch as a local branch, and every tag as made
@@ -120,6 +119,9 @@ jobs:
       - name: The figures, and nothing else, from LFS
         run: git -C media lfs pull --include 'figures/'
 
+      - name: The videos, from coding.stitt.cc where it has them, or else from LFS
+        run: python3 cloudflare/videos.py --media media
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -139,7 +141,7 @@ jobs:
       - name: Tools
         run: |
           python -m pip install --upgrade pip
-          python -m pip install ninja -r book/requirements.txt -r book/requirements-publish.txt
+          python -m pip install ninja -r book/requirements.txt
 
       - name: The guide's checks
         working-directory: book
@@ -151,37 +153,51 @@ jobs:
           python tools/cheatsheet.py --check
 
       # Builds the review too, which checks that each lesson's changes rebuild its patch.
-      - name: Both books, the review and both PDFs
+      - name: Both books and the review
         working-directory: book
-        env:
-          KIND: ${{ steps.what.outputs.kind }}
-          VERSION: ${{ steps.what.outputs.version }}
-        run: |
-          # The PDFs link the videos of the version they are published as.
-          if [ -n "$KIND" ]; then version="--as $KIND --version $VERSION"; else version=; fi
-          python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}' $version
+        run: python tools/run.py publish_check --media ../media --solutions '${{ steps.what.outputs.solutions }}'
 
       - uses: actions/upload-artifact@v4
         with:
           name: publish
           path: book/build/publish
 
-      - name: gh-pages made again, as one commit with no parent
+      - uses: actions/setup-node@v4
+        if: steps.what.outputs.kind != ''
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: cloudflare/package-lock.json
+
+      - name: The version on the branch site, its media in R2, and the site deployed
         if: steps.what.outputs.kind != ''
         env:
-          KIND: ${{ steps.what.outputs.kind }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           VERSION: ${{ steps.what.outputs.version }}
         run: |
-          git worktree add old gh-pages
-          python book/tools/run.py assemble_pages --old old --built book/build/publish \
-            --as "$KIND" --version "$VERSION" --out site --media media
-          git worktree add --orphan -b new-pages fresh
-          cp -R site/. fresh/
-          cd fresh
-          git add -A
-          git -c user.name="Mike S.B. Stitt" -c user.email=msb@stitt.cc \
-            commit -q -m "The site as published, with $VERSION built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
-          git push -f origin new-pages:gh-pages
+          (cd cloudflare && npm ci --no-audit --no-fund)
+          if git rev-parse --verify --quiet refs/heads/site >/dev/null; then
+            git worktree add cloudflare/site site
+          else
+            git worktree add --orphan -b site cloudflare/site
+          fi
+          python3 cloudflare/assemble.py --site cloudflare/site --built book/build/publish \
+            --version "$VERSION" --commit "$GITHUB_SHA"
+          python3 cloudflare/media_index.py --site cloudflare/site
+          # Committed first and pushed last, so a failed deploy pushes nothing. A run
+          # again of the same commit changes nothing, and commits nothing.
+          git -C cloudflare/site add -A
+          git -C cloudflare/site diff --cached --quiet ||
+            git -C cloudflare/site -c user.name="Mike S.B. Stitt" -c user.email=msb@stitt.cc \
+              commit -q -m "$VERSION, built from $(git rev-parse --short "$GITHUB_SHA") by the release workflow."
+          (cd cloudflare && ./wrangler.sh pages deploy --branch main --commit-hash "$GITHUB_SHA" --commit-dirty=true)
+          git -C cloudflare/site push origin site
+
+      - name: What coding.stitt.cc holds
+        if: steps.what.outputs.kind != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: python3 cloudflare/usage.py --site cloudflare/site
 
       - name: The media commit tagged in corbels-lfs-lessons
         if: github.ref_type == 'tag'
@@ -196,26 +212,20 @@ jobs:
           git -C media tag "$VERSION" HEAD
           git -C media push archive "refs/tags/$VERSION"
 
-      - name: A GitHub Release with both PDFs, the videos and the web pages
+      - name: A GitHub Release with the web pages
         if: github.ref_type == 'tag'
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.what.outputs.version }}
           SOLUTIONS: ${{ steps.what.outputs.solutions }}
         run: |
-          # The version's videos, as assemble_pages laid them out, for the PDFs' links and
-          # beside the web pages in the zip, where the pages' relative links find them.
-          case "$VERSION" in
-            *-*) videos="$PWD/site/$VERSION" ;;
-            *)   videos="$PWD/site" ;;
-          esac
+          # The pages link their figures and videos in media/, beside them.
           zipped="$PWD/book/build/ftc31459-$VERSION-web.zip"
-          (cd book/build/publish && zip -qr "$zipped" guide mentor review)
-          (cd "$videos" && zip -qr "$zipped" videos)
+          (cd book/build/publish && zip -qr "$zipped" guide mentor review media)
           {
             git tag -l --format='%(contents)' "$VERSION"
             echo
-            echo "The newest release, and every version, are at https://msb-stitt.github.io/ftc31459-26-27-biobuzz/."
+            echo "This release is at https://coding.stitt.cc/ftc-lessons-java/ver/$VERSION/guide/, and more versions are listed at https://coding.stitt.cc/ftc-lessons-java/versions.html."
             echo "This release's web pages are in \`ftc31459-$VERSION-web.zip\`: unzip it and open \`guide/index.html\`."
             echo
             echo "The answer pages and cheat sheet are built from the solutions at the tag \`$SOLUTIONS\`."
@@ -224,5 +234,5 @@ jobs:
             *-*) pre=--prerelease ;;
             *)   pre= ;;
           esac
-          gh release create "$VERSION" book/build/publish/*.pdf "$videos"/videos/*.mp4 "$zipped" \
+          gh release create "$VERSION" "$zipped" \
             --title "$VERSION" $pre --notes-file notes.md

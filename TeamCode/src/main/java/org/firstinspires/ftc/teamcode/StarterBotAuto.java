@@ -45,6 +45,9 @@ public class StarterBotAuto extends CorbelsAuto {
     @Override
     public void init() {
         initBefore();
+        // Live in AdvantageScope from INIT, at 192.168.43.1. For practice only:
+        // FTC rule R704 forbids it at competitions.
+        Tracker.serveLive();
         drivetrain = new CorbelsMecanum(hardware);
         initAfter(drivetrain);
     }

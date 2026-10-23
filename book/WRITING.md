@@ -118,7 +118,7 @@ The code a student copies carries a comment where each step changes it, linking 
 
 ```java
 // When on L020S010, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l020.html#l020s010
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s010
 // for what to do here.
 ```
 
@@ -205,7 +205,9 @@ Tire, color, labeled, center.
 
 Every figure has a row in [`FIGURES.md`](FIGURES.md) and an id of the form `fig-<something>`. A
 figure that does not exist yet is a pencilled box in the page, so the gap is visible to a reader and
-not blocking to a writer. `tools/check_figures.py` checks both directions.
+not blocking to a writer. The box shows the row's *What it must show*, which the build puts there,
+so write it only in the row. A figure no page shows any more is marked `unused` in its row, not
+deleted. `tools/check_figures.py` checks both directions.
 
 ## Draw in the marker-sketch style
 

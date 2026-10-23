@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "description": "Status: controlling. wrangler, which deploys coding.stitt.cc; see README.md.",
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  }
+}

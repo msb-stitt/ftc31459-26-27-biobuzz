@@ -2,27 +2,31 @@
 
 Runs tools/build.py twice, for the student book and the mentor book, from this
 branch's HEAD and the solutions ref pinned in keep.toml, into build/publish/:
-guide/, review/, mentor/ and both PDFs, with every figure in place. build.py
+guide/, review/ and mentor/, with every figure in place. build.py
 fails if a figure is still pencilled or a page shows an image that is not there,
 and so does this.
 
 It builds HEAD, the last commit, not the files as they stand: commit first. The
 figures come from MEDIA's figures/, a corbels-lfs-lessons checkout at the commit
 keep.toml's [media] pins, or its branch while none is, with its LFS files pulled. It fails if MEDIA is at
-another commit, or if a figure there is still an LFS pointer. It fails if a page
-links a video, by a relative link, other than an MP4 in MEDIA's videos/ at
-build/publish/videos/, where assemble_pages.py puts the version's videos.
+another commit, or if a figure there is still an LFS pointer.
 
-It runs in a Python with requirements.txt and requirements-publish.txt.
+build/publish/ is emptied first. build.py puts the figures in build/publish/media/,
+named by their hash; this copies there each video a page links, from MEDIA's
+videos/, and fails if one is still an LFS pointer. Then it fails if a page links
+a file in media/ that is not there, or whose name's hash is not its own.
 
-    python tools/run.py publish_check [--media DIR] [--solutions REF] [--as KIND --version V]
+It runs in a Python with requirements.txt.
+
+    python tools/run.py publish_check [--media DIR] [--solutions REF]
 
 MEDIA defaults to corbels-lfs-lessons beside this repository, as ftc-claude has it.
-KIND and V name the version being published, and go to build.py.
 """
 
 import argparse
+import hashlib
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -44,17 +48,62 @@ def git(*args: str, cwd: Path) -> str:
                           text=True).stdout.strip()
 
 
-def unplayable(out: Path, media: Path) -> list[str]:
-    """Every relative .mp4 link in OUT's pages that is not OUT/videos/NAME with NAME in MEDIA."""
-    have = {p.name for p in (media / "videos").glob("*.mp4")}
-    bad = []
+LINK = re.compile(r'(?:href|src)="([^"#?]*media/[^"#?]+)"')
+NAMED = re.compile(r"(.+)_([0-9a-f]{12})(\.\w+)")
+POINTER = b"version https://git-lfs"
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for block in iter(lambda: fh.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def linked(out: Path) -> dict[str, list[str]]:
+    """Each relative link from OUT's pages into a media/ folder, as its target relative to OUT,
+    with the pages that link it."""
+    found: dict[str, list[str]] = {}
     for page in sorted(out.rglob("*.html")):
-        for href in re.findall(r'href="([^"]+\.mp4)"', page.read_text(encoding="utf-8")):
+        for href in LINK.findall(page.read_text(encoding="utf-8")):
             if "://" in href:
                 continue
             target = (page.parent / href).resolve()
-            if target.parent != out / "videos" or target.name not in have:
-                bad.append(f"{page.relative_to(out)}: {href}")
+            where = target.relative_to(out).as_posix() if target.is_relative_to(out) else href
+            found.setdefault(where, []).append(page.relative_to(out).as_posix())
+    return found
+
+
+def videos(out: Path, media: Path, links: dict[str, list[str]]) -> list[str]:
+    """Copies each linked video from MEDIA's videos/ into OUT/media/. Returns the failures."""
+    bad = []
+    for target in links:
+        named = NAMED.fullmatch(Path(target).name)
+        if not target.startswith("media/") or not target.endswith(".mp4") or not named:
+            continue
+        source = media / "videos" / f"{named[1]}{named[3]}"
+        if not source.exists():
+            bad.append(f"{target}: no {source.name} in {media / 'videos'}")
+        elif source.read_bytes()[:40].startswith(POINTER):
+            bad.append(f"{target}: {source.name} is an LFS pointer; run git lfs pull in {media}")
+        elif not (out / target).exists():
+            shutil.copy2(source, out / target)
+    return bad
+
+
+def unserved(out: Path, links: dict[str, list[str]]) -> list[str]:
+    """Each media link whose target is not OUT/media/NAME_HASH.SUFFIX with HASH its own."""
+    bad = []
+    for target, pages in links.items():
+        named = NAMED.fullmatch(Path(target).name)
+        path = out / target
+        if not target.startswith("media/") or "/" in target[6:] or not named:
+            bad.append(f"{pages[0]}: {target} is not a hashed name in media/")
+        elif not path.is_file():
+            bad.append(f"{pages[0]}: {target} is not there")
+        elif sha256(path)[:12] != named[2]:
+            bad.append(f"{pages[0]}: {target} has the SHA-256 {sha256(path)[:12]}")
     return bad
 
 
@@ -64,10 +113,7 @@ def main() -> int:
                         help="a corbels-lfs-lessons checkout at keep.toml's [media] pin")
     parser.add_argument("--solutions", default=answers.pins()[1],
                         help="the solutions ref; a release names its vX.Y.Z-solutions tag")
-    parser.add_argument("--as", dest="kind", choices=("release", "pre", "dev"))
-    parser.add_argument("--version", default="")
     args = parser.parse_args()
-    version = ["--as", args.kind, "--version", args.version] if args.kind else []
 
     book = book_root()
     lessons = git("rev-parse", "HEAD", cwd=book)
@@ -88,20 +134,23 @@ def main() -> int:
         print(f"FAILED: {len(pointers)} figure(s) are LFS pointers; run git lfs pull in {media}")
         return 1
 
+    shutil.rmtree(out, ignore_errors=True)
     for book_tag in ([], ["--mentor"]):
         finished = subprocess.run(
             [sys.executable, "tools/run.py", "build", "--lessons", lessons,
              "--solutions", args.solutions, "--figures", str(figures), "--out", str(out),
-             *book_tag, *version],
+             *book_tag],
             cwd=book,
         )
         if finished.returncode:
             return finished.returncode
-    bad = unplayable(out, media)
+    links = linked(out)
+    bad = videos(out, media, links) or unserved(out, links)
     if bad:
-        print("FAILED: pages link videos the media pin does not have:\n  " + "\n  ".join(bad))
+        print("FAILED: pages link media that is not there as named:\n  " + "\n  ".join(bad))
         return 1
-    print(f"\nBuilt both books, the review and both PDFs into {out}")
+    print(f"{len(links)} media file(s) linked, each in media/ with its own hash")
+    print(f"\nBuilt both books and the review into {out}")
     return 0
 
 

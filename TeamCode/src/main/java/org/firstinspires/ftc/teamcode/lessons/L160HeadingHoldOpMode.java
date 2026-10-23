@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L160 Heading Hold", group = "Lessons")
 // When on L160S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -82,7 +82,7 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
         turn = signedSquared(turn);
         Tracker.publish("arcade/turn", turn);
         // When on L160S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l160.html#l160s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
         // for what to do here.
 
         double strafe = deadband(-leftStickX, band);

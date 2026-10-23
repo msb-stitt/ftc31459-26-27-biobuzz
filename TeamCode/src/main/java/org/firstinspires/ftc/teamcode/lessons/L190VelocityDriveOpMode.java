@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  */
 @TeleOp(name = "L190 Velocity Drive", group = "Lessons")
 // When on L190S020, see
-// https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s020
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -41,7 +41,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
     static final double MAX_TURN_RADPS = Math.PI;
 
     // When on L190S030, see
-    // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s030
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
     // for what to do here.
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -50,7 +50,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
         initBefore();
 
         // When on L190S040, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s040
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
         // for what to do here.
 
         initAfter();
@@ -83,7 +83,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
 
         double band = 0.05;
         // When on L190S050, see
-        // https://msb-stitt.github.io/ftc31459-26-27-biobuzz/guide/tasks/l190.html#l190s050
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
         // for what to do here.
         double forwardInPerS = 0.0;
         double strafeInPerS = 0.0;

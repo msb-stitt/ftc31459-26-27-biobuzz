@@ -38,7 +38,6 @@ def made_from() -> dict[str, str]:
                               capture_output=True, text=True)
         return done.stdout.strip() or "unknown"
 
-    # The PDF is built from a copy of source/ beside book/, so keep.toml is found from the top.
     top = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=here, capture_output=True,
                          text=True, check=True).stdout.strip()
     keep = tomllib.loads((Path(top) / "book" / "keep.toml").read_text())
@@ -70,14 +69,6 @@ if tags.has("mentor"):  # noqa: F821, Sphinx puts `tags` in this file's namespac
 else:
     root_doc = "student_index"
     exclude_patterns += MENTOR_ONLY
-
-# The PDF: rinohtype's book template, with source/answers.rts setting the answer pages' diffs
-# smaller than other code, so their lines fit the page. The title is the one rinohtype gave the
-# book before this was set. The subtitle, beside the title at the top of each page, is the version
-# tag the lessons were built from, where rinohtype put "Release" and an empty release.
-rinoh_documents = [dict(doc=globals().get("root_doc", "index"), target="book", title=project,
-                        subtitle=myst_substitutions["lessons"].strip("`"), author=author,
-                        template="book.rtt")]
 
 html_theme = "furo"
 html_title = "Corbels FTC Programming Lessons in Java"
@@ -130,30 +121,60 @@ def setup(app):
 
     app.connect("doctree-read", step_anchors)
 
-    def video(name, rawtext, text, lineno, inliner, options=None, content=None):
-        """{video}`l020`: a link to l020.mp4 in this version's videos/.
+    import re
+    import subprocess
+    import sys
+    from pathlib import Path
 
-        A page links its own version's copy, beside its book: relative, so dev/ plays dev's
-        video and the release plays its own. A PDF has no folder to be relative to, so it links
-        a release's or pre-release's GitHub Release, and dev's videos/ on the site. BOOK_AS and
-        BOOK_VERSION, set by tools/build.py, name the version; without them, as under ninja
-        book, the release at the top level.
+    top = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=app.confdir,
+                              capture_output=True, text=True, check=True).stdout.strip())
+    sys.path.insert(0, str(top / "book" / "tools"))
+    from check_figures import descriptions
+
+    shows = descriptions(top / "book")
+
+    def describe_pencilled(app, docname, source):
+        """Put each pencilled box's row from FIGURES.md, what the figure must show, under its
+        own words, so the description has one home. tools/check_figures.py finds a box with
+        no row."""
+        def box(m):
+            what = shows.get(m.group(1))
+            return f"{m.group(0)[:-4]}\n\n{what}\n:::" if what else m.group(0)
+
+        source[0] = re.sub(r"^:::\{admonition\} (fig-[\w-]+)\n:class: pencil\n.*?\n:::$", box,
+                           source[0], flags=re.M | re.S)
+
+    app.connect("source-read", describe_pencilled)
+
+    def video(name, rawtext, text, lineno, inliner, options=None, content=None):
+        """{video}`l020`: a link to l020.mp4 in this version's media/, by its hashed name.
+
+        The name is l020_HASH.mp4, where HASH is the first 12 hex digits of the video's
+        SHA-256, as tools/build.py names the figures. BOOK_MEDIA, set by tools/build.py, is a
+        corbels-lfs-lessons checkout; the SHA-256 is read from its videos/l020.mp4, or from the
+        LFS pointer there when the video is not pulled. Without it, as under ninja book, the
+        link is to l020.mp4 with no hash. The link is relative, so each version plays its own
+        copy, and the text is the address every version's copy is served from.
         """
+        import hashlib
         import os
+        import re
 
         from docutils import nodes
 
-        site = "https://msb-stitt.github.io/ftc31459-26-27-biobuzz/"
-        kind, version = os.environ.get("BOOK_AS"), os.environ.get("BOOK_VERSION")
-        root = {"dev": site + "dev/", "pre": f"{site}{version}/"}.get(kind, site)
         mp4 = f"{text}.mp4"
+        media = os.environ.get("BOOK_MEDIA")
+        if media:
+            path = Path(media) / "videos" / mp4
+            head = path.read_bytes()[:200]
+            pointer = re.search(rb"^oid sha256:([0-9a-f]{64})$", head, re.M) \
+                if head.startswith(b"version https://git-lfs") else None
+            sha256 = pointer[1].decode() if pointer else \
+                hashlib.sha256(path.read_bytes()).hexdigest()
+            mp4 = f"{text}_{sha256[:12]}.mp4"
         env = inliner.document.settings.env
-        if env.app.builder.name == "rinoh":
-            release = "https://github.com/msb-stitt/ftc31459-26-27-biobuzz/releases/download/"
-            uri = f"{release}{version}/{mp4}" if kind in ("release", "pre") else \
-                f"{root}videos/{mp4}"
-        else:
-            uri = "../" * (env.docname.count("/") + 1) + f"videos/{mp4}"
-        return [nodes.reference(rawtext, f"{root}videos/{mp4}", refuri=uri)], []
+        uri = "../" * (env.docname.count("/") + 1) + f"media/{mp4}"
+        shown = f"https://coding.stitt.cc/ftc-lessons-java/media/{mp4}"
+        return [nodes.reference(rawtext, shown, refuri=uri)], []
 
     app.add_role("video", video)

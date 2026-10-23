@@ -12,8 +12,9 @@ before, goes out live. `Tracker.begin` switches it off again for the next OpMode
 starts on the first call and runs until the Robot Controller app stops, so AdvantageScope stays
 connected from one run to the next.
 
-**For practice only.** FTC rule R704 forbids third-party telemetry over Wi-Fi at competitions, so no
-competition OpMode calls `serveLive()`. No lesson calls it either.
+**For practice only.** FTC rule R704 forbids third-party telemetry over Wi-Fi at competitions.
+StarterBot TeleOp, StarterBot Auto and Launcher Check call `serveLive()`; take those calls out
+before a competition. No lesson calls it either.
 
 `example/NtCheckOpMode`, **NetworkTables check** on the Driver Station, turns it on and drives no
 wheels.
