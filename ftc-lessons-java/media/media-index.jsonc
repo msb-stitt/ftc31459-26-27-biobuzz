@@ -125,6 +125,128 @@
         "route-linear_da84b53b7f66.svg",
         "route-through_e6cc8a6e02df.svg"
       ]
+    },
+    "v0.2.0-rc.1": {
+      "pages": "ftc-lessons-java/ver/v0.2.0-rc.1/",
+      "built_from_commit": "95ca55a1e1d291f4dfde47c0b19e5e6f022d69da",
+      "media_used": [
+        "fig-advantagescope-sim_e48f8bbfd585.png",
+        "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
+        "fig-e035-numberline-3d_a1504154d867.png",
+        "fig-e035-numberline_c8208c13327c.png",
+        "fig-e035-robot-3d_032b26748416.png",
+        "fig-e035-robot-frame-3d_6d65d0307746.png",
+        "fig-e035-speeds-3d_c6ee55501da0.png",
+        "fig-e035-stick_b6d2e5c7270e.png",
+        "fig-e035-switch-3d_cfeab5d0ee2f.png",
+        "fig-e035-switch_7f1981dfd636.png",
+        "fig-e035-xy-3d_e04b556528a6.png",
+        "fig-e035-xy_d5325e0ddee2.png",
+        "fig-e035-xyz_5ffe1a3d4bd3.png",
+        "fig-field-relative_199cd5d7d0ad.png",
+        "fig-gamepad-sticks_a484af7b6aeb.png",
+        "fig-l011-advantagescope_ac1908de02ed.png",
+        "fig-l011-agp-more_ebda5cbbf3aa.png",
+        "fig-l011-archive_cc0d51832b15.png",
+        "fig-l011-build-menu_df1dda3b4389.png",
+        "fig-l011-built_1edf8a09a00a.png",
+        "fig-l011-git_73efc58f7f42.png",
+        "fig-l011-gradle-jvm_d3ca85bb654f.png",
+        "fig-l011-offers_d1d13581b4d6.png",
+        "fig-l011-setup_0dc19f60a602.png",
+        "fig-l011-smartscreen_39525aad50d6.png",
+        "fig-l011-trust_19443416b95a.png",
+        "fig-l011-wizard-standard_16599ff3f281.png",
+        "fig-l012-advantagescope_5956e0eb21d5.png",
+        "fig-l012-agp-more_070272bfb056.png",
+        "fig-l012-applications_4b04cd309596.png",
+        "fig-l012-archive_35d702368a29.png",
+        "fig-l012-build-menu_26783f2cbc11.png",
+        "fig-l012-built_466c9b4744a6.png",
+        "fig-l012-gradle-jvm_a10e16db6749.png",
+        "fig-l012-offers_423ab8908bad.png",
+        "fig-l012-tools_c313dde8986d.png",
+        "fig-l012-trust_6af16aa43d07.png",
+        "fig-l012-wizard-standard_c50c3ab73551.png",
+        "fig-l013-advantagescope_3d85caad660f.png",
+        "fig-l013-agp-more_be688c46b080.png",
+        "fig-l013-apt_13e77973c3b4.png",
+        "fig-l013-archive_5a1388926596.png",
+        "fig-l013-build-menu_0c28de9b490d.png",
+        "fig-l013-built_e752ecbd8c00.png",
+        "fig-l013-git_9ff5f96bc55c.png",
+        "fig-l013-gradle-jvm_53f0191d49b0.png",
+        "fig-l013-trust_65dc9c76febb.png",
+        "fig-l013-wizard-standard_97e3a02f3d74.png",
+        "fig-l020-complete_a7bfef7a5401.png",
+        "fig-l020-copied_ba826710cf6e.png",
+        "fig-l020-copy-class_d05eb5aad2f1.png",
+        "fig-l020-hover_c990a79d44ce.png",
+        "fig-l020-live_15f707fb6e2d.png",
+        "fig-l020-log_aa74c5c847f8.png",
+        "fig-l020-platform_8b3cd980ac07.png",
+        "fig-l020-publish_3bb3da107df5.png",
+        "fig-l020-sticky_a051629b4d17.png",
+        "fig-l020-tracker-note_9e0600fc648e.png",
+        "fig-l020-tracker_0e1b30439d3c.png",
+        "fig-l020-variable_0d0285e5c348.png",
+        "fig-l020-window_c51af20cec34.png",
+        "fig-l030-complete_9d6d554c01ff.png",
+        "fig-l030-live_084b2fcffea0.png",
+        "fig-l040-field_86942b3a00b2.png",
+        "fig-l040-hardware_25d94e20b03c.png",
+        "fig-l040-setpower_392e1a190c45.png",
+        "fig-l040-sticky_6caf2b0f3b43.png",
+        "fig-l050-direction_aa0cfd6446ca.png",
+        "fig-l060-deadband_d3ae6bebec9a.png",
+        "fig-l060-squared_39437e2cb8a9.png",
+        "fig-l070-button_e82d4c2f6703.png",
+        "fig-l070-pressed_88c1aea37fa5.png",
+        "fig-l070-sideways_26c23688eb11.png",
+        "fig-l080-forward-turn_830bbf7fa6ba.png",
+        "fig-l080-scaled_b68f1e132510.png",
+        "fig-l080-too-much_59bf2ac2682e.png",
+        "fig-l090-corner_4043480a4451.png",
+        "fig-l090-slide_4cb7cf5a1403.png",
+        "fig-l090-wheel-pushes_37409d515f56.png",
+        "fig-l110-slide_df82c1df0003.png",
+        "fig-l120-encoders-follow_17ee96a78410.png",
+        "fig-l120-import_3a99aa449d64.png",
+        "fig-l120-shadow-still_7eca34744b0f.png",
+        "fig-l125-drive24_daad530b722c.png",
+        "fig-l125-import-static_7d79bca47fcb.png",
+        "fig-l130-two-legs_51953ca87286.png",
+        "fig-l140-spin-and-slide_d4e732a3e9c4.png",
+        "fig-l150-bumper-held_8a550779a477.png",
+        "fig-l160-creep_7656b702c820.png",
+        "fig-l160-held_24065b01fcad.png",
+        "fig-l170-drove-there_c7f48b744721.png",
+        "fig-l170-stands-still_c36e5a46902e.png",
+        "fig-l180-aiming_1980463d97b3.png",
+        "fig-l190-asks-standing-still_a8ec63ebac78.png",
+        "fig-l190-wheel-numbers_0de09fe3ea4f.png",
+        "fig-l195-nothing-pushed_b78bc5855097.png",
+        "fig-mecanum-x_1487c470aae6.png",
+        "fig-odometry-step_4d3452b4bec9.png",
+        "fig-panels-graph_2e38a782b132.png",
+        "fig-pedro-field_4267365f403c.png",
+        "fig-pinpoint-mounting_8567a84553c8.png",
+        "fig-robot-front_f3c5afc69f89.png",
+        "fig-speed-loop_d3d279442e38.png",
+        "fig-stick-shaping_491ad8686c3a.png",
+        "fig-stick-to-robot_b606195b4067.png",
+        "fig-wheel-forward_cc740ffaf4d7.png",
+        "fig-wheel-handover_d6160d25008c.png",
+        "fig-wheel-names_c5e72d252f39.png",
+        "h017_c04cb17aa6c1.mp4",
+        "l020_d256186bc288.mp4",
+        "route-compound_fb6d157d50ff.svg",
+        "route-curve_7ece100f954f.svg",
+        "route-facingpoint_3972b5e77521.svg",
+        "route-line_7fb94edcf266.svg",
+        "route-linear_da84b53b7f66.svg",
+        "route-through_e6cc8a6e02df.svg"
+      ]
     }
   },
   "media": {
@@ -132,343 +254,392 @@
       "sha256": "e48f8bbfd585b9c5a7c48fcd95fbbc5fa14d0326efead9db761f7bb5f37e4cc4",
       "bytes": 248529,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-motor-wheel-gear-box_c350139b64e8.png": {
       "sha256": "c350139b64e862a26b3a0e99f25e1eb7128c8fe8a726b109a17c3e2f1fe99137",
       "bytes": 960149,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-numberline-3d_a1504154d867.png": {
       "sha256": "a1504154d867e6b187975611b2e28aa54e7ebc8f5f0e7f60a7b509b35464f960",
       "bytes": 293979,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-numberline_c8208c13327c.png": {
       "sha256": "c8208c13327cee8b6248bbea330ca365329ca5d2cc9da32143b0e2e805af1c53",
       "bytes": 52863,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-robot-3d_032b26748416.png": {
       "sha256": "032b26748416f3e49ec06c61043d602efbd4a0fa062c27125725b1d5d43fc1bd",
       "bytes": 471164,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-robot-frame-3d_6d65d0307746.png": {
       "sha256": "6d65d0307746f21a15e6ec48830be9fffb85c09efd9c5b09be3046eaf37ed684",
       "bytes": 552767,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-speeds-3d_c6ee55501da0.png": {
       "sha256": "c6ee55501da0d4b20484d6c9bc17cf0a77b1eab01799f7cabfe10b9cc598567a",
       "bytes": 523628,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-stick_b6d2e5c7270e.png": {
       "sha256": "b6d2e5c7270ea047e7e6aa2d0bc3f517f7e98994e60b07ee7f39e26730a0731e",
       "bytes": 247602,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-switch-3d_cfeab5d0ee2f.png": {
       "sha256": "cfeab5d0ee2f6c9fcccf57dbdb18857a776cf01d227e129a45b03fd267ac5935",
       "bytes": 1078193,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-switch_7f1981dfd636.png": {
       "sha256": "7f1981dfd636ec1511d4dcfe191b39e22ca55856b79de23e54000730cbee8da9",
       "bytes": 453154,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-xy-3d_e04b556528a6.png": {
       "sha256": "e04b556528a6679e09246408be35b8c60d859c40effc2b34f70f9b17ca7bdf08",
       "bytes": 408974,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-xy_d5325e0ddee2.png": {
       "sha256": "d5325e0ddee2d394f5468fe2ac41dc0809fc52f3bc94bcb545fcf0c3882b4a2d",
       "bytes": 92973,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-e035-xyz_5ffe1a3d4bd3.png": {
       "sha256": "5ffe1a3d4bd3b9db33a86b0f86f3d3a7cb6564e81c2872384c915f7691b306b3",
       "bytes": 365186,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-field-relative_199cd5d7d0ad.png": {
       "sha256": "199cd5d7d0ad55ea63a50350d257d95130f0ad06df1fafe9488385079be06572",
       "bytes": 376414,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-gamepad-sticks_a484af7b6aeb.png": {
       "sha256": "a484af7b6aeb920dd2fed7495f9559705c1fe8f486de524a27f9c6063e9f9b35",
       "bytes": 708867,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-advantagescope_ac1908de02ed.png": {
       "sha256": "ac1908de02ed4e949324c6d76a5d558bd2640488c91386fa96529125c8803e61",
       "bytes": 122558,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-agp-more_ebda5cbbf3aa.png": {
       "sha256": "ebda5cbbf3aa6d5bc5dcb36f332406738f9cb6d1ed0a8999d40d36b93732c3cc",
       "bytes": 335764,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-archive_cc0d51832b15.png": {
       "sha256": "cc0d51832b15ed6b06bfe2c753510e88c22977b3e2ff4dc24a477f0d0db8d3d9",
       "bytes": 303872,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-build-menu_df1dda3b4389.png": {
       "sha256": "df1dda3b4389b2cb4ea696bbe4efec1c1f9557bef67d88da19661d201cb0f5b4",
       "bytes": 327612,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-built_1edf8a09a00a.png": {
       "sha256": "1edf8a09a00abe11ace4ef673a8658e518203d591e1774ebe1b005458be0d61f",
       "bytes": 313212,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-git_73efc58f7f42.png": {
       "sha256": "73efc58f7f425b94cc18a6f71375c45e9feee67cf411c96269b7bd1649e26074",
       "bytes": 183783,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-gradle-jvm_d3ca85bb654f.png": {
       "sha256": "d3ca85bb654f52b5f2430a4b1099ff6417d6d435e8ae735ee39ff9baad6e8d8c",
       "bytes": 348719,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-offers_d1d13581b4d6.png": {
       "sha256": "d1d13581b4d6234ef7330dc857ead7237cfa993dc3f320a7b5c3fa067495aeef",
       "bytes": 365021,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-setup_0dc19f60a602.png": {
       "sha256": "0dc19f60a6025af850499c613c25ae9d50e29a753b307936148eca8bfc9aa7bd",
       "bytes": 48302,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-smartscreen_39525aad50d6.png": {
       "sha256": "39525aad50d6abb68f5f7964c03db24b66e68fedb5e2115b83efc9ae1a7cb4eb",
       "bytes": 65270,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-trust_19443416b95a.png": {
       "sha256": "19443416b95a28127a24e013df9279f68db8fb3f43fca16cb5a6d33081be5e00",
       "bytes": 328728,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l011-wizard-standard_16599ff3f281.png": {
       "sha256": "16599ff3f2815abb13424bcbb54b4674cc505f170dc9efb155ec9531c261d7ac",
       "bytes": 141917,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-advantagescope_5956e0eb21d5.png": {
       "sha256": "5956e0eb21d5b3249e6dbb5d4e8111a5ab60ad5d538f2e260288b2799d82dd74",
       "bytes": 80525,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-agp-more_070272bfb056.png": {
       "sha256": "070272bfb0565d000de201c8a20107c09082031bf165d061d13632c6dc879f89",
       "bytes": 350099,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-applications_4b04cd309596.png": {
       "sha256": "4b04cd3095968fb69ec321ae1bf7372297038274b994d5ad4077b2f5181f492c",
       "bytes": 103206,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-archive_35d702368a29.png": {
       "sha256": "35d702368a29eb75afef5cee1f799b354cdef6c2fa43cf50ec7bb6b0d7bec2f2",
       "bytes": 309190,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-build-menu_26783f2cbc11.png": {
       "sha256": "26783f2cbc111215d6bd727ffc41dec2c7ab67e8d30d2b0389c4808bf767a412",
       "bytes": 447478,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-built_466c9b4744a6.png": {
       "sha256": "466c9b4744a6a11f4793d044c50409f8edff625628152afb11ad267607ea0e5d",
       "bytes": 348898,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-gradle-jvm_a10e16db6749.png": {
       "sha256": "a10e16db674902bda3aff486622e3061dd954628d9721b54e58d48389acf7270",
       "bytes": 306946,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-offers_423ab8908bad.png": {
       "sha256": "423ab8908bad1a1d3054475e4a97ef78d98ed157d65bc5bb0241f66b4e476f4d",
       "bytes": 381729,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-tools_c313dde8986d.png": {
       "sha256": "c313dde8986dba09b73f158562b6546689bacdeb68b4851f8b8b3cabd9295bb6",
       "bytes": 185820,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-trust_6af16aa43d07.png": {
       "sha256": "6af16aa43d07db89a049df3e3781b3836bb052461d2fdc2f2ab021641787b37f",
       "bytes": 250620,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l012-wizard-standard_c50c3ab73551.png": {
       "sha256": "c50c3ab73551b02b32f60143a3d422b596df9722fa94ee168e95b0b5a870c31c",
       "bytes": 154514,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-advantagescope_3d85caad660f.png": {
       "sha256": "3d85caad660f154e6a9e3dfa10e17b9c934e743a9d7f48c1fc1f2954b324cdb3",
       "bytes": 104376,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-agp-more_be688c46b080.png": {
       "sha256": "be688c46b0800480b2c108d8de124aa73665da8df3ee940ef5abb21b8d29acaa",
       "bytes": 301273,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-apt_13e77973c3b4.png": {
       "sha256": "13e77973c3b4c7937b1214748ca6028b7b7dcd4d153c4f1eaa9f19c3d62e166d",
       "bytes": 279676,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-archive_5a1388926596.png": {
       "sha256": "5a13889265965936c4c981acd3088ed493de791fae307907097bf51c552ea9d8",
       "bytes": 541926,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-build-menu_0c28de9b490d.png": {
       "sha256": "0c28de9b490d24f04ea80d417ebdc5e45ec8958fa4bc3cc2277242999969ffba",
       "bytes": 315835,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-built_e752ecbd8c00.png": {
       "sha256": "e752ecbd8c0087c7963c41371d409f5908afa6a9a97cabc14cc5b262f2ef6b12",
       "bytes": 289447,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-git_9ff5f96bc55c.png": {
       "sha256": "9ff5f96bc55ca7c61ee4886b68790fddac5823ee5e8a6a124243c26e0c89c078",
       "bytes": 175542,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-gradle-jvm_53f0191d49b0.png": {
       "sha256": "53f0191d49b0edc3c28582bcfc8339e2d827608fd29d9fe5d11258f6f70b637c",
       "bytes": 349452,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-trust_65dc9c76febb.png": {
       "sha256": "65dc9c76febbcba8ea678d4ef493c34f5d88d70958af17948c44b7330278ea36",
       "bytes": 263248,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l013-wizard-standard_97e3a02f3d74.png": {
       "sha256": "97e3a02f3d74d0d335a13d7e09f3d8a66100b75cbcf44925a63d6d75620f49e7",
       "bytes": 153902,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-complete_a7bfef7a5401.png": {
       "sha256": "a7bfef7a54014abd3bb3751c2b19fcb2972f86360f28e880e8c11664ebcaed4d",
       "bytes": 157424,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-complete_fd0fe4482243.png": {
@@ -485,14 +656,16 @@
       "sha256": "ba826710cf6e34b75e524e7be1ff9c7c8a7258152838c64359e9aa513c7c8ba7",
       "bytes": 475720,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-copy-class_d05eb5aad2f1.png": {
       "sha256": "d05eb5aad2f17596891bda79150fe8d26afee8bf60611eded1e0ad4662e794f6",
       "bytes": 124331,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-hover_768ca23118fe.png": {
@@ -504,56 +677,64 @@
       "sha256": "c990a79d44ce9bfa46ee4e0ec1ae3c7f06891e814a62aa6978a64e2b0967690f",
       "bytes": 225102,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-live_15f707fb6e2d.png": {
       "sha256": "15f707fb6e2d5903804cb7de4e32ce9137286e5cdeeb4cfda72d5cad035a10f7",
       "bytes": 171142,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-log_aa74c5c847f8.png": {
       "sha256": "aa74c5c847f84b98864fd36d2588341a2433ae98cdb23040489fa69489d29696",
       "bytes": 177708,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-platform_8b3cd980ac07.png": {
       "sha256": "8b3cd980ac07e345207b2b90391f7a78c0f6b480f2a390b1caca1612e8d3ec06",
       "bytes": 576517,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-publish_3bb3da107df5.png": {
       "sha256": "3bb3da107df5f1105e491b18a8377890bfbeb19b4193e31c2f0b3547685e2954",
       "bytes": 1034923,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-sticky_a051629b4d17.png": {
       "sha256": "a051629b4d172b4a787a2b3f8f4e53690f6f1c02e4ba225fb668d444ada56fee",
       "bytes": 656668,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-tracker-note_9e0600fc648e.png": {
       "sha256": "9e0600fc648ec9e8bd7304946bbe05bb900872d3cbd2034eae32fee95d845621",
       "bytes": 355847,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-tracker_0e1b30439d3c.png": {
       "sha256": "0e1b30439d3cb42d253d35595b54afaf23308deb4cc3f82dbcd6cf38dc1eebde",
       "bytes": 272196,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-tracker_13bbd4907a20.png": {
@@ -565,14 +746,16 @@
       "sha256": "0d0285e5c34870f2d03f7fd2af0b8c096461d6d11e42468d60102fdc13de4530",
       "bytes": 155687,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-window_c51af20cec34.png": {
       "sha256": "c51af20cec34b26453ff64c00ae241eb7c54f9ffa94e11cf9ad7fabca271d656",
       "bytes": 362592,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l020-window_cb6209f40e9d.png": {
@@ -589,28 +772,32 @@
       "sha256": "9d6d554c01ff6b993ffecaddf647c35fe0e8d3d0d6455a03e5a8fda8db991ae6",
       "bytes": 99201,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l030-live_084b2fcffea0.png": {
       "sha256": "084b2fcffea02079c34819613e63e9744eadab704521b969cbd1048fe8b88835",
       "bytes": 138591,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l040-field_86942b3a00b2.png": {
       "sha256": "86942b3a00b23546ec65616dbe2537ba65152b850f62ffe7bc72ab493ad9764a",
       "bytes": 263203,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l040-hardware_25d94e20b03c.png": {
       "sha256": "25d94e20b03c1d7bf8b57fff79a52c7fd2e8d4509b0cf48d32d90cbb191b446b",
       "bytes": 98562,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l040-hardware_570e94d0d289.png": {
@@ -622,7 +809,8 @@
       "sha256": "392e1a190c45904019e0ab5f3e59f134da0b8aa26d6b459fdb6e12c273264855",
       "bytes": 291004,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l040-setpower_8c1b3ef285a2.png": {
@@ -634,28 +822,32 @@
       "sha256": "6caf2b0f3b43a74176019bcbe8e01c0c362ca3b28c7cdb2aef03e15358d66a27",
       "bytes": 856763,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l050-direction_aa0cfd6446ca.png": {
       "sha256": "aa0cfd6446ca1b8b50baf1198785988ebe50cb3e08767f3d7cda82528323b3c2",
       "bytes": 96317,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l060-deadband_d3ae6bebec9a.png": {
       "sha256": "d3ae6bebec9afd947abf55fc93a4661ed783c7576bbbe961d253e20856142898",
       "bytes": 194259,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l060-squared_39437e2cb8a9.png": {
       "sha256": "39437e2cb8a95f2570a3235765aed3908c7c7e18e4601b946a621fbaa42c29cd",
       "bytes": 198862,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l070-button_0e3700f4e357.png": {
@@ -667,84 +859,96 @@
       "sha256": "e82d4c2f67036fddfe724632fe3ed1edcdd5cf2394e7dcb7d0fe35638920e42b",
       "bytes": 278338,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l070-pressed_88c1aea37fa5.png": {
       "sha256": "88c1aea37fa5479757f094871bb3579a190e2cff39c1ca3db8077d6656fc0ee6",
       "bytes": 184980,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l070-sideways_26c23688eb11.png": {
       "sha256": "26c23688eb11fd9c43e68057cddd0ab847df21dff35c4344a3acf03c2ee6562b",
       "bytes": 155690,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l080-forward-turn_830bbf7fa6ba.png": {
       "sha256": "830bbf7fa6baa80be57579f00d8d31f7eb0348e807442b5f3c2d80937c53c70a",
       "bytes": 142188,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l080-scaled_b68f1e132510.png": {
       "sha256": "b68f1e13251018e4be2978d58776fa2e1c1dea8f21fd32d99d28f83cf6e48db9",
       "bytes": 152535,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l080-too-much_59bf2ac2682e.png": {
       "sha256": "59bf2ac2682ebf36f0e1d6be773b547e482524caf5f4ecd85b722e44b9d45f9d",
       "bytes": 156821,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l090-corner_4043480a4451.png": {
       "sha256": "4043480a44510305e51ead1fa2eaba13b3ff030a06f1d13c31f630034d28e0fa",
       "bytes": 252495,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l090-slide_4cb7cf5a1403.png": {
       "sha256": "4cb7cf5a1403325a8b5f2336c3753fb05a0cdb002eda800f6439ecb8bf4dcbfa",
       "bytes": 282425,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l090-wheel-pushes_37409d515f56.png": {
       "sha256": "37409d515f56d268243313dd4cbe0248bd68c3a87e91079c8f918fc018458fa7",
       "bytes": 728434,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l110-slide_df82c1df0003.png": {
       "sha256": "df82c1df0003c4426ed1fbba9a780bf0510daa3e0dc89f23b5840e121d05de6d",
       "bytes": 212721,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l120-encoders-follow_17ee96a78410.png": {
       "sha256": "17ee96a784108c716a8bc79329ddc2dff93263ad4e8e559b2b9fc4d757ad6951",
       "bytes": 243224,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l120-import_3a99aa449d64.png": {
       "sha256": "3a99aa449d6452b77f78d5ed8478e1743ff37f39ed0f610c6850e0da73d6246b",
       "bytes": 300721,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l120-import_4005d43c5fff.png": {
@@ -756,21 +960,24 @@
       "sha256": "7eca34744b0f099436efeb04795f1b50e22df5ffcd2bfe4b62088dac58083bfb",
       "bytes": 233549,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l125-drive24_daad530b722c.png": {
       "sha256": "daad530b722ca9e5b5e0bfadd207fb16337555d4636c0d71696efa92d0a4ab7f",
       "bytes": 252612,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l125-import-static_7d79bca47fcb.png": {
       "sha256": "7d79bca47fcb71af8684d188b3b0b5961ceb63ba61420355b7f4185c67d20726",
       "bytes": 255308,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l125-import-static_ce2adfeb54dd.png": {
@@ -782,168 +989,192 @@
       "sha256": "51953ca872865368f1c95a5953e0e3daf9e1bc602a7106fc0feb2cacdc58c122",
       "bytes": 248058,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l140-spin-and-slide_d4e732a3e9c4.png": {
       "sha256": "d4e732a3e9c4fd8f3b3499b6f4a65fb11c7eb275d64590fe3cbe617cc831cc3b",
       "bytes": 289454,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l150-bumper-held_8a550779a477.png": {
       "sha256": "8a550779a4773ade3fff59ec35cb6874861fa7c8ecc26ae1fd0cca32b67aceca",
       "bytes": 279366,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l160-creep_7656b702c820.png": {
       "sha256": "7656b702c820ccb042d60f3c8b92f6976734e01b0b1693767ab81aebbd393f1b",
       "bytes": 288082,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l160-held_24065b01fcad.png": {
       "sha256": "24065b01fcad16887dd31eaf196e46a8b4efdf5a7a04440713f7bfd3395e3072",
       "bytes": 283769,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l170-drove-there_c7f48b744721.png": {
       "sha256": "c7f48b7447215f07cd9601c48b8cf52bdcf198bcd834b0ed736753c3ec442af2",
       "bytes": 280309,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l170-stands-still_c36e5a46902e.png": {
       "sha256": "c36e5a46902e0d65f2be669a86fd0ad9a9dbc7bcddd9f626a93688275ec238db",
       "bytes": 281934,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l180-aiming_1980463d97b3.png": {
       "sha256": "1980463d97b39e762a5635f36fc67e7d4c27b853fc3df5a165508e138dd7da3c",
       "bytes": 268249,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l190-asks-standing-still_a8ec63ebac78.png": {
       "sha256": "a8ec63ebac7862e749d124457ad46bafe5d9ac11c4b89f5cde7fc531f6369f88",
       "bytes": 264858,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l190-wheel-numbers_0de09fe3ea4f.png": {
       "sha256": "0de09fe3ea4fd14fca19c3737a2d9801a6b8f75c7b504620f2b8379ba6622574",
       "bytes": 256797,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-l195-nothing-pushed_b78bc5855097.png": {
       "sha256": "b78bc585509754ba2ffa71f5cfba0efa7513f24b07f674dcc39f13cd05cdf842",
       "bytes": 260606,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-mecanum-x_1487c470aae6.png": {
       "sha256": "1487c470aae64edfbc97ed8b11542be0f08721519b70be262c56c8e6d61044f1",
       "bytes": 400632,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-odometry-step_4d3452b4bec9.png": {
       "sha256": "4d3452b4bec91561fc3b381761132ed453128ec60221bfd4316cf21a99c494d7",
       "bytes": 464608,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-panels-graph_2e38a782b132.png": {
       "sha256": "2e38a782b132c72811364ef71a4c25091c3415be01dd3eb69e0eb02b7f270050",
       "bytes": 87426,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-pedro-field_4267365f403c.png": {
       "sha256": "4267365f403c141e67ac003c5b23d3f21627db29e13fcf4bcb6170d4b587c52e",
       "bytes": 495346,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-pinpoint-mounting_8567a84553c8.png": {
       "sha256": "8567a84553c8b708b2ef419675143ecdcd6ec718f140661c8534aca8b063fb43",
       "bytes": 332831,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-robot-front_f3c5afc69f89.png": {
       "sha256": "f3c5afc69f893fb5ef07d8fa5f8a6d54f066136635769caae617640c62db2fa4",
       "bytes": 467907,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-speed-loop_d3d279442e38.png": {
       "sha256": "d3d279442e38536d30ee6695aa079e486792024a041cb29eba4395b3fe6db484",
       "bytes": 85960,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-stick-shaping_491ad8686c3a.png": {
       "sha256": "491ad8686c3a9d4c57c44db2f04fad36216b8fd1b9b6b29b6335934414eb50f7",
       "bytes": 98485,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-stick-to-robot_b606195b4067.png": {
       "sha256": "b606195b4067e998c6f6c0b65a5a99174bd71aded26d123e6092aa6c4eec4af8",
       "bytes": 796935,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-wheel-forward_cc740ffaf4d7.png": {
       "sha256": "cc740ffaf4d77da0e2d597a75e92616ac43f2ad8f0b1a9b9a9bf0a7808a1689e",
       "bytes": 397282,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-wheel-handover_d6160d25008c.png": {
       "sha256": "d6160d25008c70af0a80f07971a66d8a98fa56577e023f24a6644eba35565cba",
       "bytes": 384431,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "fig-wheel-names_c5e72d252f39.png": {
       "sha256": "c5e72d252f3905545f5b2a0b5a1168e5b3c07ee7a2bd8d65c5a2fd18fcc308f7",
       "bytes": 342468,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "h017_c04cb17aa6c1.mp4": {
       "sha256": "c04cb17aa6c1ae2d0aa9f05c2f1b71dead05d26556fac548667445f44452ee63",
       "bytes": 52636928,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "l020_a227022a8a0f.mp4": {
@@ -955,49 +1186,56 @@
       "sha256": "d256186bc288a5005f8bb9426efbf4ec9939991c209a08f649745bf790b56ff1",
       "bytes": 89991465,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "route-compound_fb6d157d50ff.svg": {
       "sha256": "fb6d157d50ffc67c81ac5dcc1945a5672f27a0a646d77552f2bab455fb86678d",
       "bytes": 2651,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "route-curve_7ece100f954f.svg": {
       "sha256": "7ece100f954f416a1c6353592cff8ecfee0c6e31e777efd7bc90f3a1d668af56",
       "bytes": 2669,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "route-facingpoint_3972b5e77521.svg": {
       "sha256": "3972b5e775214e0e0050fa628462e1357cb36fffae2d9cde9446911030daaea5",
       "bytes": 2653,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "route-line_7fb94edcf266.svg": {
       "sha256": "7fb94edcf2666c34f0227e239d9507e19719f30f2ee891ca383a335d58398ab0",
       "bytes": 2656,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "route-linear_da84b53b7f66.svg": {
       "sha256": "da84b53b7f66c55ad6e5535dc783a8dfe7f2923a6639fbabe668ecc9fbfe88a4",
       "bytes": 2674,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     },
     "route-through_e6cc8a6e02df.svg": {
       "sha256": "e6cc8a6e02df5e46e3e0fff85f0e0af22a4f3f10f07f0d4606b7c97caf8c2ce2",
       "bytes": 2588,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.2.0-rc.1"
       ]
     }
   },
