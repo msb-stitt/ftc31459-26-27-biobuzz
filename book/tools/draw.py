@@ -2073,15 +2073,113 @@ def l140_field_blue():
                  ["from the blue drive team's place:", "+x points toward you, +y to the right"])
 
 
-# -- E14x: how L140's two lines turn the stick on the field into the robot's own forward and
-# strafe. One heading and one stick throughout, L140's answer run on them in the test harness on
-# 2026-10-25: heading 60°, left_stick_y -0.8 and left_stick_x -0.4, so forward 0.64 and
-# strafe 0.16, and robotForward 0.4586 and robotStrafe -0.4743.
+# -- E141 and E142: vectors, then how L140's two lines turn the stick on the field into the robot's
+# own forward and strafe. One heading and one stick throughout E142, L140's answer run on them in
+# the test harness on 2026-10-25: heading 60°, left_stick_y -0.8 and left_stick_x -0.4, so
+# forward 0.64 and strafe 0.16, and robotForward 0.4586 and robotStrafe -0.4743. A slanted vector
+# is drawn with its triangle in the frame being talked about: the field's legs in grey, the
+# robot's forward in red and its left in green.
 
 ROT_HEADING = math.radians(60)
 ROT_FORWARD, ROT_STRAFE = 0.8 ** 2, 0.4 ** 2                    # L060's sign-keeping square
-ROT_ROBOT_FORWARD = ROT_FORWARD * math.cos(ROT_HEADING) + ROT_STRAFE * math.sin(ROT_HEADING)
-ROT_ROBOT_STRAFE = -ROT_FORWARD * math.sin(ROT_HEADING) + ROT_STRAFE * math.cos(ROT_HEADING)
+ROT_F = (math.cos(ROT_HEADING), math.sin(ROT_HEADING))           # the robot's forward, on the field
+ROT_L = (-math.sin(ROT_HEADING), math.cos(ROT_HEADING))          # the robot's left, on the field
+ROT_PIECES = {   # each field part, in the robot's frame: (along forward, along left)
+    "forward": (ROT_FORWARD * math.cos(ROT_HEADING), -ROT_FORWARD * math.sin(ROT_HEADING)),
+    "strafe": (ROT_STRAFE * math.sin(ROT_HEADING), ROT_STRAFE * math.cos(ROT_HEADING))}
+ROT_ROBOT_FORWARD = ROT_PIECES["forward"][0] + ROT_PIECES["strafe"][0]
+ROT_ROBOT_STRAFE = ROT_PIECES["forward"][1] + ROT_PIECES["strafe"][1]
+ROBOT_FORWARD, ROBOT_LEFT, FIELD_LEG = MARKER_RED, AXIS_Y, GREY3
+
+
+def plus(a, b, k=1.0):
+    return (a[0] + k * b[0], a[1] + k * b[1])
+
+
+def vec(v, a, b, color, nib=8):
+    v.s.marker_arrow(v.p(a + (0,)), v.p(b + (0,)), color, nib=nib)
+
+
+def field_legs(v, a, b, nib=5):
+    """b - a as a triangle on the field's axes: along field x, then along field y."""
+    corner = (b[0], a[1])
+    for p, q in ((a, corner), (corner, b)):
+        if math.dist(p, q) > 1e-6:
+            v.s.marker_line(v.p(p + (0,)), v.p(q + (0,)), FIELD_LEG, nib=nib)
+    return corner
+
+
+def robot_legs(v, a, b, nib=5):
+    """b - a as a triangle on the robot's axes: along its forward, then along its left."""
+    d = (b[0] - a[0], b[1] - a[1])
+    corner = plus(a, ROT_F, d[0] * ROT_F[0] + d[1] * ROT_F[1])
+    v.s.marker_line(v.p(a + (0,)), v.p(corner + (0,)), ROBOT_FORWARD, nib=nib)
+    v.s.marker_line(v.p(corner + (0,)), v.p(b + (0,)), ROBOT_LEFT, nib=nib)
+
+
+def say(v, q, text, size=28, dx=0, dy=0, anchor="middle", code=False):
+    x, y = v.p(q + (0,))
+    v.s.text((x + dx, y + dy), text, size, anchor=anchor, code=code)
+
+
+def grid_axes(v, w, h):
+    floor_grid(v, (0, w), (0, h))
+    v.s.marker_arrow(v.p((0, 0, 0)), v.p((w + 0.5, 0, 0)), AXIS_X, nib=6)
+    v.s.marker_arrow(v.p((0, 0, 0)), v.p((0, h + 0.5, 0)), AXIS_Y, nib=6)
+    say(v, (w + 0.75, -0.08), "x", 32)
+    say(v, (-0.25, h + 0.5), "y", 32)
+    for n in range(1, w + 1):
+        say(v, (n, -0.4), str(n), 24)
+    for n in range(1, h + 1):
+        say(v, (-0.3, n - 0.08), str(n), 24)
+
+
+def e141_notation():
+    s = Sketch(1600, 1000, 113)
+    v = Iso(s, (300, 760), 150, right=TOP_RIGHT, up=TOP_UP)
+    grid_axes(v, 6, 4)
+    field_legs(v, (0, 0), (3, 2), nib=10)
+    vec(v, (0, 0), (3, 2), MARKER_ORANGE, nib=9)
+    say(v, (1.5, 0.1), "3 along x", 28)
+    say(v, (3.15, 1), "2 along y", 28, anchor="start")
+    say(v, (3.1, 2.1), "(3, 2)", 34, anchor="start", code=True)
+    s.lines((800, 900), ["an arrow is written (x, y): how far along x, then how far along y"], 30)
+    s.save("fig-e141-notation")
+
+
+def e141_scale():
+    s = Sketch(1600, 1000, 127)
+    v = Iso(s, (300, 760), 150, right=TOP_RIGHT, up=TOP_UP)
+    grid_axes(v, 6, 4)
+    field_legs(v, (0, 0), (6, 4), nib=6)
+    vec(v, (0, 0), (6, 4), MARKER_BLUE, nib=14)
+    field_legs(v, (0, 0), (3, 2), nib=10)
+    vec(v, (0, 0), (3, 2), MARKER_ORANGE, nib=8)
+    say(v, (3.1, 2.1), "(3, 2)", 30, anchor="start", code=True)
+    say(v, (6.1, 4.1), "2 × (3, 2) = (2·3, 2·2) = (6, 4)", 30, anchor="end", dx=-30, dy=-10,
+        code=True)
+    s.lines((800, 880), ["twice as long, the same way: multiply x and y by 2"], 30)
+    s.text((800, 940), "half as long: 0.5 × (3, 2) = (1.5, 1)", 26, code=True)
+    s.save("fig-e141-scale")
+
+
+def e141_add():
+    s = Sketch(1600, 1000, 131)
+    v = Iso(s, (300, 760), 150, right=TOP_RIGHT, up=TOP_UP)
+    grid_axes(v, 6, 4)
+    a, b = (3, 1), (1, 2)
+    tip = plus(a, b)
+    field_legs(v, (0, 0), a, nib=8)
+    field_legs(v, a, tip, nib=8)
+    vec(v, (0, 0), tip, MARKER_BLUE, nib=10)
+    vec(v, (0, 0), a, MARKER_ORANGE, nib=8)
+    vec(v, a, tip, MARKER_ORANGE, nib=8)
+    say(v, (1.5, 0.5), "(3, 1)", 30, dy=30, dx=40, code=True)
+    say(v, (3.6, 2.0), "(1, 2)", 30, anchor="start", code=True)
+    say(v, (2.0, 1.5), "(4, 3)", 30, anchor="end", dx=-20, code=True)
+    s.lines((800, 880), ["end to end, (3, 1) then (1, 2) reaches (4, 3)",
+                         "or add the parts: (3 + 1, 1 + 2) = (4, 3)"], 30)
+    s.save("fig-e141-add")
 
 
 def unit_circle(v, r=1.0, axes=True):
@@ -2102,11 +2200,11 @@ def angle_arc(v, c, r, a0, a1, color=MARKER_ORANGE, nib=7):
     v.s.marker_arrow(pts[-2], pts[-1], color, nib=nib)
 
 
-def e14x_unit_circle():
+def e142_unit_circle():
     s = Sketch(1200, 1000, 97)
     v = Iso(s, (480, 460), 300, right=TOP_RIGHT, up=TOP_UP)
     unit_circle(v)
-    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+    c, sn = ROT_F
     s.construct(v.p((c, sn, 0)), v.p((c, 0, 0)))
     s.construct(v.p((c, sn, 0)), v.p((0, sn, 0)))
     s.marker_line(v.p((0, 0, 0)), v.p((c, 0, 0)), AXIS_X, nib=14)
@@ -2114,42 +2212,35 @@ def e14x_unit_circle():
     s.marker_arrow(v.p((0, 0, 0)), v.p((c, sn, 0)), MARKER_ORANGE, nib=7)
     s.dot(v.p((c, sn, 0)), 10)
     angle_arc(v, (0, 0), 0.22, 0, ROT_HEADING, GREY3, nib=4)
-    x, y = v.p((0.25, 0.12, 0))
-    s.text((x, y), "60°", 28, anchor="start")
-    x, y = v.p((c / 2, -0.12, 0))
-    s.text((x, y), f"cos 60° = {c:.2f}", 28)
-    x, y = v.p((-0.06, sn / 2, 0))
-    s.text((x, y), f"sin 60° = {sn:.2f}", 28, anchor="end")
-    x, y = v.p((c, sn, 0))
-    s.text((x + 20, y - 20), f"({c:.2f}, {sn:.2f})", 26, anchor="start", code=True)
+    say(v, (0.25, 0.12), "60°", 28, anchor="start")
+    say(v, (0.06, -0.14), f"cos 60° = {c:.2f}", 28, anchor="start")
+    say(v, (-0.06, sn / 2), f"sin 60° = {sn:.2f}", 28, anchor="end")
+    say(v, (c, sn), f"({c:.2f}, {sn:.2f})", 26, dx=20, dy=-20, anchor="start", code=True)
     s.lines((600, 930), ["a point 1 from the middle, at 60°: its x is cos 60° and its y is sin 60°"],
             28)
-    s.save("fig-e14x-unit-circle")
+    s.save("fig-e142-unit-circle")
 
 
-def e14x_radian():
+def e142_radian():
     s = Sketch(1200, 1000, 101)
     v = Iso(s, (480, 460), 300, right=TOP_RIGHT, up=TOP_UP)
     unit_circle(v)
     s.marker_line(v.p((0, 0, 0)), v.p((1, 0, 0)), GREY2, nib=10)
-    x, y = v.p((0.5, -0.1, 0))
-    s.text((x, y), "1", 30)
+    say(v, (0.5, -0.1), "1", 30)
     pts = [v.p((math.cos(a), math.sin(a), 0)) for a in np.linspace(0, ROT_HEADING, 30)]
     s.line(pts, MARKER_ORANGE, 16, 0.85)
     s.line(pts, PEN, 1.6, 0.8)
-    s.marker_line(v.p((0, 0, 0)), v.p((math.cos(ROT_HEADING), math.sin(ROT_HEADING), 0)),
-                  GREY2, nib=6)
+    s.marker_line(v.p((0, 0, 0)), v.p(ROT_F + (0,)), GREY2, nib=6)
     tick = (math.cos(1.0), math.sin(1.0))         # 1 radian along the edge
     s.ink_line(v.p((0.93 * tick[0], 0.93 * tick[1], 0)), v.p((1.07 * tick[0], 1.07 * tick[1], 0)),
                width=2.4, over=2, passes=1)
-    x, y = v.p((1.14 * tick[0], 1.14 * tick[1], 0))
-    s.text((x, y), "1 around", 24, anchor="start")
-    x, y = v.p((1.12 * math.cos(0.4), 1.12 * math.sin(0.4), 0))
-    s.text((x, y), f"{ROT_HEADING:.2f} around the edge", 28, anchor="start")
+    say(v, (1.14 * tick[0], 1.14 * tick[1]), "1 around", 24, anchor="start")
+    say(v, (1.12 * math.cos(0.4), 1.12 * math.sin(0.4)), f"{ROT_HEADING:.2f} around the edge", 28,
+        anchor="start")
     s.lines((600, 900), [f"60° is {ROT_HEADING:.2f} of the radius around the edge: "
                          f"{ROT_HEADING:.2f} radians",
                          "all the way round is 360°, or 2π = 6.28 radians"], 28)
-    s.save("fig-e14x-radian")
+    s.save("fig-e142-radian")
 
 
 def robot_at(s, c, side, heading):
@@ -2170,80 +2261,195 @@ def field_corner_axes(s, o):
     s.text((o[0], o[1] - 150), "field y", 22)
 
 
-def e14x_robot_axes():
-    s = Sketch(1300, 1050, 103)
-    v = Iso(s, (600, 520), 300, right=TOP_RIGHT, up=TOP_UP)
+def e142_robot_axes():
+    s = Sketch(1600, 1050, 103)
+    v = Iso(s, (820, 700), 450, right=TOP_RIGHT, up=TOP_UP)
     field_corner_axes(s, (90, 960))
-    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+    c, sn = ROT_F
     s.construct(v.p((-1.2, 0, 0)), v.p((1.3, 0, 0)))
-    s.ink_circle(v.p((0, 0, 0)), v.k, width=1.4, passes=1)
-    robot_at(s, v.p((0, 0, 0)), 140, ROT_HEADING)
-    s.marker_arrow(v.p((0, 0, 0)), v.p((c, sn, 0)), MARKER_RED, nib=8)
-    s.marker_arrow(v.p((0, 0, 0)), v.p((-sn, c, 0)), AXIS_Y, nib=8)
-    angle_arc(v, (0, 0), 0.45, 0, ROT_HEADING, MARKER_ORANGE, nib=6)
-    x, y = v.p((0.5, 0.18, 0))
-    s.text((x, y), "heading 60°", 26, anchor="start")
-    x, y = v.p((c, sn, 0))
-    s.lines((x + 20, y - 40), ["forward:", f"(cos 60°, sin 60°) = ({c:.2f}, {sn:.2f})"], 26,
-            anchor="start")
-    x, y = v.p((-sn, c, 0))
-    s.lines((x + 60, y - 70), ["left:", f"(-sin 60°, cos 60°) = ({-sn:.2f}, {c:.2f})"], 26)
-    s.lines((700, 960), ["the robot's own forward and left, read off a circle drawn on it"], 28)
-    s.save("fig-e14x-robot-axes")
+    robot_at(s, v.p((0, 0, 0)), 90, ROT_HEADING)
+    field_legs(v, (0, 0), ROT_F, nib=7)
+    field_legs(v, (0, 0), ROT_L, nib=7)
+    vec(v, (0, 0), ROT_F, ROBOT_FORWARD)
+    vec(v, (0, 0), ROT_L, ROBOT_LEFT)
+    angle_arc(v, (0, 0), 0.3, 0, ROT_HEADING, MARKER_ORANGE, nib=5)
+    say(v, (0.33, 0.12), "60°", 26, anchor="start")
+    say(v, (c, 0), f"cos 60° = {c:.2f}", 24, dy=40, anchor="end")
+    say(v, (c, sn / 2), f"sin 60° = {sn:.2f}", 24, dx=14, anchor="start")
+    say(v, (-sn, 0), f"-sin 60° = {-sn:.2f}", 24, dy=40, anchor="start")
+    say(v, (-sn, c / 2), f"cos 60° = {c:.2f}", 24, dx=-14, anchor="end")
+    say(v, ROT_F, f"forward ({c:.2f}, {sn:.2f})", 28, dy=-24, code=True)
+    say(v, ROT_L, f"left ({-sn:.2f}, {c:.2f})", 28, dy=-24, code=True)
+    s.lines((880, 920), ["the robot's own forward and left, each 1 long,",
+                         "drawn with their x and y on the field"], 28)
+    s.save("fig-e142-robot-axes")
 
 
-def e14x_shadows():
-    s = Sketch(1400, 1150, 107)
-    v = Iso(s, (640, 560), 560, right=TOP_RIGHT, up=TOP_UP)
-    field_corner_axes(s, (90, 1000))
-    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+# The worked drawings share one scale and one place for the robot, so a piece is the same size in
+# each of them.
+WORK_O, WORK_K = (560, 700), 900
+
+
+def worked(seed, o=WORK_O, k=WORK_K):
+    s = Sketch(1600, 1050, seed)
+    v = Iso(s, o, k, right=TOP_RIGHT, up=TOP_UP)
+    field_corner_axes(s, (90, 980))
+    back, ahead = 500 / k, 560 / k
+    for axis, color, name in ((ROT_F, ROBOT_FORWARD, "robot forward"),
+                              (ROT_L, ROBOT_LEFT, "robot left")):
+        s.construct(v.p((-back * axis[0], -back * axis[1], 0)),
+                    v.p((ahead * axis[0], ahead * axis[1], 0)))
+        say(v, (ahead * axis[0], ahead * axis[1]), name, 24, dy=-14)
+    robot_at(s, v.p((0, 0, 0)), 90, ROT_HEADING)
+    return s, v
+
+
+def piece_at(start, part):
+    """Where a robot-frame part (along forward, along left) laid from start ends."""
+    return plus(plus(start, ROT_F, part[0]), ROT_L, part[1])
+
+
+def e142_stick_field():
+    s, v = worked(137)
     tip = (ROT_FORWARD, ROT_STRAFE)
-    s.construct(v.p((-0.6 * c, -0.6 * sn, 0)), v.p((0.95 * c, 0.95 * sn, 0)))
-    s.construct(v.p((0.95 * sn, -0.95 * c, 0)), v.p((-0.6 * sn, 0.6 * c, 0)))
-    robot_at(s, v.p((0, 0, 0)), 110, ROT_HEADING)
-    f, l = ROT_ROBOT_FORWARD, ROT_ROBOT_STRAFE
-    s.construct(v.p(tip + (0,)), v.p((f * c, f * sn, 0)))
-    s.construct(v.p(tip + (0,)), v.p((-l * sn, l * c, 0)))
-    s.marker_line(v.p((0, 0, 0)), v.p((f * c, f * sn, 0)), MARKER_ORANGE, nib=14)
-    s.marker_line(v.p((0, 0, 0)), v.p((-l * sn, l * c, 0)), MARKER_ORANGE, nib=14)
-    s.marker_arrow(v.p((0, 0, 0)), v.p(tip + (0,)), MARKER_BLUE, nib=10)
-    x, y = v.p(tip + (0,))
-    s.lines((x + 20, y + 10), ["the stick on the field:", f"forward {ROT_FORWARD:.2f}, "
-                               f"strafe {ROT_STRAFE:.2f}"], 26, anchor="start")
-    x, y = v.p((f * c, f * sn, 0))
-    s.text((x - 16, y - 20), f"robotForward {f:.2f}", 26, anchor="end", code=True)
-    x, y = v.p((-l * sn, l * c, 0))
-    s.text((x + 10, y + 46), f"robotStrafe {l:.2f}", 26, anchor="middle", code=True)
-    x, y = v.p((0.95 * c, 0.95 * sn, 0))
-    s.text((x, y - 16), "robot forward", 24)
-    s.lines((760, 960), [
-        f"robotForward =  forward·cos θ + strafe·sin θ = {f:.2f}",
-        f"robotStrafe  = -forward·sin θ + strafe·cos θ = {l:.2f}"], 24, code=True)
-    s.lines((760, 1080), ["each is the stick's shadow on one of the robot's own axes"], 28)
-    s.save("fig-e14x-shadows")
+    field_legs(v, (0, 0), tip, nib=8)
+    vec(v, (0, 0), tip, MARKER_BLUE, nib=10)
+    say(v, (ROT_FORWARD / 2, 0), f"forward {ROT_FORWARD:.2f} along field x", 26, dy=40)
+    say(v, (ROT_FORWARD, ROT_STRAFE / 2), f"strafe {ROT_STRAFE:.2f} along field y", 26, dx=18,
+        anchor="start")
+    say(v, tip, f"({ROT_FORWARD:.2f}, {ROT_STRAFE:.2f}) on the field", 28, dy=-40,
+        anchor="end", code=True)
+    s.lines((900, 900), ["the stick asks for (0.64, 0.16) on the field:",
+                         "0.64 away from the driver, 0.16 to the driver's left"], 28)
+    s.save("fig-e142-stick-field")
 
 
-def e14x_add_up():
-    s = Sketch(1400, 900, 109)
-    v = Iso(s, (560, 520), 640, right=TOP_RIGHT, up=TOP_UP)
-    field_corner_axes(s, (90, 820))
-    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
-    f, l = ROT_ROBOT_FORWARD, ROT_ROBOT_STRAFE
-    mid = (f * c, f * sn)
-    tip = (mid[0] - l * sn, mid[1] + l * c)
-    robot_at(s, v.p((0, 0, 0)), 110, ROT_HEADING)
-    s.marker_arrow(v.p((0, 0, 0)), v.p((ROT_FORWARD, ROT_STRAFE, 0)), MARKER_BLUE, nib=10)
-    s.marker_arrow(v.p((0, 0, 0)), v.p(mid + (0,)), MARKER_ORANGE, nib=8)
-    s.marker_arrow(v.p(mid + (0,)), v.p(tip + (0,)), MARKER_ORANGE, nib=8)
-    x, y = v.p(mid + (0,))
-    s.text((x - 16, y - 16), f"{f:.2f} forward", 28, anchor="end")
-    x, y = v.p(((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2, 0))
-    s.text((x + 20, y - 10), f"then {-l:.2f} to the robot's right", 28, anchor="start")
-    x, y = v.p((ROT_FORWARD / 2, ROT_STRAFE / 2, 0))
-    s.text((x + 10, y + 50), "the stick", 28, anchor="start")
-    s.lines((740, 810), ["the two shadows, laid along the robot's own axes,",
-                         "add back up to the stick's arrow"], 28)
-    s.save("fig-e14x-add-up")
+def split(seed, name, field, part, words, caption, o=WORK_O, k=WORK_K):
+    """One field part drawn as its two pieces in the robot's frame."""
+    s, v = worked(seed, o, k)
+    mid = plus((0, 0), ROT_F, part[0])
+    vec(v, (0, 0), field, MARKER_BLUE, nib=10)
+    vec(v, (0, 0), mid, ROBOT_FORWARD, nib=8)
+    vec(v, mid, field, ROBOT_LEFT, nib=8)
+    for q, text, kw in words(v, mid):
+        say(v, q, text, **kw)
+    s.lines((900, 920), caption, 28)
+    s.save(name)
+
+
+def e142_forward_split():
+    f, l = ROT_PIECES["forward"]
+
+    def words(v, mid):
+        angle_arc(v, (0, 0), 0.12, 0, ROT_HEADING, GREY3, nib=4)
+        return [((0.13, 0.04), "60°", dict(size=24, anchor="start")),
+                ((mid[0] / 2, mid[1] / 2), f"0.64 × cos 60° = {f:.2f} along robot forward",
+                 dict(size=24, dx=-20, anchor="end", code=True)),
+                (((mid[0] + ROT_FORWARD) / 2, mid[1] / 2), f"-0.64 × sin 60° = {l:.2f} along "
+                 "robot left", dict(size=24, dx=24, dy=-10, anchor="start", code=True)),
+                ((ROT_FORWARD / 2, 0), "(0.64, 0) on the field", dict(size=26, dy=44, code=True))]
+    split(139, "fig-e142-forward-split", (ROT_FORWARD, 0.0), (f, l), words,
+          [f"forward on the field is ({f:.2f}, {l:.2f}) in the robot's frame"])
+
+
+def e142_strafe_split():
+    f, l = ROT_PIECES["strafe"]
+
+    def words(v, mid):
+        return [((mid[0] / 2, mid[1] / 2), f"0.16 × sin 60° = {f:.2f} along robot forward",
+                 dict(size=24, dx=30, anchor="start", code=True)),
+                (((mid[0]) / 2, (mid[1] + ROT_STRAFE) / 2),
+                 f"0.16 × cos 60° = {l:.2f} along robot left",
+                 dict(size=24, dx=30, dy=-20, anchor="start", code=True)),
+                ((0, ROT_STRAFE / 2), "(0, 0.16) on the field",
+                 dict(size=26, dx=-30, anchor="end", code=True))]
+    split(149, "fig-e142-strafe-split", (0.0, ROT_STRAFE), (f, l), words,
+          [f"strafe on the field is ({f:.2f}, {l:.2f}) in the robot's frame",
+           "drawn 3 times as large as the other pictures, so the pieces can be read"],
+          o=(760, 720), k=3 * WORK_K)
+
+
+def chain(v, order):
+    """The pieces in order, end to end from the robot; gives back each one's start and end."""
+    at, ends = (0.0, 0.0), []
+    for field_part, k in order:
+        part = ROT_PIECES[field_part]
+        step = (part[0], 0.0) if k == 0 else (0.0, part[1])
+        end = piece_at(at, step)
+        vec(v, at, end, ROBOT_FORWARD if k == 0 else ROBOT_LEFT, nib=8)
+        ends.append((at, end, part[k]))
+        at = end
+    return ends
+
+
+def piece_words(v, ends, places):
+    """Each piece's value beside it, placed by (dx, dy, anchor)."""
+    for (a, b, value), (dx, dy, anchor) in zip(ends, places):
+        say(v, ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2), f"{value:.2f}", 30, dx=dx, dy=dy,
+            anchor=anchor, code=True)
+
+
+ROW_X, ROW_Y, ROW_GAP = 300, 110, 260
+
+
+def order_row(s, ends, words):
+    """The pieces' order, written as a row at the top; gives back each entry's middle."""
+    mids = []
+    for i, ((a, b, value), word) in enumerate(zip(ends, words)):
+        x = ROW_X + i * ROW_GAP
+        color = ROBOT_FORWARD if word == "forward" else ROBOT_LEFT
+        s.marker_line((x - 100, ROW_Y + 14), (x + 100, ROW_Y + 14), color, nib=8)
+        s.text((x, ROW_Y), f"{value:.2f} {word}", 26, code=True)
+        mids.append(x)
+    return mids
+
+
+def e142_regroup():
+    s, v = worked(151)
+    tip = (ROT_FORWARD, ROT_STRAFE)
+    vec(v, (0, 0), tip, GREY1, nib=6)
+    ends = chain(v, [("forward", 0), ("forward", 1), ("strafe", 0), ("strafe", 1)])
+    piece_words(v, ends, ((-20, 0, "end"), (30, -30, "start"), (24, 20, "start"),
+                          (10, -34, "start")))
+    mids = order_row(s, ends, ("forward", "left", "forward", "left"))
+    s.marker_arrow((mids[1], ROW_Y - 40), (mids[2], ROW_Y - 40), MARKER_ORANGE, nib=6, bend=-0.15)
+    s.marker_arrow((mids[2], ROW_Y + 40), (mids[1], ROW_Y + 40), MARKER_ORANGE, nib=6, bend=-0.15)
+    s.lines((900, 880), ["the four pieces, end to end, reach the stick's tip.",
+                         "swap the middle two, so the forward pieces come first"], 28)
+    s.save("fig-e142-regroup")
+
+
+def e142_regrouped():
+    s, v = worked(157)
+    tip = (ROT_FORWARD, ROT_STRAFE)
+    vec(v, (0, 0), tip, GREY1, nib=6)
+    ends = chain(v, [("forward", 0), ("strafe", 0), ("forward", 1), ("strafe", 1)])
+    piece_words(v, ends, ((-20, 0, "end"), (-20, 0, "end"), (30, -30, "start"),
+                          (30, 56, "start")))
+    order_row(s, ends, ("forward", "forward", "left", "left"))
+    s.lines((900, 880), ["in the new order, the same four pieces reach the same tip:",
+                         "both forward pieces, then both left pieces"], 28)
+    s.save("fig-e142-regrouped")
+
+
+def e142_add():
+    s, v = worked(163)
+    tip = (ROT_FORWARD, ROT_STRAFE)
+    mid = plus((0, 0), ROT_F, ROT_ROBOT_FORWARD)
+    vec(v, (0, 0), tip, MARKER_BLUE, nib=10)
+    vec(v, (0, 0), mid, ROBOT_FORWARD, nib=10)
+    vec(v, mid, tip, ROBOT_LEFT, nib=10)
+    (ff, fl), (sf, sl) = ROT_PIECES["forward"], ROT_PIECES["strafe"]
+    say(v, (mid[0] / 2, mid[1] / 2), f"{ff:.2f} + {sf:.2f} = {ROT_ROBOT_FORWARD:.2f}", 30,
+        dx=-20, anchor="end", code=True)
+    say(v, ((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2),
+        f"{fl:.2f} + {sl:.2f} = {ROT_ROBOT_STRAFE:.2f}", 30, dx=24, anchor="start", code=True)
+    s.lines((900, 850), [
+        f"robotForward =  forward·cos θ + strafe·sin θ = {ROT_ROBOT_FORWARD:.2f}",
+        f"robotStrafe  = -forward·sin θ + strafe·cos θ = {ROT_ROBOT_STRAFE:.2f}"], 24, code=True)
+    s.lines((900, 960), ["the robot drives (0.46, -0.47) in its own frame,",
+                         "and goes where the stick points"], 28)
+    s.save("fig-e142-add")
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph]
@@ -2254,8 +2460,9 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch, e035_numberline_3d,
             e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_robot_frame_3d, e035_speeds_3d,
             e035_switch_3d, e035_motor_wheel_gear_box, l140_field_top, l140_field_red,
-            l140_field_blue, e14x_unit_circle, e14x_radian, e14x_robot_axes, e14x_shadows,
-            e14x_add_up]
+            l140_field_blue, e141_notation, e141_scale, e141_add, e142_unit_circle,
+            e142_radian, e142_robot_axes, e142_stick_field, e142_forward_split, e142_strafe_split,
+            e142_regroup, e142_regrouped, e142_add]
 
 if __name__ == "__main__":
     if OUT is None:
