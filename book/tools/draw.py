@@ -115,9 +115,9 @@ def stick_shaping():
         ax.set_ylim(-1.05, 1.05)
         ax.set_aspect("equal")
         ax.set_title(title, fontsize=13)
-        ax.set_xlabel("stick, -1 to 1")
+        ax.set_xlabel("stick, -1.0 to 1.0")
         ax.grid(alpha=0.3)
-    axes[0].set_ylabel("power out, -1 to 1")
+    axes[0].set_ylabel("power out, -1.0 to 1.0")
     inset = axes[1].inset_axes([0.58, 0.06, 0.38, 0.38])
     xi = np.linspace(-0.12, 0.12, 401)
     inset.plot(xi, deadband(xi), color=BLUE, linewidth=2)
@@ -2612,6 +2612,392 @@ def e142_stick_red_3d():
     s.save("fig-e142-stick-red-3d")
 
 
+# -- the control loops from L160 to L180, and auto's, as block diagrams. The rows were read off the
+# block diagrams at https://claude.ai/artifact/8R28NuvjRNNb8Uat1TZDom, version 1792936034-ff97,
+# in that page's units; loops() draws them LOOP_K times as large.
+
+LOOP_K = 2.0
+LOOP_INK = {"w": PEN, "fb": PEN, "w3": "#6e4bb0", "fb3": "#6e4bb0", "frame": "#1f8a72",
+            "frame3": "#6e4bb0", "plant": GREY3}
+LOOP_FILL = {"human": MARKER_ORANGE, "hw": GREY1, "lesson": MARKER_BLUE, "base": MARKER_GREEN,
+             "lib": MARKER_LAVENDER}
+LOOP_WORDS = {"lib-s": "#6e4bb0", "frame": "#1f8a72", "human-s": "#a8742a", "hw-s": GREY4}
+HAND_ONLY = {"→": "to", "×": "x", " ●": "", "●": ""}   # Marker Felt has none of these
+
+
+def loop_head(s, a, b, color):
+    """A filled head at b, pointing from a."""
+    tx, ty = b[0] - a[0], b[1] - a[1]
+    n = math.hypot(tx, ty) or 1
+    tx, ty, h = tx / n, ty / n, 14
+    s.line([(b[0] - tx * h - ty * h * 0.5, b[1] - ty * h + tx * h * 0.5), b,
+            (b[0] - tx * h + ty * h * 0.5, b[1] - ty * h - tx * h * 0.5)], color, 1.6,
+           fill=color, closed=True)
+
+
+def loop_wire(s, pts, color, dashed, arrow):
+    """A wire, dashed where it carries what is measured, hopping where it crosses a wire."""
+    out = []
+    for p in pts:
+        if p[0] != "hop":
+            out.append(p)
+            continue
+        (x0, y0), (x1, y1) = out[-1], p[1:]
+        c, r = ((x0 + x1) / 2, (y0 + y1) / 2), math.hypot(x1 - x0, y1 - y0) / 2
+        a0 = math.atan2(y0 - c[1], x0 - c[0])
+        out += [(c[0] + r * math.cos(a0 + math.pi * i / 8), c[1] + r * math.sin(a0 + math.pi * i / 8))
+                for i in range(1, 9)]
+    line = s.line(out, color, 3.2 if color != PEN else 2.6, 0.9)
+    if dashed:
+        line.set_linestyle((0, (5, 3)))
+    if arrow:
+        loop_head(s, out[-2], out[-1], color)
+
+
+def loop_rows(s, rows, dy):
+    k = LOOP_K
+    at = lambda x, y: (x * k, (y + dy) * k)
+    for row in rows:
+        kind, cls = row[0], row[1] if len(row) > 1 else None
+        if kind == "box" and cls in LOOP_FILL:
+            x, y = at(*row[2:4])
+            shape = rect(x, y, row[4] * k, row[5] * k)
+            s.marker(shape, LOOP_FILL[cls], nib=14, opacity=0.45)
+            s.ink_poly(shape, width=3.4 if len(row) > 6 else 1.8, over=5)
+        elif kind == "box":
+            x, y = at(*row[2:4])
+            frame = s.line(rect(x, y, row[4] * k, row[5] * k), LOOP_INK[cls], 3.0, 0.9,
+                           closed=True)
+            frame.set_linestyle((0, (8, 5)))
+        elif kind == "sum":
+            c = at(*row[2:4])
+            s.line(ellipse(c, 16 * k), LOOP_INK["w3" if cls else "w"], 2.6, 0.9, fill=PAPER,
+                   closed=True)
+        elif kind == "dot":
+            s.dot(at(*row[1:3]), 4 * k, LOOP_INK["w3"])
+        elif kind == "wire" and cls == "plant":
+            s.line([at(*p) for p in row[2]], GREY3, 4.4, 0.9)
+        elif kind == "wire":
+            pts = [at(*p) if p[0] != "hop" else ("hop",) + at(*p[1:]) for p in row[2]]
+            loop_wire(s, pts, LOOP_INK[cls], cls.startswith("fb"), row[3])
+        elif kind == "text":
+            words, color, size = row[4], LOOP_WORDS.get(row[5] if len(row) > 5 else "", PEN), \
+                row[6] if len(row) > 6 else 0
+            if cls == "m":
+                s.text(at(*row[2:4]), words, 21, GREY4, anchor="start", code=True)
+                continue
+            for a, b in HAND_ONLY.items():
+                words = words.replace(a, b)
+            if cls == "n":
+                color, size = (color if color != PEN else GREY4), 12
+            s.text(at(*row[2:4]), words, (size or (13.5 if cls == "t" else 13)) * k, color,
+                   anchor="start")
+
+
+TELEOP_LOOPS = [
+    ("box", "frame3", 430, 14, 520, 152),
+    ("text", "t", 442, 34,
+     "follower.update() after follower.hold(target): the pose loop (L170, L180)", "lib-s"),
+    ("box", "lesson", 446, 52, 122, 62),
+    ("text", "t", 456, 72, "target pose"),
+    ("text", "m", 456, 90, "120, 72, 90°"),
+    ("text", "n", 456, 106, "on Y"),
+    ("wire", "w3", ((568, 83), (584, 83)), True),
+    ("sum", "lib", 600, 83),
+    ("text", "", 592, 88, "Σ", "", 16),
+    ("text", "", 576, 76, "+", "", 13),
+    ("text", "", 606, 114, "-", "", 15),
+    ("text", "n", 446, 140, "pose error out of Σ", "lib-s"),
+    ("wire", "w3", ((616, 83), (630, 83)), False),
+    ("wire", "w3", ((630, 52), (630, 128)), False),
+    ("wire", "w3", ((630, 52), (646, 52)), False),
+    ("wire", "w3", ((630, 90), (646, 90)), False),
+    ("wire", "w3", ((630, 128), (646, 128)), False),
+    ("wire", "w3", ((640, 52), (646, 52)), True),
+    ("wire", "w3", ((640, 90), (646, 90)), True),
+    ("wire", "w3", ((640, 128), (646, 128)), True),
+    ("box", "lib", 650, 40, 160, 26),
+    ("text", "m", 658, 58, "forwardTranslational"),
+    ("box", "lib", 650, 77, 160, 26),
+    ("text", "m", 658, 95, "strafeTranslational"),
+    ("box", "lib", 650, 115, 160, 26, True),
+    ("text", "m", 658, 133, "headingFeedback"),
+    ("wire", "w3", ((810, 53), (826, 53)), False),
+    ("wire", "w3", ((810, 90), (826, 90)), False),
+    ("wire", "w3", ((810, 128), (826, 128)), False),
+    ("wire", "w3", ((826, 53), (826, 128)), False),
+    ("wire", "w3", ((826, 90), (836, 90)), False),
+    ("wire", "w3", ((832, 90), (840, 90)), True),
+    ("box", "lib", 844, 66, 96, 48),
+    ("text", "t", 852, 86, "DrivePowers"),
+    ("text", "n", 852, 104, "fwd, strafe, turn"),
+    ("wire", "w3", ((885, 114), (885, 292)), True),
+    ("text", "n", 892, 190, "drive()"),
+    ("text", "n", 892, 206, "while no stick"),
+    ("text", "n", 892, 222, "is pushed"),
+    ("text", "n", 652, 156, "tuned in ForesightConfig"),
+    ("wire", "fb3", ((790, 585), (790, 453), ("hop", 790, 443), (790, 320), ("hop", 790, 310),
+                    (790, 196), (600, 196), (600, 103)), True),
+    ("text", "n", 610, 190, "projected pose: x, y, heading, from pose and velocity", "lib-s"),
+    ("dot", 790, 585),
+    ("box", "human", 16, 350, 100, 64),
+    ("text", "t", 28, 376, "Driver"),
+    ("text", "", 28, 394, "eyes, hands"),
+    ("wire", "w", ((116, 382), (142, 382)), True),
+    ("box", "hw", 146, 350, 100, 64),
+    ("text", "t", 158, 376, "Gamepad"),
+    ("text", "", 158, 394, "two sticks"),
+    ("wire", "w", ((246, 382), (272, 382)), True),
+    ("box", "lesson", 276, 342, 134, 80),
+    ("text", "t", 288, 366, "Shape the sticks"),
+    ("text", "m", 288, 386, "deadband"),
+    ("text", "m", 288, 402, "signedSquared"),
+    ("wire", "w", ((410, 356), (480, 356), (480, 315), (556, 315)), True),
+    ("text", "n", 420, 308, "forward, strafe"),
+    ("text", "n", 420, 324, "(field's)"),
+    ("wire", "w", ((410, 406), (425, 406), (425, 418), (722, 418)), True),
+    ("text", "n", 600, 412, "turn stick"),
+    ("box", "lesson", 560, 283, 170, 64),
+    ("text", "t", 572, 308, "Field → robot"),
+    ("text", "m", 572, 328, "cos, sin of heading"),
+    ("wire", "w", ((730, 315), (816, 315)), True),
+    ("text", "n", 736, 307, "robot's"),
+    ("box", "lib", 470, 250, 70, 26),
+    ("text", "m", 482, 268, "pose ●"),
+    ("wire", "fb", ((540, 263), (645, 263), (645, 279)), True),
+    ("text", "n", 556, 258, "heading"),
+    ("box", "frame", 440, 390, 340, 164),
+    ("text", "t", 452, 544, "HeadingHold.turn(): the loop is closed here", "frame"),
+    ("box", "base", 452, 450, 94, 44),
+    ("text", "t", 462, 468, "target"),
+    ("text", "n", 462, 485, "at let-go"),
+    ("wire", "w", ((546, 472), (562, 472)), True),
+    ("sum", "", 580, 472),
+    ("text", "", 572, 477, "Σ", "", 16),
+    ("text", "", 554, 464, "+", "", 13),
+    ("text", "", 586, 503, "-", "", 15),
+    ("wire", "w", ((596, 472), (610, 472)), True),
+    ("box", "lib", 614, 446, 96, 52, True),
+    ("text", "t", 624, 464, "Controller"),
+    ("text", "m", 624, 480, "Pedro PIDF"),
+    ("text", "m", 624, 494, "I, D, F = 0"),
+    ("wire", "w", ((710, 472), (722, 472)), True),
+    ("box", "base", 726, 402, 44, 88),
+    ("text", "n", 732, 442, "stick"),
+    ("text", "n", 732, 456, "or fix"),
+    ("wire", "w", ((770, 448), (816, 448)), True),
+    ("text", "n", 795, 440, "turn"),
+    ("box", "base", 820, 296, 130, 174),
+    ("text", "t", 832, 372, "sticks()"),
+    ("text", "m", 832, 392, "mix, normalize"),
+    ("text", "n", 832, 412, "CorbelsDriveTrain"),
+    ("wire", "w", ((950, 385), (976, 385)), True),
+    ("box", "lib", 980, 353, 104, 64),
+    ("text", "t", 990, 378, "setPower ×4"),
+    ("text", "n", 990, 396, "FTC SDK"),
+    ("wire", "w", ((1084, 385), (1106, 385)), True),
+    ("text", "n", 990, 440, "fraction of"),
+    ("text", "n", 990, 455, "battery volts"),
+    ("wire", "plant", ((1100, 340), (1236, 340), (1236, 624), (950, 624), (950, 548), (1100, 548),
+                      (1100, 340)), False),
+    ("text", "t", 1112, 334, "Plant", "hw-s"),
+    ("text", "n", 812, 552, "out: pose, velocity"),
+    ("box", "hw", 1110, 353, 114, 64),
+    ("text", "t", 1120, 378, "Battery, motors"),
+    ("text", "n", 1120, 396, "no speed loop"),
+    ("wire", "w", ((1167, 417), (1167, 446)), True),
+    ("box", "hw", 1110, 450, 114, 64),
+    ("text", "t", 1120, 475, "Robot"),
+    ("text", "n", 1120, 493, "mass, floor"),
+    ("wire", "fb", ((1167, 514), (1167, 585), (1104, 585)), True),
+    ("box", "hw", 960, 560, 140, 50),
+    ("text", "t", 972, 582, "Pinpoint"),
+    ("text", "n", 972, 600, "odometry pods, IMU"),
+    ("wire", "fb", ((960, 585), (934, 585)), True),
+    ("box", "lib", 800, 560, 130, 50),
+    ("text", "t", 810, 582, "follower.update()"),
+    ("text", "m", 810, 600, "pose, velocity ●"),
+    ("wire", "fb", ((800, 585), (580, 585), (580, 492)), True),
+    ("text", "n", 610, 578, "measured heading"),
+    ("wire", "fb", ((1224, 482), (1232, 482), (1232, 670), (66, 670), (66, 418)), True),
+    ("text", "n", 500, 662, "the driver watches the robot and moves the sticks again"),
+    ("text", "t", 80, 695, "Loop 1: the driver", "human-s"),
+    ("text", "t", 260, 695, "Loop 2: heading hold, our code through the hardware", "frame"),
+    ("text", "t", 680, 695, "Loop 3: the pose, Pedro's follower in place of the sticks", "lib-s"),
+]
+
+AUTO_LOOPS = [
+    ("box", "lesson", 16, 180, 180, 170),
+    ("text", "t", 28, 204, "Auto's commands"),
+    ("text", "m", 28, 230, "follow(line(…))"),
+    ("text", "m", 28, 250, "follow(line(…))"),
+    ("text", "m", 28, 270, "hold(end)"),
+    ("text", "n", 28, 300, "StarterBotAuto,"),
+    ("text", "n", 28, 317, "one after another,"),
+    ("text", "n", 28, 334, "by Ivy's Scheduler"),
+    ("wire", "w", ((196, 215), (215, 215), (215, 150), (242, 150)), True),
+    ("text", "n", 200, 142, "path"),
+    ("wire", "w", ((196, 315), (215, 315), (215, 381), (242, 381)), True),
+    ("text", "n", 200, 400, "pose"),
+    ("box", "frame3", 230, 14, 620, 290),
+    ("text", "t", 242, 36, "Foresight.calculatePath(): following the curve", "lib-s"),
+    ("box", "lib", 246, 50, 160, 210),
+    ("text", "t", 256, 72, "closest point"),
+    ("text", "t", 256, 89, "on the curve"),
+    ("text", "n", 256, 110, "to the projected pose:"),
+    ("text", "n", 256, 128, "distance left, the"),
+    ("text", "n", 256, 146, "point, its direction,"),
+    ("text", "n", 256, 164, "its heading"),
+    ("text", "n", 256, 200, "a line is a curve:"),
+    ("text", "n", 256, 218, "same loop, simpler"),
+    ("text", "n", 256, 236, "geometry"),
+    ("box", "lib", 256, 270, 92, 22),
+    ("text", "m", 264, 285, "projected ●"),
+    ("wire", "fb3", ((300, 270), (300, 264)), True),
+    ("wire", "w3", ((406, 77), (466, 77)), True),
+    ("text", "n", 412, 70, "distance"),
+    ("box", "lib", 470, 50, 246, 76),
+    ("text", "t", 480, 68, "drive vector"),
+    ("text", "n", 480, 85, "feedforward of the target speed"),
+    ("text", "n", 480, 100, "along the curve"),
+    ("text", "m", 480, 117, "coast, brake: kV × targetVelocity"),
+    ("wire", "w3", ((716, 80), (726, 80)), True),
+    ("wire", "w3", ((406, 165), (472, 165)), True),
+    ("text", "n", 412, 158, "the point"),
+    ("sum", "lib", 490, 165),
+    ("text", "", 482, 170, "Σ", "", 16),
+    ("text", "", 466, 158, "+", "", 13),
+    ("text", "", 497, 198, "-", "", 15),
+    ("wire", "w3", ((506, 165), (526, 165)), True),
+    ("box", "lib", 530, 140, 180, 50),
+    ("text", "m", 538, 160, "forwardTranslational"),
+    ("text", "m", 538, 178, "strafeTranslational"),
+    ("text", "n", 560, 208, "sideways error only"),
+    ("wire", "w3", ((710, 165), (726, 165)), True),
+    ("box", "lib", 446, 204, 92, 22),
+    ("text", "m", 454, 219, "projected ●"),
+    ("wire", "fb3", ((490, 204), (490, 185)), True),
+    ("wire", "w3", ((406, 250), (472, 250)), True),
+    ("text", "n", 412, 243, "heading"),
+    ("sum", "lib", 490, 250),
+    ("text", "", 482, 255, "Σ", "", 16),
+    ("text", "", 466, 243, "+", "", 13),
+    ("text", "", 497, 283, "-", "", 15),
+    ("wire", "w3", ((506, 250), (526, 250)), True),
+    ("box", "lib", 530, 230, 180, 40, True),
+    ("text", "m", 538, 255, "headingFeedback"),
+    ("wire", "w3", ((710, 250), (726, 250)), True),
+    ("box", "lib", 446, 276, 92, 22),
+    ("text", "m", 454, 291, "projected ●"),
+    ("wire", "fb3", ((490, 276), (490, 270)), True),
+    ("text", "n", 548, 296, "each Controller: Pedro PIDF, I, D, F = 0"),
+    ("box", "lib", 730, 50, 110, 230),
+    ("text", "t", 740, 74, "share the"),
+    ("text", "t", 740, 91, "power"),
+    ("text", "n", 740, 116, "heading and"),
+    ("text", "n", 740, 133, "sideways before"),
+    ("text", "n", 740, 150, "drive, then"),
+    ("text", "n", 740, 167, "field → robot"),
+    ("wire", "w3", ((840, 165), (876, 165)), True),
+    ("box", "frame3", 230, 320, 620, 180),
+    ("text", "t", 242, 342, "Foresight.calculateHold(): closing on one pose", "lib-s"),
+    ("box", "lesson", 246, 356, 160, 114),
+    ("text", "t", 256, 378, "target pose"),
+    ("text", "n", 256, 398, "hold(end), or the"),
+    ("text", "n", 256, 415, "last path's end"),
+    ("wire", "w3", ((406, 381), (472, 381)), True),
+    ("text", "n", 412, 374, "x, y"),
+    ("sum", "lib", 490, 381),
+    ("text", "", 482, 386, "Σ", "", 16),
+    ("text", "", 466, 374, "+", "", 13),
+    ("text", "", 497, 414, "-", "", 15),
+    ("wire", "w3", ((506, 381), (526, 381)), True),
+    ("box", "lib", 530, 356, 180, 50),
+    ("text", "m", 538, 376, "forwardTranslational"),
+    ("text", "m", 538, 394, "strafeTranslational"),
+    ("wire", "w3", ((710, 381), (726, 381)), True),
+    ("box", "lib", 446, 410, 92, 22),
+    ("text", "m", 454, 425, "projected ●"),
+    ("wire", "fb3", ((490, 410), (490, 401)), True),
+    ("wire", "w3", ((406, 456), (472, 456)), True),
+    ("text", "n", 412, 449, "heading"),
+    ("sum", "lib", 490, 456),
+    ("text", "", 482, 461, "Σ", "", 16),
+    ("text", "", 466, 449, "+", "", 13),
+    ("wire", "w3", ((506, 456), (526, 456)), True),
+    ("box", "lib", 530, 436, 180, 40, True),
+    ("text", "m", 538, 461, "headingFeedback"),
+    ("wire", "w3", ((710, 456), (726, 456)), True),
+    ("text", "n", 418, 492, "- projected heading"),
+    ("text", "n", 580, 494, "each Controller: Pedro PIDF, I, D, F = 0"),
+    ("box", "lib", 730, 356, 110, 120),
+    ("text", "t", 740, 380, "field → robot"),
+    ("text", "n", 740, 402, "whole distance,"),
+    ("text", "n", 740, 419, "no drive vector"),
+    ("wire", "w3", ((840, 413), (876, 413)), True),
+    ("text", "t", 866, 110, "Follower"),
+    ("box", "lib", 880, 120, 60, 380),
+    ("text", "t", 890, 160, "PATH"),
+    ("text", "t", 890, 430, "HOLD"),
+    ("wire", "fb3", ((910, 175), (910, 405)), True),
+    ("text", "n", 948, 420, "path done:"),
+    ("text", "n", 948, 437, "hold(endPose)"),
+    ("wire", "w", ((940, 300), (976, 300)), True),
+    ("box", "base", 980, 250, 120, 100),
+    ("text", "t", 990, 274, "drive()"),
+    ("text", "m", 990, 294, "mix, normalize"),
+    ("text", "n", 990, 314, "FLOAT, not brake"),
+    ("text", "n", 990, 334, "CorbelsDriveTrain"),
+    ("wire", "w", ((1100, 300), (1116, 300)), True),
+    ("box", "lib", 1120, 265, 100, 70),
+    ("text", "t", 1130, 292, "setPower ×4"),
+    ("text", "n", 1130, 312, "FTC SDK"),
+    ("wire", "w", ((1220, 300), (1236, 300)), True),
+    ("box", "plant", 1228, 252, 164, 340),
+    ("text", "t", 1236, 246, "Plant", "hw-s"),
+    ("box", "hw", 1240, 265, 140, 70),
+    ("text", "t", 1250, 292, "Battery, motors"),
+    ("text", "n", 1250, 312, "no speed loop"),
+    ("wire", "w", ((1310, 335), (1310, 376)), True),
+    ("box", "hw", 1240, 380, 140, 64),
+    ("text", "t", 1250, 406, "Robot"),
+    ("text", "n", 1250, 424, "mass, floor"),
+    ("wire", "fb3", ((1310, 444), (1310, 526)), True),
+    ("box", "hw", 1230, 530, 150, 50),
+    ("text", "t", 1240, 552, "Pinpoint"),
+    ("text", "n", 1240, 570, "odometry pods, IMU"),
+    ("wire", "fb3", ((1230, 555), (1204, 555)), True),
+    ("box", "lib", 1020, 530, 180, 50),
+    ("text", "t", 1030, 552, "follower.update()"),
+    ("text", "m", 1030, 570, "pose, velocity"),
+    ("wire", "fb3", ((1020, 555), (824, 555)), True),
+    ("box", "lib", 560, 530, 260, 50),
+    ("text", "t", 570, 552, "projected pose ●"),
+    ("text", "n", 570, 570, "stopping point: uses the velocity output too"),
+    ("text", "n", 836, 546, "plant out: pose, velocity", "lib-s"),
+    ("text", "t", 230, 620, "One loop at a time, closed through the hardware each follower.update(): "
+     "the curve, then the pose. No driver.", "lib-s"),
+]
+
+
+def loops():
+    s = Sketch(2800, 3100, 1600)
+    s.text((32, 60), "Teleop, from L160 to L180", 40, anchor="start")
+    loop_rows(s, TELEOP_LOOPS, 50)
+    s.text((32, 1640), "Auto: following a path, then holding its end", 40, anchor="start")
+    loop_rows(s, AUTO_LOOPS, 840)
+    x = 32
+    for name, fill in (("a person", "human"), ("hardware and physics", "hw"),
+                       ("lesson code, the student types", "lesson"), ("our base/ code", "base"),
+                       ("a library: Pedro, the FTC SDK", "lib")):
+        box = rect(x, 3030, 36, 28)
+        s.marker(box, LOOP_FILL[fill], nib=14, opacity=0.45)
+        s.ink_poly(box, width=1.8, over=4)
+        s.text((x + 50, 3054), name, 28, anchor="start")
+        x += 560
+    s.save("fig-control-loops")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
@@ -2623,7 +3009,7 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             l140_field_blue, e141_notation, e141_scale, e141_add, e142_unit_circle,
             e142_radian, e142_robot_axes, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
-            e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula]
+            e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops]
 
 if __name__ == "__main__":
     if OUT is None:
