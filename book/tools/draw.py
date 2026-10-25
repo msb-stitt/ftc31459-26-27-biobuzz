@@ -1330,19 +1330,20 @@ def room(v, light=(), lines=(), solids=(), at=STAND):
 
 
 CAP, BRIM = "#7b5ea7", "#55407a"
+RED_CAP, BLUE_CAP = (MARKER_RED, "#9e2f1f"), (BLUE, "#1f4f85")   # in an alliance's area
 CAP_TILT = math.radians(25)        # the brim, tilted up from level, facing +y
 
 
-def student(v, look, at=STAND):
+def student(v, look, at=STAND, cap=(CAP, BRIM)):
     """The student on the pedestal at at, in a cap, looking at look, a point in space."""
     limbs, head = figure(at)
     for a, b in limbs:
         v.s.ink_line(v.page(a), v.page(b), width=4.2, over=2, passes=1, wobble=0.8)
     v.s.construct(v.page(head), v.page(look))                 # where the student is looking
-    head_in_cap(v, head)
+    head_in_cap(v, head, cap)
 
 
-def head_in_cap(v, head):
+def head_in_cap(v, head, cap=(CAP, BRIM)):
     """The head, a sphere, in a cap: the crown is the sphere above a band circle tilted back with
     the brim, and the brim lies flat in the band's plane, out in front. Only the half of the crown
     facing the viewer shows; the brim, on the far side, shows past the head."""
@@ -1366,7 +1367,7 @@ def head_in_cap(v, head):
     brim = [band(a) for a in reversed(span)] + [
         band(a, rb + 0.65 * HEAD_R * math.sin(math.pi * (a - span[0]) / (span[-1] - span[0])))
         for a in span]
-    v.s.line([v.page(q) for q in brim], PEN, 2.4, 0.9, fill=BRIM, closed=True)
+    v.s.line([v.page(q) for q in brim], PEN, 2.4, 0.9, fill=cap[1], closed=True)
 
     c, r = v.page(head), HEAD_R * v.k
     v.s.line(ellipse(c, r), PEN, 3.4, 0.95, fill=PAPER, closed=True)
@@ -1391,7 +1392,7 @@ def head_in_cap(v, head):
         ccw -= 2 * math.pi
     rim = [(c[0] + r * math.cos(a0 + ccw * i / 40), c[1] + r * math.sin(a0 + ccw * i / 40))
            for i in range(1, 40)]
-    v.s.line(arc + rim, PEN, 2.6, 0.95, fill=CAP, closed=True)
+    v.s.line(arc + rim, PEN, 2.6, 0.95, fill=cap[0], closed=True)
 
 
 def sheet_in_room(v, z_under=False, upright=False):
@@ -2047,7 +2048,7 @@ def l140_field_top():
     s.save("fig-l140-field-top")
 
 
-def drivers_view(name, turn, at, words):
+def drivers_view(name, turn, at, words, cap):
     """The field in Onshape's isometric view, turned so the drive team's student stands near the
     viewer at at, looking across the field."""
     s = Sketch(1450, 1000, 89)
@@ -2056,7 +2057,7 @@ def drivers_view(name, turn, at, words):
     field_floor(v)
     field_walls(v)
     pedro_axes(v)
-    student(v, (at[0], 0.0, 0.0), at)
+    student(v, (at[0], 0.0, 0.0), at, cap)
     s.lines((725, 900), words, 30)
     s.save(name)
 
@@ -2064,13 +2065,14 @@ def drivers_view(name, turn, at, words):
 def l140_field_red():
     # Pedro's +x away from the red drive team and +y to their left.
     drivers_view("fig-l140-field-red", lambda q: (3 - q[1], q[0] - 3, q[2]), (0.5, -4.4),
-                 ["from the red drive team's place:", "+x points away, +y to the left"])
+                 ["from the red drive team's place:", "+x points away, +y to the left"], RED_CAP)
 
 
 def l140_field_blue():
     # Pedro's +x toward the blue drive team and +y to their right.
     drivers_view("fig-l140-field-blue", lambda q: (q[1] - 3, 3 - q[0], q[2]), (0.5, -4.4),
-                 ["from the blue drive team's place:", "+x points toward you, +y to the right"])
+                 ["from the blue drive team's place:", "+x points toward you, +y to the right"],
+                 BLUE_CAP)
 
 
 # -- E141 and E142: vectors, then how L140's two lines turn the stick on the field into the robot's
@@ -2090,6 +2092,46 @@ ROT_PIECES = {   # each field part, in the robot's frame: (along forward, along 
 ROT_ROBOT_FORWARD = ROT_PIECES["forward"][0] + ROT_PIECES["strafe"][0]
 ROT_ROBOT_STRAFE = ROT_PIECES["forward"][1] + ROT_PIECES["strafe"][1]
 ROBOT_FORWARD, ROBOT_LEFT, FIELD_LEG = MARKER_RED, AXIS_Y, GREY3
+NOSE = MARKER_YELLOW            # apart from the red of the robot's forward
+FIELD_GRID, ROBOT_GRID = ((1.0, 0.0), (0.0, 1.0)), (ROT_F, ROT_L)
+FORMULA = {("forward", 0): "forward·cos θ", ("forward", 1): "-forward·sin θ",
+           ("strafe", 0): "strafe·sin θ", ("strafe", 1): "strafe·cos θ"}
+
+
+def frame_grid(v, axes, step):
+    """A light grid about the robot's center, ruled every step along the two axes given."""
+    ex, ey = axes
+    reach = 2400 / v.k
+    for n in range(-int(reach / step), int(reach / step) + 1):
+        for a, b in ((ex, ey), (ey, ex)):
+            c = plus((0, 0), b, n * step)
+            v.s.line([v.p(plus(c, a, -reach) + (0,)), v.p(plus(c, a, reach) + (0,))], GREY2, 1.1,
+                     0.45)
+
+
+def callout(s, at, rows, to, anchor="start", size=26):
+    """Words at at, with a thin arrow from them to the point to."""
+    s.lines(at, rows, size, anchor=anchor, code=True)
+    s.marker_arrow((at[0], at[1] - size * 0.4), to, GREY2, nib=3)
+
+
+def dotted(s, p0, p1, color=GREY2):
+    """A light dotted arrow from p0 to p1."""
+    n = math.dist(p0, p1)
+    ux, uy = (p1[0] - p0[0]) / n, (p1[1] - p0[1]) / n
+    for d in np.arange(0, n - 14, 14):
+        s.line([(p0[0] + ux * d, p0[1] + uy * d), (p0[0] + ux * (d + 6), p0[1] + uy * (d + 6))],
+               color, 3, 0.9)
+    h = 14
+    s.line([(p1[0] - ux * h - uy * h * 0.5, p1[1] - uy * h + ux * h * 0.5), p1,
+            (p1[0] - ux * h + uy * h * 0.5, p1[1] - uy * h - ux * h * 0.5)], color, 3, 0.9)
+
+
+def formula_words(s, rows):
+    """Each (words, at, anchor, to): the words, and a dotted arrow from them to the point to."""
+    for words, at, anchor, to in rows:
+        s.text(at, words, 26, anchor=anchor, code=True)
+        dotted(s, (at[0], at[1] + 10), to)
 
 
 def plus(a, b, k=1.0):
@@ -2249,7 +2291,7 @@ def robot_at(s, c, side, heading):
     frame_top(s, c[0] - side / 2, c[1] - side / 2, side, side, nose=False)
     tri = [(c[0] - side * 0.22, c[1] - side / 2), (c[0], c[1] - side * 0.78),
            (c[0] + side * 0.22, c[1] - side / 2)]
-    s.marker(tri, MARKER_RED, nib=10, opacity=0.8)
+    s.marker(tri, NOSE, nib=10, opacity=0.8)
     s.ink_poly(tri, width=2.2)
     s.turn = (0.0, 0.0, 0.0)
 
@@ -2264,9 +2306,11 @@ def field_corner_axes(s, o):
 def e142_robot_axes():
     s = Sketch(1600, 1050, 103)
     v = Iso(s, (820, 700), 450, right=TOP_RIGHT, up=TOP_UP)
+    frame_grid(v, FIELD_GRID, 0.25)
     field_corner_axes(s, (90, 960))
     c, sn = ROT_F
     s.construct(v.p((-1.2, 0, 0)), v.p((1.3, 0, 0)))
+    callout(s, (720, 830), ["(0, 0)"], (812, 708), anchor="end")
     robot_at(s, v.p((0, 0, 0)), 90, ROT_HEADING)
     field_legs(v, (0, 0), ROT_F, nib=7)
     field_legs(v, (0, 0), ROT_L, nib=7)
@@ -2281,7 +2325,8 @@ def e142_robot_axes():
     say(v, ROT_F, f"forward ({c:.2f}, {sn:.2f})", 28, dy=-24, code=True)
     say(v, ROT_L, f"left ({-sn:.2f}, {c:.2f})", 28, dy=-24, code=True)
     s.lines((880, 920), ["the robot's own forward and left, each 1 long,",
-                         "drawn with their x and y on the field"], 28)
+                         "drawn with their x and y on the field;",
+                         "the grid is the field's x and y, moved to the robot's center"], 28)
     s.save("fig-e142-robot-axes")
 
 
@@ -2290,9 +2335,10 @@ def e142_robot_axes():
 WORK_O, WORK_K = (560, 700), 900
 
 
-def worked(seed, o=WORK_O, k=WORK_K):
+def worked(seed, o=WORK_O, k=WORK_K, grid=ROBOT_GRID, step=0.1):
     s = Sketch(1600, 1050, seed)
     v = Iso(s, o, k, right=TOP_RIGHT, up=TOP_UP)
+    frame_grid(v, grid, step)
     field_corner_axes(s, (90, 980))
     back, ahead = 500 / k, 560 / k
     for axis, color, name in ((ROT_F, ROBOT_FORWARD, "robot forward"),
@@ -2310,8 +2356,9 @@ def piece_at(start, part):
 
 
 def e142_stick_field():
-    s, v = worked(137)
+    s, v = worked(137, grid=FIELD_GRID)
     tip = (ROT_FORWARD, ROT_STRAFE)
+    callout(s, (470, 830), ["(0, 0)"], (552, 708), anchor="end")
     field_legs(v, (0, 0), tip, nib=8)
     vec(v, (0, 0), tip, MARKER_BLUE, nib=10)
     say(v, (ROT_FORWARD / 2, 0), f"forward {ROT_FORWARD:.2f} along field x", 26, dy=40)
@@ -2320,19 +2367,23 @@ def e142_stick_field():
     say(v, tip, f"({ROT_FORWARD:.2f}, {ROT_STRAFE:.2f}) on the field", 28, dy=-40,
         anchor="end", code=True)
     s.lines((900, 900), ["the stick asks for (0.64, 0.16) on the field:",
-                         "0.64 away from the driver, 0.16 to the driver's left"], 28)
+                         "0.64 away from the red driver, 0.16 to the red driver's left;",
+                         "the grid is the field's x and y, moved to the robot's center"], 28)
     s.save("fig-e142-stick-field")
 
 
-def split(seed, name, field, part, words, caption, o=WORK_O, k=WORK_K):
+def split(seed, name, field, part, words, caption, tip_at, o=WORK_O, k=WORK_K, step=0.1):
     """One field part drawn as its two pieces in the robot's frame."""
-    s, v = worked(seed, o, k)
+    s, v = worked(seed, o, k, step=step)
     mid = plus((0, 0), ROT_F, part[0])
     vec(v, (0, 0), field, MARKER_BLUE, nib=10)
     vec(v, (0, 0), mid, ROBOT_FORWARD, nib=8)
     vec(v, mid, field, ROBOT_LEFT, nib=8)
     for q, text, kw in words(v, mid):
         say(v, q, text, **kw)
+    at, anchor = tip_at
+    callout(s, at, [f"({part[0]:.2f}, {part[1]:.2f})", "in the robot's frame"], v.p(field + (0,)),
+            anchor)
     s.lines((900, 920), caption, 28)
     s.save(name)
 
@@ -2349,7 +2400,8 @@ def e142_forward_split():
                  "robot left", dict(size=24, dx=24, dy=-10, anchor="start", code=True)),
                 ((ROT_FORWARD / 2, 0), "(0.64, 0) on the field", dict(size=26, dy=44, code=True))]
     split(139, "fig-e142-forward-split", (ROT_FORWARD, 0.0), (f, l), words,
-          [f"forward on the field is ({f:.2f}, {l:.2f}) in the robot's frame"])
+          [f"forward on the field is ({f:.2f}, {l:.2f}) in the robot's frame"],
+          ((1190, 800), "start"))
 
 
 def e142_strafe_split():
@@ -2366,7 +2418,7 @@ def e142_strafe_split():
     split(149, "fig-e142-strafe-split", (0.0, ROT_STRAFE), (f, l), words,
           [f"strafe on the field is ({f:.2f}, {l:.2f}) in the robot's frame",
            "drawn 3 times as large as the other pictures, so the pieces can be read"],
-          o=(760, 720), k=3 * WORK_K)
+          ((700, 200), "end"), o=(760, 720), k=3 * WORK_K, step=0.05)
 
 
 def chain(v, order):
@@ -2404,35 +2456,72 @@ def order_row(s, ends, words):
     return mids
 
 
-def e142_regroup():
+REGROUP = [("forward", 0), ("forward", 1), ("strafe", 0), ("strafe", 1)]
+REGROUPED = [("forward", 0), ("strafe", 0), ("forward", 1), ("strafe", 1)]
+
+
+def piece_formulas(s, v, ends, order, places):
+    """Each piece's value as the formula that made it, a dotted arrow to the piece's middle."""
+    rows = []
+    for (a, b, value), key, (at, anchor) in zip(ends, order, places):
+        mid = v.p(((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0))
+        rows.append((f"{value:.2f} = {FORMULA[key]}", at, anchor, mid))
+    formula_words(s, rows)
+
+
+def regroup(name, formula):
     s, v = worked(151)
     tip = (ROT_FORWARD, ROT_STRAFE)
     vec(v, (0, 0), tip, GREY1, nib=6)
-    ends = chain(v, [("forward", 0), ("forward", 1), ("strafe", 0), ("strafe", 1)])
-    piece_words(v, ends, ((-20, 0, "end"), (30, -30, "start"), (24, 20, "start"),
-                          (10, -34, "start")))
+    ends = chain(v, REGROUP)
+    if formula:
+        piece_formulas(s, v, ends, REGROUP, (((560, 470), "end"), ((1010, 470), "start"),
+                                             ((1260, 730), "start"), ((1260, 520), "start")))
+    else:
+        piece_words(v, ends, ((-20, 0, "end"), (30, -30, "start"), (24, 20, "start"),
+                              (10, -34, "start")))
     mids = order_row(s, ends, ("forward", "left", "forward", "left"))
     s.marker_arrow((mids[1], ROW_Y - 40), (mids[2], ROW_Y - 40), MARKER_ORANGE, nib=6, bend=-0.15)
     s.marker_arrow((mids[2], ROW_Y + 40), (mids[1], ROW_Y + 40), MARKER_ORANGE, nib=6, bend=-0.15)
     s.lines((900, 880), ["the four pieces, end to end, reach the stick's tip.",
                          "swap the middle two, so the forward pieces come first"], 28)
-    s.save("fig-e142-regroup")
+    s.save(name)
 
 
-def e142_regrouped():
+def e142_regroup():
+    regroup("fig-e142-regroup", False)
+
+
+def e142_regroup_formula():
+    regroup("fig-e142-regroup-formula", True)
+
+
+def regrouped(name, formula):
     s, v = worked(157)
     tip = (ROT_FORWARD, ROT_STRAFE)
     vec(v, (0, 0), tip, GREY1, nib=6)
-    ends = chain(v, [("forward", 0), ("strafe", 0), ("forward", 1), ("strafe", 1)])
-    piece_words(v, ends, ((-20, 0, "end"), (-20, 0, "end"), (30, -30, "start"),
-                          (30, 56, "start")))
+    ends = chain(v, REGROUPED)
+    if formula:
+        piece_formulas(s, v, ends, REGROUPED, (((470, 570), "end"), ((640, 330), "end"),
+                                               ((1040, 400), "start"), ((1240, 680), "start")))
+    else:
+        piece_words(v, ends, ((-20, 0, "end"), (-20, 0, "end"), (30, -30, "start"),
+                              (30, 56, "start")))
     order_row(s, ends, ("forward", "forward", "left", "left"))
     s.lines((900, 880), ["in the new order, the same four pieces reach the same tip:",
                          "both forward pieces, then both left pieces"], 28)
-    s.save("fig-e142-regrouped")
+    s.save(name)
 
 
-def e142_add():
+def e142_regrouped():
+    regrouped("fig-e142-regrouped", False)
+
+
+def e142_regrouped_formula():
+    regrouped("fig-e142-regrouped-formula", True)
+
+
+def added(name, formula):
     s, v = worked(163)
     tip = (ROT_FORWARD, ROT_STRAFE)
     mid = plus((0, 0), ROT_F, ROT_ROBOT_FORWARD)
@@ -2440,16 +2529,75 @@ def e142_add():
     vec(v, (0, 0), mid, ROBOT_FORWARD, nib=10)
     vec(v, mid, tip, ROBOT_LEFT, nib=10)
     (ff, fl), (sf, sl) = ROT_PIECES["forward"], ROT_PIECES["strafe"]
-    say(v, (mid[0] / 2, mid[1] / 2), f"{ff:.2f} + {sf:.2f} = {ROT_ROBOT_FORWARD:.2f}", 30,
-        dx=-20, anchor="end", code=True)
-    say(v, ((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2),
-        f"{fl:.2f} + {sl:.2f} = {ROT_ROBOT_STRAFE:.2f}", 30, dx=24, anchor="start", code=True)
+    if formula:
+        formula_words(s, [
+            (f"{ROT_ROBOT_FORWARD:.2f} = forward·cos θ + strafe·sin θ", (630, 450), "end",
+             v.p((mid[0] / 2, mid[1] / 2, 0))),
+            (f"{ROT_ROBOT_STRAFE:.2f} = -forward·sin θ + strafe·cos θ", (1000, 360), "start",
+             v.p(((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2, 0)))])
+    else:
+        say(v, (mid[0] / 2, mid[1] / 2), f"{ff:.2f} + {sf:.2f} = {ROT_ROBOT_FORWARD:.2f}", 30,
+            dx=-20, anchor="end", code=True)
+        say(v, ((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2),
+            f"{fl:.2f} + {sl:.2f} = {ROT_ROBOT_STRAFE:.2f}", 30, dx=24, anchor="start", code=True)
+    callout(s, (1210, 610), [f"({ROT_ROBOT_FORWARD:.2f}, {ROT_ROBOT_STRAFE:.2f})",
+                             "in the robot's frame"], v.p(tip + (0,)))
     s.lines((900, 850), [
         f"robotForward =  forward·cos θ + strafe·sin θ = {ROT_ROBOT_FORWARD:.2f}",
         f"robotStrafe  = -forward·sin θ + strafe·cos θ = {ROT_ROBOT_STRAFE:.2f}"], 24, code=True)
     s.lines((900, 960), ["the robot drives (0.46, -0.47) in its own frame,",
                          "and goes where the stick points"], 28)
-    s.save("fig-e142-add")
+    s.save(name)
+
+
+def e142_add():
+    added("fig-e142-add", False)
+
+
+def e142_add_formula():
+    added("fig-e142-add-formula", True)
+
+
+# The stick's request seen from the red drive team's place, on BIOBUZZ's field in tiles, a unit
+# 3 tiles long, the robot at E142_AT.
+E142_AT, E142_UNIT = (0.8, 1.3), 3.0
+
+
+def e142_stick_red_3d():
+    s = Sketch(1450, 1000, 167)
+    turn = lambda q: (3 - q[1], q[0] - 3, q[2])                     # as fig-l140-field-red
+    v = Iso(s, (760, 420), 118, turn=turn)
+    at = (0.5, -4.4)
+    room(v, at=at)
+    field_floor(v)
+    field_walls(v)
+    c = E142_AT
+    side = 0.75 / 2                                                 # 18 in, in tiles
+    corner = [plus(plus(c, ROT_F, side * a), ROT_L, side * b)
+              for a, b in ((1, 1), (-1, 1), (-1, -1), (1, -1))]
+    v.s.line([v.p(q + (0.01,)) for q in corner], PEN, 2.4, 0.9, fill=GREY1, closed=True)
+    nose = [plus(plus(c, ROT_F, side), ROT_L, side * 0.45), plus(c, ROT_F, side * 1.6),
+            plus(plus(c, ROT_F, side), ROT_L, -side * 0.45)]
+    v.s.line([v.p(q + (0.01,)) for q in nose], PEN, 2.0, 0.9, fill=NOSE, closed=True)
+    for d, name in (((1.0, 0.0), "field x"), ((0.0, 1.0), "field y")):
+        end = plus(c, d, 0.8)
+        v.s.marker_arrow(v.p(c + (0.02,)), v.p(end + (0.02,)), GREY3, nib=4)
+        x, y = v.p(end + (0.02,))
+        s.text((x - 16, y - 18), name, 24, anchor="end")
+    tip = plus(c, (ROT_FORWARD, ROT_STRAFE), E142_UNIT)
+    corner = (tip[0], c[1])
+    for a, b in ((c, corner), (corner, tip)):
+        v.s.marker_line(v.p(a + (0.03,)), v.p(b + (0.03,)), FIELD_LEG, nib=7)
+    v.s.marker_arrow(v.p(c + (0.04,)), v.p(tip + (0.04,)), MARKER_BLUE, nib=10)
+    x, y = v.p(((c[0] + corner[0]) / 2, c[1], 0))
+    s.text((x + 30, y + 44), "0.64 away", 28, anchor="start")
+    x, y = v.p((tip[0], (c[1] + tip[1]) / 2, 0))
+    s.text((x + 30, y + 16), "0.16 to the left", 28, anchor="start")
+    student(v, turn(c + (0.0,)), at, RED_CAP)
+    s.lines((725, 870), ["from the red drive team's place, the stick asks for",
+                         "0.64 away and 0.16 to the left;",
+                         "its x and y are the field's, moved to the robot's center"], 28)
+    s.save("fig-e142-stick-red-3d")
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph]
@@ -2461,8 +2609,9 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_robot_frame_3d, e035_speeds_3d,
             e035_switch_3d, e035_motor_wheel_gear_box, l140_field_top, l140_field_red,
             l140_field_blue, e141_notation, e141_scale, e141_add, e142_unit_circle,
-            e142_radian, e142_robot_axes, e142_stick_field, e142_forward_split, e142_strafe_split,
-            e142_regroup, e142_regrouped, e142_add]
+            e142_radian, e142_robot_axes, e142_stick_field, e142_stick_red_3d,
+            e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
+            e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula]
 
 if __name__ == "__main__":
     if OUT is None:
