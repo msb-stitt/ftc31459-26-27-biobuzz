@@ -1947,6 +1947,305 @@ def e035_motor_wheel_gear_box():
     s.save("fig-e035-motor-wheel-gear-box")
 
 
+# -- L140's field: BIOBUZZ, 2026-27, in Pedro's coordinates, a unit one 24 in tile. Each place and
+# size is FIRST's, from the Competition Manual TU06 section 9 and the Event Field Setup Guide V1.0;
+# the frame's and the HIVES' places, and the FLOWERS' seams, are read off the manual's Figures 9-2
+# and 9-4. Pedro's (0, 0) is the corner where the red wall meets the audience's, +x from the red
+# wall toward the blue and +y away from the audience: Pedro's Coordinates page turns FTC's field
+# coordinates into its own as (y + 72, 72 - x), and FTC's put +y from the red wall to the blue
+# and +x toward the audience.
+
+def inches(*q):
+    return tuple(c / 24 for c in q)
+
+
+FIELD_TAPE = {   # each LOADING ZONE, 11 in deep and 23 in wide, open on its wall's side
+    MARKER_RED: [inches(0, 96.5), inches(11, 96.5), inches(11, 119.5), inches(0, 119.5)],
+    BLUE: [inches(144, 24.5), inches(133, 24.5), inches(133, 47.5), inches(144, 47.5)]}
+GARDENS = {MARKER_RED: rect(*inches(0.5, 0, 23, 2)), BLUE: rect(*inches(120.5, 142, 23, 2))}
+ALLIANCE_AREAS = {MARKER_RED: rect(*inches(-54, 23.5, 54, 97)),
+                  BLUE: rect(*inches(144, 23.5, 54, 97))}
+FRAME_BASE = rect(*inches(72 - 49.46 / 2, 72 - 38.95 / 2, 49.46, 38.95))
+HIVES = {MARKER_RED: 58.5, BLUE: 85.5}    # each HIVE's x, in in; 42.91 in long along y
+FLOWERS = [inches(48, 142), inches(142, 96), inches(2, 48), inches(96, 2)]
+
+
+def field_floor(v):
+    """The field flat on the floor: tiles, tape, the frame's base, the HIVES and the FLOWERS."""
+    floor = [v.p((x, y, 0)) for x, y in ((0, 0), (6, 0), (6, 6), (0, 6))]
+    v.s.line(floor, None, fill=GREY1, fill_alpha=0.45, closed=True)
+    v.s.marker(floor, GREY1, nib=30, opacity=0.3, layers=1)
+    for n in range(1, 6):
+        v.s.line([v.p((n, 0, 0)), v.p((n, 6, 0))], GREY3, 1.2, 0.5)
+        v.s.line([v.p((0, n, 0)), v.p((6, n, 0))], GREY3, 1.2, 0.5)
+    for color, shape in ALLIANCE_AREAS.items():
+        v.s.line([v.p(q + (0,)) for q in shape], color, 6, 0.8, closed=True)
+    for color, pts in FIELD_TAPE.items():
+        v.s.line([v.p(q + (0,)) for q in pts], color, 7, 0.9)
+    for color, shape in GARDENS.items():
+        v.s.line([v.p(q + (0,)) for q in shape], color, 2, 0.9, fill=color, closed=True)
+    v.s.line([v.p(q + (0,)) for q in FRAME_BASE], GREY4, 2.4, 0.8, fill=GREY2, fill_alpha=0.3,
+             closed=True)
+    for color, x in HIVES.items():
+        hive = [v.p(q + (0,)) for q in rect(*inches(x - 10, 72 - 42.91 / 2, 20, 42.91))]
+        v.s.marker(hive, color, nib=14, opacity=0.5)
+        v.s.ink_poly(hive, width=2.0)
+        for dy in (-9.42, 9.42):                    # its two CELLS, 18.84 in apart
+            v.s.ink_poly([v.p(q + (0,)) for q in rect(*inches(x - 8, 72 + dy - 6.02, 16, 12.04))],
+                         width=1.4)
+    for c in FLOWERS:
+        ring = [v.p((c[0] + 0.1 * math.cos(u), c[1] + 0.1 * math.sin(u), 0))
+                for u in (i * math.pi / 12 for i in range(24))]
+        v.s.line(ring, PEN, 2.0, 0.9, fill=MARKER_YELLOW, closed=True)
+
+
+def field_walls(v, h=12.3 / 24):
+    """The walls, 12.3 in tall, clear enough to see the floor through."""
+    corners = ((0, 0), (6, 0), (6, 6), (0, 6))
+    for a, b in zip(corners, corners[1:] + corners[:1]):
+        face = [v.p(a + (0,)), v.p(b + (0,)), v.p(b + (h,)), v.p(a + (h,))]
+        v.s.line(face, None, fill=GREY2, fill_alpha=0.18, closed=True)
+        v.s.ink_line(v.p(a + (h,)), v.p(b + (h,)), width=2.0, over=4)
+        v.s.ink_line(v.p(a + (0,)), v.p(b + (0,)), width=2.4, over=4)
+    for a in corners:
+        v.s.ink_line(v.p(a + (0,)), v.p(a + (h,)), width=1.6, over=2, passes=1)
+
+
+def pedro_axes(v):
+    o = v.p((0, 0, 0))
+    v.s.marker_arrow(o, v.p((2.6, 0, 0)), AXIS_X, nib=6)
+    v.s.marker_arrow(o, v.p((0, 2.6, 0)), AXIS_Y, nib=6)
+    v.s.dot(o, 9)
+    for q, name, dy in (((2.6, -0.3, 0), "+x", 10), ((-0.3, 2.6, 0), "+y", 10),
+                        ((-0.5, -0.5, 0), "(0, 0)", 10)):
+        x, y = v.p(q)
+        v.s.text((x, y + dy), name, 28, code=name.startswith("("))
+
+
+def l140_field_top():
+    s = Sketch(1300, 1100, 83)
+    v = Iso(s, (285, 860), 120, right=TOP_RIGHT, up=TOP_UP)
+    s.shadow([v.p(q) for q in ((0.1, -0.12, 0), (6.1, -0.12, 0), (6.1, 5.88, 0), (0.1, 5.88, 0))],
+             sigma=10, alpha=0.2)
+    field_floor(v)
+    field_walls(v)
+    pedro_axes(v)
+    x, y = v.p((-1.12, 3, 0))
+    s.text((x, y), "red drive team", 30, MARKER_RED, rot=-90)
+    x, y = v.p((7.12, 3, 0))
+    s.text((x, y), "blue drive team", 30, BLUE, rot=90)
+    x, y = v.p((3, -0.55, 0))
+    s.text((x, y), "audience", 30, GREY4)
+    x, y = v.p((3, 3.1, 0))
+    s.text((x - 40, y - 120), "hives", 26)
+    for q, (dx, dy), anchor in (((2, 6), (0, -24), "middle"), ((6, 4), (24, 8), "start")):
+        x, y = v.p(q + (0,))
+        s.text((x + dx, y + dy), "flower", 24, anchor=anchor)
+    x, y = v.p((6.05, 6.05, 0))
+    s.text((x, y - 4), "(144, 144) in", 24, anchor="start", code=True)
+    s.lines((650, 1010), ["BIOBUZZ from above, in Pedro's coordinates"], 30)
+    s.save("fig-l140-field-top")
+
+
+def drivers_view(name, turn, at, words):
+    """The field in Onshape's isometric view, turned so the drive team's student stands near the
+    viewer at at, looking across the field."""
+    s = Sketch(1450, 1000, 89)
+    v = Iso(s, (780, 410), 108, turn=turn)
+    room(v, at=at)
+    field_floor(v)
+    field_walls(v)
+    pedro_axes(v)
+    student(v, (at[0], 0.0, 0.0), at)
+    s.lines((725, 900), words, 30)
+    s.save(name)
+
+
+def l140_field_red():
+    # Pedro's +x away from the red drive team and +y to their left.
+    drivers_view("fig-l140-field-red", lambda q: (3 - q[1], q[0] - 3, q[2]), (0.5, -4.4),
+                 ["from the red drive team's place:", "+x points away, +y to the left"])
+
+
+def l140_field_blue():
+    # Pedro's +x toward the blue drive team and +y to their right.
+    drivers_view("fig-l140-field-blue", lambda q: (q[1] - 3, 3 - q[0], q[2]), (0.5, -4.4),
+                 ["from the blue drive team's place:", "+x points toward you, +y to the right"])
+
+
+# -- E14x: how L140's two lines turn the stick on the field into the robot's own forward and
+# strafe. One heading and one stick throughout, L140's answer run on them in the test harness on
+# 2026-10-25: heading 60°, left_stick_y -0.8 and left_stick_x -0.4, so forward 0.64 and
+# strafe 0.16, and robotForward 0.4586 and robotStrafe -0.4743.
+
+ROT_HEADING = math.radians(60)
+ROT_FORWARD, ROT_STRAFE = 0.8 ** 2, 0.4 ** 2                    # L060's sign-keeping square
+ROT_ROBOT_FORWARD = ROT_FORWARD * math.cos(ROT_HEADING) + ROT_STRAFE * math.sin(ROT_HEADING)
+ROT_ROBOT_STRAFE = -ROT_FORWARD * math.sin(ROT_HEADING) + ROT_STRAFE * math.cos(ROT_HEADING)
+
+
+def unit_circle(v, r=1.0, axes=True):
+    """A circle of radius 1 about 0, with the x and y axes through it."""
+    v.s.ink_circle(v.p((0, 0, 0)), r * v.k, width=2.2)
+    if axes:
+        v.s.marker_arrow(v.p((-1.3, 0, 0)), v.p((1.4, 0, 0)), AXIS_X, nib=6)
+        v.s.marker_arrow(v.p((0, -1.3, 0)), v.p((0, 1.3, 0)), AXIS_Y, nib=6)
+        for q, name in (((1.52, -0.03, 0), "x"), ((0.1, 1.24, 0), "y")):
+            v.s.text(v.p(q), name, 32)
+
+
+def angle_arc(v, c, r, a0, a1, color=MARKER_ORANGE, nib=7):
+    pts = [v.p((c[0] + r * math.cos(a), c[1] + r * math.sin(a), 0))
+           for a in np.linspace(a0, a1, 24)]
+    v.s.line(pts, color, nib, 0.85)
+    v.s.line(pts, PEN, 1.6, 0.8)
+    v.s.marker_arrow(pts[-2], pts[-1], color, nib=nib)
+
+
+def e14x_unit_circle():
+    s = Sketch(1200, 1000, 97)
+    v = Iso(s, (480, 460), 300, right=TOP_RIGHT, up=TOP_UP)
+    unit_circle(v)
+    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+    s.construct(v.p((c, sn, 0)), v.p((c, 0, 0)))
+    s.construct(v.p((c, sn, 0)), v.p((0, sn, 0)))
+    s.marker_line(v.p((0, 0, 0)), v.p((c, 0, 0)), AXIS_X, nib=14)
+    s.marker_line(v.p((0, 0, 0)), v.p((0, sn, 0)), AXIS_Y, nib=14)
+    s.marker_arrow(v.p((0, 0, 0)), v.p((c, sn, 0)), MARKER_ORANGE, nib=7)
+    s.dot(v.p((c, sn, 0)), 10)
+    angle_arc(v, (0, 0), 0.22, 0, ROT_HEADING, GREY3, nib=4)
+    x, y = v.p((0.25, 0.12, 0))
+    s.text((x, y), "60°", 28, anchor="start")
+    x, y = v.p((c / 2, -0.12, 0))
+    s.text((x, y), f"cos 60° = {c:.2f}", 28)
+    x, y = v.p((-0.06, sn / 2, 0))
+    s.text((x, y), f"sin 60° = {sn:.2f}", 28, anchor="end")
+    x, y = v.p((c, sn, 0))
+    s.text((x + 20, y - 20), f"({c:.2f}, {sn:.2f})", 26, anchor="start", code=True)
+    s.lines((600, 930), ["a point 1 from the middle, at 60°: its x is cos 60° and its y is sin 60°"],
+            28)
+    s.save("fig-e14x-unit-circle")
+
+
+def e14x_radian():
+    s = Sketch(1200, 1000, 101)
+    v = Iso(s, (480, 460), 300, right=TOP_RIGHT, up=TOP_UP)
+    unit_circle(v)
+    s.marker_line(v.p((0, 0, 0)), v.p((1, 0, 0)), GREY2, nib=10)
+    x, y = v.p((0.5, -0.1, 0))
+    s.text((x, y), "1", 30)
+    pts = [v.p((math.cos(a), math.sin(a), 0)) for a in np.linspace(0, ROT_HEADING, 30)]
+    s.line(pts, MARKER_ORANGE, 16, 0.85)
+    s.line(pts, PEN, 1.6, 0.8)
+    s.marker_line(v.p((0, 0, 0)), v.p((math.cos(ROT_HEADING), math.sin(ROT_HEADING), 0)),
+                  GREY2, nib=6)
+    tick = (math.cos(1.0), math.sin(1.0))         # 1 radian along the edge
+    s.ink_line(v.p((0.93 * tick[0], 0.93 * tick[1], 0)), v.p((1.07 * tick[0], 1.07 * tick[1], 0)),
+               width=2.4, over=2, passes=1)
+    x, y = v.p((1.14 * tick[0], 1.14 * tick[1], 0))
+    s.text((x, y), "1 around", 24, anchor="start")
+    x, y = v.p((1.12 * math.cos(0.4), 1.12 * math.sin(0.4), 0))
+    s.text((x, y), f"{ROT_HEADING:.2f} around the edge", 28, anchor="start")
+    s.lines((600, 900), [f"60° is {ROT_HEADING:.2f} of the radius around the edge: "
+                         f"{ROT_HEADING:.2f} radians",
+                         "all the way round is 360°, or 2π = 6.28 radians"], 28)
+    s.save("fig-e14x-radian")
+
+
+def robot_at(s, c, side, heading):
+    """The robot from above at page point c, its nose at heading, field +x to the right."""
+    s.turn = (c[0], c[1], 90 - math.degrees(heading))
+    frame_top(s, c[0] - side / 2, c[1] - side / 2, side, side, nose=False)
+    tri = [(c[0] - side * 0.22, c[1] - side / 2), (c[0], c[1] - side * 0.78),
+           (c[0] + side * 0.22, c[1] - side / 2)]
+    s.marker(tri, MARKER_RED, nib=10, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    s.turn = (0.0, 0.0, 0.0)
+
+
+def field_corner_axes(s, o):
+    s.marker_arrow(o, (o[0] + 130, o[1]), GREY3, nib=4)
+    s.marker_arrow(o, (o[0], o[1] - 130), GREY3, nib=4)
+    s.text((o[0] + 140, o[1] + 8), "field x", 22, anchor="start")
+    s.text((o[0], o[1] - 150), "field y", 22)
+
+
+def e14x_robot_axes():
+    s = Sketch(1300, 1050, 103)
+    v = Iso(s, (600, 520), 300, right=TOP_RIGHT, up=TOP_UP)
+    field_corner_axes(s, (90, 960))
+    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+    s.construct(v.p((-1.2, 0, 0)), v.p((1.3, 0, 0)))
+    s.ink_circle(v.p((0, 0, 0)), v.k, width=1.4, passes=1)
+    robot_at(s, v.p((0, 0, 0)), 140, ROT_HEADING)
+    s.marker_arrow(v.p((0, 0, 0)), v.p((c, sn, 0)), MARKER_RED, nib=8)
+    s.marker_arrow(v.p((0, 0, 0)), v.p((-sn, c, 0)), AXIS_Y, nib=8)
+    angle_arc(v, (0, 0), 0.45, 0, ROT_HEADING, MARKER_ORANGE, nib=6)
+    x, y = v.p((0.5, 0.18, 0))
+    s.text((x, y), "heading 60°", 26, anchor="start")
+    x, y = v.p((c, sn, 0))
+    s.lines((x + 20, y - 40), ["forward:", f"(cos 60°, sin 60°) = ({c:.2f}, {sn:.2f})"], 26,
+            anchor="start")
+    x, y = v.p((-sn, c, 0))
+    s.lines((x + 60, y - 70), ["left:", f"(-sin 60°, cos 60°) = ({-sn:.2f}, {c:.2f})"], 26)
+    s.lines((700, 960), ["the robot's own forward and left, read off a circle drawn on it"], 28)
+    s.save("fig-e14x-robot-axes")
+
+
+def e14x_shadows():
+    s = Sketch(1400, 1150, 107)
+    v = Iso(s, (640, 560), 560, right=TOP_RIGHT, up=TOP_UP)
+    field_corner_axes(s, (90, 1000))
+    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+    tip = (ROT_FORWARD, ROT_STRAFE)
+    s.construct(v.p((-0.6 * c, -0.6 * sn, 0)), v.p((0.95 * c, 0.95 * sn, 0)))
+    s.construct(v.p((0.95 * sn, -0.95 * c, 0)), v.p((-0.6 * sn, 0.6 * c, 0)))
+    robot_at(s, v.p((0, 0, 0)), 110, ROT_HEADING)
+    f, l = ROT_ROBOT_FORWARD, ROT_ROBOT_STRAFE
+    s.construct(v.p(tip + (0,)), v.p((f * c, f * sn, 0)))
+    s.construct(v.p(tip + (0,)), v.p((-l * sn, l * c, 0)))
+    s.marker_line(v.p((0, 0, 0)), v.p((f * c, f * sn, 0)), MARKER_ORANGE, nib=14)
+    s.marker_line(v.p((0, 0, 0)), v.p((-l * sn, l * c, 0)), MARKER_ORANGE, nib=14)
+    s.marker_arrow(v.p((0, 0, 0)), v.p(tip + (0,)), MARKER_BLUE, nib=10)
+    x, y = v.p(tip + (0,))
+    s.lines((x + 20, y + 10), ["the stick on the field:", f"forward {ROT_FORWARD:.2f}, "
+                               f"strafe {ROT_STRAFE:.2f}"], 26, anchor="start")
+    x, y = v.p((f * c, f * sn, 0))
+    s.text((x - 16, y - 20), f"robotForward {f:.2f}", 26, anchor="end", code=True)
+    x, y = v.p((-l * sn, l * c, 0))
+    s.text((x + 10, y + 46), f"robotStrafe {l:.2f}", 26, anchor="middle", code=True)
+    x, y = v.p((0.95 * c, 0.95 * sn, 0))
+    s.text((x, y - 16), "robot forward", 24)
+    s.lines((760, 960), [
+        f"robotForward =  forward·cos θ + strafe·sin θ = {f:.2f}",
+        f"robotStrafe  = -forward·sin θ + strafe·cos θ = {l:.2f}"], 24, code=True)
+    s.lines((760, 1080), ["each is the stick's shadow on one of the robot's own axes"], 28)
+    s.save("fig-e14x-shadows")
+
+
+def e14x_add_up():
+    s = Sketch(1400, 900, 109)
+    v = Iso(s, (560, 520), 640, right=TOP_RIGHT, up=TOP_UP)
+    field_corner_axes(s, (90, 820))
+    c, sn = math.cos(ROT_HEADING), math.sin(ROT_HEADING)
+    f, l = ROT_ROBOT_FORWARD, ROT_ROBOT_STRAFE
+    mid = (f * c, f * sn)
+    tip = (mid[0] - l * sn, mid[1] + l * c)
+    robot_at(s, v.p((0, 0, 0)), 110, ROT_HEADING)
+    s.marker_arrow(v.p((0, 0, 0)), v.p((ROT_FORWARD, ROT_STRAFE, 0)), MARKER_BLUE, nib=10)
+    s.marker_arrow(v.p((0, 0, 0)), v.p(mid + (0,)), MARKER_ORANGE, nib=8)
+    s.marker_arrow(v.p(mid + (0,)), v.p(tip + (0,)), MARKER_ORANGE, nib=8)
+    x, y = v.p(mid + (0,))
+    s.text((x - 16, y - 16), f"{f:.2f} forward", 28, anchor="end")
+    x, y = v.p(((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2, 0))
+    s.text((x + 20, y - 10), f"then {-l:.2f} to the robot's right", 28, anchor="start")
+    x, y = v.p((ROT_FORWARD / 2, ROT_STRAFE / 2, 0))
+    s.text((x + 10, y + 50), "the stick", 28, anchor="start")
+    s.lines((740, 810), ["the two shadows, laid along the robot's own axes,",
+                         "add back up to the stick's arrow"], 28)
+    s.save("fig-e14x-add-up")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
@@ -1954,7 +2253,9 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             stick_to_robot, pedro_field, e035_numberline, e035_xy, e035_xyz, e035_flip,
             e035_flipped, e035_stick, e035_robot, e035_speeds, e035_switch, e035_numberline_3d,
             e035_xy_3d, e035_stick_3d, e035_robot_3d, e035_robot_frame_3d, e035_speeds_3d,
-            e035_switch_3d, e035_motor_wheel_gear_box]
+            e035_switch_3d, e035_motor_wheel_gear_box, l140_field_top, l140_field_red,
+            l140_field_blue, e14x_unit_circle, e14x_radian, e14x_robot_axes, e14x_shadows,
+            e14x_add_up]
 
 if __name__ == "__main__":
     if OUT is None:
