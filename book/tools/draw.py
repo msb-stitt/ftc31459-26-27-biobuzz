@@ -2012,15 +2012,27 @@ def field_walls(v, h=12.3 / 24):
         v.s.ink_line(v.p(a + (0,)), v.p(a + (h,)), width=1.6, over=2, passes=1)
 
 
-def pedro_axes(v):
+def pedro_axes(v, zero=None):
+    """Pedro's +x and +y from (0, 0); zero, if given, places the (0, 0) label there with an arrow
+    to it, where the corner's own place is taken."""
     o = v.p((0, 0, 0))
     v.s.marker_arrow(o, v.p((2.6, 0, 0)), AXIS_X, nib=6)
     v.s.marker_arrow(o, v.p((0, 2.6, 0)), AXIS_Y, nib=6)
     v.s.dot(o, 9)
-    for q, name, dy in (((2.6, -0.3, 0), "+x", 10), ((-0.3, 2.6, 0), "+y", 10),
-                        ((-0.5, -0.5, 0), "(0, 0)", 10)):
+    labels = [((2.6, -0.3, 0), "+x"), ((-0.3, 2.6, 0), "+y")]
+    if zero:
+        v.s.text(zero, "(0, 0)", 28, anchor="end", code=True)
+        p0, p1 = (zero[0] + 6, zero[1] - 10), (o[0] - 14, o[1] - 6)
+        n = math.dist(p0, p1)
+        ux, uy, h = (p1[0] - p0[0]) / n, (p1[1] - p0[1]) / n, 14
+        v.s.line([p0, p1], GREY1, 3, 0.9)
+        v.s.line([(p1[0] - ux * h - uy * h * 0.5, p1[1] - uy * h + ux * h * 0.5), p1,
+                  (p1[0] - ux * h + uy * h * 0.5, p1[1] - uy * h - ux * h * 0.5)], GREY1, 3, 0.9)
+    else:
+        labels.append(((-0.5, -0.5, 0), "(0, 0)"))
+    for q, name in labels:
         x, y = v.p(q)
-        v.s.text((x, y + dy), name, 28, code=name.startswith("("))
+        v.s.text((x, y + 10), name, 28, code=name.startswith("("))
 
 
 def l140_field_top():
@@ -2048,7 +2060,7 @@ def l140_field_top():
     s.save("fig-l140-field-top")
 
 
-def drivers_view(name, turn, at, words, cap):
+def drivers_view(name, turn, at, words, cap, zero=None):
     """The field in Onshape's isometric view, turned so the drive team's student stands near the
     viewer at at, looking across the field."""
     s = Sketch(1450, 1000, 89)
@@ -2056,7 +2068,7 @@ def drivers_view(name, turn, at, words, cap):
     room(v, at=at)
     field_floor(v)
     field_walls(v)
-    pedro_axes(v)
+    pedro_axes(v, zero)
     student(v, (at[0], 0.0, 0.0), at, cap)
     s.lines((725, 900), words, 30)
     s.save(name)
@@ -2072,7 +2084,7 @@ def l140_field_blue():
     # Pedro's +x toward the blue drive team and +y to their right.
     drivers_view("fig-l140-field-blue", lambda q: (q[1] - 3, 3 - q[0], q[2]), (0.5, -4.4),
                  ["from the blue drive team's place:", "+x points toward you, +y to the right"],
-                 BLUE_CAP)
+                 BLUE_CAP, zero=(600, 80))
 
 
 # -- E141 and E142: vectors, then how L140's two lines turn the stick on the field into the robot's
