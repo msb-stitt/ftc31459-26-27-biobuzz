@@ -2582,7 +2582,6 @@ def e142_stick_red_3d():
     at = (0.5, -4.4)
     room(v, at=at)
     field_floor(v)
-    field_walls(v)
     c = E142_AT
     side = 0.75 / 2                                                 # 18 in, in tiles
     corner = [plus(plus(c, ROT_F, side * a), ROT_L, side * b)
@@ -2591,22 +2590,24 @@ def e142_stick_red_3d():
     nose = [plus(plus(c, ROT_F, side), ROT_L, side * 0.45), plus(c, ROT_F, side * 1.6),
             plus(plus(c, ROT_F, side), ROT_L, -side * 0.45)]
     v.s.line([v.p(q + (0.01,)) for q in nose], PEN, 2.0, 0.9, fill=NOSE, closed=True)
-    for d, name in (((1.0, 0.0), "field x"), ((0.0, 1.0), "field y")):
-        end = plus(c, d, 0.8)
-        v.s.marker_arrow(v.p(c + (0.02,)), v.p(end + (0.02,)), GREY3, nib=4)
-        x, y = v.p(end + (0.02,))
-        s.text((x - 16, y - 18), name, 24, anchor="end")
+    axes = (((1.0, 0.0), "field x"), ((0.0, 1.0), "field y"))
+    for d, _ in axes:
+        v.s.marker_arrow(v.p(c + (0.02,)), v.p(plus(c, d, 0.8) + (0.02,)), GREY3, nib=4)
     tip = plus(c, (ROT_FORWARD, ROT_STRAFE), E142_UNIT)
     corner = (tip[0], c[1])
     for a, b in ((c, corner), (corner, tip)):
         v.s.marker_line(v.p(a + (0.03,)), v.p(b + (0.03,)), FIELD_LEG, nib=7)
     v.s.marker_arrow(v.p(c + (0.04,)), v.p(tip + (0.04,)), MARKER_BLUE, nib=10)
+    field_walls(v)                                  # after the robot, so it is behind the wall
+    for d, name in axes:
+        x, y = v.p(plus(c, d, 0.8) + (0.02,))
+        s.text((x - 16, y - 18), name, 24, anchor="end")
     x, y = v.p(((c[0] + corner[0]) / 2, c[1], 0))
     s.text((x + 30, y + 44), "0.64 away", 28, anchor="start")
     x, y = v.p((tip[0], (c[1] + tip[1]) / 2, 0))
     s.text((x + 30, y + 16), "0.16 to the left", 28, anchor="start")
     student(v, turn(c + (0.0,)), at, RED_CAP)
-    s.lines((725, 870), ["from the red drive team's place, the stick asks for",
+    s.lines((725, 870), ["from the Red Alliance Station, the stick asks for",
                          "0.64 away and 0.16 to the left;",
                          "its x and y are the field's, moved to the robot's center"], 28)
     s.save("fig-e142-stick-red-3d")
