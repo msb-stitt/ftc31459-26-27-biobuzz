@@ -2430,7 +2430,7 @@ def e142_strafe_split():
     split(149, "fig-e142-strafe-split", (0.0, ROT_STRAFE), (f, l), words,
           [f"strafe on the field is ({f:.2f}, {l:.2f}) in the robot's frame",
            "drawn 3 times as large as the other pictures, so the pieces can be read"],
-          ((700, 200), "end"), o=(760, 720), k=3 * WORK_K, step=0.05)
+          ((700, 200), "end"), o=(760, 720), k=3 * WORK_K, step=0.1)
 
 
 def chain(v, order):
