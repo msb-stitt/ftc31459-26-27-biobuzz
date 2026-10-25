@@ -148,6 +148,21 @@ path = "source/tasks/l140.md"
 words = 1700
 
 [[page]]
+path = "source/tasks/e141.md"
+# Measured off the first draft, about 243 words, and rounded up, 2026-10-25.
+words = 300
+
+[[page]]
+path = "source/tasks/e142.md"
+# Measured off the first draft, about 513 words, and rounded up, 2026-10-25.
+words = 550
+
+[[page]]
+path = "source/tasks/e143.md"
+# Measured off the first draft, about 209 words, and rounded up, 2026-10-25.
+words = 250
+
+[[page]]
 path = "source/tasks/l150.md"
 words = 1700
 
