@@ -1064,8 +1064,8 @@ def stick_to_robot():
 
 def pedro_field():
     # Pedro's field axes, from its Coordinates page: (0, 0) in a corner, x and y 0 in to 144 in,
-    # heading 0 along +x and counter-clockwise positive. The red drive team stands on the left, as
-    # L140 puts the driver, and the blue drive team on the right.
+    # heading 0 along +x and counter-clockwise positive. The Red Alliance Station is on the left, as
+    # L140 puts the driver, and the Blue Alliance Station on the right.
     s = Sketch(1300, 1060, 31)
     fx, fy, fs = 190, 120, 760
     s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
@@ -1075,9 +1075,9 @@ def pedro_field():
     for k in (1, 2, 3, 4, 5):
         s.construct((fx + fs * k / 6, fy), (fx + fs * k / 6, fy + fs))
         s.construct((fx, fy + fs * k / 6), (fx + fs, fy + fs * k / 6))
-    s.text((110, fy + fs / 2), "red drive team", 32, MARKER_RED, rot=-90)
+    s.text((110, fy + fs / 2), "Red Alliance Station", 32, MARKER_RED, rot=-90)
     s.dot((140, fy + fs / 2), 10, MARKER_RED)
-    s.text((fx + fs + 80, fy + fs / 2), "blue drive team", 32, BLUE, rot=90)
+    s.text((fx + fs + 80, fy + fs / 2), "Blue Alliance Station", 32, BLUE, rot=90)
     s.dot((fx + fs + 50, fy + fs / 2), 10, BLUE)
     o = (fx, fy + fs)
     s.dot(o, 12)
@@ -2044,9 +2044,9 @@ def l140_field_top():
     field_walls(v)
     pedro_axes(v)
     x, y = v.p((-1.12, 3, 0))
-    s.text((x, y), "red drive team", 30, MARKER_RED, rot=-90)
+    s.text((x, y), "Red Alliance Station", 30, MARKER_RED, rot=-90)
     x, y = v.p((7.12, 3, 0))
-    s.text((x, y), "blue drive team", 30, BLUE, rot=90)
+    s.text((x, y), "Blue Alliance Station", 30, BLUE, rot=90)
     x, y = v.p((3, -0.55, 0))
     s.text((x, y), "audience", 30, GREY4)
     x, y = v.p((3, 3.1, 0))
@@ -2061,8 +2061,8 @@ def l140_field_top():
 
 
 def drivers_view(name, turn, at, words, cap, zero=None):
-    """The field in Onshape's isometric view, turned so the drive team's student stands near the
-    viewer at at, looking across the field."""
+    """The field in Onshape's isometric view, turned so the student in the Alliance Station stands
+    near the viewer at at, looking across the field."""
     s = Sketch(1450, 1000, 89)
     v = Iso(s, (780, 410), 108, turn=turn)
     room(v, at=at)
@@ -2075,15 +2075,15 @@ def drivers_view(name, turn, at, words, cap, zero=None):
 
 
 def l140_field_red():
-    # Pedro's +x away from the red drive team and +y to their left.
+    # Pedro's +x away from the Red Alliance Station and +y to its drivers' left.
     drivers_view("fig-l140-field-red", lambda q: (3 - q[1], q[0] - 3, q[2]), (0.5, -4.4),
-                 ["from the red drive team's place:", "+x points away, +y to the left"], RED_CAP)
+                 ["from the Red Alliance Station:", "+x points away, +y to the left"], RED_CAP)
 
 
 def l140_field_blue():
-    # Pedro's +x toward the blue drive team and +y to their right.
+    # Pedro's +x toward the Blue Alliance Station and +y to its drivers' right.
     drivers_view("fig-l140-field-blue", lambda q: (q[1] - 3, 3 - q[0], q[2]), (0.5, -4.4),
-                 ["from the blue drive team's place:", "+x points toward you, +y to the right"],
+                 ["from the Blue Alliance Station:", "+x points toward you, +y to the right"],
                  BLUE_CAP, zero=(600, 80))
 
 
@@ -2570,7 +2570,7 @@ def e142_add_formula():
     added("fig-e142-add-formula", True)
 
 
-# The stick's request seen from the red drive team's place, on BIOBUZZ's field in tiles, a unit
+# The stick's request seen from the Red Alliance Station, on BIOBUZZ's field in tiles, a unit
 # 3 tiles long, the robot at E142_AT.
 E142_AT, E142_UNIT = (0.8, 1.3), 3.0
 
@@ -2646,8 +2646,8 @@ def loop_wire(s, pts, color, dashed, arrow):
         (x0, y0), (x1, y1) = out[-1], p[1:]
         c, r = ((x0 + x1) / 2, (y0 + y1) / 2), math.hypot(x1 - x0, y1 - y0) / 2
         a0 = math.atan2(y0 - c[1], x0 - c[0])
-        out += [(c[0] + r * math.cos(a0 + math.pi * i / 8), c[1] + r * math.sin(a0 + math.pi * i / 8))
-                for i in range(1, 9)]
+        out += [(c[0] + r * math.cos(a0 + math.pi * i / 8),
+                 c[1] + r * math.sin(a0 + math.pi * i / 8)) for i in range(1, 9)]
     line = s.line(out, color, 3.2 if color != PEN else 2.6, 0.9)
     if dashed:
         line.set_linestyle((0, (5, 3)))
@@ -2976,8 +2976,9 @@ AUTO_LOOPS = [
     ("text", "t", 570, 552, "projected pose ●"),
     ("text", "n", 570, 570, "stopping point: uses the velocity output too"),
     ("text", "n", 836, 546, "plant out: pose, velocity", "lib-s"),
-    ("text", "t", 230, 620, "One loop at a time, closed through the hardware each follower.update(): "
-     "the curve, then the pose. No driver.", "lib-s"),
+    ("text", "t", 230, 620,
+     "One loop at a time, closed through the hardware each follower.update(): the curve, then the "
+     "pose. No driver.", "lib-s"),
 ]
 
 
