@@ -1064,8 +1064,8 @@ def stick_to_robot():
 
 def pedro_field():
     # Pedro's field axes, from its Coordinates page: (0, 0) in a corner, x and y 0 in to 144 in,
-    # heading 0 along +x and counter-clockwise positive. The Red Alliance Station is on the left, as
-    # L140 puts the driver, and the Blue Alliance Station on the right.
+    # heading 0 along +x and counter-clockwise positive. The Red Alliance Area is on the left, as
+    # L140 puts the driver, and the Blue Alliance Area on the right.
     s = Sketch(1300, 1060, 31)
     fx, fy, fs = 190, 120, 760
     s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
@@ -1075,9 +1075,9 @@ def pedro_field():
     for k in (1, 2, 3, 4, 5):
         s.construct((fx + fs * k / 6, fy), (fx + fs * k / 6, fy + fs))
         s.construct((fx, fy + fs * k / 6), (fx + fs, fy + fs * k / 6))
-    s.text((110, fy + fs / 2), "Red Alliance Station", 32, MARKER_RED, rot=-90)
+    s.text((110, fy + fs / 2), "Red Alliance Area", 32, MARKER_RED, rot=-90)
     s.dot((140, fy + fs / 2), 10, MARKER_RED)
-    s.text((fx + fs + 80, fy + fs / 2), "Blue Alliance Station", 32, BLUE, rot=90)
+    s.text((fx + fs + 80, fy + fs / 2), "Blue Alliance Area", 32, BLUE, rot=90)
     s.dot((fx + fs + 50, fy + fs / 2), 10, BLUE)
     o = (fx, fy + fs)
     s.dot(o, 12)
@@ -2044,9 +2044,9 @@ def l140_field_top():
     field_walls(v)
     pedro_axes(v)
     x, y = v.p((-1.12, 3, 0))
-    s.text((x, y), "Red Alliance Station", 30, MARKER_RED, rot=-90)
+    s.text((x, y), "Red Alliance Area", 30, MARKER_RED, rot=-90)
     x, y = v.p((7.12, 3, 0))
-    s.text((x, y), "Blue Alliance Station", 30, BLUE, rot=90)
+    s.text((x, y), "Blue Alliance Area", 30, BLUE, rot=90)
     x, y = v.p((3, -0.55, 0))
     s.text((x, y), "audience", 30, GREY4)
     x, y = v.p((3, 3.1, 0))
@@ -2061,7 +2061,7 @@ def l140_field_top():
 
 
 def drivers_view(name, turn, at, words, cap, zero=None):
-    """The field in Onshape's isometric view, turned so the student in the Alliance Station stands
+    """The field in Onshape's isometric view, turned so the student in the Alliance Area stands
     near the viewer at at, looking across the field."""
     s = Sketch(1450, 1000, 89)
     v = Iso(s, (780, 410), 108, turn=turn)
@@ -2075,15 +2075,15 @@ def drivers_view(name, turn, at, words, cap, zero=None):
 
 
 def l140_field_red():
-    # Pedro's +x away from the Red Alliance Station and +y to its drivers' left.
+    # Pedro's +x away from the Red Alliance Area and +y to its drivers' left.
     drivers_view("fig-l140-field-red", lambda q: (3 - q[1], q[0] - 3, q[2]), (0.5, -4.4),
-                 ["from the Red Alliance Station:", "+x points away, +y to the left"], RED_CAP)
+                 ["from the Red Alliance Area:", "+x points away, +y to the left"], RED_CAP)
 
 
 def l140_field_blue():
-    # Pedro's +x toward the Blue Alliance Station and +y to its drivers' right.
+    # Pedro's +x toward the Blue Alliance Area and +y to its drivers' right.
     drivers_view("fig-l140-field-blue", lambda q: (q[1] - 3, 3 - q[0], q[2]), (0.5, -4.4),
-                 ["from the Blue Alliance Station:", "+x points toward you, +y to the right"],
+                 ["from the Blue Alliance Area:", "+x points toward you, +y to the right"],
                  BLUE_CAP, zero=(600, 80))
 
 
@@ -2570,7 +2570,7 @@ def e142_add_formula():
     added("fig-e142-add-formula", True)
 
 
-# The stick's request seen from the Red Alliance Station, on BIOBUZZ's field in tiles, a unit
+# The stick's request seen from the Red Alliance Area, on BIOBUZZ's field in tiles, a unit
 # 3 tiles long, the robot at E142_AT.
 E142_AT, E142_UNIT = (0.8, 1.3), 3.0
 
@@ -2607,7 +2607,7 @@ def e142_stick_red_3d():
     x, y = v.p((tip[0], (c[1] + tip[1]) / 2, 0))
     s.text((x + 30, y + 16), "0.16 to the left", 28, anchor="start")
     student(v, turn(c + (0.0,)), at, RED_CAP)
-    s.lines((725, 870), ["from the Red Alliance Station, the stick asks for",
+    s.lines((725, 870), ["from the Red Alliance Area, the stick asks for",
                          "0.64 away and 0.16 to the left;",
                          "its x and y are the field's, moved to the robot's center"], 28)
     s.save("fig-e142-stick-red-3d")
