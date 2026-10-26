@@ -35,11 +35,10 @@ case, `source/tasks/l020.md`. The answers, which `tools/answers.py` writes, are 
 Corbels FTC Programming Lessons in Java, is a name. A part's bold label inside a step, **Copy.** or
 **Check.**, starts a sentence and keeps its capital.
 
-**E021, the first E page, opens with what the computer does with a program**, in these words:
-"When the computer runs your program, it reads one line of code at a time. It moves words and
-numbers around in its memory. It is like moving sticky notes around on your desk." No later E page
-repeats it. An E page takes the lesson's lines one at a time. It comes right after its lesson,
-which links to it at the end.
+**An E page opens with what the computer does with a program**, in these words: "When the
+computer runs your program, it reads one line of code at a time. It moves words and numbers around
+in its memory. It is like moving sticky notes around on your desk." Then it takes the lesson's
+lines one at a time. It comes right after its lesson, which links to it at the end.
 
 `tools/check_order.py`, in `ninja book`, checks each file's name and title, and that both front
 pages list the pages in number order.
