@@ -14,9 +14,9 @@ import io.github.mikestitt.corbelsflightlog.pedro.PedroFlightLog;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.panels.PanelsLogger;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * Where everything the robot has to say goes: a graph in Panels, a line on the
@@ -70,6 +70,18 @@ public final class Tracker {
 
     private static final Map<String, Object> values = new LinkedHashMap<>();
 
+    /** Whether live NetworkTables is switched on, off, or not yet either. */
+    public enum LiveSetting { NOT_SET, ON, OFF }
+
+    /**
+     * Set by the Live NetworkTables switch OpMode. Not cleared by {@link #begin},
+     * so it lasts from one OpMode to the next until the app restarts.
+     */
+    private static LiveSetting liveSetting = LiveSetting.NOT_SET;
+
+    /** Where the live server comes from. Tests hand in their own. */
+    static Callable<Nt4Server> liveServers = Nt4Server::shared;
+
     private static long loopCount;
     private static long lastLoopNs;
     private static long startNs;
@@ -106,22 +118,57 @@ public final class Tracker {
     /**
      * Sends everything the file records live to AdvantageScope as well, over
      * NetworkTables 4 on port 5810: on the robot, connect AdvantageScope to
-     * {@code 192.168.43.1}. {@code initBefore()} calls this for a lesson and
-     * a copy in {@code mytry}; any other OpMode calls it itself, after
-     * {@code initBefore()}. {@link #begin} switches it off again.
+     * {@code 192.168.43.1}. For a competition OpMode, which calls this itself
+     * after {@code initBefore()}: it serves only when the switch OpMode has set
+     * {@link #liveSetting} on. {@link #begin} switches it off again.
      *
      * <p>For practice only: FTC rule R704 forbids third-party telemetry over
-     * Wi-Fi at competitions. Returns false, with the reason on the Driver
-     * Station, if the server cannot start.
+     * Wi-Fi at competitions. Says on the Driver Station whether it is on, and
+     * returns false, with the reason, if the server cannot start.
      */
     public static boolean serveLive() {
+        boolean servedWhenNotSet = false;
+        boolean serving = serveLive(servedWhenNotSet);
+        return serving;
+    }
+
+    /**
+     * {@link #serveLive()} for a lesson, a copy in {@code mytry}, or a check of
+     * the server itself: it serves unless the switch OpMode has set
+     * {@link #liveSetting} off. {@code initBefore()} calls it for a lesson.
+     */
+    public static boolean serveLiveUnlessSwitchedOff() {
+        boolean servedWhenNotSet = true;
+        boolean serving = serveLive(servedWhenNotSet);
+        return serving;
+    }
+
+    private static boolean serveLive(boolean servedWhenNotSet) {
+        boolean switchedOn = liveSetting == LiveSetting.ON;
+        boolean notSet = liveSetting == LiveSetting.NOT_SET;
+        boolean wanted = switchedOn || (notSet && servedWhenNotSet);
+        if (!wanted) {
+            printToDs("Live NetworkTables off");
+            return false;
+        }
         try {
-            flightlog.mirrorTo(Nt4Server.shared());
+            flightlog.mirrorTo(liveServers.call());
+            printToDs("Live NetworkTables on. AdvantageScope: connect to 192.168.43.1");
             return true;
-        } catch (IOException | RuntimeException e) {
+        } catch (Exception e) {
             printToDs("NetworkTables off: " + e.getMessage());
             return false;
         }
+    }
+
+    /** What the switch OpMode last set, or {@code NOT_SET} since the app started. */
+    public static LiveSetting liveSetting() {
+        return liveSetting;
+    }
+
+    /** Set by the switch OpMode, and kept until the app restarts. */
+    public static void setLive(LiveSetting setting) {
+        liveSetting = setting;
     }
 
     /** Panels and its logger. Called from {@code CorbelsOpMode.startBefore()}. */

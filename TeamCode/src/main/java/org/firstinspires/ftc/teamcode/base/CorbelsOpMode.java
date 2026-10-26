@@ -92,11 +92,12 @@ public abstract class CorbelsOpMode extends OpMode {
         // sensor reading, a configuration problem -- is in the file too. The
         // Robot Controller closes it if the OpMode never runs.
         Tracker.begin(this);
-        // A lesson's run is live in AdvantageScope from INIT. For practice
-        // only: FTC rule R704 forbids it at competitions, so only the lessons
-        // and the students' copies of them turn it on.
+        // A lesson's run is live in AdvantageScope from INIT, unless the
+        // switch OpMode has turned it off. For practice only: FTC rule R704
+        // forbids it at competitions, so any other OpMode is live only when
+        // the switch has turned it on.
         if (isLesson()) {
-            Tracker.serveLive();
+            Tracker.serveLiveUnlessSwitchedOff();
         }
     }
 
@@ -129,9 +130,8 @@ public abstract class CorbelsOpMode extends OpMode {
         onInit();
         follower.update();
         shadowLocalizers = new ShadowLocalizers().publishOnly("pinPoint", follower.localizer);
-        if (isLesson()) {
-            Tracker.printToDs("AdvantageScope: connect to 192.168.43.1");
-        } else {
+        // A lesson has already said where AdvantageScope connects, if it is live.
+        if (!isLesson()) {
             Tracker.printToDs("Panels: http://192.168.43.1:8001");
         }
     }

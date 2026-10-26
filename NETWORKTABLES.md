@@ -6,18 +6,22 @@ libraries, and it sends everything the flight log records under the same names t
 
 ## Turning it on
 
-It is off unless an OpMode turns it on. An OpMode calls `Tracker.serveLive()` after `initBefore()`,
-and every value the flight log records from then on, and the last value of everything recorded
-before, goes out live. `Tracker.begin` switches it off again for the next OpMode. The server itself
-starts on the first call and runs until the Robot Controller app stops, so AdvantageScope stays
-connected from one run to the next.
+An OpMode calls `Tracker.serveLive()` after `initBefore()`, and every value the flight log records
+from then on, and the last value of everything recorded before, goes out live. `Tracker.begin`
+switches it off again for the next OpMode. The server itself starts on the first call and runs
+until the Robot Controller app stops, so AdvantageScope stays connected from one run to the next.
+
+**Live NetworkTables on/off**, under TeleOp on the Driver Station, is the switch. INIT says whether
+it is on, and Start turns it the other way. The setting lasts until the Robot Controller app
+restarts. Until the switch sets it, a lesson and a copy in `mytry` are live, through
+`Tracker.serveLiveUnlessSwitchedOff()`, and StarterBot TeleOp, StarterBot Auto and Launcher Check
+are not. Each OpMode that serves says on the Driver Station whether it is live.
 
 **For practice only.** FTC rule R704 forbids third-party telemetry over Wi-Fi at competitions.
-StarterBot TeleOp, StarterBot Auto and Launcher Check call `serveLive()`; take those calls out
-before a competition. No lesson calls it either.
+Before one, run the switch until it says off.
 
-`example/NtCheckOpMode`, **NetworkTables check** on the Driver Station, turns it on and drives no
-wheels.
+`example/NtCheckOpMode`, **NetworkTables check** on the Driver Station, turns it on unless the
+switch has turned it off, and drives no wheels.
 
 ## Checking the server without touching the robot
 
