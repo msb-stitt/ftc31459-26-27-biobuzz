@@ -756,30 +756,35 @@ def odometry_step():
 
 
 def field_relative():
-    s = Sketch(1000, 940, 17)
-    fx, fy, fs = 130, 90, 760
-    s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
-    s.marker(rect(fx, fy, fs, fs), GREY1, nib=30, opacity=0.35)
-    s.highlight((fx + 20, fy + 16), (fx + fs - 40, fy + 16))
-    s.ink_poly(rect(fx, fy, fs, fs))
-    s.text((70, fy + fs / 2), "driver", 32, rot=-90)
-    s.dot((100, fy + fs / 2), 10)
-    # As AdvantageScope's 2D Field draws it: field x to the right, away from the driver; y up.
-    o = (fx + 50, fy + fs - 50)
-    s.marker_arrow(o, (o[0] + 130, o[1]), GREY3, nib=4)
-    s.marker_arrow(o, (o[0], o[1] - 130), GREY3, nib=4)
-    s.text((o[0] + 140, o[1] + 8), "field x", 22, anchor="start")
-    s.text((o[0], o[1] - 150), "field y", 22)
-    # The stick, pushed away from the driver, drawn on the field.
-    s.marker_arrow((200, 210), (440, 210), MARKER_BLUE, nib=12)
-    s.text((200, 176), "stick: away from the driver", 28, anchor="start")
-    # The robot at heading 90 degrees faces field y, up the page.
-    c = (400, 500)
-    frame_top(s, c[0] - 100, c[1] - 100, 200, 200)
-    s.marker_arrow(c, (640, c[1]), MARKER_BLUE, nib=12)
-    s.lines((560, 570), ["the same arrow on the robot:", "forward 0.0,",
-                         "sideways to its right 1.0"], 26, anchor="start")
-    s.lines((c[0], 680), ["robot facing up the field", "(heading 90 degrees)"], 26)
+    # L140S040, from the Red Alliance Area as fig-l140-field-red draws it: the stick pushed away
+    # from the student is the field's +x; the robot at heading 90° faces +y, so the same arrow on
+    # it is sideways to its right, robotForwardXSpeed 0.0 and robotStrafeYSpeed -1.0.
+    s = Sketch(1450, 1000, 17)
+    turn = lambda q: (3 - q[1], q[0] - 3, q[2])                     # as fig-l140-field-red
+    v = Iso(s, (760, 420), 118, turn=turn)
+    at = (0.5, -4.4)
+    room(v, at=at)
+    field_floor(v)
+    c, side = (3.9, 0.9), 0.75 / 2                                  # 18 in, in tiles
+    body = [(c[0] + side * a, c[1] + side * b) for a, b in ((1, 1), (-1, 1), (-1, -1), (1, -1))]
+    v.s.line([v.p(q + (0.01,)) for q in body], PEN, 2.4, 0.9, fill=GREY1, closed=True)
+    nose = [(c[0] - side * 0.45, c[1] + side), (c[0], c[1] + side * 1.6),
+            (c[0] + side * 0.45, c[1] + side)]
+    v.s.line([v.p(q + (0.01,)) for q in nose], PEN, 2.0, 0.9, fill=NOSE, closed=True)
+    v.s.marker_arrow(v.p(c + (0.04,)), v.p((c[0] + 1.0, c[1], 0.04)), MARKER_BLUE, nib=10)
+    stick = ((0.6, 1.4), (1.8, 1.4))
+    v.s.marker_arrow(v.p(stick[0] + (0.04,)), v.p(stick[1] + (0.04,)), MARKER_BLUE, nib=12)
+    field_walls(v)
+    pedro_axes(v)
+    student(v, turn(stick[0] + (0.0,)), at, RED_CAP)
+    x, y = v.p((stick[1][0], stick[1][1], 0))
+    s.lines((x - 60, y + 70), ["the stick, pushed away from you:", "the field's +x"], 26,
+            anchor="start")
+    x, y = v.p((c[0] + 1.0, c[1], 0))
+    s.lines((x + 24, y - 120), ["the robot at heading 90°,", "facing +y;", "the same arrow on it:",
+                               "robot forward 0.0,", "sideways to its right 1.0,",
+                               "which is strafe -1.0"], 26, anchor="start")
+    s.lines((725, 900), ["from the Red Alliance Area"], 30)
     s.save("fig-field-relative")
 
 
