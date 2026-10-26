@@ -756,30 +756,35 @@ def odometry_step():
 
 
 def field_relative():
-    s = Sketch(1000, 940, 17)
-    fx, fy, fs = 130, 90, 760
-    s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
-    s.marker(rect(fx, fy, fs, fs), GREY1, nib=30, opacity=0.35)
-    s.highlight((fx + 20, fy + 16), (fx + fs - 40, fy + 16))
-    s.ink_poly(rect(fx, fy, fs, fs))
-    s.text((70, fy + fs / 2), "driver", 32, rot=-90)
-    s.dot((100, fy + fs / 2), 10)
-    # As AdvantageScope's 2D Field draws it: field x to the right, away from the driver; y up.
-    o = (fx + 50, fy + fs - 50)
-    s.marker_arrow(o, (o[0] + 130, o[1]), GREY3, nib=4)
-    s.marker_arrow(o, (o[0], o[1] - 130), GREY3, nib=4)
-    s.text((o[0] + 140, o[1] + 8), "field x", 22, anchor="start")
-    s.text((o[0], o[1] - 150), "field y", 22)
-    # The stick, pushed away from the driver, drawn on the field.
-    s.marker_arrow((200, 210), (440, 210), MARKER_BLUE, nib=12)
-    s.text((200, 176), "stick: away from the driver", 28, anchor="start")
-    # The robot at heading 90 degrees faces field y, up the page.
-    c = (400, 500)
-    frame_top(s, c[0] - 100, c[1] - 100, 200, 200)
-    s.marker_arrow(c, (640, c[1]), MARKER_BLUE, nib=12)
-    s.lines((560, 570), ["the same arrow on the robot:", "forward 0.0,",
-                         "sideways to its right 1.0"], 26, anchor="start")
-    s.lines((c[0], 680), ["robot facing up the field", "(heading 90 degrees)"], 26)
+    # L140S040, from the Red Alliance Area as fig-l140-field-red draws it: the stick pushed away
+    # from the student is the field's +x; the robot at heading 90° faces +y, so the same arrow on
+    # it is sideways to its right, robotForwardXSpeed 0.0 and robotStrafeYSpeed -1.0.
+    s = Sketch(1450, 1000, 17)
+    turn = lambda q: (3 - q[1], q[0] - 3, q[2])                     # as fig-l140-field-red
+    v = Iso(s, (760, 420), 118, turn=turn)
+    at = (0.5, -4.4)
+    room(v, at=at)
+    field_floor(v)
+    c, side = (3.9, 0.9), 0.75 / 2                                  # 18 in, in tiles
+    body = [(c[0] + side * a, c[1] + side * b) for a, b in ((1, 1), (-1, 1), (-1, -1), (1, -1))]
+    v.s.line([v.p(q + (0.01,)) for q in body], PEN, 2.4, 0.9, fill=GREY1, closed=True)
+    nose = [(c[0] - side * 0.45, c[1] + side), (c[0], c[1] + side * 1.6),
+            (c[0] + side * 0.45, c[1] + side)]
+    v.s.line([v.p(q + (0.01,)) for q in nose], PEN, 2.0, 0.9, fill=NOSE, closed=True)
+    v.s.marker_arrow(v.p(c + (0.04,)), v.p((c[0] + 1.0, c[1], 0.04)), MARKER_BLUE, nib=10)
+    stick = ((0.6, 1.4), (1.8, 1.4))
+    v.s.marker_arrow(v.p(stick[0] + (0.04,)), v.p(stick[1] + (0.04,)), MARKER_BLUE, nib=12)
+    field_walls(v)
+    pedro_axes(v)
+    student(v, turn(stick[0] + (0.0,)), at, RED_CAP)
+    x, y = v.p((stick[1][0], stick[1][1], 0))
+    s.lines((x - 60, y + 70), ["the stick, pushed away from you:", "the field's +x"], 26,
+            anchor="start")
+    x, y = v.p((c[0] + 1.0, c[1], 0))
+    s.lines((x + 24, y - 120), ["the robot at heading 90°,", "facing +y;", "the same arrow on it:",
+                               "robot forward 0.0,", "sideways to its right 1.0,",
+                               "which is strafe -1.0"], 26, anchor="start")
+    s.lines((725, 900), ["from the Red Alliance Area"], 30)
     s.save("fig-field-relative")
 
 
@@ -1060,65 +1065,6 @@ def stick_to_robot():
     s.text((850, 960), "forwardXSpeed = -leftStickY    strafeYSpeed = -leftStickX    turnCcwSpeed = -rightStickX",
            24, code=True)
     s.save("fig-stick-to-robot")
-
-
-def pedro_field():
-    # Pedro's field axes, from its Coordinates page: (0, 0) in a corner, x and y 0 in to 144 in,
-    # heading 0 along +x and counter-clockwise positive. The Red Alliance Area is on the left, as
-    # L140 puts the driver, and the Blue Alliance Area on the right.
-    s = Sketch(1300, 1060, 31)
-    fx, fy, fs = 190, 120, 760
-    s.shadow(rect(fx + 10, fy + 14, fs, fs), sigma=10, alpha=0.25)
-    s.marker(rect(fx, fy, fs, fs), GREY1, nib=30, opacity=0.35)
-    s.highlight((fx + 20, fy + 16), (fx + fs - 40, fy + 16))
-    s.ink_poly(rect(fx, fy, fs, fs))
-    for k in (1, 2, 3, 4, 5):
-        s.construct((fx + fs * k / 6, fy), (fx + fs * k / 6, fy + fs))
-        s.construct((fx, fy + fs * k / 6), (fx + fs, fy + fs * k / 6))
-    s.text((110, fy + fs / 2), "Red Alliance Area", 32, MARKER_RED, rot=-90)
-    s.dot((140, fy + fs / 2), 10, MARKER_RED)
-    s.text((fx + fs + 80, fy + fs / 2), "Blue Alliance Area", 32, BLUE, rot=90)
-    s.dot((fx + fs + 50, fy + fs / 2), 10, BLUE)
-    o = (fx, fy + fs)
-    s.dot(o, 12)
-    s.text((fx - 10, fy + fs + 46), "(0, 0)", 24, anchor="end", code=True)
-    s.text((fx + fs + 10, fy + fs + 46), "(144, 0)", 24, anchor="start", code=True)
-    s.text((fx - 10, fy - 20), "(0, 144)", 24, anchor="end", code=True)
-    s.text((fx + fs + 10, fy - 20), "(144, 144) in", 24, anchor="start", code=True)
-    axis(s, o, (o[0] + 300, o[1]), "+x", (o[0] + 320, o[1] + 10), "start")
-    axis(s, o, (o[0], o[1] - 300), "+y", (o[0] + 18, o[1] - 300), "start")
-
-    c, r = (fx + fs * 0.3, fy + fs * 0.28), 120
-    s.ink_circle(c, 40, width=1.8)
-    for deg, name, xy, anchor in ((0, "0°, 0", (c[0] + r + 14, c[1] + 10), "start"),
-                                  (90, "90°, π/2", (c[0], c[1] - r - 14), "middle"),
-                                  (180, "180°, π", (c[0] - r - 14, c[1] + 10), "end"),
-                                  (270, "270°, 3π/2", (c[0], c[1] + r + 40), "middle")):
-        a = math.radians(deg)
-        s.marker_arrow(c, (c[0] + r * math.cos(a), c[1] - r * math.sin(a)), GREY3, nib=4)
-        s.text(xy, name, 26, anchor=anchor)
-    turn = [(c[0] + 70 * math.cos(math.radians(a)), c[1] - 70 * math.sin(math.radians(a)))
-            for a in range(0, 76, 5)]    # from 0, along +x
-    s.line(turn, MARKER_ORANGE, 7, 0.85)
-    s.marker_arrow(turn[-2], turn[-1], MARKER_ORANGE, nib=7)
-    s.text((c[0], c[1] + r + 90), "heading, counter-clockwise +", 26)
-
-    rc, side = (fx + fs * 0.68, fy + fs * 0.64), 150
-    frame_top(s, rc[0] - side / 2, rc[1] - side / 2, side, side, nose=False)
-    tri = [(rc[0] - 34, rc[1] - side / 2), (rc[0], rc[1] - side / 2 - 40),
-           (rc[0] + 34, rc[1] - side / 2)]
-    s.marker(tri, MARKER_RED, nib=10, opacity=0.8)
-    s.ink_poly(tri, width=2.2)
-    s.marker_arrow(rc, (rc[0], rc[1] - 170), MARKER_RED, nib=6)
-    s.marker_arrow(rc, (rc[0] - 170, rc[1]), MARKER_RED, nib=6)
-    s.text((rc[0] + 12, rc[1] - 180), "robot +x", 24, anchor="start")
-    s.text((rc[0] - 176, rc[1] - 16), "robot +y", 24, anchor="start")
-    s.lines((rc[0], rc[1] + 124), ["this robot has a 90° heading", "in the field coordinate system,",
-                                    "so the robot's +x", "is the field's +y"], 24)
-
-    s.lines((650, 980), ["pose x, y in inches and heading in radians;",
-                         "follower.velocity() along the field's x and y"], 28)
-    s.save("fig-pedro-field")
 
 
 # -- E035: from the number line to the stick's axes and the robot's speeds, one idea a figure.
@@ -2035,9 +1981,8 @@ def pedro_axes(v, zero=None):
         v.s.text((x, y + 10), name, 28, code=name.startswith("("))
 
 
-def l140_field_top():
-    s = Sketch(1300, 1100, 83)
-    v = Iso(s, (285, 860), 120, right=TOP_RIGHT, up=TOP_UP)
+def field_from_above(s, v):
+    """BIOBUZZ's field from above in Pedro's coordinates, with its labels."""
     s.shadow([v.p(q) for q in ((0.1, -0.12, 0), (6.1, -0.12, 0), (6.1, 5.88, 0), (0.1, 5.88, 0))],
              sigma=10, alpha=0.2)
     field_floor(v)
@@ -2056,8 +2001,59 @@ def l140_field_top():
         s.text((x + dx, y + dy), "flower", 24, anchor=anchor)
     x, y = v.p((6.05, 6.05, 0))
     s.text((x, y - 4), "(144, 144) in", 24, anchor="start", code=True)
+
+
+def l140_field_top():
+    s = Sketch(1300, 1100, 83)
+    v = Iso(s, (285, 860), 120, right=TOP_RIGHT, up=TOP_UP)
+    field_from_above(s, v)
     s.lines((650, 1010), ["BIOBUZZ from above, in Pedro's coordinates"], 30)
     s.save("fig-l140-field-top")
+
+
+def pedro_field():
+    # Pedro's field axes on BIOBUZZ's field, from its Coordinates page: (0, 0) in a corner, x and
+    # y 0 in to 144 in, heading 0 along +x and counter-clockwise positive, and a robot at heading
+    # 90° with its own +x and +y.
+    s = Sketch(1800, 1100, 31)
+    v = Iso(s, (285, 860), 120, right=TOP_RIGHT, up=TOP_UP)
+    field_from_above(s, v)
+    for q, name, anchor in (((6.05, -0.05, 0), "(144, 0)", "start"),
+                            ((-0.05, 6.05, 0), "(0, 144)", "end")):
+        x, y = v.p(q)
+        s.text((x, y + (30 if q[1] < 0 else -4)), name, 24, anchor=anchor, code=True)
+
+    c, r = (1580, 330), 110
+    s.ink_circle(c, 40, width=1.8)
+    for deg, name, xy, anchor in ((0, "0°, 0", (c[0] + r + 14, c[1] + 10), "start"),
+                                  (90, "90°, π/2", (c[0], c[1] - r - 14), "middle"),
+                                  (180, "180°, π", (c[0] - r - 14, c[1] + 10), "end"),
+                                  (270, "270°, 3π/2", (c[0], c[1] + r + 40), "middle")):
+        a = math.radians(deg)
+        s.marker_arrow(c, (c[0] + r * math.cos(a), c[1] - r * math.sin(a)), GREY3, nib=4)
+        s.text(xy, name, 26, anchor=anchor)
+    turn = [(c[0] + 70 * math.cos(math.radians(a)), c[1] - 70 * math.sin(math.radians(a)))
+            for a in range(0, 76, 5)]    # from 0, along +x
+    s.line(turn, MARKER_ORANGE, 7, 0.85)
+    s.marker_arrow(turn[-2], turn[-1], MARKER_ORANGE, nib=7)
+    s.lines((c[0], c[1] + r + 90), ["heading, from the field's +x,", "counter-clockwise +"], 26)
+
+    rc, side = v.p((4.7, 1.3, 0)), 96
+    frame_top(s, rc[0] - side / 2, rc[1] - side / 2, side, side, nose=False)
+    tri = [(rc[0] - 24, rc[1] - side / 2), (rc[0], rc[1] - side / 2 - 30),
+           (rc[0] + 24, rc[1] - side / 2)]
+    s.marker(tri, MARKER_RED, nib=10, opacity=0.8)
+    s.ink_poly(tri, width=2.2)
+    s.marker_arrow(rc, (rc[0], rc[1] - 150), MARKER_RED, nib=6)
+    s.marker_arrow(rc, (rc[0] - 150, rc[1]), MARKER_RED, nib=6)
+    s.text((rc[0] + 12, rc[1] - 156), "robot +x", 24, anchor="start")
+    s.text((rc[0] - 156, rc[1] - 16), "robot +y", 24, anchor="start")
+    s.lines((1580, 700), ["this robot's heading is 90°,", "so the robot's +x",
+                          "is the field's +y"], 26)
+    s.ink_line((1430, 690), (rc[0] + 60, rc[1] - 10), width=1.6, over=0, passes=1)
+    s.lines((650, 1010), ["BIOBUZZ from above, in Pedro's coordinates:",
+                          "x and y in inches, heading in radians"], 30)
+    s.save("fig-pedro-field")
 
 
 def drivers_view(name, turn, at, words, cap, zero=None):
