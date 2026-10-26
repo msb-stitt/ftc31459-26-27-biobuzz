@@ -28,16 +28,16 @@ class L110FollowerDriveTrain extends CorbelsDriveTrain {
     }
 
     /**
-     * The arcade command, as wheel speeds. {@code forwardSpeed} is along the
-     * robot's nose, {@code strafeLeftSpeed} towards its left, and
+     * The arcade command, as wheel speeds. {@code forwardXSpeed} is along the
+     * robot's nose, {@code strafeYSpeed} towards its left, and
      * {@code turnCcwSpeed} counter-clockwise, as in L090. {@code wheelSpeeds[FL]} is the front left
      * wheel's speed, and {@code FR}, {@code BL} and {@code BR} name the others.
      */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public double[] mixArcadeToWheelSpeeds(DrivePowers arcadeCommand) {
-        double forwardSpeed = arcadeCommand.forward();
-        double strafeLeftSpeed = arcadeCommand.strafe();
+        double forwardXSpeed = arcadeCommand.forward();
+        double strafeYSpeed = arcadeCommand.strafe();
         double turnCcwSpeed = arcadeCommand.turn();
         double[] wheelSpeeds = new double[4];
 
