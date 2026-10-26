@@ -177,6 +177,17 @@ These simplifications are made everywhere, and are not marked:
   `double forward = deadband(-leftStickY, band);` then `forward = signedSquared(forward);`. A call
   that reads a setting or builds a path stays inside, as
   `hardware.mecanumConfig.frontLeftDirection.get()` and `line(start, end).constant(start)` do.
+- **A method returns a named variable, not a calculation.** Break the work into small steps, each
+  named, so a student reads it one step at a time rather than one line that only an expert reads.
+  Not `return value * Math.abs(value);` but:
+
+  ```java
+  double signedSquared(double value) {
+      double alwaysPositiveValue = Math.abs(value);
+      double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+      return valueSquaredKeepingTheSign;
+  }
+  ```
 - **`Math.max` takes two numbers**, so the largest of four is a chain of calls, each on its own
   line.
 - **A whole-number `float` or `double` is written with `.0` in code**, and where a page names
