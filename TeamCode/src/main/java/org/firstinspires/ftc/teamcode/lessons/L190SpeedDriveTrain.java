@@ -6,10 +6,10 @@ import org.firstinspires.ftc.teamcode.base.RobotHardware;
 /**
  * L190: the drivetrain that asks the wheels for a speed.
  *
- * <p>{@link CorbelsMecanum} already mixes, scales and sends powers. This adds
+ * <p>{@link CorbelsMecanum} already mixes, scales and sends speeds. This adds
  * the one door that takes a speed in inches per second and gets it, two ways at
- * once: a feedforward guess at the power the speed needs, plus a feedback
- * correction from what the encoders measure.
+ * once: a feedforward guess at the fraction of full speed the speed needs,
+ * plus a feedback correction from what the encoders measure.
  *
  * <p>Passes when: LessonsTest.l190_theSticksCommandASpeedAndTheWheelsAreCorrectedTowardsIt
  * and LessonsTest.l190_whenTheWheelsAreUpToSpeedOnlyTheFeedforwardRemains

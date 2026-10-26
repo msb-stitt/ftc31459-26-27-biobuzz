@@ -151,12 +151,12 @@ public class SimPublisherTest {
                 assertEquals("y is metres from the centre of the field",
                         (acrossIn - 72) * 0.0254, xyh[1], 1e-9);
 
-                double[] powers = new double[4];
+                double[] speeds = new double[4];
                 for (int i = 0; i < 4; i++) {
-                    powers[i] = wheels[i].get();
+                    speeds[i] = wheels[i].get();
                 }
-                assertArrayEquals("all four wheels at full power",
-                        new double[]{1, 1, 1, 1}, powers, 1e-9);
+                assertArrayEquals("all four wheels at full speed",
+                        new double[]{1, 1, 1, 1}, speeds, 1e-9);
 
                 assertEquals("the stick the driver is holding", -1.0, leftY.get(), 1e-9);
                 assertTrue("moving forward at a fair speed", forward.get() > 50);

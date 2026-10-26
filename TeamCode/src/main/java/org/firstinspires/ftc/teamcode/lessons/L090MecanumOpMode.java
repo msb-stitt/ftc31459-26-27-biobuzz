@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L090: mecanum drive. The left stick drives and slides, the right stick
- * turns, and each wheel gets its own power.
+ * turns, and each wheel gets its own speed.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over

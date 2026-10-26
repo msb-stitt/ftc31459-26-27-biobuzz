@@ -103,13 +103,13 @@ public class LessonsTest {
         h.loop();
 
         assertEquals("the left speed drives the front left wheel",
-                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
         assertEquals("and the back left wheel",
-                1.0, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+                1.0, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
         assertEquals("the right speed drives the front right wheel",
-                -0.5, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
+                -0.5, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
         assertEquals("and the back right wheel",
-                -0.5, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+                -0.5, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
         h.stop();
     }
 
@@ -154,15 +154,15 @@ public class LessonsTest {
         h.loop();
 
         assertEquals("inside the deadband, so the robot does not creep",
-                0.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
-        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
-        assertEquals(0.0, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
-        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+                0.0, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
         h.stop();
     }
 
     @Test
-    public void l060_halfAStickIsAQuarterOfThePower() {
+    public void l060_halfAStickIsAQuarterOfTheSpeed() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L060ShapingOpMode"));
         h.init();
         h.start();
@@ -170,17 +170,17 @@ public class LessonsTest {
         h.gamepad1.right_stick_y = 0.5f;      // half back
         h.loop();
 
-        assertEquals("half stick is quarter power",
-                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
-        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+        assertEquals("half stick is quarter speed",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
         assertEquals("and squaring keeps the sign",
-                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
-        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
 
         h.gamepad1.left_stick_y = -1.0f;      // fully forward
         h.loop();
-        assertEquals("full stick still reaches full power",
-                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
+        assertEquals("full stick still reaches full speed",
+                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
         h.stop();
     }
 
@@ -245,11 +245,11 @@ public class LessonsTest {
         h.gamepad1.left_stick_y = -0.5f;      // half forward
         h.loop();
 
-        assertEquals("half forward is a quarter power on every wheel",
-                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
-        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
-        assertEquals(0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
-        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        assertEquals("half forward is a quarter speed on every wheel",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
         h.stop();
     }
 
@@ -262,11 +262,11 @@ public class LessonsTest {
         h.loop();
 
         assertEquals("turning right drives the left side forward",
-                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
-        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
         assertEquals("and the right side back",
-                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
-        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
         h.stop();
     }
 
@@ -280,21 +280,21 @@ public class LessonsTest {
         h.loop();
 
         assertEquals("1.25 asked for, so the biggest is brought down to 1",
-                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
-        assertEquals(1.0, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
+                1.0, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(1.0, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
         assertEquals("0.75 asked for, divided by the same 1.25",
-                0.6, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
-        assertEquals(0.6, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+                0.6, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(0.6, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
         h.stop();
     }
 
-    /** The four wheel powers, front left, front right, back left, back right. */
+    /** The four wheel speeds, front left, front right, back left, back right. */
     private static void assertWheels(String message, OpModeHarness h,
                                      double fl, double fr, double bl, double br) {
-        assertEquals(message + ": front left", fl, h.motors.get(OpModeHarness.FRONT_LEFT).power, EPS);
-        assertEquals(message + ": front right", fr, h.motors.get(OpModeHarness.FRONT_RIGHT).power, EPS);
-        assertEquals(message + ": back left", bl, h.motors.get(OpModeHarness.BACK_LEFT).power, EPS);
-        assertEquals(message + ": back right", br, h.motors.get(OpModeHarness.BACK_RIGHT).power, EPS);
+        assertEquals(message + ": front left", fl, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(message + ": front right", fr, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(message + ": back left", bl, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals(message + ": back right", br, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
     }
 
     @Test
@@ -341,7 +341,7 @@ public class LessonsTest {
 
     /**
      * L110's mix, driven the way the follower drives it: three numbers in, four
-     * powers on the motors. Each assert names the wheel, so a wrong sign says
+     * speeds on the motors. Each assert names the wheel, so a wrong sign says
      * which line it is on.
      */
     @Test
@@ -355,22 +355,22 @@ public class LessonsTest {
                 new OpModeHarness.FakeImu().imu, OpModeHarness.freshConfig()));
 
         drivetrain.drive(new DrivePowers(0.5, 0, 0), true);
-        assertEquals("forward: front left", 0.5, fl.power, EPS);
-        assertEquals("forward: front right", 0.5, fr.power, EPS);
-        assertEquals("forward: back left", 0.5, bl.power, EPS);
-        assertEquals("forward: back right", 0.5, br.power, EPS);
+        assertEquals("forward: front left", 0.5, fl.speed, EPS);
+        assertEquals("forward: front right", 0.5, fr.speed, EPS);
+        assertEquals("forward: back left", 0.5, bl.speed, EPS);
+        assertEquals("forward: back right", 0.5, br.speed, EPS);
 
         drivetrain.drive(new DrivePowers(0, 0.5, 0), true);
-        assertEquals("strafe left: front left", -0.5, fl.power, EPS);
-        assertEquals("strafe left: front right", 0.5, fr.power, EPS);
-        assertEquals("strafe left: back left", 0.5, bl.power, EPS);
-        assertEquals("strafe left: back right", -0.5, br.power, EPS);
+        assertEquals("strafe left: front left", -0.5, fl.speed, EPS);
+        assertEquals("strafe left: front right", 0.5, fr.speed, EPS);
+        assertEquals("strafe left: back left", 0.5, bl.speed, EPS);
+        assertEquals("strafe left: back right", -0.5, br.speed, EPS);
 
         drivetrain.drive(new DrivePowers(0, 0, 0.5), true);
-        assertEquals("turn left: front left", -0.5, fl.power, EPS);
-        assertEquals("turn left: front right", 0.5, fr.power, EPS);
-        assertEquals("turn left: back left", -0.5, bl.power, EPS);
-        assertEquals("turn left: back right", 0.5, br.power, EPS);
+        assertEquals("turn left: front left", -0.5, fl.speed, EPS);
+        assertEquals("turn left: front right", 0.5, fr.speed, EPS);
+        assertEquals("turn left: back left", -0.5, bl.speed, EPS);
+        assertEquals("turn left: back right", 0.5, br.speed, EPS);
     }
 
     @Test
@@ -697,7 +697,7 @@ public class LessonsTest {
 
         // the measured feedforward for 40 in/s, plus the feedback on a 40 in/s error
         assertEquals(Constants.powerPerInchPerSecond * 40 + 0.008 * 40,
-                (Double) Tracker.values().get("wheel/frontLeft/power"), 1e-6);
+                (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
     }
 
     @Test
@@ -716,9 +716,9 @@ public class LessonsTest {
                 (Double) Tracker.values().get("wheel/frontLeft/actual_ips"), 1e-6);
         assertEquals("so no correction is needed", 0.0,
                 (Double) Tracker.values().get("wheel/frontLeft/error_ips"), 1e-6);
-        assertEquals("and the power is the feedforward alone",
+        assertEquals("and the speed is the feedforward alone",
                 Constants.powerPerInchPerSecond * 40,
-                (Double) Tracker.values().get("wheel/frontLeft/power"), 1e-6);
+                (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
     }
 
     @Test

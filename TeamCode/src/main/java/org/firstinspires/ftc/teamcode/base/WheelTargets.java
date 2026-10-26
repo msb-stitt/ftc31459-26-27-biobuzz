@@ -21,9 +21,9 @@ package org.firstinspires.ftc.teamcode.base;
  * where {@code radius} is half the sum of the track width and the wheelbase --
  * how far a wheel is from the middle, along the diagonal it pushes.
  *
- * <p>Note what this is not: a power. Nothing here has been divided by a maximum
- * or clamped to 1. These are speeds the wheels should actually travel at, and
- * turning them into motor power is a separate job.
+ * <p>Note what this is not: a fraction of full speed. Nothing here has been
+ * divided by a maximum or clamped to 1. These are speeds the wheels should actually travel at, and
+ * turning them into a fraction of full speed for each motor is a separate job.
  */
 public final class WheelTargets {
 

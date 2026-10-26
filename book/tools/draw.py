@@ -117,7 +117,7 @@ def stick_shaping():
         ax.set_title(title, fontsize=13)
         ax.set_xlabel("stick, -1.0 to 1.0")
         ax.grid(alpha=0.3)
-    axes[0].set_ylabel("power out, -1.0 to 1.0")
+    axes[0].set_ylabel("shaped speed, -1.0 to 1.0")
     inset = axes[1].inset_axes([0.58, 0.06, 0.38, 0.38])
     xi = np.linspace(-0.12, 0.12, 401)
     inset.plot(xi, deadband(xi), color=BLUE, linewidth=2)
@@ -139,7 +139,7 @@ def speed_loop():
         fontsize=10)
     ax.add_patch(Circle((7.0, 3.2), 0.32, facecolor="white", edgecolor=INK, linewidth=2))
     ax.text(7.0, 3.2, "+", ha="center", va="center", fontsize=18)
-    box(ax, (9.0, 3.2), 1.8, 1.0, "power\nto the motor", "#eeeeee")
+    box(ax, (9.0, 3.2), 1.8, 1.0, "speed\nto the motor", "#eeeeee")
     box(ax, (9.0, 0.8), 1.8, 0.9, "encoder:\nmeasured in/s", "#eeeeee", fontsize=10)
     arrow(ax, (2.2, 3.4), (3.1, 4.1))
     arrow(ax, (2.2, 3.0), (3.1, 2.1))
@@ -163,7 +163,7 @@ def panels_graph():
     fig, ax = plt.subplots(figsize=(9, 4.6))
     ax.set_facecolor("#1e1e24")
     ax.plot(t, raw, color="#5dade2", linewidth=2.5, label="speed/left")
-    ax.plot(t, shaped, color="#f5b041", linewidth=2.5, label="power/left")
+    ax.plot(t, shaped, color="#f5b041", linewidth=2.5, label="shapedSpeed/left")
     ax.fill_between(t, shaped, raw, color="#ffffff", alpha=0.08)
     ax.set_xlabel("time, s")
     ax.set_ylabel("value")
@@ -643,10 +643,10 @@ def wheel_pushes():
         cx, cy = 300 + 600 * i, 450
         s.text((cx, 80), title, 36)
         centers = robot_inside(s, cx, cy, side)
-        power = {"front left": f - sl - t, "front right": f + sl + t, "back left": f + sl - t,
+        speed = {"front left": f - sl - t, "front right": f + sl + t, "back left": f + sl - t,
                  "back right": f - sl + t}
         for name, (wx, wy) in centers.items():
-            p = power[name]
+            p = speed[name]
             s.marker_arrow((wx, wy + 48 * p), (wx, wy - 48 * p), MARKER_BLUE, nib=7)
             ux, uy = (v / math.sqrt(2) * p for v in pushes[name])
             ox = wx + (1 if wx > cx else -1) * 120
@@ -2893,8 +2893,8 @@ AUTO_LOOPS = [
     ("wire", "fb3", ((490, 276), (490, 270)), True),
     ("text", "n", 548, 296, "each Controller: Pedro PIDF, I, D, F = 0"),
     ("box", "lib", 730, 50, 110, 230),
-    ("text", "t", 740, 74, "share the"),
-    ("text", "t", 740, 91, "power"),
+    ("text", "t", 740, 74, "share full"),
+    ("text", "t", 740, 91, "speed"),
     ("text", "n", 740, 116, "heading and"),
     ("text", "n", 740, 133, "sideways before"),
     ("text", "n", 740, 150, "drive, then"),

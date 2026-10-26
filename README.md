@@ -74,7 +74,7 @@ StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives 
 one runs the intake from the triggers, one fires the launcher while the right bumper is held. A
 command that needs the drivetrain, the intake or the launcher sets aside the one using it, and
 that one comes back when it ends. Each stick, trigger and button read, the drive asked for,
-`intake/power` and each wheel's `wheel/<wheel>/power` go to the flight log; Pedro's pose is under
+`intake/speed` and each wheel's `wheel/<wheel>/speed` go to the flight log; Pedro's pose is under
 `Robot/Pose`.
 
 - Set `thisRobot` in `pedro/Constants.java` to the robot the code is going onto: 88888, 37523 or
@@ -95,7 +95,7 @@ graph them together in AdvantageScope to see whether it holds its speed.
 If the launcher stutters rather than holding its speed, try these in order:
 
 - Run it at 1250, the full target. At a fifth, its feedforward asks for about a tenth of full
-  power, little enough for the wheels to stick and surge.
+  speed, little enough for the wheels to stick and surge.
 - At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
   means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
   motor.

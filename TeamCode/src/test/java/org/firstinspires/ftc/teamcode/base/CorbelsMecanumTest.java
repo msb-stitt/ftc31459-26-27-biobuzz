@@ -39,41 +39,41 @@ public class CorbelsMecanumTest {
         drivetrain = ((Idle) h.opMode()).drivetrain;
     }
 
-    private double[] motorPowers() {
+    private double[] motorSpeeds() {
         return new double[]{
-                h.motors.get(OpModeHarness.FRONT_LEFT).power,
-                h.motors.get(OpModeHarness.FRONT_RIGHT).power,
-                h.motors.get(OpModeHarness.BACK_LEFT).power,
-                h.motors.get(OpModeHarness.BACK_RIGHT).power};
+                h.motors.get(OpModeHarness.FRONT_LEFT).speed,
+                h.motors.get(OpModeHarness.FRONT_RIGHT).speed,
+                h.motors.get(OpModeHarness.BACK_LEFT).speed,
+                h.motors.get(OpModeHarness.BACK_RIGHT).speed};
     }
 
     @Test
     public void forwardDrivesAllFourWheelsTheSameWay() {
         drivetrain.drive(new DrivePowers(1, 0, 0), true);
-        assertArrayEquals(new double[]{1, 1, 1, 1}, motorPowers(), 1e-9);
+        assertArrayEquals(new double[]{1, 1, 1, 1}, motorSpeeds(), 1e-9);
     }
 
     @Test
     public void strafingDrivesTheDiagonalsOppositeWays() {
         drivetrain.drive(new DrivePowers(0, 1, 0), true);
         assertArrayEquals("front left and back right go one way, the others the other",
-                new double[]{-1, 1, 1, -1}, motorPowers(), 1e-9);
+                new double[]{-1, 1, 1, -1}, motorSpeeds(), 1e-9);
     }
 
     @Test
     public void turningDrivesTheSidesOppositeWays() {
         drivetrain.drive(new DrivePowers(0, 0, 1), true);
-        assertArrayEquals(new double[]{-1, 1, -1, 1}, motorPowers(), 1e-9);
+        assertArrayEquals(new double[]{-1, 1, -1, 1}, motorSpeeds(), 1e-9);
     }
 
     @Test
     public void everythingAtOnceIsScaledDownTogetherRatherThanClipped() {
         drivetrain.drive(new DrivePowers(1, 1, 1), true);
-        double[] powers = motorPowers();
-        for (double p : powers) assertTrue("no wheel over full power: " + p, Math.abs(p) <= 1.0 + 1e-9);
+        double[] speeds = motorSpeeds();
+        for (double p : speeds) assertTrue("no wheel over full speed: " + p, Math.abs(p) <= 1.0 + 1e-9);
         // forward + strafe + turn would be 3 on one wheel; everything divides by 3
-        assertEquals(1.0, powers[1], 1e-9);
-        assertEquals(-1.0 / 3, powers[0], 1e-9);
+        assertEquals(1.0, speeds[1], 1e-9);
+        assertEquals(-1.0 / 3, speeds[0], 1e-9);
     }
 
     @Test
@@ -83,12 +83,12 @@ public class CorbelsMecanumTest {
 
         // What the follower asks for is ignored while a lesson is driving.
         drivetrain.drive(new DrivePowers(1, 0, 0), true);
-        assertArrayEquals(new double[]{0.1, 0.2, 0.3, 0.4}, motorPowers(), 1e-9);
+        assertArrayEquals(new double[]{0.1, 0.2, 0.3, 0.4}, motorSpeeds(), 1e-9);
 
         drivetrain.releaseCommandedWheels();
         assertFalse(drivetrain.commandedWheelsAreSet());
         drivetrain.drive(new DrivePowers(1, 0, 0), true);
-        assertArrayEquals("the follower has them back", new double[]{1, 1, 1, 1}, motorPowers(), 1e-9);
+        assertArrayEquals("the follower has them back", new double[]{1, 1, 1, 1}, motorSpeeds(), 1e-9);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class CorbelsMecanumTest {
         drivetrain.setCommandedWheels(1, 1, 1, 1);
         drivetrain.stop();
         assertFalse(drivetrain.commandedWheelsAreSet());
-        assertArrayEquals(new double[]{0, 0, 0, 0}, motorPowers(), 1e-9);
+        assertArrayEquals(new double[]{0, 0, 0, 0}, motorSpeeds(), 1e-9);
     }
 
     /**
@@ -108,14 +108,14 @@ public class CorbelsMecanumTest {
     public void endingTheOpModeStopsTheWheelsEvenIfTheLessonForgot() {
         h.start();
         drivetrain.setCommandedWheels(1, 1, 1, 1);
-        // What the follower does on every update, and what puts power on a motor.
+        // What the follower does on every update, and what puts speed on a motor.
         drivetrain.drive(new DrivePowers(0, 0, 0), true);
-        assertArrayEquals("running, at the last power the lesson commanded",
-                new double[]{1, 1, 1, 1}, motorPowers(), 1e-9);
+        assertArrayEquals("running, at the last speed the lesson commanded",
+                new double[]{1, 1, 1, 1}, motorSpeeds(), 1e-9);
 
         h.stop();
         assertFalse("the wheels are handed back", drivetrain.commandedWheelsAreSet());
-        assertArrayEquals("and every wheel is at 0", new double[]{0, 0, 0, 0}, motorPowers(), 1e-9);
+        assertArrayEquals("and every wheel is at 0", new double[]{0, 0, 0, 0}, motorSpeeds(), 1e-9);
     }
 
     @Test
@@ -149,21 +149,21 @@ public class CorbelsMecanumTest {
     }
 
     @Test
-    public void aPowerTooCloseToTheLastOneNeverReachesTheMotor() {
+    public void aSpeedTooCloseToTheLastOneNeverReachesTheMotor() {
         OpModeHarness.FakeMotor frontLeft = h.motors.get(OpModeHarness.FRONT_LEFT);
         drivetrain.drive(new DrivePowers(0.5, 0, 0), true);
         int afterFirst = frontLeft.writes;
-        assertEquals(0.5, frontLeft.power, 1e-9);
+        assertEquals(0.5, frontLeft.speed, 1e-9);
 
         // powerThreshold is 0.01, so a move of 0.001 is not worth a bus write.
         drivetrain.drive(new DrivePowers(0.501, 0, 0), true);
         assertEquals("no write", afterFirst, frontLeft.writes);
-        assertEquals("so the motor still holds the old power", 0.5, frontLeft.power, 1e-9);
+        assertEquals("so the motor still holds the old speed", 0.5, frontLeft.speed, 1e-9);
 
         // A move of 0.02 is.
         drivetrain.drive(new DrivePowers(0.52, 0, 0), true);
         assertEquals(afterFirst + 1, frontLeft.writes);
-        assertEquals(0.52, frontLeft.power, 1e-9);
+        assertEquals(0.52, frontLeft.speed, 1e-9);
     }
 
     @Test
@@ -173,12 +173,12 @@ public class CorbelsMecanumTest {
         int afterFirst = frontLeft.writes;
         drivetrain.drive(new DrivePowers(-0.001, 0, 0), true);
         assertEquals("a reversal is never skipped", afterFirst + 1, frontLeft.writes);
-        assertEquals(-0.001, frontLeft.power, 1e-9);
+        assertEquals(-0.001, frontLeft.speed, 1e-9);
     }
 
     @Test
     public void characterizationTurnsTheCacheOffSoASlowRampIsNotAStaircase() {
-        // SysId's quasistatic ramp moves the power by far less than 0.01 a
+        // SysId's quasistatic ramp moves the speed by far less than 0.01 a
         // loop, so the cache would turn it into steps and the fit would be of
         // the steps rather than of the robot.
         OpModeHarness.FakeMotor frontLeft = h.motors.get(OpModeHarness.FRONT_LEFT);
@@ -189,11 +189,11 @@ public class CorbelsMecanumTest {
         drivetrain.drive(new DrivePowers(0.002, 0, 0), true);
         drivetrain.drive(new DrivePowers(0.003, 0, 0), true);
         assertEquals("every step reached the motor", before + 3, frontLeft.writes);
-        assertEquals(0.003, frontLeft.power, 1e-9);
+        assertEquals(0.003, frontLeft.speed, 1e-9);
     }
 
     @Test
-    public void wheelTargetsAreSpeedsNotPowers() {
+    public void wheelTargetsAreInchesPerSecondNotFractionsOfFullSpeed() {
         // Forward only: every wheel travels at the robot's speed.
         assertArrayEquals(new double[]{20, 20, 20, 20},
                 WheelTargets.forMecanum(20, 0, 0, 8), 1e-9);

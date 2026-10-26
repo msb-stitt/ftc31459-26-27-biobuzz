@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.base.RobotHardware;
 /**
  * L195: the drivetrain that says what each wheel's encoder has counted.
  *
- * <p>{@link CorbelsMecanum} already sends powers to the four motors. This adds
+ * <p>{@link CorbelsMecanum} already sends speeds to the four motors. This adds
  * the door the other way: four numbers back from the encoders, so a
  * measurement can compare what the wheels counted with what the Pinpoint saw.
  *

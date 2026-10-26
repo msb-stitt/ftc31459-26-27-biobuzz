@@ -66,7 +66,7 @@ public class SysIdDriveOpMode extends CorbelsTeleOp {
         startBefore();
         recorder = new SysIdRecorder(Tracker.flightlog, "drive");
         wheels = new WheelVelocities(hardware);
-        // A measurement, so the wheels roll and every power reaches the motor:
+        // A measurement, so the wheels roll and every speed reaches the motor:
         // the quasistatic ramp moves by far less than the write cache's
         // threshold each loop, and cached writes would fit the steps.
         drivetrain.forceCoastForCharacterization();
@@ -108,15 +108,15 @@ public class SysIdDriveOpMode extends CorbelsTeleOp {
         }
 
         double battery = hardware.batteryVolts();
-        double power = battery > 1 ? clamp(volts / battery) : 0;
-        drivetrain.setCommandedWheels(power, power, power, power);
+        double speed = battery > 1 ? clamp(volts / battery) : 0;
+        drivetrain.setCommandedWheels(speed, speed, speed, speed);
 
         if (running) {
             recorder.state(selected);
             int[] now = drivetrain.wheelTicks();
             double[] speeds = wheels.all();
             for (int i = 0; i < 4; i++) {
-                recorder.motor(MOTOR_NAMES[i], power, battery,
+                recorder.motor(MOTOR_NAMES[i], speed, battery,
                         (now[i] - startTicks[i]) / Constants.ticksPerInch, speeds[i]);
             }
         }
@@ -124,7 +124,7 @@ public class SysIdDriveOpMode extends CorbelsTeleOp {
         Tracker.publish("sysid/running", running);
         Tracker.publish("sysid/test", selected.toString());
         Tracker.publish("sysid/volts_commanded", volts);
-        Tracker.publish("sysid/power", power);
+        Tracker.publish("sysid/speed", speed);
         Tracker.publish("sysid/battery_volts", battery);
 
         Tracker.printToDs("Test  %s   %s", selected, running ? "RUNNING" : "ready");

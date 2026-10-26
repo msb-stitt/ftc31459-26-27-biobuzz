@@ -28,14 +28,14 @@ import java.util.function.Supplier;
 /**
  * A real Pedro {@link Follower} driving a simulated robot, for tests.
  *
- * <p>The localizer turns forward, strafe and turn into motion (power x max
+ * <p>The localizer turns forward, strafe and turn into motion (speed x max
  * speed, with a short lag standing in for inertia) and integrates a pose.
  * Crude physics, but enough for the follower to finish a path the way it does
  * on the robot.
  *
  * <p>Where those three numbers come from is the caller's choice. On its own
  * this class uses what Pedro last commanded, which is all a follower test
- * needs. {@code OpModeHarness} points it at the four motor powers instead, so
+ * needs. {@code OpModeHarness} points it at the four motor speeds instead, so
  * a lesson that writes the motors itself moves too -- see
  * {@link #fromWheels}.
  */
@@ -66,14 +66,14 @@ public final class SimRobot {
     }
 
     /**
-     * Four wheel powers back into forward, strafe and turn: the exact inverse
+     * Four wheel speeds back into forward, strafe and turn: the exact inverse
      * of {@code CorbelsMecanum.mix}, which writes
      * {@code fl = f - s - t, fr = f + s + t, bl = f + s - t, br = f - s + t}.
      * Substituting those four here returns f, s and t unchanged.
      *
-     * <p>Wheel powers, not wheel speeds, because the motion model's input is a
-     * power. A wheel at positive power drives the robot forward: the motor's
-     * own direction is set from {@code Constants} and is taken to be right.
+     * <p>Fractions of full speed, not wheel speeds in inches per second,
+     * because the motion model's input is a fraction of full speed. A wheel at
+     * positive speed drives the robot forward: the motor's own direction is set from {@code Constants} and is taken to be right.
      */
     public static double[] fromWheels(double frontLeft, double frontRight,
                                       double backLeft, double backRight) {
@@ -114,7 +114,7 @@ public final class SimRobot {
     /**
      * The drivetrain Pedro is given. It records what Pedro asked for and hands
      * the same request on to {@link #delegate}, the drivetrain the lesson
-     * built, so the powers reach the motors the way they do on the robot.
+     * built, so the speeds reach the motors the way they do on the robot.
      */
     public static final class SimDrive implements Drivetrain {
         volatile DrivePowers last = DrivePowers.zero();
@@ -123,9 +123,9 @@ public final class SimRobot {
         public volatile Drivetrain delegate;
 
         @Override
-        public void drive(DrivePowers powers, boolean manual) {
-            last = powers;
-            if (delegate != null) delegate.drive(powers, manual);
+        public void drive(DrivePowers speeds, boolean manual) {
+            last = speeds;
+            if (delegate != null) delegate.drive(speeds, manual);
         }
 
         @Override
@@ -179,7 +179,7 @@ public final class SimRobot {
         }
 
         /**
-         * Where forward, strafe and turn come from. Pass the four motor powers
+         * Where forward, strafe and turn come from. Pass the four motor speeds
          * through {@link SimRobot#fromWheels} to drive the simulation from what
          * the code actually wrote to the wheels.
          */
