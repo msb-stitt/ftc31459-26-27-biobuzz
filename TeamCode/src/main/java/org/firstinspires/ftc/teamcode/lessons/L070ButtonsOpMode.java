@@ -83,18 +83,18 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
         Tracker.publish("speed/right", rightSpeed);
 
         double band = 0.05;
-        double leftPower = deadband(leftSpeed, band);
-        leftPower = signedSquared(leftPower);
-        Tracker.publish("power/left", leftPower);
-        double rightPower = deadband(rightSpeed, band);
-        rightPower = signedSquared(rightPower);
-        Tracker.publish("power/right", rightPower);
+        double leftShapedSpeed = deadband(leftSpeed, band);
+        leftShapedSpeed = signedSquared(leftShapedSpeed);
+        Tracker.publish("shapedSpeed/left", leftShapedSpeed);
+        double rightShapedSpeed = deadband(rightSpeed, band);
+        rightShapedSpeed = signedSquared(rightShapedSpeed);
+        Tracker.publish("shapedSpeed/right", rightShapedSpeed);
 
-        hardware.frontLeft.setPower(leftPower);
-        hardware.backLeft.setPower(leftPower);
+        hardware.frontLeft.setPower(leftShapedSpeed);
+        hardware.backLeft.setPower(leftShapedSpeed);
 
-        hardware.frontRight.setPower(rightPower);
-        hardware.backRight.setPower(rightPower);
+        hardware.frontRight.setPower(rightShapedSpeed);
+        hardware.backRight.setPower(rightShapedSpeed);
 
         // When on L070S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030

@@ -75,7 +75,7 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
     public void stop() {
         // Braking is allowed again, however this run ended -- STOP pressed
         // early, or an exception in the loop. Then hand the wheels back before
-        // the follower's last update, or they keep whatever power the last loop
+        // the follower's last update, or they keep whatever speed the last loop
         // commanded.
         drivetrain.allowConfiguredBrakeMode();
         drivetrain.stop();

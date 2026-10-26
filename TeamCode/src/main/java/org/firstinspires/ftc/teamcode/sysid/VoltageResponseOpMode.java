@@ -97,8 +97,8 @@ public class VoltageResponseOpMode extends CorbelsTeleOp {
         double seconds = running ? (System.nanoTime() - startNs) / 1e9 : 0;
         int phase = phaseAt(seconds);
         boolean finished = running && phase >= FREQUENCIES.length;
-        double power = finished ? 0 : powerAt(phase, seconds, AMPLITUDE);
-        if (!running) power = 0;
+        double speed = finished ? 0 : speedAt(phase, seconds, AMPLITUDE);
+        if (!running) speed = 0;
 
         // Time the reading itself: this is the number that decides whether it
         // can be afforded every loop.
@@ -106,11 +106,11 @@ public class VoltageResponseOpMode extends CorbelsTeleOp {
         double volts = hardware.batteryVolts();
         double callMicros = (System.nanoTime() - before) / 1000.0;
 
-        drivetrain.setCommandedWheels(power, power, power, power);
+        drivetrain.setCommandedWheels(speed, speed, speed, speed);
 
         Tracker.publish("volts", volts);
         Tracker.publish("volts/call_us", callMicros);
-        Tracker.publish("drive/power", power);
+        Tracker.publish("drive/speed", speed);
         Tracker.publish("drive/phase", phase);
         Tracker.publish("drive/frequency_hz", finished ? 0 : FREQUENCIES[Math.min(phase, FREQUENCIES.length - 1)]);
         Tracker.publish("drive/wheel_ips", wheels.frontLeftInchesPerSecond());
@@ -138,7 +138,7 @@ public class VoltageResponseOpMode extends CorbelsTeleOp {
      * The square wave for a phase: zero while idle, otherwise alternating
      * between plus and minus the amplitude at that phase's frequency.
      */
-    public static double powerAt(int phase, double seconds, double amplitude) {
+    public static double speedAt(int phase, double seconds, double amplitude) {
         if (phase < 0 || phase >= FREQUENCIES.length) return 0;
         double frequency = FREQUENCIES[phase];
         if (frequency == 0) return 0;

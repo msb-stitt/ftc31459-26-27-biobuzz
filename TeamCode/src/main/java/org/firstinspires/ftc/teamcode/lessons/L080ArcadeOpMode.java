@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L080: arcade drive. The left stick drives forward and back, the right stick
- * turns, and a request for more power than a motor has is scaled down, not cut
+ * turns, and a request for more speed than a motor has is scaled down, not cut
  * off.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is

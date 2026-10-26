@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
- * full power, and the drivetrain measures the wheels and makes up the
+ * full speed, and the drivetrain measures the wheels and makes up the
  * difference.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is

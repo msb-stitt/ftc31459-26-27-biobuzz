@@ -21,7 +21,7 @@ import java.util.Map;
 public final class PassiveDriveTrain implements Drivetrain {
 
     @Override
-    public void drive(DrivePowers powers, boolean manual) {
+    public void drive(DrivePowers speeds, boolean manual) {
     }
 
     @Override

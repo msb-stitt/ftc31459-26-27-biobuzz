@@ -179,8 +179,16 @@ These simplifications are made everywhere, and are not marked:
   `hardware.mecanumConfig.frontLeftDirection.get()` and `line(start, end).constant(start)` do.
 - **`Math.max` takes two numbers**, so the largest of four is a chain of calls, each on its own
   line.
-- **A whole-number `double` is written with `.0`**, in the code and on the page: `1.0`, `0.0`,
-  `-1.0`.
+- **A whole-number `float` or `double` is written with `.0` in code**, and where a page names
+  code: `1.0`, `0.0`, `-1.0`, so the student sees they are working with a decimal number. A value a
+  tool shows, such as an AdvantageScope reading, is written as the tool shows it: `x_in` 72.
+  Speech, such as the video's captions, says -1, 0 and +1. A command-line argument is not code,
+  and is written the quick way a person types it: `--left_stick_y=-1`.
+- **Call a value "power" only when it is physical power.** A `setPower` argument is a fraction of
+  battery voltage, from -1.0 to 1.0. Battery voltage applied to a motor is closest to the motor's
+  speed, so we call it a speed, not a power. A stick or a speed is a fraction of full speed; name
+  each for what it is, as `leftShapedSpeed` does. Names that are not ours keep their spelling:
+  the SDK's `setPower` and `ZeroPowerBehavior`, and Pedro's `DrivePowers` and `headingPower`.
 
 ## The code a student copies is plain Java
 

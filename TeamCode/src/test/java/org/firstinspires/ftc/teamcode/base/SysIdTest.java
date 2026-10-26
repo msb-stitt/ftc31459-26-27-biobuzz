@@ -37,9 +37,9 @@ public class SysIdTest {
     }
 
     @Test
-    public void appliedVoltsAreThePowerTimesWhateverTheBatteryIsGiving() {
+    public void appliedVoltsAreTheSpeedTimesWhateverTheBatteryIsGiving() {
         assertEquals(12.4, SysIdRecorder.appliedVolts(1.0, 12.4), 1e-9);
-        assertEquals("a flatter battery gives less for the same power",
+        assertEquals("a flatter battery gives less for the same speed",
                 5.5, SysIdRecorder.appliedVolts(0.5, 11.0), 1e-9);
         assertEquals(-6.2, SysIdRecorder.appliedVolts(-0.5, 12.4), 1e-9);
     }
@@ -72,19 +72,19 @@ public class SysIdTest {
     @Test
     public void theSquareWaveAlternatesAtTheFrequencyForThatPhase() {
         // Phase 0 is idle, whatever the time.
-        assertEquals(0.0, VoltageResponseOpMode.powerAt(0, 1.0, 0.4), 1e-9);
+        assertEquals(0.0, VoltageResponseOpMode.speedAt(0, 1.0, 0.4), 1e-9);
 
         // Phase 1 is 1 Hz: high for the first half second of each second.
-        assertEquals(0.4, VoltageResponseOpMode.powerAt(1, 3.1, 0.4), 1e-9);
-        assertEquals(-0.4, VoltageResponseOpMode.powerAt(1, 3.6, 0.4), 1e-9);
-        assertEquals(0.4, VoltageResponseOpMode.powerAt(1, 4.1, 0.4), 1e-9);
+        assertEquals(0.4, VoltageResponseOpMode.speedAt(1, 3.1, 0.4), 1e-9);
+        assertEquals(-0.4, VoltageResponseOpMode.speedAt(1, 3.6, 0.4), 1e-9);
+        assertEquals(0.4, VoltageResponseOpMode.speedAt(1, 4.1, 0.4), 1e-9);
 
         // Phase 5 is 20 Hz: a full cycle every 50 ms.
-        assertEquals(0.4, VoltageResponseOpMode.powerAt(5, 15.0, 0.4), 1e-9);
-        assertEquals(-0.4, VoltageResponseOpMode.powerAt(5, 15.030, 0.4), 1e-9);
+        assertEquals(0.4, VoltageResponseOpMode.speedAt(5, 15.0, 0.4), 1e-9);
+        assertEquals(-0.4, VoltageResponseOpMode.speedAt(5, 15.030, 0.4), 1e-9);
 
         assertEquals("nothing after the last phase", 0.0,
-                VoltageResponseOpMode.powerAt(6, 20.0, 0.4), 1e-9);
+                VoltageResponseOpMode.speedAt(6, 20.0, 0.4), 1e-9);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class SysIdTest {
         h.start();
         h.loop();
         assertEquals(false, Tracker.values().get("running"));
-        assertEquals(0.0, (Double) Tracker.values().get("drive/power"), 1e-9);
+        assertEquals(0.0, (Double) Tracker.values().get("drive/speed"), 1e-9);
 
         h.gamepad1.right_trigger = 1.0f;
         h.loops(2, 5);
@@ -119,7 +119,7 @@ public class SysIdTest {
         h.loop();
         assertEquals(false, Tracker.values().get("sysid/running"));
         assertEquals("nothing moves until asked", 0.0,
-                (Double) Tracker.values().get("sysid/power"), 1e-9);
+                (Double) Tracker.values().get("sysid/speed"), 1e-9);
 
         h.gamepad1.right_trigger = 1.0f;
         h.loops(3, 10);
@@ -129,11 +129,11 @@ public class SysIdTest {
         h.gamepad1.right_trigger = 0f;
         h.loop();
         assertEquals(false, Tracker.values().get("sysid/running"));
-        assertEquals(0.0, (Double) Tracker.values().get("sysid/power"), 1e-9);
+        assertEquals(0.0, (Double) Tracker.values().get("sysid/speed"), 1e-9);
     }
 
     @Test
-    public void aFlatterBatteryMeansMorePowerForTheSameVolts() {
+    public void aFlatterBatteryMeansMoreSpeedForTheSameVolts() {
         OpModeHarness h = new OpModeHarness(new SysIdDriveOpMode());
         h.batteryVolts = 12.0;
         h.init();
@@ -142,11 +142,11 @@ public class SysIdTest {
         h.loop();
         h.gamepad1.right_trigger = 1.0f;
         h.loop();
-        assertEquals(4.0 / 12.0, (Double) Tracker.values().get("sysid/power"), 1e-6);
+        assertEquals(4.0 / 12.0, (Double) Tracker.values().get("sysid/speed"), 1e-6);
 
         h.batteryVolts = 10.0;
         h.loop();
-        assertEquals("same volts asked for, more power needed",
-                4.0 / 10.0, (Double) Tracker.values().get("sysid/power"), 1e-6);
+        assertEquals("same volts asked for, more speed needed",
+                4.0 / 10.0, (Double) Tracker.values().get("sysid/speed"), 1e-6);
     }
 }

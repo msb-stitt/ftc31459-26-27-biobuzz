@@ -28,7 +28,7 @@ public class StarterBotTest {
 
     /** A motor or servo that records what was written, and reports a velocity a test sets. */
     static final class Fake {
-        double power;
+        double speed;
         double targetVelocity;
         double velocity;
         DcMotorSimple.Direction direction;
@@ -37,7 +37,7 @@ public class StarterBotTest {
             return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type},
                     (proxy, method, args) -> {
                         switch (method.getName()) {
-                            case "setPower": power = (Double) args[0]; return null;
+                            case "setPower": speed = (Double) args[0]; return null;
                             case "setVelocity": targetVelocity = (Double) args[0]; return null;
                             case "getVelocity": return velocity;
                             case "setDirection":
@@ -93,39 +93,39 @@ public class StarterBotTest {
         launcherMotor.velocity = 1100;
         Scheduler.execute();
         assertEquals(1250, launcherMotor.targetVelocity, 0);
-        assertEquals("too slow to feed", 0, windmill.power, 0);
+        assertEquals("too slow to feed", 0, windmill.speed, 0);
         assertFalse(launcher.feeding());
 
         launcherMotor.velocity = 1210;
         Scheduler.execute();
-        assertEquals("fast enough", 1, windmill.power, 0);
+        assertEquals("fast enough", 1, windmill.speed, 0);
         assertTrue(launcher.feeding());
 
         held[0] = false;
         Scheduler.execute();
         assertEquals("let go, the motor stops", 0, launcherMotor.targetVelocity, 0);
-        assertEquals(0, windmill.power, 0);
+        assertEquals(0, windmill.speed, 0);
         assertFalse(launcher.feeding());
         assertTrue("and the command keeps running", Scheduler.isRunning(fire));
     }
 
     @Test
-    public void theIntakeRunsAllThreeAtOnePowerAndStopsWhenCancelled() {
+    public void theIntakeRunsAllThreeAtOneSpeedAndStopsWhenCancelled() {
         double[] asked = {0.4};
         Command run = intake.run(() -> asked[0]);
         Scheduler.schedule(run);
         Scheduler.execute();
-        assertEquals(0.4, intakeMotor.power, 1e-9);
-        assertEquals(0.4, leftServo.power, 1e-9);
-        assertEquals(0.4, rightServo.power, 1e-9);
+        assertEquals(0.4, intakeMotor.speed, 1e-9);
+        assertEquals(0.4, leftServo.speed, 1e-9);
+        assertEquals(0.4, rightServo.speed, 1e-9);
 
         asked[0] = 1.5;
         Scheduler.execute();
-        assertEquals("clipped", 1, intakeMotor.power, 0);
+        assertEquals("clipped", 1, intakeMotor.speed, 0);
 
         Scheduler.cancel(run);
-        assertEquals(0, intakeMotor.power, 0);
-        assertEquals(0, rightServo.power, 0);
+        assertEquals(0, intakeMotor.speed, 0);
+        assertEquals(0, rightServo.speed, 0);
     }
 
     @Test
@@ -138,25 +138,25 @@ public class StarterBotTest {
 
         h.gamepad1.left_stick_y = -1.0f;
         h.loop();
-        assertEquals("pushed away, forward at full power", 1.0, h.wheelsForward(), 1e-3);
+        assertEquals("pushed away, forward at full speed", 1.0, h.wheelsForward(), 1e-3);
 
         h.gamepad1.left_stick_y = 0.0f;
         h.gamepad1.right_trigger = 0.75f;
         h.gamepad1.left_trigger = 0.25f;
         h.loop();
-        assertEquals("right less left", 0.5, intakeMotor.power, 1e-6);
+        assertEquals("right less left", 0.5, intakeMotor.speed, 1e-6);
 
         h.gamepad1.right_bumper = true;
         launcherMotor.velocity = 1210;
         h.loop();
         assertEquals(1250, launcherMotor.targetVelocity, 0);
         h.loop();
-        assertEquals("feeding adds 0.5", 1.0, intakeMotor.power, 1e-6);
+        assertEquals("feeding adds 0.5", 1.0, intakeMotor.speed, 1e-6);
 
         h.gamepad1.right_bumper = false;
         h.loop();
         assertEquals("let go, the launcher stops", 0, launcherMotor.targetVelocity, 0);
-        assertEquals(0, windmill.power, 0);
+        assertEquals(0, windmill.speed, 0);
 
         h.stop();
     }
@@ -221,14 +221,14 @@ public class StarterBotTest {
         assertEquals(0.5, (Double) logged.get("drive/forward"), 1e-6);
         assertEquals(-0.25, (Double) logged.get("drive/strafeLeft"), 1e-6);
         assertEquals(-0.125, (Double) logged.get("drive/turnCounterclockwise"), 1e-6);
-        assertEquals(0.75, (Double) logged.get("intake/power"), 1e-6);
+        assertEquals(0.75, (Double) logged.get("intake/speed"), 1e-6);
         assertEquals(1250.0, (Double) logged.get("launcher/target_tps"), 0);
         String[] wheels = {"frontLeft", "frontRight", "backLeft", "backRight"};
         String[] motors = {OpModeHarness.FRONT_LEFT, OpModeHarness.FRONT_RIGHT,
                 OpModeHarness.BACK_LEFT, OpModeHarness.BACK_RIGHT};
         for (int i = 0; i < wheels.length; i++) {
-            double logPower = (Double) logged.get("wheel/" + wheels[i] + "/power");
-            assertEquals(wheels[i], h.motors.get(motors[i]).power, logPower, 1e-6);
+            double logSpeed = (Double) logged.get("wheel/" + wheels[i] + "/speed");
+            assertEquals(wheels[i], h.motors.get(motors[i]).speed, logSpeed, 1e-6);
         }
         for (String key : logged.keySet()) {
             assertFalse("Pedro's pose is logged by Tracker.endLoop alone: " + key,
@@ -283,7 +283,7 @@ public class StarterBotTest {
         launcherMotor.velocity = 1300;
         h.loop();
         assertEquals("a fifth of 1250", 250, launcherMotor.targetVelocity, 1e-9);
-        assertEquals("fast, and still not feeding", 0, windmill.power, 0);
+        assertEquals("fast, and still not feeding", 0, windmill.speed, 0);
         assertFalse(launcher.feeding());
         assertEquals(true, Tracker.values().get("button/rightBumper"));
 
@@ -326,7 +326,7 @@ public class StarterBotTest {
             OpModeHarness.sleep(5);
         }
         assertTrue("the robot never started following a path", followed);
-        assertTrue(Tracker.values().containsKey("wheel/frontLeft/power"));
+        assertTrue(Tracker.values().containsKey("wheel/frontLeft/speed"));
         h.stop();
         assertEquals("drove straight up to the corner first", 0.0, drift, 2.0);
         Pose end = follower.pose();

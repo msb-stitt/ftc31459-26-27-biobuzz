@@ -5,7 +5,7 @@ How to run a lesson on a laptop and watch the robot move in AdvantageScope.
 ## What it is
 
 The lessons are real OpModes, and the simulator runs them with fake hardware. `OpModeHarness` gives
-an OpMode four fake motors, a fake IMU and a fake battery, and `SimRobot` turns whatever power
+an OpMode four fake motors, a fake IMU and a fake battery, and `SimRobot` turns whatever speed
 reaches those motors into motion. Nothing here runs on the robot: it all lives in `TeamCode`'s test
 sources, and WPILib's NetworkTables is a `testImplementation` dependency, so none of it can reach a
 Control Hub. The NetworkTables server is the robot's own, `Nt4Server` from corbelsflightlog, with
@@ -121,7 +121,7 @@ but it never reaches `stop()`, so the file is closed by nobody and holds 0 bytes
 
 ## What the model does, and what it does not
 
-The whole of the physics is three numbers and a lag. Each loop, the four wheel powers are mixed
+The whole of the physics is three numbers and a lag. Each loop, the four wheel speeds are mixed
 back into forward, strafe and turn; each of those chases its commanded speed with a 0.15 s time
 constant; and the result is integrated into a pose.
 

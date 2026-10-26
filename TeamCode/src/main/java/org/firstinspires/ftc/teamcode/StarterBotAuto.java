@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  *
  * <p>The drive is one command, built and scheduled in {@code start()} when PLAY
  * is pressed, the way StarterBot TeleOp schedules its three. Each wheel's
- * power goes to the flight log; Pedro's pose is already there, under
+ * speed goes to the flight log; Pedro's pose is already there, under
  * {@code Robot/Pose}.
  */
 @Autonomous(name = "StarterBot Auto", group = "StarterBot")

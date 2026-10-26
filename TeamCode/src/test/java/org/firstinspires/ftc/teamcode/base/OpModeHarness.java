@@ -74,7 +74,7 @@ public final class OpModeHarness {
      */
     public static final class FakeMotor implements InvocationHandler {
         public int ticks;
-        public double power;
+        public double speed;
         public double velocity;
 
         /** How far the wheel has rolled, and how fast, in inches and inches per
@@ -97,10 +97,10 @@ public final class OpModeHarness {
         }
 
         /** The direction last set, or null if none was. Recorded only: the
-         * simulator drives from the powers as written, whatever this says. */
+         * simulator drives from the speeds as written, whatever this says. */
         public DcMotorSimple.Direction direction;
 
-        /** How many times a power actually reached this motor, so a test can
+        /** How many times a speed actually reached this motor, so a test can
          * see the write cache skipping one. */
         public int writes;
 
@@ -118,11 +118,11 @@ public final class OpModeHarness {
                     return speedInPerS == null ? velocity
                             : speedInPerS.getAsDouble() * Constants.ticksPerInch;
                 case "setPower":
-                    power = (Double) args[0];
+                    speed = (Double) args[0];
                     writes++;
                     return null;
                 case "getPower":
-                    return power;
+                    return speed;
                 case "setDirection":
                     direction = (DcMotorSimple.Direction) args[0];
                     return null;
@@ -307,10 +307,10 @@ public final class OpModeHarness {
         // it: the lesson's own code in L040 to L090, the follower through the
         // lesson's drivetrain from L110 on.
         robot.localizer.driveFrom(() -> SimRobot.fromWheels(
-                motors.get(FRONT_LEFT).power,
-                motors.get(FRONT_RIGHT).power,
-                motors.get(BACK_LEFT).power,
-                motors.get(BACK_RIGHT).power));
+                motors.get(FRONT_LEFT).speed,
+                motors.get(FRONT_RIGHT).speed,
+                motors.get(BACK_LEFT).speed,
+                motors.get(BACK_RIGHT).speed));
         // The IMU turns as the simulated robot does, and only then: putting the
         // robot down at its start pose leaves it reading zero, as on the robot.
         imu.follow(robot.localizer::turnedRadians);
@@ -402,7 +402,7 @@ public final class OpModeHarness {
         stop();
     }
 
-    /** The powers the follower last commanded: forward, strafe, turn. */
+    /** The speeds the follower last commanded: forward, strafe, turn. */
     public double forward() {
         return robot.drive.last.forward();
     }
@@ -416,7 +416,7 @@ public final class OpModeHarness {
     }
 
     /**
-     * What the four wheel powers add up to: forward, strafe left and turn
+     * What the four wheel speeds add up to: forward, strafe left and turn
      * counter-clockwise, recovered by undoing the mecanum mixing.
      *
      * <p>This is what to assert about a lesson that commands its own wheels,
@@ -426,27 +426,27 @@ public final class OpModeHarness {
      * the directions and the ratios survive, the magnitude does not.
      */
     public double wheelsForward() {
-        double[] w = wheelPowers();
+        double[] w = wheelSpeeds();
         return (w[0] + w[1] + w[2] + w[3]) / 4;
     }
 
     public double wheelsStrafe() {
-        double[] w = wheelPowers();
+        double[] w = wheelSpeeds();
         return (-w[0] + w[1] + w[2] - w[3]) / 4;
     }
 
     public double wheelsTurn() {
-        double[] w = wheelPowers();
+        double[] w = wheelSpeeds();
         return (-w[0] + w[1] - w[2] + w[3]) / 4;
     }
 
-    /** The power on each motor, in wheel order. */
-    public double[] wheelPowers() {
+    /** The speed on each motor, in wheel order. */
+    public double[] wheelSpeeds() {
         return new double[]{
-                motors.get(FRONT_LEFT).power,
-                motors.get(FRONT_RIGHT).power,
-                motors.get(BACK_LEFT).power,
-                motors.get(BACK_RIGHT).power};
+                motors.get(FRONT_LEFT).speed,
+                motors.get(FRONT_RIGHT).speed,
+                motors.get(BACK_LEFT).speed,
+                motors.get(BACK_RIGHT).speed};
     }
 
     public static void sleep(long ms) {

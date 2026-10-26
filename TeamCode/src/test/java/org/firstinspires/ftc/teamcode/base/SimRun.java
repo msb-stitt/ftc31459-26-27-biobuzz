@@ -40,7 +40,7 @@ import java.lang.reflect.Field;
  * <p>A pass advances the simulated clock by the real time since the last pass
  * rather than by one instant, so the robot moves at the speed it would move on
  * the field however long a pass takes. Measured on this bench on 2026-09-29,
- * driving straight at full power and reading the pose off NetworkTables: an
+ * driving straight at full speed and reading the pose off NetworkTables: an
  * OpMode burning 25 ms in every loop ran at 0.398 of real time while a pass
  * advanced a fixed 10 ms, and at 1.001 once it advanced what it measured. An
  * OpMode with nothing in its loop runs at 1.000 either way.

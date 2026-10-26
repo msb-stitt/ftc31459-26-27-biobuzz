@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L050: tank drive on the robot, up on blocks. Each motor is told which way it
- * is mounted, so a positive power turns its wheel forward.
+ * is mounted, so a positive speed turns its wheel forward.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over

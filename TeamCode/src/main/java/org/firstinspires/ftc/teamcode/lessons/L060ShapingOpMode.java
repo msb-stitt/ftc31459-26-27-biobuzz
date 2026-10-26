@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * loop.
  *
  * <p>Passes when: LessonsTest.l060_aLetGoStickCountsAsCentred and
- * LessonsTest.l060_halfAStickIsAQuarterOfThePower
+ * LessonsTest.l060_halfAStickIsAQuarterOfTheSpeed
  */
 @TeleOp(name = "L060 Shaping", group = "Lessons")
 // When on L060S020, see

@@ -5,9 +5,10 @@ import io.github.mikestitt.corbelsflightlog.FlightLog;
 /**
  * Writes the channels WPILib's SysId analyser reads.
  *
- * <p>SysId works in volts, and an FTC motor takes power. So applied voltage is
- * the commanded power times whatever the battery is giving at that moment --
- * which means battery sag appears as fewer volts for the same power, rather than
+ * <p>SysId works in volts, and an FTC motor takes a speed, a fraction of
+ * battery voltage. So applied voltage is the commanded speed times whatever
+ * the battery is giving at that moment --
+ * which means battery sag appears as fewer volts for the same speed, rather than
  * as noise in the fit.
  *
  * <p>The analyser asks the user which channels to use, so the names here need
@@ -62,24 +63,24 @@ public class SysIdRecorder {
      * One motor's sample.
      *
      * @param motor        what the motor is called, e.g. "frontLeft"
-     * @param power        what was commanded, -1 to 1
+     * @param speed        what was commanded, -1 to 1
      * @param batteryVolts what the battery is giving right now
      * @param inches       how far this wheel has travelled
      * @param inchesPerSec how fast it is travelling
      */
-    public void motor(String motor, double power, double batteryVolts,
+    public void motor(String motor, double speed, double batteryVolts,
                       double inches, double inchesPerSec) {
         if (flightlog == null) return;
-        flightlog.recordOutput("voltage-" + motor + "-" + name, appliedVolts(power, batteryVolts));
+        flightlog.recordOutput("voltage-" + motor + "-" + name, appliedVolts(speed, batteryVolts));
         flightlog.recordOutput("position-" + motor + "-" + name, inches);
         flightlog.recordOutput("velocity-" + motor + "-" + name, inchesPerSec);
     }
 
     /**
-     * What the motor actually saw. A power of 1 on a 12.4 V battery is 12.4 V;
-     * the same power at the end of a match is less, and that is the point.
+     * What the motor actually saw. A speed of 1 on a 12.4 V battery is 12.4 V;
+     * the same speed at the end of a match is less, and that is the point.
      */
-    public static double appliedVolts(double power, double batteryVolts) {
-        return power * batteryVolts;
+    public static double appliedVolts(double speed, double batteryVolts) {
+        return speed * batteryVolts;
     }
 }
