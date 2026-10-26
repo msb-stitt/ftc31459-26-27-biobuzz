@@ -1,15 +1,15 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerDriveTrain.java
-index 0f10972..bb33025 100644
+index 0e27d6f..1110ecf 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerDriveTrain.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerDriveTrain.java
 @@ -44,6 +44,10 @@ class L110FollowerDriveTrain extends CorbelsDriveTrain {
          // When on L110S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030
          // for what to do here.
-+        wheels[FL] = forward - strafe - turn;
-+        wheels[FR] = forward + strafe + turn;
-+        wheels[BL] = forward + strafe - turn;
-+        wheels[BR] = forward - strafe + turn;
++        wheelSpeeds[FL] = forwardSpeed - strafeSpeed - turnSpeed;
++        wheelSpeeds[FR] = forwardSpeed + strafeSpeed + turnSpeed;
++        wheelSpeeds[BL] = forwardSpeed + strafeSpeed - turnSpeed;
++        wheelSpeeds[BR] = forwardSpeed - strafeSpeed + turnSpeed;
  
-         return wheels;
+         return wheelSpeeds;
      }
