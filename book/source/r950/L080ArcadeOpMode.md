@@ -44,14 +44,14 @@ is gone; each number is the line's place in the file after the lesson.
   108
   109         boolean buttonA = gamepad1.a;
   110         Tracker.publish("gamepad1/buttonA", buttonA);
-@@ lines 142 to 150 @@
-  142     // When on L080S030, see
-  143     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-  144     // for what to do here.
-+ 145     double speedShaped(double value, double band) {
-+ 146         double deadbanded = deadband(value, band);
-+ 147         double shapedSpeed = signedSquared(deadbanded);
-+ 148         return shapedSpeed;
-+ 149     }
-  150 }
+@@ lines 143 to 151 @@
+  143     // When on L080S030, see
+  144     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+  145     // for what to do here.
++ 146     double speedShaped(double value, double band) {
++ 147         double deadbanded = deadband(value, band);
++ 148         double shapedSpeed = signedSquared(deadbanded);
++ 149         return shapedSpeed;
++ 150     }
+  151 }
 ```
