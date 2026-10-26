@@ -32,8 +32,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L110FollowerOpMode extends CorbelsTeleOp {
 
-    boolean previousButtonA;
-
     // When on L110S040, see
     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s040
     // for what to do here.
@@ -70,9 +68,6 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
         Tracker.publish("stick/leftY", leftStickY);
-        double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
-
         double leftStickX = gamepad1.left_stick_x;
         Tracker.publish("stick/leftX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
@@ -93,18 +88,6 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
         // When on L110S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
         // for what to do here.
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
-        }
-        previousButtonA = buttonA;
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.

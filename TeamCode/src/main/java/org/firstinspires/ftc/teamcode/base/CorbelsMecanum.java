@@ -23,15 +23,17 @@ public class CorbelsMecanum extends CorbelsDriveTrain {
 
     /** Pedro's mixing, unchanged: forward, strafe and turn into four wheels. */
     @Override
-    public double[] mix(DrivePowers speeds) {
-        double forward = speeds.forward();
-        double strafe = speeds.strafe();
-        double turn = speeds.turn();
-        double[] wheels = new double[4];
-        wheels[FL] = forward - strafe - turn;
-        wheels[FR] = forward + strafe + turn;
-        wheels[BL] = forward + strafe - turn;
-        wheels[BR] = forward - strafe + turn;
-        return wheels;
+    public double[] mixArcadeToWheelSpeeds(DrivePowers speeds) {
+        double forwardSpeed = speeds.forward();
+        double strafeSpeed = speeds.strafe();
+        double turnSpeed = speeds.turn();
+        double[] wheelSpeeds = new double[4];
+
+        wheelSpeeds[FL] = forwardSpeed - strafeSpeed - turnSpeed;
+        wheelSpeeds[FR] = forwardSpeed + strafeSpeed + turnSpeed;
+        wheelSpeeds[BL] = forwardSpeed + strafeSpeed - turnSpeed;
+        wheelSpeeds[BR] = forwardSpeed - strafeSpeed + turnSpeed;
+
+        return wheelSpeeds;
     }
 }

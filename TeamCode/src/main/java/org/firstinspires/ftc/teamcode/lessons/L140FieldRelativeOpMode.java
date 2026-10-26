@@ -32,8 +32,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L140FieldRelativeOpMode extends CorbelsTeleOp {
 
-    boolean previousButtonA;
-
     CorbelsMecanum drivetrain;
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -66,9 +64,6 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
         Tracker.publish("stick/leftY", leftStickY);
-        double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
-
         double leftStickX = gamepad1.left_stick_x;
         Tracker.publish("stick/leftX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
@@ -90,18 +85,6 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
         // for what to do here.
         drivetrain.sticks(forward, strafe, turn);
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
-        }
-        previousButtonA = buttonA;
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
