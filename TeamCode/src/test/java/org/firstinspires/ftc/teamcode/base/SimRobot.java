@@ -67,7 +67,7 @@ public final class SimRobot {
 
     /**
      * Four wheel speeds back into forward, strafe and turn: the exact inverse
-     * of {@code CorbelsMecanum.mix}, which writes
+     * of {@code CorbelsMecanum.mixArcadeToWheelSpeeds}, which writes
      * {@code fl = f - s - t, fr = f + s + t, bl = f + s - t, br = f - s + t}.
      * Substituting those four here returns f, s and t unchanged.
      *

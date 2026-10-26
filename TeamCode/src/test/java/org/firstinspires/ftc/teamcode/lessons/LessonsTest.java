@@ -340,8 +340,8 @@ public class LessonsTest {
     }
 
     /**
-     * L110's mix, driven the way the follower drives it: three numbers in, four
-     * speeds on the motors. Each assert names the wheel, so a wrong sign says
+     * L110's mixArcadeToWheelSpeeds, driven the way the follower drives it: the
+     * arcade command in, wheel speeds on the motors. Each assert names the wheel, so a wrong sign says
      * which line it is on.
      */
     @Test

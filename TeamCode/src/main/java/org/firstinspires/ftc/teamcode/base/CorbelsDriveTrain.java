@@ -13,10 +13,10 @@ import java.util.Map;
 /**
  * A working mecanum drivetrain, for code that is not a lesson.
  *
- * <p>The lessons from L110 on extend it, and each writes one method: {@link #mix}
- * in L110, {@code setCommandedWheelSpeeds} in L190 and {@code wheelTicks} in
- * L195. The only part left open is {@link #mix}, and {@link CorbelsMecanum}
- * fills it in.
+ * <p>The lessons from L110 on extend it, and each writes one method:
+ * {@link #mixArcadeToWheelSpeeds} in L110, {@code setCommandedWheelSpeeds} in
+ * L190 and {@code wheelTicks} in L195. The only part left open is
+ * {@link #mixArcadeToWheelSpeeds}, and {@link CorbelsMecanum} fills it in.
  *
  * <p><b>Which way is positive.</b> Pedro's three numbers are
  * {@code forwardSpeed} along the robot's nose, {@code strafeLeftSpeed} towards
@@ -143,10 +143,10 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     // ------------------------------------------------------- the follower and a lesson take turns
 
     /**
-     * The three numbers the follower asks for, as four wheel speeds: front left,
+     * The arcade command the follower asks for, as wheel speeds: front left,
      * front right, back left, back right.
      */
-    public abstract double[] mix(DrivePowers speeds);
+    public abstract double[] mixArcadeToWheelSpeeds(DrivePowers speeds);
 
     /**
      * Drives each wheel at the speed given, from the next follower update until
@@ -189,7 +189,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
 
         double[] sourceSpeeds;
         if (commandedWheels == null) {
-            double[] mixed = mix(speeds);
+            double[] mixed = mixArcadeToWheelSpeeds(speeds);
             sourceSpeeds = normalized(mixed);
         } else {
             sourceSpeeds = commandedWheels;
@@ -228,9 +228,9 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * wheels are commanded, so the driver wins while a stick is pushed.
      */
     public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
-        double[] mixed = mix(new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed));
-        double[] scaled = normalized(mixed);
-        setCommandedWheels(scaled[FL], scaled[FR], scaled[BL], scaled[BR]);
+        double[] mixedWheelSpeeds = mixArcadeToWheelSpeeds(new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed));
+        double[] speeds = normalized(mixedWheelSpeeds);
+        setCommandedWheels(speeds[FL], speeds[FR], speeds[BL], speeds[BR]);
     }
 
     /**
@@ -352,8 +352,8 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      */
     @Override
     public double maxScaling(DrivePowers current, DrivePowers delta) {
-        double[] currentSpeeds = mix(current);
-        double[] changes = mix(delta);
+        double[] currentSpeeds = mixArcadeToWheelSpeeds(current);
+        double[] changes = mixArcadeToWheelSpeeds(delta);
         double fits = 1.0;
 
         for (int i = 0; i < 4; i++) {

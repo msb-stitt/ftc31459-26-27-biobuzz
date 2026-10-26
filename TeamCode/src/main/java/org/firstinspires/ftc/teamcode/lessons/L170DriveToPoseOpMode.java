@@ -38,7 +38,6 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L170DriveToPoseOpMode extends CorbelsTeleOp {
 
-    boolean previousButtonA;
     boolean previousButtonY;
 
     CorbelsMecanum drivetrain;
@@ -101,9 +100,6 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
         Tracker.publish("stick/leftY", leftStickY);
-        double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
-
         double leftStickX = gamepad1.left_stick_x;
         Tracker.publish("stick/leftX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
@@ -134,18 +130,6 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
         } else {
             drivetrain.sticks(robotForward, robotStrafe, turn);
         }
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
-        }
-        previousButtonA = buttonA;
     }
 
     /** How the drive to the target begins. */
