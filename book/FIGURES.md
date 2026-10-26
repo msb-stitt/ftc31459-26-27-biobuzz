@@ -16,6 +16,14 @@ draw run leaves nothing to commit. To bring it back, put its box in a page and i
 
 How to add one: put the box in the page and the row here, in the same commit.
 
+How to take a screenshot of Android Studio: run `ftc-claude`'s `tools/figures/prep.sh` first, as
+`tools/figures/prep.sh l120 L120CompareLocalizersOpMode solutions-minor-fixes`, and look at the
+`scratch/figures/prep.png` it writes. It closes every editor tab, fills `mytry` with every earlier
+lesson's answer and the lesson's fresh copies, and opens the copy named, so no earlier lesson's tab
+is open and none is underlined in red. It moves whatever `mytry` held to `scratch/mytry-saved-TIME`
+first. The copies are not added to git, so the project pane shows their names in git's color for a
+new file.
+
 ```
 :::{admonition} fig-robot-front
 :class: pencil
