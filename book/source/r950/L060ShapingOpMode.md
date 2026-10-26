@@ -35,7 +35,7 @@ is gone; each number is the line's place in the file after the lesson.
    91     }
    92
    93     // 'public' to match the parent class. 'public' allows access from any code.
-@@ lines 99 to 118 @@
+@@ lines 99 to 119 @@
    99     // When on L060S030, see
   100     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
   101     // for what to do here.
@@ -52,8 +52,9 @@ is gone; each number is the line's place in the file after the lesson.
   112     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
   113     // for what to do here.
 + 114     double signedSquared(double value) {
-+ 115         double squaredWithItsSign = value * Math.abs(value);
-+ 116         return squaredWithItsSign;
-+ 117     }
-  118 }
++ 115         double alwaysPositiveValue = Math.abs(value);
++ 116         double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
++ 117         return valueSquaredKeepingTheSign;
++ 118     }
+  119 }
 ```
