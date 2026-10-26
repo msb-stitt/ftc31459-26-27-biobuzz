@@ -68,31 +68,31 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
-
-        // When on L080S030, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-        // for what to do here.
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
         // When on L080S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
         // for what to do here.
 
+        // When on L080S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
+        // for what to do here.
+
         boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
+        Tracker.publish("gamepad1/buttonA", buttonA);
 
         if (buttonA != previousButtonA) {
             if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
+                Tracker.publish("gamepad1/buttonAEvent", "A pressed");
             } else {
-                Tracker.publish("button/event", "A released");
+                Tracker.publish("gamepad1/buttonAEvent", "A released");
             }
         }
         previousButtonA = buttonA;
@@ -114,6 +114,11 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double squaredWithItsSign = value * Math.abs(value);
+        return squaredWithItsSign;
     }
+
+    // When on L080S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+    // for what to do here.
 }

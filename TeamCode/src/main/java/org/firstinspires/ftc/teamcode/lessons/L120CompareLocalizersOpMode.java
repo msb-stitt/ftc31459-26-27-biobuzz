@@ -65,25 +65,25 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double band = 0.05;
-        double forward = deadband(-leftStickY, band);
-        forward = signedSquared(forward);
-        Tracker.publish("arcade/forward", forward);
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
+        double bandToSetToZero = 0.05;
+        double forwardXSpeed = -leftStickY;
+        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 
-        double strafe = deadband(-leftStickX, band);
-        strafe = signedSquared(strafe);
-        Tracker.publish("arcade/strafe", strafe);
+        double strafeYSpeed = -leftStickX;
+        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
 
-        drivetrain.sticks(forward, strafe, turn);
+        drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -110,6 +110,13 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double squaredWithItsSign = value * Math.abs(value);
+        return squaredWithItsSign;
+    }
+
+    double speedShaped(double value, double band) {
+        double deadbanded = deadband(value, band);
+        double shapedSpeed = signedSquared(deadbanded);
+        return shapedSpeed;
     }
 }

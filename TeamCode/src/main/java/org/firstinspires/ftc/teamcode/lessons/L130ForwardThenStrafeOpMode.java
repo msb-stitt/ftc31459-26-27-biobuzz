@@ -86,11 +86,12 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
     }
 
     Command driveForwardThenStrafe() {
-        return sequential(
+        Command forwardThenStrafeRoute = sequential(
                 follow(follower, line(start, corner).constant(start))
                 // When on L130S030, see
                 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l130.html#l130s030
                 // for what to do here.
         );
+        return forwardThenStrafeRoute;
     }
 }

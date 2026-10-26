@@ -123,40 +123,49 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
      */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double band = 0.05;
-        double forward = deadband(-leftStickY, band);
-        forward = signedSquared(forward);
-        Tracker.publish("arcade/forward", forward);
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
-        turn = hold.turn(follower, turn);
-        Tracker.publish("heading/holding", hold.target() != null);
-        if (hold.target() != null) {
-            Tracker.publish("heading/target_deg", Math.toDegrees(hold.target()));
+        double bandToSetToZero = 0.05;
+        double fieldXSpeed = -leftStickY;
+        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+        turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
+        boolean holdingHeading = hold.target() != null;
+        Tracker.publish("drivetrain/holdingHeading", holdingHeading);
+        if (holdingHeading) {
+            double targetHeadingDegrees = Math.toDegrees(hold.target());
+            Tracker.publish("drivetrain/targetHeadingDegrees", targetHeadingDegrees);
         }
 
-        double strafe = deadband(-leftStickX, band);
-        strafe = signedSquared(strafe);
-        Tracker.publish("arcade/strafe", strafe);
+        double fieldYSpeed = -leftStickX;
+        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
 
-        Tracker.publish("drive/mode", "DRIVER");
-        double heading = follower.pose().heading();
-        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
-        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
+        Tracker.publish("drivetrain/driveMode", "DRIVER");
+        double robotForwardXSpeed;
+        double robotStrafeYSpeed;
         boolean robotRelative = gamepad1.right_bumper;
-        Tracker.publish("drive/robotRelative", robotRelative);
+        Tracker.publish("drivetrain/robotRelative", robotRelative);
         if (robotRelative) {
-            drivetrain.sticks(forward, strafe, turn);
+            robotForwardXSpeed = -leftStickY;
+            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
+            robotStrafeYSpeed = -leftStickX;
+            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
         } else {
-            drivetrain.sticks(robotForward, robotStrafe, turn);
+            double heading = follower.pose().heading();
+            robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+            robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
         }
+        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
+        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
+        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
     }
 
     /** How the drive to the target begins. */
@@ -167,17 +176,17 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
 
     /** Each loop of the drive to the target: the follower drives, not the sticks. */
     void letTheFollowerDrive() {
-        Tracker.publish("drive/mode", "AUTO");
+        Tracker.publish("drivetrain/driveMode", "AUTO");
     }
 
     /** The drive to the target is done when any stick is pushed past the deadband. */
     boolean driverWantsControl() {
-        double band = 0.05;
+        double bandToSetToZero = 0.05;
         double leftStickYMagnitude = Math.abs(gamepad1.left_stick_y);
         double leftStickXMagnitude = Math.abs(gamepad1.left_stick_x);
         double rightStickXMagnitude = Math.abs(gamepad1.right_stick_x);
-        boolean driverWantsControl = leftStickYMagnitude > band
-                || leftStickXMagnitude > band || rightStickXMagnitude > band;
+        boolean driverWantsControl = leftStickYMagnitude > bandToSetToZero
+                || leftStickXMagnitude > bandToSetToZero || rightStickXMagnitude > bandToSetToZero;
         return driverWantsControl;
     }
 
@@ -188,7 +197,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     void giveTheDriverTheWheels(EndCondition howItEnded) {
         follower.manual(0.0, 0.0, 0.0);
         hold.release();
-        Tracker.publish("drive/mode", "DRIVER");
+        Tracker.publish("drivetrain/driveMode", "DRIVER");
     }
 
     /** A's command: any drive to the target is cancelled, and the hold aims at 45 degrees. */
@@ -208,6 +217,13 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double squaredWithItsSign = value * Math.abs(value);
+        return squaredWithItsSign;
+    }
+
+    double speedShaped(double value, double band) {
+        double deadbanded = deadband(value, band);
+        double shapedSpeed = signedSquared(deadbanded);
+        return shapedSpeed;
     }
 }

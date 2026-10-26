@@ -102,19 +102,19 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         double dy = follower.pose().y() - startY;
         inches = Math.hypot(dx, dy);
 
-        double measured = Calibration.ticksPerInch(ticks, inches);
+        double measuredTicksPerInch = Calibration.ticksPerInch(ticks, inches);
         Tracker.publish("measure/inches", inches);
         Tracker.publish("measure/ticks", ticks);
-        Tracker.publish("measure/ticksPerInch", measured);
+        Tracker.publish("measure/ticksPerInch", measuredTicksPerInch);
 
         Tracker.printToDs("Push the robot forward  %.1f of %.0f inches", inches, NEEDED_INCHES);
         Tracker.printToDs("Encoders counted  %.0f ticks", ticks);
         if (inches >= NEEDED_INCHES) {
             Tracker.printToDs();
-            Tracker.printToDs("ticksPerInch  %.2f", measured);
+            Tracker.printToDs("ticksPerInch  %.2f", measuredTicksPerInch);
             Tracker.printToDs("Put that in Constants.ticksPerInch, then run it again to check.");
         } else {
-            Tracker.printToDs("Currently  %.2f ticks per inch", measured);
+            Tracker.printToDs("Currently  %.2f ticks per inch", measuredTicksPerInch);
         }
         Tracker.printToDs("Configured now  %.2f", Constants.ticksPerInch);
     }

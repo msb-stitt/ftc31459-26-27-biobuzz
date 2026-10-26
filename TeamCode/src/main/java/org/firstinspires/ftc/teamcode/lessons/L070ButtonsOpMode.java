@@ -69,26 +69,26 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         // When on L070S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
         // for what to do here.
 
         double leftSpeed = -leftStickY;
-        Tracker.publish("speed/left", leftSpeed);
+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
         double rightSpeed = -rightStickY;
-        Tracker.publish("speed/right", rightSpeed);
+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 
-        double band = 0.05;
-        double leftShapedSpeed = deadband(leftSpeed, band);
+        double bandToSetToZero = 0.05;
+        double leftShapedSpeed = deadband(leftSpeed, bandToSetToZero);
         leftShapedSpeed = signedSquared(leftShapedSpeed);
-        Tracker.publish("shapedSpeed/left", leftShapedSpeed);
-        double rightShapedSpeed = deadband(rightSpeed, band);
+        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
+        double rightShapedSpeed = deadband(rightSpeed, bandToSetToZero);
         rightShapedSpeed = signedSquared(rightShapedSpeed);
-        Tracker.publish("shapedSpeed/right", rightShapedSpeed);
+        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
 
         hardware.frontLeft.setPower(leftShapedSpeed);
         hardware.backLeft.setPower(leftShapedSpeed);
@@ -121,6 +121,7 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double squaredWithItsSign = value * Math.abs(value);
+        return squaredWithItsSign;
     }
 }

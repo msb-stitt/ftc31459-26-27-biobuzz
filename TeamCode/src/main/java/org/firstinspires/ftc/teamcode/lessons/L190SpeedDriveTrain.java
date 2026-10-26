@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.base.RobotHardware;
 /**
  * L190: the drivetrain that asks the wheels for a speed.
  *
- * <p>{@link CorbelsMecanum} already mixes, scales and sends speeds. This adds
+ * <p>{@link CorbelsMecanum} already mixes, scales and sends wheelSpeeds. This adds
  * the one door that takes a speed in inches per second and gets it, two ways at
  * once: a feedforward guess at the fraction of full speed the speed needs,
  * plus a feedback correction from what the encoders measure.
@@ -22,18 +22,18 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
 
     /**
      * Drives each wheel at the speed given, in inches per second.
-     * {@code wanted[FL]} is the front left wheel's speed, and {@code FR},
+     * {@code wantedInPerS[FL]} is the front left wheel's speed, and {@code FR},
      * {@code BL} and {@code BR} name the other three.
      */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void setCommandedWheelSpeeds(double frontLeftInPerS, double frontRightInPerS,
                                         double backLeftInPerS, double backRightInPerS) {
-        double[] wanted = new double[4];
-        wanted[FL] = frontLeftInPerS;
-        wanted[FR] = frontRightInPerS;
-        wanted[BL] = backLeftInPerS;
-        wanted[BR] = backRightInPerS;
+        double[] wantedInPerS = new double[4];
+        wantedInPerS[FL] = frontLeftInPerS;
+        wantedInPerS[FR] = frontRightInPerS;
+        wantedInPerS[BL] = backLeftInPerS;
+        wantedInPerS[BR] = backRightInPerS;
 
         // When on L190S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060

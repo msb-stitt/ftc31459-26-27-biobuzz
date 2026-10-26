@@ -23,7 +23,7 @@ import java.util.Map;
  * the robot's left, and {@code turnCcwSpeed} counter-clockwise seen from above.
  * Every name in this project carries the direction for that reason, and a rate
  * in real units carries the unit too: {@code forwardXInPerS},
- * {@code turnCcwSpeedRadPerS}. The frame itself is Pedro's, defined at
+ * {@code turnCcwRadPerS}. The frame itself is Pedro's, defined at
  * https://pedropathing.com/docs/pathing/reference/coordinates
  *
  * <p><b>Why we have one at all.</b> Pedro ships a complete mecanum drivetrain,

@@ -75,22 +75,22 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double band = 0.05;
+        double bandToSetToZero = 0.05;
         // When on L190S050, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
         // for what to do here.
-        double forwardInPerS = 0.0;
-        double strafeInPerS = 0.0;
+        double forwardXInPerS = 0.0;
+        Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
+        double strafeYInPerS = 0.0;
+        Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
         double turnRadPerS = 0.0;
-        Tracker.publish("command/forward_ips", forwardInPerS);
-        Tracker.publish("command/left_ips", strafeInPerS);
-        Tracker.publish("command/turn_radps", turnRadPerS);
+        Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
