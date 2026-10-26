@@ -39,9 +39,10 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# IntelliJ
+# IntelliJ, but for the project's inspection profile
 *.iml
-.idea/
+.idea/*
+!.idea/inspectionProfiles/
 
 # For Mac users
 .DS_Store
