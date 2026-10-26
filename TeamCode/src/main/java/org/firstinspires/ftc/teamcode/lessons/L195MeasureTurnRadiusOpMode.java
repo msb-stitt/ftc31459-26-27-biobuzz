@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * here.
  *
  * <p><b>What to do.</b> Press start and spin the robot on the spot, at least
- * {@link #NEEDED_TURNS} full turns, keeping it in roughly the same place. Read
+ * {@link #neededTurns} full turns, keeping it in roughly the same place. Read
  * the number off the Driver Station.
  *
  * <p>Passes when: LessonsTest.l195_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards
@@ -41,7 +41,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
 
-    static final double NEEDED_TURNS = 2.0;
+    double neededTurns = 2.0;
 
     int[] startTicks;
     double previousHeading;
@@ -98,8 +98,12 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
         previousHeading = heading;
 
         int[] now = drivetrain.wheelTicks();
-        double turnTicks = Calibration.turnPart(now[0] - startTicks[0], now[1] - startTicks[1],
-                now[2] - startTicks[2], now[3] - startTicks[3]);
+        int frontLeftTicks = now[0] - startTicks[0];
+        int frontRightTicks = now[1] - startTicks[1];
+        int backLeftTicks = now[2] - startTicks[2];
+        int backRightTicks = now[3] - startTicks[3];
+        double turnTicks = Calibration.turnPart(frontLeftTicks, frontRightTicks, backLeftTicks,
+                backRightTicks);
         wheelInches = turnTicks / Constants.ticksPerInch;
 
         double measuredTurnRadiusInches = Calibration.turnRadiusInches(wheelInches, radians);
@@ -107,10 +111,12 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
         Tracker.publish("measure/wheelInches", wheelInches);
         Tracker.publish("measure/turnRadiusInches", measuredTurnRadiusInches);
 
-        Tracker.printToDs("Spin the robot  %.2f of %.0f turns",
-                Math.abs(radians) / (2.0 * Math.PI), NEEDED_TURNS);
+        double radiansTurned = Math.abs(radians);
+        double turnsDone = radiansTurned / (2.0 * Math.PI);
+        Tracker.printToDs("Spin the robot  %.2f of %.0f turns", turnsDone, neededTurns);
         Tracker.printToDs("Wheels travelled  %.1f inches", wheelInches);
-        if (Math.abs(radians) >= NEEDED_TURNS * 2.0 * Math.PI) {
+        boolean turnedEnough = turnsDone >= neededTurns;
+        if (turnedEnough) {
             Tracker.printToDs();
             Tracker.printToDs("turn radius  %.2f inches", measuredTurnRadiusInches);
             Tracker.printToDs("Measure the diagonal between wheels and halve it; they should agree.");

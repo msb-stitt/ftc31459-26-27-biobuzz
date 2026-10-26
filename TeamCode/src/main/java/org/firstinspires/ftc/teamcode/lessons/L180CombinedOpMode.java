@@ -140,7 +140,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         boolean holdingHeading = hold.target() != null;
         Tracker.publish("drivetrain/holdingHeading", holdingHeading);
         if (holdingHeading) {
-            double targetHeadingDegrees = Math.toDegrees(hold.target());
+            double targetHeadingRadians = hold.target();
+            double targetHeadingDegrees = Math.toDegrees(targetHeadingRadians);
             Tracker.publish("drivetrain/targetHeadingDegrees", targetHeadingDegrees);
         }
 

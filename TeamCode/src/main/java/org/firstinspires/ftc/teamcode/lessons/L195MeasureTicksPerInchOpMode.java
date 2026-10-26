@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * inches, and the drive encoders', in ticks. The ratio is the constant.
  *
  * <p><b>What to do.</b> Press start. Push the robot slowly straight forward,
- * at least {@link #NEEDED_INCHES} inches, keeping it pointing the same way.
+ * at least {@link #neededInches} inches, keeping it pointing the same way.
  * Read the number off the Driver Station and put it in
  * {@link Constants#ticksPerInch}.
  *
@@ -42,7 +42,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
-    static final double NEEDED_INCHES = 36.0;
+    double neededInches = 36.0;
 
     int[] startTicks;
     double startX, startY;
@@ -96,8 +96,12 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);       // no speed: we are pushing
 
         int[] now = drivetrain.wheelTicks();
-        ticks = Calibration.forwardPart(now[0] - startTicks[0], now[1] - startTicks[1],
-                now[2] - startTicks[2], now[3] - startTicks[3]);
+        int frontLeftTicks = now[0] - startTicks[0];
+        int frontRightTicks = now[1] - startTicks[1];
+        int backLeftTicks = now[2] - startTicks[2];
+        int backRightTicks = now[3] - startTicks[3];
+        ticks = Calibration.forwardPart(frontLeftTicks, frontRightTicks, backLeftTicks,
+                backRightTicks);
         double dx = follower.pose().x() - startX;
         double dy = follower.pose().y() - startY;
         inches = Math.hypot(dx, dy);
@@ -107,9 +111,9 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         Tracker.publish("measure/ticks", ticks);
         Tracker.publish("measure/ticksPerInch", measuredTicksPerInch);
 
-        Tracker.printToDs("Push the robot forward  %.1f of %.0f inches", inches, NEEDED_INCHES);
+        Tracker.printToDs("Push the robot forward  %.1f of %.0f inches", inches, neededInches);
         Tracker.printToDs("Encoders counted  %.0f ticks", ticks);
-        if (inches >= NEEDED_INCHES) {
+        if (inches >= neededInches) {
             Tracker.printToDs();
             Tracker.printToDs("ticksPerInch  %.2f", measuredTicksPerInch);
             Tracker.printToDs("Put that in Constants.ticksPerInch, then run it again to check.");
