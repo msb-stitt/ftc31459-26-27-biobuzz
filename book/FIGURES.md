@@ -10,7 +10,9 @@ caption. `tools/check_figures.py` checks both directions, and it is the only pla
 pencilled figures is counted.
 
 A figure no page shows is **unused**: its row stays with `unused` as its status, and `draw.py`
-keeps what draws it. To bring it back, put its box in a page and its status back to `pencilled`.
+keeps what draws it. Its drawing is committed to `corbels-lfs-lessons` like any other, so a full
+draw run leaves nothing to commit. To bring it back, put its box in a page and its status back to
+`pencilled`.
 
 How to add one: put the box in the page and the row here, in the same commit.
 
