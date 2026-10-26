@@ -1,7 +1,7 @@
 # L120CompareLocalizersOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-minor-fixes.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L120
@@ -19,13 +19,14 @@ is gone; each number is the line's place in the file after the lesson.
    13
    14 /**
    15  * L120: drive around while two localizers disagree. Your localizer reads the
-@@ lines 109 to 116 @@
-  109         // When on L120S030, see
-  110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
-  111         // for what to do here.
-+ 112         shadowLocalizers.add("driveWheelEncoders",
-+ 113                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
-  114     }
-  115
-  116     // 'public' to match the parent class. 'public' allows access from any code.
+@@ lines 92 to 100 @@
+   92         // When on L120S030, see
+   93         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
+   94         // for what to do here.
++  95         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++  96         L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
++  97         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+   98     }
+   99
+  100     // 'public' to match the parent class. 'public' allows access from any code.
 ```

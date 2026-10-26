@@ -39,7 +39,7 @@ public class NtApiCheckOpModeTest {
         assertTrue(h.driverStation.text(), h.driverStation.shows("NetworkTables on; step 10"));
 
         for (Map.Entry<String, OpModeHarness.FakeMotor> m : h.motors.entrySet()) {
-            assertEquals(m.getKey() + " power", 0.0, m.getValue().power, 0.0);
+            assertEquals(m.getKey() + " speed", 0.0, m.getValue().speed, 0.0);
         }
         try (Socket s = new Socket("127.0.0.1", 5810)) {
             s.getOutputStream().write("GET / HTTP/1.1\r\nHost: x\r\n\r\n".getBytes(StandardCharsets.UTF_8));

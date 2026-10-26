@@ -72,6 +72,9 @@ tasks/l130
 :caption: drive it like a driver
 
 tasks/l140
+tasks/e141
+tasks/e142
+tasks/e143
 tasks/l150
 tasks/l160
 tasks/l170
@@ -95,5 +98,6 @@ tasks/r910
 tasks/r920
 tasks/r930
 r950/index
+tasks/b980
 tasks/b990
 ```

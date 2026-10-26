@@ -28,7 +28,7 @@ import java.util.function.Function;
  * the launcher sets the one using it aside, and that one comes back when it ends.
  *
  * <p>Every stick, trigger and button read, the drive asked for, and each
- * wheel's power go to the flight log. Pedro's pose is already there, under
+ * wheel's speed go to the flight log. Pedro's pose is already there, under
  * {@code Robot/Pose}, and the intake and launcher log their own.
  */
 @TeleOp(name = "StarterBot TeleOp", group = "StarterBot")
@@ -50,7 +50,8 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
     @Override
     public void init() {
         initBefore();
-        // Live in AdvantageScope from INIT, at 192.168.43.1. For practice only:
+        // Live in AdvantageScope from INIT, at 192.168.43.1, only when the
+        // Live NetworkTables switch OpMode has turned it on. For practice only:
         // FTC rule R704 forbids it at competitions.
         Tracker.serveLive();
         intake = intakes.apply(hardwareMap);
@@ -64,7 +65,7 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
     public void start() {
         startBefore();
         driveFromTheSticks = driveWhileTheSticksAreRead();
-        runTheIntakeFromTheTriggers = intake.run(this::intakePowerThisLoop);
+        runTheIntakeFromTheTriggers = intake.run(this::intakeSpeedThisLoop);
         fireTheLauncherFromTheBumper = launcher.fireWhile(this::rightBumperIsHeld);
         Scheduler.schedule(driveFromTheSticks);
         Scheduler.schedule(runTheIntakeFromTheTriggers);
@@ -98,17 +99,17 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
         double leftStickX = gamepad1.left_stick_x;
         double leftStickY = gamepad1.left_stick_y;
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
-        Tracker.publish("stick/leftY", leftStickY);
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double forwardSpeed = -leftStickY;
-        double strafeLeftSpeed = -leftStickX;
-        double turnCounterclockwiseSpeed = -rightStickX;
-        Tracker.publish("drive/forward", forwardSpeed);
-        Tracker.publish("drive/strafeLeft", strafeLeftSpeed);
-        Tracker.publish("drive/turnCounterclockwise", turnCounterclockwiseSpeed);
-        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCounterclockwiseSpeed);
+        double forwardXSpeed = -leftStickY;
+        double strafeYSpeed = -leftStickX;
+        double turnCcwSpeed = -rightStickX;
+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+        drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
     }
 
     /** The drive never finishes by itself. */
@@ -127,17 +128,17 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
      * The right trigger pulls in, the left pushes out, and while the launcher
      * feeds the intake gets goBILDA's boost.
      */
-    double intakePowerThisLoop() {
-        double pullInPower = gamepad1.right_trigger;
-        double pushOutPower = gamepad1.left_trigger;
-        Tracker.publish("trigger/right", pullInPower);
-        Tracker.publish("trigger/left", pushOutPower);
-        double triggersPower = pullInPower - pushOutPower;
+    double intakeSpeedThisLoop() {
+        double pullInSpeed = gamepad1.right_trigger;
+        double pushOutSpeed = gamepad1.left_trigger;
+        Tracker.publish("trigger/right", pullInSpeed);
+        Tracker.publish("trigger/left", pushOutSpeed);
+        double triggersSpeed = pullInSpeed - pushOutSpeed;
         double boostWhileFeeding = 0;
         if (launcher.feeding()) {
             boostWhileFeeding = Launcher.INTAKE_BOOST;
         }
-        double intakePower = triggersPower + boostWhileFeeding;
-        return intakePower;
+        double intakeSpeed = triggersSpeed + boostWhileFeeding;
+        return intakeSpeed;
     }
 }

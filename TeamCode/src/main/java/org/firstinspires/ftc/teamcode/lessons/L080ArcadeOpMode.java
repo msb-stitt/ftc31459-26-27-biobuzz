@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L080: arcade drive. The left stick drives forward and back, the right stick
- * turns, and a request for more power than a motor has is scaled down, not cut
+ * turns, and a request for more speed than a motor has is scaled down, not cut
  * off.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
@@ -68,31 +68,31 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
-
-        // When on L080S030, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-        // for what to do here.
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
         // When on L080S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
         // for what to do here.
 
+        // When on L080S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
+        // for what to do here.
+
         boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
+        Tracker.publish("gamepad1/buttonA", buttonA);
 
         if (buttonA != previousButtonA) {
             if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
+                Tracker.publish("gamepad1/buttonAEvent", "A pressed");
             } else {
-                Tracker.publish("button/event", "A released");
+                Tracker.publish("gamepad1/buttonAEvent", "A released");
             }
         }
         previousButtonA = buttonA;
@@ -114,6 +114,12 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double alwaysPositiveValue = Math.abs(value);
+        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+        return valueSquaredKeepingTheSign;
     }
+
+    // When on L080S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+    // for what to do here.
 }

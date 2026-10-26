@@ -97,7 +97,7 @@ public class BaseTest {
 
     // ------------------------------------------------------- Loop order
 
-    /** A teleop whose only work is a command that drives forward at full power. */
+    /** A teleop whose only work is a command that drives forward at full speed. */
     static final class DrivesForwardFromACommand extends CorbelsTeleOp {
         CorbelsMecanum drivetrain;
 
@@ -129,7 +129,7 @@ public class BaseTest {
         h.start();
         h.loop();
         assertTrue("the first loop's command drives the wheels that loop",
-                h.motors.get(OpModeHarness.FRONT_LEFT).power > 0);
+                h.motors.get(OpModeHarness.FRONT_LEFT).speed > 0);
         h.stop();
     }
 }

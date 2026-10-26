@@ -135,7 +135,7 @@ public class NtApiCheckOpMode extends CorbelsTeleOp {
         initBefore();
         FlightLog log = Tracker.flightlog;
         BEFORE_SERVE.record.accept(log);
-        serving = Tracker.serveLive();
+        serving = Tracker.serveLiveUnlessSwitchedOff();
         for (Entry e : FIXED) e.record.accept(log);
         log.recordOutput(RUN.substring(1), Long.toString(System.currentTimeMillis()));
         initAfter();

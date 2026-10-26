@@ -177,10 +177,46 @@ These simplifications are made everywhere, and are not marked:
   `double forward = deadband(-leftStickY, band);` then `forward = signedSquared(forward);`. A call
   that reads a setting or builds a path stays inside, as
   `hardware.mecanumConfig.frontLeftDirection.get()` and `line(start, end).constant(start)` do.
+- **A method returns a named variable, not a calculation.** Break the work into small steps, each
+  named, so a student reads it one step at a time rather than one line that only an expert reads.
+  Not `return value * Math.abs(value);` but:
+
+  ```java
+  double signedSquared(double value) {
+      double alwaysPositiveValue = Math.abs(value);
+      double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+      return valueSquaredKeepingTheSign;
+  }
+  ```
+  Android Studio's *Redundant local variable* flags such a variable. The project turns that off
+  for one returned at once, with *Ignore immediately returned or thrown variables* in
+  `.idea/inspectionProfiles/Project_Default.xml`.
+- **A method's name fits what it does.** A method that takes an action starts with a verb naming
+  it: `driveFromTheSticks`. A method that converts names what it works out, `signedSquared`, or
+  what goes in and what comes out where that reads more clearly: `mixArcadeToWheelSpeeds`.
+- **A name says what kind of value it holds, and in which frame.** `forwardXSpeed`, not `forward`;
+  `wheelSpeeds`, not `wheels`.
+- **A set of things may share a short abbreviation when names get long.** `fl`, `fr`, `bl` and
+  `br` for front left, front right, back left and back right. Lower case and an underscore are
+  allowed where lowerCamelCase hides the abbreviation: `fl_speed`, not `fLSpeed`. Weigh the
+  abbreviation against spelling it out and a long line, and choose what a person reads most easily.
+- **A value whose meaning changes gets a new name.** `biggestOrOne`, not `biggest` given 1.0.
+- **A published key is the variable's name, under the robot system it belongs to.**
+  `Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed)`, not `"arcade/forward"`. A system
+  is split by the parts of its algorithm only when it holds too much to read otherwise.
+- **A blank line separates the steps of a method.**
 - **`Math.max` takes two numbers**, so the largest of four is a chain of calls, each on its own
   line.
-- **A whole-number `double` is written with `.0`**, in the code and on the page: `1.0`, `0.0`,
-  `-1.0`.
+- **A whole-number `float` or `double` is written with `.0` in code**, and where a page names
+  code: `1.0`, `0.0`, `-1.0`, so the student sees they are working with a decimal number. A value a
+  tool shows, such as an AdvantageScope reading, is written as the tool shows it: `x_in` 72.
+  Speech, such as the video's captions, says -1, 0 and +1. A command-line argument is not code,
+  and is written the quick way a person types it: `--left_stick_y=-1`.
+- **Call a value "power" only when it is physical power.** A `setPower` argument is a fraction of
+  battery voltage, from -1.0 to 1.0. Battery voltage applied to a motor is closest to the motor's
+  speed, so we call it a speed, not a power. A stick or a speed is a fraction of full speed; name
+  each for what it is, as `leftShapedSpeed` does. Names that are not ours keep their spelling:
+  the SDK's `setPower` and `ZeroPowerBehavior`, and Pedro's `DrivePowers` and `headingPower`.
 
 ## The code a student copies is plain Java
 

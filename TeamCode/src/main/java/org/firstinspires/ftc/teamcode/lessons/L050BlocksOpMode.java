@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L050: tank drive on the robot, up on blocks. Each motor is told which way it
- * is mounted, so a positive power turns its wheel forward.
+ * is mounted, so a positive speed turns its wheel forward.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
@@ -62,14 +62,14 @@ public class L050BlocksOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         double leftSpeed = -leftStickY;
-        Tracker.publish("speed/left", leftSpeed);
+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
         double rightSpeed = -rightStickY;
-        Tracker.publish("speed/right", rightSpeed);
+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 
         hardware.frontLeft.setPower(leftSpeed);
         hardware.backLeft.setPower(leftSpeed);

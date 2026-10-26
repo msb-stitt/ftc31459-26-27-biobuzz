@@ -69,32 +69,32 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         // When on L070S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
         // for what to do here.
 
         double leftSpeed = -leftStickY;
-        Tracker.publish("speed/left", leftSpeed);
+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
         double rightSpeed = -rightStickY;
-        Tracker.publish("speed/right", rightSpeed);
+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 
-        double band = 0.05;
-        double leftPower = deadband(leftSpeed, band);
-        leftPower = signedSquared(leftPower);
-        Tracker.publish("power/left", leftPower);
-        double rightPower = deadband(rightSpeed, band);
-        rightPower = signedSquared(rightPower);
-        Tracker.publish("power/right", rightPower);
+        double bandToSetToZero = 0.05;
+        double leftShapedSpeed = deadband(leftSpeed, bandToSetToZero);
+        leftShapedSpeed = signedSquared(leftShapedSpeed);
+        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
+        double rightShapedSpeed = deadband(rightSpeed, bandToSetToZero);
+        rightShapedSpeed = signedSquared(rightShapedSpeed);
+        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
 
-        hardware.frontLeft.setPower(leftPower);
-        hardware.backLeft.setPower(leftPower);
+        hardware.frontLeft.setPower(leftShapedSpeed);
+        hardware.backLeft.setPower(leftShapedSpeed);
 
-        hardware.frontRight.setPower(rightPower);
-        hardware.backRight.setPower(rightPower);
+        hardware.frontRight.setPower(rightShapedSpeed);
+        hardware.backRight.setPower(rightShapedSpeed);
 
         // When on L070S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
@@ -121,6 +121,8 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double alwaysPositiveValue = Math.abs(value);
+        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+        return valueSquaredKeepingTheSign;
     }
 }

@@ -67,12 +67,12 @@ public class SimMotionTest {
                 + (now.y() - s.y()) * Math.cos(s.heading());
     }
 
-    private static double[] motorPowers(OpModeHarness h) {
+    private static double[] motorSpeeds(OpModeHarness h) {
         return new double[]{
-                h.motors.get(OpModeHarness.FRONT_LEFT).power,
-                h.motors.get(OpModeHarness.FRONT_RIGHT).power,
-                h.motors.get(OpModeHarness.BACK_LEFT).power,
-                h.motors.get(OpModeHarness.BACK_RIGHT).power};
+                h.motors.get(OpModeHarness.FRONT_LEFT).speed,
+                h.motors.get(OpModeHarness.FRONT_RIGHT).speed,
+                h.motors.get(OpModeHarness.BACK_LEFT).speed,
+                h.motors.get(OpModeHarness.BACK_RIGHT).speed};
     }
 
     /** Both sticks pushed fully forward, for one simulated second. */
@@ -87,7 +87,7 @@ public class SimMotionTest {
     }
 
     /**
-     * Without the motor powers driving the simulation, this fails with
+     * Without the motor speeds driving the simulation, this fails with
      * {@code drove forward, and got a fair way: 0.0}. With one sign wrong in
      * the strafe row of {@link SimRobot#fromWheels}, it fails with
      * {@code no sideways drift expected:<0.0> but was:<18.53...>}.
@@ -95,8 +95,8 @@ public class SimMotionTest {
     @Test
     public void theSticksMoveTheSimulatedRobot() {
         OpModeHarness h = driveForward();
-        assertArrayEquals("all four wheels at full power",
-                new double[]{1, 1, 1, 1}, motorPowers(h), 1e-9);
+        assertArrayEquals("all four wheels at full speed",
+                new double[]{1, 1, 1, 1}, motorSpeeds(h), 1e-9);
 
         Pose pose = h.robot.localizer.state().pose();
         assertTrue("drove forward, and got a fair way: " + forwardOf(pose), forwardOf(pose) > 40);
@@ -268,7 +268,7 @@ public class SimMotionTest {
     }
 
     /**
-     * Without {@code SimDrive.delegate}, this fails with all four powers at
+     * Without {@code SimDrive.delegate}, this fails with all four speeds at
      * {@code 0.0}, and takes L9 and L10 with it: their paths end where they
      * started, {@code expected:<96.0> but was:<72.0>}.
      */
@@ -279,8 +279,8 @@ public class SimMotionTest {
         h.start();
         h.robot.follower.manual(1, 0, 0);
         h.loop();
-        assertArrayEquals("the follower's forward became four wheel powers",
-                new double[]{1, 1, 1, 1}, motorPowers(h), 1e-9);
+        assertArrayEquals("the follower's forward became four wheel speeds",
+                new double[]{1, 1, 1, 1}, motorSpeeds(h), 1e-9);
         h.stop();
     }
 }

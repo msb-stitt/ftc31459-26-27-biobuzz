@@ -148,6 +148,23 @@ path = "source/tasks/l140.md"
 words = 1700
 
 [[page]]
+path = "source/tasks/e141.md"
+# Measured off the first draft, about 243 words, and rounded up, 2026-10-25. Raised for mf.etri's
+# arrows off (0, 0) and its opening paragraph, 326 words, 2026-10-26.
+words = 350
+
+[[page]]
+path = "source/tasks/e142.md"
+# Measured off the first draft, about 513 words, and rounded up, 2026-10-25. Raised for mf.etri's
+# quadrants, triangles and quarter turn and its opening paragraph, 841 words, 2026-10-26.
+words = 900
+
+[[page]]
+path = "source/tasks/e143.md"
+# Measured off the first draft, about 209 words, and rounded up, 2026-10-25.
+words = 250
+
+[[page]]
 path = "source/tasks/l150.md"
 words = 1700
 
@@ -199,6 +216,10 @@ path = "source/tasks/r920.md"
 words = 200
 
 [[page]]
+path = "source/tasks/b980.md"
+words = 200
+
+[[page]]
 path = "source/tasks/b990.md"
 words = 400
 
@@ -213,7 +234,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-coding-stitt-cc.1"
+solutions = "solutions-minor-fixes.1"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -223,5 +244,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-coding-stitt-cc"
-commit = "c240590c137d858aa9a430b408d4d6258f9f7e0a"
+ref = "lessons-minor-fixes"
+commit = "5adeb30df105bf362fa7e70a846b17d574e39906"

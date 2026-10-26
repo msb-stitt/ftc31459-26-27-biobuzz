@@ -8,7 +8,7 @@ import com.pedropathing.follower.Follower;
  *
  * <p>While the turn stick is pushed, the driver steers and this remembers the
  * heading. When the stick is released, the remembered heading becomes a target
- * and a controller supplies the turn power.
+ * and a controller supplies the turn speed.
  *
  * <p>The controller is the SAME one the autonomous uses, taken from the tuned
  * Foresight settings -- so tuning the robot improves teleop too.
@@ -28,7 +28,7 @@ public final class HeadingHold {
         this.stickDeadband = stickDeadband;
     }
 
-    /** The turn power to use this loop, given what the driver is asking for. */
+    /** The turn speed to use this loop, given what the driver is asking for. */
     public double turn(Follower follower, double turnStick) {
         double heading = follower.pose().heading();
         if (Math.abs(turnStick) > stickDeadband) {

@@ -13,17 +13,17 @@ import java.util.Map;
 /**
  * A working mecanum drivetrain, for code that is not a lesson.
  *
- * <p>The lessons from L110 on extend it, and each writes one method: {@link #mix}
- * in L110, {@code setCommandedWheelSpeeds} in L190 and {@code wheelTicks} in
- * L195. The only part left open is {@link #mix}, and {@link CorbelsMecanum}
- * fills it in.
+ * <p>The lessons from L110 on extend it, and each writes one method:
+ * {@link #mixArcadeToWheelSpeeds} in L110, {@code setCommandedWheelSpeeds} in
+ * L190 and {@code wheelTicks} in L195. The only part left open is
+ * {@link #mixArcadeToWheelSpeeds}, and {@link CorbelsMecanum} fills it in.
  *
  * <p><b>Which way is positive.</b> Pedro's three numbers are
- * {@code forwardSpeed} along the robot's nose, {@code strafeLeftSpeed} towards
+ * {@code forwardXSpeed} along the robot's nose, {@code strafeYSpeed} towards
  * the robot's left, and {@code turnCcwSpeed} counter-clockwise seen from above.
  * Every name in this project carries the direction for that reason, and a rate
- * in real units carries the unit too: {@code forwardSpeedInPerS},
- * {@code turnCcwSpeedRadPerS}. The frame itself is Pedro's, defined at
+ * in real units carries the unit too: {@code forwardXInPerS},
+ * {@code turnCcwRadPerS}. The frame itself is Pedro's, defined at
  * https://pedropathing.com/docs/pathing/reference/coordinates
  *
  * <p><b>Why we have one at all.</b> Pedro ships a complete mecanum drivetrain,
@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public abstract class CorbelsDriveTrain implements Drivetrain {
 
-    /** Front left, in {@link #wheelPowers} and in every other four-wheel array. */
+    /** Front left, in {@link #wheelSpeeds} and in every other four-wheel array. */
     protected static final int FL = 0;
 
     /** Front right. */
@@ -53,7 +53,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     /** Back right. */
     protected static final int BR = 3;
 
-    /** Power per inch per second of error, for {@link #setCommandedWheelSpeeds}. */
+    /** Speed per inch per second of error, for {@link #setCommandedWheelSpeeds}. */
     public static final double VELOCITY_KP = 0.008;
 
     /** The robot's motors, sensors and battery. The motors are read from here. */
@@ -61,23 +61,23 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
 
     /**
      * The four motors in wheel order, each behind a write cache. Pedro's own
-     * {@code Mecanum} wraps its motors the same way: a power that has moved by
+     * {@code Mecanum} wraps its motors the same way: a speed that has moved by
      * less than {@code powerThreshold} does not reach the hardware, so a loop
      * that asks for the same thing twice costs one write instead of two.
      */
     private CachedMotor[] motors = new CachedMotor[4];
 
     /** What the wheels were last told to do. Written by whatever drives them. */
-    protected final double[] wheelPowers = new double[4];
+    protected final double[] wheelSpeeds = new double[4];
 
     /** Set by {@link #setCommandedWheels}, cleared by {@link #releaseCommandedWheels}. */
     private double[] commandedWheels;
 
     /** What {@link #normalized} last had to divide by, as Pedro reports it. */
-    private double powerScale = 1.0;
+    private double speedScale = 1.0;
 
     /** What the follower last asked for, for {@link #debug}. */
-    private DrivePowers lastDrivePowers = DrivePowers.zero();
+    private DrivePowers lastDriveSpeeds = DrivePowers.zero();
 
     /** True while {@link #forceCoastForCharacterization} is in force. */
     private boolean coastForCharacterization;
@@ -87,7 +87,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
 
     /**
      * Takes the robot's hardware and gets the motors ready: each one spins the
-     * way the config says, and every wheel brakes when its power goes to 0.
+     * way the config says, and every wheel brakes when its speed goes to 0.
      */
     protected CorbelsDriveTrain(RobotHardware hardware) {
         this.hardware = hardware;
@@ -100,68 +100,68 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     // ------------------------------------------------------- writing the wheels
 
     /**
-     * Sends {@link #wheelPowers} to the motors, each slot to the motor
+     * Sends {@link #wheelSpeeds} to the motors, each slot to the motor
      * {@link #FL} and the others name, and logs each as
-     * {@code wheel/<wheel>/power}.
+     * {@code wheel/<wheel>/speed}.
      */
     protected void writeWheels() {
-        motors[FL].setPower(wheelPowers[FL]);
-        motors[FR].setPower(wheelPowers[FR]);
-        motors[BL].setPower(wheelPowers[BL]);
-        motors[BR].setPower(wheelPowers[BR]);
-        Tracker.publish("wheel/frontLeft/power", wheelPowers[FL]);
-        Tracker.publish("wheel/frontRight/power", wheelPowers[FR]);
-        Tracker.publish("wheel/backLeft/power", wheelPowers[BL]);
-        Tracker.publish("wheel/backRight/power", wheelPowers[BR]);
+        motors[FL].setPower(wheelSpeeds[FL]);
+        motors[FR].setPower(wheelSpeeds[FR]);
+        motors[BL].setPower(wheelSpeeds[BL]);
+        motors[BR].setPower(wheelSpeeds[BR]);
+        Tracker.publish("wheel/frontLeft/speed", wheelSpeeds[FL]);
+        Tracker.publish("wheel/frontRight/speed", wheelSpeeds[FR]);
+        Tracker.publish("wheel/backLeft/speed", wheelSpeeds[BL]);
+        Tracker.publish("wheel/backRight/speed", wheelSpeeds[BR]);
     }
 
     // ------------------------------------------------------- scaling
 
     /**
-     * Scales every power down by the same amount, if any of them asks for more
-     * than full power. Dividing them all by the biggest one keeps the robot
+     * Scales every speed down by the same amount, if any of them asks for more
+     * than full speed. Dividing them all by the biggest one keeps the robot
      * going where the driver asked; chopping each one off on its own would send
      * it somewhere else.
      *
      * <p>Scales the array it is handed, hands the same array back, and records
-     * what it divided by in {@link #powerScale}, which is what Pedro reports.
+     * what it divided by in {@link #speedScale}, which is what Pedro reports.
      */
-    protected double[] normalized(double[] powers) {
+    protected double[] normalized(double[] speeds) {
         double max = 1.0;
-        for (double power : powers) {
-            double magnitude = Math.abs(power);
+        for (double speed : speeds) {
+            double magnitude = Math.abs(speed);
             max = Math.max(max, magnitude);
         }
 
-        powerScale = 1.0 / max;
-        for (int i = 0; i < powers.length; i++) {
-            powers[i] = powers[i] / max;
+        speedScale = 1.0 / max;
+        for (int i = 0; i < speeds.length; i++) {
+            speeds[i] = speeds[i] / max;
         }
-        return powers;
+        return speeds;
     }
 
     // ------------------------------------------------------- the follower and a lesson take turns
 
     /**
-     * The three numbers the follower asks for, as four wheel powers: front left,
+     * The arcade command the follower asks for, as wheel speeds: front left,
      * front right, back left, back right.
      */
-    public abstract double[] mix(DrivePowers powers);
+    public abstract double[] mixArcadeToWheelSpeeds(DrivePowers arcadeCommand);
 
     /**
-     * Drives each wheel at the power given, from the next follower update until
-     * {@link #releaseCommandedWheels}. Powers are -1 to 1, as the SDK uses them.
+     * Drives each wheel at the speed given, from the next follower update until
+     * {@link #releaseCommandedWheels}. Speeds are -1 to 1, as the SDK uses them.
      *
      * <p>While wheels are commanded this way, whatever the follower computes is
      * ignored -- so only do it while the follower is in manual mode.
      */
-    public void setCommandedWheels(double frontLeftPower, double frontRightPower,
-                                   double backLeftPower, double backRightPower) {
+    public void setCommandedWheels(double frontLeftSpeed, double frontRightSpeed,
+                                   double backLeftSpeed, double backRightSpeed) {
         commandedWheels = new double[4];
-        commandedWheels[FL] = frontLeftPower;
-        commandedWheels[FR] = frontRightPower;
-        commandedWheels[BL] = backLeftPower;
-        commandedWheels[BR] = backRightPower;
+        commandedWheels[FL] = frontLeftSpeed;
+        commandedWheels[FR] = frontRightSpeed;
+        commandedWheels[BL] = backLeftSpeed;
+        commandedWheels[BR] = backRightSpeed;
     }
 
     /** Hands the wheels back to the follower. */
@@ -183,19 +183,19 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * <p>Final, so that brake mode cannot be missed.
      */
     @Override
-    public final void drive(DrivePowers powers, boolean manual) {
+    public final void drive(DrivePowers speeds, boolean manual) {
         applyBrakeMode(manual);
-        lastDrivePowers = powers;
+        lastDriveSpeeds = speeds;
 
-        double[] sourcePowers;
+        double[] sourceSpeeds;
         if (commandedWheels == null) {
-            double[] mixed = mix(powers);
-            sourcePowers = normalized(mixed);
+            double[] mixed = mixArcadeToWheelSpeeds(speeds);
+            sourceSpeeds = normalized(mixed);
         } else {
-            sourcePowers = commandedWheels;
+            sourceSpeeds = commandedWheels;
         }
-        for (int i = 0; i < wheelPowers.length; i++) {
-            wheelPowers[i] = sourcePowers[i];
+        for (int i = 0; i < wheelSpeeds.length; i++) {
+            wheelSpeeds[i] = sourceSpeeds[i];
         }
 
         writeWheels();
@@ -223,14 +223,16 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     }
 
     /**
-     * Drives from the sticks, relative to the robot's own front: the three
-     * numbers go through the same mixing the follower's would have, and the four
+     * Drives from the sticks, relative to the robot's own front: the arcade
+     * command goes through the same mixing the follower's would have, and the
      * wheels are commanded, so the driver wins while a stick is pushed.
      */
-    public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
-        double[] mixed = mix(new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed));
-        double[] scaled = normalized(mixed);
-        setCommandedWheels(scaled[FL], scaled[FR], scaled[BL], scaled[BR]);
+    public void sticks(double forwardXSpeed, double strafeYSpeed, double turnCcwSpeed) {
+        DrivePowers arcadeCommand = new DrivePowers(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
+        double[] mixedWheelSpeeds = mixArcadeToWheelSpeeds(arcadeCommand);
+        double[] scaledWheelSpeeds = normalized(mixedWheelSpeeds);
+        setCommandedWheels(scaledWheelSpeeds[FL], scaledWheelSpeeds[FR],
+                scaledWheelSpeeds[BL], scaledWheelSpeeds[BR]);
     }
 
     /**
@@ -249,14 +251,15 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
                 turnCcwSpeed);
     }
 
-    // ------------------------------------------------------- asking for a speed, not a power
+    // ------------------------------------------------------- asking for inches per second
 
     /**
      * Drives each wheel at the speed given, in inches per second.
      *
-     * <p>Every other door here takes a power, which is whatever the battery and
-     * the carpet make of it. This one takes a speed and gets it, two ways at
-     * once: a feedforward guess at the power a speed needs, from
+     * <p>Every other door here takes a fraction of full speed, which is
+     * whatever the battery and the carpet make of it. This one takes a speed
+     * and gets it, two ways at once: a feedforward guess at the fraction of
+     * full speed a speed needs, from
      * {@link Constants#powerPerInchPerSecond}, plus a correction proportional to
      * the difference between the speed asked for and the speed measured.
      */
@@ -269,22 +272,22 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         wanted[BR] = backRightInPerS;
 
         double[] measured = measuredSpeeds.all();
-        double[] powers = new double[4];
-        for (int i = 0; i < powers.length; i++) {
+        double[] speeds = new double[4];
+        for (int i = 0; i < speeds.length; i++) {
             double feedforward = Constants.powerPerInchPerSecond * wanted[i];
             double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
-            powers[i] = clampToPower(feedforward + feedback);
+            speeds[i] = clampToFullSpeed(feedforward + feedback);
         }
 
-        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
+        setCommandedWheels(speeds[FL], speeds[FR], speeds[BL], speeds[BR]);
         publishWheelSpeeds(wanted, measured);
     }
 
     // ------------------------------------------------------- reading the wheels back
 
     /** What each wheel was last told to do: front left, front right, back left, back right. */
-    public double[] wheelPowers() {
-        return wheelPowers.clone();
+    public double[] wheelSpeeds() {
+        return wheelSpeeds.clone();
     }
 
     /** What each encoder has counted, in ticks, in the same order. */
@@ -309,7 +312,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     /**
      * Gets out of the way of a measurement, until
      * {@link #allowConfiguredBrakeMode} is called: the wheels coast, so a robot
-     * being pushed rolls freely, and every power reaches the hardware, so a slow
+     * being pushed rolls freely, and every speed reaches the hardware, so a slow
      * voltage ramp is a ramp rather than a staircase of {@code powerThreshold}
      * steps. L195's two OpModes and the SysId OpModes are what this is for.
      */
@@ -341,8 +344,8 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * {@code Utils.clamp}, and this one uses named helpers instead.
      *
      * <p>How much of {@code delta} can be added to {@code current} before a wheel
-     * runs out of power. Pedro uses it so a path algorithm does not ask for more
-     * than the drivetrain can give: each wheel is at some power and is being
+     * reaches full speed. Pedro uses it so a path algorithm does not ask for more
+     * than the drivetrain can give: each wheel is at some speed and is being
      * asked to change by some amount, and it runs out when it reaches 1 or -1.
      * For one wheel the fraction of the change that fits is the distance to
      * whichever limit it is heading for, divided by the change; the answer for
@@ -351,17 +354,17 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      */
     @Override
     public double maxScaling(DrivePowers current, DrivePowers delta) {
-        double[] currentPowers = mix(current);
-        double[] changes = mix(delta);
+        double[] currentSpeeds = mixArcadeToWheelSpeeds(current);
+        double[] changes = mixArcadeToWheelSpeeds(delta);
         double fits = 1.0;
 
         for (int i = 0; i < 4; i++) {
-            double power = currentPowers[i];
+            double speed = currentSpeeds[i];
             double change = changes[i];
 
             if (movesThisWheel(change)) {
-                double towardsFull = fractionThatFits(power, change, 1.0);
-                double towardsFullReverse = fractionThatFits(power, change, -1.0);
+                double towardsFull = fractionThatFits(speed, change, 1.0);
+                double towardsFullReverse = fractionThatFits(speed, change, -1.0);
                 fits = smallestThatFits(fits, towardsFull);
                 fits = smallestThatFits(fits, towardsFullReverse);
             }
@@ -383,7 +386,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
 
     /**
      * <b>Pedro's {@code Drivetrain} requires this.</b> The same shape as Pedro's
-     * {@code Mecanum}, ours in two ways: it zeroes {@link #wheelPowers} and calls
+     * {@code Mecanum}, ours in two ways: it zeroes {@link #wheelSpeeds} and calls
      * {@link #writeWheels} where Pedro writes each motor directly, and it clears
      * the commanded wheels, which Pedro has nothing to clear.
      */
@@ -392,8 +395,8 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         commandedWheels = null;
         setZeroPowerBehavior(zeroPowerBrakeWhenTrue(brake));
 
-        for (int i = 0; i < wheelPowers.length; i++) {
-            wheelPowers[i] = 0.0;
+        for (int i = 0; i < wheelSpeeds.length; i++) {
+            wheelSpeeds[i] = 0.0;
         }
 
         writeWheels();
@@ -420,14 +423,14 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     @Override
     public Map<String, Object> debug() {
         Map<String, Object> out = new LinkedHashMap<>();
-        out.put("forward", lastDrivePowers.forward());
-        out.put("strafe", lastDrivePowers.strafe());
-        out.put("turn", lastDrivePowers.turn());
-        out.put("powerScale", powerScale);
-        out.put("leftFrontWheelPower", wheelPowers[FL]);
-        out.put("rightFrontWheelPower", wheelPowers[FR]);
-        out.put("leftBackWheelPower", wheelPowers[BL]);
-        out.put("rightBackWheelPower", wheelPowers[BR]);
+        out.put("forward", lastDriveSpeeds.forward());
+        out.put("strafe", lastDriveSpeeds.strafe());
+        out.put("turn", lastDriveSpeeds.turn());
+        out.put("powerScale", speedScale);
+        out.put("leftFrontWheelPower", wheelSpeeds[FL]);
+        out.put("rightFrontWheelPower", wheelSpeeds[FR]);
+        out.put("leftBackWheelPower", wheelSpeeds[BL]);
+        out.put("rightBackWheelPower", wheelSpeeds[BR]);
         return out;
     }
 
@@ -443,14 +446,14 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         setZeroPowerBehavior(zeroPowerBrakeWhenTrue(brake));
     }
 
-    /** A change too small to matter cannot use up a wheel's power. */
+    /** A change too small to matter cannot use up a wheel's speed. */
     private static boolean movesThisWheel(double change) {
         return Math.abs(change) >= 1e-9;
     }
 
-    /** How much of {@code change} fits before {@code power} reaches {@code limit}. */
-    private static double fractionThatFits(double power, double change, double limit) {
-        return (limit - power) / change;
+    /** How much of {@code change} fits before {@code speed} reaches {@code limit}. */
+    private static double fractionThatFits(double speed, double change, double limit) {
+        return (limit - speed) / change;
     }
 
     /** The smaller of the two, ignoring a fraction that heads the wrong way. */
@@ -467,14 +470,14 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         return Math.min(1.0, atLeastNone);
     }
 
-    /** No more than full power either way. */
-    public static double clampToPower(double power) {
-        double notTooLow = Math.max(-1.0, power);
+    /** No more than full speed either way. */
+    public static double clampToFullSpeed(double speed) {
+        double notTooLow = Math.max(-1.0, speed);
         return Math.min(1.0, notTooLow);
     }
 
     /**
-     * What each wheel's wanted and measured speeds were. Its power is logged
+     * What each wheel's wanted and measured speeds were. Its speed is logged
      * when it is written, by {@link #writeWheels}.
      */
     public void publishWheelSpeeds(double[] wanted, double[] measured) {
@@ -489,14 +492,14 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     /**
      * Puts a fresh write cache in front of each motor, with the threshold given,
      * and sets each one's direction. A new cache has forgotten what the motor was
-     * last told, so the next power always reaches it.
+     * last told, so the next speed always reaches it.
      */
-    private void cacheMotors(double powerThreshold) {
+    private void cacheMotors(double threshold) {
         motors = new CachedMotor[4];
-        motors[FL] = new CachedMotor(hardware.frontLeft, powerThreshold);
-        motors[FR] = new CachedMotor(hardware.frontRight, powerThreshold);
-        motors[BL] = new CachedMotor(hardware.backLeft, powerThreshold);
-        motors[BR] = new CachedMotor(hardware.backRight, powerThreshold);
+        motors[FL] = new CachedMotor(hardware.frontLeft, threshold);
+        motors[FR] = new CachedMotor(hardware.frontRight, threshold);
+        motors[BL] = new CachedMotor(hardware.backLeft, threshold);
+        motors[BR] = new CachedMotor(hardware.backRight, threshold);
 
         motors[FL].setDirection(hardware.mecanumConfig.frontLeftDirection.get());
         motors[FR].setDirection(hardware.mecanumConfig.frontRightDirection.get());

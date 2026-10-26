@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
  * L090: mecanum drive. The left stick drives and slides, the right stick
- * turns, and each wheel gets its own power.
+ * turns, and each wheel gets its own speed.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
@@ -32,8 +32,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L090MecanumOpMode extends CorbelsTeleOp {
-
-    boolean previousButtonA;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -67,22 +65,19 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
-        double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
-
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double band = 0.05;
-        double forward = deadband(-leftStickY, band);
-        forward = signedSquared(forward);
-        Tracker.publish("arcade/forward", forward);
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
+        double bandToSetToZero = 0.05;
+        double forwardXSpeed = -leftStickY;
+        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 
         // When on L090S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
@@ -91,18 +86,6 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
         // When on L090S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
         // for what to do here.
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
-        }
-        previousButtonA = buttonA;
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -121,6 +104,14 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double alwaysPositiveValue = Math.abs(value);
+        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+        return valueSquaredKeepingTheSign;
+    }
+
+    double speedShaped(double value, double band) {
+        double deadbanded = deadband(value, band);
+        double shapedSpeed = signedSquared(deadbanded);
+        return shapedSpeed;
     }
 }

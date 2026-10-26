@@ -21,9 +21,9 @@ package org.firstinspires.ftc.teamcode.base;
  * where {@code radius} is half the sum of the track width and the wheelbase --
  * how far a wheel is from the middle, along the diagonal it pushes.
  *
- * <p>Note what this is not: a power. Nothing here has been divided by a maximum
- * or clamped to 1. These are speeds the wheels should actually travel at, and
- * turning them into motor power is a separate job.
+ * <p>Note what this is not: a fraction of full speed. Nothing here has been
+ * divided by a maximum or clamped to 1. These are speeds the wheels should actually travel at, and
+ * turning them into a fraction of full speed for each motor is a separate job.
  */
 public final class WheelTargets {
 
@@ -31,19 +31,19 @@ public final class WheelTargets {
     }
 
     /**
-     * @param forwardSpeedInPerS    how fast the robot should go forward, inches/second
-     * @param strafeLeftSpeedInPerS how fast it should go to its own left, inches/second
-     * @param turnCcwSpeedRadPerS   how fast it should turn counter-clockwise, radians/second
-     * @param turnRadiusIn          how far a wheel sits from the centre, inches
+     * @param forwardXInPerS how fast the robot should go forward, inches/second
+     * @param strafeYInPerS  how fast it should go to its own left, inches/second
+     * @param turnCcwRadPerS how fast it should turn counter-clockwise, radians/second
+     * @param turnRadiusIn   how far a wheel sits from the centre, inches
      * @return front left, front right, back left, back right -- inches/second
      */
-    public static double[] forMecanum(double forwardSpeedInPerS, double strafeLeftSpeedInPerS,
-                                      double turnCcwSpeedRadPerS, double turnRadiusIn) {
-        double edgeSpeedInPerS = turnCcwSpeedRadPerS * turnRadiusIn;
+    public static double[] forMecanum(double forwardXInPerS, double strafeYInPerS,
+                                      double turnCcwRadPerS, double turnRadiusIn) {
+        double edgeSpeedInPerS = turnCcwRadPerS * turnRadiusIn;
         return new double[]{
-                forwardSpeedInPerS - strafeLeftSpeedInPerS - edgeSpeedInPerS,
-                forwardSpeedInPerS + strafeLeftSpeedInPerS + edgeSpeedInPerS,
-                forwardSpeedInPerS + strafeLeftSpeedInPerS - edgeSpeedInPerS,
-                forwardSpeedInPerS - strafeLeftSpeedInPerS + edgeSpeedInPerS};
+                forwardXInPerS - strafeYInPerS - edgeSpeedInPerS,
+                forwardXInPerS + strafeYInPerS + edgeSpeedInPerS,
+                forwardXInPerS + strafeYInPerS - edgeSpeedInPerS,
+                forwardXInPerS - strafeYInPerS + edgeSpeedInPerS};
     }
 }

@@ -32,8 +32,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L140FieldRelativeOpMode extends CorbelsTeleOp {
 
-    boolean previousButtonA;
-
     CorbelsMecanum drivetrain;
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -65,43 +63,28 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
-        double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
-
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double band = 0.05;
-        double forward = deadband(-leftStickY, band);
-        forward = signedSquared(forward);
-        Tracker.publish("arcade/forward", forward);
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
+        double bandToSetToZero = 0.05;
+        double fieldXSpeed = -leftStickY;
+        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 
-        double strafe = deadband(-leftStickX, band);
-        strafe = signedSquared(strafe);
-        Tracker.publish("arcade/strafe", strafe);
+        double fieldYSpeed = -leftStickX;
+        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
 
         // When on L140S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
         // for what to do here.
-        drivetrain.sticks(forward, strafe, turn);
-
-        boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
-
-        if (buttonA != previousButtonA) {
-            if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
-            } else {
-                Tracker.publish("button/event", "A released");
-            }
-        }
-        previousButtonA = buttonA;
+        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -120,6 +103,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double alwaysPositiveValue = Math.abs(value);
+        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+        return valueSquaredKeepingTheSign;
+    }
+
+    double speedShaped(double value, double band) {
+        double deadbanded = deadband(value, band);
+        double shapedSpeed = signedSquared(deadbanded);
+        return shapedSpeed;
     }
 }
