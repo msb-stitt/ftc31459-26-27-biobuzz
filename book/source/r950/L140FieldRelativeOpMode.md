@@ -11,16 +11,16 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L140FieldRelativeOpMode.java  (before L140)
 +++ mytry/L140FieldRelativeOpMode.java  (after L140)
-@@ lines 88 to 97 @@
-   88         // When on L140S040, see
-   89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
-   90         // for what to do here.
+@@ lines 83 to 92 @@
+   83         // When on L140S040, see
+   84         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
+   85         // for what to do here.
 -             drivetrain.sticks(forward, strafe, turn);
-+  91         double heading = follower.pose().heading();
-+  92         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
-+  93         double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
-+  94         drivetrain.sticks(robotForward, robotStrafe, turn);
-   95
-   96         boolean buttonA = gamepad1.a;
-   97         Tracker.publish("button/a", buttonA);
++  86         double heading = follower.pose().heading();
++  87         double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
++  88         double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
++  89         drivetrain.sticks(robotForward, robotStrafe, turn);
+   90     }
+   91
+   92     // 'public' to match the parent class. 'public' allows access from any code.
 ```

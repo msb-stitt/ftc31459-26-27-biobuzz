@@ -19,13 +19,13 @@ is gone; each number is the line's place in the file after the lesson.
    18 import org.firstinspires.ftc.teamcode.pedro.Constants;
    19
    20 /**
-@@ lines 110 to 117 @@
-  110         // When on L180S030, see
-  111         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
-  112         // for what to do here.
-+ 113         shadowLocalizers.add("driveWheelEncoders",
-+ 114                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
-  115     }
-  116
-  117     // 'public' to match the parent class. 'public' allows access from any code.
+@@ lines 109 to 116 @@
+  109         // When on L180S030, see
+  110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
+  111         // for what to do here.
++ 112         shadowLocalizers.add("driveWheelEncoders",
++ 113                 new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
+  114     }
+  115
+  116     // 'public' to match the parent class. 'public' allows access from any code.
 ```
