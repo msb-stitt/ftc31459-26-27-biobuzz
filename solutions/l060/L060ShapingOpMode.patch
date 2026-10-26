@@ -28,7 +28,7 @@ index c311990..5caff5e 100644
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
-@@ -92,8 +99,20 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
+@@ -92,8 +99,21 @@ public class L060ShapingOpMode extends CorbelsTeleOp {
      // When on L060S030, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
      // for what to do here.
@@ -45,7 +45,8 @@ index c311990..5caff5e 100644
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
      // for what to do here.
 +    double signedSquared(double value) {
-+        double squaredWithItsSign = value * Math.abs(value);
-+        return squaredWithItsSign;
++        double alwaysPositiveValue = Math.abs(value);
++        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
++        return valueSquaredKeepingTheSign;
 +    }
  }
