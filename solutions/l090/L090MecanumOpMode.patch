@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java
-index 85c8ab8..fef23ae 100644
+index 85c8ab8..1c9676e 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java
 @@ -81,10 +81,38 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
@@ -13,22 +13,22 @@ index 85c8ab8..fef23ae 100644
          // When on L090S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
          // for what to do here.
-+        double fl_MixedSpeed = forward - strafe - turn;
-+        double fr_MixedSpeed = forward + strafe + turn;
-+        double bl_MixedSpeed = forward + strafe - turn;
-+        double br_MixedSpeed = forward - strafe + turn;
-+        double fl_Size = Math.abs(fl_MixedSpeed);
-+        double fr_Size = Math.abs(fr_MixedSpeed);
-+        double bl_Size = Math.abs(bl_MixedSpeed);
-+        double br_Size = Math.abs(br_MixedSpeed);
-+        double biggest = Math.max(fl_Size, fr_Size);
-+        biggest = Math.max(biggest, bl_Size);
-+        biggest = Math.max(biggest, br_Size);
++        double fl_mixedSpeed = forward - strafe - turn;
++        double fr_mixedSpeed = forward + strafe + turn;
++        double bl_mixedSpeed = forward + strafe - turn;
++        double br_mixedSpeed = forward - strafe + turn;
++        double fl_size = Math.abs(fl_mixedSpeed);
++        double fr_size = Math.abs(fr_mixedSpeed);
++        double bl_size = Math.abs(bl_mixedSpeed);
++        double br_size = Math.abs(br_mixedSpeed);
++        double biggest = Math.max(fl_size, fr_size);
++        biggest = Math.max(biggest, bl_size);
++        biggest = Math.max(biggest, br_size);
 +        double biggestOrOne = Math.max(1.0, biggest);
-+        double fl_speed = fl_MixedSpeed / biggestOrOne;
-+        double fr_speed = fr_MixedSpeed / biggestOrOne;
-+        double bl_speed = bl_MixedSpeed / biggestOrOne;
-+        double br_speed = br_MixedSpeed / biggestOrOne;
++        double fl_speed = fl_mixedSpeed / biggestOrOne;
++        double fr_speed = fr_mixedSpeed / biggestOrOne;
++        double bl_speed = bl_mixedSpeed / biggestOrOne;
++        double br_speed = br_mixedSpeed / biggestOrOne;
 +        Tracker.publish("drivetrain/fl_speed", fl_speed);
 +        Tracker.publish("drivetrain/fr_speed", fr_speed);
 +        Tracker.publish("drivetrain/bl_speed", bl_speed);
