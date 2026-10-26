@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java
-index 4c73051..ba9f08b 100644
+index a9ca7cc..c90c31e 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java
 @@ -79,10 +79,32 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
@@ -22,16 +22,16 @@ index 4c73051..ba9f08b 100644
 +        double leftSize = Math.abs(leftMixedSpeed);
 +        double rightSize = Math.abs(rightMixedSpeed);
 +        double biggest = Math.max(leftSize, rightSize);
-+        biggest = Math.max(1.0, biggest);
-+        leftMixedSpeed = leftMixedSpeed / biggest;
-+        rightMixedSpeed = rightMixedSpeed / biggest;
-+        Tracker.publish("mixedSpeed/left", leftMixedSpeed);
-+        Tracker.publish("mixedSpeed/right", rightMixedSpeed);
++        double biggestOrOne = Math.max(1.0, biggest);
++        double leftSpeed = leftMixedSpeed / biggestOrOne;
++        double rightSpeed = rightMixedSpeed / biggestOrOne;
++        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
++        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 +
-+        hardware.frontLeft.setPower(leftMixedSpeed);
-+        hardware.backLeft.setPower(leftMixedSpeed);
-+        hardware.frontRight.setPower(rightMixedSpeed);
-+        hardware.backRight.setPower(rightMixedSpeed);
++        hardware.frontLeft.setPower(leftSpeed);
++        hardware.backLeft.setPower(leftSpeed);
++        hardware.frontRight.setPower(rightSpeed);
++        hardware.backRight.setPower(rightSpeed);
  
          boolean buttonA = gamepad1.a;
          Tracker.publish("button/a", buttonA);
