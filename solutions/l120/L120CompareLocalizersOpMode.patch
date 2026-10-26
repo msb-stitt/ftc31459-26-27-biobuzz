@@ -10,12 +10,13 @@ index ab2f139..ec5be6e 100644
  
  /**
   * L120: drive around while two localizers disagree. Your localizer reads the
-@@ -91,6 +92,8 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
+@@ -91,6 +92,9 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
          // When on L120S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
          // for what to do here.
-+        shadowLocalizers.add("driveWheelEncoders",
-+                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
++        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++        L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
++        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

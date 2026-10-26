@@ -10,12 +10,13 @@ index e1aad80..eb8bb1c 100644
  import org.firstinspires.ftc.teamcode.pedro.Constants;
  
  /**
-@@ -108,6 +109,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
+@@ -108,6 +109,9 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
          // When on L180S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
          // for what to do here.
-+        shadowLocalizers.add("driveWheelEncoders",
-+                new L120EncoderLocalizer(new HardwareWheelSource(hardware)));
++        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++        L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
++        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
