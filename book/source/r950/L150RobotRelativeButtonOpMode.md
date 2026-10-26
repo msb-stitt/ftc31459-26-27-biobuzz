@@ -11,19 +11,19 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L150RobotRelativeButtonOpMode.java  (before L150)
 +++ mytry/L150RobotRelativeButtonOpMode.java  (after L150)
-@@ lines 91 to 103 @@
-   91         // When on L150S030, see
-   92         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
-   93         // for what to do here.
+@@ lines 86 to 98 @@
+   86         // When on L150S030, see
+   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
+   88         // for what to do here.
 -             drivetrain.sticks(robotForward, robotStrafe, turn);
-+  94         boolean robotRelative = gamepad1.right_bumper;
-+  95         Tracker.publish("drive/robotRelative", robotRelative);
-+  96         if (robotRelative) {
-+  97             drivetrain.sticks(forward, strafe, turn);
-+  98         } else {
-+  99             drivetrain.sticks(robotForward, robotStrafe, turn);
-+ 100         }
-  101
-  102         boolean buttonA = gamepad1.a;
-  103         Tracker.publish("button/a", buttonA);
++  89         boolean robotRelative = gamepad1.right_bumper;
++  90         Tracker.publish("drive/robotRelative", robotRelative);
++  91         if (robotRelative) {
++  92             drivetrain.sticks(forward, strafe, turn);
++  93         } else {
++  94             drivetrain.sticks(robotForward, robotStrafe, turn);
++  95         }
+   96     }
+   97
+   98     // 'public' to match the parent class. 'public' allows access from any code.
 ```

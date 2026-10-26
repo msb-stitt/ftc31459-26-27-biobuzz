@@ -11,43 +11,43 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L090MecanumOpMode.java  (before L090)
 +++ mytry/L090MecanumOpMode.java  (after L090)
-@@ lines 86 to 123 @@
-   86         // When on L090S030, see
-   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
-   88         // for what to do here.
-+  89         double strafe = deadband(-leftStickX, band);
-+  90         strafe = signedSquared(strafe);
-+  91         Tracker.publish("arcade/strafe", strafe);
-   92
-   93         // When on L090S040, see
-   94         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
-   95         // for what to do here.
-+  96         double frontLeftMixedSpeed = forward - strafe - turn;
-+  97         double frontRightMixedSpeed = forward + strafe + turn;
-+  98         double backLeftMixedSpeed = forward + strafe - turn;
-+  99         double backRightMixedSpeed = forward - strafe + turn;
-+ 100         double frontLeftSize = Math.abs(frontLeftMixedSpeed);
-+ 101         double frontRightSize = Math.abs(frontRightMixedSpeed);
-+ 102         double backLeftSize = Math.abs(backLeftMixedSpeed);
-+ 103         double backRightSize = Math.abs(backRightMixedSpeed);
-+ 104         double biggest = Math.max(frontLeftSize, frontRightSize);
-+ 105         biggest = Math.max(biggest, backLeftSize);
-+ 106         biggest = Math.max(biggest, backRightSize);
-+ 107         biggest = Math.max(1.0, biggest);
-+ 108         frontLeftMixedSpeed = frontLeftMixedSpeed / biggest;
-+ 109         frontRightMixedSpeed = frontRightMixedSpeed / biggest;
-+ 110         backLeftMixedSpeed = backLeftMixedSpeed / biggest;
-+ 111         backRightMixedSpeed = backRightMixedSpeed / biggest;
-+ 112         Tracker.publish("mixedSpeed/frontLeft", frontLeftMixedSpeed);
-+ 113         Tracker.publish("mixedSpeed/frontRight", frontRightMixedSpeed);
-+ 114         Tracker.publish("mixedSpeed/backLeft", backLeftMixedSpeed);
-+ 115         Tracker.publish("mixedSpeed/backRight", backRightMixedSpeed);
-+ 116
-+ 117         hardware.frontLeft.setPower(frontLeftMixedSpeed);
-+ 118         hardware.frontRight.setPower(frontRightMixedSpeed);
-+ 119         hardware.backLeft.setPower(backLeftMixedSpeed);
-+ 120         hardware.backRight.setPower(backRightMixedSpeed);
-  121
-  122         boolean buttonA = gamepad1.a;
-  123         Tracker.publish("button/a", buttonA);
+@@ lines 81 to 118 @@
+   81         // When on L090S030, see
+   82         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
+   83         // for what to do here.
++  84         double strafe = deadband(-leftStickX, band);
++  85         strafe = signedSquared(strafe);
++  86         Tracker.publish("arcade/strafe", strafe);
+   87
+   88         // When on L090S040, see
+   89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
+   90         // for what to do here.
++  91         double fl_MixedSpeed = forward - strafe - turn;
++  92         double fr_MixedSpeed = forward + strafe + turn;
++  93         double bl_MixedSpeed = forward + strafe - turn;
++  94         double br_MixedSpeed = forward - strafe + turn;
++  95         double fl_Size = Math.abs(fl_MixedSpeed);
++  96         double fr_Size = Math.abs(fr_MixedSpeed);
++  97         double bl_Size = Math.abs(bl_MixedSpeed);
++  98         double br_Size = Math.abs(br_MixedSpeed);
++  99         double biggest = Math.max(fl_Size, fr_Size);
++ 100         biggest = Math.max(biggest, bl_Size);
++ 101         biggest = Math.max(biggest, br_Size);
++ 102         double biggestOrOne = Math.max(1.0, biggest);
++ 103         double fl_speed = fl_MixedSpeed / biggestOrOne;
++ 104         double fr_speed = fr_MixedSpeed / biggestOrOne;
++ 105         double bl_speed = bl_MixedSpeed / biggestOrOne;
++ 106         double br_speed = br_MixedSpeed / biggestOrOne;
++ 107         Tracker.publish("drivetrain/fl_speed", fl_speed);
++ 108         Tracker.publish("drivetrain/fr_speed", fr_speed);
++ 109         Tracker.publish("drivetrain/bl_speed", bl_speed);
++ 110         Tracker.publish("drivetrain/br_speed", br_speed);
++ 111
++ 112         hardware.frontLeft.setPower(fl_speed);
++ 113         hardware.frontRight.setPower(fr_speed);
++ 114         hardware.backLeft.setPower(bl_speed);
++ 115         hardware.backRight.setPower(br_speed);
+  116     }
+  117
+  118     // 'public' to match the parent class. 'public' allows access from any code.
 ```
