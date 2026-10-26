@@ -188,6 +188,9 @@ These simplifications are made everywhere, and are not marked:
       return valueSquaredKeepingTheSign;
   }
   ```
+  Android Studio's *Redundant local variable* flags such a variable. The project turns that off
+  for one returned at once, with *Ignore immediately returned or thrown variables* in
+  `.idea/inspectionProfiles/Project_Default.xml`.
 - **A method's name fits what it does.** A method that takes an action starts with a verb naming
   it: `driveFromTheSticks`. A method that converts names what it works out, `signedSquared`, or
   what goes in and what comes out where that reads more clearly: `mixArcadeToWheelSpeeds`.
