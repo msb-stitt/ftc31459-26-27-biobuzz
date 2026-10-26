@@ -22,7 +22,7 @@ is gone; each number is the line's place in the file after the lesson.
 @@ lines 87 to 98 @@
    87
    88     Command driveForwardThenStrafe() {
-   89         return sequential(
+   89         Command forwardThenStrafeRoute = sequential(
 -                     follow(follower, line(start, corner).constant(start))
 +  90                 follow(follower, line(start, corner).constant(start)),
    91                 // When on L130S030, see
@@ -31,6 +31,6 @@ is gone; each number is the line's place in the file after the lesson.
 +  94                 follow(follower, line(corner, end).constant(start)),
 +  95                 hold(follower, end)
    96         );
-   97     }
-   98 }
+   97         return forwardThenStrafeRoute;
+   98     }
 ```

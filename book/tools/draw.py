@@ -162,8 +162,8 @@ def panels_graph():
     shaped = squared(deadband(raw))
     fig, ax = plt.subplots(figsize=(9, 4.6))
     ax.set_facecolor("#1e1e24")
-    ax.plot(t, raw, color="#5dade2", linewidth=2.5, label="speed/left")
-    ax.plot(t, shaped, color="#f5b041", linewidth=2.5, label="shapedSpeed/left")
+    ax.plot(t, raw, color="#5dade2", linewidth=2.5, label="drivetrain/leftSpeed")
+    ax.plot(t, shaped, color="#f5b041", linewidth=2.5, label="drivetrain/leftShapedSpeed")
     ax.fill_between(t, shaped, raw, color="#ffffff", alpha=0.08)
     ax.set_xlabel("time, s")
     ax.set_ylabel("value")
@@ -926,7 +926,7 @@ def l020_tracker_note():
 
 def l020_publish():
     s = Sketch(1600, 1100, 53)
-    s.text((800, 50), 'Tracker.publish("stick/leftY", leftStickY);', 30, code=True)
+    s.text((800, 50), 'Tracker.publish("gamepad1/leftStickY", leftStickY);', 30, code=True)
     platform(s, 40, 80, 800, 420, name_x=190)
     tracker_note(s)
     method_box(s, 330, 170, 360, 80)
@@ -935,8 +935,8 @@ def l020_publish():
     s.text((548, 222), ",", 26, anchor="start", code=True)
     second = label(s, 570, 190, "", size=24)
     s.text((640, 220), ")", 26, anchor="start", code=True)
-    sticky(s, 80, 620, 340, 170, MARKER_PINK, "String", '"stick/leftY"', tilt=-1.0, lift=26,
-           value_size=34)
+    sticky(s, 80, 620, 340, 170, MARKER_PINK, "String", '"gamepad1/leftStickY"', tilt=-1.0, lift=26,
+           value_size=22)
     dot_arrow(s, first, (330, 614), bend=0.15)
     # publish gets a copy of leftStickY's number on a note of its own: passing by value, which the
     # page models and does not explain
@@ -958,7 +958,7 @@ def l020_publish():
     s.text((1280, 300), "the AdvantageScope log", 30)
     s.text((1150, 372), "name", 26)
     s.text((1410, 372), "value", 26)
-    s.text((1150, 460), "stick/leftY", 24, code=True)
+    s.text((1150, 460), "gamepad1/leftStickY", 20, code=True)
     s.text((1410, 462), "-0.7", 34)
     s.marker_arrow((700, 210), (1012, 440), MARKER_ORANGE, nib=9, bend=-0.2)
     s.lines((1200, 600), ["publish writes the name", "and the number in the log"], 28,
@@ -1057,7 +1057,7 @@ def stick_to_robot():
                         "omega counter-clockwise"], 28)
 
     s.text((850, 900), "turning a stick into a velocity is a change of axes:", 30)
-    s.text((850, 960), "forward = -left_stick_y    strafe = -left_stick_x    turn = -right_stick_x",
+    s.text((850, 960), "forwardXSpeed = -leftStickY    strafeYSpeed = -leftStickX    turnCcwSpeed = -rightStickX",
            24, code=True)
     s.save("fig-stick-to-robot")
 
@@ -2090,9 +2090,9 @@ def l140_field_blue():
 # -- E141 and E142: vectors, then how L140's two lines turn the stick on the field into the robot's
 # own forward and strafe. One heading and one stick throughout E142, L140's answer run on them in
 # the test harness on 2026-10-25: heading 60°, left_stick_y -0.8 and left_stick_x -0.4, so
-# forward 0.64 and strafe 0.16, and robotForward 0.4586 and robotStrafe -0.4743. A slanted vector
-# is drawn with its triangle in the frame being talked about: the field's legs in grey, the
-# robot's forward in red and its left in green.
+# fieldXSpeed 0.64 and fieldYSpeed 0.16, and robotForwardXSpeed 0.4586 and robotStrafeYSpeed
+# -0.4743. A slanted vector is drawn with its triangle in the frame being talked about: the
+# field's legs in grey, the robot's forward in red and its left in green.
 
 ROT_HEADING = math.radians(60)
 ROT_FORWARD, ROT_STRAFE = 0.8 ** 2, 0.4 ** 2                    # L060's sign-keeping square
@@ -2106,8 +2106,8 @@ ROT_ROBOT_STRAFE = ROT_PIECES["forward"][1] + ROT_PIECES["strafe"][1]
 ROBOT_FORWARD, ROBOT_LEFT, FIELD_LEG = MARKER_RED, AXIS_Y, GREY3
 NOSE = MARKER_YELLOW            # apart from the red of the robot's forward
 FIELD_GRID, ROBOT_GRID = ((1.0, 0.0), (0.0, 1.0)), (ROT_F, ROT_L)
-FORMULA = {("forward", 0): "forward·cos θ", ("forward", 1): "-forward·sin θ",
-           ("strafe", 0): "strafe·sin θ", ("strafe", 1): "strafe·cos θ"}
+FORMULA = {("forward", 0): "fieldXSpeed·cos θ", ("forward", 1): "-fieldXSpeed·sin θ",
+           ("strafe", 0): "fieldYSpeed·sin θ", ("strafe", 1): "fieldYSpeed·cos θ"}
 
 
 def frame_grid(v, axes, step):
@@ -2142,8 +2142,9 @@ def dotted(s, p0, p1, color=GREY2):
 def formula_words(s, rows):
     """Each (words, at, anchor, to): the words, and a dotted arrow from them to the point to."""
     for words, at, anchor, to in rows:
-        s.text(at, words, 26, anchor=anchor, code=True)
-        dotted(s, (at[0], at[1] + 10), to)
+        value, formula = words.split(" = ", 1)        # two rows, so a long name stays on the page
+        s.lines(at, [value + " =", formula], 24, anchor=anchor, code=True)
+        dotted(s, (at[0], at[1] + 40), to)
 
 
 def plus(a, b, k=1.0):
@@ -2487,7 +2488,7 @@ def regroup(name, formula):
     vec(v, (0, 0), tip, GREY1, nib=6)
     ends = chain(v, REGROUP)
     if formula:
-        piece_formulas(s, v, ends, REGROUP, (((560, 470), "end"), ((1010, 470), "start"),
+        piece_formulas(s, v, ends, REGROUP, (((560, 470), "end"), ((1010, 420), "start"),
                                              ((1260, 730), "start"), ((1260, 520), "start")))
     else:
         piece_words(v, ends, ((-20, 0, "end"), (30, -30, "start"), (24, 20, "start"),
@@ -2543,9 +2544,9 @@ def added(name, formula):
     (ff, fl), (sf, sl) = ROT_PIECES["forward"], ROT_PIECES["strafe"]
     if formula:
         formula_words(s, [
-            (f"{ROT_ROBOT_FORWARD:.2f} = forward·cos θ + strafe·sin θ", (630, 450), "end",
+            (f"{ROT_ROBOT_FORWARD:.2f} = fieldXSpeed·cos θ + fieldYSpeed·sin θ", (630, 450), "end",
              v.p((mid[0] / 2, mid[1] / 2, 0))),
-            (f"{ROT_ROBOT_STRAFE:.2f} = -forward·sin θ + strafe·cos θ", (1000, 360), "start",
+            (f"{ROT_ROBOT_STRAFE:.2f} = -fieldXSpeed·sin θ + fieldYSpeed·cos θ", (1000, 360), "start",
              v.p(((mid[0] + tip[0]) / 2, (mid[1] + tip[1]) / 2, 0)))])
     else:
         say(v, (mid[0] / 2, mid[1] / 2), f"{ff:.2f} + {sf:.2f} = {ROT_ROBOT_FORWARD:.2f}", 30,
@@ -2555,8 +2556,8 @@ def added(name, formula):
     callout(s, (1210, 610), [f"({ROT_ROBOT_FORWARD:.2f}, {ROT_ROBOT_STRAFE:.2f})",
                              "in the robot's frame"], v.p(tip + (0,)))
     s.lines((900, 850), [
-        f"robotForward =  forward·cos θ + strafe·sin θ = {ROT_ROBOT_FORWARD:.2f}",
-        f"robotStrafe  = -forward·sin θ + strafe·cos θ = {ROT_ROBOT_STRAFE:.2f}"], 24, code=True)
+        f"robotForwardXSpeed =  fieldXSpeed·cos θ + fieldYSpeed·sin θ = {ROT_ROBOT_FORWARD:.2f}",
+        f"robotStrafeYSpeed  = -fieldXSpeed·sin θ + fieldYSpeed·cos θ = {ROT_ROBOT_STRAFE:.2f}"], 24, code=True)
     s.lines((900, 960), ["the robot drives (0.46, -0.47) in its own frame,",
                          "and goes where the stick points"], 28)
     s.save(name)

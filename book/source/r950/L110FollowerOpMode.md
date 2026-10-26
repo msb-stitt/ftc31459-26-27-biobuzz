@@ -34,7 +34,7 @@ is gone; each number is the line's place in the file after the lesson.
    89         // When on L110S060, see
    90         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
    91         // for what to do here.
-+  92         drivetrain.sticks(forward, strafe, turn);
++  92         drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
    93     }
    94
    95     // 'public' to match the parent class. 'public' allows access from any code.

@@ -16,13 +16,13 @@ is gone; each number is the line's place in the file after the lesson.
    63         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
    64         // for what to do here.
 +  65         double leftSpeed = -leftStickY;
-+  66         Tracker.publish("speed/left", leftSpeed);
++  66         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
    67
    68         // When on L030S040, see
    69         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
    70         // for what to do here.
 +  71         double rightSpeed = -rightStickY;
-+  72         Tracker.publish("speed/right", rightSpeed);
++  72         Tracker.publish("drivetrain/rightSpeed", rightSpeed);
    73     }
    74
    75     // 'public' to match the parent class. 'public' allows access from any code.

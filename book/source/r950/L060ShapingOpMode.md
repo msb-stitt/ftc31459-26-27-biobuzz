@@ -15,13 +15,13 @@ is gone; each number is the line's place in the file after the lesson.
    75         // When on L060S040, see
    76         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040
    77         // for what to do here.
-+  78         double band = 0.05;
-+  79         double leftShapedSpeed = deadband(leftSpeed, band);
++  78         double bandToSetToZero = 0.05;
++  79         double leftShapedSpeed = deadband(leftSpeed, bandToSetToZero);
 +  80         leftShapedSpeed = signedSquared(leftShapedSpeed);
-+  81         Tracker.publish("shapedSpeed/left", leftShapedSpeed);
-+  82         double rightShapedSpeed = deadband(rightSpeed, band);
++  81         Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
++  82         double rightShapedSpeed = deadband(rightSpeed, bandToSetToZero);
 +  83         rightShapedSpeed = signedSquared(rightShapedSpeed);
-+  84         Tracker.publish("shapedSpeed/right", rightShapedSpeed);
++  84         Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
    85
 -             hardware.frontLeft.setPower(leftSpeed);
 -             hardware.backLeft.setPower(leftSpeed);
@@ -35,7 +35,7 @@ is gone; each number is the line's place in the file after the lesson.
    91     }
    92
    93     // 'public' to match the parent class. 'public' allows access from any code.
-@@ lines 99 to 117 @@
+@@ lines 99 to 118 @@
    99     // When on L060S030, see
   100     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s030
   101     // for what to do here.
@@ -52,7 +52,8 @@ is gone; each number is the line's place in the file after the lesson.
   112     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050
   113     // for what to do here.
 + 114     double signedSquared(double value) {
-+ 115         return value * Math.abs(value);
-+ 116     }
-  117 }
++ 115         double squaredWithItsSign = value * Math.abs(value);
++ 116         return squaredWithItsSign;
++ 117     }
+  118 }
 ```

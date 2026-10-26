@@ -28,13 +28,13 @@ is gone; each number is the line's place in the file after the lesson.
    62         // When on L020S040, see
    63         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
    64         // for what to do here.
-+  65         Tracker.publish("stick/leftY", leftStickY);
++  65         Tracker.publish("gamepad1/leftStickY", leftStickY);
    66
    67         // When on L020S050, see
    68         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
    69         // for what to do here.
 +  70         double rightStickY = gamepad1.right_stick_y;
-+  71         Tracker.publish("stick/rightY", rightStickY);
++  71         Tracker.publish("gamepad1/rightStickY", rightStickY);
    72     }
    73
    74     // 'public' to match the parent class. 'public' allows access from any code.

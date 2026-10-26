@@ -29,13 +29,14 @@ is gone; each number is the line's place in the file after the lesson.
    38
    39     // 'public' to match the parent class. 'public' allows access from any code.
    40     @Override
-@@ lines 81 to 88 @@
+@@ lines 81 to 89 @@
    81         // When on L160S040, see
    82         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
    83         // for what to do here.
-+  84         turn = hold.turn(follower, turn);
-+  85         Tracker.publish("heading/holding", hold.target() != null);
-   86
-   87         double strafe = deadband(-leftStickX, band);
-   88         strafe = signedSquared(strafe);
++  84         turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
++  85         boolean holdingHeading = hold.target() != null;
++  86         Tracker.publish("drivetrain/holdingHeading", holdingHeading);
+   87
+   88         double fieldYSpeed = -leftStickX;
+   89         fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
 ```
