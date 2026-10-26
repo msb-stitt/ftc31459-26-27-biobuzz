@@ -37,10 +37,10 @@ public class TeleOpWithPanelsOpMode extends CorbelsTeleOp {
     public void loop() {
         loopBefore();
 
-        double forwardSpeed = cubed(-gamepad1.left_stick_y);
-        double strafeLeftSpeed = cubed(-gamepad1.left_stick_x);
+        double forwardXSpeed = cubed(-gamepad1.left_stick_y);
+        double strafeYSpeed = cubed(-gamepad1.left_stick_x);
         double turnCcwSpeed = cubed(-gamepad1.right_stick_x);
-        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
+        drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
 
         loopAfter();
     }

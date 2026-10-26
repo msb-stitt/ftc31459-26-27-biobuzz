@@ -123,8 +123,8 @@ public class PanelsLogger {
             double vx = follower.velocity().vx;
             double vy = follower.velocity().vy;
             double omega = follower.velocity().omega;
-            double forwardSpeedInPerS = follower.twist().vx;
-            double strafeLeftSpeedInPerS = follower.twist().vy;
+            double forwardXInPerS = follower.twist().vx;
+            double strafeYInPerS = follower.twist().vy;
             // tangentialVelocity() is velocity . closestTangent(), and Pedro only
             // computes closestTangent while following or holding. In MANUAL it is
             // null until a path has run, and tangentialVelocity() throws a
@@ -139,8 +139,8 @@ public class PanelsLogger {
             panels.addData("vel/vy_ips", vy);
             panels.addData("vel/speed_ips", speed);
             panels.addData("vel/omega_radps", omega);
-            panels.addData("vel/forward_ips", forwardSpeedInPerS);
-            panels.addData("vel/strafe_ips", strafeLeftSpeedInPerS);
+            panels.addData("vel/forward_ips", forwardXInPerS);
+            panels.addData("vel/strafe_ips", strafeYInPerS);
             panels.addData("vel/tangential_ips", tangential);
 
             drawField(follower, x, y, follower.pose().heading(), now);

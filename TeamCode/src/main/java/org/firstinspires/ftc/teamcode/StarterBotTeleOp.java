@@ -102,13 +102,13 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
         Tracker.publish("stick/leftY", leftStickY);
         Tracker.publish("stick/rightX", rightStickX);
 
-        double forwardSpeed = -leftStickY;
-        double strafeLeftSpeed = -leftStickX;
-        double turnCounterclockwiseSpeed = -rightStickX;
-        Tracker.publish("drive/forward", forwardSpeed);
-        Tracker.publish("drive/strafeLeft", strafeLeftSpeed);
-        Tracker.publish("drive/turnCounterclockwise", turnCounterclockwiseSpeed);
-        drivetrain.sticks(forwardSpeed, strafeLeftSpeed, turnCounterclockwiseSpeed);
+        double forwardXSpeed = -leftStickY;
+        double strafeYSpeed = -leftStickX;
+        double turnCcwSpeed = -rightStickX;
+        Tracker.publish("drive/forward", forwardXSpeed);
+        Tracker.publish("drive/strafeLeft", strafeYSpeed);
+        Tracker.publish("drive/turnCounterclockwise", turnCcwSpeed);
+        drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
     }
 
     /** The drive never finishes by itself. */

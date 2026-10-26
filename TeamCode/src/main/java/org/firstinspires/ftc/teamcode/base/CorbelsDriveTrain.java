@@ -19,10 +19,10 @@ import java.util.Map;
  * {@link #mixArcadeToWheelSpeeds}, and {@link CorbelsMecanum} fills it in.
  *
  * <p><b>Which way is positive.</b> Pedro's three numbers are
- * {@code forwardSpeed} along the robot's nose, {@code strafeLeftSpeed} towards
+ * {@code forwardXSpeed} along the robot's nose, {@code strafeYSpeed} towards
  * the robot's left, and {@code turnCcwSpeed} counter-clockwise seen from above.
  * Every name in this project carries the direction for that reason, and a rate
- * in real units carries the unit too: {@code forwardSpeedInPerS},
+ * in real units carries the unit too: {@code forwardXInPerS},
  * {@code turnCcwSpeedRadPerS}. The frame itself is Pedro's, defined at
  * https://pedropathing.com/docs/pathing/reference/coordinates
  *
@@ -227,8 +227,8 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * command goes through the same mixing the follower's would have, and the
      * wheels are commanded, so the driver wins while a stick is pushed.
      */
-    public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
-        DrivePowers arcadeCommand = new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
+    public void sticks(double forwardXSpeed, double strafeYSpeed, double turnCcwSpeed) {
+        DrivePowers arcadeCommand = new DrivePowers(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
         double[] mixedWheelSpeeds = mixArcadeToWheelSpeeds(arcadeCommand);
         double[] scaledWheelSpeeds = normalized(mixedWheelSpeeds);
         setCommandedWheels(scaledWheelSpeeds[FL], scaledWheelSpeeds[FR],
