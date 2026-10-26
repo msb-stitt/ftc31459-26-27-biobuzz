@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -366,7 +370,7 @@ three poses: <code class="docutils literal notranslate"><span class="pre">start<
 line, with one item on each line so there is room for more.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveForwardThenStrafe()</span></code>, type a comma at the end of the first leg. The comment
 that names this step is under it. Under the comment, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sequential</span><span class="p">(</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">Command</span><span class="w"> </span><span class="n">forwardThenStrafeRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sequential</span><span class="p">(</span>
 <span class="hll"><span class="w">                </span><span class="n">follow</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">corner</span><span class="p">).</span><span class="na">constant</span><span class="p">(</span><span class="n">start</span><span class="p">)),</span>
 </span><span class="w">                </span><span class="c1">// When on L130S030, see</span>
 <span class="w">                </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l130.html#l130s030</span>
@@ -374,6 +378,7 @@ that names this step is under it. Under the comment, type:</p>
 <span class="hll"><span class="w">                </span><span class="n">follow</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="n">corner</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">).</span><span class="na">constant</span><span class="p">(</span><span class="n">start</span><span class="p">)),</span>
 </span><span class="hll"><span class="w">                </span><span class="n">hold</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">)</span>
 </span><span class="w">        </span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">forwardThenStrafeRoute</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Each item but the last ends with a comma. The second leg holds <code class="docutils literal notranslate"><span class="pre">start</span></code>’s heading too, so the robot
@@ -409,7 +414,7 @@ Send the code, and run <code class="docutils literal notranslate"><span class="p
 <code class="docutils literal notranslate"><span class="pre">drove</span> <span class="pre">straight</span> <span class="pre">up</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">corner</span> <span class="pre">first</span> <span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;20.307354640929788&gt;</span></code>.</p>
 <p><strong>If it didn’t</strong>, and the test fails with
 <code class="docutils literal notranslate"><span class="pre">never</span> <span class="pre">turned,</span> <span class="pre">so</span> <span class="pre">it</span> <span class="pre">still</span> <span class="pre">faces</span> <span class="pre">+y</span> <span class="pre">expected:&lt;90.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;116.04530086607369&gt;</span></code>, the second leg
-is <code class="docutils literal notranslate"><span class="pre">.constant(90)</span></code>. The number form is radians, as in L125.</p>
+is <code class="docutils literal notranslate"><span class="pre">.constant(90.0)</span></code>. The number form is radians, as in L125.</p>
 <p><strong>If it didn’t</strong>, and on the floor it slid left, check which way +x runs from where the robot
 stands. Facing +y, the robot’s right hand points at +x.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hold</span></code> is not checked: the test passes with it left out. On a floor it keeps the wheels

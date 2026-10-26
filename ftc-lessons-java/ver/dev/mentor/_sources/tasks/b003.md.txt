@@ -19,6 +19,8 @@ there. Every step tells you what you will see when it worked.
   the previous lesson.
 - **Do the step, then read the check.** The check tells you whether to go on.
 - **The answers are in the back.** Use them when you have tried and need a hint.
+- **Before a competition, read [980](b980.md).** It lists what to check before you pack the
+  robot.
 - The code and the source to build these pages are at
   <https://github.com/msb-stitt/ftc31459-26-27-biobuzz>.
 - Versions of this book are listed at <https://coding.stitt.cc/ftc-lessons-java/versions.html>.

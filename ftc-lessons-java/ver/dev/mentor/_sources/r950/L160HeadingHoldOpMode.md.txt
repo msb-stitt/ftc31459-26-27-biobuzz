@@ -1,7 +1,7 @@
 # L160HeadingHoldOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-minor-fixes.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L160
@@ -21,21 +21,22 @@ is gone; each number is the line's place in the file after the lesson.
    14
    15 /**
    16  * L160: hold the heading the driver left. Let go of the turn stick and the
-@@ lines 36 to 42 @@
-   36     boolean previousButtonA;
-   37
-   38     CorbelsMecanum drivetrain;
-+  39     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
-   40
-   41     // 'public' to match the parent class. 'public' allows access from any code.
-   42     @Override
-@@ lines 86 to 93 @@
-   86         // When on L160S040, see
-   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
-   88         // for what to do here.
-+  89         turn = hold.turn(follower, turn);
-+  90         Tracker.publish("heading/holding", hold.target() != null);
-   91
-   92         double strafe = deadband(-leftStickX, band);
-   93         strafe = signedSquared(strafe);
+@@ lines 34 to 40 @@
+   34 public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+   35
+   36     CorbelsMecanum drivetrain;
++  37     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
+   38
+   39     // 'public' to match the parent class. 'public' allows access from any code.
+   40     @Override
+@@ lines 81 to 89 @@
+   81         // When on L160S040, see
+   82         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
+   83         // for what to do here.
++  84         turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
++  85         boolean holdingHeading = hold.target() != null;
++  86         Tracker.publish("drivetrain/holdingHeading", holdingHeading);
+   87
+   88         double fieldYSpeed = -leftStickX;
+   89         fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
 ```

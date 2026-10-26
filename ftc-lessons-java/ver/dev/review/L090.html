@@ -265,13 +265,13 @@
 <p>Delete 0 lines, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -86,6 +86,9 @@</span>
+<span class="gu">@@ -81,6 +81,9 @@</span>
 <span class="w"> </span>        // When on L090S030, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        double strafe = deadband(-leftStickX, band);</span>
-<span class="gi">+        strafe = signedSquared(strafe);</span>
-<span class="gi">+        Tracker.publish("arcade/strafe", strafe);</span>
+<span class="gi">+        double strafeYSpeed = -leftStickX;</span>
+<span class="gi">+        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);</span>
+<span class="gi">+        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);</span>
 <span class="w"> </span>
 <span class="w"> </span>        // When on L090S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
@@ -283,38 +283,38 @@
 <p>Delete 0 lines, write 25 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -93,6 +93,31 @@</span>
+<span class="gu">@@ -88,6 +88,31 @@</span>
 <span class="w"> </span>        // When on L090S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        double frontLeftPower = forward - strafe - turn;</span>
-<span class="gi">+        double frontRightPower = forward + strafe + turn;</span>
-<span class="gi">+        double backLeftPower = forward + strafe - turn;</span>
-<span class="gi">+        double backRightPower = forward - strafe + turn;</span>
-<span class="gi">+        double frontLeftSize = Math.abs(frontLeftPower);</span>
-<span class="gi">+        double frontRightSize = Math.abs(frontRightPower);</span>
-<span class="gi">+        double backLeftSize = Math.abs(backLeftPower);</span>
-<span class="gi">+        double backRightSize = Math.abs(backRightPower);</span>
-<span class="gi">+        double biggest = Math.max(frontLeftSize, frontRightSize);</span>
-<span class="gi">+        biggest = Math.max(biggest, backLeftSize);</span>
-<span class="gi">+        biggest = Math.max(biggest, backRightSize);</span>
-<span class="gi">+        biggest = Math.max(1.0, biggest);</span>
-<span class="gi">+        frontLeftPower = frontLeftPower / biggest;</span>
-<span class="gi">+        frontRightPower = frontRightPower / biggest;</span>
-<span class="gi">+        backLeftPower = backLeftPower / biggest;</span>
-<span class="gi">+        backRightPower = backRightPower / biggest;</span>
-<span class="gi">+        Tracker.publish("power/frontLeft", frontLeftPower);</span>
-<span class="gi">+        Tracker.publish("power/frontRight", frontRightPower);</span>
-<span class="gi">+        Tracker.publish("power/backLeft", backLeftPower);</span>
-<span class="gi">+        Tracker.publish("power/backRight", backRightPower);</span>
+<span class="gi">+        double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;</span>
+<span class="gi">+        double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;</span>
+<span class="gi">+        double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;</span>
+<span class="gi">+        double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;</span>
+<span class="gi">+        double fl_size = Math.abs(fl_mixedSpeed);</span>
+<span class="gi">+        double fr_size = Math.abs(fr_mixedSpeed);</span>
+<span class="gi">+        double bl_size = Math.abs(bl_mixedSpeed);</span>
+<span class="gi">+        double br_size = Math.abs(br_mixedSpeed);</span>
+<span class="gi">+        double biggest = Math.max(fl_size, fr_size);</span>
+<span class="gi">+        biggest = Math.max(biggest, bl_size);</span>
+<span class="gi">+        biggest = Math.max(biggest, br_size);</span>
+<span class="gi">+        double biggestOrOne = Math.max(1.0, biggest);</span>
+<span class="gi">+        double fl_speed = fl_mixedSpeed / biggestOrOne;</span>
+<span class="gi">+        double fr_speed = fr_mixedSpeed / biggestOrOne;</span>
+<span class="gi">+        double bl_speed = bl_mixedSpeed / biggestOrOne;</span>
+<span class="gi">+        double br_speed = br_mixedSpeed / biggestOrOne;</span>
+<span class="gi">+        Tracker.publish("drivetrain/fl_speed", fl_speed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/fr_speed", fr_speed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/bl_speed", bl_speed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/br_speed", br_speed);</span>
 <span class="gi">+</span>
-<span class="gi">+        hardware.frontLeft.setPower(frontLeftPower);</span>
-<span class="gi">+        hardware.frontRight.setPower(frontRightPower);</span>
-<span class="gi">+        hardware.backLeft.setPower(backLeftPower);</span>
-<span class="gi">+        hardware.backRight.setPower(backRightPower);</span>
+<span class="gi">+        hardware.frontLeft.setPower(fl_speed);</span>
+<span class="gi">+        hardware.frontRight.setPower(fr_speed);</span>
+<span class="gi">+        hardware.backLeft.setPower(bl_speed);</span>
+<span class="gi">+        hardware.backRight.setPower(br_speed);</span>
+<span class="w"> </span>    }
 <span class="w"> </span>
-<span class="w"> </span>        boolean buttonA = gamepad1.a;
-<span class="w"> </span>        Tracker.publish("button/a", buttonA);
+<span class="w"> </span>    // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>

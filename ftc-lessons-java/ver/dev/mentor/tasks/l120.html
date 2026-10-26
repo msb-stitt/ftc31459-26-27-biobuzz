@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -374,8 +378,9 @@ this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">shadowLocalizers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"driveWheelEncoders"</span><span class="p">,</span>
-</span><span class="hll"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">L120EncoderLocalizer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">HardwareWheelSource</span><span class="p">(</span><span class="n">hardware</span><span class="p">)));</span>
+<span class="hll"><span class="w">        </span><span class="n">HardwareWheelSource</span><span class="w"> </span><span class="n">wheelSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HardwareWheelSource</span><span class="p">(</span><span class="n">hardware</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">L120EncoderLocalizer</span><span class="w"> </span><span class="n">driveWheelEncoders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L120EncoderLocalizer</span><span class="p">(</span><span class="n">wheelSource</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">shadowLocalizers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"driveWheelEncoders"</span><span class="p">,</span><span class="w"> </span><span class="n">driveWheelEncoders</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code> turns red, because this file does not know where it lives yet.</p>
@@ -385,7 +390,7 @@ this step. Under it, type:</p>
 <li><p>Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span></code> line at the top of the file, and the red goes away.</p></li>
 </ul>
 <figure class="align-default" id="fig-l120-import">
-<img alt="../../media/fig-l120-import_3a99aa449d64.png" src="../../media/fig-l120-import_3a99aa449d64.png" />
+<img alt="../../media/fig-l120-import_a86a735cc3e6.png" src="../../media/fig-l120-import_a86a735cc3e6.png" />
 </figure>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L120CompareLocalizersOpMode --pad"</span>
@@ -434,7 +439,7 @@ remembers last loop’s numbers and takes them away.</p>
 <p>Android Studio types the <code class="docutils literal notranslate"><span class="pre">}</span></code> for you when you press Enter after the <code class="docutils literal notranslate"><span class="pre">{</span></code>. Type the rest below it.</p>
 <p><code class="docutils literal notranslate"><span class="pre">null</span></code> means “nothing yet”. <code class="docutils literal notranslate"><span class="pre">.clone()</span></code> makes a copy, so next loop’s numbers do not change it.
 <code class="docutils literal notranslate"><span class="pre">return</span></code> leaves <code class="docutils literal notranslate"><span class="pre">update</span></code> early, until next loop.</p>
-<p>The two long lines are L090’s table read backwards. There, three numbers made four wheel powers.
+<p>The two long lines are L090’s table read backwards. There, three numbers made four wheel speeds.
 Here, four wheel moves make <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">strafe</span></code> again, in inches.</p>
 <p><strong>Check.</strong></p>
 <ul>
@@ -503,7 +508,7 @@ because its pods are off the floor too.</p>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L120CompareLocalizersOpMode</span> <span class="pre">--left_stick_y=-0.5&quot;</span></code> drives forward
 for the picture at the top, and for L120S050’s.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> is missing from the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder in L120S030, the
-two lines are not in <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code>.
+three lines are not in <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code>.
 <code class="docutils literal notranslate"><span class="pre">LessonsTest.l120_theEncoderLocalizerRunsAlongsideAndIsLogged</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">shadow</span> <span class="pre">localizer</span> <span class="pre">is</span> <span class="pre">logged:</span></code> and the list of names that were published.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">countsStrafingLeft</span></code> fails with <code class="docutils literal notranslate"><span class="pre">left</span> <span class="pre">is</span> <span class="pre">+y</span> <span class="pre">when</span> <span class="pre">facing</span> <span class="pre">+x</span></code>, a sign in the

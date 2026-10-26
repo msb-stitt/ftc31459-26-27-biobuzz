@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="l160headingholdopmode">
 <h1>L160HeadingHoldOpMode<a class="headerlink" href="#l160headingholdopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l160">
 <h2>L160<a class="headerlink" href="#l160" title="Link to this heading">¶</a></h2>
@@ -341,23 +345,24 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  14
 <span class="w"> </span>  15 /**
 <span class="w"> </span>  16  * L160: hold the heading the driver left. Let go of the turn stick and the
-<span class="gu">@@ lines 36 to 42 @@</span>
-<span class="w"> </span>  36     boolean previousButtonA;
-<span class="w"> </span>  37
-<span class="w"> </span>  38     CorbelsMecanum drivetrain;
-<span class="gi">+  39     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());</span>
-<span class="w"> </span>  40
-<span class="w"> </span>  41     // 'public' to match the parent class. 'public' allows access from any code.
-<span class="w"> </span>  42     @Override
-<span class="gu">@@ lines 86 to 93 @@</span>
-<span class="w"> </span>  86         // When on L160S040, see
-<span class="w"> </span>  87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
-<span class="w"> </span>  88         // for what to do here.
-<span class="gi">+  89         turn = hold.turn(follower, turn);</span>
-<span class="gi">+  90         Tracker.publish("heading/holding", hold.target() != null);</span>
-<span class="w"> </span>  91
-<span class="w"> </span>  92         double strafe = deadband(-leftStickX, band);
-<span class="w"> </span>  93         strafe = signedSquared(strafe);
+<span class="gu">@@ lines 34 to 40 @@</span>
+<span class="w"> </span>  34 public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+<span class="w"> </span>  35
+<span class="w"> </span>  36     CorbelsMecanum drivetrain;
+<span class="gi">+  37     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());</span>
+<span class="w"> </span>  38
+<span class="w"> </span>  39     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="w"> </span>  40     @Override
+<span class="gu">@@ lines 81 to 89 @@</span>
+<span class="w"> </span>  81         // When on L160S040, see
+<span class="w"> </span>  82         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
+<span class="w"> </span>  83         // for what to do here.
+<span class="gi">+  84         turnCcwSpeed = hold.turn(follower, turnCcwSpeed);</span>
+<span class="gi">+  85         boolean holdingHeading = hold.target() != null;</span>
+<span class="gi">+  86         Tracker.publish("drivetrain/holdingHeading", holdingHeading);</span>
+<span class="w"> </span>  87
+<span class="w"> </span>  88         double fieldYSpeed = -leftStickX;
+<span class="w"> </span>  89         fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
 </pre></div>
 </div>
 </section>

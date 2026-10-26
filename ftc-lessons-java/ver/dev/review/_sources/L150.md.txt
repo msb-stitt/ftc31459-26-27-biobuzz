@@ -1,6 +1,6 @@
 # L150
 
-1 file(s) copied, then 1 change(s) in 1 file(s), 7 line(s) of code to write.
+1 file(s) copied, then 1 change(s) in 1 file(s), 12 line(s) of code to write.
 
 ## Copies
 
@@ -12,24 +12,31 @@
 
 ### A change
 
-Delete 1 line, write 7 lines.
+Delete 3 lines, write 12 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -91,7 +91,13 @@
+@@ -85,9 +85,18 @@
          // When on L150S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
          // for what to do here.
--        drivetrain.sticks(robotForward, robotStrafe, turn);
+-        double heading = follower.pose().heading();
+-        robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+-        robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
 +        boolean robotRelative = gamepad1.right_bumper;
-+        Tracker.publish("drive/robotRelative", robotRelative);
++        Tracker.publish("drivetrain/robotRelative", robotRelative);
 +        if (robotRelative) {
-+            drivetrain.sticks(forward, strafe, turn);
++            robotForwardXSpeed = -leftStickY;
++            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
++            robotStrafeYSpeed = -leftStickX;
++            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
 +        } else {
-+            drivetrain.sticks(robotForward, robotStrafe, turn);
++            double heading = follower.pose().heading();
++            robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
++            robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
 +        }
- 
-         boolean buttonA = gamepad1.a;
-         Tracker.publish("button/a", buttonA);
+         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
+         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
+         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
 ```

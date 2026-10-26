@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -358,15 +362,16 @@ line per value, each shaped <code class="docutils literal notranslate"><span cla
 <p>The Graph panel has a list to pick from, and a name only joins that list <strong>after it has been sent
 once</strong>. So start the OpMode first, then go looking. The list is flat, in the order the names first
 arrived.</p>
-<p><strong>You’ll know it worked when</strong> <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> are both in the list, and
-both numbers move when you move the left stick. The <a class="reference internal" href="r930.html"><span class="std std-doc">cheat sheet</span></a> lists every name
-each lesson sends.</p>
+<p><strong>You’ll know it worked when</strong> <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> are both in
+the list, and both numbers move when you move the left stick. The <a class="reference internal" href="r930.html"><span class="std std-doc">cheat sheet</span></a> lists every
+name each lesson sends.</p>
 <p><strong>If it didn’t</strong>, and a name you expected is missing, nothing sent it. Either that lesson does not
 publish it, or the line that publishes it is not typed yet.</p>
 </section>
 <section id="step-3-graph-the-two-against-each-other">
 <h3>step 3: graph the two against each other<a class="headerlink" href="#step-3-graph-the-two-against-each-other" title="Link to this heading">¶</a></h3>
-<p>Pick <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> and push the stick slowly from nothing up to full.</p>
+<p>Pick <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> and push the stick slowly from nothing
+up to full.</p>
 <p><strong>You’ll know it worked when</strong> the two lines leave zero together and the shaped one stays under the
 raw one the whole way up, until they meet at full stick. That is L060 drawn: squaring a number below
 1 makes it smaller.</p>
@@ -378,7 +383,7 @@ of about 5 ms, roughly one loop in 15 reaches the graph. For the same reason one
 show in <code class="docutils literal notranslate"><span class="pre">loop/period_ms</span></code>. Graph <code class="docutils literal notranslate"><span class="pre">loop/max_period_ms</span></code> instead: it only ever steps up, and a step
 means some loop blocked.</p>
 <figure class="align-default" id="fig-panels-graph">
-<img alt="../../media/fig-panels-graph_2e38a782b132.png" src="../../media/fig-panels-graph_2e38a782b132.png" />
+<img alt="../../media/fig-panels-graph_526119dde860.png" src="../../media/fig-panels-graph_526119dde860.png" />
 </figure>
 </section>
 <section id="step-4-look-at-where-it-thinks-it-is">

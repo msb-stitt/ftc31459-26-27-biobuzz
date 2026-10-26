@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,10 +329,10 @@
           <section id="lesson-slide-it-sideways">
 <h1>090 lesson: slide it sideways<a class="headerlink" href="#lesson-slide-it-sideways" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l090-slide">
-<img alt="../../media/fig-l090-slide_4cb7cf5a1403.png" src="../../media/fig-l090-slide_4cb7cf5a1403.png" />
+<img alt="../../media/fig-l090-slide_3e499752b971.png" src="../../media/fig-l090-slide_3e499752b971.png" />
 </figure>
 <p>Drive a mecanum robot: the left stick drives and slides, the right stick turns, and all three can
-happen at once. Each wheel gets its own power.</p>
+happen at once. Each wheel gets its own speed.</p>
 <p><strong>Before you start.</strong></p>
 <ul class="simple">
 <li><p>L080 is done, so <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>.</p></li>
@@ -369,15 +373,15 @@ along and sideways at the same time. With four of them, the robot can drive, sli
 A mecanum wheel is a left wheel or a right wheel, and the two are mirror images. goBILDA’s page
 shows both:
 <a class="reference external" href="https://www.gobilda.com/96mm-mecanum-wheel-set-70a-durometer-bearing-supported-rollers/">https://www.gobilda.com/96mm-mecanum-wheel-set-70a-durometer-bearing-supported-rollers/</a></p>
-<p>The starter has <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">turn</span></code> from L080. The slide is the third number, and it comes from the
-left stick, sideways.</p>
+<p>The starter has <code class="docutils literal notranslate"><span class="pre">forwardXSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> from L080. The slide is the third number, and it
+comes from the left stick, sideways.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L090S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">strafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">strafe</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"arcade/strafe"</span><span class="p">,</span><span class="w"> </span><span class="n">strafe</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickX</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speedShaped</span><span class="p">(</span><span class="n">strafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/strafeYSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p><strong>Strafe</strong> is the robot word for sliding sideways. The stick reads above 0.0 to the right, and the
@@ -388,7 +392,7 @@ minus sign makes a slide to the left positive, the same way a turn to the left i
 </ul>
 </section>
 <section id="l090s040">
-<span id="l090s040-give-each-wheel-its-power"></span><h3>L090S040: give each wheel its power<a class="headerlink" href="#l090s040" title="Link to this heading">¶</a></h3>
+<span id="l090s040-give-each-wheel-its-speed"></span><h3>L090S040: give each wheel its speed<a class="headerlink" href="#l090s040" title="Link to this heading">¶</a></h3>
 <p>Each wheel adds up the three numbers its own way:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
@@ -427,30 +431,31 @@ minus sign makes a slide to the left positive, the same way a turn to the left i
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L090S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"power/frontLeft"</span><span class="p">,</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"power/frontRight"</span><span class="p">,</span><span class="w"> </span><span class="n">frontRightPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"power/backLeft"</span><span class="p">,</span><span class="w"> </span><span class="n">backLeftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"power/backRight"</span><span class="p">,</span><span class="w"> </span><span class="n">backRightPower</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fl_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fr_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bl_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">br_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/fl_mixedSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">fl_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/fr_mixedSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">fr_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/bl_mixedSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">bl_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/br_mixedSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">br_mixedSpeed</span><span class="p">);</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">frontLeftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">frontRightPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">backLeftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">backRightPower</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">fl_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">fr_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">bl_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">br_mixedSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">fl</span></code>, <code class="docutils literal notranslate"><span class="pre">fr</span></code>, <code class="docutils literal notranslate"><span class="pre">bl</span></code> and <code class="docutils literal notranslate"><span class="pre">br</span></code> are short for front left, front right, back left and back right.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L090MecanumOpMode --pad"</span>
 </pre></div>
 </div>
-<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, and click <strong>2D Field</strong>. Open the <code class="docutils literal notranslate"><span class="pre">arcade</span></code>
-and <code class="docutils literal notranslate"><span class="pre">power</span></code> folders.</p>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, and click <strong>2D Field</strong>. Open the
+<code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> reads 0.25.</p></li>
+<li><p>Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafeYSpeed</span></code> reads 0.25.</p></li>
 <li><p>The front right and back left wheels read 0.25, and the other two read -0.25.</p></li>
 <li><p>The robot slides to its own left, and its nose keeps pointing the same way!</p></li>
 <li><p>Forward and turning work as they did in L080.</p></li>
@@ -458,31 +463,45 @@ and <code class="docutils literal notranslate"><span class="pre">power</span></c
 </section>
 <section id="l090s050">
 <span id="l090s050-scale-all-four"></span><h3>L090S050: scale all four<a class="headerlink" href="#l090s050" title="Link to this heading">¶</a></h3>
-<p>Push the left stick into a corner, all the way forward and all the way left. <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">strafe</span></code>
-are both 1.0, so the front right and back left wheels ask for 2.0. That is twice what a motor has.</p>
-<p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Go back to the four lines that make
-the wheel powers. Under them, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontLeftSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">frontLeftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">frontRightSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">frontRightPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backLeftSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">backLeftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">backRightSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">backRightPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">frontLeftSize</span><span class="p">,</span><span class="w"> </span><span class="n">frontRightSize</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">biggest</span><span class="p">,</span><span class="w"> </span><span class="n">backLeftSize</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">biggest</span><span class="p">,</span><span class="w"> </span><span class="n">backRightSize</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">biggest</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">frontLeftPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">frontRightPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backLeftPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backRightPower</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggest</span><span class="p">;</span>
+<p>Push the left stick into a corner, all the way forward and all the way left. <code class="docutils literal notranslate"><span class="pre">forwardXSpeed</span></code> and
+<code class="docutils literal notranslate"><span class="pre">strafeYSpeed</span></code> are both 1.0, so the front right and back left wheels ask for 2.0. That is twice what
+a motor has.</p>
+<p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Go back to the lines that make
+the wheel speeds. Under them, type the scaling. Then change the <code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> and <code class="docutils literal notranslate"><span class="pre">setPower</span></code>
+lines to use the scaled speeds:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fl_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fr_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bl_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">br_mixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fl_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">fl_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fr_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">fr_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bl_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">bl_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">br_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">br_mixedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">fl_size</span><span class="p">,</span><span class="w"> </span><span class="n">fr_size</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">biggest</span><span class="p">,</span><span class="w"> </span><span class="n">bl_size</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">biggest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="n">biggest</span><span class="p">,</span><span class="w"> </span><span class="n">br_size</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">biggestOrOne</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">biggest</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fl_speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fl_mixedSpeed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggestOrOne</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fr_speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fr_mixedSpeed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggestOrOne</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bl_speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bl_mixedSpeed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggestOrOne</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">br_speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">br_mixedSpeed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">biggestOrOne</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/fl_speed"</span><span class="p">,</span><span class="w"> </span><span class="n">fl_speed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/fr_speed"</span><span class="p">,</span><span class="w"> </span><span class="n">fr_speed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/bl_speed"</span><span class="p">,</span><span class="w"> </span><span class="n">bl_speed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/br_speed"</span><span class="p">,</span><span class="w"> </span><span class="n">br_speed</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">fl_speed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">fr_speed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">bl_speed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">br_speed</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p>This is L080’s scaling, for four wheels. <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> takes two numbers, so finding the biggest of
 four sizes takes three calls: the first compares the two front wheels, and each of the next two
-brings in one more wheel. The last <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> keeps <code class="docutils literal notranslate"><span class="pre">biggest</span></code> from going below 1.0, as in L080.</p>
+brings in one more wheel. The last <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> makes <code class="docutils literal notranslate"><span class="pre">biggestOrOne</span></code>, which never goes below 1.0, as
+in L080.</p>
+<p>The two lines that bring in one more wheel change <code class="docutils literal notranslate"><span class="pre">biggest</span></code>, as L060’s squaring line changed
+<code class="docutils literal notranslate"><span class="pre">leftShapedSpeed</span></code>, so it is always the biggest size so far.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -491,7 +510,7 @@ and the other two read 0.0.</p></li>
 <li><p>The robot drives diagonally, forward and to its left, with its nose still pointing forward.</p></li>
 </ul>
 <figure class="align-default" id="fig-l090-corner">
-<img alt="../../media/fig-l090-corner_4043480a4451.png" src="../../media/fig-l090-corner_4043480a4451.png" />
+<img alt="../../media/fig-l090-corner_c39b004c45f5.png" src="../../media/fig-l090-corner_c39b004c45f5.png" />
 </figure>
 </section>
 <section id="l090s060">
@@ -564,9 +583,9 @@ from <code class="docutils literal notranslate"><span class="pre">-leftStickX</s
 wrong corner. Forward still works with a wheel in the wrong place, because all four still push
 forward. It is the sideways pushes that stop canceling. This is what the arithmetic says. No robot
 here has been driven with a wheel on the wrong corner.</p>
-<p><strong>What you just did.</strong> Three numbers, four wheels, one line each. Those four lines are the whole of
-mecanum drive, and the path follower in later lessons uses the same four. The scaling is L080’s,
-for four wheels instead of two.</p>
+<p><strong>What you just did.</strong> The arcade command, forward, strafe and turn, mixed into each wheel’s speed,
+one line a wheel. Those lines are the whole of mecanum drive, and the path follower in later
+lessons uses the same ones. The scaling is L080’s, for each wheel instead of each side.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a> hands the wheels to the path follower.</p>
 </section>
 </section>
@@ -632,7 +651,7 @@ for four wheels instead of two.</p>
 <li><a class="reference internal" href="#l090s010-copy-the-starter-into-mytry">L090S010: copy the starter into mytry</a></li>
 <li><a class="reference internal" href="#l090s020-switch-your-copy-on">L090S020: switch your copy on</a></li>
 <li><a class="reference internal" href="#l090s030-read-the-slide">L090S030: read the slide</a></li>
-<li><a class="reference internal" href="#l090s040-give-each-wheel-its-power">L090S040: give each wheel its power</a></li>
+<li><a class="reference internal" href="#l090s040-give-each-wheel-its-speed">L090S040: give each wheel its speed</a></li>
 <li><a class="reference internal" href="#l090s050-scale-all-four">L090S050: scale all four</a></li>
 <li><a class="reference internal" href="#l090s060-check-every-wheel-on-blocks">L090S060: check every wheel on blocks</a></li>
 <li><a class="reference internal" href="#l090s070-drive-it-on-the-floor">L090S070: drive it on the floor</a></li>

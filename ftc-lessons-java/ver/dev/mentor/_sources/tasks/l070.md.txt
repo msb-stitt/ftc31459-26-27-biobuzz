@@ -58,7 +58,7 @@ Pick `a`, and finish the lines:
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
         // for what to do here.
         boolean buttonA = gamepad1.a;
-        Tracker.publish("button/a", buttonA);
+        Tracker.publish("gamepad1/buttonA", buttonA);
 ```
 
 **Simulator.** In the Terminal, run:
@@ -67,12 +67,12 @@ Pick `a`, and finish the lines:
 ./gradlew :TeamCode:simRun --args="mytry.L070ButtonsOpMode --pad"
 ```
 
-**AdvantageScope.** Connect to the simulator as in L020. Open the `button` folder, and drag `a`
-into **Discrete Fields**.
+**AdvantageScope.** Connect to the simulator as in L020. Open the `gamepad1` folder, and drag
+`buttonA` into **Discrete Fields**.
 
 **Check.**
 
-- `button/a` is a red dot.
+- `gamepad1/buttonA` is a red dot.
 - Press A and hold it, and the dot turns green.
 - Let go, and it turns red again.
 
@@ -114,9 +114,9 @@ field starts out `false`.
         // for what to do here.
         if (buttonA != previousButtonA) {
             if (buttonA) {
-                Tracker.publish("button/event", "A pressed");
+                Tracker.publish("gamepad1/buttonAEvent", "A pressed");
             } else {
-                Tracker.publish("button/event", "A released");
+                Tracker.publish("gamepad1/buttonAEvent", "A released");
             }
         }
         previousButtonA = buttonA;
@@ -130,16 +130,17 @@ The text in quotes is a **String**. `Tracker` writes it down the same way it wri
 
 **Simulator.** Run the same command again, and connect AdvantageScope.
 
-**AdvantageScope.** Drag `event` from the `button` folder into **Discrete Fields**. Until A has
-been pressed once, `event` is crossed out, because nothing has been written to it yet.
+**AdvantageScope.** Drag `buttonAEvent` from the `gamepad1` folder into **Discrete Fields**. Until A
+has been pressed once, `buttonAEvent` is crossed out, because nothing has been written to it yet.
 
-Holding A down does not write `A pressed` again. `event` only changes on the loop the button
+Holding A down does not write `A pressed` again. `buttonAEvent` only changes on the loop the button
 changed.
 
 **Check.**
 
-- Press A and hold it. `button/a` turns into a green dot, and `event` reads `A pressed`.
-- Let go. The dot turns red, and `event` reads `A released`.
+- Press A and hold it. `gamepad1/buttonA` turns into a green dot, and `buttonAEvent` reads `A
+  pressed`.
+- Let go. The dot turns red, and `buttonAEvent` reads `A released`.
 
 ### L070S060: read the sticks sideways
 
@@ -157,18 +158,18 @@ up and down. Under it, type:
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
         // for what to do here.
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 ```
 
 **Simulator.** Run the same command again, and connect AdvantageScope.
 
 **Check.**
 
-- Push the left stick to the right, and `stick/leftX` goes above 0.0.
-- Push the right stick to the left, and `stick/rightX` goes below 0.0.
-- `speed` and `power` stay at 0.0, and the robot does not move.
+- Push the left stick to the right, and `gamepad1/leftStickX` goes above 0.0.
+- Push the right stick to the left, and `gamepad1/rightStickX` goes below 0.0.
+- The speeds in `drivetrain` stay at 0.0, and the robot does not move.
 
 :::{figure} ../_figures/fig-l070-sideways.png
 :name: fig-l070-sideways
@@ -181,21 +182,21 @@ it in AdvantageScope.
 
 **Check.**
 
-- Press A, and in AdvantageScope `button/event` reads `A pressed`.
+- Press A, and in AdvantageScope `gamepad1/buttonAEvent` reads `A pressed`.
 - Let go, and it reads `A released`.
 - The robot still drives with the sticks as it did in L060.
 
 ::::{only} mentor
 **No gamepad.** `--args="mytry.L070ButtonsOpMode --a=true"` holds A down for the whole run, so
-`event` reads `A pressed` and never changes; the picture at the top was taken that way. A release
-needs a gamepad. `--left_stick_x=0.5 --right_stick_x=-0.25` holds the sticks sideways for the last
-picture. The tests press and let go of A without a gamepad.
+`buttonAEvent` reads `A pressed` and never changes; the picture at the top was taken that way. A
+release needs a gamepad. `--left_stick_x=0.5 --right_stick_x=-0.25` holds the sticks sideways for
+the last picture. The tests press and let go of A without a gamepad.
 
-**If it didn't**, and `event` reads `A pressed` but never `A released`, the last line,
+**If it didn't**, and `buttonAEvent` reads `A pressed` but never `A released`, the last line,
 `previousButtonA = buttonA;`, is missing. The test fails with `letting go says so`.
 
-**If it didn't**, and `event` reads `A pressed` when A is let go, the two `Tracker.publish` lines
-are swapped.
+**If it didn't**, and `buttonAEvent` reads `A pressed` when A is let go, the two `Tracker.publish`
+lines are swapped.
 
 **What you just did.** A boolean is either `true` or `false`. A field keeps a value between loops,
 and comparing this loop with the last one finds the moment something changed. That is how a

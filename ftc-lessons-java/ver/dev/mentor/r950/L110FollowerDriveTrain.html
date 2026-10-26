@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="l110followerdrivetrain">
 <h1>L110FollowerDriveTrain<a class="headerlink" href="#l110followerdrivetrain" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l110">
 <h2>L110<a class="headerlink" href="#l110" title="Link to this heading">¶</a></h2>
@@ -335,12 +339,12 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  44         // When on L110S030, see
 <span class="w"> </span>  45         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030
 <span class="w"> </span>  46         // for what to do here.
-<span class="gi">+  47         wheels[FL] = forward - strafe - turn;</span>
-<span class="gi">+  48         wheels[FR] = forward + strafe + turn;</span>
-<span class="gi">+  49         wheels[BL] = forward + strafe - turn;</span>
-<span class="gi">+  50         wheels[BR] = forward - strafe + turn;</span>
+<span class="gi">+  47         wheelSpeeds[FL] = forwardXSpeed - strafeYSpeed - turnCcwSpeed;</span>
+<span class="gi">+  48         wheelSpeeds[FR] = forwardXSpeed + strafeYSpeed + turnCcwSpeed;</span>
+<span class="gi">+  49         wheelSpeeds[BL] = forwardXSpeed + strafeYSpeed - turnCcwSpeed;</span>
+<span class="gi">+  50         wheelSpeeds[BR] = forwardXSpeed - strafeYSpeed + turnCcwSpeed;</span>
 <span class="w"> </span>  51
-<span class="w"> </span>  52         return wheels;
+<span class="w"> </span>  52         return wheelSpeeds;
 <span class="w"> </span>  53     }
 </pre></div>
 </div>

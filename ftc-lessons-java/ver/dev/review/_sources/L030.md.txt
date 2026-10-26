@@ -22,7 +22,7 @@ Delete 0 lines, write 2 lines.
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
          // for what to do here.
 +        double leftSpeed = -leftStickY;
-+        Tracker.publish("speed/left", leftSpeed);
++        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
  
          // When on L030S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
@@ -40,7 +40,7 @@ Delete 0 lines, write 2 lines.
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
          // for what to do here.
 +        double rightSpeed = -rightStickY;
-+        Tracker.publish("speed/right", rightSpeed);
++        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

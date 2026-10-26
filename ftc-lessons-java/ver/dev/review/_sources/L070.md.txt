@@ -39,12 +39,12 @@ Delete 0 lines, write 4 lines.
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
          // for what to do here.
 +        double leftStickX = gamepad1.left_stick_x;
-+        Tracker.publish("stick/leftX", leftStickX);
++        Tracker.publish("gamepad1/leftStickX", leftStickX);
 +        double rightStickX = gamepad1.right_stick_x;
-+        Tracker.publish("stick/rightX", rightStickX);
++        Tracker.publish("gamepad1/rightStickX", rightStickX);
  
          double leftSpeed = -leftStickY;
-         Tracker.publish("speed/left", leftSpeed);
+         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
 ```
 
 ### A change
@@ -59,7 +59,7 @@ Delete 0 lines, write 2 lines.
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
          // for what to do here.
 +        boolean buttonA = gamepad1.a;
-+        Tracker.publish("button/a", buttonA);
++        Tracker.publish("gamepad1/buttonA", buttonA);
  
          // When on L070S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
@@ -78,9 +78,9 @@ Delete 0 lines, write 8 lines.
          // for what to do here.
 +        if (buttonA != previousButtonA) {
 +            if (buttonA) {
-+                Tracker.publish("button/event", "A pressed");
++                Tracker.publish("gamepad1/buttonAEvent", "A pressed");
 +            } else {
-+                Tracker.publish("button/event", "A released");
++                Tracker.publish("gamepad1/buttonAEvent", "A released");
 +            }
 +        }
 +        previousButtonA = buttonA;

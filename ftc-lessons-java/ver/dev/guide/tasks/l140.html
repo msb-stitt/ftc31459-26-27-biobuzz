@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="150 lesson: give the driver both" href="l150.html"><link rel="prev" title="130 lesson: two legs, forward then sideways" href="l130.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="141 what’s happening: arrows as two numbers" href="e141.html"><link rel="prev" title="130 lesson: two legs, forward then sideways" href="l130.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>140 lesson: make the sticks mean the field - Corbels FTC Programming Lessons in Java</title>
@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -320,7 +324,7 @@
           <section id="lesson-make-the-sticks-mean-the-field">
 <h1>140 lesson: make the sticks mean the field<a class="headerlink" href="#lesson-make-the-sticks-mean-the-field" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l140-spin-and-slide">
-<img alt="../../media/fig-l140-spin-and-slide_d4e732a3e9c4.png" src="../../media/fig-l140-spin-and-slide_d4e732a3e9c4.png" />
+<img alt="../../media/fig-l140-spin-and-slide_4a3409de23d8.png" src="../../media/fig-l140-spin-and-slide_4a3409de23d8.png" />
 </figure>
 <p>Push the stick away from you and the robot goes away from you. It does that whichever way the robot
 happens to be facing, so a driver never has to think about which end of the robot is the front.</p>
@@ -364,24 +368,27 @@ Git, click <strong>Add</strong>.</p>
 <section id="l140s040">
 <span id="l140s040-turn-the-stick-backwards-through-the-heading"></span><h3>L140S040: turn the stick backwards through the heading<a class="headerlink" href="#l140s040" title="Link to this heading">¶</a></h3>
 <figure class="align-default" id="fig-field-relative">
-<img alt="../../media/fig-field-relative_199cd5d7d0ad.png" src="../../media/fig-field-relative_199cd5d7d0ad.png" />
+<img alt="../../media/fig-field-relative_3487ddf2e52e.png" src="../../media/fig-field-relative_3487ddf2e52e.png" />
 </figure>
-<p>From now on, <code class="docutils literal notranslate"><span class="pre">forward</span></code> on the stick means away from the driver, along the field’s x. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> means
-to the driver’s left, along the field’s y. On AdvantageScope’s 2D Field, +x runs to the right and
-+y runs up.</p>
+<p>You drive from the Red Alliance Area, as in the picture. From now on, <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> means a speed
+along the field’s +x. It could be away from you or toward you, depending on which Alliance Area
+you are in. <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> means to your left, along the field’s +y, when you are in the Red
+Alliance Area. <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> means to your right, along the field’s +y, when you are in the Blue
+Alliance Area. On AdvantageScope’s 2D Field, +x runs to the right and +y runs up.</p>
 <p>The wheels only know the robot’s own forward and sideways. L120 turned a step on the robot into a
 step on the field, through the heading. This turns the other way, from the field to the robot, so
 the signs on <code class="docutils literal notranslate"><span class="pre">sin</span></code> swap.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the
-comment that names this step. Delete the line <code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(forward,</span> <span class="pre">strafe,</span> <span class="pre">turn);</span></code> under it,
-and type:</p>
+comment that names this step. Delete the line <code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(fieldXSpeed,</span> <span class="pre">fieldYSpeed,</span> <span class="pre">turnCcwSpeed);</span></code> under it, and type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="na">pose</span><span class="p">().</span><span class="na">heading</span><span class="p">();</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotForward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotStrafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">forward</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForward</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafe</span><span class="p">,</span><span class="w"> </span><span class="n">turn</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/robotForwardXSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/robotStrafeYSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p>The follower knows which way the robot faces. The drivetrain does not. So the OpMode asks the
@@ -404,6 +411,8 @@ Station. Stand off the robot’s left side, so that away from you is the field�
 <li><p>Then push the left stick away from you. The robot drives away from you while it faces you.</p></li>
 <li><p>Turn it a quarter turn and try again, and the stick still means the same way on the field.</p></li>
 </ul>
+<p><strong>What’s happening.</strong> <a class="reference internal" href="e141.html"><span class="std std-doc">E141</span></a> and <a class="reference internal" href="e142.html"><span class="std std-doc">E142</span></a> show why your two lines work.
+<a class="reference internal" href="e143.html"><span class="std std-doc">E143</span></a> shows the field from each Alliance Area.</p>
 </section>
 </section>
 </section>
@@ -413,12 +422,12 @@ Station. Stand off the robot’s left side, so that away from you is the field�
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="l150.html">
+          <a class="next-page" href="e141.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">150 lesson: give the driver both</div>
+                <div class="title">141 what’s happening: arrows as two numbers</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

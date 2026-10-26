@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,45 +329,55 @@
           <section id="l080arcadeopmode">
 <h1>L080ArcadeOpMode<a class="headerlink" href="#l080arcadeopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l080">
 <h2>L080<a class="headerlink" href="#l080" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L080ArcadeOpMode.java  (before L080)</span>
 <span class="gi">+++ mytry/L080ArcadeOpMode.java  (after L080)</span>
 <span class="gu">@@ lines 79 to 110 @@</span>
-<span class="w"> </span>  79         // When on L080S030, see
-<span class="w"> </span>  80         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+<span class="w"> </span>  79         // When on L080S040, see
+<span class="w"> </span>  80         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
 <span class="w"> </span>  81         // for what to do here.
-<span class="gi">+  82         double band = 0.05;</span>
-<span class="gi">+  83         double forward = deadband(-leftStickY, band);</span>
-<span class="gi">+  84         forward = signedSquared(forward);</span>
-<span class="gi">+  85         Tracker.publish("arcade/forward", forward);</span>
-<span class="gi">+  86         double turn = deadband(-rightStickX, band);</span>
-<span class="gi">+  87         turn = signedSquared(turn);</span>
-<span class="gi">+  88         Tracker.publish("arcade/turn", turn);</span>
+<span class="gi">+  82         double bandToSetToZero = 0.05;</span>
+<span class="gi">+  83         double forwardXSpeed = -leftStickY;</span>
+<span class="gi">+  84         forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);</span>
+<span class="gi">+  85         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);</span>
+<span class="gi">+  86         double turnCcwSpeed = -rightStickX;</span>
+<span class="gi">+  87         turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);</span>
+<span class="gi">+  88         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);</span>
 <span class="w"> </span>  89
-<span class="w"> </span>  90         // When on L080S040, see
-<span class="w"> </span>  91         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
+<span class="w"> </span>  90         // When on L080S050, see
+<span class="w"> </span>  91         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
 <span class="w"> </span>  92         // for what to do here.
-<span class="gi">+  93         double leftPower = forward - turn;</span>
-<span class="gi">+  94         double rightPower = forward + turn;</span>
-<span class="gi">+  95         double leftSize = Math.abs(leftPower);</span>
-<span class="gi">+  96         double rightSize = Math.abs(rightPower);</span>
+<span class="gi">+  93         double leftMixedSpeed = forwardXSpeed - turnCcwSpeed;</span>
+<span class="gi">+  94         double rightMixedSpeed = forwardXSpeed + turnCcwSpeed;</span>
+<span class="gi">+  95         double leftSize = Math.abs(leftMixedSpeed);</span>
+<span class="gi">+  96         double rightSize = Math.abs(rightMixedSpeed);</span>
 <span class="gi">+  97         double biggest = Math.max(leftSize, rightSize);</span>
-<span class="gi">+  98         biggest = Math.max(1.0, biggest);</span>
-<span class="gi">+  99         leftPower = leftPower / biggest;</span>
-<span class="gi">+ 100         rightPower = rightPower / biggest;</span>
-<span class="gi">+ 101         Tracker.publish("power/left", leftPower);</span>
-<span class="gi">+ 102         Tracker.publish("power/right", rightPower);</span>
+<span class="gi">+  98         double biggestOrOne = Math.max(1.0, biggest);</span>
+<span class="gi">+  99         double leftSpeed = leftMixedSpeed / biggestOrOne;</span>
+<span class="gi">+ 100         double rightSpeed = rightMixedSpeed / biggestOrOne;</span>
+<span class="gi">+ 101         Tracker.publish("drivetrain/leftSpeed", leftSpeed);</span>
+<span class="gi">+ 102         Tracker.publish("drivetrain/rightSpeed", rightSpeed);</span>
 <span class="gi">+ 103</span>
-<span class="gi">+ 104         hardware.frontLeft.setPower(leftPower);</span>
-<span class="gi">+ 105         hardware.backLeft.setPower(leftPower);</span>
-<span class="gi">+ 106         hardware.frontRight.setPower(rightPower);</span>
-<span class="gi">+ 107         hardware.backRight.setPower(rightPower);</span>
+<span class="gi">+ 104         hardware.frontLeft.setPower(leftSpeed);</span>
+<span class="gi">+ 105         hardware.backLeft.setPower(leftSpeed);</span>
+<span class="gi">+ 106         hardware.frontRight.setPower(rightSpeed);</span>
+<span class="gi">+ 107         hardware.backRight.setPower(rightSpeed);</span>
 <span class="w"> </span> 108
 <span class="w"> </span> 109         boolean buttonA = gamepad1.a;
-<span class="w"> </span> 110         Tracker.publish("button/a", buttonA);
+<span class="w"> </span> 110         Tracker.publish("gamepad1/buttonA", buttonA);
+<span class="gu">@@ lines 143 to 151 @@</span>
+<span class="w"> </span> 143     // When on L080S030, see
+<span class="w"> </span> 144     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+<span class="w"> </span> 145     // for what to do here.
+<span class="gi">+ 146     double speedShaped(double value, double band) {</span>
+<span class="gi">+ 147         double deadbanded = deadband(value, band);</span>
+<span class="gi">+ 148         double shapedSpeed = signedSquared(deadbanded);</span>
+<span class="gi">+ 149         return shapedSpeed;</span>
+<span class="gi">+ 150     }</span>
+<span class="w"> </span> 151 }
 </pre></div>
 </div>
 </section>

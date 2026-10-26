@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -320,7 +324,7 @@
           <section id="l030speedsopmode">
 <h1>L030SpeedsOpMode<a class="headerlink" href="#l030speedsopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l030">
 <h2>L030<a class="headerlink" href="#l030" title="Link to this heading">¶</a></h2>
@@ -331,13 +335,13 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  63         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
 <span class="w"> </span>  64         // for what to do here.
 <span class="gi">+  65         double leftSpeed = -leftStickY;</span>
-<span class="gi">+  66         Tracker.publish("speed/left", leftSpeed);</span>
+<span class="gi">+  66         Tracker.publish("drivetrain/leftSpeed", leftSpeed);</span>
 <span class="w"> </span>  67
 <span class="w"> </span>  68         // When on L030S040, see
 <span class="w"> </span>  69         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
 <span class="w"> </span>  70         // for what to do here.
 <span class="gi">+  71         double rightSpeed = -rightStickY;</span>
-<span class="gi">+  72         Tracker.publish("speed/right", rightSpeed);</span>
+<span class="gi">+  72         Tracker.publish("drivetrain/rightSpeed", rightSpeed);</span>
 <span class="w"> </span>  73     }
 <span class="w"> </span>  74
 <span class="w"> </span>  75     // 'public' to match the parent class. 'public' allows access from any code.

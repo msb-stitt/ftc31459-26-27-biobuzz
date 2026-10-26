@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="160 lesson: hold the heading the driver left" href="l160.html"><link rel="prev" title="140 lesson: make the sticks mean the field" href="l140.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="160 lesson: hold the heading the driver left" href="l160.html"><link rel="prev" title="143 what’s happening: the field from each alliance area" href="e143.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>150 lesson: give the driver both - Corbels FTC Programming Lessons in Java</title>
@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -320,7 +324,7 @@
           <section id="lesson-give-the-driver-both">
 <h1>150 lesson: give the driver both<a class="headerlink" href="#lesson-give-the-driver-both" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l150-bumper-held">
-<img alt="../../media/fig-l150-bumper-held_8a550779a477.png" src="../../media/fig-l150-bumper-held_8a550779a477.png" />
+<img alt="../../media/fig-l150-bumper-held_f783c8ac1b90.png" src="../../media/fig-l150-bumper-held_f783c8ac1b90.png" />
 </figure>
 <p>The sticks mean the field, the way L140 left them, until the right bumper is held. While it is held
 they mean the robot. Let go and they mean the field again.</p>
@@ -350,25 +354,35 @@ to Git, click <strong>Add</strong>.</p>
 <p>Field relative is the easier way to drive most of the time. It is not the easier way to line up
 against something. Backing straight out of a corner, or nudging along a wall, is easier when forward
 means the robot’s own forward.</p>
-<p>So the driver gets both, and an <code class="docutils literal notranslate"><span class="pre">if</span></code> chooses. The starter already works out <code class="docutils literal notranslate"><span class="pre">robotForward</span></code> and
-<code class="docutils literal notranslate"><span class="pre">robotStrafe</span></code>, L140’s turn. <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">strafe</span></code> are the sticks as they are, the robot’s own
-directions.</p>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Delete the line
-<code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(robotForward,</span> <span class="pre">robotStrafe,</span> <span class="pre">turn);</span></code> under it, and type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="na">pose</span><span class="p">().</span><span class="na">heading</span><span class="p">();</span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotForward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
-<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotStrafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">forward</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+<p>So the driver gets both, and an <code class="docutils literal notranslate"><span class="pre">if</span></code> chooses. The starter already works out <code class="docutils literal notranslate"><span class="pre">robotForwardXSpeed</span></code>
+and <code class="docutils literal notranslate"><span class="pre">robotStrafeYSpeed</span></code> from the field speeds, L140’s turn. With the bumper held, they come from the
+sticks as they are instead, the robot’s own directions, as in L090.</p>
+<p>The starter makes the two at the top with no number: <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">robotForwardXSpeed;</span></code> makes the name,
+and a later line gives it its number. So each side of the <code class="docutils literal notranslate"><span class="pre">if</span></code> can give it its own.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it, type the
+lines down to <code class="docutils literal notranslate"><span class="pre">}</span> <span class="pre">else</span> <span class="pre">{</span></code>. Then select the three lines from <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">heading</span></code> down, press ⌘X on a Mac,
+Ctrl+X on Windows, and paste them inside the <code class="docutils literal notranslate"><span class="pre">else</span></code>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">;</span>
 <span class="w">        </span><span class="c1">// When on L150S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">robotRelative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">right_bumper</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drive/robotRelative"</span><span class="p">,</span><span class="w"> </span><span class="n">robotRelative</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/robotRelative"</span><span class="p">,</span><span class="w"> </span><span class="n">robotRelative</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">robotRelative</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">forward</span><span class="p">,</span><span class="w"> </span><span class="n">strafe</span><span class="p">,</span><span class="w"> </span><span class="n">turn</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickY</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speedShaped</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickX</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speedShaped</span><span class="p">(</span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForward</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafe</span><span class="p">,</span><span class="w"> </span><span class="n">turn</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span>
-</span></pre></div>
+</span><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="na">pose</span><span class="p">().</span><span class="na">heading</span><span class="p">();</span>
+<span class="w">            </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+<span class="w">            </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/robotForwardXSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/robotStrafeYSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">);</span>
+<span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
+</pre></div>
 </div>
 <p>When you type <code class="docutils literal notranslate"><span class="pre">{</span></code> and press Enter, Android Studio adds the <code class="docutils literal notranslate"><span class="pre">}</span></code> for you.</p>
 <p>The bumper is read fresh every loop. Let go, and the next loop drives field relative again. The
@@ -377,8 +391,8 @@ driver’s thumb tells them which way the sticks work, so there is nothing to re
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L150RobotRelativeButtonOpMode --pad"</span>
 </pre></div>
 </div>
-<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">drive</span></code>
-folder, then <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
+<code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder, then <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Hold the right bumper and push the left stick a little forward. <code class="docutils literal notranslate"><span class="pre">robotRelative</span></code> turns green, and
@@ -416,14 +430,14 @@ Station. Stand off the robot’s left side, as in L140.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="l140.html">
+          <a class="prev-page" href="e143.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">140 lesson: make the sticks mean the field</div>
+                <div class="title">143 what’s happening: the field from each alliance area</div>
                 
               </div>
             </a>

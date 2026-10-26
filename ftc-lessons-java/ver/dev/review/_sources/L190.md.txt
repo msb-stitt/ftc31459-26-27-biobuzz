@@ -1,6 +1,6 @@
 # L190
 
-2 file(s) copied, then 8 change(s) in 2 file(s), 20 line(s) of code to write.
+2 file(s) copied, then 10 change(s) in 2 file(s), 29 line(s) of code to write.
 
 ## Copies
 
@@ -39,15 +39,15 @@ Delete 0 lines, write 9 lines.
          // When on L190S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
          // for what to do here.
-+        double[] measured = measuredSpeeds.all();
-+        double[] powers = new double[4];
++        double[] measuredInPerS = measuredSpeeds.all();
++        double[] wheelSpeeds = new double[4];
 +        for (int i = 0; i < 4; i++) {
-+            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
-+            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
-+            powers[i] = clampToPower(feedforward + feedback);
++            double feedforward = Constants.powerPerInchPerSecond * wantedInPerS[i];
++            double feedback = VELOCITY_KP * (wantedInPerS[i] - measuredInPerS[i]);
++            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
 +        }
-+        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
-+        publishWheelSpeeds(wanted, measured);
++        setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);
++        publishWheelSpeeds(wantedInPerS, measuredInPerS);
      }
  }
 ```
@@ -128,39 +128,80 @@ Delete 1 line, write 1 line.
 
 ### A change
 
-Delete 3 lines, write 3 lines.
+Delete 1 line, write 3 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -88,9 +88,9 @@
+@@ -88,7 +88,9 @@
          // When on L190S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
          // for what to do here.
--        double forwardInPerS = 0.0;
--        double strafeInPerS = 0.0;
--        double turnRadPerS = 0.0;
-+        double forwardInPerS = deadband(-leftStickY, band) * MAX_IPS;
-+        double strafeInPerS = deadband(-leftStickX, band) * MAX_IPS;
-+        double turnRadPerS = deadband(-rightStickX, band) * MAX_TURN_RADPS;
-         Tracker.publish("command/forward_ips", forwardInPerS);
-         Tracker.publish("command/left_ips", strafeInPerS);
-         Tracker.publish("command/turn_radps", turnRadPerS);
+-        double forwardXInPerS = 0.0;
++        double forwardXSpeed = -leftStickY;
++        forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
++        double forwardXInPerS = forwardXSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
+         double strafeYInPerS = 0.0;
+         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
 ```
 
 ### A change
 
-Delete 0 lines, write 2 lines.
+Delete 1 line, write 3 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -94,6 +94,8 @@
-         Tracker.publish("command/forward_ips", forwardInPerS);
-         Tracker.publish("command/left_ips", strafeInPerS);
-         Tracker.publish("command/turn_radps", turnRadPerS);
-+        double[] target = WheelTargets.forMecanum(forwardInPerS, strafeInPerS, turnRadPerS, Constants.turnRadiusInches);
-+        drivetrain.setCommandedWheelSpeeds(target[0], target[1], target[2], target[3]);
+@@ -92,7 +92,9 @@
+         forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
+         double forwardXInPerS = forwardXSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
+-        double strafeYInPerS = 0.0;
++        double strafeYSpeed = -leftStickX;
++        strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
++        double strafeYInPerS = strafeYSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
+         double turnRadPerS = 0.0;
+         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+```
+
+### A change
+
+Delete 1 line, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -96,7 +96,9 @@
+         strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
+         double strafeYInPerS = strafeYSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
+-        double turnRadPerS = 0.0;
++        double turnCcwSpeed = -rightStickX;
++        turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
++        double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;
+         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -100,6 +100,11 @@
+         turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
+         double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;
+         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
++
++        double[] wheelInPerS = WheelTargets.forMecanum(forwardXInPerS, strafeYInPerS, turnRadPerS,
++                Constants.turnRadiusInches);
++        drivetrain.setCommandedWheelSpeeds(wheelInPerS[0], wheelInPerS[1], wheelInPerS[2],
++                wheelInPerS[3]);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="l070buttonsopmode">
 <h1>L070ButtonsOpMode<a class="headerlink" href="#l070buttonsopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l070">
 <h2>L070<a class="headerlink" href="#l070" title="Link to this heading">¶</a></h2>
@@ -344,27 +348,27 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  77         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
 <span class="w"> </span>  78         // for what to do here.
 <span class="gi">+  79         double leftStickX = gamepad1.left_stick_x;</span>
-<span class="gi">+  80         Tracker.publish("stick/leftX", leftStickX);</span>
+<span class="gi">+  80         Tracker.publish("gamepad1/leftStickX", leftStickX);</span>
 <span class="gi">+  81         double rightStickX = gamepad1.right_stick_x;</span>
-<span class="gi">+  82         Tracker.publish("stick/rightX", rightStickX);</span>
+<span class="gi">+  82         Tracker.publish("gamepad1/rightStickX", rightStickX);</span>
 <span class="w"> </span>  83
 <span class="w"> </span>  84         double leftSpeed = -leftStickY;
-<span class="w"> </span>  85         Tracker.publish("speed/left", leftSpeed);
+<span class="w"> </span>  85         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
 <span class="gu">@@ lines 103 to 122 @@</span>
 <span class="w"> </span> 103         // When on L070S030, see
 <span class="w"> </span> 104         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
 <span class="w"> </span> 105         // for what to do here.
 <span class="gi">+ 106         boolean buttonA = gamepad1.a;</span>
-<span class="gi">+ 107         Tracker.publish("button/a", buttonA);</span>
+<span class="gi">+ 107         Tracker.publish("gamepad1/buttonA", buttonA);</span>
 <span class="w"> </span> 108
 <span class="w"> </span> 109         // When on L070S050, see
 <span class="w"> </span> 110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
 <span class="w"> </span> 111         // for what to do here.
 <span class="gi">+ 112         if (buttonA != previousButtonA) {</span>
 <span class="gi">+ 113             if (buttonA) {</span>
-<span class="gi">+ 114                 Tracker.publish("button/event", "A pressed");</span>
+<span class="gi">+ 114                 Tracker.publish("gamepad1/buttonAEvent", "A pressed");</span>
 <span class="gi">+ 115             } else {</span>
-<span class="gi">+ 116                 Tracker.publish("button/event", "A released");</span>
+<span class="gi">+ 116                 Tracker.publish("gamepad1/buttonAEvent", "A released");</span>
 <span class="gi">+ 117             }</span>
 <span class="gi">+ 118         }</span>
 <span class="gi">+ 119         previousButtonA = buttonA;</span>

@@ -1,7 +1,6 @@
 # 041 what's happening: calling a method
 
-When the computer runs your program, it reads one line of code at a time. It moves words and
-numbers around in its memory. It is like moving sticky notes around on your desk.
+TODO describe this lesson
 
 Here is what one of the wheel lines you wrote in [L040](l040.md) does.
 
@@ -17,6 +16,6 @@ hardware.frontLeft.setPower(leftSpeed);
 - On that note is the field `frontLeft`. Its arrow points to a motor's note.
 - A motor has a method, `setPower`, and the line hands it `leftSpeed`. That is the `double` on
   `leftSpeed`'s note, 0.7 in the picture.
-- `setPower` is part of the FTC platform. It runs that motor full power forward at +1.0, not at
-  all at 0.0, and full power backward at -1.0.
+- `setPower` is part of the FTC platform. It runs that motor full speed forward at +1.0, not at
+  all at 0.0, and full speed backward at -1.0.
 - The same happens for each of the four: `frontLeft`, `backLeft`, `frontRight` and `backRight`.

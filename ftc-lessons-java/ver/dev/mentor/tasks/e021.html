@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -366,7 +370,7 @@ assignment action.”</p>
 <p>In your code, the <code class="docutils literal notranslate"><span class="pre">=</span></code> in <code class="docutils literal notranslate"><span class="pre">leftStickY</span> <span class="pre">=</span> <span class="pre">gamepad1.left_stick_y</span></code> copies the number on the <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code>
 <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code> <code class="docutils literal notranslate"><span class="pre">float</span></code> note onto <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s note. <code class="docutils literal notranslate"><span class="pre">=</span></code> is an action: put this value here.</p>
 <p>Your second line of code was:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/leftY"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/leftStickY"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> is also provided by the platform. It lets you track things that you want to log to the
@@ -377,10 +381,10 @@ assignment action.”</p>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> has a <strong>method</strong>, <code class="docutils literal notranslate"><span class="pre">publish</span></code>: a piece of code with a name. This line runs it, the way the
 scheduler runs your <code class="docutils literal notranslate"><span class="pre">readTheSticks()</span></code>.</p>
 <figure class="align-default" id="fig-l020-publish">
-<img alt="../../media/fig-l020-publish_3bb3da107df5.png" src="../../media/fig-l020-publish_3bb3da107df5.png" />
+<img alt="../../media/fig-l020-publish_c02b723322ff.png" src="../../media/fig-l020-publish_c02b723322ff.png" />
 </figure>
-<p>The line <code class="docutils literal notranslate"><span class="pre">Tracker.publish(&quot;stick/leftY&quot;,</span> <span class="pre">leftStickY)</span></code> hands <code class="docutils literal notranslate"><span class="pre">publish</span></code> two things: a name for the
-value, in quotes, and a copy of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s number.</p>
+<p>The line <code class="docutils literal notranslate"><span class="pre">Tracker.publish(&quot;gamepad1/leftStickY&quot;,</span> <span class="pre">leftStickY)</span></code> hands <code class="docutils literal notranslate"><span class="pre">publish</span></code> two things: a name for
+the value, in quotes, and a copy of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s number.</p>
 <p><code class="docutils literal notranslate"><span class="pre">publish</span></code> sends the number on <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s note to AdvantageScope, and writes it in the flight
 log.</p>
 </section>

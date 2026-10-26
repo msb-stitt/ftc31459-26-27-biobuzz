@@ -250,7 +250,7 @@
         <article role="main" id="furo-main-content">
           <section id="l140">
 <h1>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 1 change(s) in 1 file(s), 4 line(s) of code to write.</p>
+<p>1 file(s) copied, then 1 change(s) in 1 file(s), 6 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -262,21 +262,23 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 1 line, write 4 lines.</p>
+<p>Delete 1 line, write 6 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -88,7 +88,10 @@</span>
+<span class="gu">@@ -83,7 +83,12 @@</span>
 <span class="w"> </span>        // When on L140S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
 <span class="w"> </span>        // for what to do here.
-<span class="gd">-        drivetrain.sticks(forward, strafe, turn);</span>
+<span class="gd">-        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);</span>
 <span class="gi">+        double heading = follower.pose().heading();</span>
-<span class="gi">+        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);</span>
-<span class="gi">+        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);</span>
-<span class="gi">+        drivetrain.sticks(robotForward, robotStrafe, turn);</span>
+<span class="gi">+        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);</span>
+<span class="gi">+        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);</span>
+<span class="gi">+        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);</span>
+<span class="gi">+        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);</span>
+<span class="w"> </span>    }
 <span class="w"> </span>
-<span class="w"> </span>        boolean buttonA = gamepad1.a;
-<span class="w"> </span>        Tracker.publish("button/a", buttonA);
+<span class="w"> </span>    // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>

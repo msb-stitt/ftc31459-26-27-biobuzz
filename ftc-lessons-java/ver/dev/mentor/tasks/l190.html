@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,10 +329,11 @@
           <section id="lesson-ask-the-wheels-for-a-speed">
 <h1>190 lesson: ask the wheels for a speed<a class="headerlink" href="#lesson-ask-the-wheels-for-a-speed" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l190-wheel-numbers">
-<img alt="../../media/fig-l190-wheel-numbers_0de09fe3ea4f.png" src="../../media/fig-l190-wheel-numbers_0de09fe3ea4f.png" />
+<img alt="../../media/fig-l190-wheel-numbers_0e90809d77ec.png" src="../../media/fig-l190-wheel-numbers_0e90809d77ec.png" />
 </figure>
-<p>Full stick means 40 inches per second, not full power. The drivetrain measures how fast each wheel
-turns and makes up the difference, on a fresh battery or a flat one, on the flat or up a slope.</p>
+<p>Full stick means 40 inches per second, not <code class="docutils literal notranslate"><span class="pre">setPower(1.0)</span></code>. The drivetrain measures how fast each
+wheel turns and makes up the difference, on a fresh battery or a flat one, on the flat or up a
+slope.</p>
 <p><strong>Before you start.</strong></p>
 <ul class="simple">
 <li><p>L180 is done.</p></li>
@@ -341,7 +346,7 @@ up, like a folded mat, for the last step.</p></li>
 <section id="l190s010">
 <span id="l190s010-copy-the-two-starters-into-mytry"></span><h3>L190S010: copy the two starters into mytry<a class="headerlink" href="#l190s010" title="Link to this heading">¶</a></h3>
 <p>This lesson has two files, as L110 did. One is the OpMode. The other is the drivetrain, which turns
-a speed into a power.</p>
+inches per second into a fraction of full speed.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>.</p>
@@ -396,27 +401,38 @@ below. Then change <code class="docutils literal notranslate"><span class="pre">
 <section id="l190s050">
 <span id="l190s050-turn-the-sticks-into-speeds"></span><h3>L190S050: turn the sticks into speeds<a class="headerlink" href="#l190s050" title="Link to this heading">¶</a></h3>
 <figure class="align-default" id="fig-l190-asks-standing-still">
-<img alt="../../media/fig-l190-asks-standing-still_a8ec63ebac78.png" src="../../media/fig-l190-asks-standing-still_a8ec63ebac78.png" />
+<img alt="../../media/fig-l190-asks-standing-still_61ff2df771a9.png" src="../../media/fig-l190-asks-standing-still_61ff2df771a9.png" />
 </figure>
-<p><code class="docutils literal notranslate"><span class="pre">MAX_IPS</span></code> is 40, in inches per second. <code class="docutils literal notranslate"><span class="pre">MAX_TURN_RADPS</span></code> is pi radians per second, half a turn each
-second. Both are near the top of the class.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MAX_IPS</span></code> is 40.0, in inches per second. <code class="docutils literal notranslate"><span class="pre">MAX_TURN_RADPS</span></code> is pi radians per second, half a turn
+each second. Both are near the top of the class.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it are three
-lines that end in <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">0;</span></code>. Change each <code class="docutils literal notranslate"><span class="pre">0</span></code> as below. Then, under the three <code class="docutils literal notranslate"><span class="pre">publish</span></code> lines, type the
-last two lines:</p>
+lines that end in <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">0.0;</span></code>, each with its <code class="docutils literal notranslate"><span class="pre">publish</span></code> line. Above each one, type the two lines that
+make the stick’s speed, and change its <code class="docutils literal notranslate"><span class="pre">0.0</span></code> as below. Then, under the last <code class="docutils literal notranslate"><span class="pre">publish</span></code> line, type the
+last lines:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forwardInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickY</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_IPS</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafeInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">leftStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_IPS</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turnRadPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="o">-</span><span class="n">rightStickX</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_TURN_RADPS</span><span class="p">;</span>
-</span><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"command/forward_ips"</span><span class="p">,</span><span class="w"> </span><span class="n">forwardInPerS</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"command/left_ips"</span><span class="p">,</span><span class="w"> </span><span class="n">strafeInPerS</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"command/turn_radps"</span><span class="p">,</span><span class="w"> </span><span class="n">turnRadPerS</span><span class="p">);</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WheelTargets</span><span class="p">.</span><span class="na">forMecanum</span><span class="p">(</span><span class="n">forwardInPerS</span><span class="p">,</span><span class="w"> </span><span class="n">strafeInPerS</span><span class="p">,</span><span class="w"> </span><span class="n">turnRadPerS</span><span class="p">,</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">turnRadiusInches</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">setCommandedWheelSpeeds</span><span class="p">(</span><span class="n">target</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickY</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">forwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forwardXInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_IPS</span><span class="p">;</span>
+</span><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/forwardXInPerS"</span><span class="p">,</span><span class="w"> </span><span class="n">forwardXInPerS</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickX</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">strafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafeYInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_IPS</span><span class="p">;</span>
+</span><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/strafeYInPerS"</span><span class="p">,</span><span class="w"> </span><span class="n">strafeYInPerS</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">rightStickX</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">turnCcwSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">turnCcwSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turnRadPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_TURN_RADPS</span><span class="p">;</span>
+</span><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/turnRadPerS"</span><span class="p">,</span><span class="w"> </span><span class="n">turnRadPerS</span><span class="p">);</span>
+
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">wheelInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WheelTargets</span><span class="p">.</span><span class="na">forMecanum</span><span class="p">(</span><span class="n">forwardXInPerS</span><span class="p">,</span><span class="w"> </span><span class="n">strafeYInPerS</span><span class="p">,</span><span class="w"> </span><span class="n">turnRadPerS</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                </span><span class="n">Constants</span><span class="p">.</span><span class="na">turnRadiusInches</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">setCommandedWheelSpeeds</span><span class="p">(</span><span class="n">wheelInPerS</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">wheelInPerS</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">wheelInPerS</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                </span><span class="n">wheelInPerS</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>The minus signs are the ones from L030. A stick pushed up reads less than 0.0.</p>
+<p>The minus signs are the ones from L030. A stick pushed up reads less than 0.0. Each speed is a
+fraction of full speed, and times <code class="docutils literal notranslate"><span class="pre">MAX_IPS</span></code> it becomes inches per second.</p>
 <p><code class="docutils literal notranslate"><span class="pre">WheelTargets.forMecanum</span></code> works out how fast each wheel has to turn for the robot to move like
 that. It hands back an array, front left first, then front right, back left and back right.
 <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> is how far each wheel sits from the middle of the robot.</p>
@@ -427,52 +443,53 @@ class</strong>, and click it. The box for <code class="docutils literal notransl
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L190VelocityDriveOpMode --left_stick_y=-0.5"</span>
 </pre></div>
 </div>
-<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">command</span></code>
-folder. Then open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
+<code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder. Then open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> reads 20, half of 40.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forwardXInPerS</span></code> reads 20, half of 40.</p></li>
 <li><p>The robot does not move, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> stays at 10.5.</p></li>
 </ul>
 <p>The OpMode asks for a speed, but <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> in your drivetrain is still empty.</p>
 </section>
 <section id="l190s060">
-<span id="l190s060-turn-a-speed-into-a-power"></span><h3>L190S060: turn a speed into a power<a class="headerlink" href="#l190s060" title="Link to this heading">¶</a></h3>
+<span id="l190s060-turn-inches-per-second-into-a-fraction-of-full-speed"></span><h3>L190S060: turn inches per second into a fraction of full speed<a class="headerlink" href="#l190s060" title="Link to this heading">¶</a></h3>
 <figure class="align-default" id="fig-speed-loop">
-<img alt="../../media/fig-speed-loop_d3d279442e38.png" src="../../media/fig-speed-loop_d3d279442e38.png" />
+<img alt="../../media/fig-speed-loop_28bb48f28f6f.png" src="../../media/fig-speed-loop_28bb48f28f6f.png" />
 </figure>
-<p>Open <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code>. It <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CorbelsMecanum</span></code>, so it has everything L180’s drivetrain
-had. <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> puts the four speeds into the array <code class="docutils literal notranslate"><span class="pre">wanted</span></code>. Each wheel gets its
-power from two parts added together.</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">L190SpeedDriveTrain</span></code>. It <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CorbelsMecanum</span></code>, so it has everything L180’s drivetrain had.
+<code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> puts the four speeds into the array <code class="docutils literal notranslate"><span class="pre">wantedInPerS</span></code>. Each wheel gets its
+fraction of full speed from two parts added together.</p>
 <ul class="simple">
-<li><p><strong>Feedforward</strong> is a guess, made before anything is measured. <code class="docutils literal notranslate"><span class="pre">Constants.powerPerInchPerSecond</span></code>
-is the power one inch per second needs, so the guess gets most of the way there at once.</p></li>
+<li><p><strong>Feedforward</strong> is a guess, made before anything is measured. <code class="docutils literal notranslate"><span class="pre">Constants.powerPerInchPerSecond</span></code> is
+the fraction of full speed one inch per second needs, so the guess gets most of the way there at
+once.</p></li>
 <li><p><strong>Feedback</strong> is the correction. <code class="docutils literal notranslate"><span class="pre">measuredSpeeds.all()</span></code> reads how fast each wheel really turns.
 The difference between wanted and measured, times <code class="docutils literal notranslate"><span class="pre">VELOCITY_KP</span></code>, is added on.</p></li>
 </ul>
 <p>The guess is always a little off, and the correction only grows once the wheel is off its speed.
 Together they get there and stay there.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">for</span></code> loop runs the lines inside its braces once for each wheel. <code class="docutils literal notranslate"><span class="pre">i</span></code> starts at 0 and goes up by
-1 each time, while it is less than 4. So <code class="docutils literal notranslate"><span class="pre">wanted[i]</span></code> is <code class="docutils literal notranslate"><span class="pre">wanted[FL]</span></code> the first time around, then
-<code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code>.</p>
+1 each time, while it is less than 4. So <code class="docutils literal notranslate"><span class="pre">wantedInPerS[i]</span></code> is <code class="docutils literal notranslate"><span class="pre">wantedInPerS[FL]</span></code> the first time
+around, then <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code>.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code>, find
 the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S060, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">measured</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measuredSpeeds</span><span class="p">.</span><span class="na">all</span><span class="p">();</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">powers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span><span class="p">;</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">measuredInPerS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measuredSpeeds</span><span class="p">.</span><span class="na">all</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">wheelSpeeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedforward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">powerPerInchPerSecond</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">wanted</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
-</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VELOCITY_KP</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">wanted</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">measured</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
-</span><span class="hll"><span class="w">            </span><span class="n">powers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clampToPower</span><span class="p">(</span><span class="n">feedforward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">feedback</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedforward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">powerPerInchPerSecond</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">wantedInPerS</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VELOCITY_KP</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">wantedInPerS</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">measuredInPerS</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clampToFullSpeed</span><span class="p">(</span><span class="n">feedforward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">feedback</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
-</span><span class="hll"><span class="w">        </span><span class="n">setCommandedWheels</span><span class="p">(</span><span class="n">powers</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">powers</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">powers</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">powers</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">publishWheelSpeeds</span><span class="p">(</span><span class="n">wanted</span><span class="p">,</span><span class="w"> </span><span class="n">measured</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">setCommandedWheels</span><span class="p">(</span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">publishWheelSpeeds</span><span class="p">(</span><span class="n">wantedInPerS</span><span class="p">,</span><span class="w"> </span><span class="n">measuredInPerS</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p>Android Studio types the <code class="docutils literal notranslate"><span class="pre">}</span></code> of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop for you, when you press Enter after the <code class="docutils literal notranslate"><span class="pre">{</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">clampToPower</span></code> keeps each power between -1.0 and +1.0. <code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> sends the four powers to
+<p><code class="docutils literal notranslate"><span class="pre">clampToFullSpeed</span></code> keeps each speed between -1.0 and +1.0. <code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> sends the four to
 the wheels, as in L110. <code class="docutils literal notranslate"><span class="pre">publishWheelSpeeds</span></code> puts each wheel’s numbers in the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> folder.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Constants</span></code> turns red. Import it as in L190S050.</p>
 <p><strong>Simulator.</strong> Run the command again, with the stick pushed less so the robot stays on the field
@@ -483,13 +500,13 @@ longer:</p>
 <p><strong>AdvantageScope.</strong> Connect, and open <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, then <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">forward_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forwardXInPerS</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8.</p></li>
 <li><p>The robot drives up the field.</p></li>
-<li><p>On the first loop <code class="docutils literal notranslate"><span class="pre">power</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet
+<li><p>On the first loop <code class="docutils literal notranslate"><span class="pre">speed</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet
 turning.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second and settles a little above 8, so <code class="docutils literal notranslate"><span class="pre">error_ips</span></code>
-settles a little below 0.0. <code class="docutils literal notranslate"><span class="pre">power</span></code> drops to about 0.13 and stays there. The guess was a little too
+settles a little below 0.0. <code class="docutils literal notranslate"><span class="pre">speed</span></code> drops to about 0.13 and stays there. The guess was a little too
 much for the simulated robot, and the correction takes off what it needs.</p>
 </section>
 <section id="l190s070">
@@ -501,7 +518,7 @@ and watch it in AdvantageScope.</p>
 <li><p>Drive on the flat first.</p></li>
 <li><p>Then drive straight up the mat, with the stick held in the same place. The robot slows a little at
 the foot of the slope and then picks back up.</p></li>
-<li><p>In AdvantageScope, <code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> dips below <code class="docutils literal notranslate"><span class="pre">target_ips</span></code>, then climbs back, and <code class="docutils literal notranslate"><span class="pre">power</span></code> rises to do
+<li><p>In AdvantageScope, <code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> dips below <code class="docutils literal notranslate"><span class="pre">target_ips</span></code>, then climbs back, and <code class="docutils literal notranslate"><span class="pre">speed</span></code> rises to do
 it.</p></li>
 </ul>
 <p><strong>No gamepad.</strong> The runs above need none. With <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, a driver can push the stick and watch the
@@ -518,7 +535,7 @@ L190S050 is missing.</p>
 planted and run.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">full</span> <span class="pre">stick</span> <span class="pre">asks</span> <span class="pre">for</span> <span class="pre">a</span> <span class="pre">speed,</span> <span class="pre">in</span> <span class="pre">inches</span> <span class="pre">per</span> <span class="pre">second</span> <span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.0&gt;</span></code>: the three
-speeds are still <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+speeds are still <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">MAX_IPS</span></code> is missing. A full stick is 1.0, and 1 inch per
 second is very slow.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;-40.0&gt;</span></code>: the minus sign in front of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> is missing.
@@ -527,19 +544,19 @@ second is very slow.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">turning</span> <span class="pre">counter-clockwise</span> <span class="pre">drives</span> <span class="pre">the</span> <span class="pre">left</span> <span class="pre">side</span> <span class="pre">backwards</span></code>, on its own: the minus sign in front of
 <code class="docutils literal notranslate"><span class="pre">rightStickX</span></code> is missing.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;0.9878391425450086&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.6678391425450086&gt;</span></code>: the feedback is not added. The
-difference is <code class="docutils literal notranslate"><span class="pre">0.008</span> <span class="pre">*</span> <span class="pre">40</span></code>.</p></li>
+difference is <code class="docutils literal notranslate"><span class="pre">0.008</span> <span class="pre">*</span> <span class="pre">40.0</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;0.9878391425450086&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.32&gt;</span></code>: the feedforward is not added. A wheel already at
-speed then gets no power at all.</p></li>
+speed then gets 0.0.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">expected:&lt;0.9878391425450086&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.34783914254500864&gt;</span></code>: the error is the wrong way around,
-<code class="docutils literal notranslate"><span class="pre">measured[i]</span> <span class="pre">-</span> <span class="pre">wanted[i]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">measured</span> <span class="pre">speed</span> <span class="pre">matches</span> <span class="pre">the</span> <span class="pre">command</span> <span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.0&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">measured</span></code> is not read from
-<code class="docutils literal notranslate"><span class="pre">measuredSpeeds.all()</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">measuredInPerS[i]</span> <span class="pre">-</span> <span class="pre">wantedInPerS[i]</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">measured</span> <span class="pre">speed</span> <span class="pre">matches</span> <span class="pre">the</span> <span class="pre">command</span> <span class="pre">expected:&lt;40.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;0.0&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">measuredInPerS</span></code> is not read
+from <code class="docutils literal notranslate"><span class="pre">measuredSpeeds.all()</span></code>.</p></li>
 </ul>
 <p>Two mistakes pass every test. Both were run in the simulator with <code class="docutils literal notranslate"><span class="pre">--left_stick_y=-0.2</span></code>, and in
 both the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> numbers were right while the robot stood still at x 72 in, y 10.5 in.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> is missing, so the powers are worked out and logged but never sent.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">initAfter();</span></code> was left as it was, so the follower holds a stand-in and never sends the powers on,
+<li><p><code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> is missing, so the speeds are worked out and logged but never sent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initAfter();</span></code> was left as it was, so the follower holds a stand-in and never sends them on,
 as in L110.</p></li>
 </ul>
 <p>A number in the log is what the code decided, not what the robot did.</p>
@@ -547,8 +564,9 @@ as in L110.</p></li>
 <code class="docutils literal notranslate"><span class="pre">powerPerInchPerSecond</span></code> is off for this robot. L117 measures it. If turning is the wrong speed
 while driving straight is right, <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> is 8 in, and this robot may not be. L195
 measures it.</p>
-<p><strong>What you just did.</strong> A power is an instruction, and a speed is a result. Every lesson before
-this one sent instructions. This one states the result it wants, measures, and corrects.</p>
+<p><strong>What you just did.</strong> A fraction of full speed is an instruction, and inches per second is a
+result. Every lesson before this one sent instructions. This one states the result it wants,
+measures, and corrects.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l195.html"><span class="std std-doc">L195</span></a> measures the numbers this lesson trusted: how far a wheel goes for
 each encoder count, and the turn radius.</p>
 </section>
@@ -617,7 +635,7 @@ each encoder count, and the turn radius.</p>
 <li><a class="reference internal" href="#l190s030-make-room-for-the-drivetrain">L190S030: make room for the drivetrain</a></li>
 <li><a class="reference internal" href="#l190s040-hand-the-drivetrain-to-the-follower">L190S040: hand the drivetrain to the follower</a></li>
 <li><a class="reference internal" href="#l190s050-turn-the-sticks-into-speeds">L190S050: turn the sticks into speeds</a></li>
-<li><a class="reference internal" href="#l190s060-turn-a-speed-into-a-power">L190S060: turn a speed into a power</a></li>
+<li><a class="reference internal" href="#l190s060-turn-inches-per-second-into-a-fraction-of-full-speed">L190S060: turn inches per second into a fraction of full speed</a></li>
 <li><a class="reference internal" href="#l190s070-drive-it-up-something">L190S070: drive it up something</a></li>
 </ul>
 </li>

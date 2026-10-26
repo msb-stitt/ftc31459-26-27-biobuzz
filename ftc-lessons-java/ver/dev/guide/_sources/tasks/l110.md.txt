@@ -25,7 +25,7 @@ motors to itself. L120 onwards need the follower to hold the real one.
 ### L110S010: copy the two starters into mytry
 
 This lesson has two files. One is the OpMode. The other is the drivetrain: the code that turns
-three numbers into four wheel powers.
+the **arcade command**, forward, strafe and turn as in L090, into wheel speeds.
 
 **Copy.** In `lessons`, click `L110FollowerDriveTrain` once and copy it. Click `mytry` once and
 paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
@@ -48,14 +48,14 @@ this step.
 ### L110S030: write the mix
 
 Open `L110FollowerDriveTrain`. It `extends CorbelsDriveTrain`, which means it gets everything
-`CorbelsDriveTrain` already has. That class sets each motor's direction, scales the powers as L090
-did, and sends them to the motors. The one part it leaves to you is `mix`.
+`CorbelsDriveTrain` already has. That class sets each motor's direction, scales the speeds as L090
+did, and sends them to the motors. The one part it leaves to you is `mixArcadeToWheelSpeeds`.
 
-`wheels` is an **array**: four numbers in a row, in one variable. `wheels[FL]` is the front left
-wheel's slot, and `FR`, `BL` and `BR` name the other three.
+`wheelSpeeds` is an **array**: numbers in a row, in one variable. `wheelSpeeds[FL]` is the front
+left wheel's slot, and `FR`, `BL` and `BR` name the others.
 
-**Change.** In `mix`, find the comment that names this step. Under it, type L090's four lines, each
-into its own slot:
+**Change.** In `mixArcadeToWheelSpeeds`, find the comment that names this step. Under it, type
+L090's mixing lines, each wheel into its own slot:
 
 ```{code-block} java
 :emphasize-lines: 4-7
@@ -63,10 +63,10 @@ into its own slot:
         // When on L110S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030
         // for what to do here.
-        wheels[FL] = forward - strafe - turn;
-        wheels[FR] = forward + strafe + turn;
-        wheels[BL] = forward + strafe - turn;
-        wheels[BR] = forward - strafe + turn;
+        wheelSpeeds[FL] = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+        wheelSpeeds[FR] = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
+        wheelSpeeds[BL] = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
+        wheelSpeeds[BR] = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
 ```
 
 **Check.**
@@ -126,8 +126,8 @@ direction itself, from the same config.
 
 ### L110S060: drive with the sticks
 
-**Change.** In `driveFromTheSticks()`, find the comment that names this step, under the `strafe`
-lines. Under it, type:
+**Change.** In `driveFromTheSticks()`, find the comment that names this step, under the
+`strafeYSpeed` lines. Under it, type:
 
 ```{code-block} java
 :emphasize-lines: 4
@@ -135,11 +135,12 @@ lines. Under it, type:
         // When on L110S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
         // for what to do here.
-        drivetrain.sticks(forward, strafe, turn);
+        drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
 ```
 
-`sticks` sends the three numbers through your `mix`. Then it scales them and saves them. At the end
-of the loop, `loopAfter()` updates the follower, and the follower drives the wheels.
+`sticks` sends the arcade command through your `mixArcadeToWheelSpeeds`. Then it scales the wheel
+speeds and saves them. At the end of the loop, `loopAfter()` updates the follower, and the
+follower drives the wheels.
 
 **Simulator.** In the Terminal, run:
 
@@ -147,13 +148,13 @@ of the loop, `loopAfter()` updates the follower, and the follower drives the whe
 ./gradlew :TeamCode:simRun --args="mytry.L110FollowerOpMode --pad"
 ```
 
-**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the `arcade`
-folder.
+**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
+`drivetrain` folder.
 
 **Check.**
 
-- Push the left stick halfway left. `strafe` reads 0.25, and the robot slides to its own left with
-  its nose pointing the same way.
+- Push the left stick halfway left. `strafeYSpeed` reads 0.25, and the robot slides to its own left
+  with its nose pointing the same way.
 - Forward, turning and the corners all work as they did in L090.
 
 ### L110S070: drive it on the robot
@@ -173,14 +174,14 @@ sticks command the drivetrain, but nothing drives it, because the follower is ho
 `LessonsTest.l110_theFollowerDrivesTheSticks` fails with `the follower slides it left: front left
 expected:<-0.25> but was:<0.0>`.
 
-**If it didn't**, and it slides the wrong way or turns when it should slide, a sign in `mix` is
-wrong. `LessonsTest.l110_mixGivesEachWheelItsOwnSum` names the wheel and the move, such as
-`strafe left: back left`.
+**If it didn't**, and it slides the wrong way or turns when it should slide, a sign in
+`mixArcadeToWheelSpeeds` is wrong. `LessonsTest.l110_mixGivesEachWheelItsOwnSum` names the wheel
+and the move, such as `strafe left: back left`.
 
 **What you just did.** The drivetrain asks one question every time the follower updates it: has
 the lesson commanded the wheels? If so, it uses what the lesson commanded. If not, it mixes what
-the follower asked for. Either way the three numbers go through the same `mix`, so the sticks and
-the follower agree about which wheel does what.
+the follower asked for. Either way the arcade command goes through the same
+`mixArcadeToWheelSpeeds`, so the sticks and the follower agree about which wheel does what.
 
 That door is ours, not Pedro's. Pedro's own mecanum drivetrain does only what the follower says.
 Ours lets the driver reach past it to the wheels, which the teleop lessons after L120 need. The

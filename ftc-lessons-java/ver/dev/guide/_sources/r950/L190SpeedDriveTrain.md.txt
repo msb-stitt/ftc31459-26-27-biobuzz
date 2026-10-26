@@ -1,7 +1,7 @@
 # L190SpeedDriveTrain
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-coding-stitt-cc.1`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-minor-fixes.1`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L190
@@ -23,15 +23,15 @@ is gone; each number is the line's place in the file after the lesson.
    39         // When on L190S060, see
    40         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
    41         // for what to do here.
-+  42         double[] measured = measuredSpeeds.all();
-+  43         double[] powers = new double[4];
++  42         double[] measuredInPerS = measuredSpeeds.all();
++  43         double[] wheelSpeeds = new double[4];
 +  44         for (int i = 0; i < 4; i++) {
-+  45             double feedforward = Constants.powerPerInchPerSecond * wanted[i];
-+  46             double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
-+  47             powers[i] = clampToPower(feedforward + feedback);
++  45             double feedforward = Constants.powerPerInchPerSecond * wantedInPerS[i];
++  46             double feedback = VELOCITY_KP * (wantedInPerS[i] - measuredInPerS[i]);
++  47             wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
 +  48         }
-+  49         setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
-+  50         publishWheelSpeeds(wanted, measured);
++  49         setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);
++  50         publishWheelSpeeds(wantedInPerS, measuredInPerS);
    51     }
    52 }
 ```

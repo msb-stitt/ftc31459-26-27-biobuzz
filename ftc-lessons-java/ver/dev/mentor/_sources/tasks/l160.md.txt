@@ -51,12 +51,12 @@ the way a worn stick does.
 ./gradlew :TeamCode:simRun --args="mytry.L160HeadingHoldOpMode --left_stick_y=-0.3 --right_stick_x=0.2"
 ```
 
-**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the `arcade`
-folder, then `Localizer` and `pinPoint`.
+**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
+`drivetrain` folder, then `Localizer` and `pinPoint`.
 
 **Check.**
 
-- `turn` reads -0.040, which is small.
+- `turnCcwSpeed` reads -0.040, which is small.
 - The robot drives to the right, and it turns as it goes.
 - `heading_deg` started at 90 and keeps dropping.
 
@@ -66,8 +66,8 @@ folder, then `Localizer` and `pinPoint`.
 straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
 After that it hands back the turn that steers the robot back to that heading.
 
-Its own deadband is 0.05, so a stick that is nearly centered counts as let go. `turn` at -0.040 is
-inside it.
+Its own deadband is 0.05, so a stick that is nearly centered counts as let go. `turnCcwSpeed` at
+-0.040 is inside it.
 
 **Change.** Press Ctrl+C in the Terminal to stop the simulator. Find the line
 `CorbelsMecanum drivetrain;` near the top of the class. Under it, type:
@@ -88,28 +88,28 @@ popup for `Constants` names `org.firstinspires.ftc.teamcode.pedro.Constants`.
 **Change.** In `driveFromTheSticks()`, find the comment that names this step. Under it, type:
 
 ```{code-block} java
-:emphasize-lines: 7-8
+:emphasize-lines: 7-9
 
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
         // When on L160S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
         // for what to do here.
-        turn = hold.turn(follower, turn);
-        Tracker.publish("heading/holding", hold.target() != null);
+        turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
+        boolean holdingHeading = hold.target() != null;
+        Tracker.publish("drivetrain/holdingHeading", holdingHeading);
 ```
 
-The first new line swaps the stick's turn for the hold's. Both `sticks` calls below use `turn`, so
-both drive with it. Android Studio now underlines `turn` everywhere. That marks a variable that
-changes after it is made. It is not an error.
+The first new line swaps the stick's turn for the hold's. The `sticks` call below uses
+`turnCcwSpeed`, so it drives with it. Android Studio now underlines `turnCcwSpeed` everywhere. That
+marks a variable that changes after it is made. It is not an error.
 
-**Simulator.** Run the same command again, and connect AdvantageScope. Open the `heading` folder
-too.
+**Simulator.** Run the same command again, and connect AdvantageScope.
 
 **Check.**
 
-- `holding` is green.
+- `holdingHeading` is green, since the hold has a heading to keep.
 - The robot drives to the right, its nose still pointing up the field, and `heading_deg` stays at
   90.
 
@@ -129,11 +129,12 @@ the hold take over.
 
 **If it didn't**, and `LessonsTest.l160_theRobotHoldsItsHeadingWhenTheStickIsReleased` fails with
 `it steers back`, nothing listens to the hold. Either the line is missing, or it reads
-`hold.turn(follower, turn);` without `turn =` in front, so its answer is thrown away.
+`hold.turn(follower, turnCcwSpeed);` without `turnCcwSpeed =` in front, so its answer is thrown
+away.
 
 **If it didn't**, and it fails with
 `while steering, the stick wins expected:<-1.0> but was:<1.0>`, the hold got `rightStickX` instead
-of `turn`. That skips the minus sign that makes a push to the right turn clockwise.
+of `turnCcwSpeed`. That skips the minus sign that makes a push to the right turn clockwise.
 
 **If it didn't**, and on the floor the robot fights back and overshoots, that is the follower's
 tuning, not this lesson. L117 tunes it. If the nose drifts slowly anyway, the hold is working and
@@ -145,6 +146,15 @@ creep in L160S030 is a stick resting off center, not a bump.
 **What you just did.** Three things want to turn the robot, and they take turns in a fixed order.
 The driver's stick beats the hold. The hold beats doing nothing. The person with their hands on
 the gamepad wins, and everything else fills in when they let go.
+
+**The control loops, drawn.** The figure's teleop diagram is the teleop control system from L160 to
+L180. Its auto diagram is `StarterBotAuto` following its paths. In both, the battery, motors, robot
+and Pinpoint are the plant, and the rest is the controller. How to teach this, one step at a time,
+is not yet worked out.
+
+:::{figure} ../_figures/fig-control-loops.png
+:name: fig-control-loops
+:::
 
 **Where next.** [L170](l170.md) gives a button a pose, and the robot drives there by itself while
 the driver watches.

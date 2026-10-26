@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -320,7 +324,7 @@
           <section id="lesson-hand-the-wheels-to-the-path-follower">
 <h1>110 lesson: hand the wheels to the path follower<a class="headerlink" href="#lesson-hand-the-wheels-to-the-path-follower" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l110-slide">
-<img alt="../../media/fig-l110-slide_df82c1df0003.png" src="../../media/fig-l110-slide_df82c1df0003.png" />
+<img alt="../../media/fig-l110-slide_0d801b6cc793.png" src="../../media/fig-l110-slide_0d801b6cc793.png" />
 </figure>
 <p>The robot drives on the sticks as it did in L090, and the path follower is holding the drivetrain.
 The sticks still decide where the robot goes. The path follower is Pedro Pathing’s code that drives
@@ -330,7 +334,7 @@ the robot along a path; from L125 on, it drives the robot itself.</p>
 <section id="l110s010">
 <span id="l110s010-copy-the-two-starters-into-mytry"></span><h3>L110S010: copy the two starters into mytry<a class="headerlink" href="#l110s010" title="Link to this heading">¶</a></h3>
 <p>This lesson has two files. One is the OpMode. The other is the drivetrain: the code that turns
-three numbers into four wheel powers.</p>
+the <strong>arcade command</strong>, forward, strafe and turn as in L090, into wheel speeds.</p>
 <p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
 paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
 Git, click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>.</p>
@@ -352,19 +356,19 @@ this step.</p>
 <section id="l110s030">
 <span id="l110s030-write-the-mix"></span><h3>L110S030: write the mix<a class="headerlink" href="#l110s030" title="Link to this heading">¶</a></h3>
 <p>Open <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code>. It <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CorbelsDriveTrain</span></code>, which means it gets everything
-<code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span></code> already has. That class sets each motor’s direction, scales the powers as L090
-did, and sends them to the motors. The one part it leaves to you is <code class="docutils literal notranslate"><span class="pre">mix</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">wheels</span></code> is an <strong>array</strong>: four numbers in a row, in one variable. <code class="docutils literal notranslate"><span class="pre">wheels[FL]</span></code> is the front left
-wheel’s slot, and <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code> name the other three.</p>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">mix</span></code>, find the comment that names this step. Under it, type L090’s four lines, each
-into its own slot:</p>
+<code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span></code> already has. That class sets each motor’s direction, scales the speeds as L090
+did, and sends them to the motors. The one part it leaves to you is <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wheelSpeeds</span></code> is an <strong>array</strong>: numbers in a row, in one variable. <code class="docutils literal notranslate"><span class="pre">wheelSpeeds[FL]</span></code> is the front
+left wheel’s slot, and <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code> name the others.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>, find the comment that names this step. Under it, type
+L090’s mixing lines, each wheel into its own slot:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L110S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">wheels</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">wheels</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">wheels</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">wheels</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
+<span class="hll"><span class="w">        </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
 </span></pre></div>
 </div>
 <p><strong>Check.</strong></p>
@@ -415,26 +419,27 @@ direction itself, from the same config.</p>
 </section>
 <section id="l110s060">
 <span id="l110s060-drive-with-the-sticks"></span><h3>L110S060: drive with the sticks<a class="headerlink" href="#l110s060" title="Link to this heading">¶</a></h3>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step, under the <code class="docutils literal notranslate"><span class="pre">strafe</span></code>
-lines. Under it, type:</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step, under the
+<code class="docutils literal notranslate"><span class="pre">strafeYSpeed</span></code> lines. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L110S060, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">forward</span><span class="p">,</span><span class="w"> </span><span class="n">strafe</span><span class="p">,</span><span class="w"> </span><span class="n">turn</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">forwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">strafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">sticks</span></code> sends the three numbers through your <code class="docutils literal notranslate"><span class="pre">mix</span></code>. Then it scales them and saves them. At the end
-of the loop, <code class="docutils literal notranslate"><span class="pre">loopAfter()</span></code> updates the follower, and the follower drives the wheels.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sticks</span></code> sends the arcade command through your <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>. Then it scales the wheel
+speeds and saves them. At the end of the loop, <code class="docutils literal notranslate"><span class="pre">loopAfter()</span></code> updates the follower, and the
+follower drives the wheels.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L110FollowerOpMode --pad"</span>
 </pre></div>
 </div>
-<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the <code class="docutils literal notranslate"><span class="pre">arcade</span></code>
-folder.</p>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
+<code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafe</span></code> reads 0.25, and the robot slides to its own left with
-its nose pointing the same way.</p></li>
+<li><p>Push the left stick halfway left. <code class="docutils literal notranslate"><span class="pre">strafeYSpeed</span></code> reads 0.25, and the robot slides to its own left
+with its nose pointing the same way.</p></li>
 <li><p>Forward, turning and the corners all work as they did in L090.</p></li>
 </ul>
 </section>

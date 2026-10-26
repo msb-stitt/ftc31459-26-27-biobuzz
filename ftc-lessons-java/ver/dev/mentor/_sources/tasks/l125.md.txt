@@ -50,17 +50,18 @@ tells the follower where the robot is at the start.
 `return Command.NOOP;` under it, and type:
 
 ```{code-block} java
-:emphasize-lines: 4
+:emphasize-lines: 4-5
 
         // When on L125S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l125.html#l125s030
         // for what to do here.
-        return sequential(follow(follower, line(start, end).constant(start)));
+        Command forward24 = sequential(follow(follower, line(start, end).constant(start)));
+        return forward24;
 ```
 
 Read it from the inside out. `line(start, end)` is the path. `.constant(start)` holds the heading
 `start` has the whole way. `follow` drives the path. `sequential` makes the list, and this list has
-one thing in it.
+one thing in it. `forward24` names the list, and `return` hands it to `start()`.
 
 `sequential`, `follow` and `line` turn red. For each one:
 
@@ -113,13 +114,13 @@ standing at that path's finish already, so it is done before it starts. The test
 
 **If it didn't**, and the test fails with
 `and does not wander in x expected:<72.0> but was:<70.81415129095723>`, the heading is
-`.constant(90)`. The number form is radians, so 90 is not 90 degrees.
+`.constant(90.0)`. The number form is radians, so 90.0 is not 90 degrees.
 
 **If it didn't**, and on the floor it overshot or stopped short, that is the follower's tuning, not
 this line. L117 tunes it. If it curved, check the motor directions from L050S070 first.
 
 **What you just did.** The follower is a library, used the way a team uses one: say where to go,
-and it works out the wheel powers. Nobody here wrote the path code.
+and it works out the wheel speeds. Nobody here wrote the path code.
 
 `.constant()` holds one heading for the whole line, which is what this path wants. Pedro also has
 `.linear()`, which turns from one heading to another. Before Pedro 3.0.1 it turned the wrong way on

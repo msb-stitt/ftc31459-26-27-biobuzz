@@ -270,7 +270,7 @@
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double leftSpeed = -leftStickY;</span>
-<span class="gi">+        Tracker.publish("speed/left", leftSpeed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);</span>
 <span class="w"> </span>
 <span class="w"> </span>        // When on L030S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
@@ -287,7 +287,7 @@
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double rightSpeed = -rightStickY;</span>
-<span class="gi">+        Tracker.publish("speed/right", rightSpeed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);</span>
 <span class="w"> </span>    }
 <span class="w"> </span>
 <span class="w"> </span>    // 'public' to match the parent class. 'public' allows access from any code.

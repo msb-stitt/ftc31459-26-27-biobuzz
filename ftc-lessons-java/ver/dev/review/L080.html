@@ -250,7 +250,7 @@
         <article role="main" id="furo-main-content">
           <section id="l080">
 <h1>L080<a class="headerlink" href="#l080" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 2 change(s) in 1 file(s), 22 line(s) of code to write.</p>
+<p>1 file(s) copied, then 3 change(s) in 1 file(s), 27 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -266,19 +266,19 @@
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
 <span class="gu">@@ -79,6 +79,13 @@</span>
-<span class="w"> </span>        // When on L080S030, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-<span class="w"> </span>        // for what to do here.
-<span class="gi">+        double band = 0.05;</span>
-<span class="gi">+        double forward = deadband(-leftStickY, band);</span>
-<span class="gi">+        forward = signedSquared(forward);</span>
-<span class="gi">+        Tracker.publish("arcade/forward", forward);</span>
-<span class="gi">+        double turn = deadband(-rightStickX, band);</span>
-<span class="gi">+        turn = signedSquared(turn);</span>
-<span class="gi">+        Tracker.publish("arcade/turn", turn);</span>
-<span class="w"> </span>
 <span class="w"> </span>        // When on L080S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        double bandToSetToZero = 0.05;</span>
+<span class="gi">+        double forwardXSpeed = -leftStickY;</span>
+<span class="gi">+        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);</span>
+<span class="gi">+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);</span>
+<span class="gi">+        double turnCcwSpeed = -rightStickX;</span>
+<span class="gi">+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);</span>
+<span class="gi">+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);</span>
+<span class="w"> </span>
+<span class="w"> </span>        // When on L080S050, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
 </pre></div>
 </div>
 </section>
@@ -288,27 +288,45 @@
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
 <span class="gu">@@ -90,6 +90,21 @@</span>
-<span class="w"> </span>        // When on L080S040, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
+<span class="w"> </span>        // When on L080S050, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        double leftPower = forward - turn;</span>
-<span class="gi">+        double rightPower = forward + turn;</span>
-<span class="gi">+        double leftSize = Math.abs(leftPower);</span>
-<span class="gi">+        double rightSize = Math.abs(rightPower);</span>
+<span class="gi">+        double leftMixedSpeed = forwardXSpeed - turnCcwSpeed;</span>
+<span class="gi">+        double rightMixedSpeed = forwardXSpeed + turnCcwSpeed;</span>
+<span class="gi">+        double leftSize = Math.abs(leftMixedSpeed);</span>
+<span class="gi">+        double rightSize = Math.abs(rightMixedSpeed);</span>
 <span class="gi">+        double biggest = Math.max(leftSize, rightSize);</span>
-<span class="gi">+        biggest = Math.max(1.0, biggest);</span>
-<span class="gi">+        leftPower = leftPower / biggest;</span>
-<span class="gi">+        rightPower = rightPower / biggest;</span>
-<span class="gi">+        Tracker.publish("power/left", leftPower);</span>
-<span class="gi">+        Tracker.publish("power/right", rightPower);</span>
+<span class="gi">+        double biggestOrOne = Math.max(1.0, biggest);</span>
+<span class="gi">+        double leftSpeed = leftMixedSpeed / biggestOrOne;</span>
+<span class="gi">+        double rightSpeed = rightMixedSpeed / biggestOrOne;</span>
+<span class="gi">+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);</span>
+<span class="gi">+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);</span>
 <span class="gi">+</span>
-<span class="gi">+        hardware.frontLeft.setPower(leftPower);</span>
-<span class="gi">+        hardware.backLeft.setPower(leftPower);</span>
-<span class="gi">+        hardware.frontRight.setPower(rightPower);</span>
-<span class="gi">+        hardware.backRight.setPower(rightPower);</span>
+<span class="gi">+        hardware.frontLeft.setPower(leftSpeed);</span>
+<span class="gi">+        hardware.backLeft.setPower(leftSpeed);</span>
+<span class="gi">+        hardware.frontRight.setPower(rightSpeed);</span>
+<span class="gi">+        hardware.backRight.setPower(rightSpeed);</span>
 <span class="w"> </span>
 <span class="w"> </span>        boolean buttonA = gamepad1.a;
-<span class="w"> </span>        Tracker.publish("button/a", buttonA);
+<span class="w"> </span>        Tracker.publish("gamepad1/buttonA", buttonA);
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -143,4 +143,9 @@</span>
+<span class="w"> </span>    // When on L080S030, see
+<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+<span class="w"> </span>    // for what to do here.
+<span class="gi">+    double speedShaped(double value, double band) {</span>
+<span class="gi">+        double deadbanded = deadband(value, band);</span>
+<span class="gi">+        double shapedSpeed = signedSquared(deadbanded);</span>
+<span class="gi">+        return shapedSpeed;</span>
+<span class="gi">+    }</span>
+<span class="w"> </span>}
 </pre></div>
 </div>
 </section>
@@ -375,6 +393,7 @@
 <li><a class="reference internal" href="#l080arcadeopmode">L080ArcadeOpMode</a><ul>
 <li><a class="reference internal" href="#a-change">A change</a></li>
 <li><a class="reference internal" href="#id1">A change</a></li>
+<li><a class="reference internal" href="#id2">A change</a></li>
 </ul>
 </li>
 </ul>

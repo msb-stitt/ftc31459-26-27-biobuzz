@@ -286,12 +286,12 @@
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double leftStickX = gamepad1.left_stick_x;</span>
-<span class="gi">+        Tracker.publish("stick/leftX", leftStickX);</span>
+<span class="gi">+        Tracker.publish("gamepad1/leftStickX", leftStickX);</span>
 <span class="gi">+        double rightStickX = gamepad1.right_stick_x;</span>
-<span class="gi">+        Tracker.publish("stick/rightX", rightStickX);</span>
+<span class="gi">+        Tracker.publish("gamepad1/rightStickX", rightStickX);</span>
 <span class="w"> </span>
 <span class="w"> </span>        double leftSpeed = -leftStickY;
-<span class="w"> </span>        Tracker.publish("speed/left", leftSpeed);
+<span class="w"> </span>        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
 </pre></div>
 </div>
 </section>
@@ -305,7 +305,7 @@
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        boolean buttonA = gamepad1.a;</span>
-<span class="gi">+        Tracker.publish("button/a", buttonA);</span>
+<span class="gi">+        Tracker.publish("gamepad1/buttonA", buttonA);</span>
 <span class="w"> </span>
 <span class="w"> </span>        // When on L070S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
@@ -323,9 +323,9 @@
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        if (buttonA != previousButtonA) {</span>
 <span class="gi">+            if (buttonA) {</span>
-<span class="gi">+                Tracker.publish("button/event", "A pressed");</span>
+<span class="gi">+                Tracker.publish("gamepad1/buttonAEvent", "A pressed");</span>
 <span class="gi">+            } else {</span>
-<span class="gi">+                Tracker.publish("button/event", "A released");</span>
+<span class="gi">+                Tracker.publish("gamepad1/buttonAEvent", "A released");</span>
 <span class="gi">+            }</span>
 <span class="gi">+        }</span>
 <span class="gi">+        previousButtonA = buttonA;</span>

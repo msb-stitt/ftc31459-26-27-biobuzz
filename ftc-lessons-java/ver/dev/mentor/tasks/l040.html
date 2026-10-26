@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="lesson-drive-like-a-tank">
 <h1>040 lesson: drive like a tank<a class="headerlink" href="#lesson-drive-like-a-tank" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l040-field">
-<img alt="../../media/fig-l040-field_86942b3a00b2.png" src="../../media/fig-l040-field_86942b3a00b2.png" />
+<img alt="../../media/fig-l040-field_120293bc280c.png" src="../../media/fig-l040-field_120293bc280c.png" />
 </figure>
 <p>The two speeds drive the wheels, and the robot drives in the simulator: tank drive!</p>
 <p><strong>Before you start.</strong></p>
@@ -378,8 +382,8 @@ comment that names this step, type <code class="docutils literal notranslate"><s
 </span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>A power is a number from -1.0 to +1.0. It is how hard the motor pushes: 1.0 is full forward, -1.0 is
-full backward, and 0.0 is stop.</p>
+<p>The number <code class="docutils literal notranslate"><span class="pre">setPower</span></code> takes is a speed, from -1.0 to +1.0. It is a fraction of full speed: 1.0 is
+full forward, -1.0 is full backward, and 0.0 is stop.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Neither line has a red underline.</p></li>
@@ -419,7 +423,7 @@ field.</p>
 Nothing in L040 tidies that up; L060 does.</p>
 <p><strong>What you just did.</strong> Each pass through <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks</span></code> reads the sticks, turns them into
 speeds, and hands each speed to the two motors on its side. That is tank drive. In the simulator
-every motor turns its wheel forward for a positive power. On the robot, a motor mounted the other
+every motor turns its wheel forward for a positive speed. On the robot, a motor mounted the other
 way around turns its wheel backward, and L050 is where that is found and fixed.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a> runs this on the robot, on blocks.</p>
 </section>

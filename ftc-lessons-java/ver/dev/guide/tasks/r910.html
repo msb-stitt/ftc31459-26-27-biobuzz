@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -342,7 +346,7 @@ L130 are the two autonomous lessons. <a class="reference internal" href="l125.ht
 <dt><strong>Driver Station</strong></dt><dd><p>The phone or tablet that holds the gamepads and picks the OpMode. Lines printed with
 <code class="docutils literal notranslate"><span class="pre">Tracker.printToDs</span></code> show up there. <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p>
 </dd>
-<dt><strong>Drivetrain</strong></dt><dd><p>The four motors and the code that decides what power each one gets. L040 sets the four powers
+<dt><strong>Drivetrain</strong></dt><dd><p>The four motors and the code that decides what speed each one gets. L040 sets the four speeds
 itself. From L110 on, a lesson’s drivetrain is a class of its own. <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a></p>
 </dd>
 <dt><strong>Deadband</strong></dt><dd><p>A band of stick readings near the middle that count as let go. Without one the robot creeps when
@@ -351,20 +355,20 @@ nobody is touching it. <a class="reference internal" href="l060.html"><span clas
 <dt><strong>Method</strong></dt><dd><p>A named piece of code you can use again. It takes numbers in and can give one back.
 <a class="reference internal" href="l060.html"><span class="std std-doc">L060</span></a></p>
 </dd>
-<dt><strong>Squaring a stick</strong></dt><dd><p>Making a small push mean a smaller power, by multiplying the stick by itself and putting the sign
+<dt><strong>Squaring a stick</strong></dt><dd><p>Making a small push mean a smaller speed. Multiply the stick by itself, then put the sign
 back. <a class="reference internal" href="l060.html"><span class="std std-doc">L060</span></a></p>
 </dd>
-<dt><strong>Scaling the powers</strong></dt><dd><p>Bringing two or four wheel powers down together when the biggest one is over 1. The robot still
+<dt><strong>Scaling the speeds</strong></dt><dd><p>Bringing two or four wheel speeds down together when the biggest one is over 1.0. The robot still
 goes where it was asked. It only goes slower. <a class="reference internal" href="l080.html"><span class="std std-doc">L080</span></a></p>
 </dd>
 <dt><strong>Strafe</strong></dt><dd><p>Driving sideways without turning. <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a></p>
 </dd>
-<dt><strong>Mixing</strong></dt><dd><p>Turning forward, sideways and turn into four wheel powers with four sums. <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a></p>
+<dt><strong>Mixing</strong></dt><dd><p>Turning forward, sideways and turn into four wheel speeds with four sums. <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a></p>
 </dd>
 <dt><strong>Mecanum</strong></dt><dd><p>A wheel with rollers set at 45 degrees on its rim, which lets the robot drive sideways. The four
 wheels’ rollers make an X seen from above. <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a></p>
 </dd>
-<dt><strong>Commanded wheels</strong></dt><dd><p>Four powers a lesson has set itself. The path follower cannot overrule them. It gets the wheels
+<dt><strong>Commanded wheels</strong></dt><dd><p>Four speeds a lesson has set itself. The path follower cannot overrule them. It gets the wheels
 back when the lesson hands them back. <a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a></p>
 </dd>
 <dt><strong>Array</strong></dt><dd><p>Several numbers in a row, in one variable. <code class="docutils literal notranslate"><span class="pre">wheels[FL]</span></code> is one of them. <a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a></p>
@@ -410,8 +414,8 @@ moves. <a class="reference internal" href="l160.html"><span class="std std-doc">
 <dt><strong>Instant command</strong></dt><dd><p>A command that does its work and finishes in the same breath, rather than running for a while. A
 button press is usually one. <a class="reference internal" href="l170.html"><span class="std std-doc">L170</span></a></p>
 </dd>
-<dt><strong>Feedforward</strong></dt><dd><p>A guess at the power a wanted speed needs, made before anything is measured. Gets most of the way
-there at once. <a class="reference internal" href="l190.html"><span class="std std-doc">L190</span></a></p>
+<dt><strong>Feedforward</strong></dt><dd><p>A guess at the fraction of full speed a wanted number of inches per second needs, made before
+anything is measured. Gets most of the way there at once. <a class="reference internal" href="l190.html"><span class="std std-doc">L190</span></a></p>
 </dd>
 <dt><strong>Feedback</strong></dt><dd><p>A correction worked out from two speeds: the one asked for and the one measured. It cleans up
 what the guess got wrong. <a class="reference internal" href="l190.html"><span class="std std-doc">L190</span></a></p>
@@ -425,7 +429,7 @@ inches once you know how many make one. <a class="reference internal" href="l195
 to a wheel, once across and once along, and add the two. It turns a spin speed into a wheel
 speed. <a class="reference internal" href="l195.html"><span class="std std-doc">L195</span></a></p>
 </dd>
-<dt><strong>Coast and brake</strong></dt><dd><p>What a motor does at zero power. Braking holds the robot still; coasting lets the wheels roll,
+<dt><strong>Coast and brake</strong></dt><dd><p>What a motor does at a speed of 0.0. Braking holds the robot still; coasting lets the wheels roll,
 which is what a measurement you push by hand needs. <a class="reference internal" href="l195.html"><span class="std std-doc">L195</span></a></p>
 </dd>
 </dl>

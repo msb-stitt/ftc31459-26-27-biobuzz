@@ -37,7 +37,7 @@ Delete 1 line, write 1 line.
 @@ -87,7 +87,7 @@
  
      Command driveForwardThenStrafe() {
-         return sequential(
+         Command forwardThenStrafeRoute = sequential(
 -                follow(follower, line(start, corner).constant(start))
 +                follow(follower, line(start, corner).constant(start)),
                  // When on L130S030, see
@@ -59,6 +59,6 @@ Delete 0 lines, write 2 lines.
 +                follow(follower, line(corner, end).constant(start)),
 +                hold(follower, end)
          );
+         return forwardThenStrafeRoute;
      }
- }
 ```

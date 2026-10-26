@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="lesson-read-the-buttons">
 <h1>070 lesson: read the buttons<a class="headerlink" href="#lesson-read-the-buttons" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l070-pressed">
-<img alt="../../media/fig-l070-pressed_88c1aea37fa5.png" src="../../media/fig-l070-pressed_88c1aea37fa5.png" />
+<img alt="../../media/fig-l070-pressed_a1f24208ba0f.png" src="../../media/fig-l070-pressed_a1f24208ba0f.png" />
 </figure>
 <p>Read the A button, say the moment it goes down and the moment it comes up, and read both sticks
 sideways. The robot drives as it did in L060 the whole time.</p>
@@ -371,18 +375,18 @@ it is down, <code class="docutils literal notranslate"><span class="pre">false</
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">boolean</span><span class="w"> </span><span class="n">buttonA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">a</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"button/a"</span><span class="p">,</span><span class="w"> </span><span class="n">buttonA</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/buttonA"</span><span class="p">,</span><span class="w"> </span><span class="n">buttonA</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L070ButtonsOpMode --pad"</span>
 </pre></div>
 </div>
-<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Open the <code class="docutils literal notranslate"><span class="pre">button</span></code> folder, and drag <code class="docutils literal notranslate"><span class="pre">a</span></code>
-into <strong>Discrete Fields</strong>.</p>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Open the <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> folder, and drag
+<code class="docutils literal notranslate"><span class="pre">buttonA</span></code> into <strong>Discrete Fields</strong>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">button/a</span></code> is a red dot.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamepad1/buttonA</span></code> is a red dot.</p></li>
 <li><p>Press A and hold it, and the dot turns green.</p></li>
 <li><p>Let go, and it turns red again.</p></li>
 </ul>
@@ -416,9 +420,9 @@ field starts out <code class="docutils literal notranslate"><span class="pre">fa
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buttonA</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">previousButtonA</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buttonA</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">                </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"button/event"</span><span class="p">,</span><span class="w"> </span><span class="s">"A pressed"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">                </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/buttonAEvent"</span><span class="p">,</span><span class="w"> </span><span class="s">"A pressed"</span><span class="p">);</span>
 </span><span class="hll"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">                </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"button/event"</span><span class="p">,</span><span class="w"> </span><span class="s">"A released"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">                </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/buttonAEvent"</span><span class="p">,</span><span class="w"> </span><span class="s">"A released"</span><span class="p">);</span>
 </span><span class="hll"><span class="w">            </span><span class="p">}</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span><span class="hll"><span class="w">        </span><span class="n">previousButtonA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buttonA</span><span class="p">;</span>
@@ -429,14 +433,14 @@ The second one says which way it changed. <code class="docutils literal notransl
 saves this loop’s button for the next loop.</p>
 <p>The text in quotes is a <strong>String</strong>. <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> writes it down the same way it writes a number.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
-<p><strong>AdvantageScope.</strong> Drag <code class="docutils literal notranslate"><span class="pre">event</span></code> from the <code class="docutils literal notranslate"><span class="pre">button</span></code> folder into <strong>Discrete Fields</strong>. Until A has
-been pressed once, <code class="docutils literal notranslate"><span class="pre">event</span></code> is crossed out, because nothing has been written to it yet.</p>
-<p>Holding A down does not write <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> again. <code class="docutils literal notranslate"><span class="pre">event</span></code> only changes on the loop the button
+<p><strong>AdvantageScope.</strong> Drag <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> from the <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> folder into <strong>Discrete Fields</strong>. Until A
+has been pressed once, <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> is crossed out, because nothing has been written to it yet.</p>
+<p>Holding A down does not write <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> again. <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> only changes on the loop the button
 changed.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Press A and hold it. <code class="docutils literal notranslate"><span class="pre">button/a</span></code> turns into a green dot, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.</p></li>
-<li><p>Let go. The dot turns red, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p></li>
+<li><p>Press A and hold it. <code class="docutils literal notranslate"><span class="pre">gamepad1/buttonA</span></code> turns into a green dot, and <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.</p></li>
+<li><p>Let go. The dot turns red, and <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p></li>
 </ul>
 </section>
 <section id="l070s060">
@@ -450,20 +454,20 @@ up and down. Under it, type:</p>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftStickX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">left_stick_x</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/leftX"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickX</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/leftStickX"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickX</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightStickX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gamepad1</span><span class="p">.</span><span class="na">right_stick_x</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"stick/rightX"</span><span class="p">,</span><span class="w"> </span><span class="n">rightStickX</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/rightStickX"</span><span class="p">,</span><span class="w"> </span><span class="n">rightStickX</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick to the right, and <code class="docutils literal notranslate"><span class="pre">stick/leftX</span></code> goes above 0.0.</p></li>
-<li><p>Push the right stick to the left, and <code class="docutils literal notranslate"><span class="pre">stick/rightX</span></code> goes below 0.0.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">power</span></code> stay at 0.0, and the robot does not move.</p></li>
+<li><p>Push the left stick to the right, and <code class="docutils literal notranslate"><span class="pre">gamepad1/leftStickX</span></code> goes above 0.0.</p></li>
+<li><p>Push the right stick to the left, and <code class="docutils literal notranslate"><span class="pre">gamepad1/rightStickX</span></code> goes below 0.0.</p></li>
+<li><p>The speeds in <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> stay at 0.0, and the robot does not move.</p></li>
 </ul>
 <figure class="align-default" id="fig-l070-sideways">
-<img alt="../../media/fig-l070-sideways_26c23688eb11.png" src="../../media/fig-l070-sideways_26c23688eb11.png" />
+<img alt="../../media/fig-l070-sideways_4eeff79fdbcf.png" src="../../media/fig-l070-sideways_4eeff79fdbcf.png" />
 </figure>
 </section>
 <section id="l070s070">
@@ -472,18 +476,18 @@ up and down. Under it, type:</p>
 it in AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Press A, and in AdvantageScope <code class="docutils literal notranslate"><span class="pre">button/event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.</p></li>
+<li><p>Press A, and in AdvantageScope <code class="docutils literal notranslate"><span class="pre">gamepad1/buttonAEvent</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code>.</p></li>
 <li><p>Let go, and it reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>.</p></li>
 <li><p>The robot still drives with the sticks as it did in L060.</p></li>
 </ul>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L070ButtonsOpMode</span> <span class="pre">--a=true&quot;</span></code> holds A down for the whole run, so
-<code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> and never changes; the picture at the top was taken that way. A release
-needs a gamepad. <code class="docutils literal notranslate"><span class="pre">--left_stick_x=0.5</span> <span class="pre">--right_stick_x=-0.25</span></code> holds the sticks sideways for the last
-picture. The tests press and let go of A without a gamepad.</p>
-<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> but never <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>, the last line,
+<code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> and never changes; the picture at the top was taken that way. A
+release needs a gamepad. <code class="docutils literal notranslate"><span class="pre">--left_stick_x=0.5</span> <span class="pre">--right_stick_x=-0.25</span></code> holds the sticks sideways for
+the last picture. The tests press and let go of A without a gamepad.</p>
+<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> but never <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">released</span></code>, the last line,
 <code class="docutils literal notranslate"><span class="pre">previousButtonA</span> <span class="pre">=</span> <span class="pre">buttonA;</span></code>, is missing. The test fails with <code class="docutils literal notranslate"><span class="pre">letting</span> <span class="pre">go</span> <span class="pre">says</span> <span class="pre">so</span></code>.</p>
-<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">event</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> when A is let go, the two <code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> lines
-are swapped.</p>
+<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">buttonAEvent</span></code> reads <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">pressed</span></code> when A is let go, the two <code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code>
+lines are swapped.</p>
 <p><strong>What you just did.</strong> A boolean is either <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. A field keeps a value between loops,
 and comparing this loop with the last one finds the moment something changed. That is how a
 button press can do one thing once, rather than once every loop it is held.</p>

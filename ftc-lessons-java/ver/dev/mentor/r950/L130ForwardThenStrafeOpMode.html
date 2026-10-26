@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="l130forwardthenstrafeopmode">
 <h1>L130ForwardThenStrafeOpMode<a class="headerlink" href="#l130forwardthenstrafeopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l130">
 <h2>L130<a class="headerlink" href="#l130" title="Link to this heading">¶</a></h2>
@@ -342,7 +346,7 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gu">@@ lines 87 to 98 @@</span>
 <span class="w"> </span>  87
 <span class="w"> </span>  88     Command driveForwardThenStrafe() {
-<span class="w"> </span>  89         return sequential(
+<span class="w"> </span>  89         Command forwardThenStrafeRoute = sequential(
 <span class="gd">-                     follow(follower, line(start, corner).constant(start))</span>
 <span class="gi">+  90                 follow(follower, line(start, corner).constant(start)),</span>
 <span class="w"> </span>  91                 // When on L130S030, see
@@ -351,8 +355,8 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gi">+  94                 follow(follower, line(corner, end).constant(start)),</span>
 <span class="gi">+  95                 hold(follower, end)</span>
 <span class="w"> </span>  96         );
-<span class="w"> </span>  97     }
-<span class="w"> </span>  98 }
+<span class="w"> </span>  97         return forwardThenStrafeRoute;
+<span class="w"> </span>  98     }
 </pre></div>
 </div>
 </section>

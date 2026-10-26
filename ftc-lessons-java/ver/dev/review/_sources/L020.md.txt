@@ -55,7 +55,7 @@ Delete 0 lines, write 1 line.
          // When on L020S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
          // for what to do here.
-+        Tracker.publish("stick/leftY", leftStickY);
++        Tracker.publish("gamepad1/leftStickY", leftStickY);
  
          // When on L020S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
@@ -73,7 +73,7 @@ Delete 0 lines, write 2 lines.
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
          // for what to do here.
 +        double rightStickY = gamepad1.right_stick_y;
-+        Tracker.publish("stick/rightY", rightStickY);
++        Tracker.publish("gamepad1/rightStickY", rightStickY);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -320,7 +324,7 @@
           <section id="lesson-shape-the-sticks">
 <h1>060 lesson: shape the sticks<a class="headerlink" href="#lesson-shape-the-sticks" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-stick-shaping">
-<img alt="../../media/fig-stick-shaping_491ad8686c3a.png" src="../../media/fig-stick-shaping_491ad8686c3a.png" />
+<img alt="../../media/fig-stick-shaping_753bd87c5806.png" src="../../media/fig-stick-shaping_753bd87c5806.png" />
 </figure>
 <p>Make the robot sit still when the sticks are let go, and make a gentle push mean gently.</p>
 <section id="the-steps">
@@ -347,7 +351,7 @@ click <strong>Add</strong>.</p>
 <section id="l060s030">
 <span id="l060s030-write-a-deadband"></span><h3>L060S030: write a deadband<a class="headerlink" href="#l060s030" title="Link to this heading">¶</a></h3>
 <p>A stick that has been let go does not always read 0.0. It can read a few hundredths, and a few
-hundredths of power is enough to make a robot crawl across the floor on its own. A <strong>deadband</strong>
+hundredths of full speed is enough to make a robot crawl across the floor on its own. A <strong>deadband</strong>
 fixes that: any reading closer to the middle than the band counts as let go.</p>
 <p><strong>Change.</strong> Scroll to the bottom of the file and find the comment that names this step. Under it,
 write a method of your own:</p>
@@ -384,53 +388,56 @@ the way a <code class="docutils literal notranslate"><span class="pre">double</s
 </section>
 <section id="l060s040">
 <span id="l060s040-use-the-deadband"></span><h3>L060S040: use the deadband<a class="headerlink" href="#l060s040" title="Link to this heading">¶</a></h3>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, under the comment that names this step, make a power for each
-side:</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, under the comment that names this step, make a shaped speed
+for each side:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L060S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">band</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"power/left"</span><span class="p">,</span><span class="w"> </span><span class="n">leftPower</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"power/right"</span><span class="p">,</span><span class="w"> </span><span class="n">rightPower</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/leftShapedSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">leftShapedSpeed</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/rightShapedSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">rightShapedSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>Then change the four <code class="docutils literal notranslate"><span class="pre">setPower</span></code> lines below, so each one gets the power and not the speed:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftPower</span><span class="p">);</span>
-<span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftPower</span><span class="p">);</span>
+<p>Then change the four <code class="docutils literal notranslate"><span class="pre">setPower</span></code> lines below, so each one gets the shaped speed and not the speed:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftShapedSpeed</span><span class="p">);</span>
+<span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backLeft</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">leftShapedSpeed</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightPower</span><span class="p">);</span>
-<span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightPower</span><span class="p">);</span>
+<span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightShapedSpeed</span><span class="p">);</span>
+<span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightShapedSpeed</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L060ShapingOpMode --pad"</span>
 </pre></div>
 </div>
-<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Drag <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">speed</span></code> folder and
-<code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">power</span></code> folder into <strong>Left Axis</strong>.</p>
+<p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Drag <code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">leftShapedSpeed</span></code>
+from the <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder into <strong>Left Axis</strong>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Let go of the sticks. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> may sit a little off 0.0, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 0.0.</p></li>
+<li><p>Let go of the sticks. <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> may sit a little off 0.0, and
+<code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> reads 0.0.</p></li>
 <li><p>The wheels in <code class="docutils literal notranslate"><span class="pre">sim/wheels</span></code> all read 0.0.</p></li>
 </ul>
 <figure class="align-default" id="fig-l060-deadband">
-<img alt="../../media/fig-l060-deadband_d3ae6bebec9a.png" src="../../media/fig-l060-deadband_d3ae6bebec9a.png" />
+<img alt="../../media/fig-l060-deadband_6327d1a7d564.png" src="../../media/fig-l060-deadband_6327d1a7d564.png" />
 </figure>
 </section>
 <section id="l060s050">
 <span id="l060s050-write-squaring"></span><h3>L060S050: write squaring<a class="headerlink" href="#l060s050" title="Link to this heading">¶</a></h3>
-<p>With the deadband in, a tenth of a push is still a tenth of the power. Near the middle that is more
-robot than a driver wants. <strong>Squaring</strong> fixes it: half a push becomes a quarter of the power, and a
-full push is still full power.</p>
+<p>With the deadband in, a tenth of a push is still a tenth of full speed. Near the middle that is more
+robot than a driver wants. <strong>Squaring</strong> fixes it: half a push becomes a quarter of full speed, and
+a full push is still full speed.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the comment that names this
 step. Under it, write a second method:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L060S050, see</span>
 <span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s050</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">signedSquared</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">alwaysPositiveValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">valueSquaredKeepingTheSign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">alwaysPositiveValue</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">valueSquaredKeepingTheSign</span><span class="p">;</span>
 </span><span class="hll"><span class="w">    </span><span class="p">}</span>
 </span></pre></div>
 </div>
@@ -448,7 +455,8 @@ the number instead:</p>
 negative</p></li>
 </ul>
 <p>So it squares the size of the number, its magnitude, and keeps its sign. That is why it is called
-<code class="docutils literal notranslate"><span class="pre">signedSquared</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">signedSquared</span></code>. <code class="docutils literal notranslate"><span class="pre">alwaysPositiveValue</span></code> holds the size, <code class="docutils literal notranslate"><span class="pre">valueSquaredKeepingTheSign</span></code> names the
+answer, and <code class="docutils literal notranslate"><span class="pre">return</span></code> gives it back.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>The method has no red underline.</p></li>
@@ -457,25 +465,28 @@ negative</p></li>
 <section id="l060s060">
 <span id="l060s060-use-squaring"></span><h3>L060S060: use squaring<a class="headerlink" href="#l060s060" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Go back to the two <code class="docutils literal notranslate"><span class="pre">deadband</span></code> lines from L060S040. Under each one, add a line that
-squares the power:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
-<span class="hll"><span class="w">        </span><span class="n">leftPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">leftPower</span><span class="p">);</span>
+squares the shaped speed:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="n">leftShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">leftShapedSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">band</span><span class="p">);</span>
-<span class="hll"><span class="w">        </span><span class="n">rightPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">rightPower</span><span class="p">);</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deadband</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">bandToSetToZero</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="n">rightShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signedSquared</span><span class="p">(</span><span class="n">rightShapedSpeed</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">signedSquared</span></code> works on what <code class="docutils literal notranslate"><span class="pre">deadband</span></code> gave back, and puts its answer back in the same name.</p>
+<p><code class="docutils literal notranslate"><span class="pre">signedSquared</span></code> works on what <code class="docutils literal notranslate"><span class="pre">deadband</span></code> gave back, and puts its answer back in the same name. The
+line has no <code class="docutils literal notranslate"><span class="pre">double</span></code> in front: <code class="docutils literal notranslate"><span class="pre">leftShapedSpeed</span></code> already exists, so the line changes it rather than
+making a new one.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick halfway forward. <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> reads 0.5, and <code class="docutils literal notranslate"><span class="pre">power/left</span></code> reads 0.25.</p></li>
+<li><p>Push the left stick halfway forward. <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> reads 0.5, and
+<code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> reads 0.25.</p></li>
 <li><p>Push it all the way, and both read 1.0.</p></li>
-<li><p>Pull it back, and the power goes below 0.0.</p></li>
+<li><p>Pull it back, and the shaped speed goes below 0.0.</p></li>
 </ul>
 <figure class="align-default" id="fig-l060-squared">
-<img alt="../../media/fig-l060-squared_39437e2cb8a9.png" src="../../media/fig-l060-squared_39437e2cb8a9.png" />
+<img alt="../../media/fig-l060-squared_97e3be716d34.png" src="../../media/fig-l060-squared_97e3be716d34.png" />
 </figure>
 </section>
 <section id="l060s070">
@@ -501,11 +512,11 @@ from L050.</p></li>
 <ul class="simple">
 <li><p>The title bar reads <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code>.</p></li>
 </ul>
-<p><strong>Run.</strong> Press PLAY. Drag <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">speed</span></code> folder and <code class="docutils literal notranslate"><span class="pre">left</span></code> from the <code class="docutils literal notranslate"><span class="pre">power</span></code> folder into
+<p><strong>Run.</strong> Press PLAY. Drag <code class="docutils literal notranslate"><span class="pre">leftSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">leftShapedSpeed</span></code> from the <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder into
 <strong>Left Axis</strong>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Let go of both sticks, and the robot sits still, with <code class="docutils literal notranslate"><span class="pre">power/left</span></code> at 0.0.</p></li>
+<li><p>Let go of both sticks, and the robot sits still, with <code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> at 0.0.</p></li>
 <li><p>Push a stick about a third of the way, and the robot creeps along under control.</p></li>
 <li><p>Push it all the way, and the robot goes full speed.</p></li>
 </ul>

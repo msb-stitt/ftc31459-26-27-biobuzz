@@ -5,7 +5,7 @@
 :::
 
 Drive a mecanum robot: the left stick drives and slides, the right stick turns, and all three can
-happen at once. Each wheel gets its own power.
+happen at once. Each wheel gets its own speed.
 
 ::::{only} mentor
 **Before you start.**
@@ -52,8 +52,8 @@ A mecanum wheel is a left wheel or a right wheel, and the two are mirror images.
 shows both:
 <https://www.gobilda.com/96mm-mecanum-wheel-set-70a-durometer-bearing-supported-rollers/>
 
-The starter has `forward` and `turn` from L080. The slide is the third number, and it comes from the
-left stick, sideways.
+The starter has `forwardXSpeed` and `turnCcwSpeed` from L080. The slide is the third number, and it
+comes from the left stick, sideways.
 
 **Change.** In `driveFromTheSticks()`, find the comment that names this step. Under it, type:
 
@@ -63,9 +63,9 @@ left stick, sideways.
         // When on L090S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
         // for what to do here.
-        double strafe = deadband(-leftStickX, band);
-        strafe = signedSquared(strafe);
-        Tracker.publish("arcade/strafe", strafe);
+        double strafeYSpeed = -leftStickX;
+        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
 ```
 
 **Strafe** is the robot word for sliding sideways. The stick reads above 0.0 to the right, and the
@@ -75,7 +75,7 @@ minus sign makes a slide to the left positive, the same way a turn to the left i
 
 - Neither line has a red underline.
 
-### L090S040: give each wheel its power
+### L090S040: give each wheel its speed
 
 Each wheel adds up the three numbers its own way:
 
@@ -94,20 +94,22 @@ Each wheel adds up the three numbers its own way:
         // When on L090S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
         // for what to do here.
-        double frontLeftPower = forward - strafe - turn;
-        double frontRightPower = forward + strafe + turn;
-        double backLeftPower = forward + strafe - turn;
-        double backRightPower = forward - strafe + turn;
-        Tracker.publish("power/frontLeft", frontLeftPower);
-        Tracker.publish("power/frontRight", frontRightPower);
-        Tracker.publish("power/backLeft", backLeftPower);
-        Tracker.publish("power/backRight", backRightPower);
+        double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+        double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
+        double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
+        double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
+        Tracker.publish("drivetrain/fl_mixedSpeed", fl_mixedSpeed);
+        Tracker.publish("drivetrain/fr_mixedSpeed", fr_mixedSpeed);
+        Tracker.publish("drivetrain/bl_mixedSpeed", bl_mixedSpeed);
+        Tracker.publish("drivetrain/br_mixedSpeed", br_mixedSpeed);
 
-        hardware.frontLeft.setPower(frontLeftPower);
-        hardware.frontRight.setPower(frontRightPower);
-        hardware.backLeft.setPower(backLeftPower);
-        hardware.backRight.setPower(backRightPower);
+        hardware.frontLeft.setPower(fl_mixedSpeed);
+        hardware.frontRight.setPower(fr_mixedSpeed);
+        hardware.backLeft.setPower(bl_mixedSpeed);
+        hardware.backRight.setPower(br_mixedSpeed);
 ```
+
+`fl`, `fr`, `bl` and `br` are short for front left, front right, back left and back right.
 
 **Simulator.** In the Terminal, run:
 
@@ -115,48 +117,63 @@ Each wheel adds up the three numbers its own way:
 ./gradlew :TeamCode:simRun --args="mytry.L090MecanumOpMode --pad"
 ```
 
-**AdvantageScope.** Connect to the simulator as in L020, and click **2D Field**. Open the `arcade`
-and `power` folders.
+**AdvantageScope.** Connect to the simulator as in L020, and click **2D Field**. Open the
+`drivetrain` folder.
 
 **Check.**
 
-- Push the left stick halfway left. `strafe` reads 0.25.
+- Push the left stick halfway left. `strafeYSpeed` reads 0.25.
 - The front right and back left wheels read 0.25, and the other two read -0.25.
 - The robot slides to its own left, and its nose keeps pointing the same way!
 - Forward and turning work as they did in L080.
 
 ### L090S050: scale all four
 
-Push the left stick into a corner, all the way forward and all the way left. `forward` and `strafe`
-are both 1.0, so the front right and back left wheels ask for 2.0. That is twice what a motor has.
+Push the left stick into a corner, all the way forward and all the way left. `forwardXSpeed` and
+`strafeYSpeed` are both 1.0, so the front right and back left wheels ask for 2.0. That is twice what
+a motor has.
 
-**Change.** Press Ctrl+C in the Terminal to stop the simulator. Go back to the four lines that make
-the wheel powers. Under them, type:
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. Go back to the lines that make
+the wheel speeds. Under them, type the scaling. Then change the `Tracker.publish` and `setPower`
+lines to use the scaled speeds:
 
 ```{code-block} java
-:emphasize-lines: 5-16
+:emphasize-lines: 5-25
 
-        double frontLeftPower = forward - strafe - turn;
-        double frontRightPower = forward + strafe + turn;
-        double backLeftPower = forward + strafe - turn;
-        double backRightPower = forward - strafe + turn;
-        double frontLeftSize = Math.abs(frontLeftPower);
-        double frontRightSize = Math.abs(frontRightPower);
-        double backLeftSize = Math.abs(backLeftPower);
-        double backRightSize = Math.abs(backRightPower);
-        double biggest = Math.max(frontLeftSize, frontRightSize);
-        biggest = Math.max(biggest, backLeftSize);
-        biggest = Math.max(biggest, backRightSize);
-        biggest = Math.max(1.0, biggest);
-        frontLeftPower = frontLeftPower / biggest;
-        frontRightPower = frontRightPower / biggest;
-        backLeftPower = backLeftPower / biggest;
-        backRightPower = backRightPower / biggest;
+        double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+        double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
+        double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
+        double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
+        double fl_size = Math.abs(fl_mixedSpeed);
+        double fr_size = Math.abs(fr_mixedSpeed);
+        double bl_size = Math.abs(bl_mixedSpeed);
+        double br_size = Math.abs(br_mixedSpeed);
+        double biggest = Math.max(fl_size, fr_size);
+        biggest = Math.max(biggest, bl_size);
+        biggest = Math.max(biggest, br_size);
+        double biggestOrOne = Math.max(1.0, biggest);
+        double fl_speed = fl_mixedSpeed / biggestOrOne;
+        double fr_speed = fr_mixedSpeed / biggestOrOne;
+        double bl_speed = bl_mixedSpeed / biggestOrOne;
+        double br_speed = br_mixedSpeed / biggestOrOne;
+        Tracker.publish("drivetrain/fl_speed", fl_speed);
+        Tracker.publish("drivetrain/fr_speed", fr_speed);
+        Tracker.publish("drivetrain/bl_speed", bl_speed);
+        Tracker.publish("drivetrain/br_speed", br_speed);
+
+        hardware.frontLeft.setPower(fl_speed);
+        hardware.frontRight.setPower(fr_speed);
+        hardware.backLeft.setPower(bl_speed);
+        hardware.backRight.setPower(br_speed);
 ```
 
 This is L080's scaling, for four wheels. `Math.max` takes two numbers, so finding the biggest of
 four sizes takes three calls: the first compares the two front wheels, and each of the next two
-brings in one more wheel. The last `Math.max` keeps `biggest` from going below 1.0, as in L080.
+brings in one more wheel. The last `Math.max` makes `biggestOrOne`, which never goes below 1.0, as
+in L080.
+
+The two lines that bring in one more wheel change `biggest`, as L060's squaring line changed
+`leftShapedSpeed`, so it is always the biggest size so far.
 
 **Simulator.** Run the same command again, and connect AdvantageScope.
 
@@ -222,9 +239,9 @@ wrong corner. Forward still works with a wheel in the wrong place, because all f
 forward. It is the sideways pushes that stop canceling. This is what the arithmetic says. No robot
 here has been driven with a wheel on the wrong corner.
 
-**What you just did.** Three numbers, four wheels, one line each. Those four lines are the whole of
-mecanum drive, and the path follower in later lessons uses the same four. The scaling is L080's,
-for four wheels instead of two.
+**What you just did.** The arcade command, forward, strafe and turn, mixed into each wheel's speed,
+one line a wheel. Those lines are the whole of mecanum drive, and the path follower in later
+lessons uses the same ones. The scaling is L080's, for each wheel instead of each side.
 
 **Where next.** [L110](l110.md) hands the wheels to the path follower.
 ::::

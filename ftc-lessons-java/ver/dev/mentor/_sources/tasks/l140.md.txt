@@ -65,28 +65,32 @@ The starter drives the way L110 did. Forward on the stick is forward for the rob
 :name: fig-field-relative
 :::
 
-From now on, `forward` on the stick means away from the driver, along the field's x. `strafe` means
-to the driver's left, along the field's y. On AdvantageScope's 2D Field, +x runs to the right and
-+y runs up.
+You drive from the Red Alliance Area, as in the picture. From now on, `fieldXSpeed` means a speed
+along the field's +x. It could be away from you or toward you, depending on which Alliance Area
+you are in. `fieldYSpeed` means to your left, along the field's +y, when you are in the Red
+Alliance Area. `fieldYSpeed` means to your right, along the field's +y, when you are in the Blue
+Alliance Area. On AdvantageScope's 2D Field, +x runs to the right and +y runs up.
 
 The wheels only know the robot's own forward and sideways. L120 turned a step on the robot into a
 step on the field, through the heading. This turns the other way, from the field to the robot, so
 the signs on `sin` swap.
 
 **Change.** Press Ctrl+C in the Terminal to stop the simulator. In `driveFromTheSticks()`, find the
-comment that names this step. Delete the line `drivetrain.sticks(forward, strafe, turn);` under it,
-and type:
+comment that names this step. Delete the line `drivetrain.sticks(fieldXSpeed, fieldYSpeed,
+turnCcwSpeed);` under it, and type:
 
 ```{code-block} java
-:emphasize-lines: 4-7
+:emphasize-lines: 4-9
 
         // When on L140S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
         // for what to do here.
         double heading = follower.pose().heading();
-        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
-        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
-        drivetrain.sticks(robotForward, robotStrafe, turn);
+        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
+        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
+        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
+        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
 ```
 
 The follower knows which way the robot faces. The drivetrain does not. So the OpMode asks the
@@ -111,6 +115,9 @@ Station. Stand off the robot's left side, so that away from you is the field's +
 - Then push the left stick away from you. The robot drives away from you while it faces you.
 - Turn it a quarter turn and try again, and the stick still means the same way on the field.
 
+**What's happening.** [E141](e141.md) and [E142](e142.md) show why your two lines work.
+[E143](e143.md) shows the field from each Alliance Area.
+
 ::::{only} mentor
 **No gamepad.** `--args="mytry.L140FieldRelativeOpMode --left_stick_y=-0.4 --right_stick_x=-0.7"`
 holds both sticks, for the circle in L140S030 and the picture at the top. Before L140S040, the run
@@ -122,10 +129,10 @@ simulator has no walls, so a run left going drives off the field.
 
 **If it didn't**, and `LessonsTest.l140_fieldRelativeIgnoresWhichWayTheRobotFaces` fails with
 `same stick, still moves away from the driver expected:<0.0> but was:<1.0>`, the line still reads
-`drivetrain.sticks(forward, strafe, turn);`.
+`drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);`.
 
 **If it didn't**, and it fails with `expected:<-1.0> but was:<1.0>`, the turn runs the wrong way.
-The minus sign is missing from `-forward`, or both signs on `sin` are the other way around.
+The minus sign is missing from `-fieldXSpeed`, or both signs on `sin` are the other way around.
 
 **If it didn't**, and it fails with
 `same stick, still moves away from the driver expected:<0.0> but was:<-0.3338674754196965>`, the

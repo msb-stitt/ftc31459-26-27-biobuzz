@@ -284,7 +284,7 @@
 <span class="gu">@@ -87,7 +87,7 @@</span>
 <span class="w"> </span>
 <span class="w"> </span>    Command driveForwardThenStrafe() {
-<span class="w"> </span>        return sequential(
+<span class="w"> </span>        Command forwardThenStrafeRoute = sequential(
 <span class="gd">-                follow(follower, line(start, corner).constant(start))</span>
 <span class="gi">+                follow(follower, line(start, corner).constant(start)),</span>
 <span class="w"> </span>                // When on L130S030, see
@@ -305,8 +305,8 @@
 <span class="gi">+                follow(follower, line(corner, end).constant(start)),</span>
 <span class="gi">+                hold(follower, end)</span>
 <span class="w"> </span>        );
+<span class="w"> </span>        return forwardThenStrafeRoute;
 <span class="w"> </span>    }
-<span class="w"> </span>}
 </pre></div>
 </div>
 </section>

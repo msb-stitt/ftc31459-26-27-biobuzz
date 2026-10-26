@@ -250,7 +250,7 @@
         <article role="main" id="furo-main-content">
           <section id="l160">
 <h1>L160<a class="headerlink" href="#l160" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 4 change(s) in 1 file(s), 5 line(s) of code to write.</p>
+<p>1 file(s) copied, then 4 change(s) in 1 file(s), 6 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -297,8 +297,8 @@
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -36,6 +36,7 @@</span>
-<span class="w"> </span>    boolean previousButtonA;
+<span class="gu">@@ -34,6 +34,7 @@</span>
+<span class="w"> </span>public class L160HeadingHoldOpMode extends CorbelsTeleOp {
 <span class="w"> </span>
 <span class="w"> </span>    CorbelsMecanum drivetrain;
 <span class="gi">+    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());</span>
@@ -310,18 +310,19 @@
 </section>
 <section id="id3">
 <h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 2 lines.</p>
+<p>Delete 0 lines, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -86,6 +86,8 @@</span>
+<span class="gu">@@ -81,6 +81,9 @@</span>
 <span class="w"> </span>        // When on L160S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        turn = hold.turn(follower, turn);</span>
-<span class="gi">+        Tracker.publish("heading/holding", hold.target() != null);</span>
+<span class="gi">+        turnCcwSpeed = hold.turn(follower, turnCcwSpeed);</span>
+<span class="gi">+        boolean holdingHeading = hold.target() != null;</span>
+<span class="gi">+        Tracker.publish("drivetrain/holdingHeading", holdingHeading);</span>
 <span class="w"> </span>
-<span class="w"> </span>        double strafe = deadband(-leftStickX, band);
-<span class="w"> </span>        strafe = signedSquared(strafe);
+<span class="w"> </span>        double fieldYSpeed = -leftStickX;
+<span class="w"> </span>        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
 </pre></div>
 </div>
 </section>

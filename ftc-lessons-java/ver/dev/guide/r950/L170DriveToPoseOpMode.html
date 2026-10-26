@@ -237,6 +237,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -320,34 +324,34 @@
           <section id="l170drivetoposeopmode">
 <h1>L170DriveToPoseOpMode<a class="headerlink" href="#l170drivetoposeopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l170">
 <h2>L170<a class="headerlink" href="#l170" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L170DriveToPoseOpMode.java  (before L170)</span>
 <span class="gi">+++ mytry/L170DriveToPoseOpMode.java  (after L170)</span>
-<span class="gu">@@ lines 83 to 94 @@</span>
-<span class="w"> </span>  83         // When on L170S030, see
-<span class="w"> </span>  84         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s030
-<span class="w"> </span>  85         // for what to do here.
-<span class="gi">+  86         boolean buttonY = gamepad1.y;</span>
-<span class="gi">+  87         boolean buttonYJustPressed = buttonY &amp;&amp; !previousButtonY;</span>
-<span class="gi">+  88         if (buttonYJustPressed) {</span>
-<span class="gi">+  89             Scheduler.schedule(driveToTheTarget);</span>
-<span class="gi">+  90         }</span>
-<span class="gi">+  91         previousButtonY = buttonY;</span>
-<span class="w"> </span>  92
-<span class="w"> </span>  93         loopAfter();
-<span class="w"> </span>  94     }
-<span class="gu">@@ lines 158 to 165 @@</span>
-<span class="w"> </span> 158         // When on L170S040, see
-<span class="w"> </span> 159         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
-<span class="w"> </span> 160         // for what to do here.
-<span class="gi">+ 161         follower.hold(target);</span>
-<span class="gi">+ 162         drivetrain.releaseCommandedWheels();</span>
-<span class="w"> </span> 163     }
-<span class="w"> </span> 164
-<span class="w"> </span> 165     /** Each loop of the drive to the target: the follower drives, not the sticks. */
+<span class="gu">@@ lines 82 to 93 @@</span>
+<span class="w"> </span>  82         // When on L170S030, see
+<span class="w"> </span>  83         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s030
+<span class="w"> </span>  84         // for what to do here.
+<span class="gi">+  85         boolean buttonY = gamepad1.y;</span>
+<span class="gi">+  86         boolean buttonYJustPressed = buttonY &amp;&amp; !previousButtonY;</span>
+<span class="gi">+  87         if (buttonYJustPressed) {</span>
+<span class="gi">+  88             Scheduler.schedule(driveToTheTarget);</span>
+<span class="gi">+  89         }</span>
+<span class="gi">+  90         previousButtonY = buttonY;</span>
+<span class="w"> </span>  91
+<span class="w"> </span>  92         loopAfter();
+<span class="w"> </span>  93     }
+<span class="gu">@@ lines 150 to 157 @@</span>
+<span class="w"> </span> 150         // When on L170S040, see
+<span class="w"> </span> 151         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
+<span class="w"> </span> 152         // for what to do here.
+<span class="gi">+ 153         follower.hold(target);</span>
+<span class="gi">+ 154         drivetrain.releaseCommandedWheels();</span>
+<span class="w"> </span> 155     }
+<span class="w"> </span> 156
+<span class="w"> </span> 157     /** Each loop of the drive to the target: the follower drives, not the sticks. */
 </pre></div>
 </div>
 </section>

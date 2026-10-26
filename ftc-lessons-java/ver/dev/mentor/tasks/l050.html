@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
 </ul>
 
@@ -371,7 +375,7 @@ and the right side RIGHT, as the robot sees them when it drives forward.</p>
 </section>
 <section id="l050s040">
 <span id="l050s040-tell-each-motor-which-way-it-is-mounted"></span><h3>L050S040: tell each motor which way it is mounted<a class="headerlink" href="#l050s040" title="Link to this heading">¶</a></h3>
-<p>The two sides of the robot face opposite ways. So the same power turns the left motors one way and
+<p>The two sides of the robot face opposite ways. So the same speed turns the left motors one way and
 the right motors the other. In L040 the simulator did not care. A real robot does.</p>
 <p>The robot’s own file in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder already says which way each motor is mounted, and
 <code class="docutils literal notranslate"><span class="pre">hardware.mecanumConfig</span></code> holds what it says.</p>
@@ -437,10 +441,13 @@ permission. Please give it.</p>
 <ul class="simple">
 <li><p>The title bar reads <code class="docutils literal notranslate"><span class="pre">192.168.43.1</span></code>, and the list on the left shows <code class="docutils literal notranslate"><span class="pre">Localizer</span></code>.</p></li>
 </ul>
+<p><strong>Before a competition</strong>, turn the robot’s live NetworkTables off. FTC rule R704 does not allow it
+at an event. <a class="reference internal" href="b980.html"><span class="std std-doc">980</span></a> says how, with the other things to do before you pack the robot.</p>
 <p><strong>Run.</strong> Press PLAY.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick a little way forward. In AdvantageScope, <code class="docutils literal notranslate"><span class="pre">speed/left</span></code> goes above 0.0.</p></li>
+<li><p>Push the left stick a little way forward. In AdvantageScope, <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> goes above
+0.0.</p></li>
 <li><p>Both left wheels turn, with the top of each tire moving toward FRONT.</p></li>
 <li><p>Let go, and do the same with the right stick and the right wheels.</p></li>
 </ul>
@@ -475,14 +482,15 @@ it. Press INIT, then PLAY.</p>
 <li><p>Push one forward and pull the other back, and it spins in place.</p></li>
 </ul>
 <p><strong>Live on the robot is for practice.</strong> An OpMode in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> or <code class="docutils literal notranslate"><span class="pre">mytry</span></code> turns on the robot’s
-NetworkTables server at INIT, which is what AdvantageScope connects to. FTC rule R704 forbids
-third-party telemetry over Wi-Fi at competitions, so a competition OpMode lives in another folder,
-where it stays off.</p>
+NetworkTables server at INIT, which is what AdvantageScope connects to, unless <strong>Live
+NetworkTables on/off</strong> has turned it off. A competition OpMode serves only once that OpMode has
+turned it on. The setting lasts until the robot’s app restarts. FTC rule R704 forbids third-party
+telemetry over Wi-Fi at competitions, and <a class="reference internal" href="b980.html"><span class="std std-doc">980</span></a> lists turning it off before one.</p>
 <p>On a Mac, the <strong>Settings…</strong> window is titled <strong>Preferences</strong>.</p>
 <p><strong>If it didn’t</strong>, and the robot creeps with both sticks let go, the sticks do not read exactly 0.0.
 L060 fixes that.</p>
 <p><strong>What you just did.</strong> Which way a motor turns is set by how it is bolted on and wired, not by the
-code. <code class="docutils literal notranslate"><span class="pre">setDirection</span></code> tells each motor which way it is mounted, so from then on a positive power
+code. <code class="docutils literal notranslate"><span class="pre">setDirection</span></code> tells each motor which way it is mounted, so from then on a positive speed
 turns every wheel forward. The directions live in one place, the robot’s own file, which
 <code class="docutils literal notranslate"><span class="pre">thisRobot</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code> picks. The code reads them from there, and so will the drivetrains
 in later lessons and AutoTune.</p>

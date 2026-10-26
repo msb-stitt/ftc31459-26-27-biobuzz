@@ -242,6 +242,9 @@
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l150.html">150 lesson: give the driver both</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l170.html">170 lesson: press Y and the robot drives itself there</a></li>
@@ -283,6 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/b980.html">980 before a competition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/b990.html">990 where this came from</a></li>
 </ul>
 
@@ -325,7 +329,7 @@
           <section id="l190velocitydriveopmode">
 <h1>L190VelocityDriveOpMode<a class="headerlink" href="#l190velocitydriveopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-coding-stitt-cc.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l190">
 <h2>L190<a class="headerlink" href="#l190" title="Link to this heading">¶</a></h2>
@@ -359,24 +363,33 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  60     }
 <span class="w"> </span>  61
 <span class="w"> </span>  62     // 'public' to match the parent class. 'public' allows access from any code.
-<span class="gu">@@ lines 88 to 101 @@</span>
+<span class="gu">@@ lines 88 to 110 @@</span>
 <span class="w"> </span>  88         // When on L190S050, see
 <span class="w"> </span>  89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
 <span class="w"> </span>  90         // for what to do here.
-<span class="gd">-             double forwardInPerS = 0.0;</span>
-<span class="gd">-             double strafeInPerS = 0.0;</span>
+<span class="gd">-             double forwardXInPerS = 0.0;</span>
+<span class="gi">+  91         double forwardXSpeed = -leftStickY;</span>
+<span class="gi">+  92         forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);</span>
+<span class="gi">+  93         double forwardXInPerS = forwardXSpeed * MAX_IPS;</span>
+<span class="w"> </span>  94         Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
+<span class="gd">-             double strafeYInPerS = 0.0;</span>
+<span class="gi">+  95         double strafeYSpeed = -leftStickX;</span>
+<span class="gi">+  96         strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);</span>
+<span class="gi">+  97         double strafeYInPerS = strafeYSpeed * MAX_IPS;</span>
+<span class="w"> </span>  98         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
 <span class="gd">-             double turnRadPerS = 0.0;</span>
-<span class="gi">+  91         double forwardInPerS = deadband(-leftStickY, band) * MAX_IPS;</span>
-<span class="gi">+  92         double strafeInPerS = deadband(-leftStickX, band) * MAX_IPS;</span>
-<span class="gi">+  93         double turnRadPerS = deadband(-rightStickX, band) * MAX_TURN_RADPS;</span>
-<span class="w"> </span>  94         Tracker.publish("command/forward_ips", forwardInPerS);
-<span class="w"> </span>  95         Tracker.publish("command/left_ips", strafeInPerS);
-<span class="w"> </span>  96         Tracker.publish("command/turn_radps", turnRadPerS);
-<span class="gi">+  97         double[] target = WheelTargets.forMecanum(forwardInPerS, strafeInPerS, turnRadPerS, Constants.turnRadiusInches);</span>
-<span class="gi">+  98         drivetrain.setCommandedWheelSpeeds(target[0], target[1], target[2], target[3]);</span>
-<span class="w"> </span>  99     }
-<span class="w"> </span> 100
-<span class="w"> </span> 101     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="gi">+  99         double turnCcwSpeed = -rightStickX;</span>
+<span class="gi">+ 100         turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);</span>
+<span class="gi">+ 101         double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;</span>
+<span class="w"> </span> 102         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+<span class="gi">+ 103</span>
+<span class="gi">+ 104         double[] wheelInPerS = WheelTargets.forMecanum(forwardXInPerS, strafeYInPerS, turnRadPerS,</span>
+<span class="gi">+ 105                 Constants.turnRadiusInches);</span>
+<span class="gi">+ 106         drivetrain.setCommandedWheelSpeeds(wheelInPerS[0], wheelInPerS[1], wheelInPerS[2],</span>
+<span class="gi">+ 107                 wheelInPerS[3]);</span>
+<span class="w"> </span> 108     }
+<span class="w"> </span> 109
+<span class="w"> </span> 110     // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>

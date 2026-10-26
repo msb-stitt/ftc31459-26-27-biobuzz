@@ -1,6 +1,6 @@
 # L140
 
-1 file(s) copied, then 1 change(s) in 1 file(s), 4 line(s) of code to write.
+1 file(s) copied, then 1 change(s) in 1 file(s), 6 line(s) of code to write.
 
 ## Copies
 
@@ -12,21 +12,23 @@
 
 ### A change
 
-Delete 1 line, write 4 lines.
+Delete 1 line, write 6 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -88,7 +88,10 @@
+@@ -83,7 +83,12 @@
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
--        drivetrain.sticks(forward, strafe, turn);
+-        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
 +        double heading = follower.pose().heading();
-+        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
-+        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
-+        drivetrain.sticks(robotForward, robotStrafe, turn);
++        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
++        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
++        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
++        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
+     }
  
-         boolean buttonA = gamepad1.a;
-         Tracker.publish("button/a", buttonA);
+     // 'public' to match the parent class. 'public' allows access from any code.
 ```
