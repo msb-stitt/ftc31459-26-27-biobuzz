@@ -26,21 +26,21 @@ is gone; each number is the line's place in the file after the lesson.
    90         // When on L080S040, see
    91         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
    92         // for what to do here.
-+  93         double leftPower = forward - turn;
-+  94         double rightPower = forward + turn;
-+  95         double leftSize = Math.abs(leftPower);
-+  96         double rightSize = Math.abs(rightPower);
++  93         double leftMixedSpeed = forward - turn;
++  94         double rightMixedSpeed = forward + turn;
++  95         double leftSize = Math.abs(leftMixedSpeed);
++  96         double rightSize = Math.abs(rightMixedSpeed);
 +  97         double biggest = Math.max(leftSize, rightSize);
 +  98         biggest = Math.max(1.0, biggest);
-+  99         leftPower = leftPower / biggest;
-+ 100         rightPower = rightPower / biggest;
-+ 101         Tracker.publish("power/left", leftPower);
-+ 102         Tracker.publish("power/right", rightPower);
++  99         leftMixedSpeed = leftMixedSpeed / biggest;
++ 100         rightMixedSpeed = rightMixedSpeed / biggest;
++ 101         Tracker.publish("mixedSpeed/left", leftMixedSpeed);
++ 102         Tracker.publish("mixedSpeed/right", rightMixedSpeed);
 + 103
-+ 104         hardware.frontLeft.setPower(leftPower);
-+ 105         hardware.backLeft.setPower(leftPower);
-+ 106         hardware.frontRight.setPower(rightPower);
-+ 107         hardware.backRight.setPower(rightPower);
++ 104         hardware.frontLeft.setPower(leftMixedSpeed);
++ 105         hardware.backLeft.setPower(leftMixedSpeed);
++ 106         hardware.frontRight.setPower(rightMixedSpeed);
++ 107         hardware.backRight.setPower(rightMixedSpeed);
   108
   109         boolean buttonA = gamepad1.a;
   110         Tracker.publish("button/a", buttonA);

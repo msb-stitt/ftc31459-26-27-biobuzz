@@ -16,22 +16,22 @@ is gone; each number is the line's place in the file after the lesson.
    76         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l060.html#l060s040
    77         // for what to do here.
 +  78         double band = 0.05;
-+  79         double leftPower = deadband(leftSpeed, band);
-+  80         leftPower = signedSquared(leftPower);
-+  81         Tracker.publish("power/left", leftPower);
-+  82         double rightPower = deadband(rightSpeed, band);
-+  83         rightPower = signedSquared(rightPower);
-+  84         Tracker.publish("power/right", rightPower);
++  79         double leftShapedSpeed = deadband(leftSpeed, band);
++  80         leftShapedSpeed = signedSquared(leftShapedSpeed);
++  81         Tracker.publish("shapedSpeed/left", leftShapedSpeed);
++  82         double rightShapedSpeed = deadband(rightSpeed, band);
++  83         rightShapedSpeed = signedSquared(rightShapedSpeed);
++  84         Tracker.publish("shapedSpeed/right", rightShapedSpeed);
    85
 -             hardware.frontLeft.setPower(leftSpeed);
 -             hardware.backLeft.setPower(leftSpeed);
-+  86         hardware.frontLeft.setPower(leftPower);
-+  87         hardware.backLeft.setPower(leftPower);
++  86         hardware.frontLeft.setPower(leftShapedSpeed);
++  87         hardware.backLeft.setPower(leftShapedSpeed);
    88
 -             hardware.frontRight.setPower(rightSpeed);
 -             hardware.backRight.setPower(rightSpeed);
-+  89         hardware.frontRight.setPower(rightPower);
-+  90         hardware.backRight.setPower(rightPower);
++  89         hardware.frontRight.setPower(rightShapedSpeed);
++  90         hardware.backRight.setPower(rightShapedSpeed);
    91     }
    92
    93     // 'public' to match the parent class. 'public' allows access from any code.
