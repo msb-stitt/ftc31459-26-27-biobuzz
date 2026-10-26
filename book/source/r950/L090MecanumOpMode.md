@@ -15,17 +15,17 @@ is gone; each number is the line's place in the file after the lesson.
    81         // When on L090S030, see
    82         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
    83         // for what to do here.
-+  84         double strafe = deadband(-leftStickX, band);
-+  85         strafe = signedSquared(strafe);
-+  86         Tracker.publish("arcade/strafe", strafe);
++  84         double strafeYSpeed = -leftStickX;
++  85         strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
++  86         Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
    87
    88         // When on L090S040, see
    89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
    90         // for what to do here.
-+  91         double fl_mixedSpeed = forward - strafe - turn;
-+  92         double fr_mixedSpeed = forward + strafe + turn;
-+  93         double bl_mixedSpeed = forward + strafe - turn;
-+  94         double br_mixedSpeed = forward - strafe + turn;
++  91         double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
++  92         double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
++  93         double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
++  94         double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
 +  95         double fl_size = Math.abs(fl_mixedSpeed);
 +  96         double fr_size = Math.abs(fr_mixedSpeed);
 +  97         double bl_size = Math.abs(bl_mixedSpeed);

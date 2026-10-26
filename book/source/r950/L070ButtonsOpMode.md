@@ -24,27 +24,27 @@ is gone; each number is the line's place in the file after the lesson.
    77         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
    78         // for what to do here.
 +  79         double leftStickX = gamepad1.left_stick_x;
-+  80         Tracker.publish("stick/leftX", leftStickX);
++  80         Tracker.publish("gamepad1/leftStickX", leftStickX);
 +  81         double rightStickX = gamepad1.right_stick_x;
-+  82         Tracker.publish("stick/rightX", rightStickX);
++  82         Tracker.publish("gamepad1/rightStickX", rightStickX);
    83
    84         double leftSpeed = -leftStickY;
-   85         Tracker.publish("speed/left", leftSpeed);
+   85         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
 @@ lines 103 to 122 @@
   103         // When on L070S030, see
   104         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
   105         // for what to do here.
 + 106         boolean buttonA = gamepad1.a;
-+ 107         Tracker.publish("button/a", buttonA);
++ 107         Tracker.publish("gamepad1/buttonA", buttonA);
   108
   109         // When on L070S050, see
   110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
   111         // for what to do here.
 + 112         if (buttonA != previousButtonA) {
 + 113             if (buttonA) {
-+ 114                 Tracker.publish("button/event", "A pressed");
++ 114                 Tracker.publish("gamepad1/buttonAEvent", "A pressed");
 + 115             } else {
-+ 116                 Tracker.publish("button/event", "A released");
++ 116                 Tracker.publish("gamepad1/buttonAEvent", "A released");
 + 117             }
 + 118         }
 + 119         previousButtonA = buttonA;

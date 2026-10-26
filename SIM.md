@@ -75,9 +75,9 @@ What the simulated robot is doing is under `sim/`.
 | `sim/vel/forward_ips`, `strafe_ips`, `omega_radps` | How fast the robot is going, in its own frame |
 
 Every value the OpMode publishes through `Tracker` goes out too, under the name the flight log gives
-it, so `Tracker.publish("stick/leftY", leftSpeed)` is `/stick/leftY` live and in the log.
-`sim/stick/leftY` is the stick as the gamepad gives it, and `/stick/leftY` is what the lesson made
-of it.
+it, so `Tracker.publish("gamepad1/leftStickY", leftStickY)` is `/gamepad1/leftStickY` live and in
+the log. `sim/stick/leftY` is the stick as the gamepad gives it, and `/gamepad1/leftStickY` is what
+the lesson made of it.
 
 The pose is a struct because AdvantageScope wants one. A bare `double[]` of x, y and heading is what
 it calls the legacy numeric array format: it draws that too, warns about it in 2026 and removes it

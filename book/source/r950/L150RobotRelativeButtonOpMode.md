@@ -11,19 +11,26 @@ is gone; each number is the line's place in the file after the lesson.
 
 --- mytry/L150RobotRelativeButtonOpMode.java  (before L150)
 +++ mytry/L150RobotRelativeButtonOpMode.java  (after L150)
-@@ lines 86 to 98 @@
-   86         // When on L150S030, see
-   87         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
-   88         // for what to do here.
--             drivetrain.sticks(robotForward, robotStrafe, turn);
-+  89         boolean robotRelative = gamepad1.right_bumper;
-+  90         Tracker.publish("drive/robotRelative", robotRelative);
-+  91         if (robotRelative) {
-+  92             drivetrain.sticks(forward, strafe, turn);
-+  93         } else {
-+  94             drivetrain.sticks(robotForward, robotStrafe, turn);
-+  95         }
-   96     }
-   97
-   98     // 'public' to match the parent class. 'public' allows access from any code.
+@@ lines 85 to 102 @@
+   85         // When on L150S030, see
+   86         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
+   87         // for what to do here.
+-             double heading = follower.pose().heading();
+-             robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+-             robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++  88         boolean robotRelative = gamepad1.right_bumper;
++  89         Tracker.publish("drivetrain/robotRelative", robotRelative);
++  90         if (robotRelative) {
++  91             robotForwardXSpeed = -leftStickY;
++  92             robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
++  93             robotStrafeYSpeed = -leftStickX;
++  94             robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
++  95         } else {
++  96             double heading = follower.pose().heading();
++  97             robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
++  98             robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++  99         }
+  100         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
+  101         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
+  102         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
 ```

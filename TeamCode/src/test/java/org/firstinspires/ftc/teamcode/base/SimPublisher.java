@@ -35,11 +35,11 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * use the names {@code L040TankOpMode} already publishes to Panels.
  *
  * <p>Everything the flight log records goes out too, under the name it has in
- * the log: {@code Tracker.publish("stick/leftY", ...)} is {@code /stick/leftY}
- * here and in the log. So a student watches live what their own code wrote, and
- * finds it in the same place in the log afterwards. Each name {@link Tracker}
- * holds is also set once a loop, so a value published before the mirror began
- * goes out too.
+ * the log: {@code Tracker.publish("gamepad1/leftStickY", ...)} is
+ * {@code /gamepad1/leftStickY} here and in the log. So a student watches live
+ * what their own code wrote, and finds it in the same place in the log
+ * afterwards. Each name {@link Tracker} holds is also set once a loop, so a
+ * value published before the mirror began goes out too.
  *
  * <p>The pose goes out as a WPILib {@code struct:Pose2d}, which is three
  * little-endian doubles and a schema that says so. AdvantageScope draws a bare
