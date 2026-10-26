@@ -31,16 +31,16 @@ is gone; each number is the line's place in the file after the lesson.
 +  95         double leftSize = Math.abs(leftMixedSpeed);
 +  96         double rightSize = Math.abs(rightMixedSpeed);
 +  97         double biggest = Math.max(leftSize, rightSize);
-+  98         biggest = Math.max(1.0, biggest);
-+  99         leftMixedSpeed = leftMixedSpeed / biggest;
-+ 100         rightMixedSpeed = rightMixedSpeed / biggest;
-+ 101         Tracker.publish("mixedSpeed/left", leftMixedSpeed);
-+ 102         Tracker.publish("mixedSpeed/right", rightMixedSpeed);
++  98         double biggestOrOne = Math.max(1.0, biggest);
++  99         double leftSpeed = leftMixedSpeed / biggestOrOne;
++ 100         double rightSpeed = rightMixedSpeed / biggestOrOne;
++ 101         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
++ 102         Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 + 103
-+ 104         hardware.frontLeft.setPower(leftMixedSpeed);
-+ 105         hardware.backLeft.setPower(leftMixedSpeed);
-+ 106         hardware.frontRight.setPower(rightMixedSpeed);
-+ 107         hardware.backRight.setPower(rightMixedSpeed);
++ 104         hardware.frontLeft.setPower(leftSpeed);
++ 105         hardware.backLeft.setPower(leftSpeed);
++ 106         hardware.frontRight.setPower(rightSpeed);
++ 107         hardware.backRight.setPower(rightSpeed);
   108
   109         boolean buttonA = gamepad1.a;
   110         Tracker.publish("button/a", buttonA);

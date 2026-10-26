@@ -22,22 +22,22 @@ is gone; each number is the line's place in the file after the lesson.
    88         // When on L090S040, see
    89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
    90         // for what to do here.
-+  91         double fl_MixedSpeed = forward - strafe - turn;
-+  92         double fr_MixedSpeed = forward + strafe + turn;
-+  93         double bl_MixedSpeed = forward + strafe - turn;
-+  94         double br_MixedSpeed = forward - strafe + turn;
-+  95         double fl_Size = Math.abs(fl_MixedSpeed);
-+  96         double fr_Size = Math.abs(fr_MixedSpeed);
-+  97         double bl_Size = Math.abs(bl_MixedSpeed);
-+  98         double br_Size = Math.abs(br_MixedSpeed);
-+  99         double biggest = Math.max(fl_Size, fr_Size);
-+ 100         biggest = Math.max(biggest, bl_Size);
-+ 101         biggest = Math.max(biggest, br_Size);
++  91         double fl_mixedSpeed = forward - strafe - turn;
++  92         double fr_mixedSpeed = forward + strafe + turn;
++  93         double bl_mixedSpeed = forward + strafe - turn;
++  94         double br_mixedSpeed = forward - strafe + turn;
++  95         double fl_size = Math.abs(fl_mixedSpeed);
++  96         double fr_size = Math.abs(fr_mixedSpeed);
++  97         double bl_size = Math.abs(bl_mixedSpeed);
++  98         double br_size = Math.abs(br_mixedSpeed);
++  99         double biggest = Math.max(fl_size, fr_size);
++ 100         biggest = Math.max(biggest, bl_size);
++ 101         biggest = Math.max(biggest, br_size);
 + 102         double biggestOrOne = Math.max(1.0, biggest);
-+ 103         double fl_speed = fl_MixedSpeed / biggestOrOne;
-+ 104         double fr_speed = fr_MixedSpeed / biggestOrOne;
-+ 105         double bl_speed = bl_MixedSpeed / biggestOrOne;
-+ 106         double br_speed = br_MixedSpeed / biggestOrOne;
++ 103         double fl_speed = fl_mixedSpeed / biggestOrOne;
++ 104         double fr_speed = fr_mixedSpeed / biggestOrOne;
++ 105         double bl_speed = bl_mixedSpeed / biggestOrOne;
++ 106         double br_speed = br_mixedSpeed / biggestOrOne;
 + 107         Tracker.publish("drivetrain/fl_speed", fl_speed);
 + 108         Tracker.publish("drivetrain/fr_speed", fr_speed);
 + 109         Tracker.publish("drivetrain/bl_speed", bl_speed);
