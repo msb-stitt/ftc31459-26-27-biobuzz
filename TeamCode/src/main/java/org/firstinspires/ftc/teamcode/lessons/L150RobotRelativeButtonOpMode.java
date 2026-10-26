@@ -110,8 +110,9 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        double squaredWithItsSign = value * Math.abs(value);
-        return squaredWithItsSign;
+        double alwaysPositiveValue = Math.abs(value);
+        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+        return valueSquaredKeepingTheSign;
     }
 
     double speedShaped(double value, double band) {
