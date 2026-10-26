@@ -23,7 +23,8 @@ import java.io.IOException;
  * {@code Robot/Pose}.
  *
  * <p>For practice only: FTC rule R704 forbids third-party telemetry over Wi-Fi
- * at competitions, and this OpMode turns the server on.
+ * at competitions, and this OpMode turns the server on, unless the Live
+ * NetworkTables switch OpMode has turned it off.
  *
  * <p>Passes when: NtCheckOpModeTest
  */
@@ -40,7 +41,7 @@ public class NtCheckOpMode extends CorbelsTeleOp {
     @Override
     public void init() {
         initBefore();
-        serving = Tracker.serveLive();
+        serving = Tracker.serveLiveUnlessSwitchedOff();
         initAfter();
     }
 
