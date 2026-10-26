@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
-index 116353a..a186174 100644
+index 658c9e0..101cdfb 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
 @@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mytry;
@@ -13,7 +13,7 @@ index 116353a..a186174 100644
 @@ -86,10 +87,12 @@ public class L130ForwardThenStrafeOpMode extends CorbelsAuto {
  
      Command driveForwardThenStrafe() {
-         return sequential(
+         Command forwardThenStrafeRoute = sequential(
 -                follow(follower, line(start, corner).constant(start))
 +                follow(follower, line(start, corner).constant(start)),
                  // When on L130S030, see
@@ -22,5 +22,5 @@ index 116353a..a186174 100644
 +                follow(follower, line(corner, end).constant(start)),
 +                hold(follower, end)
          );
+         return forwardThenStrafeRoute;
      }
- }

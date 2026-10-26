@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L040TankOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L040TankOpMode.java
-index 4676e47..5d1b107 100644
+index c3a8b93..6fe3c2f 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L040TankOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L040TankOpMode.java
 @@ -69,10 +69,14 @@ public class L040TankOpMode extends CorbelsTeleOp {

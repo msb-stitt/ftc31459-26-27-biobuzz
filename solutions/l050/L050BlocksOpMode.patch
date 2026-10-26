@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
-index cc50f01..5118d25 100644
+index b7f292e..8202165 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L050BlocksOpMode.java
 @@ -38,6 +38,10 @@ public class L050BlocksOpMode extends CorbelsTeleOp {

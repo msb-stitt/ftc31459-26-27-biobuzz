@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
-index d346e1c..598b52d 100644
+index 0659cb1..7e5a228 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
 @@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.mytry;
@@ -14,14 +14,14 @@ index d346e1c..598b52d 100644
          // When on L190S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
          // for what to do here.
-+        double[] measured = measuredSpeeds.all();
-+        double[] speeds = new double[4];
++        double[] measuredInPerS = measuredSpeeds.all();
++        double[] wheelSpeeds = new double[4];
 +        for (int i = 0; i < 4; i++) {
-+            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
-+            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
-+            speeds[i] = clampToFullSpeed(feedforward + feedback);
++            double feedforward = Constants.powerPerInchPerSecond * wantedInPerS[i];
++            double feedback = VELOCITY_KP * (wantedInPerS[i] - measuredInPerS[i]);
++            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
 +        }
-+        setCommandedWheels(speeds[FL], speeds[FR], speeds[BL], speeds[BR]);
-+        publishWheelSpeeds(wanted, measured);
++        setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);
++        publishWheelSpeeds(wantedInPerS, measuredInPerS);
      }
  }

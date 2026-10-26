@@ -1,16 +1,18 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-index 8359c06..ca83ef1 100644
+index c5a13a3..dd561c4 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-@@ -83,7 +83,10 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -83,7 +83,12 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
--        drivetrain.sticks(forward, strafe, turn);
+-        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
 +        double heading = follower.pose().heading();
-+        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
-+        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
-+        drivetrain.sticks(robotForward, robotStrafe, turn);
++        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
++        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
++        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
++        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

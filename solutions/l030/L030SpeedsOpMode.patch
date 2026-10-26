@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java
-index a922258..87bc8c2 100644
+index e81448e..158fa11 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L030SpeedsOpMode.java
 @@ -62,10 +62,14 @@ public class L030SpeedsOpMode extends CorbelsTeleOp {
@@ -7,13 +7,13 @@ index a922258..87bc8c2 100644
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030
          // for what to do here.
 +        double leftSpeed = -leftStickY;
-+        Tracker.publish("speed/left", leftSpeed);
++        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
  
          // When on L030S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s040
          // for what to do here.
 +        double rightSpeed = -rightStickY;
-+        Tracker.publish("speed/right", rightSpeed);
++        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

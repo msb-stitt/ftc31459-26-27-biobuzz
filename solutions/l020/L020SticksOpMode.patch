@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L020SticksOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L020SticksOpMode.java
-index 90275a5..a941a72 100644
+index 71f3cf5..456babe 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L020SticksOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L020SticksOpMode.java
 @@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -19,13 +19,13 @@ index 90275a5..a941a72 100644
          // When on L020S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s040
          // for what to do here.
-+        Tracker.publish("stick/leftY", leftStickY);
++        Tracker.publish("gamepad1/leftStickY", leftStickY);
  
          // When on L020S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s050
          // for what to do here.
 +        double rightStickY = gamepad1.right_stick_y;
-+        Tracker.publish("stick/rightY", rightStickY);
++        Tracker.publish("gamepad1/rightStickY", rightStickY);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

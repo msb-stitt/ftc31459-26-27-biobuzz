@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
-index 1ba9aec..7ac1354 100644
+index fdc10e4..858aea9 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
 @@ -8,7 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -20,12 +20,13 @@ index 1ba9aec..7ac1354 100644
  
      // 'public' to match the parent class. 'public' allows access from any code.
      @Override
-@@ -78,6 +81,8 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+@@ -78,6 +81,9 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
          // When on L160S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
          // for what to do here.
-+        turn = hold.turn(follower, turn);
-+        Tracker.publish("heading/holding", hold.target() != null);
++        turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
++        boolean holdingHeading = hold.target() != null;
++        Tracker.publish("drivetrain/holdingHeading", holdingHeading);
  
-         double strafe = deadband(-leftStickX, band);
-         strafe = signedSquared(strafe);
+         double fieldYSpeed = -leftStickX;
+         fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);

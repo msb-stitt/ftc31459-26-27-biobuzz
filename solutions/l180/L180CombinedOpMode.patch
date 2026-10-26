@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java
-index 0cb5b67..859fc88 100644
+index e1aad80..eb8bb1c 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java
 @@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
@@ -10,7 +10,7 @@ index 0cb5b67..859fc88 100644
  import org.firstinspires.ftc.teamcode.pedro.Constants;
  
  /**
-@@ -109,6 +110,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
+@@ -108,6 +109,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
          // When on L180S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
          // for what to do here.

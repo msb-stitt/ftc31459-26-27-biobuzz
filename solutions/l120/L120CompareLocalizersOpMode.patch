@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120CompareLocalizersOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120CompareLocalizersOpMode.java
-index 9360d51..567e3b2 100644
+index ab2f139..ec5be6e 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120CompareLocalizersOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120CompareLocalizersOpMode.java
 @@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +10,7 @@ index 9360d51..567e3b2 100644
  
  /**
   * L120: drive around while two localizers disagree. Your localizer reads the
-@@ -108,6 +109,8 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
+@@ -91,6 +92,8 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
          // When on L120S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
          // for what to do here.
