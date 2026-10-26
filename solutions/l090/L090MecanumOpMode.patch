@@ -13,31 +13,31 @@ index a4912c7..066baf6 100644
          // When on L090S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
          // for what to do here.
-+        double frontLeftPower = forward - strafe - turn;
-+        double frontRightPower = forward + strafe + turn;
-+        double backLeftPower = forward + strafe - turn;
-+        double backRightPower = forward - strafe + turn;
-+        double frontLeftSize = Math.abs(frontLeftPower);
-+        double frontRightSize = Math.abs(frontRightPower);
-+        double backLeftSize = Math.abs(backLeftPower);
-+        double backRightSize = Math.abs(backRightPower);
++        double frontLeftMixedSpeed = forward - strafe - turn;
++        double frontRightMixedSpeed = forward + strafe + turn;
++        double backLeftMixedSpeed = forward + strafe - turn;
++        double backRightMixedSpeed = forward - strafe + turn;
++        double frontLeftSize = Math.abs(frontLeftMixedSpeed);
++        double frontRightSize = Math.abs(frontRightMixedSpeed);
++        double backLeftSize = Math.abs(backLeftMixedSpeed);
++        double backRightSize = Math.abs(backRightMixedSpeed);
 +        double biggest = Math.max(frontLeftSize, frontRightSize);
 +        biggest = Math.max(biggest, backLeftSize);
 +        biggest = Math.max(biggest, backRightSize);
 +        biggest = Math.max(1.0, biggest);
-+        frontLeftPower = frontLeftPower / biggest;
-+        frontRightPower = frontRightPower / biggest;
-+        backLeftPower = backLeftPower / biggest;
-+        backRightPower = backRightPower / biggest;
-+        Tracker.publish("power/frontLeft", frontLeftPower);
-+        Tracker.publish("power/frontRight", frontRightPower);
-+        Tracker.publish("power/backLeft", backLeftPower);
-+        Tracker.publish("power/backRight", backRightPower);
++        frontLeftMixedSpeed = frontLeftMixedSpeed / biggest;
++        frontRightMixedSpeed = frontRightMixedSpeed / biggest;
++        backLeftMixedSpeed = backLeftMixedSpeed / biggest;
++        backRightMixedSpeed = backRightMixedSpeed / biggest;
++        Tracker.publish("mixedSpeed/frontLeft", frontLeftMixedSpeed);
++        Tracker.publish("mixedSpeed/frontRight", frontRightMixedSpeed);
++        Tracker.publish("mixedSpeed/backLeft", backLeftMixedSpeed);
++        Tracker.publish("mixedSpeed/backRight", backRightMixedSpeed);
 +
-+        hardware.frontLeft.setPower(frontLeftPower);
-+        hardware.frontRight.setPower(frontRightPower);
-+        hardware.backLeft.setPower(backLeftPower);
-+        hardware.backRight.setPower(backRightPower);
++        hardware.frontLeft.setPower(frontLeftMixedSpeed);
++        hardware.frontRight.setPower(frontRightMixedSpeed);
++        hardware.backLeft.setPower(backLeftMixedSpeed);
++        hardware.backRight.setPower(backRightMixedSpeed);
  
          boolean buttonA = gamepad1.a;
          Tracker.publish("button/a", buttonA);

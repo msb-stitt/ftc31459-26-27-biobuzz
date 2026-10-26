@@ -13,18 +13,18 @@ index b2d8467..f47998e 100644
 -        hardware.frontRight.setPower(rightSpeed);
 -        hardware.backRight.setPower(rightSpeed);
 +        double band = 0.05;
-+        double leftPower = deadband(leftSpeed, band);
-+        leftPower = signedSquared(leftPower);
-+        Tracker.publish("power/left", leftPower);
-+        double rightPower = deadband(rightSpeed, band);
-+        rightPower = signedSquared(rightPower);
-+        Tracker.publish("power/right", rightPower);
++        double leftShapedSpeed = deadband(leftSpeed, band);
++        leftShapedSpeed = signedSquared(leftShapedSpeed);
++        Tracker.publish("shapedSpeed/left", leftShapedSpeed);
++        double rightShapedSpeed = deadband(rightSpeed, band);
++        rightShapedSpeed = signedSquared(rightShapedSpeed);
++        Tracker.publish("shapedSpeed/right", rightShapedSpeed);
 +
-+        hardware.frontLeft.setPower(leftPower);
-+        hardware.backLeft.setPower(leftPower);
++        hardware.frontLeft.setPower(leftShapedSpeed);
++        hardware.backLeft.setPower(leftShapedSpeed);
 +
-+        hardware.frontRight.setPower(rightPower);
-+        hardware.backRight.setPower(rightPower);
++        hardware.frontRight.setPower(rightShapedSpeed);
++        hardware.backRight.setPower(rightShapedSpeed);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

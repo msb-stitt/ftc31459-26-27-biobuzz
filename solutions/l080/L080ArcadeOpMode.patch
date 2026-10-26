@@ -17,21 +17,21 @@ index 4c73051..ba9f08b 100644
          // When on L080S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
          // for what to do here.
-+        double leftPower = forward - turn;
-+        double rightPower = forward + turn;
-+        double leftSize = Math.abs(leftPower);
-+        double rightSize = Math.abs(rightPower);
++        double leftMixedSpeed = forward - turn;
++        double rightMixedSpeed = forward + turn;
++        double leftSize = Math.abs(leftMixedSpeed);
++        double rightSize = Math.abs(rightMixedSpeed);
 +        double biggest = Math.max(leftSize, rightSize);
 +        biggest = Math.max(1.0, biggest);
-+        leftPower = leftPower / biggest;
-+        rightPower = rightPower / biggest;
-+        Tracker.publish("power/left", leftPower);
-+        Tracker.publish("power/right", rightPower);
++        leftMixedSpeed = leftMixedSpeed / biggest;
++        rightMixedSpeed = rightMixedSpeed / biggest;
++        Tracker.publish("mixedSpeed/left", leftMixedSpeed);
++        Tracker.publish("mixedSpeed/right", rightMixedSpeed);
 +
-+        hardware.frontLeft.setPower(leftPower);
-+        hardware.backLeft.setPower(leftPower);
-+        hardware.frontRight.setPower(rightPower);
-+        hardware.backRight.setPower(rightPower);
++        hardware.frontLeft.setPower(leftMixedSpeed);
++        hardware.backLeft.setPower(leftMixedSpeed);
++        hardware.frontRight.setPower(rightMixedSpeed);
++        hardware.backRight.setPower(rightMixedSpeed);
  
          boolean buttonA = gamepad1.a;
          Tracker.publish("button/a", buttonA);

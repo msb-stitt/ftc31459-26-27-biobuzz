@@ -15,13 +15,13 @@ index d346e1c..598b52d 100644
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
          // for what to do here.
 +        double[] measured = measuredSpeeds.all();
-+        double[] powers = new double[4];
++        double[] speeds = new double[4];
 +        for (int i = 0; i < 4; i++) {
 +            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
 +            double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
-+            powers[i] = clampToPower(feedforward + feedback);
++            speeds[i] = clampToFullSpeed(feedforward + feedback);
 +        }
-+        setCommandedWheels(powers[FL], powers[FR], powers[BL], powers[BR]);
++        setCommandedWheels(speeds[FL], speeds[FR], speeds[BL], speeds[BR]);
 +        publishWheelSpeeds(wanted, measured);
      }
  }
