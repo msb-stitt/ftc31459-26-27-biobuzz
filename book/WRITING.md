@@ -179,8 +179,10 @@ These simplifications are made everywhere, and are not marked:
   `hardware.mecanumConfig.frontLeftDirection.get()` and `line(start, end).constant(start)` do.
 - **`Math.max` takes two numbers**, so the largest of four is a chain of calls, each on its own
   line.
-- **A whole-number `double` is written with `.0`**, in the code and on the page: `1.0`, `0.0`,
-  `-1.0`.
+- **A whole-number `double` is written with `.0` in code**, and where a page names code: `1.0`,
+  `0.0`, `-1.0`, so the student sees they are working with a `double`. A value a tool shows, such
+  as an AdvantageScope reading, is written as the tool shows it: `x_in` 72. Speech, such as the
+  video's captions, says -1, 0 and +1.
 
 ## The code a student copies is plain Java
 
