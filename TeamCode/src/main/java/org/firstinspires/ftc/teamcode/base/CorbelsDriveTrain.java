@@ -146,7 +146,7 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * The arcade command the follower asks for, as wheel speeds: front left,
      * front right, back left, back right.
      */
-    public abstract double[] mixArcadeToWheelSpeeds(DrivePowers speeds);
+    public abstract double[] mixArcadeToWheelSpeeds(DrivePowers arcadeCommand);
 
     /**
      * Drives each wheel at the speed given, from the next follower update until
@@ -223,14 +223,16 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
     }
 
     /**
-     * Drives from the sticks, relative to the robot's own front: the three
-     * numbers go through the same mixing the follower's would have, and the four
+     * Drives from the sticks, relative to the robot's own front: the arcade
+     * command goes through the same mixing the follower's would have, and the
      * wheels are commanded, so the driver wins while a stick is pushed.
      */
     public void sticks(double forwardSpeed, double strafeLeftSpeed, double turnCcwSpeed) {
-        double[] mixedWheelSpeeds = mixArcadeToWheelSpeeds(new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed));
-        double[] speeds = normalized(mixedWheelSpeeds);
-        setCommandedWheels(speeds[FL], speeds[FR], speeds[BL], speeds[BR]);
+        DrivePowers arcadeCommand = new DrivePowers(forwardSpeed, strafeLeftSpeed, turnCcwSpeed);
+        double[] mixedWheelSpeeds = mixArcadeToWheelSpeeds(arcadeCommand);
+        double[] scaledWheelSpeeds = normalized(mixedWheelSpeeds);
+        setCommandedWheels(scaledWheelSpeeds[FL], scaledWheelSpeeds[FR],
+                scaledWheelSpeeds[BL], scaledWheelSpeeds[BR]);
     }
 
     /**
