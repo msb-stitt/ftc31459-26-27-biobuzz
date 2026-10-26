@@ -149,13 +149,15 @@ words = 1700
 
 [[page]]
 path = "source/tasks/e141.md"
-# Measured off the first draft, about 243 words, and rounded up, 2026-10-25.
-words = 300
+# Measured off the first draft, about 243 words, and rounded up, 2026-10-25. Raised for mf.etri's
+# arrows off (0, 0) and its opening paragraph, 326 words, 2026-10-26.
+words = 350
 
 [[page]]
 path = "source/tasks/e142.md"
-# Measured off the first draft, about 513 words, and rounded up, 2026-10-25.
-words = 550
+# Measured off the first draft, about 513 words, and rounded up, 2026-10-25. Raised for mf.etri's
+# quadrants, triangles and quarter turn and its opening paragraph, 841 words, 2026-10-26.
+words = 900
 
 [[page]]
 path = "source/tasks/e143.md"
