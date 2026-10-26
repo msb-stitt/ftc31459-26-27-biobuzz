@@ -55,7 +55,8 @@ public class LauncherCheck extends CorbelsTeleOp {
     @Override
     public void init() {
         initBefore();
-        // Live in AdvantageScope from INIT, at 192.168.43.1. For practice only:
+        // Live in AdvantageScope from INIT, at 192.168.43.1, only when the
+        // Live NetworkTables switch OpMode has turned it on. For practice only:
         // FTC rule R704 forbids it at competitions.
         Tracker.serveLive();
         launcher = launchers.apply(hardwareMap);
