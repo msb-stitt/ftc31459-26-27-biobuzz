@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
-index 114df2b..1329058 100644
+index 8a9dc7d..058ccd8 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
-@@ -91,7 +91,13 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
+@@ -86,7 +86,13 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
          // When on L150S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
          // for what to do here.
@@ -14,6 +14,6 @@ index 114df2b..1329058 100644
 +        } else {
 +            drivetrain.sticks(robotForward, robotStrafe, turn);
 +        }
+     }
  
-         boolean buttonA = gamepad1.a;
-         Tracker.publish("button/a", buttonA);
+     // 'public' to match the parent class. 'public' allows access from any code.
