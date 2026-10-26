@@ -212,15 +212,15 @@ public class StarterBotTest {
         h.loop();
 
         Map<String, Object> logged = Tracker.values();
-        assertEquals(0.25, (Double) logged.get("stick/leftX"), 1e-6);
-        assertEquals(-0.5, (Double) logged.get("stick/leftY"), 1e-6);
-        assertEquals(0.125, (Double) logged.get("stick/rightX"), 1e-6);
+        assertEquals(0.25, (Double) logged.get("gamepad1/leftStickX"), 1e-6);
+        assertEquals(-0.5, (Double) logged.get("gamepad1/leftStickY"), 1e-6);
+        assertEquals(0.125, (Double) logged.get("gamepad1/rightStickX"), 1e-6);
         assertEquals(0.75, (Double) logged.get("trigger/right"), 1e-6);
         assertEquals(0.0, (Double) logged.get("trigger/left"), 1e-6);
         assertEquals(true, logged.get("button/rightBumper"));
-        assertEquals(0.5, (Double) logged.get("drive/forward"), 1e-6);
-        assertEquals(-0.25, (Double) logged.get("drive/strafeLeft"), 1e-6);
-        assertEquals(-0.125, (Double) logged.get("drive/turnCounterclockwise"), 1e-6);
+        assertEquals(0.5, (Double) logged.get("drivetrain/forwardXSpeed"), 1e-6);
+        assertEquals(-0.25, (Double) logged.get("drivetrain/strafeYSpeed"), 1e-6);
+        assertEquals(-0.125, (Double) logged.get("drivetrain/turnCcwSpeed"), 1e-6);
         assertEquals(0.75, (Double) logged.get("intake/speed"), 1e-6);
         assertEquals(1250.0, (Double) logged.get("launcher/target_tps"), 0);
         String[] wheels = {"frontLeft", "frontRight", "backLeft", "backRight"};

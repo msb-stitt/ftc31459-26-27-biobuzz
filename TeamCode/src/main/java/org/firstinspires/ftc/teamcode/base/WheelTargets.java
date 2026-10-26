@@ -31,15 +31,15 @@ public final class WheelTargets {
     }
 
     /**
-     * @param forwardXInPerS      how fast the robot should go forward, inches/second
-     * @param strafeYInPerS       how fast it should go to its own left, inches/second
-     * @param turnCcwSpeedRadPerS how fast it should turn counter-clockwise, radians/second
-     * @param turnRadiusIn        how far a wheel sits from the centre, inches
+     * @param forwardXInPerS how fast the robot should go forward, inches/second
+     * @param strafeYInPerS  how fast it should go to its own left, inches/second
+     * @param turnCcwRadPerS how fast it should turn counter-clockwise, radians/second
+     * @param turnRadiusIn   how far a wheel sits from the centre, inches
      * @return front left, front right, back left, back right -- inches/second
      */
     public static double[] forMecanum(double forwardXInPerS, double strafeYInPerS,
-                                      double turnCcwSpeedRadPerS, double turnRadiusIn) {
-        double edgeSpeedInPerS = turnCcwSpeedRadPerS * turnRadiusIn;
+                                      double turnCcwRadPerS, double turnRadiusIn) {
+        double edgeSpeedInPerS = turnCcwRadPerS * turnRadiusIn;
         return new double[]{
                 forwardXInPerS - strafeYInPerS - edgeSpeedInPerS,
                 forwardXInPerS + strafeYInPerS + edgeSpeedInPerS,

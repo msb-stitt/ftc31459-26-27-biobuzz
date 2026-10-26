@@ -99,16 +99,16 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
         double leftStickX = gamepad1.left_stick_x;
         double leftStickY = gamepad1.left_stick_y;
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
-        Tracker.publish("stick/leftY", leftStickY);
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
         double forwardXSpeed = -leftStickY;
         double strafeYSpeed = -leftStickX;
         double turnCcwSpeed = -rightStickX;
-        Tracker.publish("drive/forward", forwardXSpeed);
-        Tracker.publish("drive/strafeLeft", strafeYSpeed);
-        Tracker.publish("drive/turnCounterclockwise", turnCcwSpeed);
+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
         drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
     }
 
