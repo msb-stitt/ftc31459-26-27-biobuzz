@@ -15,10 +15,10 @@ is gone; each number is the line's place in the file after the lesson.
    44         // When on L110S030, see
    45         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030
    46         // for what to do here.
-+  47         wheelSpeeds[FL] = forwardSpeed - strafeSpeed - turnSpeed;
-+  48         wheelSpeeds[FR] = forwardSpeed + strafeSpeed + turnSpeed;
-+  49         wheelSpeeds[BL] = forwardSpeed + strafeSpeed - turnSpeed;
-+  50         wheelSpeeds[BR] = forwardSpeed - strafeSpeed + turnSpeed;
++  47         wheelSpeeds[FL] = forwardSpeed - strafeLeftSpeed - turnCcwSpeed;
++  48         wheelSpeeds[FR] = forwardSpeed + strafeLeftSpeed + turnCcwSpeed;
++  49         wheelSpeeds[BL] = forwardSpeed + strafeLeftSpeed - turnCcwSpeed;
++  50         wheelSpeeds[BR] = forwardSpeed - strafeLeftSpeed + turnCcwSpeed;
    51
    52         return wheelSpeeds;
    53     }
