@@ -62,14 +62,14 @@ public class L050BlocksOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         double leftSpeed = -leftStickY;
-        Tracker.publish("speed/left", leftSpeed);
+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
         double rightSpeed = -rightStickY;
-        Tracker.publish("speed/right", rightSpeed);
+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 
         hardware.frontLeft.setPower(leftSpeed);
         hardware.backLeft.setPower(leftSpeed);

@@ -56,9 +56,9 @@ public class L030SpeedsOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void readTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double rightStickY = gamepad1.right_stick_y;
-        Tracker.publish("stick/rightY", rightStickY);
+        Tracker.publish("gamepad1/rightStickY", rightStickY);
 
         // When on L030S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l030.html#l030s030

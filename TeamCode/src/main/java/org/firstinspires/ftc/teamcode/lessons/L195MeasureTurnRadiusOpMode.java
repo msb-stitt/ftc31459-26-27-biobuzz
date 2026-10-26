@@ -102,20 +102,20 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
                 now[2] - startTicks[2], now[3] - startTicks[3]);
         wheelInches = turnTicks / Constants.ticksPerInch;
 
-        double measured = Calibration.turnRadiusInches(wheelInches, radians);
+        double measuredTurnRadiusInches = Calibration.turnRadiusInches(wheelInches, radians);
         Tracker.publish("measure/radians", radians);
-        Tracker.publish("measure/wheel_inches", wheelInches);
-        Tracker.publish("measure/turnRadius_in", measured);
+        Tracker.publish("measure/wheelInches", wheelInches);
+        Tracker.publish("measure/turnRadiusInches", measuredTurnRadiusInches);
 
         Tracker.printToDs("Spin the robot  %.2f of %.0f turns",
                 Math.abs(radians) / (2.0 * Math.PI), NEEDED_TURNS);
         Tracker.printToDs("Wheels travelled  %.1f inches", wheelInches);
         if (Math.abs(radians) >= NEEDED_TURNS * 2.0 * Math.PI) {
             Tracker.printToDs();
-            Tracker.printToDs("turn radius  %.2f inches", measured);
+            Tracker.printToDs("turn radius  %.2f inches", measuredTurnRadiusInches);
             Tracker.printToDs("Measure the diagonal between wheels and halve it; they should agree.");
         } else {
-            Tracker.printToDs("Currently  %.2f inches", measured);
+            Tracker.printToDs("Currently  %.2f inches", measuredTurnRadiusInches);
         }
         Tracker.printToDs("ticksPerInch in use  %.2f", Constants.ticksPerInch);
     }

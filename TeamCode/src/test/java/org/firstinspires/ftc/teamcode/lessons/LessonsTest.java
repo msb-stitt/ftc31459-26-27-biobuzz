@@ -65,9 +65,9 @@ public class LessonsTest {
 
         Map<String, Object> values = Tracker.values();
         assertEquals("the left stick as the gamepad gives it, with no minus sign yet",
-                -1.0, number(values, "stick/leftY"), EPS);
+                -1.0, number(values, "gamepad1/leftStickY"), EPS);
         assertEquals("the right stick as the gamepad gives it",
-                0.5, number(values, "stick/rightY"), EPS);
+                0.5, number(values, "gamepad1/rightStickY"), EPS);
     }
 
     // -------------------------------------------------------------- L030
@@ -84,11 +84,11 @@ public class LessonsTest {
 
         Map<String, Object> values = Tracker.values();
         assertEquals("the left stick still as the gamepad gives it",
-                -1.0, number(values, "stick/leftY"), EPS);
+                -1.0, number(values, "gamepad1/leftStickY"), EPS);
         assertEquals("the left stick pushed away is full speed forward",
-                1.0, number(values, "speed/left"), EPS);
+                1.0, number(values, "drivetrain/leftSpeed"), EPS);
         assertEquals("the right stick pulled halfway back is half speed backward",
-                -0.5, number(values, "speed/right"), EPS);
+                -0.5, number(values, "drivetrain/rightSpeed"), EPS);
     }
 
     // -------------------------------------------------------------- L040
@@ -191,11 +191,11 @@ public class LessonsTest {
         h.start();
         h.gamepad1.a = true;
         h.loop();
-        assertEquals("A held down", true, Tracker.values().get("button/a"));
+        assertEquals("A held down", true, Tracker.values().get("gamepad1/buttonA"));
 
         h.gamepad1.a = false;
         h.loop();
-        assertEquals("A let go", false, Tracker.values().get("button/a"));
+        assertEquals("A let go", false, Tracker.values().get("gamepad1/buttonA"));
         h.stop();
     }
 
@@ -205,21 +205,21 @@ public class LessonsTest {
         h.init();
         h.start();
         h.loop();
-        assertEquals("nothing has changed yet", null, Tracker.values().get("button/event"));
+        assertEquals("nothing has changed yet", null, Tracker.values().get("gamepad1/buttonAEvent"));
 
         h.gamepad1.a = true;
         h.loop();
         assertEquals("the loop the button went down on says so",
-                "A pressed", Tracker.values().get("button/event"));
+                "A pressed", Tracker.values().get("gamepad1/buttonAEvent"));
 
         h.loop();
         assertEquals("holding it says nothing new",
-                "A pressed", Tracker.values().get("button/event"));
+                "A pressed", Tracker.values().get("gamepad1/buttonAEvent"));
 
         h.gamepad1.a = false;
         h.loop();
         assertEquals("letting go says so",
-                "A released", Tracker.values().get("button/event"));
+                "A released", Tracker.values().get("gamepad1/buttonAEvent"));
         h.stop();
     }
 
@@ -232,8 +232,8 @@ public class LessonsTest {
         h.gamepad1.right_stick_x = -0.25f;
         h.loop();
 
-        assertEquals(0.5, number(Tracker.values(), "stick/leftX"), EPS);
-        assertEquals(-0.25, number(Tracker.values(), "stick/rightX"), EPS);
+        assertEquals(0.5, number(Tracker.values(), "gamepad1/leftStickX"), EPS);
+        assertEquals(-0.25, number(Tracker.values(), "gamepad1/rightStickX"), EPS);
         h.stop();
     }
 
@@ -633,7 +633,7 @@ public class LessonsTest {
         h.gamepad1.left_stick_y = -1.0f;
         h.loop();
         assertEquals("a stick takes it back", "DRIVER",
-                Tracker.values().get("drive/mode"));
+                Tracker.values().get("drivetrain/driveMode"));
         h.stop();
 
         assertTrue("the shadow localizer is still running",
@@ -654,9 +654,9 @@ public class LessonsTest {
         h.gamepad1.left_stick_y = -1.0f;             // still translating
         h.loop();
 
-        assertEquals("aiming", true, Tracker.values().get("heading/holding"));
+        assertEquals("aiming", true, Tracker.values().get("drivetrain/holdingHeading"));
         assertEquals("at 45 degrees", 45.0,
-                (Double) Tracker.values().get("heading/target_deg"), 1e-6);
+                (Double) Tracker.values().get("drivetrain/targetHeadingDegrees"), 1e-6);
         assertTrue("turning toward it", h.wheelsTurn() > 0);
         assertTrue("and still driving", Math.abs(h.wheelsForward()) + Math.abs(h.wheelsStrafe()) > 0);
     }
@@ -676,7 +676,7 @@ public class LessonsTest {
 
         assertEquals("the stick wins", -1.0, h.wheelsTurn(), 1e-3);
         assertEquals("not aiming any more", false,
-                Tracker.values().get("heading/holding"));
+                Tracker.values().get("drivetrain/holdingHeading"));
     }
 
     @Test
@@ -689,7 +689,7 @@ public class LessonsTest {
         h.loop();
 
         assertEquals("full stick asks for a speed, in inches per second",
-                40.0, (Double) Tracker.values().get("command/forward_ips"), 1e-6);
+                40.0, (Double) Tracker.values().get("drivetrain/forwardXInPerS"), 1e-6);
         assertEquals("and every wheel must travel at it",
                 40.0, (Double) Tracker.values().get("wheel/frontLeft/target_ips"), 1e-6);
         assertEquals("the wheels are not moving yet, so the error is the whole target",

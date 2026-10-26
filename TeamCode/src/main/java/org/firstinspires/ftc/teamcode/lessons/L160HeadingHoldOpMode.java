@@ -63,37 +63,44 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
     /** Once every loop, from PLAY until STOP: the scheduler runs it. */
     void driveFromTheSticks() {
         double leftStickY = gamepad1.left_stick_y;
-        Tracker.publish("stick/leftY", leftStickY);
+        Tracker.publish("gamepad1/leftStickY", leftStickY);
         double leftStickX = gamepad1.left_stick_x;
-        Tracker.publish("stick/leftX", leftStickX);
+        Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
-        Tracker.publish("stick/rightX", rightStickX);
+        Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double band = 0.05;
-        double forward = deadband(-leftStickY, band);
-        forward = signedSquared(forward);
-        Tracker.publish("arcade/forward", forward);
-        double turn = deadband(-rightStickX, band);
-        turn = signedSquared(turn);
-        Tracker.publish("arcade/turn", turn);
+        double bandToSetToZero = 0.05;
+        double fieldXSpeed = -leftStickY;
+        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
         // When on L160S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
         // for what to do here.
 
-        double strafe = deadband(-leftStickX, band);
-        strafe = signedSquared(strafe);
-        Tracker.publish("arcade/strafe", strafe);
+        double fieldYSpeed = -leftStickX;
+        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
 
-        double heading = follower.pose().heading();
-        double robotForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
-        double robotStrafe = -forward * Math.sin(heading) + strafe * Math.cos(heading);
+        double robotForwardXSpeed;
+        double robotStrafeYSpeed;
         boolean robotRelative = gamepad1.right_bumper;
-        Tracker.publish("drive/robotRelative", robotRelative);
+        Tracker.publish("drivetrain/robotRelative", robotRelative);
         if (robotRelative) {
-            drivetrain.sticks(forward, strafe, turn);
+            robotForwardXSpeed = -leftStickY;
+            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
+            robotStrafeYSpeed = -leftStickX;
+            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
         } else {
-            drivetrain.sticks(robotForward, robotStrafe, turn);
+            double heading = follower.pose().heading();
+            robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+            robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
         }
+        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
+        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
+        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -112,6 +119,13 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
     }
 
     double signedSquared(double value) {
-        return value * Math.abs(value);
+        double squaredWithItsSign = value * Math.abs(value);
+        return squaredWithItsSign;
+    }
+
+    double speedShaped(double value, double band) {
+        double deadbanded = deadband(value, band);
+        double shapedSpeed = signedSquared(deadbanded);
+        return shapedSpeed;
     }
 }
