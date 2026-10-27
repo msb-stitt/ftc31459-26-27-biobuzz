@@ -234,7 +234,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-minor-fixes.1"
+solutions = "solutions-minor-fixes"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -245,4 +245,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-minor-fixes"
-commit = "67636bda0c2d817cdbcc36526f66d62cde4a9710"
+commit = ""
