@@ -22,18 +22,18 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
 
     /**
      * Drives each wheel at the speed given, in inches per second.
-     * {@code wantedInPerS[FL]} is the front left wheel's speed, and {@code FR},
+     * {@code wanted_ips[FL]} is the front left wheel's speed, and {@code FR},
      * {@code BL} and {@code BR} name the other three.
      */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
-    public void setCommandedWheelSpeeds(double frontLeftInPerS, double frontRightInPerS,
-                                        double backLeftInPerS, double backRightInPerS) {
-        double[] wantedInPerS = new double[4];
-        wantedInPerS[FL] = frontLeftInPerS;
-        wantedInPerS[FR] = frontRightInPerS;
-        wantedInPerS[BL] = backLeftInPerS;
-        wantedInPerS[BR] = backRightInPerS;
+    public void setCommandedWheelSpeeds(double frontLeft_ips, double frontRight_ips,
+                                        double backLeft_ips, double backRight_ips) {
+        double[] wanted_ips = new double[4];
+        wanted_ips[FL] = frontLeft_ips;
+        wanted_ips[FR] = frontRight_ips;
+        wanted_ips[BL] = backLeft_ips;
+        wanted_ips[BR] = backRight_ips;
 
         // When on L190S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060

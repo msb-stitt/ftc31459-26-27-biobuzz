@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
+import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+
 /**
  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
  * full speed, and the drivetrain measures the wheels and makes up the
@@ -85,12 +87,12 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
         // When on L190S050, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
         // for what to do here.
-        double forwardXInPerS = 0.0;
-        Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
-        double strafeYInPerS = 0.0;
-        Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
-        double turnRadPerS = 0.0;
-        Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+        double forwardX_ips = 0.0;
+        Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+        double strafeY_ips = 0.0;
+        Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+        double turn_radps = 0.0;
+        Tracker.publish("drivetrain/turn_radps", turn_radps);
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.

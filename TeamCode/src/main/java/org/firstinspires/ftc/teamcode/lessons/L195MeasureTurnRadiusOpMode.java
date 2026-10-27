@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
+import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+
 /**
  * L195: measure how far a wheel is from the middle of the robot -- by spinning
  * the robot.
@@ -44,8 +46,8 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
     double neededTurns = 2.0;
 
     int[] startTicks;
-    double previousHeading;
-    double radians, wheelInches;
+    double previousHeading_rad;
+    double turned_rad, wheel_in;
 
     L195TicksDriveTrain drivetrain;
 
@@ -64,7 +66,7 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
         // The wheels must roll freely, so no braking while we spin.
         drivetrain.forceCoastForCharacterization();
         startTicks = drivetrain.wheelTicks();
-        previousHeading = follower.pose().heading();
+        previousHeading_rad = follower.pose().heading();
         Command measureTurnRadiusEveryLoop = Commands.infinite(this::measureTurnRadius);
         Scheduler.schedule(measureTurnRadiusEveryLoop);
         startAfter();
@@ -93,35 +95,35 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
     void measureTurnRadius() {
         drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);
 
-        double heading = follower.pose().heading();
-        radians += Calibration.unwrap(previousHeading, heading);
-        previousHeading = heading;
+        double heading_rad = follower.pose().heading();
+        turned_rad += Calibration.unwrap(previousHeading_rad, heading_rad);
+        previousHeading_rad = heading_rad;
 
         int[] now = drivetrain.wheelTicks();
-        int frontLeftTicks = now[0] - startTicks[0];
-        int frontRightTicks = now[1] - startTicks[1];
-        int backLeftTicks = now[2] - startTicks[2];
-        int backRightTicks = now[3] - startTicks[3];
+        int frontLeftTicks = now[FL] - startTicks[FL];
+        int frontRightTicks = now[FR] - startTicks[FR];
+        int backLeftTicks = now[BL] - startTicks[BL];
+        int backRightTicks = now[BR] - startTicks[BR];
         double turnTicks = Calibration.turnPart(frontLeftTicks, frontRightTicks, backLeftTicks,
                 backRightTicks);
-        wheelInches = turnTicks / Constants.ticksPerInch;
+        wheel_in = turnTicks / Constants.ticksPerInch;
 
-        double measuredTurnRadiusInches = Calibration.turnRadiusInches(wheelInches, radians);
-        Tracker.publish("measure/radians", radians);
-        Tracker.publish("measure/wheelInches", wheelInches);
-        Tracker.publish("measure/turnRadiusInches", measuredTurnRadiusInches);
+        double measuredTurnRadius_in = Calibration.turnRadiusInches(wheel_in, turned_rad);
+        Tracker.publish("measure/turned_rad", turned_rad);
+        Tracker.publish("measure/wheel_in", wheel_in);
+        Tracker.publish("measure/measuredTurnRadius_in", measuredTurnRadius_in);
 
-        double radiansTurned = Math.abs(radians);
-        double turnsDone = radiansTurned / (2.0 * Math.PI);
+        double absTurned_rad = Math.abs(turned_rad);
+        double turnsDone = absTurned_rad / (2.0 * Math.PI);
         Tracker.printToDs("Spin the robot  %.2f of %.0f turns", turnsDone, neededTurns);
-        Tracker.printToDs("Wheels travelled  %.1f inches", wheelInches);
+        Tracker.printToDs("Wheels travelled  %.1f inches", wheel_in);
         boolean turnedEnough = turnsDone >= neededTurns;
         if (turnedEnough) {
             Tracker.printToDs();
-            Tracker.printToDs("turn radius  %.2f inches", measuredTurnRadiusInches);
+            Tracker.printToDs("turn radius  %.2f inches", measuredTurnRadius_in);
             Tracker.printToDs("Measure the diagonal between wheels and halve it; they should agree.");
         } else {
-            Tracker.printToDs("Currently  %.2f inches", measuredTurnRadiusInches);
+            Tracker.printToDs("Currently  %.2f inches", measuredTurnRadius_in);
         }
         Tracker.printToDs("ticksPerInch in use  %.2f", Constants.ticksPerInch);
     }
