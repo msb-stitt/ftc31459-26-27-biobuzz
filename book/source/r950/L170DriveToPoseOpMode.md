@@ -1,7 +1,7 @@
 # L170DriveToPoseOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from
-applying `solutions/` on `solutions-l140-alliances`. A line marked + is new, and a line marked -
+applying `solutions/` on `solutions-l140-alliances.2`. A line marked + is new, and a line marked -
 is gone; each number is the line's place in the file after the lesson.
 
 ## L170
