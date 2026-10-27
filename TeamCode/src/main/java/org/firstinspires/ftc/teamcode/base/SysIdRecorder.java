@@ -65,15 +65,15 @@ public class SysIdRecorder {
      * @param motor        what the motor is called, e.g. "frontLeft"
      * @param speed        what was commanded, -1 to 1
      * @param batteryVolts what the battery is giving right now
-     * @param inches       how far this wheel has travelled
-     * @param inchesPerSec how fast it is travelling
+     * @param position_in  how far this wheel has travelled
+     * @param velocity_ips how fast it is travelling
      */
     public void motor(String motor, double speed, double batteryVolts,
-                      double inches, double inchesPerSec) {
+                      double position_in, double velocity_ips) {
         if (flightlog == null) return;
         flightlog.recordOutput("voltage-" + motor + "-" + name, appliedVolts(speed, batteryVolts));
-        flightlog.recordOutput("position-" + motor + "-" + name, inches);
-        flightlog.recordOutput("velocity-" + motor + "-" + name, inchesPerSec);
+        flightlog.recordOutput("position-" + motor + "-" + name, position_in);
+        flightlog.recordOutput("velocity-" + motor + "-" + name, velocity_ips);
     }
 
     /**

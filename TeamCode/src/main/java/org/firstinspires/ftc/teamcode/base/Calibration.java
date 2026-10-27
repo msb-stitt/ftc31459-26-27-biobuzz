@@ -47,12 +47,12 @@ public final class Calibration {
      * How far a wheel sits from the middle of the robot, in inches -- the
      * number that turns radians per second into inches per second at the wheel.
      *
-     * @param wheelInches how far a wheel travelled, as a turn part
-     * @param radians     what the Pinpoint says the robot actually turned
+     * @param wheel_in how far a wheel travelled, as a turn part
+     * @param turn_rad what the Pinpoint says the robot actually turned
      */
-    public static double turnRadiusInches(double wheelInches, double radians) {
-        if (Math.abs(radians) < 1e-9) return Double.NaN;
-        return Math.abs(wheelInches / radians);
+    public static double turnRadiusInches(double wheel_in, double turn_rad) {
+        if (Math.abs(turn_rad) < 1e-9) return Double.NaN;
+        return Math.abs(wheel_in / turn_rad);
     }
 
     /** Keeps an angle's total change, in radians, across the -pi/pi wrap. */

@@ -85,7 +85,7 @@ Run **TeleOp + Panels** or **Auto: Drive 24in** and you get:
 ```
 loop/count: 412
 loop/period_ms: 4.83
-loop/max_period_ms: 21.4
+loop/maxPeriod_ms: 21.4
 pose/x_in: 6.42
 vel/speed_ips: 18.4
 ...
@@ -98,7 +98,7 @@ them from the list:
 |---|---|
 | `loop/count` | Loops that have finished. 0 inside the first loop, 1 once it ends |
 | `loop/period_ms` | Milliseconds for the last loop |
-| `loop/max_period_ms` | Slowest loop since start() — catches spikes sampling misses |
+| `loop/maxPeriod_ms` | Slowest loop since start() — catches spikes sampling misses |
 | `loop/rate_hz` | Loop rate |
 | `loop/uptime_s` | Seconds since start() |
 | `pose/x_in`, `pose/y_in` | Position, inches |
@@ -106,7 +106,7 @@ them from the list:
 | `vel/vx_ips`, `vel/vy_ips` | World-frame velocity |
 | `vel/speed_ips` | Overall speed |
 | `vel/omega_radps` | Angular velocity |
-| `vel/forward_ips`, `vel/strafe_ips` | Body-frame velocity |
+| `vel/forwardX_ips`, `vel/strafeY_ips` | Body-frame velocity |
 | `vel/tangential_ips` | Speed along the current path. `NaN` when there is no path — i.e. always in teleop |
 
 A series only shows up in the picker **after it has been sent once**, so start
@@ -126,13 +126,13 @@ in 15 reaches the graph.
 ### Reading the graphs
 
 - `loop/period_ms` should sit low and flat. Because of sampling, a single slow
-  loop usually won't show here — watch `loop/max_period_ms` instead. A step up
-  in `loop/max_period_ms` means some loop blocked: usually a slow sensor read or
+  loop usually won't show here — watch `loop/maxPeriod_ms` instead. A step up
+  in `loop/maxPeriod_ms` means some loop blocked: usually a slow sensor read or
   a loop printing too much.
 - `pose/x_in` during the auto should ramp smoothly to 24 and stop.
 - `vel/tangential_ips` should rise, plateau, then decay to zero. A long tail
   near zero means the follower is still correcting at the end of the path.
-- `vel/strafe_ips` should stay near zero on a straight drive. If it doesn't,
+- `vel/strafeY_ips` should stay near zero on a straight drive. If it doesn't,
   the odometry pod offsets in `Constants.java` are probably off.
 
 ### Field view

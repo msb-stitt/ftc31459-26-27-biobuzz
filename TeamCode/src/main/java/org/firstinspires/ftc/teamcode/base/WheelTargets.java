@@ -31,19 +31,19 @@ public final class WheelTargets {
     }
 
     /**
-     * @param forwardXInPerS how fast the robot should go forward, inches/second
-     * @param strafeYInPerS  how fast it should go to its own left, inches/second
-     * @param turnCcwRadPerS how fast it should turn counter-clockwise, radians/second
-     * @param turnRadiusIn   how far a wheel sits from the centre, inches
+     * @param forwardX_ips how fast the robot should go forward, inches/second
+     * @param strafeY_ips how fast it should go to its own left, inches/second
+     * @param turnCcw_radps how fast it should turn counter-clockwise, radians/second
+     * @param turnRadius_in how far a wheel sits from the centre, inches
      * @return front left, front right, back left, back right -- inches/second
      */
-    public static double[] forMecanum(double forwardXInPerS, double strafeYInPerS,
-                                      double turnCcwRadPerS, double turnRadiusIn) {
-        double edgeSpeedInPerS = turnCcwRadPerS * turnRadiusIn;
+    public static double[] forMecanum(double forwardX_ips, double strafeY_ips,
+                                      double turnCcw_radps, double turnRadius_in) {
+        double edgeSpeed_ips = turnCcw_radps * turnRadius_in;
         return new double[]{
-                forwardXInPerS - strafeYInPerS - edgeSpeedInPerS,
-                forwardXInPerS + strafeYInPerS + edgeSpeedInPerS,
-                forwardXInPerS + strafeYInPerS - edgeSpeedInPerS,
-                forwardXInPerS - strafeYInPerS + edgeSpeedInPerS};
+                forwardX_ips - strafeY_ips - edgeSpeed_ips,
+                forwardX_ips + strafeY_ips + edgeSpeed_ips,
+                forwardX_ips + strafeY_ips - edgeSpeed_ips,
+                forwardX_ips - strafeY_ips + edgeSpeed_ips};
     }
 }

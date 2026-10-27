@@ -106,13 +106,13 @@ public class PanelsLogger {
             // ---- robot position ----
             // Pedro 3 uses follower.pose(), NOT getPose(), and the accessors are
             // x()/y()/heading() -- methods, not fields. Heading is in radians.
-            double x = follower.pose().x();
-            double y = follower.pose().y();
-            double headingDeg = Math.toDegrees(follower.pose().heading());
+            double x_in = follower.pose().x();
+            double y_in = follower.pose().y();
+            double heading_deg = Math.toDegrees(follower.pose().heading());
 
-            panels.addData("pose/x_in", x);
-            panels.addData("pose/y_in", y);
-            panels.addData("pose/heading_deg", headingDeg);
+            panels.addData("pose/x_in", x_in);
+            panels.addData("pose/y_in", y_in);
+            panels.addData("pose/heading_deg", heading_deg);
 
             // ---- robot velocity ----
             // Three flavors, all useful for different questions:
@@ -120,30 +120,30 @@ public class PanelsLogger {
             //   twist()              body frame  -- forward / strafe from the robot's view
             //   tangentialVelocity() scalar      -- speed along the current path
             // Velocity and Twist expose PUBLIC FIELDS vx/vy/omega, not getters.
-            double vx = follower.velocity().vx;
-            double vy = follower.velocity().vy;
-            double omega = follower.velocity().omega;
-            double forwardXInPerS = follower.twist().vx;
-            double strafeYInPerS = follower.twist().vy;
+            double vx_ips = follower.velocity().vx;
+            double vy_ips = follower.velocity().vy;
+            double omega_radps = follower.velocity().omega;
+            double forwardX_ips = follower.twist().vx;
+            double strafeY_ips = follower.twist().vy;
             // tangentialVelocity() is velocity . closestTangent(), and Pedro only
             // computes closestTangent while following or holding. In MANUAL it is
             // null until a path has run, and tangentialVelocity() throws a
             // NullPointerException -- which crashed TeleOp + Panels on its first
             // loop. NaN when undefined: Panels shows it as text, the graph skips it.
-            double tangential = hasAim(follower) && follower.closestTangent() != null
+            double tangential_ips = hasAim(follower) && follower.closestTangent() != null
                     ? follower.tangentialVelocity()
                     : Double.NaN;
-            double speed = Math.hypot(vx, vy);
+            double speed_ips = Math.hypot(vx_ips, vy_ips);
 
-            panels.addData("vel/vx_ips", vx);
-            panels.addData("vel/vy_ips", vy);
-            panels.addData("vel/speed_ips", speed);
-            panels.addData("vel/omega_radps", omega);
-            panels.addData("vel/forward_ips", forwardXInPerS);
-            panels.addData("vel/strafe_ips", strafeYInPerS);
-            panels.addData("vel/tangential_ips", tangential);
+            panels.addData("vel/vx_ips", vx_ips);
+            panels.addData("vel/vy_ips", vy_ips);
+            panels.addData("vel/speed_ips", speed_ips);
+            panels.addData("vel/omega_radps", omega_radps);
+            panels.addData("vel/forwardX_ips", forwardX_ips);
+            panels.addData("vel/strafeY_ips", strafeY_ips);
+            panels.addData("vel/tangential_ips", tangential_ips);
 
-            drawField(follower, x, y, follower.pose().heading(), now);
+            drawField(follower, x_in, y_in, follower.pose().heading(), now);
         }
 
         if (!pedroLog.isEmpty()) {
@@ -163,12 +163,12 @@ public class PanelsLogger {
         return mode == Follower.Mode.FOLLOW || mode == Follower.Mode.HOLD;
     }
 
-    private void drawField(Follower follower, double x, double y, double headingRad, long now) {
+    private void drawField(Follower follower, double x_in, double y_in, double heading_rad, long now) {
         // Trail is recorded every loop, so it stays accurate even though
         // drawing below is rate limited.
         double[] last = trail.peekLast();
-        if (last == null || Math.hypot(x - last[0], y - last[1]) >= TRAIL_SPACING_IN) {
-            trail.addLast(new double[]{x, y});
+        if (last == null || Math.hypot(x_in - last[0], y_in - last[1]) >= TRAIL_SPACING_IN) {
+            trail.addLast(new double[]{x_in, y_in});
             if (trail.size() > TRAIL_MAX_POINTS) {
                 trail.removeFirst();
             }
@@ -221,7 +221,7 @@ public class PanelsLogger {
         }
 
         // 4. Robot, drawn last so it sits on top.
-        drawSquare(x, y, headingRad, ROBOT_COLOR, 0.75);
+        drawSquare(x_in, y_in, heading_rad, ROBOT_COLOR, 0.75);
 
         // Sends the frame (if 100 ms have passed) and clears it either way.
         field.update();
@@ -232,25 +232,25 @@ public class PanelsLogger {
      * from the center to the middle of the front edge. Panels' rect() has no
      * rotation, so the square is drawn as four edges between rotated corners.
      */
-    private void drawSquare(double x, double y, double headingRad, String color, double width) {
+    private void drawSquare(double x_in, double y_in, double heading_rad, String color, double width) {
         field.setStyle(PanelsField.INSTANCE.getTRANSPARENT(), color, width);
         double half = ROBOT_SIZE_IN / 2.0;
-        double c = Math.cos(headingRad);
-        double s = Math.sin(headingRad);
+        double cosHeading = Math.cos(heading_rad);
+        double sinHeading = Math.sin(heading_rad);
         // Corners in the robot's own frame (+x forward, +y left), in order
         // around the square: front-left, front-right, back-right, back-left.
         double[][] corners = {{half, half}, {half, -half}, {-half, -half}, {-half, half}};
         double[] fx = new double[4];
         double[] fy = new double[4];
         for (int i = 0; i < 4; i++) {
-            fx[i] = x + corners[i][0] * c - corners[i][1] * s;
-            fy[i] = y + corners[i][0] * s + corners[i][1] * c;
+            fx[i] = x_in + corners[i][0] * cosHeading - corners[i][1] * sinHeading;
+            fy[i] = y_in + corners[i][0] * sinHeading + corners[i][1] * cosHeading;
         }
         for (int i = 0; i < 4; i++) {
             int next = (i + 1) % 4;
             segment(fx[i], fy[i], fx[next], fy[next]);
         }
-        segment(x, y, x + half * c, y + half * s);  // heading
+        segment(x_in, y_in, x_in + half * cosHeading, y_in + half * sinHeading);  // heading
     }
 
     /** line() draws from the cursor and does NOT move it, so every segment

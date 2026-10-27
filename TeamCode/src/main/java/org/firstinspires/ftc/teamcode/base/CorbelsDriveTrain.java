@@ -22,8 +22,8 @@ import java.util.Map;
  * {@code forwardXSpeed} along the robot's nose, {@code strafeYSpeed} towards
  * the robot's left, and {@code turnCcwSpeed} counter-clockwise seen from above.
  * Every name in this project carries the direction for that reason, and a rate
- * in real units carries the unit too: {@code forwardXInPerS},
- * {@code turnCcwRadPerS}. The frame itself is Pedro's, defined at
+ * in real units carries the unit too: {@code forwardX_ips},
+ * {@code turnCcw_radps}. The frame itself is Pedro's, defined at
  * https://pedropathing.com/docs/pathing/reference/coordinates
  *
  * <p><b>Why we have one at all.</b> Pedro ships a complete mecanum drivetrain,
@@ -42,16 +42,16 @@ import java.util.Map;
 public abstract class CorbelsDriveTrain implements Drivetrain {
 
     /** Front left, in {@link #wheelSpeeds} and in every other four-wheel array. */
-    protected static final int FL = 0;
+    public static final int FL = 0;
 
     /** Front right. */
-    protected static final int FR = 1;
+    public static final int FR = 1;
 
     /** Back left. */
-    protected static final int BL = 2;
+    public static final int BL = 2;
 
     /** Back right. */
-    protected static final int BR = 3;
+    public static final int BR = 3;
 
     /** Speed per inch per second of error, for {@link #setCommandedWheelSpeeds}. */
     public static final double VELOCITY_KP = 0.008;
@@ -242,12 +242,12 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * <p>The heading is passed in rather than read, because the drivetrain does
      * not know where the robot is -- whoever has the follower does.
      */
-    public void fieldRelative(double headingRad, double fieldXSpeed, double fieldYSpeed,
+    public void fieldRelative(double heading_rad, double fieldXSpeed, double fieldYSpeed,
                               double turnCcwSpeed) {
-        double cos = Math.cos(headingRad);
-        double sin = Math.sin(headingRad);
-        sticks(fieldXSpeed * cos + fieldYSpeed * sin,
-                -fieldXSpeed * sin + fieldYSpeed * cos,
+        double cosHeading = Math.cos(heading_rad);
+        double sinHeading = Math.sin(heading_rad);
+        sticks(fieldXSpeed * cosHeading + fieldYSpeed * sinHeading,
+                -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading,
                 turnCcwSpeed);
     }
 
@@ -263,13 +263,13 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      * {@link Constants#powerPerInchPerSecond}, plus a correction proportional to
      * the difference between the speed asked for and the speed measured.
      */
-    public void setCommandedWheelSpeeds(double frontLeftInPerS, double frontRightInPerS,
-                                        double backLeftInPerS, double backRightInPerS) {
+    public void setCommandedWheelSpeeds(double frontLeft_ips, double frontRight_ips,
+                                        double backLeft_ips, double backRight_ips) {
         double[] wanted = new double[4];
-        wanted[FL] = frontLeftInPerS;
-        wanted[FR] = frontRightInPerS;
-        wanted[BL] = backLeftInPerS;
-        wanted[BR] = backRightInPerS;
+        wanted[FL] = frontLeft_ips;
+        wanted[FR] = frontRight_ips;
+        wanted[BL] = backLeft_ips;
+        wanted[BR] = backRight_ips;
 
         double[] measured = measuredSpeeds.all();
         double[] speeds = new double[4];

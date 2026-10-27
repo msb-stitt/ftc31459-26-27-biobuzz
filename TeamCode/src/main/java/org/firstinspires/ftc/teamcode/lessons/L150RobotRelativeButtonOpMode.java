@@ -86,9 +86,11 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
         // When on L150S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
         // for what to do here.
-        double heading = follower.pose().heading();
-        robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
-        robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
+        double heading_rad = follower.pose().heading();
+        double sinHeading = Math.sin(heading_rad);
+        double cosHeading = Math.cos(heading_rad);
+        robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
+        robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);

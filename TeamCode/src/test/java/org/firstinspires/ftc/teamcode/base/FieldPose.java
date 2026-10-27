@@ -32,11 +32,11 @@ final class FieldPose {
 
     /**
      * Pedro's inches from a corner and radians counter-clockwise, as
-     * {@code {x, y, headingRad}} in metres from the centre.
+     * {@code {x, y, heading_rad}} in metres from the centre.
      */
-    static double[] of(double xIn, double yIn, double headingRad) {
-        double x = (xIn - FIELD_CENTER_IN) * METERS_PER_INCH;
-        double y = (yIn - FIELD_CENTER_IN) * METERS_PER_INCH;
+    static double[] of(double x_in, double y_in, double heading_rad) {
+        double x = (x_in - FIELD_CENTER_IN) * METERS_PER_INCH;
+        double y = (y_in - FIELD_CENTER_IN) * METERS_PER_INCH;
         int turns = Math.floorMod(FlightLog.fieldQuarterTurns, 4);
         double fx;
         double fy;
@@ -46,9 +46,9 @@ final class FieldPose {
             case 3:  fx = y;  fy = -x; break;
             default: fx = x;  fy = y;  break;
         }
-        double heading = (headingRad + turns * Math.PI / 2) % (2 * Math.PI);
-        if (heading < 0) heading += 2 * Math.PI;
+        double fieldHeading_rad = (heading_rad + turns * Math.PI / 2) % (2 * Math.PI);
+        if (fieldHeading_rad < 0) fieldHeading_rad += 2 * Math.PI;
         // + 0.0 turns -0.0 into 0.0
-        return new double[]{fx + 0.0, fy + 0.0, heading};
+        return new double[]{fx + 0.0, fy + 0.0, fieldHeading_rad};
     }
 }
