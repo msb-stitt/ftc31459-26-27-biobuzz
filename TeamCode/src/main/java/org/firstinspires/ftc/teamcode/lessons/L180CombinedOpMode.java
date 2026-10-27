@@ -140,9 +140,9 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         boolean holdingHeading = hold.target() != null;
         Tracker.publish("drivetrain/holdingHeading", holdingHeading);
         if (holdingHeading) {
-            double targetHeadingRadians = hold.target();
-            double targetHeadingDegrees = Math.toDegrees(targetHeadingRadians);
-            Tracker.publish("drivetrain/targetHeadingDegrees", targetHeadingDegrees);
+            double targetHeading_rad = hold.target();
+            double targetHeading_deg = Math.toDegrees(targetHeading_rad);
+            Tracker.publish("drivetrain/targetHeading_deg", targetHeading_deg);
         }
 
         double fieldYSpeed = -leftStickX;
@@ -160,9 +160,11 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
             robotStrafeYSpeed = -leftStickX;
             robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
         } else {
-            double heading = follower.pose().heading();
-            robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
-            robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
+            double heading_rad = follower.pose().heading();
+            double sinHeading = Math.sin(heading_rad);
+            double cosHeading = Math.cos(heading_rad);
+            robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
+            robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
         }
         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
@@ -204,8 +206,8 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
     /** A's command: any drive to the target is cancelled, and the hold aims at 45 degrees. */
     void aimAtFortyFiveDegrees() {
         Scheduler.cancel(driveToTheTarget);
-        double fortyFiveDegrees = Math.toRadians(45.0);
-        hold.aimAt(fortyFiveDegrees);
+        double fortyFive_rad = Math.toRadians(45.0);
+        hold.aimAt(fortyFive_rad);
     }
 
     double deadband(double value, double band) {

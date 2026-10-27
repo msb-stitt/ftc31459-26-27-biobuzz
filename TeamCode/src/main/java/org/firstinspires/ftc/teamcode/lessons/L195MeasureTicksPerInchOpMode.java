@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
+import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+
 /**
  * L195: measure how many encoder ticks make an inch -- by pushing the robot.
  *
@@ -23,7 +25,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * inches, and the drive encoders', in ticks. The ratio is the constant.
  *
  * <p><b>What to do.</b> Press start. Push the robot slowly straight forward,
- * at least {@link #neededInches} inches, keeping it pointing the same way.
+ * at least {@link #needed_in} inches, keeping it pointing the same way.
  * Read the number off the Driver Station and put it in
  * {@link Constants#ticksPerInch}.
  *
@@ -42,11 +44,11 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
-    double neededInches = 36.0;
+    double needed_in = 36.0;
 
     int[] startTicks;
-    double startX, startY;
-    double inches, ticks;
+    double startX_in, startY_in;
+    double pushed_in, ticks;
 
     L195TicksDriveTrain drivetrain;
 
@@ -65,8 +67,8 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         // The wheels must roll freely, so no braking while we push.
         drivetrain.forceCoastForCharacterization();
         startTicks = drivetrain.wheelTicks();
-        startX = follower.pose().x();
-        startY = follower.pose().y();
+        startX_in = follower.pose().x();
+        startY_in = follower.pose().y();
         Command measureTicksPerInchEveryLoop = Commands.infinite(this::measureTicksPerInch);
         Scheduler.schedule(measureTicksPerInchEveryLoop);
         startAfter();
@@ -96,24 +98,24 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         drivetrain.setCommandedWheels(0.0, 0.0, 0.0, 0.0);       // no speed: we are pushing
 
         int[] now = drivetrain.wheelTicks();
-        int frontLeftTicks = now[0] - startTicks[0];
-        int frontRightTicks = now[1] - startTicks[1];
-        int backLeftTicks = now[2] - startTicks[2];
-        int backRightTicks = now[3] - startTicks[3];
+        int frontLeftTicks = now[FL] - startTicks[FL];
+        int frontRightTicks = now[FR] - startTicks[FR];
+        int backLeftTicks = now[BL] - startTicks[BL];
+        int backRightTicks = now[BR] - startTicks[BR];
         ticks = Calibration.forwardPart(frontLeftTicks, frontRightTicks, backLeftTicks,
                 backRightTicks);
-        double dx = follower.pose().x() - startX;
-        double dy = follower.pose().y() - startY;
-        inches = Math.hypot(dx, dy);
+        double dx_in = follower.pose().x() - startX_in;
+        double dy_in = follower.pose().y() - startY_in;
+        pushed_in = Math.hypot(dx_in, dy_in);
 
-        double measuredTicksPerInch = Calibration.ticksPerInch(ticks, inches);
-        Tracker.publish("measure/inches", inches);
+        double measuredTicksPerInch = Calibration.ticksPerInch(ticks, pushed_in);
+        Tracker.publish("measure/pushed_in", pushed_in);
         Tracker.publish("measure/ticks", ticks);
-        Tracker.publish("measure/ticksPerInch", measuredTicksPerInch);
+        Tracker.publish("measure/measuredTicksPerInch", measuredTicksPerInch);
 
-        Tracker.printToDs("Push the robot forward  %.1f of %.0f inches", inches, neededInches);
+        Tracker.printToDs("Push the robot forward  %.1f of %.0f inches", pushed_in, needed_in);
         Tracker.printToDs("Encoders counted  %.0f ticks", ticks);
-        if (inches >= neededInches) {
+        if (pushed_in >= needed_in) {
             Tracker.printToDs();
             Tracker.printToDs("ticksPerInch  %.2f", measuredTicksPerInch);
             Tracker.printToDs("Put that in Constants.ticksPerInch, then run it again to check.");

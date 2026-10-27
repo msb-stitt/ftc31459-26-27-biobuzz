@@ -149,7 +149,7 @@ public final class SimPublisher implements AutoCloseable {
         }
     }
 
-    /** {@code {x, y, headingRad}} as a {@code struct:Pose2d}'s three
+    /** {@code {x, y, heading_rad}} as a {@code struct:Pose2d}'s three
      *  little-endian doubles. */
     private byte[] packed(double[] fieldPose) {
         poseBytes.clear();

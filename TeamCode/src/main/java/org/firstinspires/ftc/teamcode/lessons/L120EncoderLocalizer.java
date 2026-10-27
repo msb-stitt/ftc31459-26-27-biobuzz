@@ -8,6 +8,8 @@ import com.pedropathing.math.Twist;
 
 import org.firstinspires.ftc.teamcode.base.odometry.WheelSource;
 
+import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+
 /**
  * L120: work out where the robot is from the drive wheels and the IMU.
  *
@@ -29,14 +31,14 @@ class L120EncoderLocalizer implements Localizer {
     WheelSource source;
 
     /** Where the robot thinks it is, in inches. */
-    double x;
-    double y;
+    double x_in;
+    double y_in;
     /** Added to the IMU's heading, so that setPose can say which way the robot faces. */
-    double headingOffset;
+    double headingOffset_rad;
 
     /** What the wheels and the IMU read last loop. */
-    double[] lastWheels;
-    double lastRawHeading;
+    double[] lastWheels_in;
+    double lastRawHeading_rad;
 
     L120EncoderLocalizer(WheelSource source) {
         this.source = source;
@@ -45,8 +47,8 @@ class L120EncoderLocalizer implements Localizer {
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void update() {
-        double[] wheels = source.wheelInches();
-        double rawHeading = source.headingRadians();
+        double[] wheels_in = source.wheelInches();
+        double rawHeading_rad = source.headingRadians();
 
         // When on L120S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
@@ -56,8 +58,8 @@ class L120EncoderLocalizer implements Localizer {
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
         // for what to do here.
 
-        lastWheels = wheels.clone();
-        lastRawHeading = rawHeading;
+        lastWheels_in = wheels_in.clone();
+        lastRawHeading_rad = rawHeading_rad;
     }
 
     /**
@@ -68,7 +70,7 @@ class L120EncoderLocalizer implements Localizer {
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public MotionState state() {
-        Pose where = poses.of(x, y, lastRawHeading + headingOffset);
+        Pose where = poses.of(x_in, y_in, lastRawHeading_rad + headingOffset_rad);
         Twist standingStill = new Twist(0.0, 0.0, 0.0);
         MotionState state = MotionState.ofTwist(where, standingStill);
         return state;
@@ -77,17 +79,17 @@ class L120EncoderLocalizer implements Localizer {
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void setPose(Pose pose) {
-        x = pose.x();
-        y = pose.y();
-        headingOffset = pose.heading() - lastRawHeading;
+        x_in = pose.x();
+        y_in = pose.y();
+        headingOffset_rad = pose.heading() - lastRawHeading_rad;
     }
 
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public void reset() {
-        x = 0.0;
-        y = 0.0;
-        headingOffset = -lastRawHeading;
-        lastWheels = null;
+        x_in = 0.0;
+        y_in = 0.0;
+        headingOffset_rad = -lastRawHeading_rad;
+        lastWheels_in = null;
     }
 }

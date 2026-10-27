@@ -80,20 +80,20 @@ public final class OpModeHarness {
         /** How far the wheel has rolled, and how fast, in inches and inches per
          * second; null until {@link #follow}, and while they are null the
          * encoder reports {@link #ticks} and {@link #velocity} as a test set them. */
-        private DoubleSupplier rolledInches;
-        private DoubleSupplier speedInPerS;
+        private DoubleSupplier rolled_in;
+        private DoubleSupplier speed_ips;
 
         /** Counts what the wheel rolls from now on, from zero, at Constants.ticksPerInch. */
-        public void follow(DoubleSupplier rolledInches, DoubleSupplier speedInPerS) {
-            double start = rolledInches.getAsDouble();
-            this.rolledInches = () -> rolledInches.getAsDouble() - start;
-            this.speedInPerS = speedInPerS;
+        public void follow(DoubleSupplier rolled_in, DoubleSupplier speed_ips) {
+            double start = rolled_in.getAsDouble();
+            this.rolled_in = () -> rolled_in.getAsDouble() - start;
+            this.speed_ips = speed_ips;
         }
 
         /** Stops counting the wheel, so the encoder reports what a test sets. */
         public void unfollow() {
-            rolledInches = null;
-            speedInPerS = null;
+            rolled_in = null;
+            speed_ips = null;
         }
 
         /** The direction last set, or null if none was. Recorded only: the
@@ -112,11 +112,11 @@ public final class OpModeHarness {
         public Object invoke(Object proxy, Method method, Object[] args) {
             switch (method.getName()) {
                 case "getCurrentPosition":
-                    return rolledInches == null ? ticks
-                            : (int) Math.round(rolledInches.getAsDouble() * Constants.ticksPerInch);
+                    return rolled_in == null ? ticks
+                            : (int) Math.round(rolled_in.getAsDouble() * Constants.ticksPerInch);
                 case "getVelocity":
-                    return speedInPerS == null ? velocity
-                            : speedInPerS.getAsDouble() * Constants.ticksPerInch;
+                    return speed_ips == null ? velocity
+                            : speed_ips.getAsDouble() * Constants.ticksPerInch;
                 case "setPower":
                     speed = (Double) args[0];
                     writes++;
@@ -135,13 +135,13 @@ public final class OpModeHarness {
     }
 
     /**
-     * An IMU. On its own, its heading is what a test sets in {@link #yawRadians}.
+     * An IMU. On its own, its heading is what a test sets in {@link #yaw_rad}.
      * After {@link #follow}, it reads how far the simulated robot has turned since
      * then, or since the last {@code resetYaw}, wrapped to -pi to pi as the real
      * one is.
      */
     public static final class FakeImu implements InvocationHandler {
-        public double yawRadians;
+        public double yaw_rad;
         /** How far the robot has turned, unwrapped; null until {@link #follow}. */
         private DoubleSupplier turned;
         /** What {@link #turned} read when the yaw was last zero. */
@@ -157,7 +157,7 @@ public final class OpModeHarness {
         }
 
         private double yaw() {
-            if (turned == null) return yawRadians;
+            if (turned == null) return yaw_rad;
             double a = turned.getAsDouble() - zero;
             return Math.atan2(Math.sin(a), Math.cos(a));
         }
@@ -168,7 +168,7 @@ public final class OpModeHarness {
                 case "getRobotYawPitchRollAngles":
                     return new YawPitchRollAngles(AngleUnit.RADIANS, yaw(), 0, 0, 0);
                 case "resetYaw":
-                    yawRadians = 0;
+                    yaw_rad = 0;
                     if (turned != null) zero = turned.getAsDouble();
                     return null;
                 default:
@@ -220,7 +220,7 @@ public final class OpModeHarness {
      * and calls {@link #loop(long)} with that, so the robot moves at the speed
      * it would on the field however slow a pass is.
      */
-    public long stepMs = SimTicker.GRID_MS;
+    public long step_ms = SimTicker.GRID_MS;
 
     public final SimRobot robot = new SimRobot(clock::nanos);
     public final Gamepad gamepad1 = new Gamepad();
@@ -367,9 +367,9 @@ public final class OpModeHarness {
         opMode.start();
     }
 
-    /** One loop, {@link #stepMs} of simulated time later than the last. */
+    /** One loop, {@link #step_ms} of simulated time later than the last. */
     public void loop() {
-        loop(stepMs);
+        loop(step_ms);
     }
 
     /**
@@ -383,10 +383,10 @@ public final class OpModeHarness {
         opMode.loop();
     }
 
-    public void loops(int count, long sleepMs) {
+    public void loops(int count, long sleep_ms) {
         for (int i = 0; i < count; i++) {
             loop();
-            sleep(sleepMs);
+            sleep(sleep_ms);
         }
     }
 
@@ -395,10 +395,10 @@ public final class OpModeHarness {
     }
 
     /** init, start, n loops, stop. */
-    public void run(int loops, long sleepMs) {
+    public void run(int loops, long sleep_ms) {
         init();
         start();
-        loops(loops, sleepMs);
+        loops(loops, sleep_ms);
         stop();
     }
 

@@ -85,8 +85,8 @@ public final class Tracker {
     private static long loopCount;
     private static long lastLoopNs;
     private static long startNs;
-    private static double loopPeriodMs;
-    private static double maxLoopPeriodMs;
+    private static double period_ms;
+    private static double maxPeriod_ms;
 
     private Tracker() {
     }
@@ -105,8 +105,8 @@ public final class Tracker {
         loopCount = 0;
         lastLoopNs = 0L;
         startNs = System.nanoTime();
-        loopPeriodMs = 0.0;
-        maxLoopPeriodMs = 0.0;
+        period_ms = 0.0;
+        maxPeriod_ms = 0.0;
         panels = null;
         logger = null;
         panelsEnabled = true;
@@ -188,17 +188,17 @@ public final class Tracker {
     public static void endLoop(Follower follower) {
         long now = System.nanoTime();
         if (lastLoopNs != 0L) {
-            loopPeriodMs = (now - lastLoopNs) / 1_000_000.0;
+            period_ms = (now - lastLoopNs) / 1_000_000.0;
         }
         lastLoopNs = now;
         loopCount++;
-        if (loopPeriodMs > maxLoopPeriodMs) {
-            maxLoopPeriodMs = loopPeriodMs;
+        if (period_ms > maxPeriod_ms) {
+            maxPeriod_ms = period_ms;
         }
 
         publish("loop/count", loopCount);
-        publish("loop/period_ms", loopPeriodMs);
-        publish("loop/max_period_ms", maxLoopPeriodMs);
+        publish("loop/period_ms", period_ms);
+        publish("loop/maxPeriod_ms", maxPeriod_ms);
         publish("loop/rate_hz", loopRateHz());
         publish("loop/uptime_s", (now - startNs) / 1_000_000_000.0);
 
@@ -317,7 +317,7 @@ public final class Tracker {
             printToDs("Speed  %.1f in/s",
                     Math.hypot(follower.velocity().vx, follower.velocity().vy));
         }
-        printToDs("Loop  #%d  %.1f ms (max %.1f)", loopCount, loopPeriodMs, maxLoopPeriodMs);
+        printToDs("Loop  #%d  %.1f ms (max %.1f)", loopCount, period_ms, maxPeriod_ms);
     }
 
     // ------------------------------------------------------------ the loop and Panels
@@ -329,17 +329,17 @@ public final class Tracker {
 
     /** How long the last loop took. */
     public static double loopPeriodMs() {
-        return loopPeriodMs;
+        return period_ms;
     }
 
     /** The longest loop so far. */
     public static double maxLoopPeriodMs() {
-        return maxLoopPeriodMs;
+        return maxPeriod_ms;
     }
 
     /** Loops per second, from the last loop's period. 0 before the first one ends. */
     public static double loopRateHz() {
-        return loopPeriodMs > 0.0 ? 1000.0 / loopPeriodMs : 0.0;
+        return period_ms > 0.0 ? 1000.0 / period_ms : 0.0;
     }
 
     /**

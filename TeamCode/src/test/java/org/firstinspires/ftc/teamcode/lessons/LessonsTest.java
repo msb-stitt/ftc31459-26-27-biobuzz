@@ -656,7 +656,7 @@ public class LessonsTest {
 
         assertEquals("aiming", true, Tracker.values().get("drivetrain/holdingHeading"));
         assertEquals("at 45 degrees", 45.0,
-                (Double) Tracker.values().get("drivetrain/targetHeadingDegrees"), 1e-6);
+                (Double) Tracker.values().get("drivetrain/targetHeading_deg"), 1e-6);
         assertTrue("turning toward it", h.wheelsTurn() > 0);
         assertTrue("and still driving", Math.abs(h.wheelsForward()) + Math.abs(h.wheelsStrafe()) > 0);
     }
@@ -689,7 +689,7 @@ public class LessonsTest {
         h.loop();
 
         assertEquals("full stick asks for a speed, in inches per second",
-                40.0, (Double) Tracker.values().get("drivetrain/forwardXInPerS"), 1e-6);
+                40.0, (Double) Tracker.values().get("drivetrain/forwardX_ips"), 1e-6);
         assertEquals("and every wheel must travel at it",
                 40.0, (Double) Tracker.values().get("wheel/frontLeft/target_ips"), 1e-6);
         assertEquals("the wheels are not moving yet, so the error is the whole target",
