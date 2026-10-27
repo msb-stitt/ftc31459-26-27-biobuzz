@@ -42,16 +42,16 @@ import java.util.Map;
 public abstract class CorbelsDriveTrain implements Drivetrain {
 
     /** Front left, in {@link #wheelSpeeds} and in every other four-wheel array. */
-    protected static final int FL = 0;
+    public static final int FL = 0;
 
     /** Front right. */
-    protected static final int FR = 1;
+    public static final int FR = 1;
 
     /** Back left. */
-    protected static final int BL = 2;
+    public static final int BL = 2;
 
     /** Back right. */
-    protected static final int BR = 3;
+    public static final int BR = 3;
 
     /** Speed per inch per second of error, for {@link #setCommandedWheelSpeeds}. */
     public static final double VELOCITY_KP = 0.008;
