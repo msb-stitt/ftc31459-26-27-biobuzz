@@ -34,9 +34,9 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L135ChooseAutoOpMode extends CorbelsAuto {
 
-    L135AutoMenu menu = new L135AutoMenu(
-            new L135Row("Alliance", "Red", "Blue"),
-            new L135Row("Auto", "F24-Forward 24", "FS-Forward Then Strafe"));
+    // When on L135S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+    // for what to do here.
 
     double robotHalfLength_in = 9.0;
     double fieldPerimeterWidth_in = 1.5;
@@ -66,12 +66,9 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
-        String auto = menu.chosen("Auto");
-        Command chosenAuto = Command.NOOP;
         // When on L135S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
         // for what to do here.
-        Scheduler.schedule(chosenAuto);
         startAfter();
     }
 
@@ -79,7 +76,9 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
     @Override
     public void loop() {
         loopBefore();
-        Tracker.printToDs(menu.summary());
+        // When on L135S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+        // for what to do here.
         Tracker.printPoseSpeedLoopToDs(follower);
         loopAfter();
     }

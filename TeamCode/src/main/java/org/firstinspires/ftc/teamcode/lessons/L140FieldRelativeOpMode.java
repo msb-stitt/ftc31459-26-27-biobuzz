@@ -41,9 +41,9 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L140FieldRelativeOpMode extends CorbelsTeleOp {
 
-    L135AutoMenu menu = new L135AutoMenu(
-            new L135Row("Alliance", "Red", "Blue"),
-            new L135Row("Start", "Auto End", "Wall"));
+    // When on L140S050, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+    // for what to do here.
 
     double robotHalfLength_in = 9.0;
     double fieldPerimeterWidth_in = 1.5;
@@ -59,14 +59,18 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
         drivetrain = new CorbelsMecanum(hardware);
 
         initAfter(drivetrain);
-        menu.startAt("Alliance", OpModeStorage.alliance);
+        // When on L140S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+        // for what to do here.
     }
 
     /** Again and again between INIT and PLAY. */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init_loop() {
-        menu.loop(gamepad1);
+        // When on L140S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+        // for what to do here.
         initLoopAfter();
     }
 
@@ -74,12 +78,9 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
-        String startPlace = menu.chosen("Start");
-        if (startPlace.equals("Wall")) {
-            PoseFactory poses = poses();
-            Pose wall = poses.of(72.0, botStartY_in, 90.0);
-            follower.setPose(wall);
-        }
+        // When on L140S070, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+        // for what to do here.
         Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
         Scheduler.schedule(driveFromTheSticksEveryLoop);
         startAfter();
@@ -89,7 +90,9 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
-        Tracker.printToDs(menu.summary());
+        // When on L140S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+        // for what to do here.
         loopAfter();
     }
 
@@ -103,11 +106,11 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
         Tracker.publish("gamepad1/rightStickX", rightStickX);
 
         double bandToSetToZero = 0.05;
+        // When on L140S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
+        // for what to do here.
         double fieldXSpeed = -leftStickY;
         double fieldYSpeed = -leftStickX;
-        // When on L140S050, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
-        // for what to do here.
 
         fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
@@ -134,10 +137,9 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
     PoseFactory poses() {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
-        String alliance = menu.chosen("Alliance");
-        if (alliance.equals("Blue")) {
-            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
-        }
+        // When on L140S070, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+        // for what to do here.
         return chosenPoses;
     }
 

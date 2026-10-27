@@ -145,8 +145,9 @@ words = 1300
 
 [[page]]
 path = "source/tasks/l135.md"
-# Measured off the first draft, 823 words, and rounded up, 2026-10-27.
-words = 900
+# Measured off the first draft, 823 words, and rounded up, 2026-10-27. Raised for the menu, the
+# auto's choice and the summary typed by the student, and the gamepad checks, 936 words, 2026-10-27.
+words = 1000
 
 [[page]]
 path = "source/tasks/l140.md"
@@ -239,7 +240,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-l140-alliances.1"
+solutions = "solutions-l140-alliances.2"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
