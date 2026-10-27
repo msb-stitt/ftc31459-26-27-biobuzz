@@ -1,0 +1,259 @@
+# 080 lesson: drive like an arcade game
+
+:::{figure} ../_figures/fig-l080-scaled.png
+:name: fig-l080-scaled
+:::
+
+Drive with one stick for going and one for turning: arcade drive. When the sticks ask for more than
+full speed, scale every wheel down together, so the robot still drives the curve the driver asked
+for.
+
+::::{only} mentor
+**Before you start.**
+
+- L070 is done, so `mytry` holds `L070ButtonsOpMode`.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot, the Driver Station, and about 3 m of clear floor for the last step.
+::::
+
+## the steps
+
+### L080S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click `L080ArcadeOpMode` once and copy it. Click `mytry` once and paste.
+In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to Git,
+click **Add**.
+
+**Check.**
+
+- `mytry` holds `L080ArcadeOpMode`, and the new file is open.
+
+### L080S020: switch your copy on
+
+**Change.** Delete the line `@Disabled`, under the comment that names this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L080S030: shape a speed in one call
+
+The starter has the sticks, the buttons, `deadband` and `signedSquared` from the lessons before. It
+does not drive the wheels yet.
+
+Each stick in this lesson, and in the lessons after it, gets L060's two steps: `deadband`, then
+`signedSquared`. One method can do both, so each stick needs one call.
+
+**Change.** Find the comment that names this step, under `signedSquared`. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4-8
+
+    // When on L080S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+    // for what to do here.
+    double speedShaped(double value, double band) {
+        double deadbanded = deadband(value, band);
+        double shapedSpeed = signedSquared(deadbanded);
+        return shapedSpeed;
+    }
+```
+
+`speedShaped` hands `value` and `band` to `deadband`, and squares what comes back. Each step's
+answer gets a name for what it is, and `return` gives back the last one.
+
+**Check.**
+
+- The method has no red underline.
+- `speedShaped` is gray, with *no usages* above it. Nothing uses it yet.
+
+### L080S040: forward and turn
+
+Tank drive asks the driver to think in left wheels and right wheels. Arcade drive asks for forward
+and turn instead, which is how a driver already thinks. The code works out the two sides.
+
+**Change.** In `driveFromTheSticks()`, find the comment that names this step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4-10
+
+        // When on L080S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
+        // for what to do here.
+        double bandToSetToZero = 0.05;
+        double forwardXSpeed = -leftStickY;
+        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+```
+
+`forwardXSpeed` comes from the left stick, up and down. `turnCcwSpeed` comes from the right stick,
+sideways. Both get a minus sign. For `forwardXSpeed`, that makes pushing away from you positive, as
+in L030. For `turnCcwSpeed`, it makes a turn to the left positive. That is the way robots measure
+turning: left, or counter-clockwise, is positive. `Ccw` is short for counter-clockwise.
+
+`speedShaped` shapes each one and puts the answer back in the same name, as L060S060 did.
+
+**Why X and Y.** Pedro Pathing, the code that drives the robot from L110 on, measures the robot
+along its own axes. +x points forward, out the robot's nose. +y points to the robot's left. A
+turn to the left, counter-clockwise seen from above, is positive. So `forwardXSpeed` is a speed
+along the robot's +x, and the `Y` in L090's `strafeYSpeed` is its +y. The field has an x and a y
+too. Pedro puts (0, 0) in one corner, and x and y each run from 0 in to 144 in. From L140 on, a
+speed can be along the field's axes, and its name says so.
+
+:::{figure} ../_figures/fig-pedro-field.png
+:name: fig-pedro-field
+:::
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L080ArcadeOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020, and open the `drivetrain` folder.
+
+**Check.**
+
+- Push the left stick halfway forward, and `forwardXSpeed` reads 0.25.
+- Push the right stick halfway right, and `turnCcwSpeed` reads -0.25.
+- The robot does not move yet.
+
+:::{figure} ../_figures/fig-l080-forward-turn.png
+:name: fig-l080-forward-turn
+:::
+
+### L080S050: mix them into two sides
+
+To turn right, the left side goes faster and the right side goes slower. A turn to the right is
+below 0.0, so taking `turnCcwSpeed` away from the left side speeds it up, and adding it to the
+right side slows that side down.
+
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. Find the comment that names this
+step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4-12
+
+        // When on L080S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
+        // for what to do here.
+        double leftMixedSpeed = forwardXSpeed - turnCcwSpeed;
+        double rightMixedSpeed = forwardXSpeed + turnCcwSpeed;
+        Tracker.publish("drivetrain/leftMixedSpeed", leftMixedSpeed);
+        Tracker.publish("drivetrain/rightMixedSpeed", rightMixedSpeed);
+
+        hardware.frontLeft.setPower(leftMixedSpeed);
+        hardware.backLeft.setPower(leftMixedSpeed);
+        hardware.frontRight.setPower(rightMixedSpeed);
+        hardware.backRight.setPower(rightMixedSpeed);
+```
+
+**Simulator.** Run the same command again, and connect AdvantageScope. Click **2D Field**. The
+robot from L040 is still in **Poses**.
+
+**Check.**
+
+- Push the left stick forward, and the robot drives forward.
+- Push the right stick right, and it turns right.
+- Push both, and it drives a curve.
+
+Now push the left stick all the way forward and the right stick halfway right. Click
+**Line Graph**, and drag `leftMixedSpeed` and `rightMixedSpeed` from the `drivetrain` folder into
+**Left Axis**. `drivetrain/leftMixedSpeed` reads 1.25.
+
+:::{figure} ../_figures/fig-l080-too-much.png
+:name: fig-l080-too-much
+:::
+
+A `setPower` speed only goes from -1.0 to +1.0. On the robot, the Control Hub cuts 1.25 down to 1.0
+and leaves 0.75 alone. The left side loses some of what it asked for and the right side loses none,
+so the robot drives a wider curve than the sticks asked for. The simulator does not cut it, so the
+curve there looks right. The number gives it away.
+
+### L080S060: scale, don't cut
+
+The fix is to divide both sides by the bigger one. 1.25 and 0.75 become 1.0 and 0.6. The robot goes
+a little slower, and the curve stays the one the driver asked for.
+
+**Change.** Press Ctrl+C to stop the simulator. Go back to the two lines from L080S050 that make
+`leftMixedSpeed` and `rightMixedSpeed`. Under them, type the scaling. Then change the
+`Tracker.publish` and `setPower` lines to use the scaled speeds:
+
+```{code-block} java
+:emphasize-lines: 3-15
+
+        double leftMixedSpeed = forwardXSpeed - turnCcwSpeed;
+        double rightMixedSpeed = forwardXSpeed + turnCcwSpeed;
+        double leftSize = Math.abs(leftMixedSpeed);
+        double rightSize = Math.abs(rightMixedSpeed);
+        double biggest = Math.max(leftSize, rightSize);
+        double biggestOrOne = Math.max(1.0, biggest);
+        double leftSpeed = leftMixedSpeed / biggestOrOne;
+        double rightSpeed = rightMixedSpeed / biggestOrOne;
+        Tracker.publish("drivetrain/leftSpeed", leftSpeed);
+        Tracker.publish("drivetrain/rightSpeed", rightSpeed);
+
+        hardware.frontLeft.setPower(leftSpeed);
+        hardware.backLeft.setPower(leftSpeed);
+        hardware.frontRight.setPower(rightSpeed);
+        hardware.backRight.setPower(rightSpeed);
+```
+
+`leftSize` and `rightSize` are the mixed speeds with their minus signs taken off. `Math.max` gives
+back the bigger of two numbers, so the first `Math.max` finds the bigger size. The second makes
+`biggestOrOne`, which is never less than 1.0. Without it, a gentle 0.25 would be divided by 0.25
+and become full speed.
+
+Each value gets a name for what it now is: `leftSpeed` is `leftMixedSpeed` scaled to fit.
+
+**Simulator.** Run the same command again, and connect AdvantageScope.
+
+**Check.**
+
+- Push the left stick all the way forward and the right stick halfway right.
+  `drivetrain/leftSpeed` reads 1.0, and `drivetrain/rightSpeed` reads 0.6.
+- Push the left stick halfway forward alone, and both read 0.25, the same as before this step.
+
+### L080S070: drive it on the robot
+
+**Robot.** Stop the simulator. Send the code, and run `L080 Arcade` from the Driver Station.
+
+**Check.**
+
+- Push the left stick halfway forward and the right stick a quarter right, and the robot drives a
+  circle to the right.
+- Push both sticks twice as far, and it drives a circle the same size, only faster.
+
+::::{only} mentor
+**If it didn't**, and the robot turns left when the right stick is pushed right, the minus sign is
+missing from `-rightStickX`, or `-` and `+` are swapped in the two mix lines.
+
+**If it didn't**, and the robot goes full speed with a gentle push, `biggestOrOne` is below
+1.0. Check the `1.0` in its `Math.max`.
+
+**What you just did.** Arcade drive mixes two things the driver wants into two things the wheels
+do. When the mix asks for more than a motor has, dividing keeps the shape of the request and gives
+up some speed. Cutting at 1.0 keeps the speed and changes the shape. The Control Hub cuts; it is the
+code's job to scale first.
+
+`follower.twist()` gives the velocity on the robot's axes: `vx` forward, `vy` left, `omega`
+counter-clockwise.
+
+Heading 0 points along the field's +x and π/2, 90°, along its +y; the code keeps it in radians.
+`follower.velocity()` gives the velocity along the field's x and y. Pedro's
+[Coordinates](https://pedropathing.com/docs/pathing/reference/coordinates) page draws its field.
+
+**Field-relative driving.** The Red Alliance Area is at the field's left edge, x = 0 in, and
+the Blue Alliance Area at its right edge, x = 144 in. In field-relative driving, a red driver
+wants a push
+away on the left stick, the stick's -y, to drive the robot along the field's +x. A blue driver wants
+the same push to drive it along the field's -x. L140's push away drives along +x, as the red driver
+wants.
+
+**Where next.** [L090](l090.md) drives a mecanum robot, which adds a third thing to do with the
+sticks: going sideways.
+::::

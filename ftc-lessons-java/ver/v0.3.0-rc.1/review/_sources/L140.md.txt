@@ -1,0 +1,34 @@
+# L140
+
+1 file(s) copied, then 1 change(s) in 1 file(s), 6 line(s) of code to write.
+
+## Copies
+
+- `lessons/L140FieldRelativeOpMode.java` to `mytry/L140FieldRelativeOpMode.java`
+
+## L140FieldRelativeOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java`
+
+### A change
+
+Delete 1 line, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -83,7 +83,12 @@
+         // When on L140S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
+         // for what to do here.
+-        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
++        double heading = follower.pose().heading();
++        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
++        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
++        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
++        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```
