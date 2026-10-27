@@ -1,0 +1,38 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java
+index 1e4ec27..67941d1 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java
+@@ -58,6 +58,7 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
+         // When on L135S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+@@ -70,6 +71,14 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
+         // When on L135S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+         // for what to do here.
++        switch (auto) {
++            case "F24-Forward 24":
++                chosenAuto = driveForward24();
++                break;
++            case "FS-Forward Then Strafe":
++                chosenAuto = driveForwardThenStrafe();
++                break;
++        }
+         Scheduler.schedule(chosenAuto);
+         startAfter();
+     }
+@@ -96,6 +105,10 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
+         // When on L135S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
++        }
+         return chosenPoses;
+     }
+ 

@@ -1,0 +1,32 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135AutoMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135AutoMenu.java
+index 8da174f..cd6d31a 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135AutoMenu.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135AutoMenu.java
+@@ -82,6 +82,11 @@ class L135AutoMenu {
+         // When on L135S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+         // for what to do here.
++        int lastChoice = rows[row].choices.length - 1;
++        shown[row] = shown[row] + 1;
++        if (shown[row] > lastChoice) {
++            shown[row] = 0;
++        }
+     }
+ 
+     /** The choice shown becomes the one kept. */
+@@ -89,6 +94,7 @@ class L135AutoMenu {
+         // When on L135S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+         // for what to do here.
++        kept[row] = shown[row];
+     }
+ 
+     /** The choice kept is shown again. */
+@@ -96,6 +102,7 @@ class L135AutoMenu {
+         // When on L135S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+         // for what to do here.
++        shown[row] = kept[row];
+     }
+ 
+     /** The choice kept in the row with this name, such as chosen("Alliance"). */
