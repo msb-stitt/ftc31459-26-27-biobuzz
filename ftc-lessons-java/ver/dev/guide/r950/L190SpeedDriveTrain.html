@@ -324,7 +324,7 @@
           <section id="l190speeddrivetrain">
 <h1>L190SpeedDriveTrain<a class="headerlink" href="#l190speeddrivetrain" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.2</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l190">
 <h2>L190<a class="headerlink" href="#l190" title="Link to this heading">¶</a></h2>
@@ -342,15 +342,15 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="w"> </span>  39         // When on L190S060, see
 <span class="w"> </span>  40         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
 <span class="w"> </span>  41         // for what to do here.
-<span class="gi">+  42         double[] measuredInPerS = measuredSpeeds.all();</span>
+<span class="gi">+  42         double[] measured_ips = measuredSpeeds.all();</span>
 <span class="gi">+  43         double[] wheelSpeeds = new double[4];</span>
 <span class="gi">+  44         for (int i = 0; i &lt; 4; i++) {</span>
-<span class="gi">+  45             double feedforward = Constants.powerPerInchPerSecond * wantedInPerS[i];</span>
-<span class="gi">+  46             double feedback = VELOCITY_KP * (wantedInPerS[i] - measuredInPerS[i]);</span>
+<span class="gi">+  45             double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];</span>
+<span class="gi">+  46             double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);</span>
 <span class="gi">+  47             wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);</span>
 <span class="gi">+  48         }</span>
 <span class="gi">+  49         setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);</span>
-<span class="gi">+  50         publishWheelSpeeds(wantedInPerS, measuredInPerS);</span>
+<span class="gi">+  50         publishWheelSpeeds(wanted_ips, measured_ips);</span>
 <span class="w"> </span>  51     }
 <span class="w"> </span>  52 }
 </pre></div>

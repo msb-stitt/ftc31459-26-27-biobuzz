@@ -250,7 +250,7 @@
         <article role="main" id="furo-main-content">
           <section id="l120">
 <h1>L120<a class="headerlink" href="#l120" title="Link to this heading">¶</a></h1>
-<p>2 file(s) copied, then 4 change(s) in 2 file(s), 20 line(s) of code to write.</p>
+<p>2 file(s) copied, then 4 change(s) in 2 file(s), 22 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -304,23 +304,23 @@
 <p>Delete 0 lines, write 13 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -51,6 +51,19 @@</span>
+<span class="gu">@@ -53,6 +53,19 @@</span>
 <span class="w"> </span>        // When on L120S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        if (lastWheels == null) {</span>
-<span class="gi">+            lastWheels = wheels.clone();</span>
-<span class="gi">+            lastRawHeading = rawHeading;</span>
+<span class="gi">+        if (lastWheels_in == null) {</span>
+<span class="gi">+            lastWheels_in = wheels_in.clone();</span>
+<span class="gi">+            lastRawHeading_rad = rawHeading_rad;</span>
 <span class="gi">+            return;</span>
 <span class="gi">+        }</span>
 <span class="gi">+</span>
-<span class="gi">+        double frontLeft = wheels[0] - lastWheels[0];</span>
-<span class="gi">+        double frontRight = wheels[1] - lastWheels[1];</span>
-<span class="gi">+        double backLeft = wheels[2] - lastWheels[2];</span>
-<span class="gi">+        double backRight = wheels[3] - lastWheels[3];</span>
+<span class="gi">+        double[] delta_in = new double[wheels_in.length];</span>
+<span class="gi">+        for (int i = 0; i &lt; wheels_in.length; i++) {</span>
+<span class="gi">+            delta_in[i] = wheels_in[i] - lastWheels_in[i]; // Your math operation here</span>
+<span class="gi">+        }</span>
 <span class="gi">+</span>
-<span class="gi">+        double forward = (frontLeft + frontRight + backLeft + backRight) / 4.0;</span>
-<span class="gi">+        double strafe = (-frontLeft + frontRight + backLeft - backRight) / 4.0;</span>
+<span class="gi">+        double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;</span>
+<span class="gi">+        double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;</span>
 <span class="w"> </span>
 <span class="w"> </span>        // When on L120S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
@@ -329,19 +329,21 @@
 </section>
 <section id="id3">
 <h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 3 lines.</p>
+<p>Delete 0 lines, write 5 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -68,6 +68,9 @@</span>
+<span class="gu">@@ -70,6 +70,11 @@</span>
 <span class="w"> </span>        // When on L120S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        double heading = rawHeading + headingOffset;</span>
-<span class="gi">+        x += forward * Math.cos(heading) - strafe * Math.sin(heading);</span>
-<span class="gi">+        y += forward * Math.sin(heading) + strafe * Math.cos(heading);</span>
+<span class="gi">+        double heading_rad = rawHeading_rad + headingOffset_rad;</span>
+<span class="gi">+        double sinHeading = Math.sin(heading_rad);</span>
+<span class="gi">+        double cosHeading = Math.cos(heading_rad);</span>
+<span class="gi">+        x_in += forward_in * cosHeading - strafe_in * sinHeading;</span>
+<span class="gi">+        y_in += forward_in * sinHeading + strafe_in * cosHeading;</span>
 <span class="w"> </span>
-<span class="w"> </span>        lastWheels = wheels.clone();
-<span class="w"> </span>        lastRawHeading = rawHeading;
+<span class="w"> </span>        lastWheels_in = wheels_in.clone();
+<span class="w"> </span>        lastRawHeading_rad = rawHeading_rad;
 </pre></div>
 </div>
 </section>

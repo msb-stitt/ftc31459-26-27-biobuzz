@@ -394,8 +394,8 @@ the same shape pointing the other way: it brings four numbers back.</p>
 folder.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">inches</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0.0.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> reads NaN, which means “not a number”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pushed_in</span></code> and <code class="docutils literal notranslate"><span class="pre">ticks</span></code> read 0.0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">measuredTicksPerInch</span></code> reads NaN, which means “not a number”.</p></li>
 </ul>
 <p>Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0.0 divided by
 0.0 is not a number. The measuring is for the robot.</p>
@@ -413,7 +413,7 @@ Driver Station.</p>
 Push slowly: a wheel that slips travels without turning, and the answer comes out short.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Driver Station shows <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code> with a number after it.</p></li>
+<li><p>The Driver Station shows <code class="docutils literal notranslate"><span class="pre">measuredTicksPerInch</span></code> with a number after it.</p></li>
 </ul>
 <p>Do it three times. Three answers a tick or two apart are a measurement.</p>
 <p><strong>Change.</strong> Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, and put the number in <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, which is

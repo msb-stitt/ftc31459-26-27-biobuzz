@@ -286,15 +286,15 @@
 <span class="w"> </span>        // When on L190S060, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        double[] measuredInPerS = measuredSpeeds.all();</span>
+<span class="gi">+        double[] measured_ips = measuredSpeeds.all();</span>
 <span class="gi">+        double[] wheelSpeeds = new double[4];</span>
 <span class="gi">+        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="gi">+            double feedforward = Constants.powerPerInchPerSecond * wantedInPerS[i];</span>
-<span class="gi">+            double feedback = VELOCITY_KP * (wantedInPerS[i] - measuredInPerS[i]);</span>
+<span class="gi">+            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];</span>
+<span class="gi">+            double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);</span>
 <span class="gi">+            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);</span>
 <span class="gi">+        }</span>
 <span class="gi">+        setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);</span>
-<span class="gi">+        publishWheelSpeeds(wantedInPerS, measuredInPerS);</span>
+<span class="gi">+        publishWheelSpeeds(wanted_ips, measured_ips);</span>
 <span class="w"> </span>    }
 <span class="w"> </span>}
 </pre></div>
@@ -316,8 +316,8 @@
 <span class="gi">+import org.firstinspires.ftc.teamcode.base.WheelTargets;</span>
 <span class="gi">+import org.firstinspires.ftc.teamcode.pedro.Constants;</span>
 <span class="w"> </span>
-<span class="w"> </span>/**
-<span class="w"> </span> * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
+<span class="w"> </span>import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+<span class="w"> </span>
 </pre></div>
 </div>
 </section>
@@ -326,7 +326,7 @@
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -44,6 +44,7 @@</span>
+<span class="gu">@@ -46,6 +46,7 @@</span>
 <span class="w"> </span>    // When on L190S030, see
 <span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
 <span class="w"> </span>    // for what to do here.
@@ -342,7 +342,7 @@
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -54,6 +54,7 @@</span>
+<span class="gu">@@ -56,6 +56,7 @@</span>
 <span class="w"> </span>        // When on L190S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
 <span class="w"> </span>        // for what to do here.
@@ -358,7 +358,7 @@
 <p>Delete 1 line, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -56,7 +56,7 @@</span>
+<span class="gu">@@ -58,7 +58,7 @@</span>
 <span class="w"> </span>        // for what to do here.
 <span class="w"> </span>        drivetrain = new L190SpeedDriveTrain(hardware);
 <span class="w"> </span>
@@ -375,17 +375,17 @@
 <p>Delete 1 line, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -88,7 +88,9 @@</span>
+<span class="gu">@@ -90,7 +90,9 @@</span>
 <span class="w"> </span>        // When on L190S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
 <span class="w"> </span>        // for what to do here.
-<span class="gd">-        double forwardXInPerS = 0.0;</span>
+<span class="gd">-        double forwardX_ips = 0.0;</span>
 <span class="gi">+        double forwardXSpeed = -leftStickY;</span>
 <span class="gi">+        forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);</span>
-<span class="gi">+        double forwardXInPerS = forwardXSpeed * MAX_IPS;</span>
-<span class="w"> </span>        Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
-<span class="w"> </span>        double strafeYInPerS = 0.0;
-<span class="w"> </span>        Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
+<span class="gi">+        double forwardX_ips = forwardXSpeed * MAX_IPS;</span>
+<span class="w"> </span>        Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+<span class="w"> </span>        double strafeY_ips = 0.0;
+<span class="w"> </span>        Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
 </pre></div>
 </div>
 </section>
@@ -394,17 +394,17 @@
 <p>Delete 1 line, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -92,7 +92,9 @@</span>
+<span class="gu">@@ -94,7 +94,9 @@</span>
 <span class="w"> </span>        forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
-<span class="w"> </span>        double forwardXInPerS = forwardXSpeed * MAX_IPS;
-<span class="w"> </span>        Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
-<span class="gd">-        double strafeYInPerS = 0.0;</span>
+<span class="w"> </span>        double forwardX_ips = forwardXSpeed * MAX_IPS;
+<span class="w"> </span>        Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+<span class="gd">-        double strafeY_ips = 0.0;</span>
 <span class="gi">+        double strafeYSpeed = -leftStickX;</span>
 <span class="gi">+        strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);</span>
-<span class="gi">+        double strafeYInPerS = strafeYSpeed * MAX_IPS;</span>
-<span class="w"> </span>        Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
-<span class="w"> </span>        double turnRadPerS = 0.0;
-<span class="w"> </span>        Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+<span class="gi">+        double strafeY_ips = strafeYSpeed * MAX_IPS;</span>
+<span class="w"> </span>        Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+<span class="w"> </span>        double turn_radps = 0.0;
+<span class="w"> </span>        Tracker.publish("drivetrain/turn_radps", turn_radps);
 </pre></div>
 </div>
 </section>
@@ -413,15 +413,15 @@
 <p>Delete 1 line, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -96,7 +96,9 @@</span>
+<span class="gu">@@ -98,7 +98,9 @@</span>
 <span class="w"> </span>        strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
-<span class="w"> </span>        double strafeYInPerS = strafeYSpeed * MAX_IPS;
-<span class="w"> </span>        Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
-<span class="gd">-        double turnRadPerS = 0.0;</span>
+<span class="w"> </span>        double strafeY_ips = strafeYSpeed * MAX_IPS;
+<span class="w"> </span>        Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+<span class="gd">-        double turn_radps = 0.0;</span>
 <span class="gi">+        double turnCcwSpeed = -rightStickX;</span>
 <span class="gi">+        turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);</span>
-<span class="gi">+        double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;</span>
-<span class="w"> </span>        Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+<span class="gi">+        double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;</span>
+<span class="w"> </span>        Tracker.publish("drivetrain/turn_radps", turn_radps);
 <span class="w"> </span>    }
 <span class="w"> </span>
 </pre></div>
@@ -432,15 +432,15 @@
 <p>Delete 0 lines, write 5 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -100,6 +100,11 @@</span>
+<span class="gu">@@ -102,6 +102,11 @@</span>
 <span class="w"> </span>        turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
-<span class="w"> </span>        double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;
-<span class="w"> </span>        Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+<span class="w"> </span>        double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
+<span class="w"> </span>        Tracker.publish("drivetrain/turn_radps", turn_radps);
 <span class="gi">+</span>
-<span class="gi">+        double[] wheelInPerS = WheelTargets.forMecanum(forwardXInPerS, strafeYInPerS, turnRadPerS,</span>
+<span class="gi">+        double[] wheel_ips = WheelTargets.forMecanum(forwardX_ips, strafeY_ips, turn_radps,</span>
 <span class="gi">+                Constants.turnRadiusInches);</span>
-<span class="gi">+        drivetrain.setCommandedWheelSpeeds(wheelInPerS[0], wheelInPerS[1], wheelInPerS[2],</span>
-<span class="gi">+                wheelInPerS[3]);</span>
+<span class="gi">+        drivetrain.setCommandedWheelSpeeds(wheel_ips[FL], wheel_ips[FR], wheel_ips[BL],</span>
+<span class="gi">+                wheel_ips[BR]);</span>
 <span class="w"> </span>    }
 <span class="w"> </span>
 <span class="w"> </span>    // 'public' to match the parent class. 'public' allows access from any code.

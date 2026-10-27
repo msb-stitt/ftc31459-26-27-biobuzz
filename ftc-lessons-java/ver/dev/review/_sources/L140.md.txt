@@ -1,6 +1,6 @@
 # L140
 
-1 file(s) copied, then 1 change(s) in 1 file(s), 6 line(s) of code to write.
+1 file(s) copied, then 1 change(s) in 1 file(s), 8 line(s) of code to write.
 
 ## Copies
 
@@ -12,19 +12,21 @@
 
 ### A change
 
-Delete 1 line, write 6 lines.
+Delete 1 line, write 8 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -83,7 +83,12 @@
+@@ -83,7 +83,14 @@
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
 -        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
-+        double heading = follower.pose().heading();
-+        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
-+        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++        double heading_rad = follower.pose().heading();
++        double sinHeading = Math.sin(heading_rad);
++        double cosHeading = Math.cos(heading_rad);
++        double robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
++        double robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
 +        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
 +        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
 +        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);

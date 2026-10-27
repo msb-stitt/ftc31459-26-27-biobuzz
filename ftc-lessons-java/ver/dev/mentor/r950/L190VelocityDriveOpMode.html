@@ -329,7 +329,7 @@
           <section id="l190velocitydriveopmode">
 <h1>L190VelocityDriveOpMode<a class="headerlink" href="#l190velocitydriveopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.2</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l190">
 <h2>L190<a class="headerlink" href="#l190" title="Link to this heading">¶</a></h2>
@@ -342,54 +342,54 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gi">+  11 import org.firstinspires.ftc.teamcode.base.WheelTargets;</span>
 <span class="gi">+  12 import org.firstinspires.ftc.teamcode.pedro.Constants;</span>
 <span class="w"> </span>  13
-<span class="w"> </span>  14 /**
-<span class="w"> </span>  15  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
-<span class="gu">@@ lines 44 to 50 @@</span>
-<span class="w"> </span>  44     // When on L190S030, see
-<span class="w"> </span>  45     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
-<span class="w"> </span>  46     // for what to do here.
-<span class="gi">+  47     L190SpeedDriveTrain drivetrain;</span>
-<span class="w"> </span>  48
-<span class="w"> </span>  49     // 'public' to match the parent class. 'public' allows access from any code.
-<span class="w"> </span>  50     @Override
-<span class="gu">@@ lines 54 to 62 @@</span>
-<span class="w"> </span>  54         // When on L190S040, see
-<span class="w"> </span>  55         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
-<span class="w"> </span>  56         // for what to do here.
-<span class="gi">+  57         drivetrain = new L190SpeedDriveTrain(hardware);</span>
-<span class="w"> </span>  58
+<span class="w"> </span>  14 import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+<span class="w"> </span>  15
+<span class="gu">@@ lines 46 to 52 @@</span>
+<span class="w"> </span>  46     // When on L190S030, see
+<span class="w"> </span>  47     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
+<span class="w"> </span>  48     // for what to do here.
+<span class="gi">+  49     L190SpeedDriveTrain drivetrain;</span>
+<span class="w"> </span>  50
+<span class="w"> </span>  51     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="w"> </span>  52     @Override
+<span class="gu">@@ lines 56 to 64 @@</span>
+<span class="w"> </span>  56         // When on L190S040, see
+<span class="w"> </span>  57         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
+<span class="w"> </span>  58         // for what to do here.
+<span class="gi">+  59         drivetrain = new L190SpeedDriveTrain(hardware);</span>
+<span class="w"> </span>  60
 <span class="gd">-             initAfter();</span>
-<span class="gi">+  59         initAfter(drivetrain);</span>
-<span class="w"> </span>  60     }
-<span class="w"> </span>  61
-<span class="w"> </span>  62     // 'public' to match the parent class. 'public' allows access from any code.
-<span class="gu">@@ lines 88 to 110 @@</span>
-<span class="w"> </span>  88         // When on L190S050, see
-<span class="w"> </span>  89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
-<span class="w"> </span>  90         // for what to do here.
-<span class="gd">-             double forwardXInPerS = 0.0;</span>
-<span class="gi">+  91         double forwardXSpeed = -leftStickY;</span>
-<span class="gi">+  92         forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);</span>
-<span class="gi">+  93         double forwardXInPerS = forwardXSpeed * MAX_IPS;</span>
-<span class="w"> </span>  94         Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
-<span class="gd">-             double strafeYInPerS = 0.0;</span>
-<span class="gi">+  95         double strafeYSpeed = -leftStickX;</span>
-<span class="gi">+  96         strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);</span>
-<span class="gi">+  97         double strafeYInPerS = strafeYSpeed * MAX_IPS;</span>
-<span class="w"> </span>  98         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
-<span class="gd">-             double turnRadPerS = 0.0;</span>
-<span class="gi">+  99         double turnCcwSpeed = -rightStickX;</span>
-<span class="gi">+ 100         turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);</span>
-<span class="gi">+ 101         double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;</span>
-<span class="w"> </span> 102         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
-<span class="gi">+ 103</span>
-<span class="gi">+ 104         double[] wheelInPerS = WheelTargets.forMecanum(forwardXInPerS, strafeYInPerS, turnRadPerS,</span>
-<span class="gi">+ 105                 Constants.turnRadiusInches);</span>
-<span class="gi">+ 106         drivetrain.setCommandedWheelSpeeds(wheelInPerS[0], wheelInPerS[1], wheelInPerS[2],</span>
-<span class="gi">+ 107                 wheelInPerS[3]);</span>
-<span class="w"> </span> 108     }
-<span class="w"> </span> 109
-<span class="w"> </span> 110     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="gi">+  61         initAfter(drivetrain);</span>
+<span class="w"> </span>  62     }
+<span class="w"> </span>  63
+<span class="w"> </span>  64     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="gu">@@ lines 90 to 112 @@</span>
+<span class="w"> </span>  90         // When on L190S050, see
+<span class="w"> </span>  91         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
+<span class="w"> </span>  92         // for what to do here.
+<span class="gd">-             double forwardX_ips = 0.0;</span>
+<span class="gi">+  93         double forwardXSpeed = -leftStickY;</span>
+<span class="gi">+  94         forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);</span>
+<span class="gi">+  95         double forwardX_ips = forwardXSpeed * MAX_IPS;</span>
+<span class="w"> </span>  96         Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+<span class="gd">-             double strafeY_ips = 0.0;</span>
+<span class="gi">+  97         double strafeYSpeed = -leftStickX;</span>
+<span class="gi">+  98         strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);</span>
+<span class="gi">+  99         double strafeY_ips = strafeYSpeed * MAX_IPS;</span>
+<span class="w"> </span> 100         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+<span class="gd">-             double turn_radps = 0.0;</span>
+<span class="gi">+ 101         double turnCcwSpeed = -rightStickX;</span>
+<span class="gi">+ 102         turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);</span>
+<span class="gi">+ 103         double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;</span>
+<span class="w"> </span> 104         Tracker.publish("drivetrain/turn_radps", turn_radps);
+<span class="gi">+ 105</span>
+<span class="gi">+ 106         double[] wheel_ips = WheelTargets.forMecanum(forwardX_ips, strafeY_ips, turn_radps,</span>
+<span class="gi">+ 107                 Constants.turnRadiusInches);</span>
+<span class="gi">+ 108         drivetrain.setCommandedWheelSpeeds(wheel_ips[FL], wheel_ips[FR], wheel_ips[BL],</span>
+<span class="gi">+ 109                 wheel_ips[BR]);</span>
+<span class="w"> </span> 110     }
+<span class="w"> </span> 111
+<span class="w"> </span> 112     // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>

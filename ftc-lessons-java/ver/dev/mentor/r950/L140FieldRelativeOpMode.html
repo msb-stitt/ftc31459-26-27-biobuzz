@@ -329,26 +329,28 @@
           <section id="l140fieldrelativeopmode">
 <h1>L140FieldRelativeOpMode<a class="headerlink" href="#l140fieldrelativeopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.2</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l140">
 <h2>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L140FieldRelativeOpMode.java  (before L140)</span>
 <span class="gi">+++ mytry/L140FieldRelativeOpMode.java  (after L140)</span>
-<span class="gu">@@ lines 83 to 94 @@</span>
+<span class="gu">@@ lines 83 to 96 @@</span>
 <span class="w"> </span>  83         // When on L140S040, see
 <span class="w"> </span>  84         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
 <span class="w"> </span>  85         // for what to do here.
 <span class="gd">-             drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);</span>
-<span class="gi">+  86         double heading = follower.pose().heading();</span>
-<span class="gi">+  87         double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);</span>
-<span class="gi">+  88         double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);</span>
-<span class="gi">+  89         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);</span>
-<span class="gi">+  90         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);</span>
-<span class="gi">+  91         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);</span>
-<span class="w"> </span>  92     }
-<span class="w"> </span>  93
-<span class="w"> </span>  94     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="gi">+  86         double heading_rad = follower.pose().heading();</span>
+<span class="gi">+  87         double sinHeading = Math.sin(heading_rad);</span>
+<span class="gi">+  88         double cosHeading = Math.cos(heading_rad);</span>
+<span class="gi">+  89         double robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;</span>
+<span class="gi">+  90         double robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;</span>
+<span class="gi">+  91         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);</span>
+<span class="gi">+  92         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);</span>
+<span class="gi">+  93         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);</span>
+<span class="w"> </span>  94     }
+<span class="w"> </span>  95
+<span class="w"> </span>  96     // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>

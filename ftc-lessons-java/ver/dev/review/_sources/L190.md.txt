@@ -39,15 +39,15 @@ Delete 0 lines, write 9 lines.
          // When on L190S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
          // for what to do here.
-+        double[] measuredInPerS = measuredSpeeds.all();
++        double[] measured_ips = measuredSpeeds.all();
 +        double[] wheelSpeeds = new double[4];
 +        for (int i = 0; i < 4; i++) {
-+            double feedforward = Constants.powerPerInchPerSecond * wantedInPerS[i];
-+            double feedback = VELOCITY_KP * (wantedInPerS[i] - measuredInPerS[i]);
++            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];
++            double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);
 +            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
 +        }
 +        setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);
-+        publishWheelSpeeds(wantedInPerS, measuredInPerS);
++        publishWheelSpeeds(wanted_ips, measured_ips);
      }
  }
 ```
@@ -70,8 +70,8 @@ Delete 0 lines, write 2 lines.
 +import org.firstinspires.ftc.teamcode.base.WheelTargets;
 +import org.firstinspires.ftc.teamcode.pedro.Constants;
  
- /**
-  * L190: ask the wheels for a speed. Full stick means 40 inches per second, not
+ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+ 
 ```
 
 ### A change
@@ -81,7 +81,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -44,6 +44,7 @@
+@@ -46,6 +46,7 @@
      // When on L190S030, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
      // for what to do here.
@@ -98,7 +98,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -54,6 +54,7 @@
+@@ -56,6 +56,7 @@
          // When on L190S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
          // for what to do here.
@@ -115,7 +115,7 @@ Delete 1 line, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -56,7 +56,7 @@
+@@ -58,7 +58,7 @@
          // for what to do here.
          drivetrain = new L190SpeedDriveTrain(hardware);
  
@@ -133,17 +133,17 @@ Delete 1 line, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -88,7 +88,9 @@
+@@ -90,7 +90,9 @@
          // When on L190S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
          // for what to do here.
--        double forwardXInPerS = 0.0;
+-        double forwardX_ips = 0.0;
 +        double forwardXSpeed = -leftStickY;
 +        forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
-+        double forwardXInPerS = forwardXSpeed * MAX_IPS;
-         Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
-         double strafeYInPerS = 0.0;
-         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
++        double forwardX_ips = forwardXSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+         double strafeY_ips = 0.0;
+         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
 ```
 
 ### A change
@@ -153,17 +153,17 @@ Delete 1 line, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -92,7 +92,9 @@
+@@ -94,7 +94,9 @@
          forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
-         double forwardXInPerS = forwardXSpeed * MAX_IPS;
-         Tracker.publish("drivetrain/forwardXInPerS", forwardXInPerS);
--        double strafeYInPerS = 0.0;
+         double forwardX_ips = forwardXSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+-        double strafeY_ips = 0.0;
 +        double strafeYSpeed = -leftStickX;
 +        strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
-+        double strafeYInPerS = strafeYSpeed * MAX_IPS;
-         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
-         double turnRadPerS = 0.0;
-         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
++        double strafeY_ips = strafeYSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+         double turn_radps = 0.0;
+         Tracker.publish("drivetrain/turn_radps", turn_radps);
 ```
 
 ### A change
@@ -173,15 +173,15 @@ Delete 1 line, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -96,7 +96,9 @@
+@@ -98,7 +98,9 @@
          strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
-         double strafeYInPerS = strafeYSpeed * MAX_IPS;
-         Tracker.publish("drivetrain/strafeYInPerS", strafeYInPerS);
--        double turnRadPerS = 0.0;
+         double strafeY_ips = strafeYSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+-        double turn_radps = 0.0;
 +        double turnCcwSpeed = -rightStickX;
 +        turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
-+        double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;
-         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
++        double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
+         Tracker.publish("drivetrain/turn_radps", turn_radps);
      }
  
 ```
@@ -193,15 +193,15 @@ Delete 0 lines, write 5 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -100,6 +100,11 @@
+@@ -102,6 +102,11 @@
          turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
-         double turnRadPerS = turnCcwSpeed * MAX_TURN_RADPS;
-         Tracker.publish("drivetrain/turnRadPerS", turnRadPerS);
+         double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
+         Tracker.publish("drivetrain/turn_radps", turn_radps);
 +
-+        double[] wheelInPerS = WheelTargets.forMecanum(forwardXInPerS, strafeYInPerS, turnRadPerS,
++        double[] wheel_ips = WheelTargets.forMecanum(forwardX_ips, strafeY_ips, turn_radps,
 +                Constants.turnRadiusInches);
-+        drivetrain.setCommandedWheelSpeeds(wheelInPerS[0], wheelInPerS[1], wheelInPerS[2],
-+                wheelInPerS[3]);
++        drivetrain.setCommandedWheelSpeeds(wheel_ips[FL], wheel_ips[FR], wheel_ips[BL],
++                wheel_ips[BR]);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.

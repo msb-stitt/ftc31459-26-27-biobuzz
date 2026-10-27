@@ -324,19 +324,21 @@
           <section id="l150robotrelativebuttonopmode">
 <h1>L150RobotRelativeButtonOpMode<a class="headerlink" href="#l150robotrelativebuttonopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.2</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l150">
 <h2>L150<a class="headerlink" href="#l150" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L150RobotRelativeButtonOpMode.java  (before L150)</span>
 <span class="gi">+++ mytry/L150RobotRelativeButtonOpMode.java  (after L150)</span>
-<span class="gu">@@ lines 85 to 102 @@</span>
+<span class="gu">@@ lines 85 to 104 @@</span>
 <span class="w"> </span>  85         // When on L150S030, see
 <span class="w"> </span>  86         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
 <span class="w"> </span>  87         // for what to do here.
-<span class="gd">-             double heading = follower.pose().heading();</span>
-<span class="gd">-             robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);</span>
-<span class="gd">-             robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);</span>
+<span class="gd">-             double heading_rad = follower.pose().heading();</span>
+<span class="gd">-             double sinHeading = Math.sin(heading_rad);</span>
+<span class="gd">-             double cosHeading = Math.cos(heading_rad);</span>
+<span class="gd">-             robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;</span>
+<span class="gd">-             robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;</span>
 <span class="gi">+  88         boolean robotRelative = gamepad1.right_bumper;</span>
 <span class="gi">+  89         Tracker.publish("drivetrain/robotRelative", robotRelative);</span>
 <span class="gi">+  90         if (robotRelative) {</span>
@@ -345,13 +347,15 @@ is gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gi">+  93             robotStrafeYSpeed = -leftStickX;</span>
 <span class="gi">+  94             robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);</span>
 <span class="gi">+  95         } else {</span>
-<span class="gi">+  96             double heading = follower.pose().heading();</span>
-<span class="gi">+  97             robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);</span>
-<span class="gi">+  98             robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);</span>
-<span class="gi">+  99         }</span>
-<span class="w"> </span> 100         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
-<span class="w"> </span> 101         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
-<span class="w"> </span> 102         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
+<span class="gi">+  96             double heading_rad = follower.pose().heading();</span>
+<span class="gi">+  97             double sinHeading = Math.sin(heading_rad);</span>
+<span class="gi">+  98             double cosHeading = Math.cos(heading_rad);</span>
+<span class="gi">+  99             robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;</span>
+<span class="gi">+ 100             robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;</span>
+<span class="gi">+ 101         }</span>
+<span class="w"> </span> 102         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
+<span class="w"> </span> 103         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
+<span class="w"> </span> 104         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
 </pre></div>
 </div>
 </section>

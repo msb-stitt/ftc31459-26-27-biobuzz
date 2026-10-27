@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "b6c9c54e1f10fa3ece061a1d628901cf8ac0ecfb",
+      "built_from_commit": "2d51a366a4bd5dd661ac8c0cefb80b905af75256",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -128,9 +128,9 @@
         "fig-l160-held_e29992a5e74d.png",
         "fig-l170-drove-there_83f144e4565b.png",
         "fig-l170-stands-still_c36e5a46902e.png",
-        "fig-l180-aiming_53b2181830ca.png",
-        "fig-l190-asks-standing-still_61ff2df771a9.png",
-        "fig-l190-wheel-numbers_0e90809d77ec.png",
+        "fig-l180-aiming_d6ff9bb58285.png",
+        "fig-l190-asks-standing-still_911602ecc989.png",
+        "fig-l190-wheel-numbers_1572e143bd65.png",
         "fig-l195-nothing-pushed_b78bc5855097.png",
         "fig-mecanum-x_1487c470aae6.png",
         "fig-odometry-step_4d3452b4bec9.png",
@@ -145,7 +145,7 @@
         "fig-wheel-handover_d6160d25008c.png",
         "fig-wheel-names_c5e72d252f39.png",
         "h017_c04cb17aa6c1.mp4",
-        "l020_22f234f03597.mp4",
+        "l020_70047773414f.mp4",
         "route-compound_fb6d157d50ff.svg",
         "route-curve_7ece100f954f.svg",
         "route-facingpoint_3972b5e77521.svg",
@@ -1905,16 +1905,28 @@
       "sha256": "53b2181830cadf79cbc876b5098c095e23736a64d748be3fe9f9ada0548708b1",
       "bytes": 316959,
       "used_by_versions": [
-        "dev",
         "v0.3.0-rc.1"
+      ]
+    },
+    "fig-l180-aiming_d6ff9bb58285.png": {
+      "sha256": "d6ff9bb582857fdd4fd4498eb6ff1c202aba00575d44c61032ed0a26e7b013ba",
+      "bytes": 317581,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l190-asks-standing-still_61ff2df771a9.png": {
       "sha256": "61ff2df771a928d55fcf81e902ef3ef16ccf22fa01dbdfb659b88365ae58475e",
       "bytes": 270782,
       "used_by_versions": [
-        "dev",
         "v0.3.0-rc.1"
+      ]
+    },
+    "fig-l190-asks-standing-still_911602ecc989.png": {
+      "sha256": "911602ecc9898db5b54e2a88ed38dacea27c949787c097249f15eeea11309f0f",
+      "bytes": 273469,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l190-asks-standing-still_a8ec63ebac78.png": {
@@ -1937,8 +1949,14 @@
       "sha256": "0e90809d77ec613b7f89ff7ab912645bc9cae2a480f580e92af782d4a97ea033",
       "bytes": 288592,
       "used_by_versions": [
-        "dev",
         "v0.3.0-rc.1"
+      ]
+    },
+    "fig-l190-wheel-numbers_1572e143bd65.png": {
+      "sha256": "1572e143bd65d4ba5fc27103e85d10a0023e301ac1aacfa575f8567f6e40be24",
+      "bytes": 286461,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l195-nothing-pushed_b78bc5855097.png": {
@@ -2115,8 +2133,14 @@
       "sha256": "22f234f035976b8fdbbceff0afd6be39cf07b95f608cad19448acb66df95d02f",
       "bytes": 92220199,
       "used_by_versions": [
-        "dev",
         "v0.3.0-rc.1"
+      ]
+    },
+    "l020_70047773414f.mp4": {
+      "sha256": "70047773414f50940f88e097a3032eeba00ca7fcd05e94ae3ab152cb3f071875",
+      "bytes": 92224922,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "l020_a227022a8a0f.mp4": {

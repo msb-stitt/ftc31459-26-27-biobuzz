@@ -39,7 +39,7 @@ Delete 0 lines, write 2 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -150,6 +150,8 @@
+@@ -152,6 +152,8 @@
          // When on L170S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
          // for what to do here.
