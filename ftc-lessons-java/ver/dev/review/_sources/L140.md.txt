@@ -1,14 +1,36 @@
 # L140
 
-1 file(s) copied, then 1 change(s) in 1 file(s), 8 line(s) of code to write.
+2 file(s) copied, then 3 change(s) in 2 file(s), 14 line(s) of code to write.
 
 ## Copies
 
 - `lessons/L140FieldRelativeOpMode.java` to `mytry/L140FieldRelativeOpMode.java`
+- `lessons/L140AutoOpMode.java` to `mytry/L140AutoOpMode.java`
 
 ## L140FieldRelativeOpMode
 
 `TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java`
+
+### A change
+
+Delete 0 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -107,6 +107,11 @@
+         // When on L140S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            fieldXSpeed = leftStickY;
++            fieldYSpeed = leftStickX;
++        }
+ 
+         fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+```
 
 ### A change
 
@@ -17,7 +39,7 @@ Delete 1 line, write 8 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -83,7 +83,14 @@
+@@ -125,7 +125,14 @@
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
@@ -33,4 +55,25 @@ Delete 1 line, write 8 lines.
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
+```
+
+## L140AutoOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -68,6 +68,7 @@
+         // When on L140S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+         // for what to do here.
++        OpModeStorage.alliance = alliance;
+ 
+         String auto = menu.chosen("Auto");
+         Command chosenAuto = Command.NOOP;
 ```

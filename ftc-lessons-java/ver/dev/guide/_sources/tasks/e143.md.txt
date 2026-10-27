@@ -33,5 +33,6 @@ from there +x points toward the drivers and +y to their right.
 :name: fig-l140-field-blue
 :::
 
-L140's lines are written for the Red Alliance Area. From the Blue Alliance Area, the same
-push away from you drives the robot toward you.
+L140's first two lines are written for the Red Alliance Area. L140S050 takes the minus signs off
+for the Blue Alliance Area, so a push away from you drives the robot away from you from either
+end.

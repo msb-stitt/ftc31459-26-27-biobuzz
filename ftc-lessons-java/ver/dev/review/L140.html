@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="L150" href="L150.html"><link rel="prev" title="L130" href="L130.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="L150" href="L150.html"><link rel="prev" title="L135" href="L135.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>L140 - What the student writes</title>
@@ -203,6 +203,7 @@
 <li class="toctree-l1"><a class="reference internal" href="L120.html">L120</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L125.html">L125</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L130.html">L130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L135.html">L135</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L140</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L150.html">L150</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L160.html">L160</a></li>
@@ -250,11 +251,12 @@
         <article role="main" id="furo-main-content">
           <section id="l140">
 <h1>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 1 change(s) in 1 file(s), 8 line(s) of code to write.</p>
+<p>2 file(s) copied, then 3 change(s) in 2 file(s), 14 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">lessons/L140FieldRelativeOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L140FieldRelativeOpMode.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L140AutoOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L140AutoOpMode.java</span></code></p></li>
 </ul>
 </section>
 <section id="l140fieldrelativeopmode">
@@ -262,10 +264,30 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 5 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -107,6 +107,11 @@</span>
+<span class="w"> </span>        // When on L140S050, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+        if (alliance.equals("Blue")) {</span>
+<span class="gi">+            fieldXSpeed = leftStickY;</span>
+<span class="gi">+            fieldYSpeed = leftStickX;</span>
+<span class="gi">+        }</span>
+<span class="w"> </span>
+<span class="w"> </span>        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+<span class="w"> </span>        Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <p>Delete 1 line, write 8 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -83,7 +83,14 @@</span>
+<span class="gu">@@ -125,7 +125,14 @@</span>
 <span class="w"> </span>        // When on L140S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
 <span class="w"> </span>        // for what to do here.
@@ -281,6 +303,26 @@
 <span class="w"> </span>    }
 <span class="w"> </span>
 <span class="w"> </span>    // 'public' to match the parent class. 'public' allows access from any code.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l140autoopmode">
+<h2>L140AutoOpMode<a class="headerlink" href="#l140autoopmode" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java</span></code></p>
+<section id="id2">
+<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -68,6 +68,7 @@</span>
+<span class="w"> </span>        // When on L140S070, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        OpModeStorage.alliance = alliance;</span>
+<span class="w"> </span>
+<span class="w"> </span>        String auto = menu.chosen("Auto");
+<span class="w"> </span>        Command chosenAuto = Command.NOOP;
 </pre></div>
 </div>
 </section>
@@ -301,14 +343,14 @@
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="L130.html">
+          <a class="prev-page" href="L135.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">L130</div>
+                <div class="title">L135</div>
                 
               </div>
             </a>
@@ -346,6 +388,11 @@
 <li><a class="reference internal" href="#copies">Copies</a></li>
 <li><a class="reference internal" href="#l140fieldrelativeopmode">L140FieldRelativeOpMode</a><ul>
 <li><a class="reference internal" href="#a-change">A change</a></li>
+<li><a class="reference internal" href="#id1">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l140autoopmode">L140AutoOpMode</a><ul>
+<li><a class="reference internal" href="#id2">A change</a></li>
 </ul>
 </li>
 </ul>

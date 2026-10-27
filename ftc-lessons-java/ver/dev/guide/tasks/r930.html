@@ -233,6 +233,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul>
@@ -271,7 +272,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135AutoMenu.html">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
@@ -386,31 +390,35 @@ names that lesson: its check is on the floor.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">L130</span> <span class="pre">Forward</span> <span class="pre">Then</span> <span class="pre">Strafe</span></code> (Autonomous)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l130*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L140</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Field</span> <span class="pre">Relative</span></code> (TeleOp)</p></td>
+<tr class="row-even"><td><p>L135</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L135</span> <span class="pre">Choose</span> <span class="pre">Auto</span></code> (Autonomous)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l135*'</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>L140</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Auto</span></code> (Autonomous) <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Field</span> <span class="pre">Relative</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l140*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L150</p></td>
+<tr class="row-even"><td><p>L150</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L150</span> <span class="pre">Robot</span> <span class="pre">Relative</span> <span class="pre">Button</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l150*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L160</p></td>
+<tr class="row-odd"><td><p>L160</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L160</span> <span class="pre">Heading</span> <span class="pre">Hold</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l160*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L170</p></td>
+<tr class="row-even"><td><p>L170</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L170</span> <span class="pre">Drive</span> <span class="pre">To</span> <span class="pre">Pose</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l170*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L180</p></td>
+<tr class="row-odd"><td><p>L180</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L180</span> <span class="pre">Combined</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l180*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L190</p></td>
+<tr class="row-even"><td><p>L190</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L190</span> <span class="pre">Velocity</span> <span class="pre">Drive</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l190*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L195</p></td>
+<tr class="row-odd"><td><p>L195</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">ticks</span> <span class="pre">per</span> <span class="pre">inch</span></code> (TeleOp) <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l195*'</span></code></p></td>
 </tr>
@@ -537,7 +545,7 @@ names that lesson: its check is on the floor.</p>
 </tbody>
 </table>
 </div>
-<p>Generated by applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-minor-fixes.2</span></code>, every lesson in order.</p>
+<p>Generated by applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.1</span></code>, every lesson in order.</p>
 </section>
 </section>
 

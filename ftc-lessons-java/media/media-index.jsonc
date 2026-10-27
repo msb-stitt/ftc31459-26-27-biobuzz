@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "739241e0977d69fb5aa649886690dbbb55afaf7b",
+      "built_from_commit": "c55fe18639ef621cb301c2ea3dd1fef7e217bcb6",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -119,6 +119,7 @@
         "fig-l125-drive24_daad530b722c.png",
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
+        "fig-l135-menu_5f461041d6cf.png",
         "fig-l140-field-blue_3b384562de3b.png",
         "fig-l140-field-red_27fd021cf649.png",
         "fig-l140-field-top_a914a13d7b0a.png",
@@ -2560,6 +2561,13 @@
         "v0.3.0-rc.1",
         "v0.3.0-rc.2",
         "v0.3.0-rc.3"
+      ]
+    },
+    "fig-l135-menu_5f461041d6cf.png": {
+      "sha256": "5f461041d6cf7ebc35600228d6def1113ad81b471d79559c0a9ca311a9ed8ad8",
+      "bytes": 53615,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l140-field-blue_3b384562de3b.png": {

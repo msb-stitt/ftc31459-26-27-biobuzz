@@ -10,34 +10,36 @@ happens to be facing, so a driver never has to think about which end of the robo
 ::::{only} mentor
 **Before you start.**
 
-- L130 is done.
+- L135 is done.
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
 
-**Where the driver stands.** "Away from the driver" is the field's +x. The
-robot starts at heading 90°, facing +y, so at the start a push away from the driver slides it to its
-right.
+**Where the driver stands.** "Away from the driver" is the field's +x from the Red Alliance Area,
+and -x from the Blue. From the Red Alliance Area, the robot starts at heading 90°, facing +y, so
+at the start a push away from the driver slides it to its right.
 ::::
 
 ## the steps
 
-### L140S010: copy the starter into mytry
+### L140S010: copy the two starters into mytry
 
-**Copy.** In `lessons`, click `L140FieldRelativeOpMode` once and copy it. Click `mytry` once and
-paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
-Git, click **Add**.
+This lesson has two files. `L140FieldRelativeOpMode` is the teleop. `L140AutoOpMode` is L135's
+auto with a choice to do nothing, and it hands the teleop the alliance. Both use L135's menu.
 
-**Check.**
-
-- `mytry` holds `L140FieldRelativeOpMode`, and the new file is open.
-
-### L140S020: switch your copy on
-
-**Change.** Delete the line `@Disabled`, under the comment that names this step.
+**Copy.** In `lessons`, copy `L140FieldRelativeOpMode` and `L140AutoOpMode` into `mytry`, one at a
+time.
 
 **Check.**
 
-- Under the step's comment, the next line reads
+- `mytry` holds `L140FieldRelativeOpMode` and `L140AutoOpMode`.
+
+### L140S020: switch your copies on
+
+**Change.** In each copy, delete the line `@Disabled`, under the comment that names this step.
+
+**Check.**
+
+- In each, under the step's comment, the next line reads
   `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
 ### L140S030: drive and turn at once, the L110 way
@@ -106,7 +108,47 @@ follower, and does the turn itself.
   Field, along +x.
 - `x_in` climbs while `heading_deg` goes around and around.
 
-### L140S050: drive it facing you
+### L140S050: turn the sticks round for the Blue Alliance Area
+
+:::{figure} ../_figures/fig-l140-field-blue.png
+:name: fig-l140-field-blue
+:::
+
+Find `fieldXSpeed = -leftStickY;` and `fieldYSpeed = -leftStickX;`, above the comment that names
+this step. They are right for the Red Alliance Area. From the Blue Alliance Area, away from you is
+the field's -x. Your left is -y. A push away makes `leftStickY` negative. So for blue,
+`fieldXSpeed` is `leftStickY` with no minus. The same goes for `fieldYSpeed`.
+
+The teleop has a menu too, with an `Alliance` row and a `Start` row.
+
+**Change.** Stop the simulator. In `driveFromTheSticks()`, under the comment that names this step,
+type:
+
+```{code-block} java
+:emphasize-lines: 4-8
+
+        // When on L140S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+        // for what to do here.
+        String alliance = menu.chosen("Alliance");
+        if (alliance.equals("Blue")) {
+            fieldXSpeed = leftStickY;
+            fieldYSpeed = leftStickX;
+        }
+```
+
+**Simulator.** Run it with Blue chosen and the left stick pushed away:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L140FieldRelativeOpMode --init --dpad_right=true --a=true --left_stick_y=-0.4"
+```
+
+**Check.**
+
+- The Terminal's last line reads `B-A`: Blue, and the start where the auto ended.
+- Press Enter. The robot drives to the left on the 2D Field, along -x, and `x_in` falls.
+
+### L140S060: drive it facing you
 
 **Robot.** Stop the simulator. Send the code, and run `L140 Field Relative` from the Driver
 Station. Stand off the robot's left side, so that away from you is the field's +x.
@@ -116,6 +158,45 @@ Station. Stand off the robot's left side, so that away from you is the field's +
 - Push the right stick until the robot's nose points at you.
 - Then push the left stick away from you. The robot drives away from you while it faces you.
 - Turn it a quarter turn and try again, and the stick still means the same way on the field.
+
+### L140S070: hand the alliance from the auto to the teleop
+
+At a match, the drive team chooses the alliance once, in the auto. `OpModeStorage` holds values
+that last from one OpMode to the next, such as where the auto ended. At the top of
+`L140AutoOpMode`, `preselectTeleOp = "L140 Field Relative"` has the Driver Station choose the teleop
+when the auto ends.
+
+**Change.** In `L140AutoOpMode`'s `start()`, under the comment that names this step, type:
+
+```{code-block} java
+:emphasize-lines: 4
+
+        // When on L140S070, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+        // for what to do here.
+        OpModeStorage.alliance = alliance;
+```
+
+`OpModeStorage` turns red. Click it and press Option+Enter.
+
+**Robot.** Send the code. Run `L140 Auto` from the autonomous list. During INIT, choose `Blue` and
+leave the auto at `N-Nothing`, so the last line reads `B-N`. Press PLAY, and let the auto run until
+it stops on its own, after 30 seconds.
+
+**Check.**
+
+- The Driver Station now has `L140 Field Relative` chosen.
+- Press INIT. Its menu's last line reads `B-A`.
+- Stand off the robot's left side and push the stick away from you. The robot drives away from
+  you.
+
+**Robot.** Stop the teleop, and run it again with no auto first. During INIT, press the D-pad's
+down, then right, then A, so the last line reads `B-W`. Connect AdvantageScope to 192.168.43.1, as
+the Driver Station says.
+
+**Check.**
+
+- At PLAY, the robot is at the middle of the blue wall: `x_in` 72 and `y_in` 133.5.
 
 **What's happening.** [E141](e141.md) and [E142](e142.md) show why your two lines work.
 [E143](e143.md) shows the field from each Alliance Area.
@@ -140,6 +221,22 @@ around.
 **If it didn't**, and it fails with
 `same stick, still moves away from the driver expected:<0.0> but was:<-0.3338674754196965>`, the
 heading went in as degrees. `Math.cos` wants radians.
+
+**If it didn't**, and `LessonsTest.l140_fromTheBlueAllianceAreaTheStickMeansTheOtherWay` fails
+with `away from the blue drivers is -x, behind a robot facing +x expected:<-1.0> but was:<1.0>`,
+the `if` from L140S050 is missing, or `"Blue"` is spelled differently.
+
+**If it didn't**, and it fails with
+`their left is -y, to the right of a robot facing +x expected:<-1.0> but was:<1.0>`,
+`fieldYSpeed` still has its minus inside the `if`.
+
+**If it didn't**, and `LessonsTest.l140_theAutoHandsItsAllianceToTheTeleOp` fails with
+`the alliance handed to the teleop expected:<[Blue]> but was:<[Red]>`,
+`OpModeStorage.alliance = alliance;` is missing from the auto's `start()`.
+
+The Driver Station chooses the teleop only when the auto ends on its own or its 30 seconds run
+out; pressing STOP leaves it unchosen. The drive team still presses INIT and PLAY for it, and its
+menu works during INIT, as the auto's does.
 
 **What you just did.** Field relative is one turn of two numbers and nothing else. The same
 `sticks`, the same mix, the same scaling. All that changed is which pair of numbers goes in.

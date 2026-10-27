@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="141 what’s happening: arrows as two numbers" href="e141.html"><link rel="prev" title="130 lesson: two legs, forward then sideways" href="l130.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="141 what’s happening: arrows as two numbers" href="e141.html"><link rel="prev" title="135 lesson: choose the alliance and the auto" href="l135.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>140 lesson: make the sticks mean the field - Corbels FTC Programming Lessons in Java</title>
@@ -233,6 +233,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
 <ul class="current">
@@ -271,7 +272,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135AutoMenu.html">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
@@ -331,21 +335,22 @@ happens to be facing, so a driver never has to think about which end of the robo
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l140s010">
-<span id="l140s010-copy-the-starter-into-mytry"></span><h3>L140S010: copy the starter into mytry<a class="headerlink" href="#l140s010" title="Link to this heading">¶</a></h3>
-<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
-paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
-Git, click <strong>Add</strong>.</p>
+<span id="l140s010-copy-the-two-starters-into-mytry"></span><h3>L140S010: copy the two starters into mytry<a class="headerlink" href="#l140s010" title="Link to this heading">¶</a></h3>
+<p>This lesson has two files. <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code> is the teleop. <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code> is L135’s
+auto with a choice to do nothing, and it hands the teleop the alliance. Both use L135’s menu.</p>
+<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, copy <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code> into <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, one at a
+time.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, and the new file is open.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>.</p></li>
 </ul>
 </section>
 <section id="l140s020">
-<span id="l140s020-switch-your-copy-on"></span><h3>L140S020: switch your copy on<a class="headerlink" href="#l140s020" title="Link to this heading">¶</a></h3>
-<p><strong>Change.</strong> Delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
+<span id="l140s020-switch-your-copies-on"></span><h3>L140S020: switch your copies on<a class="headerlink" href="#l140s020" title="Link to this heading">¶</a></h3>
+<p><strong>Change.</strong> In each copy, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Under the step’s comment, the next line reads
+<li><p>In each, under the step’s comment, the next line reads
 <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
 </ul>
 </section>
@@ -404,7 +409,39 @@ Field, along +x.</p></li>
 </ul>
 </section>
 <section id="l140s050">
-<span id="l140s050-drive-it-facing-you"></span><h3>L140S050: drive it facing you<a class="headerlink" href="#l140s050" title="Link to this heading">¶</a></h3>
+<span id="l140s050-turn-the-sticks-round-for-the-blue-alliance-area"></span><h3>L140S050: turn the sticks round for the Blue Alliance Area<a class="headerlink" href="#l140s050" title="Link to this heading">¶</a></h3>
+<figure class="align-default" id="fig-l140-field-blue">
+<img alt="../../media/fig-l140-field-blue_3b384562de3b.png" src="../../media/fig-l140-field-blue_3b384562de3b.png" />
+</figure>
+<p>Find <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickY;</span></code> and <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickX;</span></code>, above the comment that names
+this step. They are right for the Red Alliance Area. From the Blue Alliance Area, away from you is
+the field’s -x. Your left is -y. A push away makes <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> negative. So for blue,
+<code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> is <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> with no minus. The same goes for <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code>.</p>
+<p>The teleop has a menu too, with an <code class="docutils literal notranslate"><span class="pre">Alliance</span></code> row and a <code class="docutils literal notranslate"><span class="pre">Start</span></code> row.</p>
+<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, under the comment that names this step,
+type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftStickX</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span></pre></div>
+</div>
+<p><strong>Simulator.</strong> Run it with Blue chosen and the left stick pushed away:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L140FieldRelativeOpMode --init --dpad_right=true --a=true --left_stick_y=-0.4"</span>
+</pre></div>
+</div>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal’s last line reads <code class="docutils literal notranslate"><span class="pre">B-A</span></code>: Blue, and the start where the auto ended.</p></li>
+<li><p>Press Enter. The robot drives to the left on the 2D Field, along -x, and <code class="docutils literal notranslate"><span class="pre">x_in</span></code> falls.</p></li>
+</ul>
+</section>
+<section id="l140s060">
+<span id="l140s060-drive-it-facing-you"></span><h3>L140S060: drive it facing you<a class="headerlink" href="#l140s060" title="Link to this heading">¶</a></h3>
 <p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Field</span> <span class="pre">Relative</span></code> from the Driver
 Station. Stand off the robot’s left side, so that away from you is the field’s +x.</p>
 <p><strong>Check.</strong></p>
@@ -412,6 +449,38 @@ Station. Stand off the robot’s left side, so that away from you is the field�
 <li><p>Push the right stick until the robot’s nose points at you.</p></li>
 <li><p>Then push the left stick away from you. The robot drives away from you while it faces you.</p></li>
 <li><p>Turn it a quarter turn and try again, and the stick still means the same way on the field.</p></li>
+</ul>
+</section>
+<section id="l140s070">
+<span id="l140s070-hand-the-alliance-from-the-auto-to-the-teleop"></span><h3>L140S070: hand the alliance from the auto to the teleop<a class="headerlink" href="#l140s070" title="Link to this heading">¶</a></h3>
+<p>At a match, the drive team chooses the alliance once, in the auto. <code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> holds values
+that last from one OpMode to the next, such as where the auto ended. At the top of
+<code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">preselectTeleOp</span> <span class="pre">=</span> <span class="pre">&quot;L140</span> <span class="pre">Field</span> <span class="pre">Relative&quot;</span></code> has the Driver Station choose the teleop
+when the auto ends.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>’s <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alliance</span><span class="p">;</span>
+</span></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> turns red. Click it and press Option+Enter.</p>
+<p><strong>Robot.</strong> Send the code. Run <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Auto</span></code> from the autonomous list. During INIT, choose <code class="docutils literal notranslate"><span class="pre">Blue</span></code> and
+leave the auto at <code class="docutils literal notranslate"><span class="pre">N-Nothing</span></code>, so the last line reads <code class="docutils literal notranslate"><span class="pre">B-N</span></code>. Press PLAY, and let the auto run until
+it stops on its own, after 30 seconds.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Driver Station now has <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Field</span> <span class="pre">Relative</span></code> chosen.</p></li>
+<li><p>Press INIT. Its menu’s last line reads <code class="docutils literal notranslate"><span class="pre">B-A</span></code>.</p></li>
+<li><p>Stand off the robot’s left side and push the stick away from you. The robot drives away from
+you.</p></li>
+</ul>
+<p><strong>Robot.</strong> Stop the teleop, and run it again with no auto first. During INIT, press the D-pad’s
+down, then right, then A, so the last line reads <code class="docutils literal notranslate"><span class="pre">B-W</span></code>. Connect AdvantageScope to 192.168.43.1, as
+the Driver Station says.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>At PLAY, the robot is at the middle of the blue wall: <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 133.5.</p></li>
 </ul>
 <p><strong>What’s happening.</strong> <a class="reference internal" href="e141.html"><span class="std std-doc">E141</span></a> and <a class="reference internal" href="e142.html"><span class="std std-doc">E142</span></a> show why your two lines work.
 <a class="reference internal" href="e143.html"><span class="std std-doc">E143</span></a> shows the field from each Alliance Area.</p>
@@ -433,14 +502,14 @@ Station. Stand off the robot’s left side, so that away from you is the field�
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="l130.html">
+          <a class="prev-page" href="l135.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">130 lesson: two legs, forward then sideways</div>
+                <div class="title">135 lesson: choose the alliance and the auto</div>
                 
               </div>
             </a>
@@ -476,11 +545,13 @@ Station. Stand off the robot’s left side, so that away from you is the field�
             <ul>
 <li><a class="reference internal" href="#">140 lesson: make the sticks mean the field</a><ul>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
-<li><a class="reference internal" href="#l140s010-copy-the-starter-into-mytry">L140S010: copy the starter into mytry</a></li>
-<li><a class="reference internal" href="#l140s020-switch-your-copy-on">L140S020: switch your copy on</a></li>
+<li><a class="reference internal" href="#l140s010-copy-the-two-starters-into-mytry">L140S010: copy the two starters into mytry</a></li>
+<li><a class="reference internal" href="#l140s020-switch-your-copies-on">L140S020: switch your copies on</a></li>
 <li><a class="reference internal" href="#l140s030-drive-and-turn-at-once-the-l110-way">L140S030: drive and turn at once, the L110 way</a></li>
 <li><a class="reference internal" href="#l140s040-turn-the-stick-backwards-through-the-heading">L140S040: turn the stick backwards through the heading</a></li>
-<li><a class="reference internal" href="#l140s050-drive-it-facing-you">L140S050: drive it facing you</a></li>
+<li><a class="reference internal" href="#l140s050-turn-the-sticks-round-for-the-blue-alliance-area">L140S050: turn the sticks round for the Blue Alliance Area</a></li>
+<li><a class="reference internal" href="#l140s060-drive-it-facing-you">L140S060: drive it facing you</a></li>
+<li><a class="reference internal" href="#l140s070-hand-the-alliance-from-the-auto-to-the-teleop">L140S070: hand the alliance from the auto to the teleop</a></li>
 </ul>
 </li>
 </ul>
