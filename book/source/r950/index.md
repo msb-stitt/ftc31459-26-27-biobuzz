@@ -20,7 +20,10 @@ L120CompareLocalizersOpMode
 L120EncoderLocalizer
 L125Drive24OpMode
 L130ForwardThenStrafeOpMode
+L135AutoMenu
+L135ChooseAutoOpMode
 L140FieldRelativeOpMode
+L140AutoOpMode
 L150RobotRelativeButtonOpMode
 L160HeadingHoldOpMode
 L170DriveToPoseOpMode
