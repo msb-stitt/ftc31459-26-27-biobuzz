@@ -79,22 +79,22 @@ class L135AutoMenu {
 
     /** The choice after, or the first choice from the last. */
     void right() {
-        // When on L135S030, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+        // When on L135S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
         // for what to do here.
     }
 
     /** The choice shown becomes the one kept. */
     void keep() {
-        // When on L135S040, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+        // When on L135S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
         // for what to do here.
     }
 
     /** The choice kept is shown again. */
     void putBack() {
-        // When on L135S040, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+        // When on L135S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
         // for what to do here.
     }
 

@@ -56,8 +56,8 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init_loop() {
-        // When on L135S050, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+        // When on L135S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
         // for what to do here.
         initLoopAfter();
     }
