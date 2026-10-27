@@ -184,10 +184,10 @@ field's -x. Your left is -y. A push away makes `leftStickY` negative. So for blu
 `leftStickY` with no minus. The same goes for `fieldYSpeed`.
 
 **Change.** Stop the simulator. In `driveFromTheSticks()`, find the comment that names this step.
-Delete the two lines under it, and type:
+Delete the lines under it, down to the comment that names L140S040, and type:
 
 ```{code-block} java
-:emphasize-lines: 4-13
+:emphasize-lines: 4-22
 
         // When on L140S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
@@ -202,9 +202,21 @@ Delete the two lines under it, and type:
             fieldXSpeed = leftStickY;
             fieldYSpeed = leftStickX;
         }
+
+        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
+
+        double turnCcwSpeed = -rightStickX;
+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+
+        // When on L140S040, see
 ```
 
-Each speed is made first with no value, then given one in whichever half of the `if` runs.
+Each speed is made first with no value, then given one in whichever half of the `if` runs. Then
+each speed is shaped as in L080 and published, and the turn is read from the right stick.
 
 **Simulator.** Run the same command again, and connect AdvantageScope.
 
