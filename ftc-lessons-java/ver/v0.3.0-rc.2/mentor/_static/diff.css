@@ -1,0 +1,9 @@
+/* The answer pages' diffs: an added line green, a removed one red, in both of furo's themes. */
+.highlight-diff .gi { color: #1a7f37; background: #e6ffec; }
+.highlight-diff .gd { color: #cf222e; background: #ffebe9; }
+body[data-theme="dark"] .highlight-diff .gi { color: #7ee787; background: #12261e; }
+body[data-theme="dark"] .highlight-diff .gd { color: #ffa198; background: #2d1214; }
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="light"]) .highlight-diff .gi { color: #7ee787; background: #12261e; }
+  body:not([data-theme="light"]) .highlight-diff .gd { color: #ffa198; background: #2d1214; }
+}

@@ -1,0 +1,15 @@
+# 980 before a competition
+
+Do these at home, before you pack the robot. Each one is quicker to fix there than in the pits.
+
+- **Live NetworkTables is off.** FTC rule R704 does not allow it at a competition. On the Driver
+  Station, run **Live NetworkTables on/off**, under TeleOp. INIT says whether it is on. If it says
+  on, press Start, and it turns off.
+- **Each auto has a red version and a blue version.** Run both.
+- **Teleop runs after each auto, on red and on blue.** Run each auto, then teleop, and drive.
+- **Each part of the robot works.** Drive it, and run each mechanism.
+- **The robot passes your own inspection.** FIRST asks teams to inspect their robot before an
+  event. Go through this season's Inspection Checklist, linked from FIRST's
+  [team resources](https://ftc-resources.firstinspires.org/ftc/team). The Driver Station's
+  [Self-Inspect](https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/self_inspect/new-self-inspect.html)
+  screen checks the control system.
