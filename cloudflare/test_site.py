@@ -65,6 +65,11 @@ def main() -> int:
     run(site, new, "dev", "d" * 40)
     expect("dev alone: the landing is dev",
            f"{L}/ver/dev/guide/ 302" in (site / "_redirects").read_text())
+    page = site / "404.html"
+    expect("404.html at the site's root, its picture beside it, its links from the root",
+           page.is_file() and (site / "not-found.png").is_file()
+           and 'src="/not-found.png"' in page.read_text()
+           and f'href="/{L}/"' in page.read_text())
     run(site, old, "v0.1.0-rc.1", "a" * 40)
     expect("a pre-release and dev: the landing is the pre-release",
            f"/{L}/guide/* /{L}/ver/v0.1.0-rc.1/guide/:splat 302"
