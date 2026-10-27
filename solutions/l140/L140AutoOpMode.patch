@@ -1,11 +1,12 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java
-index 5e00eed..640fcaa 100644
+index 5ae961c..2417443 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java
-@@ -68,6 +68,7 @@ public class L140AutoOpMode extends CorbelsAuto {
-         // When on L140S070, see
-         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+@@ -67,6 +67,8 @@ public class L140AutoOpMode extends CorbelsAuto {
+         // When on L140S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
          // for what to do here.
++        String alliance = menu.chosen("Alliance");
 +        OpModeStorage.alliance = alliance;
  
          String auto = menu.chosen("Auto");
