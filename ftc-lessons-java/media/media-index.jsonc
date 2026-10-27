@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "03aeefe26e78b8a2cc031608aeac366fbf39712b",
+      "built_from_commit": "b6c9c54e1f10fa3ece061a1d628901cf8ac0ecfb",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -85,8 +85,8 @@
         "fig-l020-copied_ba826710cf6e.png",
         "fig-l020-copy-class_d05eb5aad2f1.png",
         "fig-l020-hover_c990a79d44ce.png",
-        "fig-l020-live_15f707fb6e2d.png",
-        "fig-l020-log_aa74c5c847f8.png",
+        "fig-l020-live_73d5ef72c5ed.png",
+        "fig-l020-log_bb7a5db81af7.png",
         "fig-l020-platform_8b3cd980ac07.png",
         "fig-l020-publish_c02b723322ff.png",
         "fig-l020-sticky_a051629b4d17.png",
@@ -145,7 +145,7 @@
         "fig-wheel-handover_d6160d25008c.png",
         "fig-wheel-names_c5e72d252f39.png",
         "h017_c04cb17aa6c1.mp4",
-        "l020_d256186bc288.mp4",
+        "l020_22f234f03597.mp4",
         "route-compound_fb6d157d50ff.svg",
         "route-curve_7ece100f954f.svg",
         "route-facingpoint_3972b5e77521.svg",
@@ -1074,18 +1074,30 @@
       "sha256": "15f707fb6e2d5903804cb7de4e32ce9137286e5cdeeb4cfda72d5cad035a10f7",
       "bytes": 171142,
       "used_by_versions": [
-        "dev",
         "v0.2.0",
         "v0.2.0-rc.1"
+      ]
+    },
+    "fig-l020-live_73d5ef72c5ed.png": {
+      "sha256": "73d5ef72c5eda1a7dad56d8ab68c0d10f809808a705057526f60c20d76dceffe",
+      "bytes": 169259,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l020-log_aa74c5c847f8.png": {
       "sha256": "aa74c5c847f84b98864fd36d2588341a2433ae98cdb23040489fa69489d29696",
       "bytes": 177708,
       "used_by_versions": [
-        "dev",
         "v0.2.0",
         "v0.2.0-rc.1"
+      ]
+    },
+    "fig-l020-log_bb7a5db81af7.png": {
+      "sha256": "bb7a5db81af7290eed7ea1ac4edfdb5c11cc86e29420735fb032688e2871e070",
+      "bytes": 174035,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l020-platform_8b3cd980ac07.png": {
@@ -1812,6 +1824,13 @@
         "v0.2.0-rc.1"
       ]
     },
+    "l020_22f234f03597.mp4": {
+      "sha256": "22f234f035976b8fdbbceff0afd6be39cf07b95f608cad19448acb66df95d02f",
+      "bytes": 92220199,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "l020_a227022a8a0f.mp4": {
       "sha256": "a227022a8a0f1d6d3804ac82c9cc527a2d399a7afae38a8ac000e16381fc6aef",
       "bytes": 90880737,
@@ -1821,7 +1840,6 @@
       "sha256": "d256186bc288a5005f8bb9426efbf4ec9939991c209a08f649745bf790b56ff1",
       "bytes": 89991465,
       "used_by_versions": [
-        "dev",
         "v0.2.0",
         "v0.2.0-rc.1"
       ]
