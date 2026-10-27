@@ -1,4 +1,6 @@
-# L140 starts from its starter.
+# L140: the teleop and the auto, copied into mytry and filled in.
 copy lessons/L140FieldRelativeOpMode.java mytry/L140FieldRelativeOpMode.java
+copy lessons/L140AutoOpMode.java mytry/L140AutoOpMode.java
 patch L140FieldRelativeOpMode.patch
+patch L140AutoOpMode.patch
 test *LessonsTest.l140_*
