@@ -78,11 +78,20 @@ final class SimArgs {
         /** The whole line to print on standard error, or null when there is none. */
         final String error;
 
+        /** {@code --init}: INIT passes until Enter, then PLAY. */
+        final boolean init;
+
         private Plan(Form form, String opMode, List<String> controls, String error) {
+            this(form, opMode, controls, error, false);
+        }
+
+        private Plan(Form form, String opMode, List<String> controls, String error,
+                boolean init) {
             this.form = form;
             this.opMode = opMode;
             this.controls = Collections.unmodifiableList(controls);
             this.error = error;
+            this.init = init;
         }
     }
 
@@ -113,6 +122,7 @@ final class SimArgs {
             return bad("an OpMode class comes first; got " + quote(first));
         }
         boolean pad = false;
+        boolean init = false;
         List<String> controls = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
             String arg = args[i];
@@ -120,8 +130,13 @@ final class SimArgs {
                 pad = true;
                 continue;
             }
+            if (arg.equals("--init")) {
+                init = true;
+                continue;
+            }
             if (!arg.startsWith("--")) {
-                return bad("expected --pad or a control option such as --left_stick_y=-1; got "
+                return bad("expected --pad, --init or a control option such as"
+                        + " --left_stick_y=-1; got "
                         + quote(arg));
             }
             String setting = arg.substring(2);
@@ -136,12 +151,12 @@ final class SimArgs {
                     + quote("--" + controls.get(0)));
         }
         if (pad) {
-            return new Plan(Form.OPMODE_PAD, first, empty(), null);
+            return new Plan(Form.OPMODE_PAD, first, empty(), null, init);
         }
         if (controls.isEmpty()) {
-            return new Plan(Form.OPMODE, first, empty(), null);
+            return new Plan(Form.OPMODE, first, empty(), null, init);
         }
-        return new Plan(Form.OPMODE_CONTROLS, first, controls, null);
+        return new Plan(Form.OPMODE_CONTROLS, first, controls, null, init);
     }
 
     /**
@@ -191,9 +206,9 @@ final class SimArgs {
                 .append("     ./gradlew :TeamCode:simRun --args=\"ARGUMENTS\"\n\n")
                 .append("     ARGUMENTS is one of:\n\n")
                 .append("          --pad-check\n")
-                .append("          OpModeClass\n")
-                .append("          OpModeClass --pad\n")
-                .append("          OpModeClass --control=value ...\n\n")
+                .append("          OpModeClass [--init]\n")
+                .append("          OpModeClass [--init] --pad\n")
+                .append("          OpModeClass [--init] --control=value ...\n\n")
                 .append("OPERANDS\n")
                 .append("     OpModeClass\n")
                 .append("             The OpMode to run, named by the part of its class name that\n")
@@ -224,6 +239,12 @@ final class SimArgs {
                 .append("             whenever; a gamepad object with no gamepad in its slot reads\n")
                 .append("             as untouched. Hold Start and press A to drive as gamepad1,\n")
                 .append("             Start and B for gamepad2.\n\n")
+                .append("     --init  Stay in INIT before PLAY, as the Driver Station does between\n")
+                .append("             its INIT and start buttons: init_loop() runs again and\n")
+                .append("             again, and the Driver Station's lines print here whenever\n")
+                .append("             they change. Press Enter to start the OpMode. A control\n")
+                .append("             option is held from INIT on, so a button's aWasPressed\n")
+                .append("             and the like fire once, during INIT.\n\n")
                 .append("     --help  Print this.\n\n")
                 .append("     A control option names one control of the gamepad1 object, spelled\n")
                 .append("     as the FTC Gamepad class spells the field a lesson reads. It is set\n")
