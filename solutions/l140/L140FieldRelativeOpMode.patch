@@ -1,15 +1,17 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-index c5a13a3..dd561c4 100644
+index 42c1ec2..3e46766 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-@@ -83,7 +83,12 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -83,7 +83,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
 -        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
-+        double heading = follower.pose().heading();
-+        double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
-+        double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
++        double heading_rad = follower.pose().heading();
++        double sinHeading = Math.sin(heading_rad);
++        double cosHeading = Math.cos(heading_rad);
++        double robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
++        double robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
 +        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
 +        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
 +        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);

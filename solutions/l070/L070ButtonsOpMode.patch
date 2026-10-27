@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L070ButtonsOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L070ButtonsOpMode.java
-index 2646e39..46fc023 100644
+index ff884d7..25e8d9f 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L070ButtonsOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L070ButtonsOpMode.java
 @@ -35,6 +35,7 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {

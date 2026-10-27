@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
-index 3ebb0a9..8244f45 100644
+index 20ba1ff..4dce698 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L170DriveToPoseOpMode.java
 @@ -82,6 +82,12 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
@@ -15,7 +15,7 @@ index 3ebb0a9..8244f45 100644
  
          loopAfter();
      }
-@@ -144,6 +150,8 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
+@@ -146,6 +152,8 @@ public class L170DriveToPoseOpMode extends CorbelsTeleOp {
          // When on L170S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
          // for what to do here.

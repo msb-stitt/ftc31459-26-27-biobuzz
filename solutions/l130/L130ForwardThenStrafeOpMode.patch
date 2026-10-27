@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
-index 658c9e0..101cdfb 100644
+index ff20db0..ef38052 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L130ForwardThenStrafeOpMode.java
 @@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mytry;
