@@ -65,9 +65,8 @@ public class L140AutoOpMode extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
-        String alliance = menu.chosen("Alliance");
-        // When on L140S070, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+        // When on L140S090, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
         // for what to do here.
 
         String auto = menu.chosen("Auto");
