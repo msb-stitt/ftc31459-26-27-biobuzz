@@ -358,9 +358,13 @@ public final class OpModeHarness {
         opMode.init();
     }
 
-    /** One pass between INIT and PLAY, as the SDK makes again and again. */
+    /**
+     * One pass between INIT and PLAY, as the SDK makes again and again, and the
+     * Driver Station's lines sent after it, as the SDK sends them.
+     */
     public void initLoop() {
         opMode.init_loop();
+        opMode.telemetry.update();
     }
 
     public void start() {

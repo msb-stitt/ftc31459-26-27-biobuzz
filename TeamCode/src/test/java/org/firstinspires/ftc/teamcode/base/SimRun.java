@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode"
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1"
+ * ./gradlew :TeamCode:simRun --args="mytry.L135ChooseAutoOpMode --init --pad"
  * </pre>
  *
  * <p>{@link SimArgs} holds the four forms, the 21 controls that can be set and
@@ -54,6 +55,9 @@ public final class SimRun {
     static final String PACKAGE = "org.firstinspires.ftc.teamcode.";
 
     private static volatile boolean running = true;
+
+    /** Set when Enter is read, which ends INIT under {@code --init}. */
+    private static volatile boolean enterPressed = false;
 
     public static void main(String[] args) throws Exception {
         SimArgs.Plan plan = SimArgs.parse(args);
@@ -131,8 +135,16 @@ public final class SimRun {
                 System.out.println(plan.opMode + " running. Connect AdvantageScope to 127.0.0.1"
                         + " as NetworkTables 4, and Ctrl-C to stop.");
                 harness.init();
-                harness.start();
+                if (plan.init) {
+                    System.out.println("INIT. The Driver Station's lines print below when they"
+                            + " change. Press Enter to start.");
+                    startOnEnter();
+                } else {
+                    harness.start();
+                }
             }
+            boolean inInit = harness != null && plan.init;
+            String shown = "";
             long origin = System.currentTimeMillis();
             long nowMs = origin;
             long tick = 0;
@@ -152,7 +164,16 @@ public final class SimRun {
                 }
                 if (SimTicker.due(tick, lastStep, SimTicker.STEP_TICKS)) {
                     lastStep = tick;
-                    if (harness != null) {
+                    if (inInit && enterPressed) {
+                        inInit = false;
+                        System.out.println("Started.");
+                        harness.start();
+                    }
+                    if (inInit) {
+                        harness.initLoop();
+                        shown = printWhenChanged(harness.driverStation.text(), shown);
+                        out.publish();
+                    } else if (harness != null) {
                         harness.loop(SimTicker.stepWorth(nowMs - lastStepMs));
                         out.publish();
                     }
@@ -181,6 +202,45 @@ public final class SimRun {
         if (harness != null) {
             System.out.println("Flight logs: " + harness.logFolder);
         }
+    }
+
+    /**
+     * The Driver Station's lines, printed when they are not what was printed
+     * last. A pass that printed nothing prints nothing here.
+     */
+    private static String printWhenChanged(String lines, String shown) {
+        if (lines.isEmpty() || lines.equals(shown)) {
+            return shown;
+        }
+        System.out.println("---- Driver Station");
+        System.out.println(lines);
+        return lines;
+    }
+
+    /**
+     * Reads the terminal on a thread of its own, so the loop never waits on it,
+     * and ends INIT at the first Enter. The {@code simRun} task hands the
+     * terminal to this program with {@code standardInput}.
+     */
+    private static void startOnEnter() {
+        Thread reader = new Thread(() -> {
+            try {
+                int c = System.in.read();
+                while (c != -1 && c != '\n') {
+                    c = System.in.read();
+                }
+                if (c == -1) {
+                    System.out.println("simRun: no keyboard reaches this run, so Enter cannot"
+                            + " end INIT; Ctrl-C to stop.");
+                    return;
+                }
+                enterPressed = true;
+            } catch (IOException e) {
+                System.out.println("simRun: the terminal could not be read: " + e.getMessage());
+            }
+        }, "simRun-enter");
+        reader.setDaemon(true);
+        reader.start();
     }
 
     /** Ends the loop on Ctrl-C, so a try-with-resources still closes. */

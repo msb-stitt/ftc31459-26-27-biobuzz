@@ -27,9 +27,9 @@ import org.firstinspires.ftc.teamcode.OpModeStorage;
  *
  * <p>A lesson writes {@code init}, {@code start}, {@code loop} and {@code stop}
  * itself, the way every FTC example does, and calls the hooks below from inside
- * them: {@link #initBefore} and {@link #initAfter}, {@link #startBefore} and
- * {@link #startAfter}, {@link #loopBefore} and {@link #loopAfter}, and
- * {@link #stopAfter}. The hooks are final; what goes between them is the
+ * them: {@link #initBefore} and {@link #initAfter}, {@link #initLoopAfter},
+ * {@link #startBefore} and {@link #startAfter}, {@link #loopBefore} and
+ * {@link #loopAfter}, and {@link #stopAfter}. The hooks are final; what goes between them is the
  * lesson's.
  *
  * <p>{@code init} and {@code loop} are not written here, so the compiler asks
@@ -143,6 +143,11 @@ public abstract class CorbelsOpMode extends OpMode {
      */
     @Override
     public void init_loop() {
+        initLoopAfter();
+    }
+
+    /** The localizer read and published. The last thing a lesson's init_loop() calls. */
+    protected final void initLoopAfter() {
         follower.localizer.update();
         shadowLocalizers.update();
         Tracker.endInitLoop();

@@ -16,6 +16,8 @@ it writes:
 - _routes.json, sending ftc-lessons-java/media/ to the Function, but for the index;
 - _headers, serving the index as JSON, so a browser shows it;
 - index.html, the welcome page, from index.html here;
+- 404.html, the page Cloudflare Pages serves for any path that is not a file, and the picture
+  it shows, not-found.png, from here;
 - ftc-lessons-java/media/media-index.jsonc, by media_index.py.
 
 With --offline it uploads nothing and reads no R2 listing: R2 is taken to hold what the index
@@ -38,6 +40,7 @@ LESSONS = media_index.LESSONS
 BOOKS = ("guide", "mentor", "review")
 REPO = "https://github.com/msb-stitt/ftc31459-26-27-biobuzz"
 TITLE = "Corbels FTC Programming Lessons in Java"
+NOT_FOUND = ("404.html", "not-found.png")
 TAG = re.compile(r"v(\d+)\.(\d+)\.(\d+)(?:-(.+))?")
 
 
@@ -150,6 +153,8 @@ def main() -> int:
     (site / "_routes.json").write_text(routes(), encoding="utf-8")
     (site / "_headers").write_text(headers(), encoding="utf-8")
     shutil.copy(HERE / "index.html", site / "index.html")
+    for name in NOT_FOUND:
+        shutil.copy(HERE / name, site / name)
     print(f"versions {', '.join(versions)}; landing {landing}")
     return 0
 

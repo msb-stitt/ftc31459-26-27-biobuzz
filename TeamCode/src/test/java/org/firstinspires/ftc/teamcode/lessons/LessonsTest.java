@@ -13,6 +13,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 
 import org.firstinspires.ftc.teamcode.base.CorbelsOpMode;
@@ -27,6 +28,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * One test per lesson: what the robot should do once the student's code is
@@ -518,6 +520,57 @@ public class LessonsTest {
     }
 
     @Test
+    public void l135_theMenuChoosesTheAllianceAndTheAuto() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L135ChooseAutoOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertTrue("the menu is on the Driver Station during INIT: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: < Red >"));
+        assertTrue(h.driverStation.text(), h.driverStation.shows("R-F24"));
+
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        assertTrue("right shows Blue, not yet kept: " + h.driverStation.text(),
+                h.driverStation.shows("Alliance: < Blue >   (A keeps, B puts back)"));
+        pressDuringInit(h, pad -> pad.b = true);
+        assertTrue("B puts Red back: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: < Red >"));
+
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("the summary names what was kept: " + h.driverStation.text(),
+                h.driverStation.shows("B-FS"));
+
+        h.start();
+        assertEquals("placed at red's start turned a half-turn", 133.5, follower.pose().y(), EPS);
+        double startHeading_deg = Math.toDegrees(follower.pose().heading());
+        assertEquals("facing -y", 270.0, (startHeading_deg % 360.0 + 360.0) % 360.0, 1e-3);
+        runUntilDone(h, follower, 6.0);
+        h.stop();
+
+        // Red's route ends at (96, 72); turned a half-turn about (72, 72), (48, 72).
+        Pose end = follower.pose();
+        assertEquals("forward then strafe, for blue", 48.0, end.x(), 2.0);
+        assertEquals(72.0, end.y(), 2.0);
+    }
+
+    @Test
+    public void l135_redAndForward24WhenNothingIsChanged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L135ChooseAutoOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        h.start();
+        runUntilDone(h, follower, 3.0);
+        h.stop();
+        assertEquals("L125's route, for red", 34.5, follower.pose().y(), 1.0);
+        assertEquals(72.0, follower.pose().x(), 1.0);
+    }
+
+    @Test
     public void l140_fieldRelativeIgnoresWhichWayTheRobotFaces() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L140FieldRelativeOpMode"));
         Follower follower = h.robot.follower;
@@ -788,6 +841,20 @@ public class LessonsTest {
      * Between two legs the follower holds for one loop with no path, so it is
      * done only once it has stayed that way for three loops.
      */
+    /**
+     * Buttons held for one pass between INIT and PLAY, then let go for one
+     * more, copied into gamepad1 as the SDK copies a gamepad in, which is what
+     * makes aWasPressed() and its kin see a press.
+     */
+    private static void pressDuringInit(OpModeHarness h, Consumer<Gamepad> buttons) {
+        Gamepad held = new Gamepad();
+        buttons.accept(held);
+        h.gamepad1.copy(held);
+        h.initLoop();
+        h.gamepad1.copy(new Gamepad());
+        h.initLoop();
+    }
+
     private static void runUntilDone(OpModeHarness h, Follower follower, double seconds) {
         long deadline = System.nanoTime() + (long) (seconds * 1e9);
         boolean followed = false;

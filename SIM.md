@@ -38,6 +38,11 @@ the first loop and not again.
 
 `--args="--help"` prints all of it, including which field names are refused and why.
 
+`--init` stays in INIT, as the Driver Station does between its INIT and start buttons:
+`init_loop()` runs again and again, and the Driver Station's lines print in the terminal when they
+change. Enter starts the OpMode. An autonomous whose menu is worked during INIT, as L135's is, runs
+this way.
+
 To push the sticks yourself instead, plug a gamepad in and use `--pad`. `--pad-check` reports what a
 gamepad is doing without running an OpMode, so it can run beside one.
 
