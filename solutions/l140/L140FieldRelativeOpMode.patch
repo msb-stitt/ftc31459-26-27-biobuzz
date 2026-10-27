@@ -1,8 +1,20 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-index 42c1ec2..3e46766 100644
+index 1b706a7..046740f 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-@@ -83,7 +83,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -107,6 +107,11 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+         // When on L140S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            fieldXSpeed = leftStickY;
++            fieldYSpeed = leftStickX;
++        }
+ 
+         fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+@@ -120,7 +125,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
