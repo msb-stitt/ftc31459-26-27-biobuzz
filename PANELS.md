@@ -106,7 +106,7 @@ them from the list:
 | `vel/vx_ips`, `vel/vy_ips` | World-frame velocity |
 | `vel/speed_ips` | Overall speed |
 | `vel/omega_radps` | Angular velocity |
-| `vel/forward_ips`, `vel/strafe_ips` | Body-frame velocity |
+| `vel/forwardX_ips`, `vel/strafeY_ips` | Body-frame velocity |
 | `vel/tangential_ips` | Speed along the current path. `NaN` when there is no path — i.e. always in teleop |
 
 A series only shows up in the picker **after it has been sent once**, so start
@@ -132,7 +132,7 @@ in 15 reaches the graph.
 - `pose/x_in` during the auto should ramp smoothly to 24 and stop.
 - `vel/tangential_ips` should rise, plateau, then decay to zero. A long tail
   near zero means the follower is still correcting at the end of the path.
-- `vel/strafe_ips` should stay near zero on a straight drive. If it doesn't,
+- `vel/strafeY_ips` should stay near zero on a straight drive. If it doesn't,
   the odometry pod offsets in `Constants.java` are probably off.
 
 ### Field view

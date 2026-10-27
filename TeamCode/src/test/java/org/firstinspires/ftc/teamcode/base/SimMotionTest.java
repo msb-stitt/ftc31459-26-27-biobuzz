@@ -237,7 +237,7 @@ public class SimMotionTest {
      * take hold; and by the fortieth a step covers 1.608686 in, which is 25 ms of
      * 64.4 in/s less what is left of the lag.
      *
-     * <p>With {@code loop(long)} advancing {@code stepMs} instead of what it was
+     * <p>With {@code loop(long)} advancing {@code step_ms} instead of what it was
      * given, the fortieth step covers 0.6003162255933034 in rather than
      * 1.608686 in, and this fails on the stride. That is not a settled step
      * either: forty steps of 10 ms is 400 ms, and the lag has not finished

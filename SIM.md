@@ -146,7 +146,7 @@ finished, which `OpModeStorage.autonomousEndPose` carries between them; with no 
 it, that is the middle of the near wall facing up the field. Nothing starts at Pedro's origin any
 more, which is a field corner and outside the perimeter frame.
 
-Time is simulated in a test and measured in a run. `OpModeHarness.loop()` advances `stepMs` and
+Time is simulated in a test and measured in a run. `OpModeHarness.loop()` advances `step_ms` and
 reads no wall clock, so a test integrates the same motion every time. `simRun` calls `loop(long)`
 with the real milliseconds its last pass took, bounded at 100 ms, so the robot moves at the speed it
 would move on the field however slow the OpMode's own loop is. Everything periodic runs on a 10 ms
