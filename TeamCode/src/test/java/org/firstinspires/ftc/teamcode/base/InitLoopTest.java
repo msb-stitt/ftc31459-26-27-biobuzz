@@ -33,15 +33,14 @@ public class InitLoopTest {
         // follower's, not a fixed number.
         assertEquals(Math.toDegrees(opMode.follower.pose().heading()),
                 (Double) Tracker.values().get("Localizer/pinPoint/heading_deg"), 1e-6);
-        h.initLoop();
-        assertEquals("a pass between INIT and PLAY is not a loop", 0L, Tracker.loopCount());
-        h.start();
-        // The SDK sends the Driver Station's lines from a thread of its own, from
-        // INIT on; the harness sends them at the end of the first loop.
-        h.loops(1, 0);
+        // The SDK sends what init() printed after the first pass.
         String ds = h.driverStation.text();
         assertTrue(ds, h.driverStation.shows("AdvantageScope: connect to 192.168.43.1"));
         assertFalse(ds, h.driverStation.shows("NetworkTables off"));
+        h.initLoop();
+        assertEquals("a pass between INIT and PLAY is not a loop", 0L, Tracker.loopCount());
+        h.start();
+        h.loops(1, 0);
         h.stop();
     }
 
@@ -58,11 +57,11 @@ public class InitLoopTest {
         OpModeHarness h = new OpModeHarness(new TeleOpWithPanelsOpMode());
         h.init();
         h.initLoop();
-        h.start();
-        h.loops(1, 0);
         String ds = h.driverStation.text();
         assertTrue(ds, h.driverStation.shows("Panels: http://192.168.43.1:8001"));
         assertFalse(ds, h.driverStation.shows("AdvantageScope"));
+        h.start();
+        h.loops(1, 0);
         h.stop();
     }
 }

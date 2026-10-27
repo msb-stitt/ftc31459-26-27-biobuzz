@@ -57,6 +57,31 @@ public final class SimArgsTest {
     }
 
     @Test
+    public void initIsOffUnlessAsked() {
+        assertFalse(parse("lessons.L040TankOpMode").init);
+        assertFalse(parse("lessons.L040TankOpMode", "--pad").init);
+    }
+
+    @Test
+    public void initGoesWithEachOpModeForm() {
+        SimArgs.Plan alone = parse("lessons.L040TankOpMode", "--init");
+        assertNull(alone.error);
+        assertEquals(SimArgs.Form.OPMODE, alone.form);
+        assertTrue(alone.init);
+
+        SimArgs.Plan pad = parse("lessons.L040TankOpMode", "--init", "--pad");
+        assertNull(pad.error);
+        assertEquals(SimArgs.Form.OPMODE_PAD, pad.form);
+        assertTrue(pad.init);
+
+        SimArgs.Plan controls = parse("lessons.L040TankOpMode", "--dpad_right=true", "--init");
+        assertNull(controls.error);
+        assertEquals(SimArgs.Form.OPMODE_CONTROLS, controls.form);
+        assertTrue(controls.init);
+        assertEquals(1, controls.controls.size());
+    }
+
+    @Test
     public void anOpModeWithControlsCarriesThemInOrder() {
         SimArgs.Plan plan = parse("lessons.L040TankOpMode", "--left_stick_y=-1", "--a=true");
         assertNull(plan.error);
