@@ -6,8 +6,8 @@ at the ref keep.toml's [media] names. Moved here from gh-pages' src/ on 2026-10-
     python tools/run.py draw DIR
 
 Three kinds of figure. The plots, stick_shaping and speed_loop, are plain matplotlib, so a value
-can be read off them. panels_graph is a stand-in for a Panels screenshot still to be taken, and
-says so on its face. Every other figure is a drawing, in the marker-sketch style below, and is the
+can be read off them. panels_graph and l135_menu are stand-ins for a Panels screenshot and a
+Driver Station screenshot still to be taken, and say so on their faces. Every other figure is a drawing, in the marker-sketch style below, and is the
 drawing the book uses.
 
 Every number in a figure is the code's: the 0.05 deadband and the sign-keeping square of L060, the
@@ -173,6 +173,25 @@ def panels_graph():
     ax.set_title("Graph: the stick pushed slowly to full, with L060's shaping", fontsize=12)
     stand_in(ax, "a Panels screenshot", x=0.98, y=0.04, ha="right", color="#bbbbbb")
     save(fig, "fig-panels-graph")
+
+
+def l135_menu():
+    """L135's menu as `simRun --init --dpad_down=true --dpad_right=true --a=true` prints it."""
+    lines = ["Live NetworkTables on. AdvantageScope: connect to 192.168.43.1",
+             "  Alliance: < Red >",
+             "> Auto: < FS-Forward Then Strafe >",
+             "R-FS"]
+    code = FontProperties(fname=CODE_FONT, size=13)
+    fig, ax = plt.subplots(figsize=(11, 2.8))
+    ax.set_facecolor("#1e1e24")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for i, line in enumerate(lines):
+        ax.text(0.03, 0.84 - i * 0.18, line, transform=ax.transAxes, ha="left", va="center",
+                color="#f2f2f2", fontproperties=code)
+    ax.set_title("The Driver Station during INIT of L135 Choose Auto", fontsize=12)
+    stand_in(ax, "a Driver Station screenshot", x=0.98, y=0.04, ha="right", color="#bbbbbb")
+    save(fig, "fig-l135-menu")
 
 
 # ---------------------------------------------------------------- the marker-sketch style
@@ -3226,7 +3245,7 @@ def loops():
     s.save("fig-control-loops")
 
 
-PLOTS = [stick_shaping, speed_loop, panels_graph]
+PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
