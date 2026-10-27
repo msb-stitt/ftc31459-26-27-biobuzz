@@ -12,7 +12,9 @@ import com.pedropathing.drivetrain.Drivetrain;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 
@@ -44,6 +46,7 @@ public class LessonsTest {
     public void tearDown() {
         OpModeHarness.restoreFactories();
         Scheduler.reset();
+        OpModeStorage.alliance = "Red";
     }
 
     /** A number the lesson sent to Panels, whatever its Java type was. */
@@ -588,6 +591,80 @@ public class LessonsTest {
                 0.0, h.wheelsForward(), 1e-3);
         assertEquals(-1.0, h.wheelsStrafe(), 1e-3);
         h.stop();
+    }
+
+    @Test
+    public void l140_fromTheBlueAllianceAreaTheStickMeansTheOtherWay() {
+        OpModeStorage.alliance = "Blue";
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L140FieldRelativeOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        h.start();
+
+        follower.setPose(POSES.of(72, 72, 0));    // robot faces +x
+        h.gamepad1.left_stick_y = -1.0f;          // away from the blue drivers, toward -x
+        h.loop();
+        assertEquals("away from the blue drivers is -x, behind a robot facing +x",
+                -1.0, h.wheelsForward(), 1e-3);
+
+        h.gamepad1.left_stick_y = 0.0f;
+        h.gamepad1.left_stick_x = -1.0f;          // to the blue drivers' left, toward -y
+        h.loop();
+        assertEquals("their left is -y, to the right of a robot facing +x",
+                -1.0, h.wheelsStrafe(), 1e-3);
+        h.stop();
+    }
+
+    @Test
+    public void l140_theTeleOpMenuChoosesTheAllianceAndTheWall() {
+        OpModeStorage.autonomousEndPose = POSES.of(30, 40, 0);
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L140FieldRelativeOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertTrue("starts at the alliance the auto handed over: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: < Red >"));
+        assertEquals("and where the auto ended", 30.0, follower.pose().x(), EPS);
+
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue(h.driverStation.text(), h.driverStation.shows("B-W"));
+        h.start();
+
+        // Red's wall start, (72, 10.5, 90), turned a half-turn about (72, 72).
+        assertEquals("against blue's wall", 72.0, follower.pose().x(), EPS);
+        assertEquals(133.5, follower.pose().y(), EPS);
+        double heading_deg = Math.toDegrees(follower.pose().heading());
+        assertEquals("facing -y", 270.0, (heading_deg % 360.0 + 360.0) % 360.0, 1e-3);
+        h.stop();
+    }
+
+    @Test
+    public void l140_theAutoHandsItsAllianceToTheTeleOp() {
+        OpMode auto = MyTry.opMode("L140AutoOpMode");
+        OpMode teleOp = MyTry.opMode("L140FieldRelativeOpMode");
+        assertEquals("the Driver Station picks L140's teleop when the auto ends",
+                teleOp.getClass().getAnnotation(TeleOp.class).name(),
+                auto.getClass().getAnnotation(Autonomous.class).preselectTeleOp());
+
+        OpModeHarness h = new OpModeHarness(auto);
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertTrue("Nothing is the auto until another is chosen: " + h.driverStation.text(),
+                h.driverStation.shows("R-N"));
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        h.start();
+        h.loops(20, 5);
+        h.stop();
+
+        assertEquals("the alliance handed to the teleop", "Blue", OpModeStorage.alliance);
+        assertEquals("Nothing does not move", 133.5, follower.pose().y(), 0.1);
     }
 
     @Test
