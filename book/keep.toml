@@ -245,4 +245,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-minor-fixes"
-commit = "5adeb30df105bf362fa7e70a846b17d574e39906"
+commit = "67636bda0c2d817cdbcc36526f66d62cde4a9710"
