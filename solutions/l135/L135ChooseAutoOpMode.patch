@@ -3,8 +3,8 @@ index 1e4ec27..67941d1 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java
 @@ -58,6 +58,7 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
-         // When on L135S050, see
-         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+         // When on L135S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
          // for what to do here.
 +        menu.loop(gamepad1);
          initLoopAfter();
