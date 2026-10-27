@@ -1,0 +1,172 @@
+# L135
+
+3 file(s) copied, then 8 change(s) in 2 file(s), 27 line(s) of code to write.
+
+## Copies
+
+- `lessons/L135Row.java` to `mytry/L135Row.java`
+- `lessons/L135AutoMenu.java` to `mytry/L135AutoMenu.java`
+- `lessons/L135ChooseAutoOpMode.java` to `mytry/L135ChooseAutoOpMode.java`
+
+## L135AutoMenu
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135AutoMenu.java`
+
+### A change
+
+Delete 0 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -82,6 +82,11 @@
+         // When on L135S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+         // for what to do here.
++        int lastChoice = rows[row].choices.length - 1;
++        shown[row] = shown[row] + 1;
++        if (shown[row] > lastChoice) {
++            shown[row] = 0;
++        }
+     }
+ 
+     /** The choice shown becomes the one kept. */
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -94,6 +94,7 @@
+         // When on L135S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+         // for what to do here.
++        kept[row] = shown[row];
+     }
+ 
+     /** The choice kept is shown again. */
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -102,6 +102,7 @@
+         // When on L135S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+         // for what to do here.
++        shown[row] = kept[row];
+     }
+ 
+     /** The choice kept in the row with this name, such as chosen("Alliance"). */
+```
+
+## L135ChooseAutoOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -36,6 +36,9 @@
+     // When on L135S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+     // for what to do here.
++    L135AutoMenu menu = new L135AutoMenu(
++            new L135Row("Alliance", "Red", "Blue"),
++            new L135Row("Auto", "F24-Forward 24", "FS-Forward Then Strafe"));
+ 
+     double robotHalfLength_in = 9.0;
+     double fieldPerimeterWidth_in = 1.5;
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -61,6 +61,7 @@
+         // When on L135S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 11 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -72,6 +72,17 @@
+         // When on L135S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+         // for what to do here.
++        String auto = menu.chosen("Auto");
++        Command chosenAuto = Command.NOOP;
++        switch (auto) {
++            case "F24-Forward 24":
++                chosenAuto = driveForward24();
++                break;
++            case "FS-Forward Then Strafe":
++                chosenAuto = driveForwardThenStrafe();
++                break;
++        }
++        Scheduler.schedule(chosenAuto);
+         startAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -93,6 +93,7 @@
+         // When on L135S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+         // for what to do here.
++        Tracker.printToDs(menu.summary());
+         Tracker.printPoseSpeedLoopToDs(follower);
+         loopAfter();
+     }
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -111,6 +111,10 @@
+         // When on L135S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
++        }
+         return chosenPoses;
+     }
+ 
+```

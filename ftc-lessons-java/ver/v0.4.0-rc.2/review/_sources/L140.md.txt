@@ -1,0 +1,199 @@
+# L140
+
+2 file(s) copied, then 9 change(s) in 2 file(s), 36 line(s) of code to write.
+
+## Copies
+
+- `lessons/L140FieldRelativeOpMode.java` to `mytry/L140FieldRelativeOpMode.java`
+- `lessons/L140AutoOpMode.java` to `mytry/L140AutoOpMode.java`
+
+## L140FieldRelativeOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -43,6 +43,9 @@
+     // When on L140S050, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+     // for what to do here.
++    L135AutoMenu menu = new L135AutoMenu(
++            new L135Row("Alliance", "Red", "Blue"),
++            new L135Row("Start", "Auto End", "Wall"));
+ 
+     double robotHalfLength_in = 9.0;
+     double fieldPerimeterWidth_in = 1.5;
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -64,6 +64,7 @@
+         // When on L140S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+         // for what to do here.
++        menu.startAt("Alliance", OpModeStorage.alliance);
+     }
+ 
+     /** Again and again between INIT and PLAY. */
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -74,6 +74,7 @@
+         // When on L140S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -85,6 +85,12 @@
+         // When on L140S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+         // for what to do here.
++        String startPlace = menu.chosen("Start");
++        if (startPlace.equals("Wall")) {
++            PoseFactory poses = poses();
++            Pose wall = poses.of(72.0, botStartY_in, 90.0);
++            follower.setPose(wall);
++        }
+         Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
+         Scheduler.schedule(driveFromTheSticksEveryLoop);
+         startAfter();
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -103,6 +103,7 @@
+         // When on L140S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+         // for what to do here.
++        Tracker.printToDs(menu.summary());
+         loopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 2 lines, write 10 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -120,8 +120,16 @@
+         // When on L140S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
+         // for what to do here.
+-        double fieldXSpeed = -leftStickY;
+-        double fieldYSpeed = -leftStickX;
++        double fieldXSpeed;
++        double fieldYSpeed;
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Red")) {
++            fieldXSpeed = -leftStickY;
++            fieldYSpeed = -leftStickX;
++        } else {
++            fieldXSpeed = leftStickY;
++            fieldYSpeed = leftStickX;
++        }
+ 
+         fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+```
+
+### A change
+
+Delete 1 line, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -143,7 +143,14 @@
+         // When on L140S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
+         // for what to do here.
+-        drivetrain.sticks(fieldXSpeed, fieldYSpeed, turnCcwSpeed);
++        double heading_rad = follower.pose().heading();
++        double sinHeading = Math.sin(heading_rad);
++        double cosHeading = Math.cos(heading_rad);
++        double robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
++        double robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
++        Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
++        Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
++        drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -166,6 +166,10 @@
+         // When on L140S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
++        }
+         return chosenPoses;
+     }
+ 
+```
+
+## L140AutoOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -67,6 +67,8 @@
+         // When on L140S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        OpModeStorage.alliance = alliance;
+ 
+         String auto = menu.chosen("Auto");
+         Command chosenAuto = Command.NOOP;
+```
