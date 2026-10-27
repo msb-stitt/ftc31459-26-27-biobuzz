@@ -328,16 +328,17 @@
           <section id="l140autoopmode">
 <h1>L140AutoOpMode<a class="headerlink" href="#l140autoopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.2</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l140">
 <h2>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L140AutoOpMode.java  (before L140)</span>
 <span class="gi">+++ mytry/L140AutoOpMode.java  (after L140)</span>
-<span class="gu">@@ lines 68 to 74 @@</span>
-<span class="w"> </span>  68         // When on L140S070, see
-<span class="w"> </span>  69         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
-<span class="w"> </span>  70         // for what to do here.
+<span class="gu">@@ lines 67 to 74 @@</span>
+<span class="w"> </span>  67         // When on L140S090, see
+<span class="w"> </span>  68         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
+<span class="w"> </span>  69         // for what to do here.
+<span class="gi">+  70         String alliance = menu.chosen("Alliance");</span>
 <span class="gi">+  71         OpModeStorage.alliance = alliance;</span>
 <span class="w"> </span>  72
 <span class="w"> </span>  73         String auto = menu.chosen("Auto");

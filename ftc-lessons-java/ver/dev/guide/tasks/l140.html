@@ -409,41 +409,126 @@ Field, along +x.</p></li>
 </ul>
 </section>
 <section id="l140s050">
-<span id="l140s050-turn-the-sticks-round-for-the-blue-alliance-area"></span><h3>L140S050: turn the sticks round for the Blue Alliance Area<a class="headerlink" href="#l140s050" title="Link to this heading">¶</a></h3>
-<figure class="align-default" id="fig-l140-field-blue">
-<img alt="../../media/fig-l140-field-blue_3b384562de3b.png" src="../../media/fig-l140-field-blue_3b384562de3b.png" />
-</figure>
-<p>Find <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickY;</span></code> and <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickX;</span></code>, above the comment that names
-this step. They are right for the Red Alliance Area. From the Blue Alliance Area, away from you is
-the field’s -x. Your left is -y. A push away makes <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> negative. So for blue,
-<code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> is <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> with no minus. The same goes for <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code>.</p>
-<p>The teleop has a menu too, with an <code class="docutils literal notranslate"><span class="pre">Alliance</span></code> row and a <code class="docutils literal notranslate"><span class="pre">Start</span></code> row.</p>
-<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, under the comment that names this step,
+<span id="l140s050-give-the-teleop-a-menu"></span><h3>L140S050: give the teleop a menu<a class="headerlink" href="#l140s050" title="Link to this heading">¶</a></h3>
+<p>The teleop gets L135’s menu, with two rows. <code class="docutils literal notranslate"><span class="pre">Alliance</span></code> says which end of the field you drive from.
+<code class="docutils literal notranslate"><span class="pre">Start</span></code> says where the robot starts: where the auto ended, or against the wall, for a run with no
+auto first. <code class="docutils literal notranslate"><span class="pre">OpModeStorage.alliance</span></code> is the alliance the auto chose. L140S090 makes the auto set it.</p>
+<p><strong>Change.</strong> Stop the simulator. Near the top of the class, under the comment that names this step,
 type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L140S050, see</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
+<span class="w">    </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">    </span><span class="n">L135AutoMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135AutoMenu</span><span class="p">(</span>
+</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">),</span>
+</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Start"</span><span class="p">,</span><span class="w"> </span><span class="s">"Auto End"</span><span class="p">,</span><span class="w"> </span><span class="s">"Wall"</span><span class="p">));</span>
+</span></pre></div>
+</div>
+<p>At the end of <code class="docutils literal notranslate"><span class="pre">init()</span></code>, under the comment, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">        </span><span class="n">menu</span><span class="p">.</span><span class="na">startAt</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">alliance</span><span class="p">);</span>
+</span></pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">menu</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">);</span>
+</span></pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, under the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">summary</span><span class="p">());</span>
+</span></pre></div>
+</div>
+<p><strong>Simulator.</strong> Run it with <code class="docutils literal notranslate"><span class="pre">--init</span></code>, as in L135:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L140FieldRelativeOpMode --init --pad"</span>
+</pre></div>
+</div>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Red</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">Start:</span> <span class="pre">&lt;</span> <span class="pre">Auto</span> <span class="pre">End</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">R-A</span></code>.</p></li>
+<li><p>Press the D-pad’s right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">B-A</span></code>.</p></li>
+</ul>
+</section>
+<section id="l140s060">
+<span id="l140s060-turn-the-sticks-round-for-the-blue-alliance-area"></span><h3>L140S060: turn the sticks round for the Blue Alliance Area<a class="headerlink" href="#l140s060" title="Link to this heading">¶</a></h3>
+<figure class="align-default" id="fig-l140-field-blue">
+<img alt="../../media/fig-l140-field-blue_3b384562de3b.png" src="../../media/fig-l140-field-blue_3b384562de3b.png" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickY;</span></code> and <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickX;</span></code>, under the comment that names this
+step, are right for the Red Alliance Area. From the Blue Alliance Area, away from you is the
+field’s -x. Your left is -y. A push away makes <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> negative. So for blue, <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> is
+<code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> with no minus. The same goes for <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code>.</p>
+<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step.
+Delete the two lines under it, and type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S060, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Red"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickY</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickX</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">;</span>
 </span><span class="hll"><span class="w">            </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leftStickX</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span></pre></div>
 </div>
-<p><strong>Simulator.</strong> Run it with Blue chosen and the left stick pushed away:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L140FieldRelativeOpMode --init --dpad_right=true --a=true --left_stick_y=-0.4"</span>
-</pre></div>
-</div>
+<p>Each speed is made first with no value, then given one in whichever half of the <code class="docutils literal notranslate"><span class="pre">if</span></code> runs.</p>
+<p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal’s last line reads <code class="docutils literal notranslate"><span class="pre">B-A</span></code>: Blue, and the start where the auto ended.</p></li>
-<li><p>Press Enter. The robot drives to the left on the 2D Field, along -x, and <code class="docutils literal notranslate"><span class="pre">x_in</span></code> falls.</p></li>
+<li><p>Press Enter with <code class="docutils literal notranslate"><span class="pre">R-A</span></code> last, and push the left stick away from you. The robot drives to the right
+on the 2D Field, along +x.</p></li>
+<li><p>Stop it and run it again. Press the D-pad’s right, then A, for <code class="docutils literal notranslate"><span class="pre">B-A</span></code>, then Enter.</p></li>
+<li><p>Push the left stick away. The robot drives to the left, along -x, and <code class="docutils literal notranslate"><span class="pre">x_in</span></code> falls.</p></li>
 </ul>
 </section>
-<section id="l140s060">
-<span id="l140s060-drive-it-facing-you"></span><h3>L140S060: drive it facing you<a class="headerlink" href="#l140s060" title="Link to this heading">¶</a></h3>
+<section id="l140s070">
+<span id="l140s070-start-against-the-wall"></span><h3>L140S070: start against the wall<a class="headerlink" href="#l140s070" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">poses()</span></code> already makes the red alliance’s poses. Like L135’s, it turns them for blue.</p>
+<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">startPlace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Start"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">startPlace</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Wall"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">PoseFactory</span><span class="w"> </span><span class="n">poses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poses</span><span class="p">();</span>
+</span><span class="hll"><span class="w">            </span><span class="n">Pose</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poses</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="n">botStartY_in</span><span class="p">,</span><span class="w"> </span><span class="mf">90.0</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">follower</span><span class="p">.</span><span class="na">setPose</span><span class="p">(</span><span class="n">wall</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span></pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">poses()</span></code>, under the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">chosenPoses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">redPoses</span><span class="p">.</span><span class="na">rotateAround</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="mf">180.0</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span></pre></div>
+</div>
+<p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Press the D-pad’s down, then right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">R-W</span></code>.</p></li>
+<li><p>Press up, then right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">B-W</span></code>.</p></li>
+<li><p>Press Enter. The robot is at the middle of the blue wall: <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 133.5, and
+<code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 270.</p></li>
+</ul>
+</section>
+<section id="l140s080">
+<span id="l140s080-drive-it-facing-you"></span><h3>L140S080: drive it facing you<a class="headerlink" href="#l140s080" title="Link to this heading">¶</a></h3>
 <p><strong>Robot.</strong> Stop the simulator. Send the code, and run <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Field</span> <span class="pre">Relative</span></code> from the Driver
-Station. Stand off the robot’s left side, so that away from you is the field’s +x.</p>
+Station. Press PLAY with <code class="docutils literal notranslate"><span class="pre">R-A</span></code> last. Stand off the robot’s left side, so that away from you is the
+field’s +x.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Push the right stick until the robot’s nose points at you.</p></li>
@@ -451,17 +536,18 @@ Station. Stand off the robot’s left side, so that away from you is the field�
 <li><p>Turn it a quarter turn and try again, and the stick still means the same way on the field.</p></li>
 </ul>
 </section>
-<section id="l140s070">
-<span id="l140s070-hand-the-alliance-from-the-auto-to-the-teleop"></span><h3>L140S070: hand the alliance from the auto to the teleop<a class="headerlink" href="#l140s070" title="Link to this heading">¶</a></h3>
+<section id="l140s090">
+<span id="l140s090-hand-the-alliance-from-the-auto-to-the-teleop"></span><h3>L140S090: hand the alliance from the auto to the teleop<a class="headerlink" href="#l140s090" title="Link to this heading">¶</a></h3>
 <p>At a match, the drive team chooses the alliance once, in the auto. <code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> holds values
 that last from one OpMode to the next, such as where the auto ended. At the top of
 <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">preselectTeleOp</span> <span class="pre">=</span> <span class="pre">&quot;L140</span> <span class="pre">Field</span> <span class="pre">Relative&quot;</span></code> has the Driver Station choose the teleop
 when the auto ends.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>’s <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S090, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alliance</span><span class="p">;</span>
+<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alliance</span><span class="p">;</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> turns red. Click it and press Option+Enter.</p>
@@ -474,13 +560,6 @@ it stops on its own, after 30 seconds.</p>
 <li><p>Press INIT. Its menu’s last line reads <code class="docutils literal notranslate"><span class="pre">B-A</span></code>.</p></li>
 <li><p>Stand off the robot’s left side and push the stick away from you. The robot drives away from
 you.</p></li>
-</ul>
-<p><strong>Robot.</strong> Stop the teleop, and run it again with no auto first. During INIT, press the D-pad’s
-down, then right, then A, so the last line reads <code class="docutils literal notranslate"><span class="pre">B-W</span></code>. Connect AdvantageScope to 192.168.43.1, as
-the Driver Station says.</p>
-<p><strong>Check.</strong></p>
-<ul class="simple">
-<li><p>At PLAY, the robot is at the middle of the blue wall: <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 133.5.</p></li>
 </ul>
 <p><strong>What’s happening.</strong> <a class="reference internal" href="e141.html"><span class="std std-doc">E141</span></a> and <a class="reference internal" href="e142.html"><span class="std std-doc">E142</span></a> show why your two lines work.
 <a class="reference internal" href="e143.html"><span class="std std-doc">E143</span></a> shows the field from each Alliance Area.</p>
@@ -549,9 +628,11 @@ the Driver Station says.</p>
 <li><a class="reference internal" href="#l140s020-switch-your-copies-on">L140S020: switch your copies on</a></li>
 <li><a class="reference internal" href="#l140s030-drive-and-turn-at-once-the-l110-way">L140S030: drive and turn at once, the L110 way</a></li>
 <li><a class="reference internal" href="#l140s040-turn-the-stick-backwards-through-the-heading">L140S040: turn the stick backwards through the heading</a></li>
-<li><a class="reference internal" href="#l140s050-turn-the-sticks-round-for-the-blue-alliance-area">L140S050: turn the sticks round for the Blue Alliance Area</a></li>
-<li><a class="reference internal" href="#l140s060-drive-it-facing-you">L140S060: drive it facing you</a></li>
-<li><a class="reference internal" href="#l140s070-hand-the-alliance-from-the-auto-to-the-teleop">L140S070: hand the alliance from the auto to the teleop</a></li>
+<li><a class="reference internal" href="#l140s050-give-the-teleop-a-menu">L140S050: give the teleop a menu</a></li>
+<li><a class="reference internal" href="#l140s060-turn-the-sticks-round-for-the-blue-alliance-area">L140S060: turn the sticks round for the Blue Alliance Area</a></li>
+<li><a class="reference internal" href="#l140s070-start-against-the-wall">L140S070: start against the wall</a></li>
+<li><a class="reference internal" href="#l140s080-drive-it-facing-you">L140S080: drive it facing you</a></li>
+<li><a class="reference internal" href="#l140s090-hand-the-alliance-from-the-auto-to-the-teleop">L140S090: hand the alliance from the auto to the teleop</a></li>
 </ul>
 </li>
 </ul>

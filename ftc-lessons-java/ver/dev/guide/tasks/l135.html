@@ -357,11 +357,20 @@ this step.</p>
 </ul>
 </section>
 <section id="l135s030">
-<span id="l135s030-show-the-menu-during-init"></span><h3>L135S030: show the menu during INIT<a class="headerlink" href="#l135s030" title="Link to this heading">¶</a></h3>
+<span id="l135s030-make-the-menu-and-show-it-during-init"></span><h3>L135S030: make the menu, and show it during INIT<a class="headerlink" href="#l135s030" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">menu</span></code> is the menu, made from its rows. Each row is a name, then its choices.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code>, near the top of the class, under the comment that names this
+step, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L135S030, see</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030</span>
+<span class="w">    </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">    </span><span class="n">L135AutoMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135AutoMenu</span><span class="p">(</span>
+</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">),</span>
+</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">,</span><span class="w"> </span><span class="s">"F24-Forward 24"</span><span class="p">,</span><span class="w"> </span><span class="s">"FS-Forward Then Strafe"</span><span class="p">));</span>
+</span></pre></div>
+</div>
 <p>Between INIT and PLAY, the robot calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> again and again. The driver uses that time to
-choose.</p>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code>’s <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the comment that names this step,
-type:</p>
+choose. In <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the comment that names this step, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -371,14 +380,15 @@ type:</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">menu.loop</span></code> reads the buttons pressed since the last pass, then prints the menu.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init"</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init --pad"</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">--init</span></code> keeps the simulator in INIT. The Terminal shows the Driver Station’s lines. Press Enter
-in the Terminal for PLAY.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--init</span></code> keeps the simulator in INIT. The Terminal shows the Driver Station’s lines each time they
+change. Press Enter in the Terminal for PLAY.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Red</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">Auto:</span> <span class="pre">&lt;</span> <span class="pre">F24-Forward</span> <span class="pre">24</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">R-F24</span></code>.</p></li>
+<li><p>Press the D-pad’s down. The <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> moves to <code class="docutils literal notranslate"><span class="pre">Auto</span></code>. Press up, and it moves back.</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> marks the row the D-pad is on. The last line is the menu in short: R for Red, and F24, the
 letters before the <code class="docutils literal notranslate"><span class="pre">-</span></code> in <code class="docutils literal notranslate"><span class="pre">F24-Forward</span> <span class="pre">24</span></code>.</p>
@@ -400,14 +410,12 @@ under the comment that names this step, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span></pre></div>
 </div>
-<p><strong>Simulator.</strong> Run it again, with the D-pad’s right pressed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init --dpad_right=true"</span>
-</pre></div>
-</div>
+<p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Blue</span> <span class="pre">&gt;</span>&#160;&#160; <span class="pre">(A</span> <span class="pre">keeps,</span> <span class="pre">B</span> <span class="pre">puts</span> <span class="pre">back)</span></code>.</p></li>
+<li><p>Press the D-pad’s right. The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Blue</span> <span class="pre">&gt;</span>&#160;&#160; <span class="pre">(A</span> <span class="pre">keeps,</span> <span class="pre">B</span> <span class="pre">puts</span> <span class="pre">back)</span></code>.</p></li>
 <li><p>The last line still reads <code class="docutils literal notranslate"><span class="pre">R-F24</span></code>, because Blue is shown but not kept.</p></li>
+<li><p>Press right again, and <code class="docutils literal notranslate"><span class="pre">Red</span></code> comes back round.</p></li>
 </ul>
 </section>
 <section id="l135s050">
@@ -428,27 +436,26 @@ shows the kept choice again.</p>
 <span class="hll"><span class="w">        </span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kept</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p><strong>Simulator.</strong> Run it with right and A pressed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init --dpad_right=true --a=true"</span>
-</pre></div>
-</div>
+<p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Blue</span> <span class="pre">&gt;</span></code>, with no <code class="docutils literal notranslate"><span class="pre">(A</span> <span class="pre">keeps,</span> <span class="pre">B</span> <span class="pre">puts</span> <span class="pre">back)</span></code>.</p></li>
-<li><p>The last line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
+<li><p>Press right, then A. The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Blue</span> <span class="pre">&gt;</span></code>, and the last line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
+<li><p>Press right, then B. <code class="docutils literal notranslate"><span class="pre">Blue</span></code> comes back, and the last line still reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
 </ul>
 </section>
 <section id="l135s060">
 <span id="l135s060-run-the-auto-that-was-chosen"></span><h3>L135S060: run the auto that was chosen<a class="headerlink" href="#l135s060" title="Link to this heading">¶</a></h3>
 <p>At PLAY, <code class="docutils literal notranslate"><span class="pre">start()</span></code> asks the menu which auto was kept. A <code class="docutils literal notranslate"><span class="pre">switch</span></code> compares <code class="docutils literal notranslate"><span class="pre">auto</span></code> with each <code class="docutils literal notranslate"><span class="pre">case</span></code>
 and runs the lines under the one that matches, down to its <code class="docutils literal notranslate"><span class="pre">break</span></code>. The words in each <code class="docutils literal notranslate"><span class="pre">case</span></code> have
-to match the choice in the menu exactly.</p>
-<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code>’s <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names
-this step, type:</p>
+to match the choice in the menu exactly. <code class="docutils literal notranslate"><span class="pre">Command.NOOP</span></code> is a command that does nothing, for a
+choice no <code class="docutils literal notranslate"><span class="pre">case</span></code> matches.</p>
+<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S060, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">auto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">auto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Command</span><span class="w"> </span><span class="n">chosenAuto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="p">.</span><span class="na">NOOP</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">auto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s">"F24-Forward 24"</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                </span><span class="n">chosenAuto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driveForward24</span><span class="p">();</span>
 </span><span class="hll"><span class="w">                </span><span class="k">break</span><span class="p">;</span>
@@ -456,17 +463,23 @@ this step, type:</p>
 </span><span class="hll"><span class="w">                </span><span class="n">chosenAuto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driveForwardThenStrafe</span><span class="p">();</span>
 </span><span class="hll"><span class="w">                </span><span class="k">break</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Scheduler</span><span class="p">.</span><span class="na">schedule</span><span class="p">(</span><span class="n">chosenAuto</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p><strong>Simulator.</strong> Run it with down, right and A pressed, which chooses L130’s auto:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init --dpad_down=true --dpad_right=true --a=true"</span>
-</pre></div>
+<p>In <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, under the comment that names this step, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S060, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">summary</span><span class="p">());</span>
+</span></pre></div>
 </div>
+<p>This keeps the summary on the Driver Station after PLAY.</p>
+<p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>AdvantageScope.</strong> Connect to the simulator, click <strong>2D Field</strong>, and open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code>, then
 <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal’s last line reads <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
+<li><p>Press the D-pad’s down, then right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
 <li><p>Press Enter in the Terminal. The robot drives forward, then slides to its right, as in L130.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> reads 96 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72.</p></li>
 </ul>
@@ -487,13 +500,10 @@ the autos stay written for red.</p>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">equals</span></code> compares two pieces of text. <code class="docutils literal notranslate"><span class="pre">==</span></code> does not work for text.</p>
-<p><strong>Simulator.</strong> Run it with Blue chosen:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init --dpad_right=true --a=true"</span>
-</pre></div>
-</div>
+<p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal’s last line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
+<li><p>Press the D-pad’s right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
 <li><p>Press Enter. The robot jumps to the top of the field, at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 133.5, facing down,
 <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 270.</p></li>
 <li><p>It drives 24 inches down the field and stops at <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 109.5.</p></li>
@@ -509,6 +519,7 @@ press INIT. Press Start and A on the gamepad, so it is gamepad 1.</p>
 <li><p>The Driver Station shows the menu, with <code class="docutils literal notranslate"><span class="pre">R-F24</span></code> last.</p></li>
 <li><p>The D-pad’s down and right, then A, change the last line to <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
 <li><p>Press PLAY. The robot drives forward, then slides to its right.</p></li>
+<li><p>The Driver Station still shows <code class="docutils literal notranslate"><span class="pre">R-FS</span></code> while it drives.</p></li>
 </ul>
 <p>The robot drives the same on the floor for either alliance. Only the numbers on the Driver Station
 change, because the field is turned, not the robot.</p>
@@ -575,7 +586,7 @@ change, because the field is turned, not the robot.</p>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
 <li><a class="reference internal" href="#l135s010-copy-the-three-starters-into-mytry">L135S010: copy the three starters into mytry</a></li>
 <li><a class="reference internal" href="#l135s020-switch-your-copy-on">L135S020: switch your copy on</a></li>
-<li><a class="reference internal" href="#l135s030-show-the-menu-during-init">L135S030: show the menu during INIT</a></li>
+<li><a class="reference internal" href="#l135s030-make-the-menu-and-show-it-during-init">L135S030: make the menu, and show it during INIT</a></li>
 <li><a class="reference internal" href="#l135s040-step-to-the-next-choice">L135S040: step to the next choice</a></li>
 <li><a class="reference internal" href="#l135s050-keep-it-or-put-it-back">L135S050: keep it, or put it back</a></li>
 <li><a class="reference internal" href="#l135s060-run-the-auto-that-was-chosen">L135S060: run the auto that was chosen</a></li>

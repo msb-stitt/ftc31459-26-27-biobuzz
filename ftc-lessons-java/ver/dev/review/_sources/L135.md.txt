@@ -1,6 +1,6 @@
 # L135
 
-3 file(s) copied, then 6 change(s) in 2 file(s), 20 line(s) of code to write.
+3 file(s) copied, then 8 change(s) in 2 file(s), 27 line(s) of code to write.
 
 ## Copies
 
@@ -73,12 +73,31 @@ Delete 0 lines, write 1 line.
 
 ### A change
 
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -36,6 +36,9 @@
+     // When on L135S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+     // for what to do here.
++    L135AutoMenu menu = new L135AutoMenu(
++            new L135Row("Alliance", "Red", "Blue"),
++            new L135Row("Auto", "F24-Forward 24", "FS-Forward Then Strafe"));
+ 
+     double robotHalfLength_in = 9.0;
+     double fieldPerimeterWidth_in = 1.5;
+```
+
+### A change
+
 Delete 0 lines, write 1 line.
 
 ```diff
 --- before this change
 +++ after it
-@@ -58,6 +58,7 @@
+@@ -61,6 +61,7 @@
          // When on L135S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
          // for what to do here.
@@ -90,15 +109,17 @@ Delete 0 lines, write 1 line.
 
 ### A change
 
-Delete 0 lines, write 8 lines.
+Delete 0 lines, write 11 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -71,6 +71,14 @@
+@@ -72,6 +72,17 @@
          // When on L135S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
          // for what to do here.
++        String auto = menu.chosen("Auto");
++        Command chosenAuto = Command.NOOP;
 +        switch (auto) {
 +            case "F24-Forward 24":
 +                chosenAuto = driveForward24();
@@ -107,8 +128,26 @@ Delete 0 lines, write 8 lines.
 +                chosenAuto = driveForwardThenStrafe();
 +                break;
 +        }
-         Scheduler.schedule(chosenAuto);
++        Scheduler.schedule(chosenAuto);
          startAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -93,6 +93,7 @@
+         // When on L135S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+         // for what to do here.
++        Tracker.printToDs(menu.summary());
+         Tracker.printPoseSpeedLoopToDs(follower);
+         loopAfter();
      }
 ```
 
@@ -119,7 +158,7 @@ Delete 0 lines, write 4 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -105,6 +105,10 @@
+@@ -111,6 +111,10 @@
          // When on L135S070, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
          // for what to do here.

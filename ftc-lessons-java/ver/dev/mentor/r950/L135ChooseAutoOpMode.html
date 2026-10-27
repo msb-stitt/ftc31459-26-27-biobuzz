@@ -333,46 +333,67 @@
           <section id="l135chooseautoopmode">
 <h1>L135ChooseAutoOpMode<a class="headerlink" href="#l135chooseautoopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.1</span></code>. A line marked + is new, and a line marked -
+applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.2</span></code>. A line marked + is new, and a line marked -
 is gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l135">
 <h2>L135<a class="headerlink" href="#l135" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L135ChooseAutoOpMode.java  (before L135)</span>
 <span class="gi">+++ mytry/L135ChooseAutoOpMode.java  (after L135)</span>
-<span class="gu">@@ lines 58 to 64 @@</span>
-<span class="w"> </span>  58         // When on L135S030, see
-<span class="w"> </span>  59         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
-<span class="w"> </span>  60         // for what to do here.
-<span class="gi">+  61         menu.loop(gamepad1);</span>
-<span class="w"> </span>  62         initLoopAfter();
-<span class="w"> </span>  63     }
-<span class="w"> </span>  64
-<span class="gu">@@ lines 71 to 84 @@</span>
-<span class="w"> </span>  71         // When on L135S060, see
-<span class="w"> </span>  72         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
-<span class="w"> </span>  73         // for what to do here.
-<span class="gi">+  74         switch (auto) {</span>
-<span class="gi">+  75             case "F24-Forward 24":</span>
-<span class="gi">+  76                 chosenAuto = driveForward24();</span>
-<span class="gi">+  77                 break;</span>
-<span class="gi">+  78             case "FS-Forward Then Strafe":</span>
-<span class="gi">+  79                 chosenAuto = driveForwardThenStrafe();</span>
+<span class="gu">@@ lines 36 to 44 @@</span>
+<span class="w"> </span>  36     // When on L135S030, see
+<span class="w"> </span>  37     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+<span class="w"> </span>  38     // for what to do here.
+<span class="gi">+  39     L135AutoMenu menu = new L135AutoMenu(</span>
+<span class="gi">+  40             new L135Row("Alliance", "Red", "Blue"),</span>
+<span class="gi">+  41             new L135Row("Auto", "F24-Forward 24", "FS-Forward Then Strafe"));</span>
+<span class="w"> </span>  42
+<span class="w"> </span>  43     double robotHalfLength_in = 9.0;
+<span class="w"> </span>  44     double fieldPerimeterWidth_in = 1.5;
+<span class="gu">@@ lines 61 to 67 @@</span>
+<span class="w"> </span>  61         // When on L135S030, see
+<span class="w"> </span>  62         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+<span class="w"> </span>  63         // for what to do here.
+<span class="gi">+  64         menu.loop(gamepad1);</span>
+<span class="w"> </span>  65         initLoopAfter();
+<span class="w"> </span>  66     }
+<span class="w"> </span>  67
+<span class="gu">@@ lines 72 to 88 @@</span>
+<span class="w"> </span>  72         // When on L135S060, see
+<span class="w"> </span>  73         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+<span class="w"> </span>  74         // for what to do here.
+<span class="gi">+  75         String auto = menu.chosen("Auto");</span>
+<span class="gi">+  76         Command chosenAuto = Command.NOOP;</span>
+<span class="gi">+  77         switch (auto) {</span>
+<span class="gi">+  78             case "F24-Forward 24":</span>
+<span class="gi">+  79                 chosenAuto = driveForward24();</span>
 <span class="gi">+  80                 break;</span>
-<span class="gi">+  81         }</span>
-<span class="w"> </span>  82         Scheduler.schedule(chosenAuto);
-<span class="w"> </span>  83         startAfter();
-<span class="w"> </span>  84     }
-<span class="gu">@@ lines 105 to 114 @@</span>
-<span class="w"> </span> 105         // When on L135S070, see
-<span class="w"> </span> 106         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
-<span class="w"> </span> 107         // for what to do here.
-<span class="gi">+ 108         String alliance = menu.chosen("Alliance");</span>
-<span class="gi">+ 109         if (alliance.equals("Blue")) {</span>
-<span class="gi">+ 110             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
-<span class="gi">+ 111         }</span>
-<span class="w"> </span> 112         return chosenPoses;
-<span class="w"> </span> 113     }
-<span class="w"> </span> 114
+<span class="gi">+  81             case "FS-Forward Then Strafe":</span>
+<span class="gi">+  82                 chosenAuto = driveForwardThenStrafe();</span>
+<span class="gi">+  83                 break;</span>
+<span class="gi">+  84         }</span>
+<span class="gi">+  85         Scheduler.schedule(chosenAuto);</span>
+<span class="w"> </span>  86         startAfter();
+<span class="w"> </span>  87     }
+<span class="w"> </span>  88
+<span class="gu">@@ lines 93 to 99 @@</span>
+<span class="w"> </span>  93         // When on L135S060, see
+<span class="w"> </span>  94         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+<span class="w"> </span>  95         // for what to do here.
+<span class="gi">+  96         Tracker.printToDs(menu.summary());</span>
+<span class="w"> </span>  97         Tracker.printPoseSpeedLoopToDs(follower);
+<span class="w"> </span>  98         loopAfter();
+<span class="w"> </span>  99     }
+<span class="gu">@@ lines 111 to 120 @@</span>
+<span class="w"> </span> 111         // When on L135S070, see
+<span class="w"> </span> 112         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
+<span class="w"> </span> 113         // for what to do here.
+<span class="gi">+ 114         String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+ 115         if (alliance.equals("Blue")) {</span>
+<span class="gi">+ 116             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
+<span class="gi">+ 117         }</span>
+<span class="w"> </span> 118         return chosenPoses;
+<span class="w"> </span> 119     }
+<span class="w"> </span> 120
 </pre></div>
 </div>
 </section>

@@ -251,7 +251,7 @@
         <article role="main" id="furo-main-content">
           <section id="l140">
 <h1>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h1>
-<p>2 file(s) copied, then 3 change(s) in 2 file(s), 14 line(s) of code to write.</p>
+<p>2 file(s) copied, then 9 change(s) in 2 file(s), 36 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -264,15 +264,109 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 5 lines.</p>
+<p>Delete 0 lines, write 3 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -107,6 +107,11 @@</span>
+<span class="gu">@@ -43,6 +43,9 @@</span>
+<span class="w"> </span>    // When on L140S050, see
+<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+<span class="w"> </span>    // for what to do here.
+<span class="gi">+    L135AutoMenu menu = new L135AutoMenu(</span>
+<span class="gi">+            new L135Row("Alliance", "Red", "Blue"),</span>
+<span class="gi">+            new L135Row("Start", "Auto End", "Wall"));</span>
+<span class="w"> </span>
+<span class="w"> </span>    double robotHalfLength_in = 9.0;
+<span class="w"> </span>    double fieldPerimeterWidth_in = 1.5;
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -64,6 +64,7 @@</span>
 <span class="w"> </span>        // When on L140S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
 <span class="w"> </span>        // for what to do here.
+<span class="gi">+        menu.startAt("Alliance", OpModeStorage.alliance);</span>
+<span class="w"> </span>    }
+<span class="w"> </span>
+<span class="w"> </span>    /** Again and again between INIT and PLAY. */
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -74,6 +74,7 @@</span>
+<span class="w"> </span>        // When on L140S050, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        menu.loop(gamepad1);</span>
+<span class="w"> </span>        initLoopAfter();
+<span class="w"> </span>    }
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -85,6 +85,12 @@</span>
+<span class="w"> </span>        // When on L140S070, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        String startPlace = menu.chosen("Start");</span>
+<span class="gi">+        if (startPlace.equals("Wall")) {</span>
+<span class="gi">+            PoseFactory poses = poses();</span>
+<span class="gi">+            Pose wall = poses.of(72.0, botStartY_in, 90.0);</span>
+<span class="gi">+            follower.setPose(wall);</span>
+<span class="gi">+        }</span>
+<span class="w"> </span>        Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
+<span class="w"> </span>        Scheduler.schedule(driveFromTheSticksEveryLoop);
+<span class="w"> </span>        startAfter();
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -103,6 +103,7 @@</span>
+<span class="w"> </span>        // When on L140S050, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        Tracker.printToDs(menu.summary());</span>
+<span class="w"> </span>        loopAfter();
+<span class="w"> </span>    }
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>A change<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>Delete 2 lines, write 10 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -120,8 +120,16 @@</span>
+<span class="w"> </span>        // When on L140S060, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
+<span class="w"> </span>        // for what to do here.
+<span class="gd">-        double fieldXSpeed = -leftStickY;</span>
+<span class="gd">-        double fieldYSpeed = -leftStickX;</span>
+<span class="gi">+        double fieldXSpeed;</span>
+<span class="gi">+        double fieldYSpeed;</span>
 <span class="gi">+        String alliance = menu.chosen("Alliance");</span>
-<span class="gi">+        if (alliance.equals("Blue")) {</span>
+<span class="gi">+        if (alliance.equals("Red")) {</span>
+<span class="gi">+            fieldXSpeed = -leftStickY;</span>
+<span class="gi">+            fieldYSpeed = -leftStickX;</span>
+<span class="gi">+        } else {</span>
 <span class="gi">+            fieldXSpeed = leftStickY;</span>
 <span class="gi">+            fieldYSpeed = leftStickX;</span>
 <span class="gi">+        }</span>
@@ -282,12 +376,12 @@
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<section id="id6">
+<h3>A change<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <p>Delete 1 line, write 8 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -125,7 +125,14 @@</span>
+<span class="gu">@@ -143,7 +143,14 @@</span>
 <span class="w"> </span>        // When on L140S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
 <span class="w"> </span>        // for what to do here.
@@ -306,19 +400,39 @@
 </pre></div>
 </div>
 </section>
+<section id="id7">
+<h3>A change<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -166,6 +166,10 @@</span>
+<span class="w"> </span>        // When on L140S070, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+<span class="w"> </span>        // for what to do here.
+<span class="gi">+        String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+        if (alliance.equals("Blue")) {</span>
+<span class="gi">+            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
+<span class="gi">+        }</span>
+<span class="w"> </span>        return chosenPoses;
+<span class="w"> </span>    }
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="l140autoopmode">
 <h2>L140AutoOpMode<a class="headerlink" href="#l140autoopmode" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java</span></code></p>
-<section id="id2">
-<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 1 line.</p>
+<section id="id8">
+<h3>A change<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -68,6 +68,7 @@</span>
-<span class="w"> </span>        // When on L140S070, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
+<span class="gu">@@ -67,6 +67,8 @@</span>
+<span class="w"> </span>        // When on L140S090, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
 <span class="w"> </span>        // for what to do here.
+<span class="gi">+        String alliance = menu.chosen("Alliance");</span>
 <span class="gi">+        OpModeStorage.alliance = alliance;</span>
 <span class="w"> </span>
 <span class="w"> </span>        String auto = menu.chosen("Auto");
@@ -389,10 +503,16 @@
 <li><a class="reference internal" href="#l140fieldrelativeopmode">L140FieldRelativeOpMode</a><ul>
 <li><a class="reference internal" href="#a-change">A change</a></li>
 <li><a class="reference internal" href="#id1">A change</a></li>
+<li><a class="reference internal" href="#id2">A change</a></li>
+<li><a class="reference internal" href="#id3">A change</a></li>
+<li><a class="reference internal" href="#id4">A change</a></li>
+<li><a class="reference internal" href="#id5">A change</a></li>
+<li><a class="reference internal" href="#id6">A change</a></li>
+<li><a class="reference internal" href="#id7">A change</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#l140autoopmode">L140AutoOpMode</a><ul>
-<li><a class="reference internal" href="#id2">A change</a></li>
+<li><a class="reference internal" href="#id8">A change</a></li>
 </ul>
 </li>
 </ul>
