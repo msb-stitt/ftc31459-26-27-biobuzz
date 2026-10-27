@@ -198,7 +198,7 @@ public final class Tracker {
 
         publish("loop/count", loopCount);
         publish("loop/period_ms", period_ms);
-        publish("loop/max_period_ms", maxPeriod_ms);
+        publish("loop/maxPeriod_ms", maxPeriod_ms);
         publish("loop/rate_hz", loopRateHz());
         publish("loop/uptime_s", (now - startNs) / 1_000_000_000.0);
 
