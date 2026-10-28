@@ -17,6 +17,10 @@ myst_enable_extensions = ["attrs_block", "colon_fence", "deflist", "substitution
 # A ```mermaid fence is drawn as a diagram. The page loads mermaid.js from
 # cdn.jsdelivr.net and draws it in the reader's browser.
 myst_fence_as_directive = ["mermaid"]
+# Each diagram at its own size, no wider than the page, rather than squeezed into 500 px.
+mermaid_height = "auto"
+mermaid_width = "auto"
+mermaid_init_config = {"startOnLoad": False, "sequence": {"useMaxWidth": False}}
 
 
 def made_from() -> dict[str, str]:
