@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
-    <link rel="stylesheet" type="text/css" href="../_static/mermaid.css?v=d592db89" />
     
     
 
@@ -419,76 +418,13 @@ is offered.</p></li>
 Driver Station.</p></li>
 </ul>
 <p>An arrow with a diamond means “holds”: an <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code> holds its <code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code>s.</p>
-<object data="../../media/mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg" type="image/svg+xml">
-            <p class="warning">classDiagram
-    class L135MenuItem {
-        String shortName
-        String fullName
-        shortName()
-        fullName()
-    }
-    class L135MenuRow {
-        String name
-        L135MenuItem[] items
-        int selectedIndex
-        int offeredIndex
-        right()
-        left()
-        select()
-        back()
-        selected()
-        startAt(fullName)
-        line()
-    }
-    class L135OptionMenu {
-        L135MenuRow[] rows
-        int pointedRow
-        up()
-        down()
-        left()
-        right()
-        select()
-        back()
-        chosen(rowName)
-        startAt(rowName, fullName)
-        summary()
-        lines()
-    }
-    class L135MenuButtons {
-        L135OptionMenu optionMenu
-        loop(gamepad)
-    }
-    class L135DriverStationMenu {
-        L135OptionMenu optionMenu
-        L135MenuButtons menuButtons
-        loop(gamepad)
-        chosen(rowName)
-        startAt(rowName, fullName)
-        summary()
-    }
-    L135ChooseAutoOpMode o-- L135DriverStationMenu
-    L135DriverStationMenu o-- L135OptionMenu
-    L135DriverStationMenu o-- L135MenuButtons
-    L135MenuButtons o-- L135OptionMenu
-    L135OptionMenu o-- L135MenuRow
-    L135MenuRow o-- L135MenuItem</p></object>
+<figure class="align-default" id="fig-l135-classes">
+<img alt="../../media/fig-l135-classes_656fc55b29b4.png" src="../../media/fig-l135-classes_656fc55b29b4.png" />
+</figure>
 <p>One press of the D-pad’s right goes down the classes, one call at a time:</p>
-<object data="../../media/mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg" type="image/svg+xml">
-            <p class="warning">sequenceDiagram
-    participant OpMode as L135ChooseAutoOpMode
-    participant DS as L135DriverStationMenu
-    participant Buttons as L135MenuButtons
-    participant Menu as L135OptionMenu
-    participant Row as L135MenuRow
-    OpMode-&gt;&gt;DS: loop(gamepad1), from init_loop()
-    DS-&gt;&gt;Buttons: loop(gamepad)
-    Buttons-&gt;&gt;Menu: right()
-    Menu-&gt;&gt;Row: right()
-    DS-&gt;&gt;Menu: lines()
-    Menu-&gt;&gt;Row: line()
-    Row--&gt;&gt;Menu: &quot;Alliance: Blue? A:OK B:Back&quot;
-    Menu--&gt;&gt;DS: the summary and each row's line
-    DS-&gt;&gt;DS: printToDs, for each line</p></object>
+<figure class="align-default" id="fig-l135-calls">
+<img alt="../../media/fig-l135-calls_ec87e18d760f.png" src="../../media/fig-l135-calls_ec87e18d760f.png" />
+</figure>
 <p>You build it from the bottom up: each class, its tests first, then the class that uses it.</p>
 </section>
 <section id="the-steps">

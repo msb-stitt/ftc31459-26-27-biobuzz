@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "1effabbe9e027021f80e582663abdd1a0a059b2d",
+      "built_from_commit": "f12be4cf082c50d3340f1567f94132f68bf0909a",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -119,6 +119,8 @@
         "fig-l125-drive24_daad530b722c.png",
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
+        "fig-l135-calls_ec87e18d760f.png",
+        "fig-l135-classes_656fc55b29b4.png",
         "fig-l135-menu_5d80f1f8f17e.png",
         "fig-l140-field-blue_3b384562de3b.png",
         "fig-l140-field-red_27fd021cf649.png",
@@ -147,8 +149,6 @@
         "fig-wheel-names_c5e72d252f39.png",
         "h017_c04cb17aa6c1.mp4",
         "l020_70047773414f.mp4",
-        "mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg",
-        "mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg",
         "route-compound_fb6d157d50ff.svg",
         "route-curve_7ece100f954f.svg",
         "route-facingpoint_3972b5e77521.svg",
@@ -3089,6 +3089,20 @@
         "v0.4.0-rc.2"
       ]
     },
+    "fig-l135-calls_ec87e18d760f.png": {
+      "sha256": "ec87e18d760ff4dc8fea96aea5a3b1b5cb89046521a4a4c333e48e0b7f8debdc",
+      "bytes": 451624,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l135-classes_656fc55b29b4.png": {
+      "sha256": "656fc55b29b403ec1335c03b81471a57e01f027423fa037a81db44cfb1a878b3",
+      "bytes": 914690,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l135-menu_5d80f1f8f17e.png": {
       "sha256": "5d80f1f8f17e41d366681d57a24b998f27ff4b5817cf0eec1ff96cd8eea4241c",
       "bytes": 53314,
@@ -3619,16 +3633,12 @@
     "mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg": {
       "sha256": "5d247a84e4af4113a8636f6a10b6948e8e1bae46941ad9e47a037b5602779c3b",
       "bytes": 210355,
-      "used_by_versions": [
-        "dev"
-      ]
+      "used_by_versions": []
     },
     "mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg": {
       "sha256": "de32db6b5496c27bade08d5e7e4b7f064f606d0b0fa40c30bba8a49b1418ec14",
       "bytes": 196631,
-      "used_by_versions": [
-        "dev"
-      ]
+      "used_by_versions": []
     },
     "route-compound_fb6d157d50ff.svg": {
       "sha256": "fb6d157d50ffc67c81ac5dcc1945a5672f27a0a646d77552f2bab455fb86678d",
@@ -3733,6 +3743,8 @@
     "fig-l070-button_0e3700f4e357.png",
     "fig-l120-import_4005d43c5fff.png",
     "fig-l125-import-static_ce2adfeb54dd.png",
-    "l020_a227022a8a0f.mp4"
+    "l020_a227022a8a0f.mp4",
+    "mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg",
+    "mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg"
   ]
 }
