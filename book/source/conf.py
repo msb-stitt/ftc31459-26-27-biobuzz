@@ -14,13 +14,25 @@ copyright = "2026, Mike Stitt"
 
 extensions = ["myst_parser", "sphinxcontrib.mermaid"]
 myst_enable_extensions = ["attrs_block", "colon_fence", "deflist", "substitution"]
-# A ```mermaid fence is drawn as a diagram. The page loads mermaid.js from
-# cdn.jsdelivr.net and draws it in the reader's browser.
+# A ```mermaid fence is drawn as an SVG file when the book is built, by the
+# mermaid-cli that `npm ci` in book/ installs from package.json, so a reader needs
+# nothing from outside the site. BOOK_MMDC names another book/'s mmdc, as
+# tools/build.py does for the worktree it builds in.
+import os  # noqa: E402
+import shlex  # noqa: E402
+from pathlib import Path  # noqa: E402
+
 myst_fence_as_directive = ["mermaid"]
-# Each diagram at its own size, no wider than the page, rather than squeezed into 500 px.
-mermaid_height = "auto"
-mermaid_width = "auto"
-mermaid_init_config = {"startOnLoad": False, "sequence": {"useMaxWidth": False}}
+mermaid_output_format = "svg"
+_MMDC_NAME = "mmdc.cmd" if os.name == "nt" else "mmdc"
+_MMDC = Path(__file__).resolve().parents[1] / "node_modules" / ".bin" / _MMDC_NAME
+# A string, which the extension splits as a shell would: quoted, with / for a backslash.
+mermaid_cmd = shlex.quote(Path(os.environ.get("BOOK_MMDC", _MMDC)).as_posix())
+mermaid_cmd_shell = str(os.name == "nt")
+# Each diagram at its own size rather than stretched to the page's width. The
+# file sets `state` too: mermaid 12.0.0's class diagram reads its useMaxWidth from there.
+_MERMAID_CONFIG = Path(__file__).resolve().parents[1] / "mermaid-config.json"
+mermaid_params = ["--configFile", _MERMAID_CONFIG.as_posix()]
 
 
 def made_from() -> dict[str, str]:
@@ -80,7 +92,7 @@ else:
 html_theme = "furo"
 html_title = "Corbels FTC Programming Lessons in Java"
 html_static_path = ["_static"]
-html_css_files = ["pencil.css", "steps.css", "diff.css"]
+html_css_files = ["pencil.css", "steps.css", "diff.css", "mermaid.css"]
 
 
 def setup(app):

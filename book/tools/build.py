@@ -147,8 +147,10 @@ def main() -> int:
         out = tree / "out"
         # conf.py names these on B003, describing them as committed, and names the videos from
         # BOOK_MEDIA's videos/.
+        # The worktree has no node_modules, so the diagrams are drawn by this checkout's mmdc.
+        mmdc = ROOT / "book" / "node_modules" / ".bin" / ("mmdc.cmd" if os.name == "nt" else "mmdc")
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
-                          BOOK_MEDIA=str(FIGURES.parent))
+                          BOOK_MEDIA=str(FIGURES.parent), BOOK_MMDC=str(mmdc))
         run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:
