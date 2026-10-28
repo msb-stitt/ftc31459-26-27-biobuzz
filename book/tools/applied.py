@@ -46,10 +46,11 @@ def _lines(path: Path) -> list[str]:
 
 @dataclass
 class Copied:
-    """One copy a lesson makes, as its steps file names it, under teamcode/."""
+    """One copy a lesson makes, as its steps file names it, under teamcode/ or the tests' teamcode/."""
     lesson: str
     source: str
     target: str
+    test: bool = False
 
 
 def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]], list[Copied]]:
@@ -66,7 +67,10 @@ def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]], list[Copie
         for lesson in (tree / "solutions" / "order").read_text().split():
             try:
                 for kind, *rest in apply.steps(tree, lesson):
-                    if kind == "copy":
+                    if kind == "copy" and rest[0] == "test":
+                        apply.copy(tree, rest[1], rest[2], apply.TESTCODE)
+                        copied.append(Copied(lesson, rest[1], rest[2], test=True))
+                    elif kind == "copy":
                         apply.copy(tree, *rest)
                         copied.append(Copied(lesson, *rest))
                     elif kind == "patch":
