@@ -241,7 +241,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-l135-menu-classes"
+solutions = "solutions-l135-menu-classes.1"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -252,4 +252,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-l135-menu-classes"
-commit = ""
+commit = "c28cac92d86c8adf314b90bec69f1659e5c4ee12"
