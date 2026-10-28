@@ -153,7 +153,8 @@ def main() -> int:
         mmdc = ROOT / "book" / "node_modules" / ".bin" / ("mmdc.cmd" if os.name == "nt" else "mmdc")
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
                           BOOK_MEDIA=str(FIGURES.parent), BOOK_MMDC=str(mmdc))
-        run(sys.executable, "-m", "sphinx", "-b", "html", *tag, "source", str(out / name),
+        # -W, as ninja book builds it: a diagram mermaid-cli fails to draw is only a warning.
+        run(sys.executable, "-m", "sphinx", "-W", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
         if not args.mentor:
             run(sys.executable, "tools/run.py", "diffs", "--solutions", args.solutions, cwd=book)
