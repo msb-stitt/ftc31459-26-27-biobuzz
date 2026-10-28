@@ -107,6 +107,41 @@ public class Bot88888Test {
     }
 
     @Test
+    public void holdingTheLeftBumperTheTeleOpDrivesTheRobotNotTheField() {
+        OpModeStorage.alliance = "Blue";
+        OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        h.start();
+
+        follower.setPose(POSES.of(72, 72, 90));   // robot faces +y
+        h.gamepad1.left_bumper = true;
+        h.gamepad1.left_stick_y = -1.0f;          // away from the driver
+        h.loop();
+        assertEquals("the robot's front forward, whichever way it faces and on Blue",
+                1.0, h.wheelsForward(), 1e-3);
+        assertEquals(0.0, h.wheelsStrafe(), 1e-3);
+        assertEquals(true, Tracker.values().get("gamepad1/leftBumper"));
+
+        h.gamepad1.left_stick_y = 0.0f;
+        h.gamepad1.left_stick_x = -0.5f;          // to the driver's left
+        h.loop();
+        assertEquals("to the robot's own left, half a stick a quarter of full speed",
+                0.25, h.wheelsStrafe(), 1e-3);
+
+        h.gamepad1.left_bumper = false;
+        h.gamepad1.left_stick_x = 0.0f;
+        h.gamepad1.left_stick_y = -1.0f;          // away from the blue drivers, toward -x
+        h.loop();
+        assertEquals("let go, the field again: -x is to the left of a robot facing +y",
+                1.0, h.wheelsStrafe(), 1e-3);
+        assertEquals(0.0, h.wheelsForward(), 1e-3);
+        assertEquals(false, Tracker.values().get("gamepad1/leftBumper"));
+        h.stop();
+    }
+
+    @Test
     public void theTeleOpMenuChoosesTheAllianceAndTheWall() {
         OpModeStorage.autonomousEndPose = POSES.of(30, 40, 0);
         OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
@@ -145,7 +180,8 @@ public class Bot88888Test {
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
         assertEquals("the summary first, then right offers Blue, not yet selected",
-                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <Nothing>",
+                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <Nothing>"
+                        + "\nLive NetworkTables off\nPanels: http://192.168.43.1:8001",
                 h.driverStation.text());
         pressDuringInit(h, pad -> pad.b = true);
         assertTrue("B clears the offer: " + h.driverStation.text(),
@@ -196,18 +232,22 @@ public class Bot88888Test {
     @Test
     public void theNameCheckSaysWhetherConstantsHadRunAndWhatItFound() {
         List<String> notYet = RobotNameCheck.linesToShow(false, "a.B.init\nc.D.run\n",
-                "(could not read: no name yet)", "37523-RC", Constants.Robot.BOT_37523);
+                "(could not read: no Robot Controller name yet)", "37523-RC",
+                Constants.Robot.BOT_37523, false);
         assertEquals("Constants had not run before this INIT; this INIT ran it.", notYet.get(0));
         assertEquals("What ran Constants, nearest first:", notYet.get(1));
         assertEquals("  a.B.init", notYet.get(2));
         assertEquals("  c.D.run", notYet.get(3));
-        assertEquals("Name when Constants ran: (could not read: no name yet)", notYet.get(4));
-        assertEquals("Name now: 37523-RC", notYet.get(5));
-        assertEquals("thisRobot picks: BOT_37523", notYet.get(6));
+        assertEquals("Robot Controller name when Constants ran: "
+                + "(could not read: no Robot Controller name yet)", notYet.get(4));
+        assertEquals("Robot Controller name now: 37523-RC", notYet.get(5));
+        assertEquals("thisRobot picks: BOT_37523, as written in Constants", notYet.get(6));
 
-        List<String> already = RobotNameCheck.linesToShow(true, "a.B.init\n", "37523-RC",
-                "37523-RC", Constants.Robot.BOT_37523);
+        List<String> already = RobotNameCheck.linesToShow(true, "a.B.init\n", "88888-RC",
+                "88888-RC", Constants.Robot.BOT_88888, true);
         assertEquals("Constants had already run before this INIT.", already.get(0));
+        assertEquals("thisRobot picks: BOT_88888, by the Robot Controller name",
+                already.get(already.size() - 1));
     }
 
     @Test
@@ -219,7 +259,7 @@ public class Bot88888Test {
         h.initLoop();
         String shown = h.driverStation.text();
         assertTrue(shown, shown.contains("Constants had already run before this INIT."));
-        assertTrue(shown, shown.contains("Name now: 37523-RC"));
+        assertTrue(shown, shown.contains("Robot Controller name now: 37523-RC"));
         assertTrue(shown, shown.contains("thisRobot picks: BOT_37523"));
         h.start();
         h.loops(1, 0);

@@ -253,27 +253,33 @@ public final class SimRobot {
     /**
      * What the Driver Station shows, and how it loses what it is not shown.
      *
-     * <p>FTC's {@code Telemetry} defaults to {@code setAutoClear(true)}, so
-     * {@code update()} transmits the buffer and empties it. A second
-     * {@code update()} in the same loop therefore transmits nothing and throws
-     * away what the first one sent, which is why {@code Tracker} owns the only
-     * flush. This fake behaves the same way, so a test can watch it happen.
+     * <p>FTC's {@code Telemetry} defaults to {@code setAutoClear(true)}, which
+     * in SDK 12.0.0's {@code TelemetryImpl} means {@code update()} transmits the
+     * buffer and keeps it, and the first line added after an {@code update()}
+     * empties it. An {@code update()} with nothing added sends the same lines
+     * again. This fake behaves the same way, so a test can watch it happen.
      */
     public static final class DriverStation {
         private final List<String> pending = new ArrayList<>();
         private List<String> shown = new ArrayList<>();
+        private boolean clearOnAdd = false;
 
         void add(String line) {
+            if (clearOnAdd) {
+                pending.clear();
+                clearOnAdd = false;
+            }
             pending.add(line);
         }
 
         void transmit() {
             shown = new ArrayList<>(pending);
-            pending.clear();
+            clearOnAdd = true;
         }
 
         void clearPending() {
             pending.clear();
+            clearOnAdd = false;
         }
 
         /** The lines the driver can see now, from the last transmission. */

@@ -14,7 +14,9 @@ import io.github.mikestitt.corbelsflightlog.pedro.PedroFlightLog;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.panels.PanelsLogger;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -42,9 +44,9 @@ import java.util.concurrent.Callable;
  * {@link #printPoseSpeedLoopToDs}.
  *
  * <p><b>Never call {@code telemetry} yourself.</b> FTC's {@code Telemetry}
- * clears its buffer every time it is flushed, and this class flushes once at the
- * end of each loop; a second flush inside the loop drops whatever the first one
- * sent. A build check enforces it.
+ * clears its buffer at the first line added after a flush, and this class
+ * flushes once at the end of each loop; a flush inside the loop loses every line
+ * printed before it as soon as another is printed. A build check enforces it.
  *
  * <p><b>Panels can be switched off</b> with {@link #enablePanels}, for a match
  * where Wi-Fi is not wanted. Publishing still reaches the file and
@@ -69,6 +71,15 @@ public final class Tracker {
     private static boolean panelsEnabled = true;
 
     private static final Map<String, Object> values = new LinkedHashMap<>();
+
+    /**
+     * The lines printed during init(), added again on each pass between INIT
+     * and PLAY. The SDK sends nothing after init(), and the first line added
+     * after a send clears the screen, so a line printed only once in init()
+     * would be gone as soon as init_loop() printed anything.
+     */
+    private static final List<String> initLines = new ArrayList<>();
+    private static boolean printingInit = false;
 
     /** Whether live NetworkTables is switched on, off, or not yet either. */
     public enum LiveSetting { NOT_SET, ON, OFF }
@@ -111,6 +122,8 @@ public final class Tracker {
         logger = null;
         panelsEnabled = true;
         ds = opMode == null ? null : opMode.telemetry;
+        initLines.clear();
+        printingInit = true;
         flightlog = FtcFlightLog.open(opMode);
         pedro = new PedroFlightLog(flightlog, "Robot");
     }
@@ -216,11 +229,24 @@ public final class Tracker {
     }
 
     /**
-     * Closes the file's record for one pass between INIT and PLAY, without
-     * counting it as a loop. Called from {@code CorbelsOpMode.init_loop()}.
+     * Adds init()'s lines below this pass's own, then closes the file's record
+     * for one pass between INIT and PLAY, without counting it as a loop.
+     * Called from {@code CorbelsOpMode.init_loop()}.
      */
     public static void endInitLoop() {
+        for (String line : initLines) {
+            if (ds != null) ds.addLine(line);
+        }
         flightlog.endLoop();
+    }
+
+    /**
+     * The end of init(): the lines printed since {@link #begin} are kept and
+     * shown below init_loop()'s own on each pass. Called from
+     * {@code CorbelsOpMode.initAfter()}.
+     */
+    public static void endInit() {
+        printingInit = false;
     }
 
     /** Closes the file. Called from {@code CorbelsOpMode.stopAfter()}. */
@@ -269,8 +295,12 @@ public final class Tracker {
 
     // ------------------------------------------------------------ the driver's screen
 
-    /** One line of text. */
+    /** One line of text. During init(), kept and shown on each pass until PLAY. */
     public static void printToDs(String line) {
+        if (printingInit) {
+            initLines.add(line);
+            return;
+        }
         if (ds != null) ds.addLine(line);
     }
 

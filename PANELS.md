@@ -212,8 +212,9 @@ still reaches the driver.
 
 `Tracker.endLoop(follower)` flushes Panels and the Driver Station once per loop,
 from `loopAfter()`. Do not call `telemetry.update()` or `panels.update()`
-yourself — a second flush wipes what the first one sent, and a test fails the
-build if a bare `telemetry` appears anywhere outside `Tracker`.
+yourself — on the Driver Station, a flush inside the loop loses the lines printed
+before it as soon as another is printed, and a test fails the build if a bare
+`telemetry` appears anywhere outside `Tracker`.
 
 To sample faster than every 75 ms, call `panels.setUpdateInterval(20);` in
 `start()`. It costs more Wi-Fi traffic.

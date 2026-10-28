@@ -18,13 +18,17 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 /**
  * Robot 88888's TeleOp: L140 Field Relative, as solutions-l140-alliances.2
  * solves it, since 88888 is a Pinpoint and a drivetrain with no intake,
- * launcher or windmill. Set {@code Constants.thisRobot} to {@code BOT_88888}
- * before running it.
+ * launcher or windmill. A Robot Controller name starting 88888, such as
+ * 88888-RC, picks 88888's values; on a Robot Controller named otherwise, set
+ * {@code Constants.thisRobot} to {@code BOT_88888} before running it.
  *
  * <ul>
  *   <li>Left stick drives the field: push it away from you and the robot goes
  *   away from you, whichever way it happens to be facing. The right stick's x
  *   turns.</li>
+ *   <li>Hold the left bumper to drive the robot instead: push the left stick
+ *   away from you and the robot drives its front forward, whichever way it
+ *   faces. L140 Field Relative has no bumper.</li>
  * </ul>
  *
  * <p>Between INIT and PLAY, gamepad 1's D-pad works a menu on the Driver
@@ -84,6 +88,9 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
+        String alliance = menu.chosen("Alliance");
+        OpModeStorage.alliance = alliance;
+        Tracker.publish("Alliance", alliance);
         String startPlace = menu.chosen("Start");
         if (startPlace.equals("Wall")) {
             PoseFactory poses = poses();
@@ -131,33 +138,43 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
         Tracker.publish("gamepad1/leftStickX", leftStickX);
         double rightStickX = gamepad1.right_stick_x;
         Tracker.publish("gamepad1/rightStickX", rightStickX);
+        boolean leftBumper = gamepad1.left_bumper;
+        Tracker.publish("gamepad1/leftBumper", leftBumper);
 
         double bandToSetToZero = 0.05;
-        double fieldXSpeed;
-        double fieldYSpeed;
-        String alliance = menu.chosen("Alliance");
-        if (alliance.equals("Red")) {
-            fieldXSpeed = -leftStickY;
-            fieldYSpeed = -leftStickX;
-        } else {
-            fieldXSpeed = leftStickY;
-            fieldYSpeed = leftStickX;
-        }
-
-        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
-        Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
-        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
-        Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
-
         double turnCcwSpeed = -rightStickX;
         turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 
-        double heading_rad = follower.pose().heading();
-        double sinHeading = Math.sin(heading_rad);
-        double cosHeading = Math.cos(heading_rad);
-        double robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
-        double robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
+        double robotForwardXSpeed;
+        double robotStrafeYSpeed;
+        if (leftBumper) {
+            // Robot relative: away from the driver is the robot's front, on either alliance.
+            robotForwardXSpeed = speedShaped(-leftStickY, bandToSetToZero);
+            robotStrafeYSpeed = speedShaped(-leftStickX, bandToSetToZero);
+        } else {
+            double fieldXSpeed;
+            double fieldYSpeed;
+            String alliance = menu.chosen("Alliance");
+            if (alliance.equals("Red")) {
+                fieldXSpeed = -leftStickY;
+                fieldYSpeed = -leftStickX;
+            } else {
+                fieldXSpeed = leftStickY;
+                fieldYSpeed = leftStickX;
+            }
+
+            fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+            Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
+            fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+            Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
+
+            double heading_rad = follower.pose().heading();
+            double sinHeading = Math.sin(heading_rad);
+            double cosHeading = Math.cos(heading_rad);
+            robotForwardXSpeed = fieldXSpeed * cosHeading + fieldYSpeed * sinHeading;
+            robotStrafeYSpeed = -fieldXSpeed * sinHeading + fieldYSpeed * cosHeading;
+        }
         Tracker.publish("drivetrain/robotForwardXSpeed", robotForwardXSpeed);
         Tracker.publish("drivetrain/robotStrafeYSpeed", robotStrafeYSpeed);
         drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
@@ -173,7 +190,7 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
         String alliance = menu.chosen("Alliance");
-        if (alliance.equals("Blue")) {
+        if (!alliance.equals("Red")) {
             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
         }
         return chosenPoses;

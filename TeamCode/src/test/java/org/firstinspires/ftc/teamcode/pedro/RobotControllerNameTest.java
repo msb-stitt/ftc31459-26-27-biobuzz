@@ -16,7 +16,7 @@ public class RobotControllerNameTest {
     }
 
     @Test
-    public void theNameIsWhatTheReaderGives() {
+    public void theRobotControllerNameIsWhatTheReaderGives() {
         RobotControllerName.reader = () -> "37523-RC";
         assertEquals("37523-RC", RobotControllerName.readNow());
     }
@@ -29,7 +29,8 @@ public class RobotControllerNameTest {
         assertEquals("(could not read: java.lang.NullPointerException: no network yet)",
                 RobotControllerName.readNow());
         RobotControllerName.reader = () -> null;
-        assertEquals("(could not read: no name yet)", RobotControllerName.readNow());
+        assertEquals("(could not read: no Robot Controller name yet)",
+                RobotControllerName.readNow());
     }
 
     @Test
@@ -37,7 +38,7 @@ public class RobotControllerNameTest {
         assertEquals("reading a value runs Constants", 45.0, Constants.ticksPerInch, 0);
         assertTrue(RobotControllerName.constantsHasRun());
         assertFalse(RobotControllerName.whatRanConstants().isEmpty());
-        // Off the robot the SDK has no network, so the name could not be read.
+        // Off the robot the SDK has no network, so the Robot Controller name could not be read.
         assertTrue(RobotControllerName.nameWhenConstantsRan().startsWith("(could not read"));
     }
 

@@ -72,10 +72,11 @@ Auto** and **88888 TeleOp** drive 88888 as the solved L140 Auto and L140 Field R
 `DriverStationMenu` in `base`: the alliance; the auto's route, which is Nothing until another is
 picked; and where the teleop starts, where the auto ended or against the wall. The auto hands its
 alliance to the teleop, which the Driver Station picks next. The teleop drives the field: the stick
-pushed away from the driver drives away from them, whichever way the robot faces. These four,
-Launcher Check, Robot Name Check and Live NetworkTables on/off are the only OpModes on the Driver
-Station; every other is `@Disabled`. The four and Launcher Check send the flight log live to
-AdvantageScope as well, for practice;
+pushed away from the driver drives away from them, whichever way the robot faces. Holding the left
+bumper drives the robot instead: the stick pushed away drives the robot's front forward. At PLAY the
+teleop records its alliance as `Alliance`. These four, Launcher Check, Robot Name Check and Live
+NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
+four and Launcher Check send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
@@ -85,23 +86,28 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
 `intake/speed` and each wheel's `wheel/<wheel>/speed` go to the flight log; Pedro's pose is under
 `Robot/Pose`.
 
-- Set `thisRobot` in `pedro/Constants.java` to the robot the code is going onto: 88888, 37523 or
-  31459, with 37523 the default. Each robot's values are in its own file in `pedro`, `Bot88888`,
-  `Bot37523` or `Bot31459`: the `drivetrainConfig`, `localizerConfig` and `foresightConfig` its
+- The Robot Controller name picks the robot: one starting 88888, 37523 or 31459, such as 88888-RC,
+  picks that robot. On a Robot Controller name that starts with none of them, and in the simulator
+  and the tests, `thisRobot` in `pedro/Constants.java` picks it; set it to the robot the code is
+  going onto, with 37523 the default. Each robot's values are in its own file in `pedro`,
+  `Bot88888`, `Bot37523` or `Bot31459`: the `drivetrainConfig`, `localizerConfig` and `foresightConfig` its
   AutoTune procedures print, pasted whole, its ticks per inch and turn radius, and its launcher's
   speeds and gains. `Constants` takes the one `thisRobot` names, and sets on top what every robot
   shares and AutoTune does not print: the brake mode, the power threshold and the five hold lines.
-  `Bot31459` uses `Bot37523`'s until its own are measured.
+  `Bot31459` uses `Bot37523`'s until its own are measured. Each OpMode's flight log names the
+  robot picked, from INIT, as `Constants/thisRobot`, and `Constants/pickedByRobotControllerName`
+  is true when the Robot Controller name picked it.
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot
   with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L195.
 
-**Robot Name Check** finds out whether the Robot Controller's name, such as 37523-RC, could pick
-the robot in place of `thisRobot`. Nothing moves. Restart the Robot Controller app, then run it
-before any other OpMode; INIT shows whether `Constants` had already run, the calls that ran it, the
-name as it could be read then and as it can be read now, and the robot `thisRobot` picks. Run it
-again after another OpMode, and it says `Constants` had already run.
+**Robot Name Check** shows whether the Robot Controller name, such as 37523-RC, picked the robot in
+place of the `thisRobot` written in `Constants`. Nothing moves. Restart the Robot Controller app,
+then run it before any other OpMode; INIT shows whether `Constants` had already run, the calls that
+ran it, the Robot Controller name as it could be read then and as it can be read now, the robot
+picked, and whether the Robot Controller name or `Constants` picked it. Run it again after another
+OpMode, and it says `Constants` had already run.
 
 **Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
 nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks

@@ -31,6 +31,8 @@ mermaid_cmd = shlex.quote(Path(os.environ.get("BOOK_MMDC", _MMDC)).as_posix())
 mermaid_cmd_shell = str(os.name == "nt")
 # Each diagram at its own size rather than stretched to the page's width. The
 # file sets `state` too: mermaid 12.0.0's class diagram reads its useMaxWidth from there.
+# Its handDrawnSeed fixes the class diagram's box outlines, which a seed of 0 draws at
+# random, so a build draws the same SVG file, with the same hash, as the last.
 _MERMAID_CONFIG = Path(__file__).resolve().parents[1] / "mermaid-config.json"
 mermaid_params = ["--configFile", _MERMAID_CONFIG.as_posix()]
 
