@@ -291,8 +291,12 @@ text, not a heading: a heading inside `only` brings the whole block into the stu
 ```
 python3 -m venv book/.venv
 book/.venv/bin/pip install -r book/requirements.txt
-cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
+cd book && npm ci
+PATH="$PWD/.venv/bin:$PATH" ninja book
 ```
+
+`npm ci` needs Node 22.13.0 or later. It installs mermaid-cli, which draws each Mermaid diagram as
+an SVG file, into `book/node_modules`, and the Chrome it draws with into `book/.cache`.
 
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.

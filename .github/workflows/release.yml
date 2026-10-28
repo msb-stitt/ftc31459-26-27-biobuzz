@@ -143,6 +143,17 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install ninja -r book/requirements.txt
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: book/package-lock.json
+
+      # mermaid-cli, which draws the guide's Mermaid diagrams as SVG files.
+      - name: Diagram tools
+        working-directory: book
+        run: npm ci --no-audit --no-fund
+
       - name: The guide's checks
         working-directory: book
         env:
