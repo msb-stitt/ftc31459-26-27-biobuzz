@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -32,6 +33,8 @@ public class StarterBotTest {
         double targetVelocity;
         double velocity;
         DcMotorSimple.Direction direction;
+        PIDFCoefficients gains;
+        int gainsGiven;
 
         <T> T as(Class<T> type) {
             return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type},
@@ -42,6 +45,10 @@ public class StarterBotTest {
                             case "getVelocity": return velocity;
                             case "setDirection":
                                 direction = (DcMotorSimple.Direction) args[0];
+                                return null;
+                            case "setPIDFCoefficients":
+                                gains = (PIDFCoefficients) args[1];
+                                gainsGiven++;
                                 return null;
                             default:
                                 Class<?> r = method.getReturnType();
@@ -107,6 +114,37 @@ public class StarterBotTest {
         assertEquals(0, windmill.speed, 0);
         assertFalse(launcher.feeding());
         assertTrue("and the command keeps running", Scheduler.isRunning(fire));
+    }
+
+    @Test
+    public void theFeedforwardIsAStaticPartPlusAPartPerTickPerSecond() {
+        // 37523's kS 0.05 and kV 0.00037963 give back its F of 13.75 at 1250 ticks/s.
+        assertEquals(13.75, Launcher.hubFeedforwardAt(1250), 1e-3);
+        // At 250 ticks/s: 32767 × (0.05 / 250 + 0.00037963) = 18.993.
+        assertEquals(18.993, Launcher.hubFeedforwardAt(250), 1e-3);
+    }
+
+    @Test
+    public void theHubGetsANewFOnlyWhenTheTargetChangesAndIsAboveZero() {
+        assertEquals("built with the F for the target", 13.75, launcherMotor.gains.f, 1e-3);
+        assertEquals(40, launcherMotor.gains.p, 0);
+        assertEquals(1, launcherMotor.gainsGiven);
+
+        launcher.spinAt(1250);
+        launcher.spinAt(1250);
+        assertEquals("the same target, no new F", 1, launcherMotor.gainsGiven);
+
+        launcher.spinAt(250);
+        assertEquals(18.993, launcherMotor.gains.f, 1e-3);
+        assertEquals(2, launcherMotor.gainsGiven);
+        launcher.spinAt(250);
+        assertEquals(2, launcherMotor.gainsGiven);
+
+        launcher.stop();
+        assertEquals("stopped, no new F", 2, launcherMotor.gainsGiven);
+        assertEquals(0, launcherMotor.targetVelocity, 0);
+        launcher.spinAt(250);
+        assertEquals("back to 250, no new F", 2, launcherMotor.gainsGiven);
     }
 
     @Test

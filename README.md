@@ -61,13 +61,16 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 
 ### goBILDA's StarterBot
 
-The robots are goBILDA's
+37523 and 31459 are goBILDA's
 [StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
-stock, with a Pinpoint. **StarterBot TeleOp** drives one with the controls of goBILDA's example
+stock, with a Pinpoint. 88888 is a Pinpoint and a drivetrain, with no intake, launcher or
+windmill. **StarterBot TeleOp** drives one with the controls of goBILDA's example
 code, written in `StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson
 L130's route: forward from the wall to (72, 72) inches, then 24 inches to the right, facing +y the
-whole way. These two and Launcher Check are the only OpModes on the Driver Station; every other is
-`@Disabled`. All three send the flight log live to AdvantageScope as well, for practice;
+whole way. **88888 TeleOp** is StarterBot TeleOp's driving alone, and **88888 Auto** is StarterBot
+Auto's route, for 88888. These four, Launcher Check, Robot Name Check and Live NetworkTables on/off
+are the only OpModes on the Driver Station; every other is `@Disabled`. The four and Launcher Check
+send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
@@ -78,12 +81,22 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
 `Robot/Pose`.
 
 - Set `thisRobot` in `pedro/Constants.java` to the robot the code is going onto: 88888, 37523 or
-  31459, with 37523 the default. What differs between them is in that robot's own file in `pedro`,
-  `Bot88888`, `Bot37523` or `Bot31459`; today that is the four drive directions.
+  31459, with 37523 the default. Each robot's values are in its own file in `pedro`, `Bot88888`,
+  `Bot37523` or `Bot31459`: the `drivetrainConfig`, `localizerConfig` and `foresightConfig` its
+  AutoTune procedures print, pasted whole, its ticks per inch and turn radius, and its launcher's
+  speeds and gains. `Constants` takes the one `thisRobot` names, and sets on top what every robot
+  shares and AutoTune does not print: the brake mode, the power threshold and the five hold lines.
+  `Bot31459` uses `Bot37523`'s until its own are measured.
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
-- Each value there marked `MEASURE` was measured on an earlier robot. Measure it on each robot
+- Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot
   with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L195.
+
+**Robot Name Check** finds out whether the Robot Controller's name, such as 37523-RC, could pick
+the robot in place of `thisRobot`. Nothing moves. Restart the Robot Controller app, then run it
+before any other OpMode; INIT shows whether `Constants` had already run, the calls that ran it, the
+name as it could be read then and as it can be read now, and the robot `thisRobot` picks. Run it
+again after another OpMode, and it says `Constants` had already run.
 
 **Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
 nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
@@ -94,8 +107,8 @@ graph them together in AdvantageScope to see whether it holds its speed.
 
 If the launcher stutters rather than holding its speed, try these in order:
 
-- Run it at 1250, the full target. At a fifth, its feedforward asks for about a tenth of full
-  speed, little enough for the wheels to stick and surge.
+- Run it at 1250, the full target. At a fifth, 37523's feedforward asks for 0.145 of full speed,
+  where an F of 13.75 alone would ask for 0.105. Too little, and the wheels stick and surge.
 - At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
   means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
   motor.
@@ -104,9 +117,12 @@ If the launcher stutters rather than holding its speed, try these in order:
   belt does not slip.
 - Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
   fraction, to the wiring or the gains.
-- If the speed swings around the target, lower `Launcher.VELOCITY_P`; if it never reaches it, raise
-  `Launcher.VELOCITY_F`. Ours are P 10 and F 12.5; goBILDA's example used `(40, 0, 0, 12.5)`,
-  and its DECODE StarterBot `(300, 0, 0, 10)`.
+- If the speed swings around the target, lower `launcherVelocityP` in the robot's own file; if it
+  never reaches it, raise `launcherPowerPerTickPerSecond`. The hub's feedforward is a static part,
+  `launcherStaticPower`, plus `launcherPowerPerTickPerSecond` for each tick per second of the
+  target, so the launcher is given a new F each time its target changes. 37523's are P 40, 0.05 and
+  0.00037963, which give its F of 13.75 at 1250 ticks per second; goBILDA's example used
+  `(40, 0, 0, 12.5)`, and its DECODE StarterBot `(300, 0, 0, 10)`.
 - Use a battery above 12.5 V.
 
 ### TODO 

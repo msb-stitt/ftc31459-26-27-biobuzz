@@ -14,8 +14,8 @@ until the Robot Controller app stops, so AdvantageScope stays connected from one
 **Live NetworkTables on/off**, under TeleOp on the Driver Station, is the switch. INIT says whether
 it is on, and Start turns it the other way. The setting lasts until the Robot Controller app
 restarts. Until the switch sets it, a lesson and a copy in `mytry` are live, through
-`Tracker.serveLiveUnlessSwitchedOff()`, and StarterBot TeleOp, StarterBot Auto and Launcher Check
-are not. Each OpMode that serves says on the Driver Station whether it is live.
+`Tracker.serveLiveUnlessSwitchedOff()`, and StarterBot TeleOp, StarterBot Auto, Launcher Check,
+88888 TeleOp and 88888 Auto are not. Each OpMode that serves says on the Driver Station whether it is live.
 
 **For practice only.** FTC rule R704 forbids third-party telemetry over Wi-Fi at competitions.
 Before one, run the switch until it says off.
