@@ -94,7 +94,9 @@ jobs:
           tree = Path.cwd()
           for lesson in (tree / "solutions" / "order").read_text().split():
               for kind, *rest in apply.steps(tree, lesson):
-                  if kind == "copy":
+                  if kind == "copy" and rest[0] == "test":
+                      apply.copy(tree, rest[1], rest[2], apply.TESTCODE)
+                  elif kind == "copy":
                       apply.copy(tree, *rest)
                   elif kind == "patch":
                       apply.patch(tree, lesson, rest[0])
@@ -131,6 +133,12 @@ jobs:
           node-version: '26'
           cache: npm
           cache-dependency-path: book/package-lock.json
+
+      # Ubuntu's AppArmor stops Chrome making its sandbox, and mermaid-cli
+      # draws with Chrome; this lets it, on the runner only.
+      - name: Let Chrome make its sandbox
+        if: runner.os == 'Linux'
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       # mermaid-cli, which draws the guide's Mermaid diagrams as SVG files.
       - name: Diagram tools
