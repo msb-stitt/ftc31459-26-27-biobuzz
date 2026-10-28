@@ -1,7 +1,23 @@
-# L135: the three starters, copied into mytry, the menu and the auto filled in.
-copy lessons/L135Row.java mytry/L135Row.java
-copy lessons/L135AutoMenu.java mytry/L135AutoMenu.java
+# L135: the six starters and the four test starters, copied into mytry, and each filled in.
+copy lessons/L135OptionMenu.java mytry/L135OptionMenu.java
+copy lessons/L135MenuItem.java mytry/L135MenuItem.java
+copy lessons/L135MenuRow.java mytry/L135MenuRow.java
+copy lessons/L135MenuButtons.java mytry/L135MenuButtons.java
+copy lessons/L135DriverStationMenu.java mytry/L135DriverStationMenu.java
 copy lessons/L135ChooseAutoOpMode.java mytry/L135ChooseAutoOpMode.java
-patch L135AutoMenu.patch
+copy test lessons/L135MenuItemTest.java mytry/L135MenuItemTest.java
+copy test lessons/L135MenuRowTest.java mytry/L135MenuRowTest.java
+copy test lessons/L135OptionMenuTest.java mytry/L135OptionMenuTest.java
+copy test lessons/L135MenuButtonsTest.java mytry/L135MenuButtonsTest.java
+patch L135OptionMenu.patch
+patch L135MenuItem.patch
+patch L135MenuRow.patch
+patch L135MenuButtons.patch
+patch L135DriverStationMenu.patch
 patch L135ChooseAutoOpMode.patch
+patch L135MenuItemTest.patch
+patch L135MenuRowTest.patch
+patch L135OptionMenuTest.patch
+patch L135MenuButtonsTest.patch
+test *.mytry.L135*
 test *LessonsTest.l135*

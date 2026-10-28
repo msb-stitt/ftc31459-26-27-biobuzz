@@ -19,7 +19,9 @@ A `steps` file holds one step per line; `#` starts a comment.
     patch L020SticksOpMode.patch
     test *LessonsTest.l020*
 
-`copy` paths are under teamcode/, and the copy does what a student does to it:
+`copy` paths are under teamcode/, or under the tests' teamcode/ after the word
+`test`, as in `copy test lessons/L135MenuRowTest.java mytry/L135MenuRowTest.java`.
+The copy does what a student does to it:
 the folder is made if it is not there, the package line becomes mytry's, an
 `@Disabled` line goes, and a copy under a new name has its class renamed. `patch` names a file beside `steps`, applied
 from the root with `git apply`. `test` is a `--tests` pattern.
@@ -35,6 +37,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 TEAMCODE = Path("TeamCode/src/main/java/org/firstinspires/ftc/teamcode")
+TESTCODE = Path("TeamCode/src/test/java/org/firstinspires/ftc/teamcode")
 PACKAGE = "org.firstinspires.ftc.teamcode"
 RESULTS = Path("TeamCode/build/test-results/testDebugUnitTest")
 
@@ -59,12 +62,12 @@ def steps(tree: Path, lesson: str) -> list[list[str]]:
     return out
 
 
-def copy(tree: Path, src: str, dst: str) -> None:
-    source, target = tree / TEAMCODE / src, tree / TEAMCODE / dst
+def copy(tree: Path, src: str, dst: str, root: Path = TEAMCODE) -> None:
+    source, target = tree / root / src, tree / root / dst
     if not source.exists():
-        raise Stop(f"copy: no {TEAMCODE / src}")
+        raise Stop(f"copy: no {root / src}")
     if target.exists():
-        raise Stop(f"copy: {TEAMCODE / dst} is already there")
+        raise Stop(f"copy: {root / dst} is already there")
     text = source.read_text()
     package = dst.split("/")[0]
     text = re.sub(r"^package [\w.]+;", f"package {PACKAGE}.{package};", text, count=1, flags=re.M)
@@ -74,7 +77,7 @@ def copy(tree: Path, src: str, dst: str) -> None:
         text = re.sub(rf"\b{old}\b", new, text)
     target.parent.mkdir(exist_ok=True)
     target.write_text(text, newline="\n")
-    run(tree, "git", "add", str(TEAMCODE / dst))
+    run(tree, "git", "add", str(root / dst))
 
 
 def patch(tree: Path, lesson: str, name: str) -> None:
@@ -153,6 +156,9 @@ def main() -> int:
                 if kind == "copy" and len(rest) == 2:
                     copy(tree, *rest)
                     print(f"  copy {rest[0]} -> {rest[1]}")
+                elif kind == "copy" and len(rest) == 3 and rest[0] == "test":
+                    copy(tree, rest[1], rest[2], TESTCODE)
+                    print(f"  copy test {rest[1]} -> {rest[2]}")
                 elif kind == "patch" and len(rest) == 1:
                     if last and (args.copies_only or args.unpatched):
                         continue

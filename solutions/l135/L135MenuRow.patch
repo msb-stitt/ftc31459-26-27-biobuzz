@@ -1,0 +1,78 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRow.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRow.java
+index d5d816e..6f689fc 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRow.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRow.java
+@@ -1,3 +1,5 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
+ /**
+  * One row of an {@link L135OptionMenu}: its name and its choices. Left and right
+  * offer the choice before or after, and wrap at the ends. A selects the choice
+@@ -8,3 +10,67 @@
+ // When on L135S050, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+ // for what to write in this file.
++class L135MenuRow {
++
++    String name;
++    L135MenuItem[] items;
++    int selectedIndex = 0;
++    int offeredIndex = 0;
++
++    L135MenuRow(String name, L135MenuItem... items) {
++        this.name = name;
++        this.items = items;
++    }
++
++    String name() {
++        return name;
++    }
++
++    void right() {
++        int lastIndex = items.length - 1;
++        offeredIndex = offeredIndex + 1;
++        if (offeredIndex > lastIndex) {
++            offeredIndex = 0;
++        }
++    }
++
++    void left() {
++        int lastIndex = items.length - 1;
++        offeredIndex = offeredIndex - 1;
++        if (offeredIndex < 0) {
++            offeredIndex = lastIndex;
++        }
++    }
++
++    void select() {
++        selectedIndex = offeredIndex;
++    }
++
++    void back() {
++        offeredIndex = selectedIndex;
++    }
++
++    L135MenuItem selected() {
++        L135MenuItem selectedItem = items[selectedIndex];
++        return selectedItem;
++    }
++
++    void startAt(String fullName) {
++        for (int i = 0; i < items.length; i++) {
++            if (items[i].fullName().equals(fullName)) {
++                selectedIndex = i;
++                offeredIndex = i;
++            }
++        }
++    }
++
++    String line() {
++        L135MenuItem offeredItem = items[offeredIndex];
++        String choiceShown = "<" + offeredItem.fullName() + ">";
++        if (offeredIndex != selectedIndex) {
++            choiceShown = offeredItem.fullName() + "? A:OK B:Back";
++        }
++        String rowLine = name + ": " + choiceShown;
++        return rowLine;
++    }
++}

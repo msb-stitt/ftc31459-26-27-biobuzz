@@ -1,0 +1,75 @@
+diff --git a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtonsTest.java b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtonsTest.java
+index 29c557e..3ef4394 100644
+--- a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtonsTest.java
++++ b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtonsTest.java
+@@ -1,3 +1,11 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import static org.junit.Assert.assertEquals;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link L135MenuButtons}: a press of the D-pad, A or B on a
+  * gamepad moves the menu once.
+@@ -5,3 +13,58 @@
+ // When on L135S110, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class L135MenuButtonsTest {
++
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
++    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
++    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24);
++    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
++    L135MenuButtons menuButtons = new L135MenuButtons(optionMenu);
++    Gamepad gamepad = new Gamepad();
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void theDpadAndAWorkTheMenu() {
++        Gamepad rightHeld = new Gamepad();
++        rightHeld.dpad_right = true;
++        press(rightHeld);
++        Gamepad aHeld = new Gamepad();
++        aHeld.a = true;
++        press(aHeld);
++        Gamepad downHeld = new Gamepad();
++        downHeld.dpad_down = true;
++        press(downHeld);
++        press(rightHeld);
++        press(aHeld);
++        String summary = optionMenu.summary();
++        assertEquals("B-F24", summary);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void bClearsTheOffer() {
++        Gamepad rightHeld = new Gamepad();
++        rightHeld.dpad_right = true;
++        press(rightHeld);
++        Gamepad bHeld = new Gamepad();
++        bHeld.b = true;
++        press(bHeld);
++        Gamepad aHeld = new Gamepad();
++        aHeld.a = true;
++        press(aHeld);
++        String summary = optionMenu.summary();
++        assertEquals("R-N", summary);
++    }
++
++    void press(Gamepad held) {
++        gamepad.copy(held);
++        menuButtons.loop(gamepad);
++        Gamepad letGo = new Gamepad();
++        gamepad.copy(letGo);
++        menuButtons.loop(gamepad);
++    }
++}
