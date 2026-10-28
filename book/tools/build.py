@@ -149,10 +149,12 @@ def main() -> int:
         out = tree / "out"
         # conf.py names these on B003, describing them as committed, and names the videos from
         # BOOK_MEDIA's videos/.
-        # The worktree has no node_modules, so the diagrams are drawn by this checkout's mmdc.
+        # The worktree has no node_modules or .cache, so the diagrams are drawn by this
+        # checkout's mmdc, with the Chrome its book/.puppeteerrc.cjs keeps in book/.cache.
         mmdc = ROOT / "book" / "node_modules" / ".bin" / ("mmdc.cmd" if os.name == "nt" else "mmdc")
         os.environ.update(BOOK_LESSONS=args.lessons, BOOK_SOLUTIONS=args.solutions,
-                          BOOK_MEDIA=str(FIGURES.parent), BOOK_MMDC=str(mmdc))
+                          BOOK_MEDIA=str(FIGURES.parent), BOOK_MMDC=str(mmdc),
+                          PUPPETEER_CACHE_DIR=str(ROOT / "book" / ".cache" / "puppeteer"))
         # -W, as ninja book builds it: a diagram mermaid-cli fails to draw is only a warning.
         run(sys.executable, "-m", "sphinx", "-W", "-b", "html", *tag, "source", str(out / name),
             cwd=book)
