@@ -136,6 +136,7 @@ public abstract class CorbelsOpMode extends OpMode {
         if (!isLesson()) {
             Tracker.printToDs("Panels: http://192.168.43.1:8001");
         }
+        Tracker.endInit();
     }
 
     /**

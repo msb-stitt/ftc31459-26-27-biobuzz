@@ -43,7 +43,38 @@ public class DriverStationTest {
             loopBefore();
             Tracker.printToDs("Ready");
             telemetry.update();
+            Tracker.printToDs("Speed  %.1f in/s", 12.5);
             loopAfter();
+        }
+    }
+
+    /** Prints once in init(), and a menu line on each pass between INIT and PLAY. */
+    public static class MenuAtInit extends CorbelsTeleOp {
+        @Override public void init() {
+            initBefore();
+            Tracker.printToDs("Set up");
+            initAfter();
+        }
+
+        @Override public void init_loop() {
+            Tracker.printToDs("Menu");
+            initLoopAfter();
+        }
+
+        @Override public void loop() {
+            loopBefore();
+            loopAfter();
+        }
+    }
+
+    @Test
+    public void whatInitPrintsStaysUnderAMenuThroughInit() {
+        OpModeHarness h = new OpModeHarness(new MenuAtInit());
+        h.init();
+        for (int pass = 1; pass <= 3; pass++) {
+            h.initLoop();
+            assertEquals("pass " + pass,
+                    "Menu\nSet up\nPanels: http://192.168.43.1:8001", h.driverStation.text());
         }
     }
 
@@ -59,17 +90,16 @@ public class DriverStationTest {
     }
 
     @Test
-    public void aMidLoopFlushLeavesTheDriverAnEmptyScreen() {
+    public void aMidLoopFlushLosesWhatWasPrintedBeforeIt() {
         OpModeHarness h = new OpModeHarness(new FlushesItself());
         h.init();
         h.start();
         h.loop();
 
-        // The middle flush sent the lines and emptied the buffer, so the flush
-        // at the end of the loop had nothing left to send and replaced the
-        // screen with nothing.
-        assertFalse("Ready survived the second flush", h.driverStation.shows("Ready"));
-        assertEquals("the driver sees nothing at all", "", h.driverStation.text());
+        // The middle flush sent Ready, and the next line printed cleared it, so
+        // the flush at the end of the loop sent the speed alone.
+        assertFalse("Ready survived the middle flush", h.driverStation.shows("Ready"));
+        assertEquals("the driver sees the speed alone", "Speed  12.5 in/s", h.driverStation.text());
     }
 
     /**

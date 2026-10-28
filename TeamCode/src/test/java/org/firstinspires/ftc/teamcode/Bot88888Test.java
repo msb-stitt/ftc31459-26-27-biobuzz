@@ -145,7 +145,8 @@ public class Bot88888Test {
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
         assertEquals("the summary first, then right shows Blue, not yet selected",
-                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <N-Nothing>",
+                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <N-Nothing>"
+                        + "\nLive NetworkTables off\nPanels: http://192.168.43.1:8001",
                 h.driverStation.text());
         pressDuringInit(h, pad -> pad.b = true);
         assertTrue("B goes back to Red: " + h.driverStation.text(),
