@@ -114,7 +114,7 @@ public class Bot88888Test {
         h.init();
         h.initLoop();
         assertTrue("starts at the alliance the auto handed over: " + h.driverStation.text(),
-                h.driverStation.shows("> Alliance: < Red >"));
+                h.driverStation.shows("> Alliance: <Red>"));
         assertEquals("and where the auto ended", 30.0, follower.pose().x(), EPS);
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
@@ -140,15 +140,16 @@ public class Bot88888Test {
         h.init();
         h.initLoop();
         assertTrue("the menu is on the Driver Station during INIT: " + h.driverStation.text(),
-                h.driverStation.shows("> Alliance: < Red >"));
+                h.driverStation.shows("> Alliance: <Red>"));
         assertTrue(h.driverStation.text(), h.driverStation.shows("R-N"));
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
-        assertTrue("right shows Blue, not yet kept: " + h.driverStation.text(),
-                h.driverStation.shows("Alliance: < Blue >   (A keeps, B puts back)"));
+        assertEquals("the summary first, then right shows Blue, not yet selected",
+                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <N-Nothing>",
+                h.driverStation.text());
         pressDuringInit(h, pad -> pad.b = true);
-        assertTrue("B puts Red back: " + h.driverStation.text(),
-                h.driverStation.shows("> Alliance: < Red >"));
+        assertTrue("B goes back to Red: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: <Red>"));
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
         pressDuringInit(h, pad -> pad.a = true);
@@ -156,7 +157,7 @@ public class Bot88888Test {
         pressDuringInit(h, pad -> pad.dpad_right = true);
         pressDuringInit(h, pad -> pad.dpad_right = true);
         pressDuringInit(h, pad -> pad.a = true);
-        assertTrue("the summary names what was kept: " + h.driverStation.text(),
+        assertTrue("the summary names what was selected: " + h.driverStation.text(),
                 h.driverStation.shows("B-FS"));
 
         h.start();
