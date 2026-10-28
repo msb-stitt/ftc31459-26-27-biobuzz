@@ -19,6 +19,7 @@ import argparse
 import difflib
 import subprocess
 import sys
+import textwrap
 from pathlib import Path
 
 from applied import Patched, apply_all
@@ -161,9 +162,11 @@ def label(lesson: str) -> str:
 def page(path: str, patches: list[Patched], solutions: str) -> str:
     name = Path(path).stem
     out = [f"# {name}", ""]
-    out.append(f"What each lesson's patch does to this file, in the order the lessons come, from")
-    out.append(f"applying `solutions/` on `{solutions}`. A line marked + is new, and a line marked -")
-    out.append("is gone; each number is the line's place in the file after the lesson.")
+    # Wrapped, since the solutions' name grows when it is pinned to a tag.
+    out += textwrap.wrap(
+        "What each lesson's patch does to this file, in the order the lessons come, from "
+        f"applying `solutions/` on `{solutions}`. A line marked + is new, and a line marked - "
+        "is gone; each number is the line's place in the file after the lesson.", 100)
     out.append("")
     for patch in patches:
         out.append(f"## {label(patch.lesson)}")
