@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.pedro;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -15,8 +17,40 @@ import org.junit.Test;
 public class ConstantsTest {
 
     @Test
+    public void eachRobotControllerNameStartingWithOurNumberPicksThatRobot() {
+        assertEquals(Constants.Robot.BOT_88888, Constants.robotNamedBy("88888-RC"));
+        assertEquals(Constants.Robot.BOT_37523, Constants.robotNamedBy("37523-RC"));
+        assertEquals(Constants.Robot.BOT_31459, Constants.robotNamedBy("31459-RC"));
+        assertNull("not one of ours", Constants.robotNamedBy("12345-RC"));
+        assertNull("not at the start", Constants.robotNamedBy("RC-88888"));
+        assertNull("unreadable",
+                Constants.robotNamedBy("(could not read: no Robot Controller name yet)"));
+    }
+
+    @Test
+    public void theRobotControllerNamePicksThisRobotOverTheLineWrittenInConstants() {
+        try {
+            Constants.pickByTheRobotControllerName("88888-RC");
+            assertEquals(Constants.Robot.BOT_88888, Constants.thisRobot);
+            assertTrue(Constants.pickedByRobotControllerName);
+        } finally {
+            Constants.thisRobot = Constants.Robot.BOT_37523;
+            Constants.pickedByRobotControllerName = false;
+        }
+    }
+
+    @Test
+    public void aRobotControllerNameOfNoRobotLeavesThisRobotAsWritten() {
+        Constants.pickByTheRobotControllerName("12345-RC");
+        assertEquals(Constants.Robot.BOT_37523, Constants.thisRobot);
+        assertFalse(Constants.pickedByRobotControllerName);
+    }
+
+    @Test
     public void theDefaultRobotIs37523AndItsValuesAreTheOnesInUse() {
         assertEquals(Constants.Robot.BOT_37523, Constants.thisRobot);
+        assertFalse("the tests have no Robot Controller name",
+                Constants.pickedByRobotControllerName);
         assertSame(Bot37523.drivetrainConfig, Constants.drivetrainConfig);
         assertSame(Bot37523.localizerConfig, Constants.localizerConfig);
         assertSame(Bot37523.foresightConfig, Constants.foresightConfig);

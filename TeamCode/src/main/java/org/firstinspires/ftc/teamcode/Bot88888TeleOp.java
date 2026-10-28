@@ -16,8 +16,9 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 /**
  * Robot 88888's TeleOp: L140 Field Relative, as solutions-l140-alliances.2
  * solves it, since 88888 is a Pinpoint and a drivetrain with no intake,
- * launcher or windmill. Set {@code Constants.thisRobot} to {@code BOT_88888}
- * before running it.
+ * launcher or windmill. A Robot Controller name starting 88888, such as
+ * 88888-RC, picks 88888's values; on a Robot Controller named otherwise, set
+ * {@code Constants.thisRobot} to {@code BOT_88888} before running it.
  *
  * <ul>
  *   <li>Left stick drives the field: push it away from you and the robot goes

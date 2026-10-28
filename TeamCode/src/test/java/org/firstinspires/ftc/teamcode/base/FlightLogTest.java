@@ -95,6 +95,8 @@ public class FlightLogTest {
         h.init();
         assertEquals("from INIT, so a run that never starts still says",
                 "BOT_37523", Tracker.values().get("Constants/thisRobot"));
+        assertEquals("the tests have no Robot Controller name",
+                false, Tracker.values().get("Constants/pickedByRobotControllerName"));
         h.start();
         h.stop();
     }

@@ -101,6 +101,8 @@ public abstract class CorbelsOpMode extends OpMode {
             Tracker.serveLiveUnlessSwitchedOff();
         }
         Tracker.publish("Constants/thisRobot", Constants.thisRobot.name());
+        Tracker.publish("Constants/pickedByRobotControllerName",
+                Constants.pickedByRobotControllerName);
     }
 
     /** True for an OpMode in {@code lessons} or in {@code mytry}. */

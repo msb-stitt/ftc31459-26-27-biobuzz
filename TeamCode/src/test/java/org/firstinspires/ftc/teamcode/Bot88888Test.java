@@ -197,18 +197,22 @@ public class Bot88888Test {
     @Test
     public void theNameCheckSaysWhetherConstantsHadRunAndWhatItFound() {
         List<String> notYet = RobotNameCheck.linesToShow(false, "a.B.init\nc.D.run\n",
-                "(could not read: no name yet)", "37523-RC", Constants.Robot.BOT_37523);
+                "(could not read: no Robot Controller name yet)", "37523-RC",
+                Constants.Robot.BOT_37523, false);
         assertEquals("Constants had not run before this INIT; this INIT ran it.", notYet.get(0));
         assertEquals("What ran Constants, nearest first:", notYet.get(1));
         assertEquals("  a.B.init", notYet.get(2));
         assertEquals("  c.D.run", notYet.get(3));
-        assertEquals("Name when Constants ran: (could not read: no name yet)", notYet.get(4));
-        assertEquals("Name now: 37523-RC", notYet.get(5));
-        assertEquals("thisRobot picks: BOT_37523", notYet.get(6));
+        assertEquals("Robot Controller name when Constants ran: "
+                + "(could not read: no Robot Controller name yet)", notYet.get(4));
+        assertEquals("Robot Controller name now: 37523-RC", notYet.get(5));
+        assertEquals("thisRobot picks: BOT_37523, as written in Constants", notYet.get(6));
 
-        List<String> already = RobotNameCheck.linesToShow(true, "a.B.init\n", "37523-RC",
-                "37523-RC", Constants.Robot.BOT_37523);
+        List<String> already = RobotNameCheck.linesToShow(true, "a.B.init\n", "88888-RC",
+                "88888-RC", Constants.Robot.BOT_88888, true);
         assertEquals("Constants had already run before this INIT.", already.get(0));
+        assertEquals("thisRobot picks: BOT_88888, by the Robot Controller name",
+                already.get(already.size() - 1));
     }
 
     @Test
@@ -220,7 +224,7 @@ public class Bot88888Test {
         h.initLoop();
         String shown = h.driverStation.text();
         assertTrue(shown, shown.contains("Constants had already run before this INIT."));
-        assertTrue(shown, shown.contains("Name now: 37523-RC"));
+        assertTrue(shown, shown.contains("Robot Controller name now: 37523-RC"));
         assertTrue(shown, shown.contains("thisRobot picks: BOT_37523"));
         h.start();
         h.loops(1, 0);
