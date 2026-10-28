@@ -14,7 +14,12 @@ keeps what draws it. Its drawing is committed to `corbels-lfs-lessons` like any 
 draw run leaves nothing to commit. To bring it back, put its box in a page and its status back to
 `pencilled`.
 
-How to add one: put the box in the page and the row here, in the same commit.
+A figure drawn by Mermaid is **mermaid**: a ```` ```mermaid ```` block in the page, with
+`:name:` and its id on the block's first line. The build draws it as an SVG file, so nothing is
+committed to `corbels-lfs-lessons` for it and `draw.py` has nothing to draw. To change the picture,
+change the block.
+
+How to add one: put the box or the Mermaid block in the page and the row here, in the same commit.
 
 How to take a screenshot of Android Studio: run `ftc-claude`'s `tools/figures/prep.sh` first, as
 `tools/figures/prep.sh l120 L120CompareLocalizersOpMode solutions-minor-fixes`, and look at the
@@ -30,6 +35,14 @@ new file.
 Stand-in for `fig-robot-front`, made by `book/tools/draw.py`.
 :::
 ```
+
+`````
+```mermaid
+:name: fig-l135-classes
+
+classDiagram
+```
+`````
 
 | id | What it must show | How it is obtained | Status |
 | --- | --- | --- | --- |
@@ -135,6 +148,8 @@ Stand-in for `fig-robot-front`, made by `book/tools/draw.py`.
 | `fig-l125-import-static` | Android Studio with `L125Drive24OpMode.java` the one tab open, `sequential`, `follow` and `line` in red in `Command forward24 = …` above `return forward24;`, and the popup offering **Import static method... com.pedropathing.api.Paths.line()?** with ⌥↩ | Screenshot, taken 2026-10-26 from `tools/figures/prep.sh`'s start state | pencilled |
 | `fig-l130-two-legs` | AdvantageScope's 2D Field with the robot stopped right of the middle of the field, its arrow still pointing up the field, and the list showing `pinPoint/x_in` at 95.999, `y_in` at 72.001 and `heading_deg` at 90 | Screenshot, taken 2026-10-05 | pencilled |
 | `fig-l135-menu` | The Driver Station during INIT of `L135 Choose Auto`, its lines reading `R-FS`, `  Alliance: <Red>` and `> Auto: <Forward Then Strafe>` | A stand-in drawn by `draw.py` from what `simRun --init` prints, until the screenshot is taken on the robot | pencilled |
+| `fig-l135-classes` | `L135ChooseAutoOpMode` and the five menu classes, each with its fields and methods, and which one holds which | A Mermaid class diagram in `tasks/l135.md` | mermaid |
+| `fig-l135-calls` | One press of the D-pad's right: `init_loop()`'s `loop(gamepad1)` going down the classes to the row's `right()`, then `lines()` and each row's `line()` coming back to `printToDs` | A Mermaid sequence diagram in `tasks/l135.md` | mermaid |
 | `fig-l140-spin-and-slide` | AdvantageScope's 2D Field with the robot right of where it started and turned partway around, with the list showing `fieldXSpeed` at 0.160, `turnCcwSpeed` at 0.490, `robotForwardXSpeed` at 0.109 and `robotStrafeYSpeed` at 0.117, and `pinPoint/x_in` at 87.428, `y_in` at 14.746 and `heading_deg` at 313.142 | Screenshot, taken 2026-10-26 with the sticks set by `--left_stick_y=-0.4 --right_stick_x=-0.7` | pencilled |
 | `fig-l150-bumper-held` | AdvantageScope's 2D Field with the robot below the middle of the field, its arrow pointing up the field, and the list showing `drivetrain/robotRelative` green, `fieldXSpeed` and `robotForwardXSpeed` at 0.250, and `pinPoint/x_in` at 72, `y_in` at 41.671 and `heading_deg` at 90 | Screenshot, taken 2026-10-26 with the bumper and stick set by `--left_stick_y=-0.5 --right_bumper=true` | pencilled |
 | `fig-l160-held` | AdvantageScope's 2D Field with the robot at the bottom of the field, right of the middle, its arrow still pointing up the field, and the list showing `turnCcwSpeed` at -0.040, `holdingHeading` green, and `pinPoint/heading_deg` at 90 and `x_in` at 83.603 | Screenshot, taken 2026-10-26 with the sticks set by `--left_stick_y=-0.3 --right_stick_x=0.2` | pencilled |
