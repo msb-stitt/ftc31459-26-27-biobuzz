@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/mermaid.css?v=d592db89" />
     
     
 
@@ -272,8 +273,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135AutoMenu.html">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenu.html">L135OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItem.html">L135MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRow.html">L135MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtons.html">L135MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135DriverStationMenu.html">L135DriverStationMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItemTest.html">L135MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRowTest.html">L135MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenuTest.html">L135OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -329,7 +338,7 @@
 <h1>117 lesson: let AutoTune tune the robot<a class="headerlink" href="#lesson-let-autotune-tune-the-robot" title="Link to this heading">¶</a></h1>
 <p>The robot measures itself. It finds which way each motor turns and where the pods sit. It finds
 how fast it can drive and how hard it can brake. Pedro Pathing’s AutoTune does the measuring. You
-paste what it finds into <code class="docutils literal notranslate"><span class="pre">Constants.java</span></code>.</p>
+paste what it finds into the robot’s own file.</p>
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l117s010">
@@ -352,10 +361,9 @@ permission. Please give it.</p>
 <code class="docutils literal notranslate"><span class="pre">Front</span> <span class="pre">Left</span></code>, <code class="docutils literal notranslate"><span class="pre">Front</span> <span class="pre">Right</span></code>, <code class="docutils literal notranslate"><span class="pre">Back</span> <span class="pre">Left</span></code> and <code class="docutils literal notranslate"><span class="pre">Back</span> <span class="pre">Right</span></code>. Each motor then spins on its own, at
 half speed, beside a picture of which wheel it is. Say whether it spun, and whether it spun forward
 or reversed.</p>
-<p><strong>Change.</strong> At the end, AutoTune shows Java that starts <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">static</span> <span class="pre">MecanumConfig</span> <span class="pre">drivetrainConfig</span></code>. Open <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder. Find the four lines that set the names,
-and put the four name lines AutoTune shows in their place. Keep <code class="docutils literal notranslate"><span class="pre">manualBrakeMode</span></code> and
-<code class="docutils literal notranslate"><span class="pre">powerThreshold</span></code>. AutoTune does not print them. Then open the file of the robot <code class="docutils literal notranslate"><span class="pre">thisRobot</span></code> names,
-such as <code class="docutils literal notranslate"><span class="pre">Bot37523</span></code>, and put the four direction lines AutoTune shows in place of its four.</p>
+<p><strong>Change.</strong> At the end, AutoTune shows Java that starts <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">static</span> <span class="pre">MecanumConfig</span> <span class="pre">drivetrainConfig</span></code>. Open the file of the robot <code class="docutils literal notranslate"><span class="pre">thisRobot</span></code> names, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, such as
+<code class="docutils literal notranslate"><span class="pre">Bot37523</span></code>. Replace its <code class="docutils literal notranslate"><span class="pre">drivetrainConfig</span></code> with the one AutoTune shows. AutoTune does not print
+<code class="docutils literal notranslate"><span class="pre">manualBrakeMode</span></code> or <code class="docutils literal notranslate"><span class="pre">powerThreshold</span></code>, so <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>The directions match what L050 found on blocks.</p></li>
@@ -375,7 +383,8 @@ three pushes it asks for, stopping each one when you are done:</p>
 <li><p>Push the robot to the left.</p></li>
 <li><p>Spin the robot half a turn on the spot, counterclockwise.</p></li>
 </ul>
-<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants</span></code> with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code> AutoTune shows.</p>
+<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in the robot’s own file with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code> AutoTune
+shows.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Localization</span> <span class="pre">Test</span></code> and drive with the gamepad.</p></li>
@@ -388,18 +397,14 @@ three pushes it asks for, stopping each one when you are done:</p>
 <p><strong>Robot.</strong> Pick <code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>. Keep the distances and the speed it offers: 48 in, 30 in/s and
 36 in. It drives forward and left as fast as it can, coasts to a stop, turns back and forth, spins,
 brakes, and steps 12 in to 24 in each way.</p>
-<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code> AutoTune shows.
-Keep the five lines it does not print, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to <code class="docutils literal notranslate"><span class="pre">holdPointHeadingScaling</span></code>.</p>
-<p>Three of its numbers are kept twice in <code class="docutils literal notranslate"><span class="pre">Constants</span></code>, for the lessons’ own drivetrain. Copy each one
-up into its own line:</p>
-<ul class="simple">
-<li><p>the number in <code class="docutils literal notranslate"><span class="pre">c.coast.set(...)</span></code> goes in <code class="docutils literal notranslate"><span class="pre">powerPerInchPerSecond</span></code>;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">maxAchievableForwardVelocity</span></code> goes in <code class="docutils literal notranslate"><span class="pre">maxForwardInchesPerSecond</span></code>;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">maxAchievableStrafeVelocity</span></code> goes in <code class="docutils literal notranslate"><span class="pre">maxStrafeInchesPerSecond</span></code>.</p></li>
-</ul>
+<p><strong>Change.</strong> In the robot’s own file, replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code> AutoTune
+shows. AutoTune does not print five hold lines, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to
+<code class="docutils literal notranslate"><span class="pre">holdPointHeadingScaling</span></code>. <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top. It also reads three of the new numbers for
+the lessons’ own drivetrain: the coast feedforward and the two top speeds.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Each of the three pairs holds the same number.</p></li>
+<li><p>The robot’s own file holds one <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>, and it ends with
+<code class="docutils literal notranslate"><span class="pre">c.naturalStrafeDeceleration.set(...)</span></code>.</p></li>
 </ul>
 </section>
 <section id="l117s050">

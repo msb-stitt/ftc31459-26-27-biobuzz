@@ -37,10 +37,17 @@ time.
 
 **Change.** In each copy, delete the line `@Disabled`, under the comment that names this step.
 
+`L140AutoOpMode` uses the menu you wrote in L135. Your menu is in `mytry`, not in `lessons`. So
+the starter turns those lines into comments. Find each other comment that names this step. Under
+it, delete the `//` at the start of each line.
+
 **Check.**
 
 - In each, under the step's comment, the next line reads
   `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+- In `L140AutoOpMode`, near the top of the class, the line under the comment reads
+  `L135MenuItem red = new L135MenuItem("R", "Red");`.
+- No name in the file is red.
 
 ### L140S030: drive and turn at once, the L110 way
 
@@ -118,14 +125,19 @@ auto first. `OpModeStorage.alliance` is the alliance the auto chose. L140S090 ma
 type:
 
 ```{code-block} java
-:emphasize-lines: 4-6
+:emphasize-lines: 4-11
 
     // When on L140S050, see
     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
     // for what to do here.
-    L135AutoMenu menu = new L135AutoMenu(
-            new L135Row("Alliance", "Red", "Blue"),
-            new L135Row("Start", "Auto End", "Wall"));
+    L135MenuItem red = new L135MenuItem("R", "Red");
+    L135MenuItem blue = new L135MenuItem("B", "Blue");
+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+    L135MenuItem autoEnd = new L135MenuItem("A", "Auto End");
+    L135MenuItem wall = new L135MenuItem("W", "Wall");
+    L135MenuRow startRow = new L135MenuRow("Start", autoEnd, wall);
+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, startRow);
+    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
 ```
 
 At the end of `init()`, under the comment, type:
@@ -169,7 +181,7 @@ In `loop()`, under the comment, type:
 
 **Check.**
 
-- The Terminal shows `> Alliance: < Red >`, then `Start: < Auto End >`, then `R-A`.
+- The Terminal shows `R-A`, then `> Alliance: <Red>`, then `Start: <Auto End>`.
 - Press the D-pad's right, then A. The last line reads `B-A`.
 
 ### L140S060: turn the sticks round for the Blue Alliance Area
@@ -304,7 +316,7 @@ when the auto ends.
 `OpModeStorage` turns red. Click it and press Option+Enter.
 
 **Robot.** Send the code. Run `L140 Auto` from the autonomous list. During INIT, choose `Blue` and
-leave the auto at `N-Nothing`, so the last line reads `B-N`. Press PLAY, and let the auto run until
+leave the auto at `Nothing`, so the last line reads `B-N`. Press PLAY, and let the auto run until
 it stops on its own, after 30 seconds.
 
 **Check.**

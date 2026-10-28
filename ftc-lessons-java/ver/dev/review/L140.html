@@ -251,7 +251,7 @@
         <article role="main" id="furo-main-content">
           <section id="l140">
 <h1>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h1>
-<p>2 file(s) copied, then 9 change(s) in 2 file(s), 36 line(s) of code to write.</p>
+<p>2 file(s) copied, then 14 change(s) in 2 file(s), 67 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -264,16 +264,21 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 3 lines.</p>
+<p>Delete 0 lines, write 8 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -43,6 +43,9 @@</span>
+<span class="gu">@@ -43,6 +43,14 @@</span>
 <span class="w"> </span>    // When on L140S050, see
 <span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
 <span class="w"> </span>    // for what to do here.
-<span class="gi">+    L135AutoMenu menu = new L135AutoMenu(</span>
-<span class="gi">+            new L135Row("Alliance", "Red", "Blue"),</span>
-<span class="gi">+            new L135Row("Start", "Auto End", "Wall"));</span>
+<span class="gi">+    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+    L135MenuItem autoEnd = new L135MenuItem("A", "Auto End");</span>
+<span class="gi">+    L135MenuItem wall = new L135MenuItem("W", "Wall");</span>
+<span class="gi">+    L135MenuRow startRow = new L135MenuRow("Start", autoEnd, wall);</span>
+<span class="gi">+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, startRow);</span>
+<span class="gi">+    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);</span>
 <span class="w"> </span>
 <span class="w"> </span>    double robotHalfLength_in = 9.0;
 <span class="w"> </span>    double fieldPerimeterWidth_in = 1.5;
@@ -285,7 +290,7 @@
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -64,6 +64,7 @@</span>
+<span class="gu">@@ -69,6 +69,7 @@</span>
 <span class="w"> </span>        // When on L140S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
 <span class="w"> </span>        // for what to do here.
@@ -301,7 +306,7 @@
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -74,6 +74,7 @@</span>
+<span class="gu">@@ -79,6 +79,7 @@</span>
 <span class="w"> </span>        // When on L140S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
 <span class="w"> </span>        // for what to do here.
@@ -317,7 +322,7 @@
 <p>Delete 0 lines, write 6 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -85,6 +85,12 @@</span>
+<span class="gu">@@ -90,6 +90,12 @@</span>
 <span class="w"> </span>        // When on L140S070, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
 <span class="w"> </span>        // for what to do here.
@@ -338,7 +343,7 @@
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -103,6 +103,7 @@</span>
+<span class="gu">@@ -108,6 +108,7 @@</span>
 <span class="w"> </span>        // When on L140S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
 <span class="w"> </span>        // for what to do here.
@@ -354,7 +359,7 @@
 <p>Delete 2 lines, write 10 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -120,8 +120,16 @@</span>
+<span class="gu">@@ -125,8 +125,16 @@</span>
 <span class="w"> </span>        // When on L140S060, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
 <span class="w"> </span>        // for what to do here.
@@ -381,7 +386,7 @@
 <p>Delete 1 line, write 8 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -143,7 +143,14 @@</span>
+<span class="gu">@@ -148,7 +148,14 @@</span>
 <span class="w"> </span>        // When on L140S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
 <span class="w"> </span>        // for what to do here.
@@ -405,7 +410,7 @@
 <p>Delete 0 lines, write 4 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -166,6 +166,10 @@</span>
+<span class="gu">@@ -171,6 +171,10 @@</span>
 <span class="w"> </span>        // When on L140S070, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
 <span class="w"> </span>        // for what to do here.
@@ -425,18 +430,145 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140AutoOpMode.java</span></code></p>
 <section id="id8">
 <h3>A change<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>Delete 9 lines, write 9 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -37,15 +37,15 @@</span>
+<span class="w"> </span>    // When on L140S020, see
+<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>    // for what to do here.
+<span class="gd">-//    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gd">-//    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gd">-//    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gd">-//    L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gd">-//    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gd">-//    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");</span>
+<span class="gd">-//    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);</span>
+<span class="gd">-//    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gd">-//    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);</span>
+<span class="gi">+    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gi">+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");</span>
+<span class="gi">+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);</span>
+<span class="gi">+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gi">+    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);</span>
+<span class="w"> </span>
+<span class="w"> </span>    double robotHalfLength_in = 9.0;
+<span class="w"> </span>    double fieldPerimeterWidth_in = 1.5;
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>A change<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -68,7 +68,7 @@</span>
+<span class="w"> </span>        // When on L140S020, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>        // for what to do here.
+<span class="gd">-//        menu.loop(gamepad1);</span>
+<span class="gi">+        menu.loop(gamepad1);</span>
+<span class="w"> </span>        initLoopAfter();
+<span class="w"> </span>    }
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>A change<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
 <p>Delete 0 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -67,6 +67,8 @@</span>
+<span class="gu">@@ -79,6 +79,8 @@</span>
 <span class="w"> </span>        // When on L140S090, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        String alliance = menu.chosen("Alliance");</span>
 <span class="gi">+        OpModeStorage.alliance = alliance;</span>
 <span class="w"> </span>
-<span class="w"> </span>        String auto = menu.chosen("Auto");
-<span class="w"> </span>        Command chosenAuto = Command.NOOP;
+<span class="w"> </span>        // When on L140S020, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>A change<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>Delete 11 lines, write 11 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -85,17 +85,17 @@</span>
+<span class="w"> </span>        // When on L140S020, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>        // for what to do here.
+<span class="gd">-//        String auto = menu.chosen("Auto");</span>
+<span class="gd">-//        Command chosenAuto = Command.NOOP;</span>
+<span class="gd">-//        switch (auto) {</span>
+<span class="gd">-//            case "Forward 24":</span>
+<span class="gd">-//                chosenAuto = driveForward24();</span>
+<span class="gd">-//                break;</span>
+<span class="gd">-//            case "Forward Then Strafe":</span>
+<span class="gd">-//                chosenAuto = driveForwardThenStrafe();</span>
+<span class="gd">-//                break;</span>
+<span class="gd">-//        }</span>
+<span class="gd">-//        Scheduler.schedule(chosenAuto);</span>
+<span class="gi">+        String auto = menu.chosen("Auto");</span>
+<span class="gi">+        Command chosenAuto = Command.NOOP;</span>
+<span class="gi">+        switch (auto) {</span>
+<span class="gi">+            case "Forward 24":</span>
+<span class="gi">+                chosenAuto = driveForward24();</span>
+<span class="gi">+                break;</span>
+<span class="gi">+            case "Forward Then Strafe":</span>
+<span class="gi">+                chosenAuto = driveForwardThenStrafe();</span>
+<span class="gi">+                break;</span>
+<span class="gi">+        }</span>
+<span class="gi">+        Scheduler.schedule(chosenAuto);</span>
+<span class="w"> </span>        startAfter();
+<span class="w"> </span>    }
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>A change<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -106,7 +106,7 @@</span>
+<span class="w"> </span>        // When on L140S020, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>        // for what to do here.
+<span class="gd">-//        Tracker.printToDs(menu.summary());</span>
+<span class="gi">+        Tracker.printToDs(menu.summary());</span>
+<span class="w"> </span>        Tracker.printPoseSpeedLoopToDs(follower);
+<span class="w"> </span>        loopAfter();
+<span class="w"> </span>    }
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>A change<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<p>Delete 4 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -124,10 +124,10 @@</span>
+<span class="w"> </span>        // When on L140S020, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>        // for what to do here.
+<span class="gd">-//        String alliance = menu.chosen("Alliance");</span>
+<span class="gd">-//        if (alliance.equals("Blue")) {</span>
+<span class="gd">-//            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
+<span class="gd">-//        }</span>
+<span class="gi">+        String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+        if (alliance.equals("Blue")) {</span>
+<span class="gi">+            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
+<span class="gi">+        }</span>
+<span class="w"> </span>        return chosenPoses;
+<span class="w"> </span>    }
+<span class="w"> </span>
 </pre></div>
 </div>
 </section>
@@ -513,6 +645,11 @@
 </li>
 <li><a class="reference internal" href="#l140autoopmode">L140AutoOpMode</a><ul>
 <li><a class="reference internal" href="#id8">A change</a></li>
+<li><a class="reference internal" href="#id9">A change</a></li>
+<li><a class="reference internal" href="#id10">A change</a></li>
+<li><a class="reference internal" href="#id11">A change</a></li>
+<li><a class="reference internal" href="#id12">A change</a></li>
+<li><a class="reference internal" href="#id13">A change</a></li>
 </ul>
 </li>
 </ul>

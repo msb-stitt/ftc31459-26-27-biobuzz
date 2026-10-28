@@ -3,16 +3,17 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L135ChooseAutoOpMode" href="L135ChooseAutoOpMode.html"><link rel="prev" title="L130ForwardThenStrafeOpMode" href="L130ForwardThenStrafeOpMode.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L135MenuRowTest" href="L135MenuRowTest.html"><link rel="prev" title="L135ChooseAutoOpMode" href="L135ChooseAutoOpMode.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L135AutoMenu - Corbels FTC Programming Lessons in Java</title>
+        <title>L135MenuItemTest - Corbels FTC Programming Lessons in Java</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/mermaid.css?v=d592db89" />
     
     
 
@@ -277,8 +278,16 @@
 <li class="toctree-l2"><a class="reference internal" href="L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135OptionMenu.html">L135OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuItem.html">L135MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuRow.html">L135MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuButtons.html">L135MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135DriverStationMenu.html">L135DriverStationMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">L135MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuRowTest.html">L135MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135OptionMenuTest.html">L135OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -312,7 +321,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/r950/L135AutoMenu.md.txt" title="View this page">
+  <a class="muted-link" href="../_sources/r950/L135MenuItemTest.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -330,43 +339,42 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="l135automenu">
-<h1>L135AutoMenu<a class="headerlink" href="#l135automenu" title="Link to this heading">¶</a></h1>
-<p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.2</span></code>. A line marked + is new, and a line marked -
-is gone; each number is the line’s place in the file after the lesson.</p>
+          <section id="l135menuitemtest">
+<h1>L135MenuItemTest<a class="headerlink" href="#l135menuitemtest" title="Link to this heading">¶</a></h1>
+<p>What each lesson’s patch does to this file, in the order the lessons come, from applying
+<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.1</span></code>. A line marked + is new, and a line marked - is
+gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l135">
 <h2>L135<a class="headerlink" href="#l135" title="Link to this heading">¶</a></h2>
-<div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L135AutoMenu.java  (before L135)</span>
-<span class="gi">+++ mytry/L135AutoMenu.java  (after L135)</span>
-<span class="gu">@@ lines 82 to 92 @@</span>
-<span class="w"> </span>  82         // When on L135S040, see
-<span class="w"> </span>  83         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
-<span class="w"> </span>  84         // for what to do here.
-<span class="gi">+  85         int lastChoice = rows[row].choices.length - 1;</span>
-<span class="gi">+  86         shown[row] = shown[row] + 1;</span>
-<span class="gi">+  87         if (shown[row] &gt; lastChoice) {</span>
-<span class="gi">+  88             shown[row] = 0;</span>
-<span class="gi">+  89         }</span>
-<span class="w"> </span>  90     }
-<span class="w"> </span>  91
-<span class="w"> </span>  92     /** The choice shown becomes the one kept. */
-<span class="gu">@@ lines 94 to 100 @@</span>
-<span class="w"> </span>  94         // When on L135S050, see
-<span class="w"> </span>  95         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
-<span class="w"> </span>  96         // for what to do here.
-<span class="gi">+  97         kept[row] = shown[row];</span>
-<span class="w"> </span>  98     }
-<span class="w"> </span>  99
-<span class="w"> </span> 100     /** The choice kept is shown again. */
-<span class="gu">@@ lines 102 to 108 @@</span>
-<span class="w"> </span> 102         // When on L135S050, see
-<span class="w"> </span> 103         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
-<span class="w"> </span> 104         // for what to do here.
-<span class="gi">+ 105         shown[row] = kept[row];</span>
-<span class="w"> </span> 106     }
-<span class="w"> </span> 107
-<span class="w"> </span> 108     /** The choice kept in the row with this name, such as chosen("Alliance"). */
+<div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L135MenuItemTest.java  (before L135)</span>
+<span class="gi">+++ mytry/L135MenuItemTest.java  (after L135)</span>
+<span class="gu">@@ lines 1 to 9 @@</span>
+<span class="gi">+   1 package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+   2</span>
+<span class="gi">+   3 import static org.junit.Assert.assertEquals;</span>
+<span class="gi">+   4</span>
+<span class="gi">+   5 import org.junit.Test;</span>
+<span class="gi">+   6</span>
+<span class="w"> </span>   7 /**
+<span class="w"> </span>   8  * Tests for {@link L135MenuItem}: an item gives back the short name and
+<span class="w"> </span>   9  * the full name it was made with.
+<span class="gu">@@ lines 11 to 26 @@</span>
+<span class="w"> </span>  11 // When on L135S040, see
+<span class="w"> </span>  12 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+<span class="w"> </span>  13 // for what to write in this file.
+<span class="gi">+  14 // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+  15 public class L135MenuItemTest {</span>
+<span class="gi">+  16</span>
+<span class="gi">+  17     @Test</span>
+<span class="gi">+  18     // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+  19     public void anItemHasAShortNameAndAFullName() {</span>
+<span class="gi">+  20         L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+  21         String shortName = forward24.shortName();</span>
+<span class="gi">+  22         assertEquals("F24", shortName);</span>
+<span class="gi">+  23         String fullName = forward24.fullName();</span>
+<span class="gi">+  24         assertEquals("Forward 24", fullName);</span>
+<span class="gi">+  25     }</span>
+<span class="gi">+  26 }</span>
 </pre></div>
 </div>
 </section>
@@ -377,23 +385,23 @@ is gone; each number is the line’s place in the file after the lesson.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="L135ChooseAutoOpMode.html">
+          <a class="next-page" href="L135MenuRowTest.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">L135ChooseAutoOpMode</div>
+                <div class="title">L135MenuRowTest</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="L130ForwardThenStrafeOpMode.html">
+          <a class="prev-page" href="L135ChooseAutoOpMode.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">L130ForwardThenStrafeOpMode</div>
+                <div class="title">L135ChooseAutoOpMode</div>
                 
               </div>
             </a>
@@ -427,7 +435,7 @@ is gone; each number is the line’s place in the file after the lesson.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">L135AutoMenu</a><ul>
+<li><a class="reference internal" href="#">L135MenuItemTest</a><ul>
 <li><a class="reference internal" href="#l135">L135</a></li>
 </ul>
 </li>

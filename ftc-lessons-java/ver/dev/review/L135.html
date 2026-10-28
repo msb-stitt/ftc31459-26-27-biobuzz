@@ -251,67 +251,406 @@
         <article role="main" id="furo-main-content">
           <section id="l135">
 <h1>L135<a class="headerlink" href="#l135" title="Link to this heading">¶</a></h1>
-<p>3 file(s) copied, then 8 change(s) in 2 file(s), 27 line(s) of code to write.</p>
+<p>10 file(s) copied, then 24 change(s) in 10 file(s), 542 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135Row.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135Row.java</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135AutoMenu.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135AutoMenu.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135OptionMenu.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135OptionMenu.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135MenuItem.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135MenuItem.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135MenuRow.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135MenuRow.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135MenuButtons.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135MenuButtons.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135DriverStationMenu.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135DriverStationMenu.java</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135ChooseAutoOpMode.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135ChooseAutoOpMode.java</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135MenuItemTest.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135MenuItemTest.java</span></code>, under <code class="docutils literal notranslate"><span class="pre">test</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135MenuRowTest.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135MenuRowTest.java</span></code>, under <code class="docutils literal notranslate"><span class="pre">test</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135OptionMenuTest.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135OptionMenuTest.java</span></code>, under <code class="docutils literal notranslate"><span class="pre">test</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lessons/L135MenuButtonsTest.java</span></code> to <code class="docutils literal notranslate"><span class="pre">mytry/L135MenuButtonsTest.java</span></code>, under <code class="docutils literal notranslate"><span class="pre">test</span></code></p></li>
 </ul>
 </section>
-<section id="l135automenu">
-<h2>L135AutoMenu<a class="headerlink" href="#l135automenu" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135AutoMenu.java</span></code></p>
+<section id="l135optionmenu">
+<h2>L135OptionMenu<a class="headerlink" href="#l135optionmenu" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135OptionMenu.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 5 lines.</p>
+<p>Delete 0 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -82,6 +82,11 @@</span>
-<span class="w"> </span>        // When on L135S040, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
-<span class="w"> </span>        // for what to do here.
-<span class="gi">+        int lastChoice = rows[row].choices.length - 1;</span>
-<span class="gi">+        shown[row] = shown[row] + 1;</span>
-<span class="gi">+        if (shown[row] &gt; lastChoice) {</span>
-<span class="gi">+            shown[row] = 0;</span>
-<span class="gi">+        }</span>
-<span class="w"> </span>    }
-<span class="w"> </span>
-<span class="w"> </span>    /** The choice shown becomes the one kept. */
+<span class="gu">@@ -1,3 +1,5 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * The rows of a menu, and which row the pointer is on. Up and down move the
+<span class="w"> </span> * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
 </pre></div>
 </div>
 </section>
 <section id="id1">
 <h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 1 line.</p>
+<p>Delete 0 lines, write 87 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -94,6 +94,7 @@</span>
-<span class="w"> </span>        // When on L135S050, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
-<span class="w"> </span>        // for what to do here.
-<span class="gi">+        kept[row] = shown[row];</span>
-<span class="w"> </span>    }
-<span class="w"> </span>
-<span class="w"> </span>    /** The choice kept is shown again. */
+<span class="gu">@@ -10,3 +10,90 @@</span>
+<span class="w"> </span>// When on L135S030, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+class L135OptionMenu {</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuRow[] rows;</span>
+<span class="gi">+    int pointedRow = 0;</span>
+<span class="gi">+</span>
+<span class="gi">+    L135OptionMenu(L135MenuRow... rows) {</span>
+<span class="gi">+        this.rows = rows;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void up() {</span>
+<span class="gi">+        back();</span>
+<span class="gi">+        pointedRow = pointedRow - 1;</span>
+<span class="gi">+        if (pointedRow &lt; 0) {</span>
+<span class="gi">+            pointedRow = rows.length - 1;</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void down() {</span>
+<span class="gi">+        back();</span>
+<span class="gi">+        pointedRow = pointedRow + 1;</span>
+<span class="gi">+        if (pointedRow == rows.length) {</span>
+<span class="gi">+            pointedRow = 0;</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void left() {</span>
+<span class="gi">+        rows[pointedRow].left();</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void right() {</span>
+<span class="gi">+        rows[pointedRow].right();</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void select() {</span>
+<span class="gi">+        rows[pointedRow].select();</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void back() {</span>
+<span class="gi">+        rows[pointedRow].back();</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String chosen(String rowName) {</span>
+<span class="gi">+        L135MenuRow row = rowNamed(rowName);</span>
+<span class="gi">+        L135MenuItem selectedItem = row.selected();</span>
+<span class="gi">+        String fullName = selectedItem.fullName();</span>
+<span class="gi">+        return fullName;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void startAt(String rowName, String fullName) {</span>
+<span class="gi">+        L135MenuRow row = rowNamed(rowName);</span>
+<span class="gi">+        row.startAt(fullName);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String summary() {</span>
+<span class="gi">+        String summary = "";</span>
+<span class="gi">+        for (int i = 0; i &lt; rows.length; i++) {</span>
+<span class="gi">+            L135MenuItem selectedItem = rows[i].selected();</span>
+<span class="gi">+            if (i &gt; 0) {</span>
+<span class="gi">+                summary = summary + "-";</span>
+<span class="gi">+            }</span>
+<span class="gi">+            summary = summary + selectedItem.shortName();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        return summary;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String[] lines() {</span>
+<span class="gi">+        String[] lines = new String[rows.length + 1];</span>
+<span class="gi">+        lines[0] = summary();</span>
+<span class="gi">+        for (int i = 0; i &lt; rows.length; i++) {</span>
+<span class="gi">+            String pointer = "  ";</span>
+<span class="gi">+            if (i == pointedRow) {</span>
+<span class="gi">+                pointer = "&gt; ";</span>
+<span class="gi">+            }</span>
+<span class="gi">+            lines[i + 1] = pointer + rows[i].line();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        return lines;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuRow rowNamed(String rowName) {</span>
+<span class="gi">+        for (int i = 0; i &lt; rows.length; i++) {</span>
+<span class="gi">+            if (rows[i].name().equals(rowName)) {</span>
+<span class="gi">+                return rows[i];</span>
+<span class="gi">+            }</span>
+<span class="gi">+        }</span>
+<span class="gi">+        throw new IllegalArgumentException("No row named " + rowName);</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
 </pre></div>
 </div>
 </section>
+</section>
+<section id="l135menuitem">
+<h2>L135MenuItem<a class="headerlink" href="#l135menuitem" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuItem.java</span></code></p>
 <section id="id2">
 <h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 1 line.</p>
+<p>Delete 0 lines, write 2 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -102,6 +102,7 @@</span>
-<span class="w"> </span>        // When on L135S050, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
-<span class="w"> </span>        // for what to do here.
-<span class="gi">+        shown[row] = kept[row];</span>
-<span class="w"> </span>    }
-<span class="w"> </span>
-<span class="w"> </span>    /** The choice kept in the row with this name, such as chosen("Alliance"). */
+<span class="gu">@@ -1,3 +1,5 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * One choice in a {@link L135MenuRow}: its short name, such as F24, for the
+<span class="w"> </span> * menu's summary line, and its full name, such as Forward 24, for its row's
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 18 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -10,3 +10,21 @@</span>
+<span class="w"> </span>// When on L135S040, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+class L135MenuItem {</span>
+<span class="gi">+</span>
+<span class="gi">+    String shortName;</span>
+<span class="gi">+    String fullName;</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuItem(String shortName, String fullName) {</span>
+<span class="gi">+        this.shortName = shortName;</span>
+<span class="gi">+        this.fullName = fullName;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String shortName() {</span>
+<span class="gi">+        return shortName;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String fullName() {</span>
+<span class="gi">+        return fullName;</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135menurow">
+<h2>L135MenuRow<a class="headerlink" href="#l135menurow" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRow.java</span></code></p>
+<section id="id4">
+<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 2 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,5 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * One row of an {@link L135OptionMenu}: its name and its choices. Left and right
+<span class="w"> </span> * offer the choice before or after, and wrap at the ends. A selects the choice
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>A change<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 64 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -10,3 +10,67 @@</span>
+<span class="w"> </span>// When on L135S050, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+class L135MenuRow {</span>
+<span class="gi">+</span>
+<span class="gi">+    String name;</span>
+<span class="gi">+    L135MenuItem[] items;</span>
+<span class="gi">+    int selectedIndex = 0;</span>
+<span class="gi">+    int offeredIndex = 0;</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuRow(String name, L135MenuItem... items) {</span>
+<span class="gi">+        this.name = name;</span>
+<span class="gi">+        this.items = items;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String name() {</span>
+<span class="gi">+        return name;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void right() {</span>
+<span class="gi">+        int lastIndex = items.length - 1;</span>
+<span class="gi">+        offeredIndex = offeredIndex + 1;</span>
+<span class="gi">+        if (offeredIndex &gt; lastIndex) {</span>
+<span class="gi">+            offeredIndex = 0;</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void left() {</span>
+<span class="gi">+        int lastIndex = items.length - 1;</span>
+<span class="gi">+        offeredIndex = offeredIndex - 1;</span>
+<span class="gi">+        if (offeredIndex &lt; 0) {</span>
+<span class="gi">+            offeredIndex = lastIndex;</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void select() {</span>
+<span class="gi">+        selectedIndex = offeredIndex;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void back() {</span>
+<span class="gi">+        offeredIndex = selectedIndex;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuItem selected() {</span>
+<span class="gi">+        L135MenuItem selectedItem = items[selectedIndex];</span>
+<span class="gi">+        return selectedItem;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void startAt(String fullName) {</span>
+<span class="gi">+        for (int i = 0; i &lt; items.length; i++) {</span>
+<span class="gi">+            if (items[i].fullName().equals(fullName)) {</span>
+<span class="gi">+                selectedIndex = i;</span>
+<span class="gi">+                offeredIndex = i;</span>
+<span class="gi">+            }</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String line() {</span>
+<span class="gi">+        L135MenuItem offeredItem = items[offeredIndex];</span>
+<span class="gi">+        String choiceShown = "&lt;" + offeredItem.fullName() + "&gt;";</span>
+<span class="gi">+        if (offeredIndex != selectedIndex) {</span>
+<span class="gi">+            choiceShown = offeredItem.fullName() + "? A:OK B:Back";</span>
+<span class="gi">+        }</span>
+<span class="gi">+        String rowLine = name + ": " + choiceShown;</span>
+<span class="gi">+        return rowLine;</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135menubuttons">
+<h2>L135MenuButtons<a class="headerlink" href="#l135menubuttons" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtons.java</span></code></p>
+<section id="id6">
+<h3>A change<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 4 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,7 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="gi">+import com.qualcomm.robotcore.hardware.Gamepad;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * Turns each new press of a gamepad's D-pad, A and B into one move of an
+<span class="w"> </span> * {@link L135OptionMenu}.
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>A change<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 29 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -11,3 +11,32 @@</span>
+<span class="w"> </span>// When on L135S110, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+class L135MenuButtons {</span>
+<span class="gi">+</span>
+<span class="gi">+    L135OptionMenu optionMenu;</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuButtons(L135OptionMenu optionMenu) {</span>
+<span class="gi">+        this.optionMenu = optionMenu;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void loop(Gamepad gamepad) {</span>
+<span class="gi">+        if (gamepad.dpadUpWasPressed()) {</span>
+<span class="gi">+            optionMenu.up();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        if (gamepad.dpadDownWasPressed()) {</span>
+<span class="gi">+            optionMenu.down();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        if (gamepad.dpadLeftWasPressed()) {</span>
+<span class="gi">+            optionMenu.left();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        if (gamepad.dpadRightWasPressed()) {</span>
+<span class="gi">+            optionMenu.right();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        if (gamepad.aWasPressed()) {</span>
+<span class="gi">+            optionMenu.select();</span>
+<span class="gi">+        }</span>
+<span class="gi">+        if (gamepad.bWasPressed()) {</span>
+<span class="gi">+            optionMenu.back();</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135driverstationmenu">
+<h2>L135DriverStationMenu<a class="headerlink" href="#l135driverstationmenu" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135DriverStationMenu.java</span></code></p>
+<section id="id8">
+<h3>A change<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,9 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="gi">+import com.qualcomm.robotcore.hardware.Gamepad;</span>
+<span class="gi">+</span>
+<span class="gi">+import org.firstinspires.ftc.teamcode.base.Tracker;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
+<span class="w"> </span> * for an OpMode to make as a field and call from init_loop(). The menu and its
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>A change<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 34 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -16,3 +16,37 @@</span>
+<span class="w"> </span>// When on L135S120, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+class L135DriverStationMenu {</span>
+<span class="gi">+</span>
+<span class="gi">+    L135OptionMenu optionMenu;</span>
+<span class="gi">+    L135MenuButtons menuButtons;</span>
+<span class="gi">+</span>
+<span class="gi">+    L135DriverStationMenu(L135OptionMenu optionMenu) {</span>
+<span class="gi">+        this.optionMenu = optionMenu;</span>
+<span class="gi">+        menuButtons = new L135MenuButtons(optionMenu);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void loop(Gamepad gamepad) {</span>
+<span class="gi">+        menuButtons.loop(gamepad);</span>
+<span class="gi">+        String summary = optionMenu.summary();</span>
+<span class="gi">+        Tracker.publish("menu/summary", summary);</span>
+<span class="gi">+        String[] lines = optionMenu.lines();</span>
+<span class="gi">+        for (int i = 0; i &lt; lines.length; i++) {</span>
+<span class="gi">+            Tracker.printToDs(lines[i]);</span>
+<span class="gi">+        }</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String chosen(String rowName) {</span>
+<span class="gi">+        String fullName = optionMenu.chosen(rowName);</span>
+<span class="gi">+        return fullName;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void startAt(String rowName, String fullName) {</span>
+<span class="gi">+        optionMenu.startAt(rowName, fullName);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    String summary() {</span>
+<span class="gi">+        String summary = optionMenu.summary();</span>
+<span class="gi">+        return summary;</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
 </pre></div>
 </div>
 </section>
@@ -319,32 +658,54 @@
 <section id="l135chooseautoopmode">
 <h2>L135ChooseAutoOpMode<a class="headerlink" href="#l135chooseautoopmode" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java</span></code></p>
-<section id="id3">
-<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 3 lines.</p>
+<section id="id10">
+<h3>A change<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<p>Delete 1 line, write 0 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -36,6 +36,9 @@</span>
-<span class="w"> </span>    // When on L135S030, see
-<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+<span class="gu">@@ -10,7 +10,6 @@</span>
+<span class="w"> </span>import com.pedropathing.ivy.Scheduler;
+<span class="w"> </span>import com.pedropathing.math.Pose;
+<span class="w"> </span>import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+<span class="gd">-import com.qualcomm.robotcore.eventloop.opmode.Disabled;</span>
+<span class="w"> </span>
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
+<span class="w"> </span>import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>A change<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 9 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -38,6 +38,15 @@</span>
+<span class="w"> </span>    // When on L135S120, see
+<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
 <span class="w"> </span>    // for what to do here.
-<span class="gi">+    L135AutoMenu menu = new L135AutoMenu(</span>
-<span class="gi">+            new L135Row("Alliance", "Red", "Blue"),</span>
-<span class="gi">+            new L135Row("Auto", "F24-Forward 24", "FS-Forward Then Strafe"));</span>
+<span class="gi">+    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gi">+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");</span>
+<span class="gi">+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);</span>
+<span class="gi">+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gi">+    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);</span>
 <span class="w"> </span>
 <span class="w"> </span>    double robotHalfLength_in = 9.0;
 <span class="w"> </span>    double fieldPerimeterWidth_in = 1.5;
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h3>A change<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<section id="id12">
+<h3>A change<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -61,6 +61,7 @@</span>
-<span class="w"> </span>        // When on L135S030, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+<span class="gu">@@ -69,6 +69,7 @@</span>
+<span class="w"> </span>        // When on L135S120, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        menu.loop(gamepad1);</span>
 <span class="w"> </span>        initLoopAfter();
@@ -353,22 +714,26 @@
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3>A change<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 11 lines.</p>
+<section id="id13">
+<h3>A change<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 15 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -72,6 +72,17 @@</span>
-<span class="w"> </span>        // When on L135S060, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+<span class="gu">@@ -80,6 +80,21 @@</span>
+<span class="w"> </span>        // When on L135S130, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
 <span class="w"> </span>        // for what to do here.
+<span class="gi">+        String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+        Tracker.publish("menu/alliance", alliance);</span>
+<span class="gi">+</span>
 <span class="gi">+        String auto = menu.chosen("Auto");</span>
+<span class="gi">+        Tracker.publish("menu/auto", auto);</span>
 <span class="gi">+        Command chosenAuto = Command.NOOP;</span>
 <span class="gi">+        switch (auto) {</span>
-<span class="gi">+            case "F24-Forward 24":</span>
+<span class="gi">+            case "Forward 24":</span>
 <span class="gi">+                chosenAuto = driveForward24();</span>
 <span class="gi">+                break;</span>
-<span class="gi">+            case "FS-Forward Then Strafe":</span>
+<span class="gi">+            case "Forward Then Strafe":</span>
 <span class="gi">+                chosenAuto = driveForwardThenStrafe();</span>
 <span class="gi">+                break;</span>
 <span class="gi">+        }</span>
@@ -379,14 +744,14 @@
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3>A change<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<section id="id14">
+<h3>A change<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
 <p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -93,6 +93,7 @@</span>
-<span class="w"> </span>        // When on L135S060, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060
+<span class="gu">@@ -105,6 +105,7 @@</span>
+<span class="w"> </span>        // When on L135S130, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        Tracker.printToDs(menu.summary());</span>
 <span class="w"> </span>        Tracker.printPoseSpeedLoopToDs(follower);
@@ -395,14 +760,14 @@
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h3>A change<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<section id="id15">
+<h3>A change<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
 <p>Delete 0 lines, write 4 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -111,6 +111,10 @@</span>
-<span class="w"> </span>        // When on L135S070, see
-<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
+<span class="gu">@@ -123,6 +123,10 @@</span>
+<span class="w"> </span>        // When on L135S140, see
+<span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s140
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        String alliance = menu.chosen("Alliance");</span>
 <span class="gi">+        if (alliance.equals("Blue")) {</span>
@@ -411,6 +776,382 @@
 <span class="w"> </span>        return chosenPoses;
 <span class="w"> </span>    }
 <span class="w"> </span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135menuitemtest">
+<h2>L135MenuItemTest<a class="headerlink" href="#l135menuitemtest" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuItemTest.java</span></code></p>
+<section id="id16">
+<h3>A change<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,9 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="gi">+import static org.junit.Assert.assertEquals;</span>
+<span class="gi">+</span>
+<span class="gi">+import org.junit.Test;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * Tests for {@link L135MenuItem}: an item gives back the short name and
+<span class="w"> </span> * the full name it was made with.
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>A change<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 13 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -11,3 +11,16 @@</span>
+<span class="w"> </span>// When on L135S040, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+public class L135MenuItemTest {</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void anItemHasAShortNameAndAFullName() {</span>
+<span class="gi">+        L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+        String shortName = forward24.shortName();</span>
+<span class="gi">+        assertEquals("F24", shortName);</span>
+<span class="gi">+        String fullName = forward24.fullName();</span>
+<span class="gi">+        assertEquals("Forward 24", fullName);</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135menurowtest">
+<h2>L135MenuRowTest<a class="headerlink" href="#l135menurowtest" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRowTest.java</span></code></p>
+<section id="id18">
+<h3>A change<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,9 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="gi">+import static org.junit.Assert.assertEquals;</span>
+<span class="gi">+</span>
+<span class="gi">+import org.junit.Test;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * Tests for {@link L135MenuRow}: a row starts at its first choice,
+<span class="w"> </span> * selected; left and right offer a choice and wrap at the ends; A selects
+</pre></div>
+</div>
+</section>
+<section id="id19">
+<h3>A change<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 72 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -13,3 +13,75 @@</span>
+<span class="w"> </span>// When on L135S050, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+public class L135MenuRowTest {</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void aRowStartsAtItsFirstChoiceSelected() {</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: &lt;Red&gt;", line);</span>
+<span class="gi">+        L135MenuItem selected = allianceRow.selected();</span>
+<span class="gi">+        assertEquals(red, selected);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void rightOffersTheNextChoice() {</span>
+<span class="gi">+        allianceRow.right();</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: Blue? A:OK B:Back", line);</span>
+<span class="gi">+        L135MenuItem selected = allianceRow.selected();</span>
+<span class="gi">+        assertEquals(red, selected);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void leftWrapsFromTheFirstChoiceToTheLast() {</span>
+<span class="gi">+        allianceRow.left();</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: Blue? A:OK B:Back", line);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void rightWrapsFromTheLastChoiceToTheFirst() {</span>
+<span class="gi">+        allianceRow.right();</span>
+<span class="gi">+        allianceRow.select();</span>
+<span class="gi">+        allianceRow.right();</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: Red? A:OK B:Back", line);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void selectSelectsTheChoiceOffered() {</span>
+<span class="gi">+        allianceRow.right();</span>
+<span class="gi">+        allianceRow.select();</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: &lt;Blue&gt;", line);</span>
+<span class="gi">+        L135MenuItem selected = allianceRow.selected();</span>
+<span class="gi">+        assertEquals(blue, selected);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void backClearsTheOffer() {</span>
+<span class="gi">+        allianceRow.right();</span>
+<span class="gi">+        allianceRow.back();</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: &lt;Red&gt;", line);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void startAtSelectsTheChoiceWithThatFullName() {</span>
+<span class="gi">+        allianceRow.startAt("Blue");</span>
+<span class="gi">+        String line = allianceRow.line();</span>
+<span class="gi">+        assertEquals("Alliance: &lt;Blue&gt;", line);</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135optionmenutest">
+<h2>L135OptionMenuTest<a class="headerlink" href="#l135optionmenutest" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135OptionMenuTest.java</span></code></p>
+<section id="id20">
+<h3>A change<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 7 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,10 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="gi">+import static org.junit.Assert.assertArrayEquals;</span>
+<span class="gi">+import static org.junit.Assert.assertEquals;</span>
+<span class="gi">+</span>
+<span class="gi">+import org.junit.Test;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * Tests for {@link L135OptionMenu}: the summary first, then each row's
+<span class="w"> </span> * line with a pointer; up and down move the pointer, wrap at the ends and
+</pre></div>
+</div>
+</section>
+<section id="id21">
+<h3>A change<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 97 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -13,3 +13,100 @@</span>
+<span class="w"> </span>// When on L135S080, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s080
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+public class L135OptionMenuTest {</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gi">+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");</span>
+<span class="gi">+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);</span>
+<span class="gi">+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void theMenuStartsWithThePointerOnTheFirstRow() {</span>
+<span class="gi">+        String[] expected = {"R-N", "&gt; Alliance: &lt;Red&gt;", "  Auto: &lt;Nothing&gt;"};</span>
+<span class="gi">+        String[] lines = optionMenu.lines();</span>
+<span class="gi">+        assertArrayEquals(expected, lines);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void rightOffersInTheRowThePointerIsOn() {</span>
+<span class="gi">+        optionMenu.right();</span>
+<span class="gi">+        String[] expected = {"R-N", "&gt; Alliance: Blue? A:OK B:Back", "  Auto: &lt;Nothing&gt;"};</span>
+<span class="gi">+        String[] lines = optionMenu.lines();</span>
+<span class="gi">+        assertArrayEquals(expected, lines);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void selectChangesTheSummary() {</span>
+<span class="gi">+        optionMenu.right();</span>
+<span class="gi">+        optionMenu.select();</span>
+<span class="gi">+        String summary = optionMenu.summary();</span>
+<span class="gi">+        assertEquals("B-N", summary);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void downMovesThePointerAndClearsTheOffer() {</span>
+<span class="gi">+        optionMenu.right();</span>
+<span class="gi">+        optionMenu.down();</span>
+<span class="gi">+        String[] expected = {"R-N", "  Alliance: &lt;Red&gt;", "&gt; Auto: &lt;Nothing&gt;"};</span>
+<span class="gi">+        String[] lines = optionMenu.lines();</span>
+<span class="gi">+        assertArrayEquals(expected, lines);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void downWrapsFromTheLastRowToTheFirst() {</span>
+<span class="gi">+        optionMenu.down();</span>
+<span class="gi">+        optionMenu.down();</span>
+<span class="gi">+        String[] expected = {"R-N", "&gt; Alliance: &lt;Red&gt;", "  Auto: &lt;Nothing&gt;"};</span>
+<span class="gi">+        String[] lines = optionMenu.lines();</span>
+<span class="gi">+        assertArrayEquals(expected, lines);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void upWrapsFromTheFirstRowToTheLast() {</span>
+<span class="gi">+        optionMenu.up();</span>
+<span class="gi">+        String[] expected = {"R-N", "  Alliance: &lt;Red&gt;", "&gt; Auto: &lt;Nothing&gt;"};</span>
+<span class="gi">+        String[] lines = optionMenu.lines();</span>
+<span class="gi">+        assertArrayEquals(expected, lines);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void leftWrapsToTheLastChoice() {</span>
+<span class="gi">+        optionMenu.down();</span>
+<span class="gi">+        optionMenu.left();</span>
+<span class="gi">+        optionMenu.select();</span>
+<span class="gi">+        String summary = optionMenu.summary();</span>
+<span class="gi">+        assertEquals("R-FS", summary);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void chosenGivesTheFullNameSelected() {</span>
+<span class="gi">+        optionMenu.down();</span>
+<span class="gi">+        optionMenu.right();</span>
+<span class="gi">+        optionMenu.select();</span>
+<span class="gi">+        String alliance = optionMenu.chosen("Alliance");</span>
+<span class="gi">+        assertEquals("Red", alliance);</span>
+<span class="gi">+        String auto = optionMenu.chosen("Auto");</span>
+<span class="gi">+        assertEquals("Forward 24", auto);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void startAtSelectsInTheNamedRow() {</span>
+<span class="gi">+        optionMenu.startAt("Alliance", "Blue");</span>
+<span class="gi">+        String alliance = optionMenu.chosen("Alliance");</span>
+<span class="gi">+        assertEquals("Blue", alliance);</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l135menubuttonstest">
+<h2>L135MenuButtonsTest<a class="headerlink" href="#l135menubuttonstest" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtonsTest.java</span></code></p>
+<section id="id22">
+<h3>A change<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 8 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -1,3 +1,11 @@</span>
+<span class="gi">+package org.firstinspires.ftc.teamcode.mytry;</span>
+<span class="gi">+</span>
+<span class="gi">+import static org.junit.Assert.assertEquals;</span>
+<span class="gi">+</span>
+<span class="gi">+import com.qualcomm.robotcore.hardware.Gamepad;</span>
+<span class="gi">+</span>
+<span class="gi">+import org.junit.Test;</span>
+<span class="gi">+</span>
+<span class="w"> </span>/**
+<span class="w"> </span> * Tests for {@link L135MenuButtons}: a press of the D-pad, A or B on a
+<span class="w"> </span> * gamepad moves the menu once.
+</pre></div>
+</div>
+</section>
+<section id="id23">
+<h3>A change<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 55 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -13,3 +13,58 @@</span>
+<span class="w"> </span>// When on L135S110, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+<span class="w"> </span>// for what to write in this file.
+<span class="gi">+// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+public class L135MenuButtonsTest {</span>
+<span class="gi">+</span>
+<span class="gi">+    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gi">+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24);</span>
+<span class="gi">+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gi">+    L135MenuButtons menuButtons = new L135MenuButtons(optionMenu);</span>
+<span class="gi">+    Gamepad gamepad = new Gamepad();</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void theDpadAndAWorkTheMenu() {</span>
+<span class="gi">+        Gamepad rightHeld = new Gamepad();</span>
+<span class="gi">+        rightHeld.dpad_right = true;</span>
+<span class="gi">+        press(rightHeld);</span>
+<span class="gi">+        Gamepad aHeld = new Gamepad();</span>
+<span class="gi">+        aHeld.a = true;</span>
+<span class="gi">+        press(aHeld);</span>
+<span class="gi">+        Gamepad downHeld = new Gamepad();</span>
+<span class="gi">+        downHeld.dpad_down = true;</span>
+<span class="gi">+        press(downHeld);</span>
+<span class="gi">+        press(rightHeld);</span>
+<span class="gi">+        press(aHeld);</span>
+<span class="gi">+        String summary = optionMenu.summary();</span>
+<span class="gi">+        assertEquals("B-F24", summary);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    @Test</span>
+<span class="gi">+    // 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="gi">+    public void bClearsTheOffer() {</span>
+<span class="gi">+        Gamepad rightHeld = new Gamepad();</span>
+<span class="gi">+        rightHeld.dpad_right = true;</span>
+<span class="gi">+        press(rightHeld);</span>
+<span class="gi">+        Gamepad bHeld = new Gamepad();</span>
+<span class="gi">+        bHeld.b = true;</span>
+<span class="gi">+        press(bHeld);</span>
+<span class="gi">+        Gamepad aHeld = new Gamepad();</span>
+<span class="gi">+        aHeld.a = true;</span>
+<span class="gi">+        press(aHeld);</span>
+<span class="gi">+        String summary = optionMenu.summary();</span>
+<span class="gi">+        assertEquals("R-N", summary);</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    void press(Gamepad held) {</span>
+<span class="gi">+        gamepad.copy(held);</span>
+<span class="gi">+        menuButtons.loop(gamepad);</span>
+<span class="gi">+        Gamepad letGo = new Gamepad();</span>
+<span class="gi">+        gamepad.copy(letGo);</span>
+<span class="gi">+        menuButtons.loop(gamepad);</span>
+<span class="gi">+    }</span>
+<span class="gi">+}</span>
 </pre></div>
 </div>
 </section>
@@ -474,18 +1215,58 @@
             <ul>
 <li><a class="reference internal" href="#">L135</a><ul>
 <li><a class="reference internal" href="#copies">Copies</a></li>
-<li><a class="reference internal" href="#l135automenu">L135AutoMenu</a><ul>
+<li><a class="reference internal" href="#l135optionmenu">L135OptionMenu</a><ul>
 <li><a class="reference internal" href="#a-change">A change</a></li>
 <li><a class="reference internal" href="#id1">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135menuitem">L135MenuItem</a><ul>
 <li><a class="reference internal" href="#id2">A change</a></li>
+<li><a class="reference internal" href="#id3">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135menurow">L135MenuRow</a><ul>
+<li><a class="reference internal" href="#id4">A change</a></li>
+<li><a class="reference internal" href="#id5">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135menubuttons">L135MenuButtons</a><ul>
+<li><a class="reference internal" href="#id6">A change</a></li>
+<li><a class="reference internal" href="#id7">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135driverstationmenu">L135DriverStationMenu</a><ul>
+<li><a class="reference internal" href="#id8">A change</a></li>
+<li><a class="reference internal" href="#id9">A change</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#l135chooseautoopmode">L135ChooseAutoOpMode</a><ul>
-<li><a class="reference internal" href="#id3">A change</a></li>
-<li><a class="reference internal" href="#id4">A change</a></li>
-<li><a class="reference internal" href="#id5">A change</a></li>
-<li><a class="reference internal" href="#id6">A change</a></li>
-<li><a class="reference internal" href="#id7">A change</a></li>
+<li><a class="reference internal" href="#id10">A change</a></li>
+<li><a class="reference internal" href="#id11">A change</a></li>
+<li><a class="reference internal" href="#id12">A change</a></li>
+<li><a class="reference internal" href="#id13">A change</a></li>
+<li><a class="reference internal" href="#id14">A change</a></li>
+<li><a class="reference internal" href="#id15">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135menuitemtest">L135MenuItemTest</a><ul>
+<li><a class="reference internal" href="#id16">A change</a></li>
+<li><a class="reference internal" href="#id17">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135menurowtest">L135MenuRowTest</a><ul>
+<li><a class="reference internal" href="#id18">A change</a></li>
+<li><a class="reference internal" href="#id19">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135optionmenutest">L135OptionMenuTest</a><ul>
+<li><a class="reference internal" href="#id20">A change</a></li>
+<li><a class="reference internal" href="#id21">A change</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l135menubuttonstest">L135MenuButtonsTest</a><ul>
+<li><a class="reference internal" href="#id22">A change</a></li>
+<li><a class="reference internal" href="#id23">A change</a></li>
 </ul>
 </li>
 </ul>

@@ -4,9 +4,9 @@
 :name: fig-l195-nothing-pushed
 :::
 
-Two numbers in `Constants.java` that came off this robot instead of somebody else's: how many
-encoder ticks make an inch, and how far a wheel sits from the middle. The robot measures them
-while you push it and spin it by hand.
+Two numbers that came off this robot instead of somebody else's: how many encoder ticks make an
+inch, and how far a wheel sits from the middle. They go in the robot's own file. The robot measures
+them while you push it and spin it by hand.
 
 ::::{only} mentor
 **Before you start.**
@@ -108,8 +108,9 @@ Push slowly: a wheel that slips travels without turning, and the answer comes ou
 
 Do it three times. Three answers a tick or two apart are a measurement.
 
-**Change.** Open `Constants`, in the `pedro` folder, and put the number in `ticksPerInch`, which is
-45.0 until you do. Send the code again and run it once more to check.
+**Change.** Open the file of the robot `thisRobot` names, in the `pedro` folder, such as `Bot37523`,
+and put the number in `ticksPerInch`, which is 45.0 until you do. Send the code again and run it
+once more to check.
 
 ### L195S050: spin the robot and measure the radius
 
@@ -128,7 +129,7 @@ place.
 - Measure from the middle of the robot to the middle of one wheel, once across the robot and once
   along it. Add those two lengths. The sum is close to the turn radius the Driver Station shows.
 
-**Change.** Put the number in `turnRadiusInches` in `Constants.java`, which is 8.0 until you do.
+**Change.** Put the number in `turnRadiusInches` in the robot's own file, which is 8.0 until you do.
 
 ::::{only} mentor
 **No gamepad.** None of the runs above needs one. Pushing a robot by hand is not something the
@@ -175,9 +176,9 @@ of these was planted in `L195MeasureTicksPerInchOpMode` and run.
   ran`. The second is a run where STOP came before the first loop, which leaves the next OpMode
   coasting.
 
-**What you just did.** Two constants became measurements. `Constants.java` came with 45.0 and 8.0
-in it, and those are somebody else's robot. Nothing in L190 could tell they were wrong, because code
-cannot check a number it has no other way of knowing. Have the robot measure the same thing two
+**What you just did.** Two constants became measurements. The robot's own file came with 45.0 and
+8.0 in it, and those are somebody else's robot. Nothing in L190 could tell they were wrong, because
+code cannot check a number it has no other way of knowing. Have the robot measure the same thing two
 ways, with two instruments that do not talk to each other, and compare.
 
 **Where next.** L195 is the last lesson. [L117](l117.md) tunes the numbers that need the robot

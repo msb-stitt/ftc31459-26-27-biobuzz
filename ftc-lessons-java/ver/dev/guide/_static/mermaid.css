@@ -1,0 +1,7 @@
+/* A Mermaid diagram wider than the page's column, such as L135's sequence
+   diagram, is shrunk to fit it rather than drawn over the contents beside it.
+   conf.py has mermaid-cli draw each one as an SVG file at its own size. */
+object[type="image/svg+xml"] {
+    max-width: 100%;
+    height: auto;
+}

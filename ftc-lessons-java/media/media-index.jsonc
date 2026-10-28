@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "a335ae8e6b2b81510ed1ab712d788253cc228020",
+      "built_from_commit": "1effabbe9e027021f80e582663abdd1a0a059b2d",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -119,7 +119,7 @@
         "fig-l125-drive24_daad530b722c.png",
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
-        "fig-l135-menu_5f461041d6cf.png",
+        "fig-l135-menu_5d80f1f8f17e.png",
         "fig-l140-field-blue_3b384562de3b.png",
         "fig-l140-field-red_27fd021cf649.png",
         "fig-l140-field-top_a914a13d7b0a.png",
@@ -147,6 +147,8 @@
         "fig-wheel-names_c5e72d252f39.png",
         "h017_c04cb17aa6c1.mp4",
         "l020_70047773414f.mp4",
+        "mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg",
+        "mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg",
         "route-compound_fb6d157d50ff.svg",
         "route-curve_7ece100f954f.svg",
         "route-facingpoint_3972b5e77521.svg",
@@ -3087,11 +3089,17 @@
         "v0.4.0-rc.2"
       ]
     },
+    "fig-l135-menu_5d80f1f8f17e.png": {
+      "sha256": "5d80f1f8f17e41d366681d57a24b998f27ff4b5817cf0eec1ff96cd8eea4241c",
+      "bytes": 53314,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l135-menu_5f461041d6cf.png": {
       "sha256": "5f461041d6cf7ebc35600228d6def1113ad81b471d79559c0a9ca311a9ed8ad8",
       "bytes": 53615,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.1",
         "v0.4.0-rc.2"
       ]
@@ -3606,6 +3614,20 @@
       "used_by_versions": [
         "v0.2.0",
         "v0.2.0-rc.1"
+      ]
+    },
+    "mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg": {
+      "sha256": "5d247a84e4af4113a8636f6a10b6948e8e1bae46941ad9e47a037b5602779c3b",
+      "bytes": 210355,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg": {
+      "sha256": "de32db6b5496c27bade08d5e7e4b7f064f606d0b0fa40c30bba8a49b1418ec14",
+      "bytes": 196631,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "route-compound_fb6d157d50ff.svg": {

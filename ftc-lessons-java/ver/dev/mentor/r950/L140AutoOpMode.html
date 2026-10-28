@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/mermaid.css?v=d592db89" />
     
     
 
@@ -277,8 +278,16 @@
 <li class="toctree-l2"><a class="reference internal" href="L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L135AutoMenu.html">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135OptionMenu.html">L135OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuItem.html">L135MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuRow.html">L135MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuButtons.html">L135MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135DriverStationMenu.html">L135DriverStationMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuItemTest.html">L135MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuRowTest.html">L135MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135OptionMenuTest.html">L135OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -332,22 +341,106 @@
         <article role="main" id="furo-main-content">
           <section id="l140autoopmode">
 <h1>L140AutoOpMode<a class="headerlink" href="#l140autoopmode" title="Link to this heading">¶</a></h1>
-<p>What each lesson’s patch does to this file, in the order the lessons come, from
-applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l140-alliances.2</span></code>. A line marked + is new, and a line marked -
-is gone; each number is the line’s place in the file after the lesson.</p>
+<p>What each lesson’s patch does to this file, in the order the lessons come, from applying
+<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.1</span></code>. A line marked + is new, and a line marked - is
+gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l140">
 <h2>L140<a class="headerlink" href="#l140" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L140AutoOpMode.java  (before L140)</span>
 <span class="gi">+++ mytry/L140AutoOpMode.java  (after L140)</span>
-<span class="gu">@@ lines 67 to 74 @@</span>
-<span class="w"> </span>  67         // When on L140S090, see
-<span class="w"> </span>  68         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
-<span class="w"> </span>  69         // for what to do here.
-<span class="gi">+  70         String alliance = menu.chosen("Alliance");</span>
-<span class="gi">+  71         OpModeStorage.alliance = alliance;</span>
-<span class="w"> </span>  72
-<span class="w"> </span>  73         String auto = menu.chosen("Auto");
-<span class="w"> </span>  74         Command chosenAuto = Command.NOOP;
+<span class="gu">@@ lines 37 to 51 @@</span>
+<span class="w"> </span>  37     // When on L140S020, see
+<span class="w"> </span>  38     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>  39     // for what to do here.
+<span class="gd">-     //    L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gd">-     //    L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gd">-     //    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gd">-     //    L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gd">-     //    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gd">-     //    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");</span>
+<span class="gd">-     //    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);</span>
+<span class="gd">-     //    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gd">-     //    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);</span>
+<span class="gi">+  40     L135MenuItem red = new L135MenuItem("R", "Red");</span>
+<span class="gi">+  41     L135MenuItem blue = new L135MenuItem("B", "Blue");</span>
+<span class="gi">+  42     L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);</span>
+<span class="gi">+  43     L135MenuItem nothing = new L135MenuItem("N", "Nothing");</span>
+<span class="gi">+  44     L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");</span>
+<span class="gi">+  45     L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");</span>
+<span class="gi">+  46     L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);</span>
+<span class="gi">+  47     L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);</span>
+<span class="gi">+  48     L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);</span>
+<span class="w"> </span>  49
+<span class="w"> </span>  50     double robotHalfLength_in = 9.0;
+<span class="w"> </span>  51     double fieldPerimeterWidth_in = 1.5;
+<span class="gu">@@ lines 68 to 74 @@</span>
+<span class="w"> </span>  68         // When on L140S020, see
+<span class="w"> </span>  69         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>  70         // for what to do here.
+<span class="gd">-     //        menu.loop(gamepad1);</span>
+<span class="gi">+  71         menu.loop(gamepad1);</span>
+<span class="w"> </span>  72         initLoopAfter();
+<span class="w"> </span>  73     }
+<span class="w"> </span>  74
+<span class="gu">@@ lines 79 to 101 @@</span>
+<span class="w"> </span>  79         // When on L140S090, see
+<span class="w"> </span>  80         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
+<span class="w"> </span>  81         // for what to do here.
+<span class="gi">+  82         String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+  83         OpModeStorage.alliance = alliance;</span>
+<span class="w"> </span>  84
+<span class="w"> </span>  85         // When on L140S020, see
+<span class="w"> </span>  86         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span>  87         // for what to do here.
+<span class="gd">-     //        String auto = menu.chosen("Auto");</span>
+<span class="gd">-     //        Command chosenAuto = Command.NOOP;</span>
+<span class="gd">-     //        switch (auto) {</span>
+<span class="gd">-     //            case "Forward 24":</span>
+<span class="gd">-     //                chosenAuto = driveForward24();</span>
+<span class="gd">-     //                break;</span>
+<span class="gd">-     //            case "Forward Then Strafe":</span>
+<span class="gd">-     //                chosenAuto = driveForwardThenStrafe();</span>
+<span class="gd">-     //                break;</span>
+<span class="gd">-     //        }</span>
+<span class="gd">-     //        Scheduler.schedule(chosenAuto);</span>
+<span class="gi">+  88         String auto = menu.chosen("Auto");</span>
+<span class="gi">+  89         Command chosenAuto = Command.NOOP;</span>
+<span class="gi">+  90         switch (auto) {</span>
+<span class="gi">+  91             case "Forward 24":</span>
+<span class="gi">+  92                 chosenAuto = driveForward24();</span>
+<span class="gi">+  93                 break;</span>
+<span class="gi">+  94             case "Forward Then Strafe":</span>
+<span class="gi">+  95                 chosenAuto = driveForwardThenStrafe();</span>
+<span class="gi">+  96                 break;</span>
+<span class="gi">+  97         }</span>
+<span class="gi">+  98         Scheduler.schedule(chosenAuto);</span>
+<span class="w"> </span>  99         startAfter();
+<span class="w"> </span> 100     }
+<span class="w"> </span> 101
+<span class="gu">@@ lines 106 to 112 @@</span>
+<span class="w"> </span> 106         // When on L140S020, see
+<span class="w"> </span> 107         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span> 108         // for what to do here.
+<span class="gd">-     //        Tracker.printToDs(menu.summary());</span>
+<span class="gi">+ 109         Tracker.printToDs(menu.summary());</span>
+<span class="w"> </span> 110         Tracker.printPoseSpeedLoopToDs(follower);
+<span class="w"> </span> 111         loopAfter();
+<span class="w"> </span> 112     }
+<span class="gu">@@ lines 124 to 133 @@</span>
+<span class="w"> </span> 124         // When on L140S020, see
+<span class="w"> </span> 125         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+<span class="w"> </span> 126         // for what to do here.
+<span class="gd">-     //        String alliance = menu.chosen("Alliance");</span>
+<span class="gd">-     //        if (alliance.equals("Blue")) {</span>
+<span class="gd">-     //            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
+<span class="gd">-     //        }</span>
+<span class="gi">+ 127         String alliance = menu.chosen("Alliance");</span>
+<span class="gi">+ 128         if (alliance.equals("Blue")) {</span>
+<span class="gi">+ 129             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);</span>
+<span class="gi">+ 130         }</span>
+<span class="w"> </span> 131         return chosenPoses;
+<span class="w"> </span> 132     }
+<span class="w"> </span> 133
 </pre></div>
 </div>
 </section>

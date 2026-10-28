@@ -1,6 +1,6 @@
 # L140
 
-2 file(s) copied, then 9 change(s) in 2 file(s), 36 line(s) of code to write.
+2 file(s) copied, then 14 change(s) in 2 file(s), 67 line(s) of code to write.
 
 ## Copies
 
@@ -13,18 +13,23 @@
 
 ### A change
 
-Delete 0 lines, write 3 lines.
+Delete 0 lines, write 8 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -43,6 +43,9 @@
+@@ -43,6 +43,14 @@
      // When on L140S050, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
      // for what to do here.
-+    L135AutoMenu menu = new L135AutoMenu(
-+            new L135Row("Alliance", "Red", "Blue"),
-+            new L135Row("Start", "Auto End", "Wall"));
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++    L135MenuItem autoEnd = new L135MenuItem("A", "Auto End");
++    L135MenuItem wall = new L135MenuItem("W", "Wall");
++    L135MenuRow startRow = new L135MenuRow("Start", autoEnd, wall);
++    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, startRow);
++    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
  
      double robotHalfLength_in = 9.0;
      double fieldPerimeterWidth_in = 1.5;
@@ -37,7 +42,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -64,6 +64,7 @@
+@@ -69,6 +69,7 @@
          // When on L140S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
          // for what to do here.
@@ -54,7 +59,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -74,6 +74,7 @@
+@@ -79,6 +79,7 @@
          // When on L140S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
          // for what to do here.
@@ -71,7 +76,7 @@ Delete 0 lines, write 6 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -85,6 +85,12 @@
+@@ -90,6 +90,12 @@
          // When on L140S070, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
          // for what to do here.
@@ -93,7 +98,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -103,6 +103,7 @@
+@@ -108,6 +108,7 @@
          // When on L140S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
          // for what to do here.
@@ -110,7 +115,7 @@ Delete 2 lines, write 10 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -120,8 +120,16 @@
+@@ -125,8 +125,16 @@
          // When on L140S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
          // for what to do here.
@@ -138,7 +143,7 @@ Delete 1 line, write 8 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -143,7 +143,14 @@
+@@ -148,7 +148,14 @@
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
@@ -163,7 +168,7 @@ Delete 0 lines, write 4 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -166,6 +166,10 @@
+@@ -171,6 +171,10 @@
          // When on L140S070, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
          // for what to do here.
@@ -182,18 +187,150 @@ Delete 0 lines, write 4 lines.
 
 ### A change
 
+Delete 9 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -37,15 +37,15 @@
+     // When on L140S020, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+     // for what to do here.
+-//    L135MenuItem red = new L135MenuItem("R", "Red");
+-//    L135MenuItem blue = new L135MenuItem("B", "Blue");
+-//    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+-//    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
+-//    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
+-//    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
+-//    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
+-//    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
+-//    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
++    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
++    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
++    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
++    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
++    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
+ 
+     double robotHalfLength_in = 9.0;
+     double fieldPerimeterWidth_in = 1.5;
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -68,7 +68,7 @@
+         // When on L140S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+         // for what to do here.
+-//        menu.loop(gamepad1);
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+```
+
+### A change
+
 Delete 0 lines, write 2 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -67,6 +67,8 @@
+@@ -79,6 +79,8 @@
          // When on L140S090, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
          // for what to do here.
 +        String alliance = menu.chosen("Alliance");
 +        OpModeStorage.alliance = alliance;
  
-         String auto = menu.chosen("Auto");
-         Command chosenAuto = Command.NOOP;
+         // When on L140S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+```
+
+### A change
+
+Delete 11 lines, write 11 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -85,17 +85,17 @@
+         // When on L140S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+         // for what to do here.
+-//        String auto = menu.chosen("Auto");
+-//        Command chosenAuto = Command.NOOP;
+-//        switch (auto) {
+-//            case "Forward 24":
+-//                chosenAuto = driveForward24();
+-//                break;
+-//            case "Forward Then Strafe":
+-//                chosenAuto = driveForwardThenStrafe();
+-//                break;
+-//        }
+-//        Scheduler.schedule(chosenAuto);
++        String auto = menu.chosen("Auto");
++        Command chosenAuto = Command.NOOP;
++        switch (auto) {
++            case "Forward 24":
++                chosenAuto = driveForward24();
++                break;
++            case "Forward Then Strafe":
++                chosenAuto = driveForwardThenStrafe();
++                break;
++        }
++        Scheduler.schedule(chosenAuto);
+         startAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -106,7 +106,7 @@
+         // When on L140S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+         // for what to do here.
+-//        Tracker.printToDs(menu.summary());
++        Tracker.printToDs(menu.summary());
+         Tracker.printPoseSpeedLoopToDs(follower);
+         loopAfter();
+     }
+```
+
+### A change
+
+Delete 4 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -124,10 +124,10 @@
+         // When on L140S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+         // for what to do here.
+-//        String alliance = menu.chosen("Alliance");
+-//        if (alliance.equals("Blue")) {
+-//            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
+-//        }
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
++        }
+         return chosenPoses;
+     }
+ 
 ```

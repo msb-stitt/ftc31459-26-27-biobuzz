@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/mermaid.css?v=d592db89" />
     
     
 
@@ -272,8 +273,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135AutoMenu.html">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenu.html">L135OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItem.html">L135MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRow.html">L135MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtons.html">L135MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135DriverStationMenu.html">L135DriverStationMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItemTest.html">L135MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRowTest.html">L135MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenuTest.html">L135OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -348,10 +357,16 @@ time.</p>
 <section id="l140s020">
 <span id="l140s020-switch-your-copies-on"></span><h3>L140S020: switch your copies on<a class="headerlink" href="#l140s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In each copy, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
+<p><code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code> uses the menu you wrote in L135. Your menu is in <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, not in <code class="docutils literal notranslate"><span class="pre">lessons</span></code>. So
+the starter turns those lines into comments. Find each other comment that names this step. Under
+it, delete the <code class="docutils literal notranslate"><span class="pre">//</span></code> at the start of each line.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>In each, under the step’s comment, the next line reads
 <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>, near the top of the class, the line under the comment reads
+<code class="docutils literal notranslate"><span class="pre">L135MenuItem</span> <span class="pre">red</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">L135MenuItem(&quot;R&quot;,</span> <span class="pre">&quot;Red&quot;);</span></code>.</p></li>
+<li><p>No name in the file is red.</p></li>
 </ul>
 </section>
 <section id="l140s030">
@@ -418,9 +433,14 @@ type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L140S050, see</span>
 <span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">    </span><span class="n">L135AutoMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135AutoMenu</span><span class="p">(</span>
-</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">),</span>
-</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Start"</span><span class="p">,</span><span class="w"> </span><span class="s">"Auto End"</span><span class="p">,</span><span class="w"> </span><span class="s">"Wall"</span><span class="p">));</span>
+<span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">autoEnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span><span class="w"> </span><span class="s">"Auto End"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"W"</span><span class="p">,</span><span class="w"> </span><span class="s">"Wall"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">startRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Start"</span><span class="p">,</span><span class="w"> </span><span class="n">autoEnd</span><span class="p">,</span><span class="w"> </span><span class="n">wall</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135OptionMenu</span><span class="p">(</span><span class="n">allianceRow</span><span class="p">,</span><span class="w"> </span><span class="n">startRow</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135DriverStationMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135DriverStationMenu</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p>At the end of <code class="docutils literal notranslate"><span class="pre">init()</span></code>, under the comment, type:</p>
@@ -450,7 +470,7 @@ type:</p>
 </div>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Red</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">Start:</span> <span class="pre">&lt;</span> <span class="pre">Auto</span> <span class="pre">End</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">R-A</span></code>.</p></li>
+<li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">R-A</span></code>, then <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;Red&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">Start:</span> <span class="pre">&lt;Auto</span> <span class="pre">End&gt;</span></code>.</p></li>
 <li><p>Press the D-pad’s right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">B-A</span></code>.</p></li>
 </ul>
 </section>
@@ -564,7 +584,7 @@ when the auto ends.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> turns red. Click it and press Option+Enter.</p>
 <p><strong>Robot.</strong> Send the code. Run <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Auto</span></code> from the autonomous list. During INIT, choose <code class="docutils literal notranslate"><span class="pre">Blue</span></code> and
-leave the auto at <code class="docutils literal notranslate"><span class="pre">N-Nothing</span></code>, so the last line reads <code class="docutils literal notranslate"><span class="pre">B-N</span></code>. Press PLAY, and let the auto run until
+leave the auto at <code class="docutils literal notranslate"><span class="pre">Nothing</span></code>, so the last line reads <code class="docutils literal notranslate"><span class="pre">B-N</span></code>. Press PLAY, and let the auto run until
 it stops on its own, after 30 seconds.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">

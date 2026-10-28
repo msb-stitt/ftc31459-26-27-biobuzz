@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/mermaid.css?v=d592db89" />
     
     
 
@@ -272,8 +273,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135AutoMenu.html">L135AutoMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenu.html">L135OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItem.html">L135MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRow.html">L135MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtons.html">L135MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135DriverStationMenu.html">L135DriverStationMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItemTest.html">L135MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRowTest.html">L135MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenuTest.html">L135OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -328,22 +337,163 @@
           <section id="lesson-choose-the-alliance-and-the-auto">
 <h1>135 lesson: choose the alliance and the auto<a class="headerlink" href="#lesson-choose-the-alliance-and-the-auto" title="Link to this heading">¶</a></h1>
 <figure class="align-default" id="fig-l135-menu">
-<img alt="../../media/fig-l135-menu_5f461041d6cf.png" src="../../media/fig-l135-menu_5f461041d6cf.png" />
+<img alt="../../media/fig-l135-menu_5d80f1f8f17e.png" src="../../media/fig-l135-menu_5d80f1f8f17e.png" />
 </figure>
-<p>After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and L125’s auto or
-L130’s, with the gamepad’s D-pad, before pressing PLAY.</p>
+<p>After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125’s auto
+or L130’s, with the gamepad’s D-pad, before pressing PLAY.</p>
+<section id="the-problem">
+<h2>the problem<a class="headerlink" href="#the-problem" title="Link to this heading">¶</a></h2>
+<p>The menu has two rows. <code class="docutils literal notranslate"><span class="pre">Alliance</span></code> is Red or Blue, and <code class="docutils literal notranslate"><span class="pre">Auto</span></code> is Nothing, Forward 24 or Forward
+Then Strafe. Each row starts at its first choice.</p>
+<ul class="simple">
+<li><p>The first line is the menu in short: a few letters for each row’s choice, joined by <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> marks the row the D-pad is on.</p></li>
+<li><p>The D-pad’s right and left offer the next or the last choice in that row, as
+<code class="docutils literal notranslate"><span class="pre">Blue?</span> <span class="pre">A:OK</span> <span class="pre">B:Back</span></code>. Past the end of the row, they go round to the other end.</p></li>
+<li><p>A selects the choice offered. Only then does the first line change.</p></li>
+<li><p>B, up or down clears the offer and goes back to the menu.</p></li>
+<li><p>The D-pad’s down and up move the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. Past the last row, it goes round to the first.</p></li>
+<li><p>At PLAY, the auto asks the menu which alliance and which auto were selected.</p></li>
+</ul>
+<p>This is what the Driver Station shows, after each press:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>INIT                    R-N
+                        &gt; Alliance: &lt;Red&gt;
+                          Auto: &lt;Nothing&gt;
+right                   R-N
+                        &gt; Alliance: Blue? A:OK B:Back
+                          Auto: &lt;Nothing&gt;
+B                       R-N
+                        &gt; Alliance: &lt;Red&gt;
+                          Auto: &lt;Nothing&gt;
+right, A                B-N
+                        &gt; Alliance: &lt;Blue&gt;
+                          Auto: &lt;Nothing&gt;
+right, wraps to Red     B-N
+                        &gt; Alliance: Red? A:OK B:Back
+                          Auto: &lt;Nothing&gt;
+down, clears the offer  B-N
+                          Alliance: &lt;Blue&gt;
+                        &gt; Auto: &lt;Nothing&gt;
+left, wraps to the last B-N
+                          Alliance: &lt;Blue&gt;
+                        &gt; Auto: Forward Then Strafe? A:OK B:Back
+A                       B-FS
+                          Alliance: &lt;Blue&gt;
+                        &gt; Auto: &lt;Forward Then Strafe&gt;
+down, wraps to the top  B-FS
+                        &gt; Alliance: &lt;Blue&gt;
+                          Auto: &lt;Forward Then Strafe&gt;
+up, wraps to the bottom B-FS
+                          Alliance: &lt;Blue&gt;
+                        &gt; Auto: &lt;Forward Then Strafe&gt;
+up                      B-FS
+                        &gt; Alliance: &lt;Blue&gt;
+                          Auto: &lt;Forward Then Strafe&gt;
+PLAY                    chosen("Alliance") gives "Blue"
+                        chosen("Auto") gives "Forward Then Strafe"
+</pre></div>
+</div>
+</section>
+<section id="the-classes">
+<h2>the classes<a class="headerlink" href="#the-classes" title="Link to this heading">¶</a></h2>
+<p>Each class does one job. A class that does one small job is easy to test, and easy to change.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">L135MenuItem</span></code> is one choice: a short name, such as <code class="docutils literal notranslate"><span class="pre">F24</span></code>, and a full name, such as
+<code class="docutils literal notranslate"><span class="pre">Forward</span> <span class="pre">24</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code> is one row: its name and its items. It knows which item is selected, and which
+is offered.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code> is the rows, and which row the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> is on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L135MenuButtons</span></code> turns each press of the gamepad into one move of the menu.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L135DriverStationMenu</span></code> is what the OpMode uses. It reads the buttons, then shows the menu on the
+Driver Station.</p></li>
+</ul>
+<p>An arrow with a diamond means “holds”: an <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code> holds its <code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code>s.</p>
+<object data="../../media/mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg" type="image/svg+xml">
+            <p class="warning">classDiagram
+    class L135MenuItem {
+        String shortName
+        String fullName
+        shortName()
+        fullName()
+    }
+    class L135MenuRow {
+        String name
+        L135MenuItem[] items
+        int selectedIndex
+        int offeredIndex
+        right()
+        left()
+        select()
+        back()
+        selected()
+        startAt(fullName)
+        line()
+    }
+    class L135OptionMenu {
+        L135MenuRow[] rows
+        int pointedRow
+        up()
+        down()
+        left()
+        right()
+        select()
+        back()
+        chosen(rowName)
+        startAt(rowName, fullName)
+        summary()
+        lines()
+    }
+    class L135MenuButtons {
+        L135OptionMenu optionMenu
+        loop(gamepad)
+    }
+    class L135DriverStationMenu {
+        L135OptionMenu optionMenu
+        L135MenuButtons menuButtons
+        loop(gamepad)
+        chosen(rowName)
+        startAt(rowName, fullName)
+        summary()
+    }
+    L135ChooseAutoOpMode o-- L135DriverStationMenu
+    L135DriverStationMenu o-- L135OptionMenu
+    L135DriverStationMenu o-- L135MenuButtons
+    L135MenuButtons o-- L135OptionMenu
+    L135OptionMenu o-- L135MenuRow
+    L135MenuRow o-- L135MenuItem</p></object>
+<p>One press of the D-pad’s right goes down the classes, one call at a time:</p>
+<object data="../../media/mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg" type="image/svg+xml">
+            <p class="warning">sequenceDiagram
+    participant OpMode as L135ChooseAutoOpMode
+    participant DS as L135DriverStationMenu
+    participant Buttons as L135MenuButtons
+    participant Menu as L135OptionMenu
+    participant Row as L135MenuRow
+    OpMode-&gt;&gt;DS: loop(gamepad1), from init_loop()
+    DS-&gt;&gt;Buttons: loop(gamepad)
+    Buttons-&gt;&gt;Menu: right()
+    Menu-&gt;&gt;Row: right()
+    DS-&gt;&gt;Menu: lines()
+    Menu-&gt;&gt;Row: line()
+    Row--&gt;&gt;Menu: &quot;Alliance: Blue? A:OK B:Back&quot;
+    Menu--&gt;&gt;DS: the summary and each row's line
+    DS-&gt;&gt;DS: printToDs, for each line</p></object>
+<p>You build it from the bottom up: each class, its tests first, then the class that uses it.</p>
+</section>
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l135s010">
-<span id="l135s010-copy-the-three-starters-into-mytry"></span><h3>L135S010: copy the three starters into mytry<a class="headerlink" href="#l135s010" title="Link to this heading">¶</a></h3>
-<p>This lesson has three files. <code class="docutils literal notranslate"><span class="pre">L135Row</span></code> is one line of the menu: its name, such as <code class="docutils literal notranslate"><span class="pre">Alliance</span></code>, and
-its choices, such as <code class="docutils literal notranslate"><span class="pre">Red</span></code> and <code class="docutils literal notranslate"><span class="pre">Blue</span></code>. <code class="docutils literal notranslate"><span class="pre">L135AutoMenu</span></code> holds the rows and reads the buttons.
-<code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code> is the auto.</p>
-<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, copy <code class="docutils literal notranslate"><span class="pre">L135Row</span></code>, <code class="docutils literal notranslate"><span class="pre">L135AutoMenu</span></code> and <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code> into <code class="docutils literal notranslate"><span class="pre">mytry</span></code>,
-one at a time, as in L120.</p>
+<span id="l135s010-copy-the-starters-into-mytry"></span><h3>L135S010: copy the starters into mytry<a class="headerlink" href="#l135s010" title="Link to this heading">¶</a></h3>
+<p>Each starter holds only a comment: what its class does, and which classes it uses. You type the
+rest.</p>
+<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, copy <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code>, <code class="docutils literal notranslate"><span class="pre">L135MenuItem</span></code>, <code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code>, <code class="docutils literal notranslate"><span class="pre">L135MenuButtons</span></code>,
+<code class="docutils literal notranslate"><span class="pre">L135DriverStationMenu</span></code> and <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code> into <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, one at a time, as in L120.</p>
+<p>The tests have starters too. In the <code class="docutils literal notranslate"><span class="pre">lessons</span></code> folder that is under <code class="docutils literal notranslate"><span class="pre">test</span></code>, copy <code class="docutils literal notranslate"><span class="pre">L135MenuItemTest</span></code>,
+<code class="docutils literal notranslate"><span class="pre">L135MenuRowTest</span></code>, <code class="docutils literal notranslate"><span class="pre">L135OptionMenuTest</span></code> and <code class="docutils literal notranslate"><span class="pre">L135MenuButtonsTest</span></code> into the <code class="docutils literal notranslate"><span class="pre">mytry</span></code> folder that is
+under <code class="docutils literal notranslate"><span class="pre">test</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L135Row</span></code>, <code class="docutils literal notranslate"><span class="pre">L135AutoMenu</span></code> and <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds the six files, and the <code class="docutils literal notranslate"><span class="pre">mytry</span></code> under <code class="docutils literal notranslate"><span class="pre">test</span></code> holds the four tests.</p></li>
 </ul>
 </section>
 <section id="l135s020">
@@ -357,28 +507,740 @@ this step.</p>
 </ul>
 </section>
 <section id="l135s030">
-<span id="l135s030-make-the-menu-and-show-it-during-init"></span><h3>L135S030: make the menu, and show it during INIT<a class="headerlink" href="#l135s030" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">menu</span></code> is the menu, made from its rows. Each row is a name, then its choices.</p>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code>, near the top of the class, under the comment that names this
-step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L135S030, see</span>
-<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030</span>
-<span class="w">    </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">    </span><span class="n">L135AutoMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135AutoMenu</span><span class="p">(</span>
-</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">),</span>
-</span><span class="hll"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">L135Row</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">,</span><span class="w"> </span><span class="s">"F24-Forward 24"</span><span class="p">,</span><span class="w"> </span><span class="s">"FS-Forward Then Strafe"</span><span class="p">));</span>
-</span></pre></div>
-</div>
-<p>Between INIT and PLAY, the robot calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> again and again. The driver uses that time to
-choose. In <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S030, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030</span>
-<span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">menu</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">);</span>
-</span><span class="w">        </span><span class="n">initLoopAfter</span><span class="p">();</span>
+<span id="l135s030-say-what-the-menu-can-do"></span><h3>L135S030: say what the menu can do<a class="headerlink" href="#l135s030" title="Link to this heading">¶</a></h3>
+<p>Start with what the rest of the code will ask of the menu. Each method is empty for now, and a
+method that gives something back gives an empty answer. The code builds, and does nothing yet.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code>, above the comment, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line. Below the comment,
+type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">L135OptionMenu</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">L135OptionMenu</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">up</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">down</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">left</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">right</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">select</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">back</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">chosen</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">fullName</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">startAt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">summary</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">summary</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="nf">lines</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lines</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">menu.loop</span></code> reads the buttons pressed since the last pass, then prints the menu.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">package</span></code> line is the first line of each file in <code class="docutils literal notranslate"><span class="pre">mytry</span></code>:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Build.</strong> In the Terminal, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">compileDebugJavaWithJavac</span>
+</pre></div>
+</div>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s040">
+<span id="l135s040-one-choice-test-first"></span><h3>L135S040: one choice, test first<a class="headerlink" href="#l135s040" title="Link to this heading">¶</a></h3>
+<p>A <strong>test</strong> is code that runs your code and checks what it gives back. <code class="docutils literal notranslate"><span class="pre">&#64;Test</span></code> marks a method JUnit
+runs. <code class="docutils literal notranslate"><span class="pre">assertEquals(expected,</span> <span class="pre">actual)</span></code> stops the test with a failure when the two differ. You write
+the test first, watch it fail, then write the code until it passes.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuItemTest</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line above the comment, and below it:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span><span class="w"> </span><span class="nn">org.junit.Assert.assertEquals</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Test</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Put those two imports above the comment, under the <code class="docutils literal notranslate"><span class="pre">package</span></code> line. Below the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">L135MenuItemTest</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">anItemHasAShortNameAndAFullName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">forward24</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"F24"</span><span class="p">,</span><span class="w"> </span><span class="s">"Forward 24"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">shortName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward24</span><span class="p">.</span><span class="na">shortName</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"F24"</span><span class="p">,</span><span class="w"> </span><span class="n">shortName</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forward24</span><span class="p">.</span><span class="na">fullName</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Forward 24"</span><span class="p">,</span><span class="w"> </span><span class="n">fullName</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> In the Terminal, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testDebugUnitTest</span> <span class="o">--</span><span class="n">tests</span> <span class="s1">'*L135*'</span>
+</pre></div>
+</div>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>It fails with <code class="docutils literal notranslate"><span class="pre">cannot</span> <span class="pre">find</span> <span class="pre">symbol</span></code> and <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">L135MenuItem</span></code>. There is no such class yet.</p></li>
+</ul>
+<p>A <strong>constructor</strong> is the method that makes an object. It has the class’s name and no return type.
+<code class="docutils literal notranslate"><span class="pre">this.shortName</span></code> is the object’s field; <code class="docutils literal notranslate"><span class="pre">shortName</span></code> alone is what was handed in.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuItem</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line, and below the comment:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">L135MenuItem</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">shortName</span><span class="p">;</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">shortName</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">shortName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shortName</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">fullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fullName</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">shortName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">shortName</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">fullName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">fullName</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s050">
+<span id="l135s050-one-row-and-its-line"></span><h3>L135S050: one row, and its line<a class="headerlink" href="#l135s050" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">L135MenuItem...</span> <span class="pre">items</span></code> takes any number of items, and they arrive as an array. <code class="docutils literal notranslate"><span class="pre">selectedIndex</span></code> is
+the item selected, and <code class="docutils literal notranslate"><span class="pre">offeredIndex</span></code> the item the row shows. Both start at 0, the first item.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuRowTest</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line and the two imports, as in
+<code class="docutils literal notranslate"><span class="pre">L135MenuItemTest</span></code>. Below the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">L135MenuRowTest</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">aRowStartsAtItsFirstChoiceSelected</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: &lt;Red&gt;"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">selected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">selected</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">selected</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line, and below the comment:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">L135MenuRow</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="o">[]</span><span class="w"> </span><span class="n">items</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">selectedIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">...</span><span class="w"> </span><span class="n">items</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="nf">selected</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">selectedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="o">[</span><span class="n">selectedIndex</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">selectedItem</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">line</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">offeredItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="o">[</span><span class="n">offeredIndex</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">choiceShown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&lt;"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offeredItem</span><span class="p">.</span><span class="na">fullName</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"&gt;"</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">selectedIndex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">choiceShown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offeredItem</span><span class="p">.</span><span class="na">fullName</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"? A:OK B:Back"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">rowLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">": "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">choiceShown</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rowLine</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s060">
+<span id="l135s060-offer-the-next-choice-or-the-last"></span><h3>L135S060: offer the next choice, or the last<a class="headerlink" href="#l135s060" title="Link to this heading">¶</a></h3>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuRowTest</span></code>, under the last test, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">rightOffersTheNextChoice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: Blue? A:OK B:Back"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">selected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">selected</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">selected</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">leftWrapsFromTheFirstChoiceToTheLast</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">left</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: Blue? A:OK B:Back"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>It fails with <code class="docutils literal notranslate"><span class="pre">cannot</span> <span class="pre">find</span> <span class="pre">symbol</span></code> and <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">right()</span></code>.</p></li>
+</ul>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code>, under <code class="docutils literal notranslate"><span class="pre">name()</span></code>, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">right</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">lastIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">lastIndex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">left</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">lastIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lastIndex</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s070">
+<span id="l135s070-select-it-or-clear-it"></span><h3>L135S070: select it, or clear it<a class="headerlink" href="#l135s070" title="Link to this heading">¶</a></h3>
+<p>A selects the item offered. B clears the offer, so the row shows the item selected again.
+<code class="docutils literal notranslate"><span class="pre">startAt</span></code> selects an item by its full name, for a menu that starts somewhere other than its first
+item. L140 uses it.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuRowTest</span></code>, under the last test, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">rightWrapsFromTheLastChoiceToTheFirst</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: Red? A:OK B:Back"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">selectSelectsTheChoiceOffered</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: &lt;Blue&gt;"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">selected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">selected</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="n">blue</span><span class="p">,</span><span class="w"> </span><span class="n">selected</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">backClearsTheOffer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">back</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: &lt;Red&gt;"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">startAtSelectsTheChoiceWithThatFullName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">startAt</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Alliance: &lt;Blue&gt;"</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again, and watch it fail.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuRow</span></code>, under <code class="docutils literal notranslate"><span class="pre">left()</span></code>, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">select</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">selectedIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offeredIndex</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">back</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">selectedIndex</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Under <code class="docutils literal notranslate"><span class="pre">selected()</span></code>, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">startAt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">items</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="na">fullName</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">fullName</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">selectedIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">                </span><span class="n">offeredIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s080">
+<span id="l135s080-the-rows-together"></span><h3>L135S080: the rows together<a class="headerlink" href="#l135s080" title="Link to this heading">¶</a></h3>
+<p>Now <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code> gets its rows. <code class="docutils literal notranslate"><span class="pre">pointedRow</span></code> is the row the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> is on. <code class="docutils literal notranslate"><span class="pre">lines()</span></code> puts the
+summary first, then each row’s line, with <code class="docutils literal notranslate"><span class="pre">&gt;</span> </code> or two spaces in front.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenuTest</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line and these imports:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span><span class="w"> </span><span class="nn">org.junit.Assert.assertArrayEquals</span><span class="p">;</span>
+<span class="kn">import static</span><span class="w"> </span><span class="nn">org.junit.Assert.assertEquals</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Test</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Below the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">L135OptionMenuTest</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">nothing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"N"</span><span class="p">,</span><span class="w"> </span><span class="s">"Nothing"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">forward24</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"F24"</span><span class="p">,</span><span class="w"> </span><span class="s">"Forward 24"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">forwardThenStrafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"FS"</span><span class="p">,</span><span class="w"> </span><span class="s">"Forward Then Strafe"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">autoRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">,</span><span class="w"> </span><span class="n">nothing</span><span class="p">,</span><span class="w"> </span><span class="n">forward24</span><span class="p">,</span><span class="w"> </span><span class="n">forwardThenStrafe</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135OptionMenu</span><span class="p">(</span><span class="n">allianceRow</span><span class="p">,</span><span class="w"> </span><span class="n">autoRow</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">theMenuStartsWithThePointerOnTheFirstRow</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"R-N"</span><span class="p">,</span><span class="w"> </span><span class="s">"&gt; Alliance: &lt;Red&gt;"</span><span class="p">,</span><span class="w"> </span><span class="s">"  Auto: &lt;Nothing&gt;"</span><span class="p">};</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">lines</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertArrayEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code>, replace the empty constructor with:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">L135MenuRow</span><span class="o">[]</span><span class="w"> </span><span class="n">rows</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">L135OptionMenu</span><span class="p">(</span><span class="n">L135MenuRow</span><span class="p">...</span><span class="w"> </span><span class="n">rows</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">summary()</span></code> and <code class="docutils literal notranslate"><span class="pre">lines()</span></code> with:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">summary</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">selectedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="na">selected</span><span class="p">();</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"-"</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">selectedItem</span><span class="p">.</span><span class="na">shortName</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">summary</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="nf">lines</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[</span><span class="n">rows</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="n">lines</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"  "</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pointedRow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"&gt; "</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">lines</span><span class="o">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rows</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="na">line</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lines</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s090">
+<span id="l135s090-move-the-pointer-and-hand-the-rest-to-its-row"></span><h3>L135S090: move the pointer, and hand the rest to its row<a class="headerlink" href="#l135s090" title="Link to this heading">¶</a></h3>
+<p>Left, right, A and B belong to the row the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> is on, so <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code> hands each one to that
+row. Up and down clear the offer in the row they leave.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenuTest</span></code>, under the last test, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">rightOffersInTheRowThePointerIsOn</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"R-N"</span><span class="p">,</span><span class="w"> </span><span class="s">"&gt; Alliance: Blue? A:OK B:Back"</span><span class="p">,</span><span class="w"> </span><span class="s">"  Auto: &lt;Nothing&gt;"</span><span class="p">};</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">lines</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertArrayEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">selectChangesTheSummary</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"B-N"</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">downMovesThePointerAndClearsTheOffer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">down</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"R-N"</span><span class="p">,</span><span class="w"> </span><span class="s">"  Alliance: &lt;Red&gt;"</span><span class="p">,</span><span class="w"> </span><span class="s">"&gt; Auto: &lt;Nothing&gt;"</span><span class="p">};</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">lines</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertArrayEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">downWrapsFromTheLastRowToTheFirst</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">down</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">down</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"R-N"</span><span class="p">,</span><span class="w"> </span><span class="s">"&gt; Alliance: &lt;Red&gt;"</span><span class="p">,</span><span class="w"> </span><span class="s">"  Auto: &lt;Nothing&gt;"</span><span class="p">};</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">lines</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertArrayEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">upWrapsFromTheFirstRowToTheLast</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">up</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"R-N"</span><span class="p">,</span><span class="w"> </span><span class="s">"  Alliance: &lt;Red&gt;"</span><span class="p">,</span><span class="w"> </span><span class="s">"&gt; Auto: &lt;Nothing&gt;"</span><span class="p">};</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">lines</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertArrayEquals</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">leftWrapsToTheLastChoice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">down</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">left</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"R-FS"</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again, and watch it fail.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code>, replace the six empty methods, <code class="docutils literal notranslate"><span class="pre">up()</span></code> to <code class="docutils literal notranslate"><span class="pre">back()</span></code>, with:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">up</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">back</span><span class="p">();</span>
+<span class="w">        </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pointedRow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">down</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">back</span><span class="p">();</span>
+<span class="w">        </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pointedRow</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">rows</span><span class="p">.</span><span class="na">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">pointedRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">left</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">rows</span><span class="o">[</span><span class="n">pointedRow</span><span class="o">]</span><span class="p">.</span><span class="na">left</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">right</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">rows</span><span class="o">[</span><span class="n">pointedRow</span><span class="o">]</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">select</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">rows</span><span class="o">[</span><span class="n">pointedRow</span><span class="o">]</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">back</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">rows</span><span class="o">[</span><span class="n">pointedRow</span><span class="o">]</span><span class="p">.</span><span class="na">back</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s100">
+<span id="l135s100-ask-which-choice-was-selected"></span><h3>L135S100: ask which choice was selected<a class="headerlink" href="#l135s100" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">rowNamed</span></code> finds a row by its name. A name no row has is a mistake in the code, so it stops the
+program with a message that names it.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenuTest</span></code>, under the last test, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">chosenGivesTheFullNameSelected</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">down</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Red"</span><span class="p">,</span><span class="w"> </span><span class="n">alliance</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">auto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Forward 24"</span><span class="p">,</span><span class="w"> </span><span class="n">auto</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">startAtSelectsInTheNamedRow</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">startAt</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">,</span><span class="w"> </span><span class="n">alliance</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again, and watch it fail.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135OptionMenu</span></code>, replace <code class="docutils literal notranslate"><span class="pre">chosen()</span></code> and <code class="docutils literal notranslate"><span class="pre">startAt()</span></code> with:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">chosen</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rowNamed</span><span class="p">(</span><span class="n">rowName</span><span class="p">);</span>
+<span class="w">        </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">selectedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="p">.</span><span class="na">selected</span><span class="p">();</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">selectedItem</span><span class="p">.</span><span class="na">fullName</span><span class="p">();</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">fullName</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">startAt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rowNamed</span><span class="p">(</span><span class="n">rowName</span><span class="p">);</span>
+<span class="w">        </span><span class="n">row</span><span class="p">.</span><span class="na">startAt</span><span class="p">(</span><span class="n">fullName</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>At the end of the class, above its last <code class="docutils literal notranslate"><span class="pre">}</span></code>, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="nf">rowNamed</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rows</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="na">name</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">rowName</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">rows</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"No row named "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rowName</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s110">
+<span id="l135s110-turn-presses-into-moves"></span><h3>L135S110: turn presses into moves<a class="headerlink" href="#l135s110" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">dpadRightWasPressed()</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> once for each press, the first time it is asked after the button
+goes down. The test copies a gamepad with the button held into <code class="docutils literal notranslate"><span class="pre">gamepad</span></code>, then one with nothing
+held, as the robot does between loops.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuButtonsTest</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line and these imports:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import static</span><span class="w"> </span><span class="nn">org.junit.Assert.assertEquals</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.hardware.Gamepad</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.junit.Test</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Below the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">L135MenuButtonsTest</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">nothing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"N"</span><span class="p">,</span><span class="w"> </span><span class="s">"Nothing"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">forward24</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"F24"</span><span class="p">,</span><span class="w"> </span><span class="s">"Forward 24"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">autoRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">,</span><span class="w"> </span><span class="n">nothing</span><span class="p">,</span><span class="w"> </span><span class="n">forward24</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135OptionMenu</span><span class="p">(</span><span class="n">allianceRow</span><span class="p">,</span><span class="w"> </span><span class="n">autoRow</span><span class="p">);</span>
+<span class="w">    </span><span class="n">L135MenuButtons</span><span class="w"> </span><span class="n">menuButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuButtons</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">gamepad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">theDpadAndAWorkTheMenu</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">rightHeld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">rightHeld</span><span class="p">.</span><span class="na">dpad_right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">rightHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">aHeld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">aHeld</span><span class="p">.</span><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">aHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">downHeld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">downHeld</span><span class="p">.</span><span class="na">dpad_down</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">downHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">rightHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">aHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"B-F24"</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="c1">// 'public' so JUnit can run it. 'public' allows access from any code.</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">bClearsTheOffer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">rightHeld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">rightHeld</span><span class="p">.</span><span class="na">dpad_right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">rightHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">bHeld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">bHeld</span><span class="p">.</span><span class="na">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">bHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">aHeld</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">aHeld</span><span class="p">.</span><span class="na">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">        </span><span class="n">press</span><span class="p">(</span><span class="n">aHeld</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="n">assertEquals</span><span class="p">(</span><span class="s">"R-N"</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">press</span><span class="p">(</span><span class="n">Gamepad</span><span class="w"> </span><span class="n">held</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">gamepad</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">held</span><span class="p">);</span>
+<span class="w">        </span><span class="n">menuButtons</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Gamepad</span><span class="w"> </span><span class="n">letGo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gamepad</span><span class="p">();</span>
+<span class="w">        </span><span class="n">gamepad</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">letGo</span><span class="p">);</span>
+<span class="w">        </span><span class="n">menuButtons</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again, and watch it fail.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135MenuButtons</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line and <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">com.qualcomm.robotcore.hardware.Gamepad;</span></code> above the comment, and below it:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">L135MenuButtons</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">L135MenuButtons</span><span class="p">(</span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">(</span><span class="n">Gamepad</span><span class="w"> </span><span class="n">gamepad</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad</span><span class="p">.</span><span class="na">dpadUpWasPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">up</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad</span><span class="p">.</span><span class="na">dpadDownWasPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">down</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad</span><span class="p">.</span><span class="na">dpadLeftWasPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">left</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad</span><span class="p">.</span><span class="na">dpadRightWasPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">right</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad</span><span class="p">.</span><span class="na">aWasPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">select</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad</span><span class="p">.</span><span class="na">bWasPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">back</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Test.</strong> Run the same command again.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The Terminal ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+</section>
+<section id="l135s120">
+<span id="l135s120-put-the-menu-on-the-driver-station"></span><h3>L135S120: put the menu on the Driver Station<a class="headerlink" href="#l135s120" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">L135DriverStationMenu</span></code> joins the rest up for the OpMode. It makes its own <code class="docutils literal notranslate"><span class="pre">L135MenuButtons</span></code>. Its
+<code class="docutils literal notranslate"><span class="pre">loop</span></code> reads the buttons, then prints each line on the Driver Station, and logs the summary as
+<code class="docutils literal notranslate"><span class="pre">menu/summary</span></code>.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L135DriverStationMenu</span></code>, type the <code class="docutils literal notranslate"><span class="pre">package</span></code> line and these imports above the
+comment:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.hardware.Gamepad</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.base.Tracker</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Below the comment, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">L135DriverStationMenu</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">;</span>
+<span class="w">    </span><span class="n">L135MenuButtons</span><span class="w"> </span><span class="n">menuButtons</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">L135DriverStationMenu</span><span class="p">(</span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">;</span>
+<span class="w">        </span><span class="n">menuButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuButtons</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">(</span><span class="n">Gamepad</span><span class="w"> </span><span class="n">gamepad</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">menuButtons</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"menu/summary"</span><span class="p">,</span><span class="w"> </span><span class="n">summary</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">lines</span><span class="p">();</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">lines</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">lines</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">chosen</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="n">rowName</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">fullName</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">startAt</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">rowName</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">fullName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">startAt</span><span class="p">(</span><span class="n">rowName</span><span class="p">,</span><span class="w"> </span><span class="n">fullName</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">summary</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">summary</span><span class="p">();</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">summary</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code>, near the top of the class, under the comment that names this step,
+type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L135S120, see</span>
+<span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120</span>
+<span class="w">    </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">nothing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"N"</span><span class="p">,</span><span class="w"> </span><span class="s">"Nothing"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">forward24</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"F24"</span><span class="p">,</span><span class="w"> </span><span class="s">"Forward 24"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">forwardThenStrafe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"FS"</span><span class="p">,</span><span class="w"> </span><span class="s">"Forward Then Strafe"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">autoRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">,</span><span class="w"> </span><span class="n">nothing</span><span class="p">,</span><span class="w"> </span><span class="n">forward24</span><span class="p">,</span><span class="w"> </span><span class="n">forwardThenStrafe</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135OptionMenu</span><span class="p">(</span><span class="n">allianceRow</span><span class="p">,</span><span class="w"> </span><span class="n">autoRow</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">L135DriverStationMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135DriverStationMenu</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
+</span></pre></div>
+</div>
+<p>Between INIT and PLAY, the robot calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> again and again. In <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the
+comment that names this step, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S120, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">menu</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">);</span>
+</span></pre></div>
+</div>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L135ChooseAutoOpMode --init --pad"</span>
 </pre></div>
@@ -387,79 +1249,32 @@ choose. In <code class="docutils literal notranslate"><span class="pre">init_loo
 change. Press Enter in the Terminal for PLAY.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Red</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">Auto:</span> <span class="pre">&lt;</span> <span class="pre">F24-Forward</span> <span class="pre">24</span> <span class="pre">&gt;</span></code>, then <code class="docutils literal notranslate"><span class="pre">R-F24</span></code>.</p></li>
-<li><p>Press the D-pad’s down. The <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> moves to <code class="docutils literal notranslate"><span class="pre">Auto</span></code>. Press up, and it moves back.</p></li>
-</ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> marks the row the D-pad is on. The last line is the menu in short: R for Red, and F24, the
-letters before the <code class="docutils literal notranslate"><span class="pre">-</span></code> in <code class="docutils literal notranslate"><span class="pre">F24-Forward</span> <span class="pre">24</span></code>.</p>
-</section>
-<section id="l135s040">
-<span id="l135s040-step-to-the-next-choice"></span><h3>L135S040: step to the next choice<a class="headerlink" href="#l135s040" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">shown</span></code> holds the choice each row shows, and <code class="docutils literal notranslate"><span class="pre">row</span></code> is the row the D-pad is on. So <code class="docutils literal notranslate"><span class="pre">shown[row]</span></code> is
-the choice the driver is looking at. <code class="docutils literal notranslate"><span class="pre">left()</span></code> already steps back; right steps forward, and from the
-last choice goes round to the first.</p>
-<p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">L135AutoMenu</span></code>’s <code class="docutils literal notranslate"><span class="pre">right()</span></code>,
-under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S040, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040</span>
-<span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">lastChoice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="p">.</span><span class="na">choices</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">lastChoice</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span>
-</span></pre></div>
-</div>
-<p><strong>Simulator.</strong> Run the same command again.</p>
-<p><strong>Check.</strong></p>
-<ul class="simple">
-<li><p>Press the D-pad’s right. The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Blue</span> <span class="pre">&gt;</span>&#160;&#160; <span class="pre">(A</span> <span class="pre">keeps,</span> <span class="pre">B</span> <span class="pre">puts</span> <span class="pre">back)</span></code>.</p></li>
-<li><p>The last line still reads <code class="docutils literal notranslate"><span class="pre">R-F24</span></code>, because Blue is shown but not kept.</p></li>
-<li><p>Press right again, and <code class="docutils literal notranslate"><span class="pre">Red</span></code> comes back round.</p></li>
+<li><p>Press the gamepad’s buttons in the order the problem gives them. After each, the Terminal shows
+what the problem shows.</p></li>
 </ul>
 </section>
-<section id="l135s050">
-<span id="l135s050-keep-it-or-put-it-back"></span><h3>L135S050: keep it, or put it back<a class="headerlink" href="#l135s050" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">kept</span></code> holds the choice each row has kept. A keeps the choice shown. B, or moving to another row,
-shows the kept choice again.</p>
-<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">keep()</span></code>, under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S050, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050</span>
+<section id="l135s130">
+<span id="l135s130-run-the-auto-that-was-selected"></span><h3>L135S130: run the auto that was selected<a class="headerlink" href="#l135s130" title="Link to this heading">¶</a></h3>
+<p>At PLAY, <code class="docutils literal notranslate"><span class="pre">start()</span></code> asks the menu which alliance and which auto were selected, and logs both. A
+<code class="docutils literal notranslate"><span class="pre">switch</span></code> compares <code class="docutils literal notranslate"><span class="pre">auto</span></code> with each <code class="docutils literal notranslate"><span class="pre">case</span></code> and runs the lines under the one that matches, down to
+its <code class="docutils literal notranslate"><span class="pre">break</span></code>. The words in each <code class="docutils literal notranslate"><span class="pre">case</span></code> have to match the item’s full name exactly. <code class="docutils literal notranslate"><span class="pre">Command.NOOP</span></code>
+is a command that does nothing. It is what runs for <code class="docutils literal notranslate"><span class="pre">Nothing</span></code>, which no <code class="docutils literal notranslate"><span class="pre">case</span></code> matches.</p>
+<p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment
+that names this step, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S130, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">kept</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="p">;</span>
-</span></pre></div>
-</div>
-<p>In <code class="docutils literal notranslate"><span class="pre">putBack()</span></code>, under its comment, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S050, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050</span>
-<span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">shown</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kept</span><span class="o">[</span><span class="n">row</span><span class="o">]</span><span class="p">;</span>
-</span></pre></div>
-</div>
-<p><strong>Simulator.</strong> Run the same command again.</p>
-<p><strong>Check.</strong></p>
-<ul class="simple">
-<li><p>Press right, then A. The Terminal shows <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">Alliance:</span> <span class="pre">&lt;</span> <span class="pre">Blue</span> <span class="pre">&gt;</span></code>, and the last line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
-<li><p>Press right, then B. <code class="docutils literal notranslate"><span class="pre">Blue</span></code> comes back, and the last line still reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
-</ul>
-</section>
-<section id="l135s060">
-<span id="l135s060-run-the-auto-that-was-chosen"></span><h3>L135S060: run the auto that was chosen<a class="headerlink" href="#l135s060" title="Link to this heading">¶</a></h3>
-<p>At PLAY, <code class="docutils literal notranslate"><span class="pre">start()</span></code> asks the menu which auto was kept. A <code class="docutils literal notranslate"><span class="pre">switch</span></code> compares <code class="docutils literal notranslate"><span class="pre">auto</span></code> with each <code class="docutils literal notranslate"><span class="pre">case</span></code>
-and runs the lines under the one that matches, down to its <code class="docutils literal notranslate"><span class="pre">break</span></code>. The words in each <code class="docutils literal notranslate"><span class="pre">case</span></code> have
-to match the choice in the menu exactly. <code class="docutils literal notranslate"><span class="pre">Command.NOOP</span></code> is a command that does nothing, for a
-choice no <code class="docutils literal notranslate"><span class="pre">case</span></code> matches.</p>
-<p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S060, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060</span>
-<span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">auto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"menu/alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">alliance</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">auto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Auto"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"menu/auto"</span><span class="p">,</span><span class="w"> </span><span class="n">auto</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Command</span><span class="w"> </span><span class="n">chosenAuto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="p">.</span><span class="na">NOOP</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">auto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s">"F24-Forward 24"</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s">"Forward 24"</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                </span><span class="n">chosenAuto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driveForward24</span><span class="p">();</span>
 </span><span class="hll"><span class="w">                </span><span class="k">break</span><span class="p">;</span>
-</span><span class="hll"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s">"FS-Forward Then Strafe"</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s">"Forward Then Strafe"</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                </span><span class="n">chosenAuto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driveForwardThenStrafe</span><span class="p">();</span>
 </span><span class="hll"><span class="w">                </span><span class="k">break</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
@@ -467,8 +1282,8 @@ choice no <code class="docutils literal notranslate"><span class="pre">case</spa
 </span></pre></div>
 </div>
 <p>In <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S060, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s060</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S130, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">summary</span><span class="p">());</span>
 </span></pre></div>
@@ -476,22 +1291,23 @@ choice no <code class="docutils literal notranslate"><span class="pre">case</spa
 <p>This keeps the summary on the Driver Station after PLAY.</p>
 <p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>AdvantageScope.</strong> Connect to the simulator, click <strong>2D Field</strong>, and open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code>, then
-<code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>. Open <code class="docutils literal notranslate"><span class="pre">menu</span></code> too.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Press the D-pad’s down, then right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
-<li><p>Press Enter in the Terminal. The robot drives forward, then slides to its right, as in L130.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> reads 96 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">menu/summary</span></code> reads <code class="docutils literal notranslate"><span class="pre">R-N</span></code>. Press the D-pad’s down, then left, then A. It reads <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
+<li><p>Press Enter in the Terminal. <code class="docutils literal notranslate"><span class="pre">menu/alliance</span></code> reads <code class="docutils literal notranslate"><span class="pre">Red</span></code> and <code class="docutils literal notranslate"><span class="pre">menu/auto</span></code> reads
+<code class="docutils literal notranslate"><span class="pre">Forward</span> <span class="pre">Then</span> <span class="pre">Strafe</span></code>.</p></li>
+<li><p>The robot drives forward, then slides to its right, as in L130. <code class="docutils literal notranslate"><span class="pre">x_in</span></code> reads 96 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 72.</p></li>
 </ul>
 </section>
-<section id="l135s070">
-<span id="l135s070-turn-the-field-for-the-blue-alliance"></span><h3>L135S070: turn the field for the blue alliance<a class="headerlink" href="#l135s070" title="Link to this heading">¶</a></h3>
+<section id="l135s140">
+<span id="l135s140-turn-the-field-for-the-blue-alliance"></span><h3>L135S140: turn the field for the blue alliance<a class="headerlink" href="#l135s140" title="Link to this heading">¶</a></h3>
 <p>Each blue place is a red place turned a half-turn about the middle of the field, (72, 72).
 <code class="docutils literal notranslate"><span class="pre">PoseFactory</span></code> makes poses. <code class="docutils literal notranslate"><span class="pre">rotateAround</span></code> gives a <code class="docutils literal notranslate"><span class="pre">PoseFactory</span></code> that turns each pose it makes. So
 the autos stay written for red.</p>
 <p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">poses()</span></code>, under the comment that names this step, type:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S070, see</span>
-<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L135S140, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s140</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
@@ -503,21 +1319,21 @@ the autos stay written for red.</p>
 <p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Press the D-pad’s right, then A. The last line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
+<li><p>Press the D-pad’s right, then A, then down, then right, then A. The first line reads <code class="docutils literal notranslate"><span class="pre">B-F24</span></code>.</p></li>
 <li><p>Press Enter. The robot jumps to the top of the field, at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72 and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 133.5, facing down,
 <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 270.</p></li>
 <li><p>It drives 24 inches down the field and stops at <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 109.5.</p></li>
 </ul>
 </section>
-<section id="l135s080">
-<span id="l135s080-work-the-menu-on-the-robot"></span><h3>L135S080: work the menu on the robot<a class="headerlink" href="#l135s080" title="Link to this heading">¶</a></h3>
+<section id="l135s150">
+<span id="l135s150-work-the-menu-on-the-robot"></span><h3>L135S150: work the menu on the robot<a class="headerlink" href="#l135s150" title="Link to this heading">¶</a></h3>
 <p><strong>Send.</strong> Stop the simulator. Send the code, pick <code class="docutils literal notranslate"><span class="pre">L135</span> <span class="pre">Choose</span> <span class="pre">Auto</span></code> from the autonomous list, and
 press INIT. Press Start and A on the gamepad, so it is gamepad 1.</p>
 <p><strong>Robot.</strong> Put the robot on the floor with a piece of tape at its front edge.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The Driver Station shows the menu, with <code class="docutils literal notranslate"><span class="pre">R-F24</span></code> last.</p></li>
-<li><p>The D-pad’s down and right, then A, change the last line to <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
+<li><p>The Driver Station shows the menu, with <code class="docutils literal notranslate"><span class="pre">R-N</span></code> first.</p></li>
+<li><p>The D-pad’s down and left, then A, change the first line to <code class="docutils literal notranslate"><span class="pre">R-FS</span></code>.</p></li>
 <li><p>Press PLAY. The robot drives forward, then slides to its right.</p></li>
 <li><p>The Driver Station still shows <code class="docutils literal notranslate"><span class="pre">R-FS</span></code> while it drives.</p></li>
 </ul>
@@ -583,15 +1399,24 @@ change, because the field is turned, not the robot.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">135 lesson: choose the alliance and the auto</a><ul>
+<li><a class="reference internal" href="#the-problem">the problem</a></li>
+<li><a class="reference internal" href="#the-classes">the classes</a></li>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
-<li><a class="reference internal" href="#l135s010-copy-the-three-starters-into-mytry">L135S010: copy the three starters into mytry</a></li>
+<li><a class="reference internal" href="#l135s010-copy-the-starters-into-mytry">L135S010: copy the starters into mytry</a></li>
 <li><a class="reference internal" href="#l135s020-switch-your-copy-on">L135S020: switch your copy on</a></li>
-<li><a class="reference internal" href="#l135s030-make-the-menu-and-show-it-during-init">L135S030: make the menu, and show it during INIT</a></li>
-<li><a class="reference internal" href="#l135s040-step-to-the-next-choice">L135S040: step to the next choice</a></li>
-<li><a class="reference internal" href="#l135s050-keep-it-or-put-it-back">L135S050: keep it, or put it back</a></li>
-<li><a class="reference internal" href="#l135s060-run-the-auto-that-was-chosen">L135S060: run the auto that was chosen</a></li>
-<li><a class="reference internal" href="#l135s070-turn-the-field-for-the-blue-alliance">L135S070: turn the field for the blue alliance</a></li>
-<li><a class="reference internal" href="#l135s080-work-the-menu-on-the-robot">L135S080: work the menu on the robot</a></li>
+<li><a class="reference internal" href="#l135s030-say-what-the-menu-can-do">L135S030: say what the menu can do</a></li>
+<li><a class="reference internal" href="#l135s040-one-choice-test-first">L135S040: one choice, test first</a></li>
+<li><a class="reference internal" href="#l135s050-one-row-and-its-line">L135S050: one row, and its line</a></li>
+<li><a class="reference internal" href="#l135s060-offer-the-next-choice-or-the-last">L135S060: offer the next choice, or the last</a></li>
+<li><a class="reference internal" href="#l135s070-select-it-or-clear-it">L135S070: select it, or clear it</a></li>
+<li><a class="reference internal" href="#l135s080-the-rows-together">L135S080: the rows together</a></li>
+<li><a class="reference internal" href="#l135s090-move-the-pointer-and-hand-the-rest-to-its-row">L135S090: move the pointer, and hand the rest to its row</a></li>
+<li><a class="reference internal" href="#l135s100-ask-which-choice-was-selected">L135S100: ask which choice was selected</a></li>
+<li><a class="reference internal" href="#l135s110-turn-presses-into-moves">L135S110: turn presses into moves</a></li>
+<li><a class="reference internal" href="#l135s120-put-the-menu-on-the-driver-station">L135S120: put the menu on the Driver Station</a></li>
+<li><a class="reference internal" href="#l135s130-run-the-auto-that-was-selected">L135S130: run the auto that was selected</a></li>
+<li><a class="reference internal" href="#l135s140-turn-the-field-for-the-blue-alliance">L135S140: turn the field for the blue alliance</a></li>
+<li><a class="reference internal" href="#l135s150-work-the-menu-on-the-robot">L135S150: work the menu on the robot</a></li>
 </ul>
 </li>
 </ul>
