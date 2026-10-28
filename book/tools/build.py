@@ -108,10 +108,12 @@ def to_media(site: Path, media: Path) -> int:
 
 
 def missing_images(site: Path) -> list[str]:
-    """Every <img> in a built HTML site whose file does not exist, as page: src."""
+    """Every <img> or <object> in a built HTML site whose file does not exist, as page: src.
+    A Mermaid diagram's SVG file is shown in an <object>, by its data=."""
     missing = []
     for page in sorted(site.rglob("*.html")):
-        for src in re.findall(r'<img[^>]*\ssrc="([^"]+)"', page.read_text(encoding="utf-8")):
+        for src in re.findall(r'<(?:img[^>]*\ssrc|object[^>]*\sdata)="([^"]+)"',
+                              page.read_text(encoding="utf-8")):
             if "://" in src or src.startswith("data:"):
                 continue
             if not (page.parent / src.split("#")[0].split("?")[0]).exists():

@@ -177,10 +177,10 @@ def panels_graph():
 
 def l135_menu():
     """L135's menu as `simRun --init --dpad_down=true --dpad_left=true --a=true` prints it."""
-    lines = ["Live NetworkTables on. AdvantageScope: connect to 192.168.43.1",
-             "R-FS",
+    lines = ["R-FS",
              "  Alliance: <Red>",
-             "> Auto: <Forward Then Strafe>"]
+             "> Auto: <Forward Then Strafe>",
+             "Live NetworkTables on. AdvantageScope: connect to 192.168.43.1"]
     code = FontProperties(fname=CODE_FONT, size=13)
     fig, ax = plt.subplots(figsize=(11, 2.8))
     ax.set_facecolor("#1e1e24")
