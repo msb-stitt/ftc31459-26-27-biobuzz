@@ -133,7 +133,7 @@ in 15 reaches the graph.
 - `vel/tangential_ips` should rise, plateau, then decay to zero. A long tail
   near zero means the follower is still correcting at the end of the path.
 - `vel/strafeY_ips` should stay near zero on a straight drive. If it doesn't,
-  the odometry pod offsets in `Constants.java` are probably off.
+  the odometry pod offsets in the robot's own file, such as `pedro/Bot37523.java`, are probably off.
 
 ### Field view
 
