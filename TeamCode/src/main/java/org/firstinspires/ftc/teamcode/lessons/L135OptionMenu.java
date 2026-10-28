@@ -1,0 +1,10 @@
+/**
+ * The rows of a menu, and which row the pointer is on. Up and down move the
+ * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
+ * right, A and B go to the row the pointer is on.
+ *
+ * <p>Uses {@link L135MenuRow} for each row, and through it {@link L135MenuItem}.
+ */
+// When on L135S030, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+// for what to write in this file.

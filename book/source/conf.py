@@ -12,8 +12,11 @@ project = "Corbels FTC Programming Lessons in Java"
 author = "Mike Stitt"
 copyright = "2026, Mike Stitt"
 
-extensions = ["myst_parser"]
+extensions = ["myst_parser", "sphinxcontrib.mermaid"]
 myst_enable_extensions = ["attrs_block", "colon_fence", "deflist", "substitution"]
+# A ```mermaid fence is drawn as a diagram. The page loads mermaid.js from
+# cdn.jsdelivr.net and draws it in the reader's browser.
+myst_fence_as_directive = ["mermaid"]
 
 
 def made_from() -> dict[str, str]:

@@ -147,7 +147,8 @@ words = 1300
 path = "source/tasks/l135.md"
 # Measured off the first draft, 823 words, and rounded up, 2026-10-27. Raised for the menu, the
 # auto's choice and the summary typed by the student, and the gamepad checks, 936 words, 2026-10-27.
-words = 1000
+# Raised for the five menu classes and their tests, typed test first, 1860 words, 2026-10-28.
+words = 1900
 
 [[page]]
 path = "source/tasks/l140.md"
