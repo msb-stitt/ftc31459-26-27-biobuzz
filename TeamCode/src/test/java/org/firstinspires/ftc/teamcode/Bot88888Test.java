@@ -3,9 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.pedropathing.api.PoseFactory;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -16,71 +20,176 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** 88888's OpModes drive with no mechanism, and Robot Name Check shows what it found. */
+/**
+ * 88888's OpModes do what the solved L140 Auto and L140 Field Relative do, with
+ * no mechanism, and Robot Name Check shows what it found.
+ */
 public class Bot88888Test {
 
+    private static final PoseFactory POSES = PoseFactory.degrees();
+    private static final double EPS = 1e-6;
+
     private Supplier<String> theSdksReader;
+    private Pose theAutosEndPose;
 
     @Before
     public void setUp() {
         Scheduler.reset();
         theSdksReader = RobotControllerName.reader;
+        theAutosEndPose = OpModeStorage.autonomousEndPose;
     }
 
     @After
     public void tearDown() {
         RobotControllerName.reader = theSdksReader;
+        OpModeStorage.autonomousEndPose = theAutosEndPose;
+        OpModeStorage.alliance = "Red";
+        OpModeHarness.restoreFactories();
+        Scheduler.reset();
     }
 
     @Test
-    public void theTeleOpDrivesFromTheSticksAndLooksUpNoMechanism() {
+    public void theTeleOpDrivesTheFieldWhicheverWayTheRobotFacesAndLooksUpNoMechanism() {
         // The harness has no HardwareMap: looking up an intake or a launcher would throw.
         OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
-        h.init();
-        h.start();
-        h.gamepad1.left_stick_y = -1.0f;
-        h.loop();
-        assertEquals("pushed away, forward at full speed", 1.0, h.wheelsForward(), 1e-3);
-        assertEquals(-1.0, (Double) Tracker.values().get("gamepad1/leftStickY"), 1e-6);
-        assertEquals(1.0, (Double) Tracker.values().get("drivetrain/forwardXSpeed"), 1e-6);
-        h.gamepad1.left_stick_y = 0.0f;
-        h.gamepad1.left_stick_x = 1.0f;
-        h.loop();
-        assertEquals("pushed right, strafes right", -1.0, h.wheelsStrafe(), 1e-3);
-        h.stop();
-    }
-
-    @Test
-    public void theAutoDrivesStarterBotAutosRoute() {
-        OpModeHarness h = new OpModeHarness(new Bot88888Auto());
         Follower follower = h.robot.follower;
         h.init();
         h.start();
-        long deadline = System.nanoTime() + 9_000_000_000L;
-        boolean followed = false;
-        int loopsIdle = 0;
-        while (loopsIdle < 3 && System.nanoTime() < deadline) {
-            h.loop();
-            boolean following = follower.mode() == Follower.Mode.FOLLOW;
-            boolean hasAPath = follower.currentPath() != null;
-            if (following) {
-                followed = true;
-            }
-            boolean pastTheCorner = follower.pose().x() > 90;
-            if (followed && pastTheCorner && !following && !hasAPath) {
-                loopsIdle++;
-            } else {
-                loopsIdle = 0;
-            }
-            OpModeHarness.sleep(5);
-        }
+
+        follower.setPose(POSES.of(0, 0, 0));
+        h.gamepad1.left_stick_y = -1.0f;          // away from the driver
+        h.loop();
+        assertEquals(1.0, h.wheelsForward(), 1e-3);
+        assertEquals(-1.0, (Double) Tracker.values().get("gamepad1/leftStickY"), EPS);
+        assertEquals(1.0, (Double) Tracker.values().get("drivetrain/fieldXSpeed"), EPS);
+
+        follower.setPose(POSES.of(0, 0, 90));     // robot now faces +y
+        h.loop();
+        assertEquals("same stick, still moves away from the driver",
+                0.0, h.wheelsForward(), 1e-3);
+        assertEquals(-1.0, h.wheelsStrafe(), 1e-3);
+
+        h.gamepad1.left_stick_y = -0.5f;
+        h.loop();
+        assertEquals("half a stick is a quarter of full speed", 0.25,
+                (Double) Tracker.values().get("drivetrain/fieldXSpeed"), EPS);
+        h.gamepad1.left_stick_y = -0.04f;
+        h.loop();
+        assertEquals("inside the band is still", 0.0,
+                (Double) Tracker.values().get("drivetrain/fieldXSpeed"), EPS);
         h.stop();
-        assertTrue("the robot never started following a path", followed);
+    }
+
+    @Test
+    public void fromTheBlueAllianceAreaTheTeleOpsStickMeansTheOtherWay() {
+        OpModeStorage.alliance = "Blue";
+        OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        h.start();
+
+        follower.setPose(POSES.of(72, 72, 0));    // robot faces +x
+        h.gamepad1.left_stick_y = -1.0f;          // away from the blue drivers, toward -x
+        h.loop();
+        assertEquals("away from the blue drivers is -x, behind a robot facing +x",
+                -1.0, h.wheelsForward(), 1e-3);
+
+        h.gamepad1.left_stick_y = 0.0f;
+        h.gamepad1.left_stick_x = -1.0f;          // to the blue drivers' left, toward -y
+        h.loop();
+        assertEquals("their left is -y, to the right of a robot facing +x",
+                -1.0, h.wheelsStrafe(), 1e-3);
+        h.stop();
+    }
+
+    @Test
+    public void theTeleOpMenuChoosesTheAllianceAndTheWall() {
+        OpModeStorage.autonomousEndPose = POSES.of(30, 40, 0);
+        OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertTrue("starts at the alliance the auto handed over: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: < Red >"));
+        assertEquals("and where the auto ended", 30.0, follower.pose().x(), EPS);
+
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue(h.driverStation.text(), h.driverStation.shows("B-W"));
+        h.start();
+
+        // Red's wall start, (72, 10.5, 90), turned a half-turn about (72, 72).
+        assertEquals("against blue's wall", 72.0, follower.pose().x(), EPS);
+        assertEquals(133.5, follower.pose().y(), EPS);
+        double heading_deg = Math.toDegrees(follower.pose().heading());
+        assertEquals("facing -y", 270.0, (heading_deg % 360.0 + 360.0) % 360.0, 1e-3);
+        h.stop();
+    }
+
+    @Test
+    public void theAutoMenuChoosesTheAllianceAndTheRoute() {
+        OpModeHarness h = new OpModeHarness(new Bot88888Auto());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertTrue("the menu is on the Driver Station during INIT: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: < Red >"));
+        assertTrue(h.driverStation.text(), h.driverStation.shows("R-N"));
+
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        assertTrue("right shows Blue, not yet kept: " + h.driverStation.text(),
+                h.driverStation.shows("Alliance: < Blue >   (A keeps, B puts back)"));
+        pressDuringInit(h, pad -> pad.b = true);
+        assertTrue("B puts Red back: " + h.driverStation.text(),
+                h.driverStation.shows("> Alliance: < Red >"));
+
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("the summary names what was kept: " + h.driverStation.text(),
+                h.driverStation.shows("B-FS"));
+
+        h.start();
+        assertEquals("placed at red's start turned a half-turn", 133.5, follower.pose().y(), EPS);
+        runUntilDone(h, follower, 6.0);
+        h.stop();
+
+        // Red's route ends at (96, 72); turned a half-turn about (72, 72), (48, 72).
         Pose end = follower.pose();
-        assertEquals("strafed 24 inches in x", 96.0, end.x(), 2.0);
+        assertEquals("forward then strafe, for blue", 48.0, end.x(), 2.0);
         assertEquals(72.0, end.y(), 2.0);
+    }
+
+    @Test
+    public void theAutoDoesNothingByDefaultAndHandsItsAllianceToTheTeleOp() {
+        assertEquals("the Driver Station picks 88888 TeleOp when the auto ends",
+                Bot88888TeleOp.class.getAnnotation(TeleOp.class).name(),
+                Bot88888Auto.class.getAnnotation(Autonomous.class).preselectTeleOp());
+
+        OpModeHarness h = new OpModeHarness(new Bot88888Auto());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("Nothing is the auto until another is chosen: " + h.driverStation.text(),
+                h.driverStation.shows("B-N"));
+        h.start();
+        h.loops(20, 5);
+        h.stop();
+
+        assertEquals("the alliance handed to the teleop", "Blue", OpModeStorage.alliance);
+        assertEquals("Nothing does not move", 133.5, follower.pose().y(), 0.1);
     }
 
     @Test
@@ -114,5 +223,33 @@ public class Bot88888Test {
         h.start();
         h.loops(1, 0);
         h.stop();
+    }
+
+    /** One press and release of gamepad 1's buttons between INIT and PLAY. */
+    private static void pressDuringInit(OpModeHarness h, Consumer<Gamepad> buttons) {
+        Gamepad held = new Gamepad();
+        buttons.accept(held);
+        h.gamepad1.copy(held);
+        h.initLoop();
+        h.gamepad1.copy(new Gamepad());
+        h.initLoop();
+    }
+
+    /** Loops until the route has been followed and the follower has gone idle, or the time is up. */
+    private static void runUntilDone(OpModeHarness h, Follower follower, double seconds) {
+        long deadline = System.nanoTime() + (long) (seconds * 1e9);
+        boolean followed = false;
+        int loopsIdle = 0;
+        while (loopsIdle < 3 && System.nanoTime() < deadline) {
+            h.loop();
+            if (follower.mode() == Follower.Mode.FOLLOW) followed = true;
+            if (followed && follower.mode() != Follower.Mode.FOLLOW && follower.currentPath() == null) {
+                loopsIdle++;
+            } else {
+                loopsIdle = 0;
+            }
+            OpModeHarness.sleep(5);
+        }
+        assertTrue("the robot never started following a path", followed);
     }
 }

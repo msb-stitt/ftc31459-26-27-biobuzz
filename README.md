@@ -63,14 +63,19 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 
 37523 and 31459 are goBILDA's
 [StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
-stock, with a Pinpoint. 88888 is a Pinpoint and a drivetrain, with no intake, launcher or
-windmill. **StarterBot TeleOp** drives one with the controls of goBILDA's example
-code, written in `StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson
-L130's route: forward from the wall to (72, 72) inches, then 24 inches to the right, facing +y the
-whole way. **88888 TeleOp** is StarterBot TeleOp's driving alone, and **88888 Auto** is StarterBot
-Auto's route, for 88888. These four, Launcher Check, Robot Name Check and Live NetworkTables on/off
-are the only OpModes on the Driver Station; every other is `@Disabled`. The four and Launcher Check
-send the flight log live to AdvantageScope as well, for practice;
+stock, with a Pinpoint. 88888 is a Pinpoint and a drivetrain, with no intake, launcher or windmill.
+**StarterBot TeleOp** drives one with the controls of goBILDA's example code, written in
+`StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson L130's route: forward
+from the wall to (72, 72) inches, then 24 inches to the right, facing +y the whole way. **88888
+Auto** and **88888 TeleOp** drive 88888 as the solved L140 Auto and L140 Field Relative do, from
+`solutions-l140-alliances.2`. Between INIT and PLAY, gamepad 1's D-pad works a menu on each,
+`DriverStationMenu` in `base`: the alliance; the auto's route, which is Nothing until another is
+picked; and where the teleop starts, where the auto ended or against the wall. The auto hands its
+alliance to the teleop, which the Driver Station picks next. The teleop drives the field: the stick
+pushed away from the driver drives away from them, whichever way the robot faces. These four,
+Launcher Check, Robot Name Check and Live NetworkTables on/off are the only OpModes on the Driver
+Station; every other is `@Disabled`. The four and Launcher Check send the flight log live to
+AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
