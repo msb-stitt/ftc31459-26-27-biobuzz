@@ -529,25 +529,27 @@ public class LessonsTest {
         h.init();
         h.initLoop();
         assertTrue("the menu is on the Driver Station during INIT: " + h.driverStation.text(),
-                h.driverStation.shows("> Alliance: < Red >"));
-        assertTrue(h.driverStation.text(), h.driverStation.shows("R-F24"));
+                h.driverStation.shows("R-N\n> Alliance: <Red>\n  Auto: <Nothing>"));
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
-        assertTrue("right shows Blue, not yet kept: " + h.driverStation.text(),
-                h.driverStation.shows("Alliance: < Blue >   (A keeps, B puts back)"));
+        assertTrue("right offers Blue, not yet selected: " + h.driverStation.text(),
+                h.driverStation.shows("R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <Nothing>"));
         pressDuringInit(h, pad -> pad.b = true);
-        assertTrue("B puts Red back: " + h.driverStation.text(),
-                h.driverStation.shows("> Alliance: < Red >"));
+        assertTrue("B clears the offer: " + h.driverStation.text(),
+                h.driverStation.shows("R-N\n> Alliance: <Red>\n  Auto: <Nothing>"));
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
         pressDuringInit(h, pad -> pad.a = true);
         pressDuringInit(h, pad -> pad.dpad_down = true);
-        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.dpad_left = true);
         pressDuringInit(h, pad -> pad.a = true);
-        assertTrue("the summary names what was kept: " + h.driverStation.text(),
-                h.driverStation.shows("B-FS"));
+        assertTrue("left wraps to the last choice, and A selects it: " + h.driverStation.text(),
+                h.driverStation.shows("B-FS\n  Alliance: <Blue>\n> Auto: <Forward Then Strafe>"));
+        assertEquals("the summary is logged during INIT", "B-FS", Tracker.values().get("menu/summary"));
 
         h.start();
+        assertEquals("the alliance chosen is logged", "Blue", Tracker.values().get("menu/alliance"));
+        assertEquals("and the auto", "Forward Then Strafe", Tracker.values().get("menu/auto"));
         assertEquals("placed at red's start turned a half-turn", 133.5, follower.pose().y(), EPS);
         double startHeading_deg = Math.toDegrees(follower.pose().heading());
         assertEquals("facing -y", 270.0, (startHeading_deg % 360.0 + 360.0) % 360.0, 1e-3);
@@ -561,11 +563,30 @@ public class LessonsTest {
     }
 
     @Test
-    public void l135_redAndForward24WhenNothingIsChanged() {
+    public void l135_redAndNothingWhenNothingIsChanged() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L135ChooseAutoOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.initLoop();
+        h.start();
+        h.loops(20, 5);
+        h.stop();
+        assertEquals("Nothing does not move, from red's start", 10.5, follower.pose().y(), 0.1);
+        assertEquals(72.0, follower.pose().x(), 0.1);
+    }
+
+    @Test
+    public void l135_upWrapsAndForward24DrivesForRed() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L135ChooseAutoOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_up = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_up = true);
+        assertTrue("up wraps from the top row to the bottom, and up again goes back: " + h.driverStation.text(),
+                h.driverStation.shows("R-F24\n> Alliance: <Red>\n  Auto: <Forward 24>"));
         h.start();
         runUntilDone(h, follower, 3.0);
         h.stop();
@@ -624,7 +645,7 @@ public class LessonsTest {
         h.init();
         h.initLoop();
         assertTrue("starts at the alliance the auto handed over: " + h.driverStation.text(),
-                h.driverStation.shows("> Alliance: < Red >"));
+                h.driverStation.shows("> Alliance: <Red>"));
         assertEquals("and where the auto ended", 30.0, follower.pose().x(), EPS);
 
         pressDuringInit(h, pad -> pad.dpad_right = true);

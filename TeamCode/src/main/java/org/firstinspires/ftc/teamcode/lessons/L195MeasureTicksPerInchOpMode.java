@@ -118,7 +118,7 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
         if (pushed_in >= needed_in) {
             Tracker.printToDs();
             Tracker.printToDs("ticksPerInch  %.2f", measuredTicksPerInch);
-            Tracker.printToDs("Put that in Constants.ticksPerInch, then run it again to check.");
+            Tracker.printToDs("Put that in ticksPerInch in the robot's own file, then run it again to check.");
         } else {
             Tracker.printToDs("Currently  %.2f ticks per inch", measuredTicksPerInch);
         }

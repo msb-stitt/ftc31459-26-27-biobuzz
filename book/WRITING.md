@@ -122,6 +122,25 @@ The code a student copies carries a comment where each step changes it, linking 
 // for what to do here.
 ```
 
+## A lesson can have the student write whole classes
+
+L135 is the first. Its page and its starters are written this way:
+
+- **The problem first.** After the picture, `## the problem` says what the code does as the driver
+  sees it, not as the code holds it, and gives example output that defines it fully.
+- **The classes next.** `## the classes` gives each class's one job, then a Mermaid class diagram
+  and one action traced as a Mermaid sequence diagram. Each diagram is registered in
+  `FIGURES.md`, as *A picture is registered before it is drawn* says.
+- **A starter is a header**: its class Javadoc and step pointer only. The student types the
+  `package` line, the imports and the class.
+- **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
+  and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
+  fail, then types the code until it passes.
+- **Build** and **Test** are parts of a step. They run
+  `./gradlew :TeamCode:compileDebugJavaWithJavac` and
+  `./gradlew :TeamCode:testDebugUnitTest --tests '*Lnnn*'`, with the lesson's own number; the
+  check is `BUILD SUCCESSFUL`.
+
 ## The old pages have five parts
 
 - **What you will have when this is done.** One or two sentences, about the robot and not about the
@@ -291,8 +310,12 @@ text, not a heading: a heading inside `only` brings the whole block into the stu
 ```
 python3 -m venv book/.venv
 book/.venv/bin/pip install -r book/requirements.txt
-cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
+cd book && npm ci
+PATH="$PWD/.venv/bin:$PATH" ninja book
 ```
+
+`npm ci` needs Node 22.13.0 or later. It installs mermaid-cli, which draws each Mermaid diagram as
+an SVG file, into `book/node_modules`, and the Chrome it draws with into `book/.cache`.
 
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.

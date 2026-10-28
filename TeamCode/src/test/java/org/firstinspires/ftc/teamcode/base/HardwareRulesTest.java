@@ -83,6 +83,8 @@ public class HardwareRulesTest {
                     .collect(Collectors.toList())) {
                 String name = file.getFileName().toString();
                 if (name.equals("Constants.java")) continue;
+                // Each robot's own file holds the configs AutoTune prints, names and all.
+                if (name.matches("Bot[0-9]+\\.java")) continue;
                 if (file.toString().contains("procedures")) continue;   // tuners ask the driver
                 String code = withoutComments(new String(Files.readAllBytes(file), "UTF-8"));
                 for (String device : names) {

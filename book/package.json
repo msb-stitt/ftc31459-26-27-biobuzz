@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "description": "Status: controlling. mermaid-cli, which draws the book's Mermaid diagrams as SVG files when the book is built; see source/conf.py.",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "12.0.0",
+    "puppeteer": "25.16.0"
+  }
+}

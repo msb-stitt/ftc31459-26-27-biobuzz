@@ -20,8 +20,16 @@ L120CompareLocalizersOpMode
 L120EncoderLocalizer
 L125Drive24OpMode
 L130ForwardThenStrafeOpMode
-L135AutoMenu
+L135OptionMenu
+L135MenuItem
+L135MenuRow
+L135MenuButtons
+L135DriverStationMenu
 L135ChooseAutoOpMode
+L135MenuItemTest
+L135MenuRowTest
+L135OptionMenuTest
+L135MenuButtonsTest
 L140FieldRelativeOpMode
 L140AutoOpMode
 L150RobotRelativeButtonOpMode

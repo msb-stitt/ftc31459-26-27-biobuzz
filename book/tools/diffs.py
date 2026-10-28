@@ -109,7 +109,8 @@ def page(lesson: str, copies: list[Copied], files: list[tuple[str, list[dict]]])
         out.append("## Copies")
         out.append("")
         for c in copies:
-            out.append(f"- `{c.source}` to `{c.target}`")
+            under = ", under `test`" if c.test else ""
+            out.append(f"- `{c.source}` to `{c.target}`{under}")
         out.append("")
     for path, group in files:
         out.append(f"## {Path(path).stem}")

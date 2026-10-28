@@ -1,20 +1,38 @@
 package org.firstinspires.ftc.teamcode.pedro;
 
+import com.pedropathing.algorithm.ForesightConfig;
 import com.pedropathing.revhub.drivetrains.MecanumConfig;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.pedropathing.revhub.localizers.PinpointConfig;
 
 /**
- * Robot 31459's own values. {@link Constants#thisRobot} picks this file when it
- * names {@code BOT_31459}; what every robot shares stays in {@link Constants}.
+ * Robot 31459's own values: a StarterBot. {@link Constants#thisRobot} picks
+ * this file when it names {@code BOT_31459}, and {@link Constants} sets what
+ * every robot shares on top.
+ *
+ * <p>Each value is 37523's, as a start. MEASURE each: paste over a line below
+ * what the AutoTune procedure named above it prints. AutoTune is the page the
+ * robot serves at 192.168.43.1:10158.
  */
 class Bot31459 {
 
-    /** Which way each drive motor is mounted. */
-    static void drivetrain(MecanumConfig c) {
-        // Not yet measured on 31459: 37523's, as a start. MEASURE: Mecanum Tuner.
-        c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
-        c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
-        c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
-    }
+    // Mecanum Tuner.
+    public static MecanumConfig drivetrainConfig = Bot37523.drivetrainConfig;
+
+    // Pinpoint Tuner.
+    public static PinpointConfig localizerConfig = Bot37523.localizerConfig;
+
+    // Foresight Tuner.
+    public static ForesightConfig foresightConfig = Bot37523.foresightConfig;
+
+    /** L195 measures both. */
+    static double ticksPerInch = Bot37523.ticksPerInch;
+    static double turnRadiusInches = Bot37523.turnRadiusInches;
+
+    static double launcherTargetTicksPerSecond = Bot37523.launcherTargetTicksPerSecond;
+    static double launcherFeedAboveTicksPerSecond = Bot37523.launcherFeedAboveTicksPerSecond;
+    static double launcherVelocityP = Bot37523.launcherVelocityP;
+    static double launcherVelocityI = Bot37523.launcherVelocityI;
+    static double launcherVelocityD = Bot37523.launcherVelocityD;
+    static double launcherStaticPower = Bot37523.launcherStaticPower;
+    static double launcherPowerPerTickPerSecond = Bot37523.launcherPowerPerTickPerSecond;
 }

@@ -18,7 +18,12 @@ import java.util.function.BooleanSupplier;
 
 /**
  * goBILDA's StarterBot launcher: the launcher motor spins up, and once it is
- * fast enough the windmill servo feeds it. The numbers are goBILDA's.
+ * fast enough the windmill servo feeds it. Its speeds and gains are the
+ * robot's own, read from {@link Constants}.
+ *
+ * <p>The hub holds the speed itself, and its feedforward is F × the target.
+ * So that the feedforward is a static part plus a part per tick per second,
+ * kS + kV × target, the hub is given a new F each time the target changes.
  *
  * <p>Each time the motor is given a target, spinning or stopped, its target,
  * its measured speed, its current and whether the windmill is feeding go to
@@ -27,10 +32,10 @@ import java.util.function.BooleanSupplier;
  */
 class Launcher {
 
-    /** About 2678 RPM, in encoder ticks per second. */
-    static final double TARGET_TICKS_PER_SECOND = 1250;
-    /** About 2571 RPM: the windmill feeds only above this. */
-    static final double FEED_ABOVE_TICKS_PER_SECOND = 1200;
+    /** The robot's target, in encoder ticks per second: goBILDA's 1250 is about 2678 RPM. */
+    static final double TARGET_TICKS_PER_SECOND = Constants.launcherTargetTicksPerSecond;
+    /** The windmill feeds only above this: goBILDA's 1200 is about 2571 RPM. */
+    static final double FEED_ABOVE_TICKS_PER_SECOND = Constants.launcherFeedAboveTicksPerSecond;
     /** Added to the intake's speed while feeding, as goBILDA's example does. */
     static final double INTAKE_BOOST = 0.5;
 
@@ -41,18 +46,14 @@ class Launcher {
     /** The windmill still. */
     static final double WINDMILL_STOPPED_SPEED = 0;
 
-    /**
-     * The launcher motor's velocity gains: P, I, D and F. goBILDA's example
-     * used 40, 0, 0 and 12.5;
-     */
-    static final double VELOCITY_P = 40;
-    static final double VELOCITY_I = 0;
-    static final double VELOCITY_D = 0;
-    static final double VELOCITY_F = 12.5*1.1;
+    /** Full power, in the hub's own units for the feedforward. */
+    static final double HUB_FULL_POWER = 32767;
 
     final DcMotorEx motor;
     final CRServo windmill;
     boolean feeding;
+    /** The target the hub's F was last worked out for. */
+    double targetTheHubsFeedforwardIsFor;
     /** Where {@link #fireWhile} reads the fire button each loop. */
     BooleanSupplier fireButtonIsHeld;
 
@@ -94,8 +95,16 @@ class Launcher {
         return fireWhileTheButtonIsHeld;
     }
 
-    /** The motor's target, a speed it then holds by itself. */
+    /**
+     * The motor's target, a speed it then holds by itself. A new target to
+     * spin at gets its own F first.
+     */
     void spinAt(double targetTicksPerSecond) {
+        boolean targetChanged = targetTicksPerSecond != targetTheHubsFeedforwardIsFor;
+        boolean spinning = targetTicksPerSecond > STOPPED_TICKS_PER_SECOND;
+        if (targetChanged && spinning) {
+            giveTheHubItsGainsFor(targetTicksPerSecond);
+        }
         motor.setVelocity(targetTicksPerSecond);
         publishTheMotor(targetTicksPerSecond);
     }
@@ -149,13 +158,33 @@ class Launcher {
     }
 
     /**
-     * The hub holds the target by itself, from the motor's encoder, with
-     * goBILDA's gains in place of the SDK's defaults.
+     * The hub holds the target by itself, from the motor's encoder, with the
+     * robot's gains in place of the SDK's defaults.
      */
     void useTheMotorsOwnVelocityControl() {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        PIDFCoefficients gains = new PIDFCoefficients(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F);
+        giveTheHubItsGainsFor(TARGET_TICKS_PER_SECOND);
+    }
+
+    /** The robot's P, I and D, and the F that makes the feedforward right at this target. */
+    void giveTheHubItsGainsFor(double targetTicksPerSecond) {
+        double hubF = hubFeedforwardAt(targetTicksPerSecond);
+        PIDFCoefficients gains = new PIDFCoefficients(Constants.launcherVelocityP,
+                Constants.launcherVelocityI, Constants.launcherVelocityD, hubF);
         motor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, gains);
+        targetTheHubsFeedforwardIsFor = targetTicksPerSecond;
+    }
+
+    /**
+     * The hub's F at a target: kS + kV × target, as a fraction of full power,
+     * in the hub's units, divided by the target the hub multiplies it by.
+     */
+    static double hubFeedforwardAt(double targetTicksPerSecond) {
+        double powerForEachTick = Constants.launcherPowerPerTickPerSecond * targetTicksPerSecond;
+        double powerAtTarget = Constants.launcherStaticPower + powerForEachTick;
+        double hubUnitsAtTarget = powerAtTarget * HUB_FULL_POWER;
+        double hubF = hubUnitsAtTarget / targetTicksPerSecond;
+        return hubF;
     }
 
     /** The target, the measured speed, the current and the windmill, for the flight log. */

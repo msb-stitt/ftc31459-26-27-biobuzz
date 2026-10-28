@@ -14,7 +14,9 @@ another commit, or if a figure there is still an LFS pointer.
 build/publish/ is emptied first. build.py puts the figures in build/publish/media/,
 named by their hash; this copies there each video a page links, from MEDIA's
 videos/, and fails if one is still an LFS pointer. Then it fails if a page links
-a file in media/ that is not there, or whose name's hash is not its own.
+a file in media/ that is not there, or whose name's hash is not its own, and if a
+file in media/ is linked by no page as cloudflare/media_index.py reads a page's
+links: the media index would list that file as used by no version, and removable.
 
 It runs in a Python with requirements.txt.
 
@@ -35,6 +37,9 @@ import answers
 import register
 from bookpaths import book_root
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "cloudflare"))
+import media_index  # noqa: E402
+
 OUT = Path("build") / "publish"
 
 
@@ -48,7 +53,6 @@ def git(*args: str, cwd: Path) -> str:
                           text=True).stdout.strip()
 
 
-LINK = re.compile(r'(?:href|src)="([^"#?]*media/[^"#?]+)"')
 NAMED = re.compile(r"(.+)_([0-9a-f]{12})(\.\w+)")
 POINTER = b"version https://git-lfs"
 
@@ -66,7 +70,7 @@ def linked(out: Path) -> dict[str, list[str]]:
     with the pages that link it."""
     found: dict[str, list[str]] = {}
     for page in sorted(out.rglob("*.html")):
-        for href in LINK.findall(page.read_text(encoding="utf-8")):
+        for href in media_index.LINK.findall(page.read_text(encoding="utf-8")):
             if "://" in href:
                 continue
             target = (page.parent / href).resolve()
@@ -107,6 +111,12 @@ def unserved(out: Path, links: dict[str, list[str]]) -> list[str]:
     return bad
 
 
+def unlinked(out: Path, links: dict[str, list[str]]) -> list[str]:
+    """Each file in OUT/media/ that no page links, as the media index reads links."""
+    return [f"media/{path.name} is linked by no page" for path in sorted((out / "media").iterdir())
+            if f"media/{path.name}" not in links]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--media", type=Path, default=None,
@@ -145,7 +155,7 @@ def main() -> int:
         if finished.returncode:
             return finished.returncode
     links = linked(out)
-    bad = videos(out, media, links) or unserved(out, links)
+    bad = videos(out, media, links) or unserved(out, links) or unlinked(out, links)
     if bad:
         print("FAILED: pages link media that is not there as named:\n  " + "\n  ".join(bad))
         return 1

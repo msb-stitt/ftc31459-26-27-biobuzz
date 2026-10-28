@@ -61,24 +61,27 @@ public class LiveNetworkTablesTest {
 
     @Test
     public void notSetALessonIsLiveAndACompetitionOpModeIsNot() throws Exception {
-        OpModeHarness lesson = run(lesson("L110FollowerOpMode"));
+        OpModeHarness lesson = initAndOnePass(lesson("L110FollowerOpMode"));
         assertTrue(lesson.driverStation.text(),
                 lesson.driverStation.shows("Live NetworkTables on. AdvantageScope: connect to 192.168.43.1"));
+        startOneLoopAndStop(lesson);
         assertEquals("the lesson asked for the server", 1, serversAskedFor);
 
         CompetitionTeleOp competition = new CompetitionTeleOp();
-        OpModeHarness h = run(competition);
+        OpModeHarness h = initAndOnePass(competition);
         assertFalse(competition.serving);
         assertTrue(h.driverStation.text(), h.driverStation.shows("Live NetworkTables off"));
+        startOneLoopAndStop(h);
         assertEquals("the competition OpMode did not", 1, serversAskedFor);
     }
 
     @Test
     public void offALessonStartsNoServer() throws Exception {
         Tracker.setLive(LiveSetting.OFF);
-        OpModeHarness h = run(lesson("L110FollowerOpMode"));
+        OpModeHarness h = initAndOnePass(lesson("L110FollowerOpMode"));
         assertTrue(h.driverStation.text(), h.driverStation.shows("Live NetworkTables off"));
         assertFalse(h.driverStation.text(), h.driverStation.shows("AdvantageScope"));
+        startOneLoopAndStop(h);
         assertEquals(0, serversAskedFor);
     }
 
@@ -86,40 +89,49 @@ public class LiveNetworkTablesTest {
     public void onACompetitionOpModeServes() {
         Tracker.setLive(LiveSetting.ON);
         CompetitionTeleOp competition = new CompetitionTeleOp();
-        OpModeHarness h = run(competition);
+        OpModeHarness h = initAndOnePass(competition);
         assertTrue(competition.serving);
         assertTrue(h.driverStation.text(), h.driverStation.shows("Live NetworkTables on"));
+        startOneLoopAndStop(h);
         assertEquals(1, serversAskedFor);
     }
 
     @Test
     public void theSwitchTurnsItTheOtherWayEachTimeItIsStarted() {
-        OpModeHarness first = run(new LiveNetworkTablesSwitch());
+        OpModeHarness first = initAndOnePass(new LiveNetworkTablesSwitch());
         assertTrue(first.driverStation.text(), first.driverStation.shows(
                 "Live NetworkTables is currently off, but on for a lesson. Press Start to turn it on."));
+        startOneLoopAndStop(first);
         assertTrue(first.driverStation.text(), first.driverStation.shows("Live NetworkTables is now on."));
         assertEquals(LiveSetting.ON, Tracker.liveSetting());
 
-        OpModeHarness second = run(new LiveNetworkTablesSwitch());
+        OpModeHarness second = initAndOnePass(new LiveNetworkTablesSwitch());
         assertTrue(second.driverStation.text(), second.driverStation.shows(
                 "Live NetworkTables is currently on. Press Start to turn it off."));
+        startOneLoopAndStop(second);
         assertEquals(LiveSetting.OFF, Tracker.liveSetting());
 
-        OpModeHarness third = run(new LiveNetworkTablesSwitch());
+        OpModeHarness third = initAndOnePass(new LiveNetworkTablesSwitch());
         assertTrue(third.driverStation.text(), third.driverStation.shows(
                 "Live NetworkTables is currently off. Press Start to turn it on."));
+        startOneLoopAndStop(third);
         assertEquals(LiveSetting.ON, Tracker.liveSetting());
         assertEquals("the switch serves nothing itself", 0, serversAskedFor);
     }
 
-    /** INIT, Start and one loop, which sends the Driver Station its lines, then Stop. */
-    private static OpModeHarness run(OpMode opMode) {
+    /** INIT and one pass after it, which sends the Driver Station INIT's lines. */
+    private static OpModeHarness initAndOnePass(OpMode opMode) {
         OpModeHarness h = new OpModeHarness(opMode);
         h.init();
+        h.initLoop();
+        return h;
+    }
+
+    /** Start and one loop, which sends the Driver Station the loop's lines, then Stop. */
+    private static void startOneLoopAndStop(OpModeHarness h) {
         h.start();
         h.loop();
         h.stop();
-        return h;
     }
 
     /** A starter from {@code lessons}, which is package-private there. */

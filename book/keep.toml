@@ -147,7 +147,8 @@ words = 1300
 path = "source/tasks/l135.md"
 # Measured off the first draft, 823 words, and rounded up, 2026-10-27. Raised for the menu, the
 # auto's choice and the summary typed by the student, and the gamepad checks, 936 words, 2026-10-27.
-words = 1000
+# Raised for the five menu classes and their tests, typed test first, 1860 words, 2026-10-28.
+words = 1900
 
 [[page]]
 path = "source/tasks/l140.md"
@@ -240,7 +241,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-l140-alliances.2"
+solutions = "solutions-l135-menu-classes.1"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -250,5 +251,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-l140-alliances"
-commit = "f5cfb308b3eb3af5d218fbd90f10580efaaa7ee9"
+ref = "lessons-l135-menu-classes"
+commit = "c28cac92d86c8adf314b90bec69f1659e5c4ee12"

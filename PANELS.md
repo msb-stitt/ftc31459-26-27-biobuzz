@@ -133,7 +133,7 @@ in 15 reaches the graph.
 - `vel/tangential_ips` should rise, plateau, then decay to zero. A long tail
   near zero means the follower is still correcting at the end of the path.
 - `vel/strafeY_ips` should stay near zero on a straight drive. If it doesn't,
-  the odometry pod offsets in `Constants.java` are probably off.
+  the odometry pod offsets in the robot's own file, such as `pedro/Bot37523.java`, are probably off.
 
 ### Field view
 
@@ -212,8 +212,9 @@ still reaches the driver.
 
 `Tracker.endLoop(follower)` flushes Panels and the Driver Station once per loop,
 from `loopAfter()`. Do not call `telemetry.update()` or `panels.update()`
-yourself — a second flush wipes what the first one sent, and a test fails the
-build if a bare `telemetry` appears anywhere outside `Tracker`.
+yourself — on the Driver Station, a flush inside the loop loses the lines printed
+before it as soon as another is printed, and a test fails the build if a bare
+`telemetry` appears anywhere outside `Tracker`.
 
 To sample faster than every 75 ms, call `panels.setUpdateInterval(20);` in
 `start()`. It costs more Wi-Fi traffic.
