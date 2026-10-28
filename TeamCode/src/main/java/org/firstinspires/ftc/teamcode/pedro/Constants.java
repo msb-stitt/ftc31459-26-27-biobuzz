@@ -28,11 +28,17 @@ public class Constants {
     public enum Robot { BOT_88888, BOT_37523, BOT_31459 }
 
     /**
-     * The robot this code is going onto. Change this line when you switch
-     * robots. What differs between robots is in that robot's own file; what
-     * they share is in this one.
+     * The robot this code is going onto. On a robot, the Robot Controller name
+     * picks it, when that name starts with one of our robots' numbers, such as
+     * 88888-RC; then this line is replaced. Otherwise, and in the simulator and
+     * the tests, which have no Robot Controller name, this line picks it: change
+     * it when you switch robots. What differs between robots is in that robot's
+     * own file; what they share is in this one.
      */
     public static Robot thisRobot = Robot.BOT_37523;
+
+    /** True when the Robot Controller name picked thisRobot, false when the line above did. */
+    public static boolean pickedByRobotControllerName = false;
 
     // ---- Device names. These must match the Robot Controller configuration,
     // ---- and nothing outside this file and the robots' own files should name
@@ -106,9 +112,36 @@ public class Constants {
 
     static {
         RobotControllerName.recordConstantsRunning();
+        pickByTheRobotControllerName(RobotControllerName.nameWhenConstantsRan());
         takeThisRobotsValues();
         setWhatEveryRobotShares();
         readTheDriveNumbersFromForesight();
+    }
+
+    /**
+     * thisRobot from the Robot Controller name, such as BOT_88888 from 88888-RC,
+     * when that name starts with one of our robots' numbers. Otherwise thisRobot
+     * stays as written.
+     */
+    static void pickByTheRobotControllerName(String robotControllerName) {
+        Robot named = robotNamedBy(robotControllerName);
+        if (named != null) {
+            thisRobot = named;
+            pickedByRobotControllerName = true;
+        }
+    }
+
+    /** The robot whose number the Robot Controller name starts with, or null if none. */
+    static Robot robotNamedBy(String robotControllerName) {
+        Robot named = null;
+        if (robotControllerName.startsWith("88888")) {
+            named = Robot.BOT_88888;
+        } else if (robotControllerName.startsWith("37523")) {
+            named = Robot.BOT_37523;
+        } else if (robotControllerName.startsWith("31459")) {
+            named = Robot.BOT_31459;
+        }
+        return named;
     }
 
     /** The values in the file of the robot thisRobot names. */

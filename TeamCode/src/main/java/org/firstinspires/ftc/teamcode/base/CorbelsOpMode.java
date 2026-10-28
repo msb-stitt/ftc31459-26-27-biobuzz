@@ -6,6 +6,7 @@ import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 
 /**
@@ -99,6 +100,9 @@ public abstract class CorbelsOpMode extends OpMode {
         if (isLesson()) {
             Tracker.serveLiveUnlessSwitchedOff();
         }
+        Tracker.publish("Constants/thisRobot", Constants.thisRobot.name());
+        Tracker.publish("Constants/pickedByRobotControllerName",
+                Constants.pickedByRobotControllerName);
     }
 
     /** True for an OpMode in {@code lessons} or in {@code mytry}. */
@@ -134,6 +138,7 @@ public abstract class CorbelsOpMode extends OpMode {
         if (!isLesson()) {
             Tracker.printToDs("Panels: http://192.168.43.1:8001");
         }
+        Tracker.endInit();
     }
 
     /**

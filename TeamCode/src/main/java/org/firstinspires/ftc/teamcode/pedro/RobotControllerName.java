@@ -5,16 +5,16 @@ import org.firstinspires.ftc.robotcore.internal.network.NetworkConnectionHandler
 import java.util.function.Supplier;
 
 /**
- * The Robot Controller's name, such as 37523-RC, and what {@link Constants}
- * found when its static code ran. Robot Name Check shows both, to find out
- * whether the name could pick the robot in place of {@link Constants#thisRobot}.
+ * The Robot Controller name, such as 37523-RC, and what {@link Constants}
+ * found when its static code ran. Constants picks {@link Constants#thisRobot}
+ * from that Robot Controller name, and Robot Name Check shows both.
  *
  * <p>This class reads no value from Constants, so using it does not run
  * Constants' static code.
  */
 public class RobotControllerName {
 
-    /** Where the name is read from. Tests hand in their own. */
+    /** Where the Robot Controller name is read from. Tests hand in their own. */
     public static Supplier<String> reader = RobotControllerName::readFromTheSdk;
 
     /** How many of the calls that ran Constants' static code are kept, nearest first. */
@@ -35,35 +35,41 @@ public class RobotControllerName {
         return whatRanConstants;
     }
 
-    /** The name, or why it could not be read, at the time Constants' static code ran. */
+    /** The Robot Controller name, or why it could not be read, when Constants' static code ran. */
     public static String nameWhenConstantsRan() {
         return nameWhenConstantsRan;
     }
 
-    /** The name now, or why it cannot be read. Never throws. */
+    /** The Robot Controller name now, or why it cannot be read. Never throws. */
     public static String readNow() {
-        String name;
+        String robotControllerName;
         try {
-            name = reader.get();
+            robotControllerName = reader.get();
         } catch (Throwable whyNot) {
             String couldNotRead = "(could not read: " + whyNot + ")";
             return couldNotRead;
         }
-        if (name == null) {
-            String noName = "(could not read: no name yet)";
+        if (robotControllerName == null) {
+            String noName = "(could not read: no Robot Controller name yet)";
             return noName;
         }
-        return name;
+        return robotControllerName;
     }
 
-    /** The SDK's own record of the name, the one the Driver Station and the Wi-Fi show. */
+    /**
+     * The SDK's own record of the Robot Controller name, the one the Driver
+     * Station and the Wi-Fi show.
+     */
     static String readFromTheSdk() {
         NetworkConnectionHandler network = NetworkConnectionHandler.getInstance();
-        String name = network.getDeviceName();
-        return name;
+        String robotControllerName = network.getDeviceName();
+        return robotControllerName;
     }
 
-    /** Called by Constants' static code, first: when it ran, what ran it, and the name then. */
+    /**
+     * Called by Constants' static code, first: when it ran, what ran it, and the
+     * Robot Controller name then.
+     */
     static void recordConstantsRunning() {
         StackTraceElement[] calls = new Throwable().getStackTrace();
         StringBuilder callsThatRanIt = new StringBuilder();
