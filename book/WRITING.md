@@ -128,9 +128,10 @@ L135 is the first. Its page and its starters are written this way:
 
 - **The problem first.** After the picture, `## the problem` says what the code does as the driver
   sees it, not as the code holds it, and gives example output that defines it fully.
-- **The classes next.** `## the classes` gives each class's one job, then a Mermaid class diagram
-  and one action traced as a Mermaid sequence diagram. Each diagram is registered in
-  `FIGURES.md`, as *A picture is registered before it is drawn* says.
+- **The classes next.** `## the classes` gives each class's one job, then a class diagram and one
+  action traced as a sequence diagram, each written in Mermaid and drawn by `draw.py`, as *Draw
+  in the marker-sketch style* says. Each diagram is registered in `FIGURES.md`, as *A picture is
+  registered before it is drawn* says.
 - **A starter is a header**: its class Javadoc and step pointer only. The student types the
   `package` line, the imports and the class.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
@@ -275,6 +276,11 @@ green for `boolean`, blue for an object. A plot of numbers, such as `fig-stick-s
 plain. A drawing is the guide's picture, not a stand-in for a photo. `draw.py`'s docstring holds the
 details.
 
+A diagram of classes or of calls is written in Mermaid, as `tools/mermaid/<id>.mmd`. `draw.py` has
+mermaid-cli lay it out with Menlo as its font, then draws its boxes, words and arrows again in this
+style. mermaid-cli is installed by `npm ci` in `book/`, which needs Node 22.13.0 or later; it
+installs the Chrome mermaid-cli draws with into `book/.cache`.
+
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses
 for names and values:
@@ -310,12 +316,8 @@ text, not a heading: a heading inside `only` brings the whole block into the stu
 ```
 python3 -m venv book/.venv
 book/.venv/bin/pip install -r book/requirements.txt
-cd book && npm ci
-PATH="$PWD/.venv/bin:$PATH" ninja book
+cd book && PATH="$PWD/.venv/bin:$PATH" ninja book
 ```
-
-`npm ci` needs Node 22.13.0 or later. It installs mermaid-cli, which draws each Mermaid diagram as
-an SVG file, into `book/node_modules`, and the Chrome it draws with into `book/.cache`.
 
 `ninja -k 0 book` runs every check even when the first fails, which is what you want when fixing
 rather than gating. What each check does is in its own docstring.

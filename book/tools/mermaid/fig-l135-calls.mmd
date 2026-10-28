@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant OpMode as L135ChooseAutoOpMode
+    participant DS as L135DriverStationMenu
+    participant Buttons as L135MenuButtons
+    participant Menu as L135OptionMenu
+    participant Row as L135MenuRow
+    OpMode->>DS: loop(gamepad1), from init_loop()
+    DS->>Buttons: loop(gamepad)
+    Buttons->>Menu: right()
+    Menu->>Row: right()
+    DS->>Menu: lines()
+    Menu->>Row: line()
+    Row-->>Menu: "Alliance: Blue? A:OK B:Back"
+    Menu-->>DS: the summary and each row's line
+    DS->>DS: printToDs, for each line

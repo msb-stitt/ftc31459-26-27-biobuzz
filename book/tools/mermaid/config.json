@@ -1,0 +1,8 @@
+{
+  "look": "classic",
+  "fontFamily": "Menlo",
+  "themeVariables": {"fontFamily": "Menlo"},
+  "htmlLabels": false,
+  "class": {"useMaxWidth": false, "htmlLabels": false},
+  "sequence": {"useMaxWidth": false}
+}

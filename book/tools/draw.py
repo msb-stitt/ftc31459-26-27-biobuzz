@@ -8,7 +8,8 @@ at the ref keep.toml's [media] names. Moved here from gh-pages' src/ on 2026-10-
 Three kinds of figure. The plots, stick_shaping and speed_loop, are plain matplotlib, so a value
 can be read off them. panels_graph and l135_menu are stand-ins for a Panels screenshot and a
 Driver Station screenshot still to be taken, and say so on their faces. Every other figure is a drawing, in the marker-sketch style below, and is the
-drawing the book uses.
+drawing the book uses. The diagrams among them are written in Mermaid, as tools/mermaid/fig-*.mmd;
+mermaid-cli lays each out, and this draws it again.
 
 Every number in a figure is the code's: the 0.05 deadband and the sign-keeping square of L060, the
 four mixing sums of L090, the field rotation of L140, and L190's 40 in/s, its feedforward of
@@ -31,9 +32,17 @@ The marker-sketch style, as the lesson outline sets it:
   The script stops when either font is missing rather than draw in another.
 """
 
+import base64
+import json
 import math
+import os
 import random
+import re
+import subprocess
 import sys
+import tempfile
+import xml.etree.ElementTree as ET
+import zlib
 from pathlib import Path
 
 import matplotlib
@@ -3245,6 +3254,185 @@ def loops():
     s.save("fig-control-loops")
 
 
+# -- Mermaid diagrams. mermaid-cli lays out each tools/mermaid/fig-*.mmd, with Menlo as its font so
+# -- each box fits the code font drawn here; its SVG's boxes, text and arrows are drawn again in
+# -- the marker-sketch style, one drawing pixel to each of Mermaid's.
+
+MERMAID = Path(__file__).resolve().parent / "mermaid"
+BOOK = Path(__file__).resolve().parents[1]
+MMDC = BOOK / "node_modules" / ".bin" / "mmdc"
+SVG_NS = "{http://www.w3.org/2000/svg}"
+MERMAID_SIZE = 16          # Mermaid's font size, in its pixels
+CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
+MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
+TRANSLATE = re.compile(r"translate\(\s*([-\d.e]+)[\s,]+([-\d.e]+)\s*\)")
+NUMBER = re.compile(r"-?[\d.]+(?:e-?\d+)?")
+
+
+def mermaid_svg(name):
+    """The SVG mermaid-cli lays name.mmd out as, with book/'s own Chrome."""
+    if not MMDC.exists():
+        raise SystemExit(f"{MMDC} is missing: run npm ci in book/")
+    env = dict(os.environ, PUPPETEER_CACHE_DIR=str(BOOK / ".cache" / "puppeteer"))
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / f"{name}.svg"
+        subprocess.run([str(MMDC), "-q", "-i", str(MERMAID / f"{name}.mmd"), "-o", str(out),
+                        "-c", str(MERMAID / "config.json")], check=True, env=env)
+        return ET.parse(out).getroot()
+
+
+def walk(el, dx=0.0, dy=0.0):
+    """Each element and where its translates put its origin; defs and styles left out."""
+    m = TRANSLATE.search(el.get("transform", ""))
+    if m:
+        dx, dy = dx + float(m[1]), dy + float(m[2])
+    yield el, dx, dy
+    for child in el:
+        if child.tag not in (SVG_NS + "defs", SVG_NS + "style", SVG_NS + "marker"):
+            yield from walk(child, dx, dy)
+
+
+def em(value):
+    """An SVG length in Mermaid's pixels, from px, em or a bare number."""
+    value = (value or "0").strip()
+    return float(value[:-2]) * MERMAID_SIZE if value.endswith("em") else float(value.rstrip("px"))
+
+
+def classes(el):
+    return el.get("class", "").split()
+
+
+def path_points(d):
+    numbers = [float(n) for n in NUMBER.findall(d)]
+    return list(zip(numbers[::2], numbers[1::2]))
+
+
+def mermaid_read(root):
+    """The boxes, dividers, text, lifelines and arrows of a class or sequence diagram, each in
+    Mermaid's pixels from the SVG's top left."""
+    x0, y0 = (float(v) for v in root.get("viewBox").split()[:2])
+    at = lambda x, y: (x - x0, y - y0)
+    boxes, dividers, words, lifelines, arrows = [], [], [], [], []
+    node_x, names = 0.0, set()
+    for el, dx, dy in walk(root):
+        tag, cls = el.tag.removeprefix(SVG_NS), classes(el)
+        if tag == "g" and "node" in cls:
+            node_x = dx
+        if tag == "g" and "label-group" in cls:
+            names |= set(el.iter())
+        if tag == "g" and "outer-path" in cls:
+            pts = path_points(el[0].get("d"))
+            xs, ys = [x for x, _ in pts], [y for _, y in pts]
+            boxes.append(rect(*at(dx + min(xs), dy + min(ys)), max(xs) - min(xs),
+                              max(ys) - min(ys)))
+        elif tag == "rect" and "actor" in cls:
+            x, y = at(dx + float(el.get("x")), dy + float(el.get("y")))
+            boxes.append(rect(x, y, float(el.get("width")), float(el.get("height"))))
+        elif tag == "g" and "divider" in cls:
+            pts = path_points(el[0].get("d"))
+            dividers.append((at(dx + pts[0][0], dy + pts[0][1]),
+                             at(dx + pts[-1][0], dy + pts[-1][1])))
+        elif tag == "tspan" and "row" in cls:
+            s = "".join(t.text or "" for t in el.iter(SVG_NS + "tspan") if t is not el)
+            y = dy + em(el.get("y")) + em(el.get("dy"))
+            # A class's name, which Mermaid measures in another font than Menlo: centered.
+            if el in names:
+                words.append((at(node_x, y), s, "middle"))
+            else:
+                words.append((at(dx + em(el.get("x")), y), s, "start"))
+        elif tag == "text" and ({"actor-box", "messageText"} & set(cls)):
+            middle = dy + float(el.get("y")) + em(el.get("dy"))
+            s = "".join(el.itertext())
+            words.append((at(dx + float(el.get("x")), middle + CENTRAL * MERMAID_SIZE), s,
+                          "middle"))
+        elif tag == "line" and "actor-line" in cls:
+            lifelines.append((at(dx + float(el.get("x1")), dy + float(el.get("y1"))),
+                              at(dx + float(el.get("x2")), dy + float(el.get("y2")))))
+        elif tag == "line" and ({"messageLine0", "messageLine1"} & set(cls)):
+            arrows.append(([at(dx + float(el.get("x1")), dy + float(el.get("y1"))),
+                            at(dx + float(el.get("x2")), dy + float(el.get("y2")))],
+                           "messageLine1" in cls, "head"))
+        elif tag == "path" and "messageLine0" in cls:
+            p0, c1, c2, p1 = path_points(el.get("d"))
+            pts = [at(dx + x, dy + y) for x, y in bezier(p0, c1, c2, p1)]
+            arrows.append((pts, False, "head"))
+        elif tag == "path" and "relation" in cls:
+            pts = json.loads(base64.b64decode(el.get("data-points")))
+            ends = "diamond" if "aggregation" in el.get("marker-start", "") else "none"
+            arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts], False, ends))
+    w, h = (float(v) for v in root.get("viewBox").split()[2:])
+    boxes = [fit(box, words) for box in boxes]
+    return w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows
+
+
+def across(divider, boxes):
+    """The divider run to the sides of the box it lies in, which fit may have widened."""
+    (x0, y), (x1, _) = divider
+    for box in boxes:
+        xs, ys = [x for x, _ in box], [y for _, y in box]
+        if min(xs) <= (x0 + x1) / 2 <= max(xs) and min(ys) < y < max(ys):
+            return (min(xs), y), (max(xs), y)
+    return divider
+
+
+def fit(box, words, pad=12):
+    """The box, widened about its middle to hold each centered line inside it with pad over."""
+    xs, ys = [x for x, _ in box], [y for _, y in box]
+    left, right, top, bottom = min(xs), max(xs), min(ys), max(ys)
+    middle = (left + right) / 2
+    for (x, y), s, anchor in words:
+        if anchor == "middle" and left < x < right and top < y < bottom:
+            half = len(s) * MENLO_ADVANCE * MERMAID_SIZE / 2 + pad
+            left, right = min(left, middle - half), max(right, middle + half)
+    return rect(left, top, right - left, bottom - top)
+
+
+def bezier(p0, c1, c2, p1, n=16):
+    out = []
+    for i in range(n + 1):
+        t = i / n
+        a, b, c, d = (1 - t) ** 3, 3 * (1 - t) ** 2 * t, 3 * (1 - t) * t * t, t ** 3
+        out.append((a * p0[0] + b * c1[0] + c * c2[0] + d * p1[0],
+                    a * p0[1] + b * c1[1] + c * c2[1] + d * p1[1]))
+    return out
+
+
+def diamond(s, tip, toward):
+    """A hollow diamond with its point at tip, lying along the line toward toward: holds."""
+    tx, ty = tip[0] - toward[0], tip[1] - toward[1]
+    n = math.hypot(tx, ty) or 1
+    tx, ty, h = tx / n, ty / n, 9
+    back = (tip[0] - tx * 2 * h, tip[1] - ty * 2 * h)
+    mid = (tip[0] - tx * h, tip[1] - ty * h)
+    s.line([tip, (mid[0] - ty * h * 0.55, mid[1] + tx * h * 0.55), back,
+            (mid[0] + ty * h * 0.55, mid[1] - tx * h * 0.55)], PEN, 1.8, 0.9, fill=PAPER,
+           closed=True)
+    return back
+
+
+def mermaid(name):
+    w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
+    s = Sketch(w, h, zlib.crc32(name.encode()))
+    for a, b in lifelines:
+        s.line([a, b], GREY2, 1.4, 0.9).set_linestyle((0, (6, 4)))
+    for box in boxes:
+        s.marker(box, MARKER_BLUE, nib=10, opacity=0.4)
+        s.ink_poly(box, width=1.8, over=4)
+    for a, b in dividers:
+        s.ink_line(a, b, width=1.2, over=2, passes=1)
+    for pts, dashed, ends in arrows:
+        if ends == "diamond":
+            pts = [diamond(s, pts[0], pts[1])] + pts[1:]
+        line = s.line(pts, PEN, 1.8, 0.9)
+        if dashed:
+            line.set_linestyle((0, (5, 3)))
+        if ends == "head":
+            loop_head(s, pts[-2], pts[-1], PEN)
+    for xy, words_, anchor in words:
+        s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
+    s.save(name)
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
@@ -3264,4 +3452,7 @@ if __name__ == "__main__":
         raise SystemExit("name the folder to draw into: python tools/run.py draw DIR")
     for draw in PLOTS + PICTURES:
         draw()
-    print(f"drew {len(PLOTS) + len(PICTURES)} figures into {OUT}")
+    diagrams = sorted(MERMAID.glob("fig-*.mmd"))
+    for mmd in diagrams:
+        mermaid(mmd.stem)
+    print(f"drew {len(PLOTS) + len(PICTURES) + len(diagrams)} figures into {OUT}")
