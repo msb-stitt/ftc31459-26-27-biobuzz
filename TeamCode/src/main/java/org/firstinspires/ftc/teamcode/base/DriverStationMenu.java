@@ -3,167 +3,55 @@ package org.firstinspires.ftc.teamcode.base;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * A menu on the Driver Station, worked with a gamepad between INIT and PLAY. A
- * copy of L135's {@code L135AutoMenu}, as solutions-l140-alliances.2 solves it,
- * for code that is not a lesson: the lesson's own has blanks in it for a
- * student to fill. It works as L135's does, and differs in what it prints and
- * in its names: the summary comes first, a selected choice shows as
- * {@code <Blue>}, and L135's "kept" is "selected" here.
+ * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
+ * for an OpMode to make as a field and call from init_loop(). The menu and its
+ * rows are {@link OptionMenu}'s; this class reads the buttons and shows it.
  *
- * <p>The D-pad's up and down pick a row, and its left and right step through
- * that row's choices. A choice is selected only by A. B, and moving to another
- * row, go back to the row's selected choice. Each row starts at its first
- * choice, selected.
+ * <p>Uses {@link OptionMenu}, {@link MenuButtons}, which it makes, and
+ * {@link Tracker}, which shows the menu on the Driver Station and logs its
+ * summary as menu/summary.
  */
+// 'public' so OpModes outside base can make one. 'public' allows access from any code.
 public class DriverStationMenu {
 
-    MenuRow[] rows;
-    int row = 0;
-    int[] selected;
-    int[] shown;
+    OptionMenu optionMenu;
+    MenuButtons menuButtons;
 
-    public DriverStationMenu(MenuRow... rows) {
-        this.rows = rows;
-        selected = new int[rows.length];
-        shown = new int[rows.length];
+    // 'public' so OpModes outside base can make one. 'public' allows access from any code.
+    public DriverStationMenu(OptionMenu optionMenu) {
+        this.optionMenu = optionMenu;
+        menuButtons = new MenuButtons(optionMenu);
     }
 
-    /** Called from init_loop(): reads the buttons, then prints the menu. */
+    /** Called from init_loop(): reads the buttons, then shows the menu and logs its summary. */
+    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
     public void loop(Gamepad gamepad) {
-        if (gamepad.dpadUpWasPressed()) {
-            up();
-        }
-        if (gamepad.dpadDownWasPressed()) {
-            down();
-        }
-        if (gamepad.dpadLeftWasPressed()) {
-            left();
-        }
-        if (gamepad.dpadRightWasPressed()) {
-            right();
-        }
-        if (gamepad.aWasPressed()) {
-            select();
-        }
-        if (gamepad.bWasPressed()) {
-            back();
-        }
-        print();
-    }
-
-    /** The row above, or the last row from the first. */
-    void up() {
-        back();
-        row = row - 1;
-        if (row < 0) {
-            row = rows.length - 1;
+        menuButtons.loop(gamepad);
+        String summary = optionMenu.summary();
+        Tracker.publish("menu/summary", summary);
+        String[] lines = optionMenu.lines();
+        for (String line : lines) {
+            Tracker.printToDs(line);
         }
     }
 
-    /** The row below, or the first row from the last. */
-    void down() {
-        back();
-        row = row + 1;
-        if (row == rows.length) {
-            row = 0;
-        }
-    }
-
-    /** The choice before, or the last choice from the first. */
-    void left() {
-        int lastChoice = rows[row].choices.length - 1;
-        shown[row] = shown[row] - 1;
-        if (shown[row] < 0) {
-            shown[row] = lastChoice;
-        }
-    }
-
-    /** The choice after, or the first choice from the last. */
-    void right() {
-        int lastChoice = rows[row].choices.length - 1;
-        shown[row] = shown[row] + 1;
-        if (shown[row] > lastChoice) {
-            shown[row] = 0;
-        }
-    }
-
-    /** The choice shown becomes the one selected. */
-    void select() {
-        selected[row] = shown[row];
-    }
-
-    /** The choice selected is shown again. */
-    void back() {
-        shown[row] = selected[row];
-    }
-
-    /** The choice selected in the row with this name, such as chosen("Alliance"). */
+    /** The full name of the choice selected in the row with this name, such as chosen("Auto"). */
+    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
     public String chosen(String rowName) {
-        for (int i = 0; i < rows.length; i++) {
-            if (rows[i].name.equals(rowName)) {
-                String choice = rows[i].choices[selected[i]];
-                return choice;
-            }
-        }
-        throw new IllegalArgumentException("No row named " + rowName);
+        String fullName = optionMenu.chosen(rowName);
+        return fullName;
     }
 
-    /**
-     * Starts the row with this name at this choice, selected and shown, such as
-     * startAt("Alliance", "Blue"). A choice the row does not hold changes
-     * nothing.
-     */
-    public void startAt(String rowName, String choice) {
-        for (int i = 0; i < rows.length; i++) {
-            if (rows[i].name.equals(rowName)) {
-                for (int j = 0; j < rows[i].choices.length; j++) {
-                    if (rows[i].choices[j].equals(choice)) {
-                        selected[i] = j;
-                        shown[i] = j;
-                    }
-                }
-            }
-        }
+    /** Selects the choice with this full name in the row with this name, such as startAt("Alliance", "Blue"). */
+    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
+    public void startAt(String rowName, String fullName) {
+        optionMenu.startAt(rowName, fullName);
     }
 
-    /**
-     * Each selected choice's letters before its "-", or its first letter if it
-     * has no "-", joined by "-", such as R-F24.
-     */
+    /** Each row's selected short name, joined by "-", such as B-FS. */
+    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
     public String summary() {
-        String letters = "";
-        for (int i = 0; i < rows.length; i++) {
-            String choice = rows[i].choices[selected[i]];
-            String shortName = choice.substring(0, 1);
-            if (choice.contains("-")) {
-                shortName = choice.split("-")[0];
-            }
-            if (i > 0) {
-                letters = letters + "-";
-            }
-            letters = letters + shortName;
-        }
-        return letters;
-    }
-
-    /**
-     * The summary first, then each row, with > at the one the D-pad is on. A
-     * selected choice shows as {@code <Blue>}; one not yet selected as
-     * {@code Blue? A:OK B:Back}.
-     */
-    void print() {
-        Tracker.printToDs(summary());
-        for (int i = 0; i < rows.length; i++) {
-            String pointer = "  ";
-            if (i == row) {
-                pointer = "> ";
-            }
-            String choice = rows[i].choices[shown[i]];
-            String choiceAsShown = "<" + choice + ">";
-            if (shown[i] != selected[i]) {
-                choiceAsShown = choice + "? A:OK B:Back";
-            }
-            Tracker.printToDs(pointer + rows[i].name + ": " + choiceAsShown);
-        }
+        String summary = optionMenu.summary();
+        return summary;
     }
 }

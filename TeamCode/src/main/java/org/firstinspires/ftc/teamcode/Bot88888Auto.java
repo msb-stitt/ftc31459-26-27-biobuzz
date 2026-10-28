@@ -14,7 +14,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.DriverStationMenu;
+import org.firstinspires.ftc.teamcode.base.MenuItem;
 import org.firstinspires.ftc.teamcode.base.MenuRow;
+import org.firstinspires.ftc.teamcode.base.OptionMenu;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
@@ -36,9 +38,15 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class Bot88888Auto extends CorbelsAuto {
 
-    DriverStationMenu menu = new DriverStationMenu(
-            new MenuRow("Alliance", "Red", "Blue"),
-            new MenuRow("Auto", "N-Nothing", "F24-Forward 24", "FS-Forward Then Strafe"));
+    MenuItem red = new MenuItem("R", "Red");
+    MenuItem blue = new MenuItem("B", "Blue");
+    MenuRow allianceRow = new MenuRow("Alliance", red, blue);
+    MenuItem nothing = new MenuItem("N", "Nothing");
+    MenuItem forward24 = new MenuItem("F24", "Forward 24");
+    MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
+    MenuRow autoRow = new MenuRow("Auto", nothing, forward24, forwardThenStrafe);
+    OptionMenu optionMenu = new OptionMenu(allianceRow, autoRow);
+    DriverStationMenu menu = new DriverStationMenu(optionMenu);
 
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
@@ -71,15 +79,17 @@ public class Bot88888Auto extends CorbelsAuto {
     public void start() {
         startBefore();
         String alliance = menu.chosen("Alliance");
+        Tracker.publish("menu/alliance", alliance);
         OpModeStorage.alliance = alliance;
 
         String auto = menu.chosen("Auto");
+        Tracker.publish("menu/auto", auto);
         Command chosenAuto = Command.NOOP;
         switch (auto) {
-            case "F24-Forward 24":
+            case "Forward 24":
                 chosenAuto = driveForward24();
                 break;
-            case "FS-Forward Then Strafe":
+            case "Forward Then Strafe":
                 chosenAuto = driveForwardThenStrafe();
                 break;
         }
