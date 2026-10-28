@@ -10,7 +10,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.DriverStationMenu;
+import org.firstinspires.ftc.teamcode.base.MenuItem;
 import org.firstinspires.ftc.teamcode.base.MenuRow;
+import org.firstinspires.ftc.teamcode.base.OptionMenu;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
@@ -41,9 +43,14 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class Bot88888TeleOp extends CorbelsTeleOp {
 
-    DriverStationMenu menu = new DriverStationMenu(
-            new MenuRow("Alliance", "Red", "Blue"),
-            new MenuRow("Start", "Auto End", "Wall"));
+    MenuItem red = new MenuItem("R", "Red");
+    MenuItem blue = new MenuItem("B", "Blue");
+    MenuRow allianceRow = new MenuRow("Alliance", red, blue);
+    MenuItem autoEnd = new MenuItem("A", "Auto End");
+    MenuItem wall = new MenuItem("W", "Wall");
+    MenuRow startRow = new MenuRow("Start", autoEnd, wall);
+    OptionMenu optionMenu = new OptionMenu(allianceRow, startRow);
+    DriverStationMenu menu = new DriverStationMenu(optionMenu);
 
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;

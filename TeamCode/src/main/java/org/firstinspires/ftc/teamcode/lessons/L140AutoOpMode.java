@@ -35,9 +35,18 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L140AutoOpMode extends CorbelsAuto {
 
-    L135AutoMenu menu = new L135AutoMenu(
-            new L135Row("Alliance", "Red", "Blue"),
-            new L135Row("Auto", "N-Nothing", "F24-Forward 24", "FS-Forward Then Strafe"));
+    // When on L140S020, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+    // for what to do here.
+//    L135MenuItem red = new L135MenuItem("R", "Red");
+//    L135MenuItem blue = new L135MenuItem("B", "Blue");
+//    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+//    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
+//    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
+//    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
+//    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
+//    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
+//    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
 
     double robotHalfLength_in = 9.0;
     double fieldPerimeterWidth_in = 1.5;
@@ -57,7 +66,10 @@ public class L140AutoOpMode extends CorbelsAuto {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init_loop() {
-        menu.loop(gamepad1);
+        // When on L140S020, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+        // for what to do here.
+//        menu.loop(gamepad1);
         initLoopAfter();
     }
 
@@ -69,17 +81,20 @@ public class L140AutoOpMode extends CorbelsAuto {
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090
         // for what to do here.
 
-        String auto = menu.chosen("Auto");
-        Command chosenAuto = Command.NOOP;
-        switch (auto) {
-            case "F24-Forward 24":
-                chosenAuto = driveForward24();
-                break;
-            case "FS-Forward Then Strafe":
-                chosenAuto = driveForwardThenStrafe();
-                break;
-        }
-        Scheduler.schedule(chosenAuto);
+        // When on L140S020, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+        // for what to do here.
+//        String auto = menu.chosen("Auto");
+//        Command chosenAuto = Command.NOOP;
+//        switch (auto) {
+//            case "Forward 24":
+//                chosenAuto = driveForward24();
+//                break;
+//            case "Forward Then Strafe":
+//                chosenAuto = driveForwardThenStrafe();
+//                break;
+//        }
+//        Scheduler.schedule(chosenAuto);
         startAfter();
     }
 
@@ -87,7 +102,10 @@ public class L140AutoOpMode extends CorbelsAuto {
     @Override
     public void loop() {
         loopBefore();
-        Tracker.printToDs(menu.summary());
+        // When on L140S020, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+        // for what to do here.
+//        Tracker.printToDs(menu.summary());
         Tracker.printPoseSpeedLoopToDs(follower);
         loopAfter();
     }
@@ -102,10 +120,13 @@ public class L140AutoOpMode extends CorbelsAuto {
     PoseFactory poses() {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
-        String alliance = menu.chosen("Alliance");
-        if (alliance.equals("Blue")) {
-            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
-        }
+        // When on L140S020, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s020
+        // for what to do here.
+//        String alliance = menu.chosen("Alliance");
+//        if (alliance.equals("Blue")) {
+//            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
+//        }
         return chosenPoses;
     }
 

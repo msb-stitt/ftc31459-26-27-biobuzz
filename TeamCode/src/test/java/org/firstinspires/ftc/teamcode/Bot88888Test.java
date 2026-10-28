@@ -144,11 +144,11 @@ public class Bot88888Test {
         assertTrue(h.driverStation.text(), h.driverStation.shows("R-N"));
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
-        assertEquals("the summary first, then right shows Blue, not yet selected",
-                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <N-Nothing>",
+        assertEquals("the summary first, then right offers Blue, not yet selected",
+                "R-N\n> Alliance: Blue? A:OK B:Back\n  Auto: <Nothing>",
                 h.driverStation.text());
         pressDuringInit(h, pad -> pad.b = true);
-        assertTrue("B goes back to Red: " + h.driverStation.text(),
+        assertTrue("B clears the offer: " + h.driverStation.text(),
                 h.driverStation.shows("> Alliance: <Red>"));
 
         pressDuringInit(h, pad -> pad.dpad_right = true);
