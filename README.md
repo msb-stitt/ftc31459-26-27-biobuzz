@@ -72,10 +72,10 @@ Auto** and **88888 TeleOp** drive 88888 as the solved L140 Auto and L140 Field R
 `DriverStationMenu` in `base`: the alliance; the auto's route, which is Nothing until another is
 picked; and where the teleop starts, where the auto ended or against the wall. The auto hands its
 alliance to the teleop, which the Driver Station picks next. The teleop drives the field: the stick
-pushed away from the driver drives away from them, whichever way the robot faces. These four,
-Launcher Check, Robot Name Check and Live NetworkTables on/off are the only OpModes on the Driver
-Station; every other is `@Disabled`. The four and Launcher Check send the flight log live to
-AdvantageScope as well, for practice;
+pushed away from the driver drives away from them, whichever way the robot faces. At PLAY the
+teleop records its alliance as `Alliance`. These four, Launcher Check, Robot Name Check and Live
+NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
+four and Launcher Check send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
@@ -91,7 +91,8 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
   AutoTune procedures print, pasted whole, its ticks per inch and turn radius, and its launcher's
   speeds and gains. `Constants` takes the one `thisRobot` names, and sets on top what every robot
   shares and AutoTune does not print: the brake mode, the power threshold and the five hold lines.
-  `Bot31459` uses `Bot37523`'s until its own are measured.
+  `Bot31459` uses `Bot37523`'s until its own are measured. Each OpMode's flight log names the
+  robot `thisRobot` picked, from INIT, as `Constants/thisRobot`.
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot

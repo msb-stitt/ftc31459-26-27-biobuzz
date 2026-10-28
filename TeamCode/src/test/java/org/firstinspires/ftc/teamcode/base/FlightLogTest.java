@@ -90,6 +90,16 @@ public class FlightLogTest {
     }
 
     @Test
+    public void theLogSaysWhichRobotThisRobotPicked() {
+        OpModeHarness h = new OpModeHarness(new SampleTeleOp());
+        h.init();
+        assertEquals("from INIT, so a run that never starts still says",
+                "BOT_37523", Tracker.values().get("Constants/thisRobot"));
+        h.start();
+        h.stop();
+    }
+
+    @Test
     public void somethingLoggedDuringInitIsKept() {
         OpModeHarness h = new OpModeHarness(new InitLogging());
         h.init();

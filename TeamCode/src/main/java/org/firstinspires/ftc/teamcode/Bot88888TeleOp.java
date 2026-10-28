@@ -77,6 +77,9 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
+        String alliance = menu.chosen("Alliance");
+        OpModeStorage.alliance = alliance;
+        Tracker.publish("Alliance", alliance);
         String startPlace = menu.chosen("Start");
         if (startPlace.equals("Wall")) {
             PoseFactory poses = poses();
@@ -166,7 +169,7 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
         String alliance = menu.chosen("Alliance");
-        if (alliance.equals("Blue")) {
+        if (!alliance.equals("Red")) {
             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
         }
         return chosenPoses;
