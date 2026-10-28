@@ -1,0 +1,52 @@
+classDiagram
+    class L135MenuItem {
+        String shortName
+        String fullName
+        shortName()
+        fullName()
+    }
+    class L135MenuRow {
+        String name
+        L135MenuItem[] items
+        int selectedIndex
+        int offeredIndex
+        right()
+        left()
+        select()
+        back()
+        selected()
+        startAt(fullName)
+        line()
+    }
+    class L135OptionMenu {
+        L135MenuRow[] rows
+        int pointedRow
+        up()
+        down()
+        left()
+        right()
+        select()
+        back()
+        chosen(rowName)
+        startAt(rowName, fullName)
+        summary()
+        lines()
+    }
+    class L135MenuButtons {
+        L135OptionMenu optionMenu
+        loop(gamepad)
+    }
+    class L135DriverStationMenu {
+        L135OptionMenu optionMenu
+        L135MenuButtons menuButtons
+        loop(gamepad)
+        chosen(rowName)
+        startAt(rowName, fullName)
+        summary()
+    }
+    L135ChooseAutoOpMode o-- L135DriverStationMenu
+    L135DriverStationMenu o-- L135OptionMenu
+    L135DriverStationMenu o-- L135MenuButtons
+    L135MenuButtons o-- L135OptionMenu
+    L135OptionMenu o-- L135MenuRow
+    L135MenuRow o-- L135MenuItem

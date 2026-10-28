@@ -2,8 +2,7 @@
 #
 # Run it with book/.venv active, or with any Python that has
 # book/requirements.txt installed: the Sphinx build and the reading-level check
-# both need it. The Sphinx build also needs `npm ci` run in book/, for the
-# mermaid-cli that draws the diagrams.
+# both need it.
 #
 # `ninja -k 0 book` runs every check even when the first fails, which is what
 # you want when fixing rather than gating.

@@ -29,7 +29,7 @@ LESSONS = "ftc-lessons-java"
 PREFIX = f"{LESSONS}/media/"
 INDEX = Path(LESSONS) / "media" / "media-index.jsonc"
 NAMED = re.compile(r"(.+)_([0-9a-f]{12})(\.\w+)")
-# data= is how a page shows a Mermaid diagram's SVG file, in an <object>.
+# data= is how a page shows an SVG file, in an <object>.
 LINK = re.compile(r'(?:href|src|data)="([^"#?]*media/[^"#?]+)"')
 SERVED = "https://coding-stitt-cc.pages.dev/"
 
