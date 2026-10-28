@@ -107,6 +107,41 @@ public class Bot88888Test {
     }
 
     @Test
+    public void holdingTheLeftBumperTheTeleOpDrivesTheRobotNotTheField() {
+        OpModeStorage.alliance = "Blue";
+        OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        h.start();
+
+        follower.setPose(POSES.of(72, 72, 90));   // robot faces +y
+        h.gamepad1.left_bumper = true;
+        h.gamepad1.left_stick_y = -1.0f;          // away from the driver
+        h.loop();
+        assertEquals("the robot's front forward, whichever way it faces and on Blue",
+                1.0, h.wheelsForward(), 1e-3);
+        assertEquals(0.0, h.wheelsStrafe(), 1e-3);
+        assertEquals(true, Tracker.values().get("gamepad1/leftBumper"));
+
+        h.gamepad1.left_stick_y = 0.0f;
+        h.gamepad1.left_stick_x = -0.5f;          // to the driver's left
+        h.loop();
+        assertEquals("to the robot's own left, half a stick a quarter of full speed",
+                0.25, h.wheelsStrafe(), 1e-3);
+
+        h.gamepad1.left_bumper = false;
+        h.gamepad1.left_stick_x = 0.0f;
+        h.gamepad1.left_stick_y = -1.0f;          // away from the blue drivers, toward -x
+        h.loop();
+        assertEquals("let go, the field again: -x is to the left of a robot facing +y",
+                1.0, h.wheelsStrafe(), 1e-3);
+        assertEquals(0.0, h.wheelsForward(), 1e-3);
+        assertEquals(false, Tracker.values().get("gamepad1/leftBumper"));
+        h.stop();
+    }
+
+    @Test
     public void theTeleOpMenuChoosesTheAllianceAndTheWall() {
         OpModeStorage.autonomousEndPose = POSES.of(30, 40, 0);
         OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());

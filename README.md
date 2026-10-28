@@ -72,7 +72,8 @@ Auto** and **88888 TeleOp** drive 88888 as the solved L140 Auto and L140 Field R
 `DriverStationMenu` in `base`: the alliance; the auto's route, which is Nothing until another is
 picked; and where the teleop starts, where the auto ended or against the wall. The auto hands its
 alliance to the teleop, which the Driver Station picks next. The teleop drives the field: the stick
-pushed away from the driver drives away from them, whichever way the robot faces. At PLAY the
+pushed away from the driver drives away from them, whichever way the robot faces. Holding the left
+bumper drives the robot instead: the stick pushed away drives the robot's front forward. At PLAY the
 teleop records its alliance as `Alliance`. These four, Launcher Check, Robot Name Check and Live
 NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
 four and Launcher Check send the flight log live to AdvantageScope as well, for practice;
