@@ -1,23 +1,23 @@
-# L135: the six starters and the four test starters, copied into mytry, and each filled in.
-copy lessons/L135OptionMenu.java mytry/L135OptionMenu.java
-copy lessons/L135MenuItem.java mytry/L135MenuItem.java
-copy lessons/L135MenuRow.java mytry/L135MenuRow.java
-copy lessons/L135MenuButtons.java mytry/L135MenuButtons.java
-copy lessons/L135DriverStationMenu.java mytry/L135DriverStationMenu.java
-copy lessons/L135ChooseAutoOpMode.java mytry/L135ChooseAutoOpMode.java
-copy test lessons/L135MenuItemTest.java mytry/L135MenuItemTest.java
-copy test lessons/L135MenuRowTest.java mytry/L135MenuRowTest.java
-copy test lessons/L135OptionMenuTest.java mytry/L135OptionMenuTest.java
-copy test lessons/L135MenuButtonsTest.java mytry/L135MenuButtonsTest.java
-patch L135OptionMenu.patch
-patch L135MenuItem.patch
-patch L135MenuRow.patch
-patch L135MenuButtons.patch
-patch L135DriverStationMenu.patch
-patch L135ChooseAutoOpMode.patch
-patch L135MenuItemTest.patch
-patch L135MenuRowTest.patch
-patch L135OptionMenuTest.patch
-patch L135MenuButtonsTest.patch
-test *.mytry.L135*
+# L135: the six starters and the four test starters, copied into mytry/l135, and each filled in.
+copy lessons/l135/OptionMenu.java mytry/l135/OptionMenu.java
+copy lessons/l135/MenuItem.java mytry/l135/MenuItem.java
+copy lessons/l135/MenuRow.java mytry/l135/MenuRow.java
+copy lessons/l135/MenuButtons.java mytry/l135/MenuButtons.java
+copy lessons/l135/DriverStationMenu.java mytry/l135/DriverStationMenu.java
+copy lessons/l135/AutoWithMenuOpMode.java mytry/l135/AutoWithMenuOpMode.java
+copy test lessons/l135/MenuItemTest.java mytry/l135/MenuItemTest.java
+copy test lessons/l135/MenuRowTest.java mytry/l135/MenuRowTest.java
+copy test lessons/l135/OptionMenuTest.java mytry/l135/OptionMenuTest.java
+copy test lessons/l135/MenuButtonsTest.java mytry/l135/MenuButtonsTest.java
+patch OptionMenu.patch
+patch MenuItem.patch
+patch MenuRow.patch
+patch MenuButtons.patch
+patch DriverStationMenu.patch
+patch AutoWithMenuOpMode.patch
+patch MenuItemTest.patch
+patch MenuRowTest.patch
+patch OptionMenuTest.patch
+patch MenuButtonsTest.patch
+test *.mytry.l135.*
 test *LessonsTest.l135*

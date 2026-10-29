@@ -1,0 +1,41 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java
+index f87e0b1..2b437fb 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java
+@@ -1,3 +1,9 @@
++package org.firstinspires.ftc.teamcode.mytry.l135;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
++import org.firstinspires.ftc.teamcode.base.Tracker;
++
+ /**
+  * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
+  * for an OpMode to make as a field and call from init_loop(). The menu and its
+@@ -10,3 +16,26 @@
+ // When on L135S120, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+ // for what to write in this file.
++// 'public' so L140's OpModes, in another package, can use it.
++public class DriverStationMenu {
++
++    private OptionMenu optionMenu;
++    private MenuButtons menuButtons;
++
++    public DriverStationMenu(OptionMenu optionMenu) {
++        this.optionMenu = optionMenu;
++        this.menuButtons = new MenuButtons(optionMenu);
++    }
++
++    public void loop(Gamepad gamepad) {
++        menuButtons.loop(gamepad);
++        Tracker.publish("menu/summary", optionMenu.getSummary());
++        for (String line : optionMenu.getLines()) {
++            Tracker.printToDs(line);
++        }
++    }
++
++    public String getSummary() {
++        return optionMenu.getSummary();
++    }
++}

@@ -1,0 +1,79 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/AutoWithMenuOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/AutoWithMenuOpMode.java
+index 0f09ffa..f31a6a9 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/AutoWithMenuOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/AutoWithMenuOpMode.java
+@@ -39,6 +39,15 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
+     // When on L135S120, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+     // for what to do here.
++    MenuItem red = new MenuItem("R", "Red");
++    MenuItem blue = new MenuItem("B", "Blue");
++    MenuRow allianceRow = new MenuRow("Alliance");
++    MenuItem nothing = new MenuItem("N", "Nothing");
++    MenuItem forward24 = new MenuItem("F24", "Forward 24");
++    MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
++    MenuRow autoRow = new MenuRow("Auto");
++    OptionMenu optionMenu = new OptionMenu();
++    DriverStationMenu menu = new DriverStationMenu(optionMenu);
+ 
+     double robotHalfLength_in = 9.0;
+     double fieldPerimeterWidth_in = 1.5;
+@@ -52,6 +61,13 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
+         // When on L135S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+         // for what to do here.
++        allianceRow.add(red);
++        allianceRow.add(blue);
++        autoRow.add(nothing);
++        autoRow.add(forward24);
++        autoRow.add(forwardThenStrafe);
++        optionMenu.add(allianceRow);
++        optionMenu.add(autoRow);
+         initBefore();
+         drivetrain = new CorbelsMecanum(hardware);
+         initAfter(drivetrain);
+@@ -64,6 +80,7 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
+         // When on L135S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+@@ -74,6 +91,18 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
+         // When on L135S130, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
+         // for what to do here.
++        Tracker.publish("menu/alliance", allianceRow.getSelected().getFullName());
++
++        MenuItem auto = autoRow.getSelected();
++        Tracker.publish("menu/auto", auto.getFullName());
++        Command chosenAuto = Command.NOOP;
++        if (auto == forward24) {
++            chosenAuto = driveForward24();
++        }
++        if (auto == forwardThenStrafe) {
++            chosenAuto = driveForwardThenStrafe();
++        }
++        Scheduler.schedule(chosenAuto);
+         startAfter();
+     }
+ 
+@@ -84,6 +113,7 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
+         // When on L135S130, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
+         // for what to do here.
++        Tracker.printToDs(menu.getSummary());
+         Tracker.printPoseSpeedLoopToDs(follower);
+         loopAfter();
+     }
+@@ -101,6 +131,9 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
+         // When on L135S140, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s140
+         // for what to do here.
++        if (allianceRow.getSelected() == blue) {
++            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
++        }
+         return chosenPoses;
+     }
+ 

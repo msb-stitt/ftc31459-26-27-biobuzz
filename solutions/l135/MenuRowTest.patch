@@ -1,0 +1,83 @@
+diff --git a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRowTest.java b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRowTest.java
+index 2534678..f60cae6 100644
+--- a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRowTest.java
++++ b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRowTest.java
+@@ -1,3 +1,10 @@
++package org.firstinspires.ftc.teamcode.mytry.l135;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Before;
++import org.junit.Test;
++
+ /**
+  * Tests for {@link MenuRow}: a row starts at the first choice added,
+  * selected; left and right offer a choice and wrap at the ends; A selects
+@@ -7,3 +14,67 @@
+ // When on L135S050, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class MenuRowTest {
++
++    MenuItem nothing = new MenuItem("N", "Nothing");
++    MenuItem forward24 = new MenuItem("F24", "Forward 24");
++    MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
++    MenuRow autoRow = new MenuRow("Auto");
++
++    @Before
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void addTheItems() {
++        autoRow.add(nothing);
++        autoRow.add(forward24);
++        autoRow.add(forwardThenStrafe);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void aRowStartsAtItsFirstChoiceSelected() {
++        assertEquals(nothing, autoRow.getSelected());
++        assertEquals("Auto: <Nothing>", autoRow.getLine());
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightOffersTheNextChoice() {
++        autoRow.goRight();
++        assertEquals("Auto: Forward 24? A:OK B:Back", autoRow.getLine());
++        assertEquals(nothing, autoRow.getSelected());
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void leftWrapsFromTheFirstChoiceToTheLast() {
++        autoRow.goLeft();
++        assertEquals("Auto: Forward Then Strafe? A:OK B:Back", autoRow.getLine());
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightWrapsFromTheLastChoiceToTheFirst() {
++        autoRow.goRight();
++        autoRow.goRight();
++        autoRow.goRight();
++        assertEquals("Auto: <Nothing>", autoRow.getLine());
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void selectSelectsTheChoiceOffered() {
++        autoRow.goRight();
++        autoRow.select();
++        assertEquals(forward24, autoRow.getSelected());
++        assertEquals("Auto: <Forward 24>", autoRow.getLine());
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void backClearsTheOffer() {
++        autoRow.goRight();
++        autoRow.goBack();
++        assertEquals("Auto: <Nothing>", autoRow.getLine());
++    }
++}

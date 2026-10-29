@@ -1,0 +1,29 @@
+diff --git a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java
+index 76d12ba..303e91e 100644
+--- a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java
++++ b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java
+@@ -1,3 +1,9 @@
++package org.firstinspires.ftc.teamcode.mytry.l135;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link MenuItem}: an item gives back the short name and the full
+  * name it was made with.
+@@ -5,3 +11,14 @@
+ // When on L135S040, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class MenuItemTest {
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void anItemHasAShortNameAndAFullName() {
++        MenuItem forward24 = new MenuItem("F24", "Forward 24");
++        assertEquals("F24", forward24.getShortName());
++        assertEquals("Forward 24", forward24.getFullName());
++    }
++}
