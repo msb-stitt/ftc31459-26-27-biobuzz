@@ -135,10 +135,9 @@ L135 is the first. Its page and its starters are written this way:
   leaves, made from `tools/menu/`'s captured screens. They define it fully.
 - **Then each class, from the bottom up.** A section for each class gives its one job, its class
   diagram, what each field holds and what each method does, then a short sequence diagram for each
-  way it works with the classes it holds, then the steps that test it and write it. A class drawn
-  only to show what holds it is drawn faint. Each diagram is written in Mermaid and drawn by
-  `draw.py`, as *Draw in the marker-sketch style* says, and registered in `FIGURES.md`, as *A
-  picture is registered before it is drawn* says.
+  way it works with the classes it holds, then the steps that test it and write it. Each diagram
+  is written in Mermaid and drawn by `draw.py`, as *Draw in the marker-sketch style* says, and
+  registered in `FIGURES.md`, as *A picture is registered before it is drawn* says.
 - **A class's starter is a header**: its class Javadoc and step pointer only. The student types
   the `package` line, the imports and the class. The OpMode's starter is like other lessons', with
   step pointers where the student types.
@@ -300,9 +299,9 @@ Each class in a diagram has its own colour, the same in each diagram it is in, f
 the draw with its name. A message's words sit on a box of paper, so the lifelines they cross stop
 around them.
 
-A line `%% faint: Name, Name` in a `.mmd` file draws those classes or objects faint, and in a
-sequence diagram the messages to and from them; a faint class's fields and methods are blurred
-too. A name with no box stops the draw.
+A line `%% faint: Name, Name` in a sequence diagram's `.mmd` file draws those objects faint, and
+the messages to and from them. A name with no box stops the draw. A class diagram draws each class
+in full.
 
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses
