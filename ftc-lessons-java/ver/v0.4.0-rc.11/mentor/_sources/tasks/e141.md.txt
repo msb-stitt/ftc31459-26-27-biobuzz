@@ -1,0 +1,71 @@
+# 141 what's happening: arrows as two numbers
+
+Here you learn to write an arrow as two numbers, wherever it starts, to make it longer or
+shorter, and to add two arrows. In L140, the stick's push and the robot's drive are arrows like
+these.
+
+This page and [E142](e142.md) are about the two lines you typed in [L140](l140.md):
+
+```java
+double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
+```
+
+Each line is a sum of two pieces. To see why the pieces add up, we draw speeds as arrows. This
+page shows how an arrow becomes two numbers.
+
+An arrow has a length and a direction. We write it as two numbers, (x, y): how far it goes along
+x, then how far along y. The arrow (3, 2) goes 3 along x and 2 along y. Those two moves are the
+two short sides of a triangle, and the arrow is the long side.
+
+:::{figure} ../_figures/fig-e141-notation.png
+:name: fig-e141-notation
+:figclass: file-named
+
+fig-e141-notation.png
+:::
+
+An arrow does not have to start at (0, 0). Its two numbers are its tip minus its tail. From
+(1, 2) to (4, 4) is (4 - 1, 4 - 2) = (3, 2), the same arrow as before. An arrow that goes left or
+down has a number below 0.
+
+:::{figure} ../_figures/fig-e141-offset.png
+:name: fig-e141-offset
+:figclass: file-named
+
+fig-e141-offset.png
+:::
+
+To make an arrow twice as long, pointing the same way, multiply both numbers by 2:
+2 × (3, 2) = (6, 4). Multiply by 0.5 and it is half as long.
+
+:::{figure} ../_figures/fig-e141-scale.png
+:name: fig-e141-scale
+:figclass: file-named
+
+fig-e141-scale.png
+:::
+
+This works for an arrow pointing any way, from any start. Multiply both numbers, even one
+below 0, and the arrow keeps its direction and changes its length.
+
+:::{figure} ../_figures/fig-e141-scale-offset.png
+:name: fig-e141-scale-offset
+:figclass: file-named
+
+fig-e141-scale-offset.png
+:::
+
+To add two arrows, put the second one's tail on the first one's tip. The sum runs from the first
+tail to the last tip. Or add the numbers: (3, 1) + (1, 2) = (3 + 1, 1 + 2) = (4, 3). Both ways
+give the same arrow.
+
+:::{figure} ../_figures/fig-e141-add.png
+:name: fig-e141-add
+:figclass: file-named
+
+fig-e141-add.png
+:::
+
+[E142](e142.md) uses these three ideas. With them, the stick's arrow on the field becomes the
+robot's own forward and strafe.
