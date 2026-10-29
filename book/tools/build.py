@@ -21,8 +21,8 @@ It fails after writing if a built page shows an image file that is not there.
 Run it in a Python that has the book's requirements. The lessons
 ref is checked out into a throwaway worktree, so nothing here is touched. In
 that copy, every pencilled box (`:::{admonition} fig-...` with `:class: pencil`)
-whose id has a picture in --figures becomes that picture, with no caption: the
-box's words only stand in for it. The lessons ref keeps its boxes; the pictures
+whose id has a picture in --figures becomes that picture, captioned with its
+file's name, labels.css setting it small at the right: the box's words only stand in for it. The lessons ref keeps its boxes; the pictures
 live in corbels-lfs-lessons.
 """
 
@@ -51,7 +51,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
     The pictures go in _figures/, not _static/, which Sphinx copies whole beside _images/."""
     static = source / "_figures"
     static.mkdir(parents=True, exist_ok=True)
-    filled, left = 0, []
+    filled, left, named = 0, [], set()
     for page in sorted(source.rglob("*.md")):
         text = page.read_text(encoding="utf-8")
         depth = len(page.relative_to(source).parts) - 1
@@ -66,7 +66,11 @@ def fill(source: Path) -> tuple[int, list[str]]:
             shutil.copy(png, static / png.name)
             filled += 1
             path = "../" * depth + f"_figures/{png.name}"
-            return f":::{{figure}} {path}\n:name: {fig}\n:::"
+            # The caption is the file's name, as FIGURES.md and corbels-lfs-lessons give it. A
+            # captioned figure's name is a label, so a picture on a second page goes unnamed there.
+            name = "" if fig in named else f":name: {fig}\n"
+            named.add(fig)
+            return f":::{{figure}} {path}\n{name}:figclass: file-named\n\n{png.name}\n:::"
 
         new = PENCIL.sub(figure, text)
         if new != text:
