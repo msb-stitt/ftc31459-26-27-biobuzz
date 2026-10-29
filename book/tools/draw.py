@@ -3376,8 +3376,10 @@ def mermaid_read(root):
             arrows.append((pts, False, "head"))
         elif tag == "path" and "relation" in cls:
             pts = json.loads(base64.b64decode(el.get("data-points")))
-            ends = "diamond" if "aggregation" in el.get("marker-start", "") else "none"
-            arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts], False, ends))
+            ends = ("diamond" if "aggregation" in el.get("marker-start", "") else
+                    "open" if "dependency" in el.get("marker-end", "") else "none")
+            arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts],
+                           "edge-pattern-dashed" in cls, ends))
     w, h = (float(v) for v in root.get("viewBox").split()[2:])
     boxes = [fit(box, words) for box in boxes]
     return w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows
@@ -3426,6 +3428,15 @@ def diamond(s, tip, toward):
             (mid[0] + ty * h * 0.55, mid[1] - tx * h * 0.55)], PEN, 2.6, 0.9, fill=PAPER,
            closed=True)
     return back
+
+
+def open_head(s, a, b):
+    """An open head at b, pointing from a: uses."""
+    tx, ty = b[0] - a[0], b[1] - a[1]
+    n = math.hypot(tx, ty) or 1
+    tx, ty, h = tx / n, ty / n, 14
+    s.line([(b[0] - tx * h - ty * h * 0.6, b[1] - ty * h + tx * h * 0.6), b,
+            (b[0] - tx * h + ty * h * 0.6, b[1] - ty * h - tx * h * 0.6)], PEN, 2.6, 0.9)
 
 
 def inside(p, box):
@@ -3512,6 +3523,8 @@ def mermaid(name):
             line.set_linestyle((0, (5, 3)))
         if ends == "head":
             loop_head(s, pts[-2], pts[-1], PEN, 0.3 if dim else 1.0)
+        if ends == "open":
+            open_head(s, pts[-2], pts[-1])
     for xy, words_, anchor in words:
         box = next((box for box in boxes if inside(xy, box)), None)
         dim = (box in faint_boxes) if box is not None else by_faint_arrow(xy, faint_arrows)

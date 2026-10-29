@@ -1,8 +1,23 @@
 classDiagram
+    class DriverStationMenu {
+        -OptionMenu optionMenu
+        -MenuButtons menuButtons
+        +DriverStationMenu(optionMenu)
+        +loop(gamepad)
+        +getSummary() String
+    }
     class MenuButtons {
         -OptionMenu optionMenu
         MenuButtons(optionMenu)
         loop(gamepad)
+    }
+    class Gamepad {
+        dpadUpWasPressed() boolean
+        dpadDownWasPressed() boolean
+        dpadLeftWasPressed() boolean
+        dpadRightWasPressed() boolean
+        aWasPressed() boolean
+        bWasPressed() boolean
     }
     class OptionMenu {
         -ArrayList~MenuRow~ rows
@@ -17,4 +32,21 @@ classDiagram
         getSummary() String
         getLines() ArrayList~String~
     }
+    class MenuRow {
+        -String name
+        -ArrayList~MenuItem~ items
+        -int selectedIndex
+        -int offeredIndex
+        +MenuRow(name)
+        +add(item)
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        +getSelected() MenuItem
+        getLine() String
+    }
+    DriverStationMenu o-- MenuButtons
+    MenuButtons ..> Gamepad
     MenuButtons o-- OptionMenu
+    OptionMenu o-- MenuRow
