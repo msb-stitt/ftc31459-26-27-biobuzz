@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant DS as menu:<br/>Driver<br/>StationMenu
+    participant Menu as optionMenu:<br/>OptionMenu
+    participant Alliance as allianceRow:<br/>MenuRow
+    participant Auto as autoRow:<br/>MenuRow
+    participant Items as red, nothing:<br/>MenuItem
+    DS->>Menu: getLines()
+    Menu->>Alliance: getSelected()
+    Alliance-->>Menu: red
+    Menu->>Items: getShortName()
+    Items-->>Menu: "R"
+    Menu->>Auto: getSelected()
+    Auto-->>Menu: nothing
+    Menu->>Items: getShortName()
+    Items-->>Menu: "N"
+    Menu->>Alliance: getLine()
+    Alliance-->>Menu: "Alliance: #lt;Red#gt;"
+    Menu->>Auto: getLine()
+    Auto-->>Menu: "Auto:<br/>#lt;Nothing#gt;"
+    Menu-->>DS: "R-N", then<br/>each line

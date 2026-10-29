@@ -1,52 +1,49 @@
 classDiagram
-    class L135MenuItem {
-        String shortName
-        String fullName
-        shortName()
-        fullName()
+    class MenuItem {
+        -String shortName
+        -String fullName
+        getShortName()
+        getFullName()
     }
-    class L135MenuRow {
-        String name
-        L135MenuItem[] items
-        int selectedIndex
-        int offeredIndex
-        right()
-        left()
+    class MenuRow {
+        -String name
+        -ArrayList~MenuItem~ items
+        -int selectedIndex
+        -int offeredIndex
+        +add(item)
+        goRight()
+        goLeft()
         select()
-        back()
-        selected()
-        startAt(fullName)
-        line()
+        goBack()
+        +getSelected()
+        getLine()
     }
-    class L135OptionMenu {
-        L135MenuRow[] rows
-        int pointedRow
-        up()
-        down()
-        left()
-        right()
+    class OptionMenu {
+        -ArrayList~MenuRow~ rows
+        -int pointedIndex
+        +add(row)
+        goUp()
+        goDown()
+        goRight()
+        goLeft()
         select()
-        back()
-        chosen(rowName)
-        startAt(rowName, fullName)
-        summary()
-        lines()
+        goBack()
+        getSummary()
+        getLines()
     }
-    class L135MenuButtons {
-        L135OptionMenu optionMenu
+    class MenuButtons {
+        -OptionMenu optionMenu
         loop(gamepad)
     }
-    class L135DriverStationMenu {
-        L135OptionMenu optionMenu
-        L135MenuButtons menuButtons
-        loop(gamepad)
-        chosen(rowName)
-        startAt(rowName, fullName)
-        summary()
+    class DriverStationMenu {
+        -OptionMenu optionMenu
+        -MenuButtons menuButtons
+        +loop(gamepad)
+        +getSummary()
     }
-    L135ChooseAutoOpMode o-- L135DriverStationMenu
-    L135DriverStationMenu o-- L135OptionMenu
-    L135DriverStationMenu o-- L135MenuButtons
-    L135MenuButtons o-- L135OptionMenu
-    L135OptionMenu o-- L135MenuRow
-    L135MenuRow o-- L135MenuItem
+    AutoWithMenuOpMode o-- DriverStationMenu
+    DriverStationMenu o-- OptionMenu
+    DriverStationMenu o-- MenuButtons
+    MenuButtons o-- OptionMenu
+    OptionMenu o-- MenuRow
+    MenuRow o-- MenuItem

@@ -81,7 +81,7 @@ def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]], list[Copie
             except apply.Stop as e:
                 raise SystemExit(f"applying {lesson} on {ref}: {e}")
         mytry = tree / apply.TEAMCODE / "mytry"
-        final = {p.name: _lines(p) for p in sorted(mytry.glob("*.java"))}
+        final = {p.relative_to(mytry).as_posix(): _lines(p) for p in sorted(mytry.rglob("*.java"))}
         return patched, final, copied
     finally:
         _git("worktree", "remove", "--force", str(tree))

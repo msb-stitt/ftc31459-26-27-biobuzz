@@ -3,15 +3,15 @@ package org.firstinspires.ftc.teamcode.base;
 /**
  * One choice in a {@link MenuRow}: its short name, such as F24, for the
  * menu's summary line, and its full name, such as Forward 24, for its row's
- * line and for {@link OptionMenu#chosen(String)}.
+ * line.
  *
  * <p>Uses no other class.
  */
 // 'public' so OpModes outside base can make one. 'public' allows access from any code.
 public class MenuItem {
 
-    String shortName;
-    String fullName;
+    private String shortName;
+    private String fullName;
 
     // 'public' so OpModes outside base can make one. 'public' allows access from any code.
     public MenuItem(String shortName, String fullName) {
@@ -19,13 +19,14 @@ public class MenuItem {
         this.fullName = fullName;
     }
 
-    /** The name in the summary line, such as F24. */
-    String shortName() {
+    /** The short name, such as F24. */
+    String getShortName() {
         return shortName;
     }
 
-    /** The name in the row's line, such as Forward 24. */
-    String fullName() {
+    /** The full name, such as Forward 24. */
+    // 'public' so OpModes outside base can log it. 'public' allows access from any code.
+    public String getFullName() {
         return fullName;
     }
 }

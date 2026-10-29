@@ -49,11 +49,11 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
 
     MenuItem red = new MenuItem("R", "Red");
     MenuItem blue = new MenuItem("B", "Blue");
-    MenuRow allianceRow = new MenuRow("Alliance", red, blue);
+    MenuRow allianceRow = new MenuRow("Alliance");
     MenuItem autoEnd = new MenuItem("A", "Auto End");
     MenuItem wall = new MenuItem("W", "Wall");
-    MenuRow startRow = new MenuRow("Start", autoEnd, wall);
-    OptionMenu optionMenu = new OptionMenu(allianceRow, startRow);
+    MenuRow startRow = new MenuRow("Start");
+    OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
 
     double robotHalfLengthIn = 9.0;
@@ -66,6 +66,19 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
+        // The alliance the auto handed over is added first, so it starts selected.
+        if (OpModeStorage.isRed) {
+            allianceRow.add(red);
+            allianceRow.add(blue);
+        } else {
+            allianceRow.add(blue);
+            allianceRow.add(red);
+        }
+        startRow.add(autoEnd);
+        startRow.add(wall);
+        optionMenu.add(allianceRow);
+        optionMenu.add(startRow);
+
         initBefore();
         // Live in AdvantageScope from INIT, at 192.168.43.1, only when the
         // Live NetworkTables switch OpMode has turned it on. For practice only:
@@ -73,7 +86,6 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
         Tracker.serveLive();
         drivetrain = new CorbelsMecanum(hardware);
         initAfter(drivetrain);
-        menu.startAt("Alliance", OpModeStorage.alliance);
     }
 
     /** Again and again between INIT and PLAY: the menu. */
@@ -88,14 +100,12 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     @Override
     public void start() {
         startBefore();
-        String alliance = menu.chosen("Alliance");
-        OpModeStorage.alliance = alliance;
-        Tracker.publish("Alliance", alliance);
-        String startPlace = menu.chosen("Start");
-        if (startPlace.equals("Wall")) {
+        OpModeStorage.isRed = allianceRow.getSelected() == red;
+        Tracker.publish("Alliance", allianceRow.getSelected().getFullName());
+        if (startRow.getSelected() == wall) {
             PoseFactory poses = poses();
-            Pose wall = poses.of(72.0, botStartYIn, 90.0);
-            follower.setPose(wall);
+            Pose wallPose = poses.of(72.0, botStartYIn, 90.0);
+            follower.setPose(wallPose);
         }
         driveFromTheSticks = driveWhileTheSticksAreRead();
         Scheduler.schedule(driveFromTheSticks);
@@ -107,7 +117,7 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     @Override
     public void loop() {
         loopBefore();
-        Tracker.printToDs(menu.summary());
+        Tracker.printToDs(menu.getSummary());
         loopAfter();
     }
 
@@ -155,8 +165,7 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
         } else {
             double fieldXSpeed;
             double fieldYSpeed;
-            String alliance = menu.chosen("Alliance");
-            if (alliance.equals("Red")) {
+            if (allianceRow.getSelected() == red) {
                 fieldXSpeed = -leftStickY;
                 fieldYSpeed = -leftStickX;
             } else {
@@ -189,8 +198,7 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     PoseFactory poses() {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
-        String alliance = menu.chosen("Alliance");
-        if (!alliance.equals("Red")) {
+        if (allianceRow.getSelected() == blue) {
             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
         }
         return chosenPoses;

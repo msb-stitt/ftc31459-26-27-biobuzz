@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  */
 class MenuButtons {
 
-    OptionMenu optionMenu;
+    private OptionMenu optionMenu;
 
     MenuButtons(OptionMenu optionMenu) {
         this.optionMenu = optionMenu;
@@ -19,22 +19,22 @@ class MenuButtons {
     /** Reads the presses since the last call, and moves the menu for each. */
     void loop(Gamepad gamepad) {
         if (gamepad.dpadUpWasPressed()) {
-            optionMenu.up();
+            optionMenu.goUp();
         }
         if (gamepad.dpadDownWasPressed()) {
-            optionMenu.down();
+            optionMenu.goDown();
         }
         if (gamepad.dpadLeftWasPressed()) {
-            optionMenu.left();
+            optionMenu.goLeft();
         }
         if (gamepad.dpadRightWasPressed()) {
-            optionMenu.right();
+            optionMenu.goRight();
         }
         if (gamepad.aWasPressed()) {
             optionMenu.select();
         }
         if (gamepad.bWasPressed()) {
-            optionMenu.back();
+            optionMenu.goBack();
         }
     }
 }

@@ -1,7 +1,7 @@
 # L080ArcadeOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from applying
-`solutions/` on `solutions-l135-menu-classes.2`. A line marked + is new, and a line marked - is
+`solutions/` on `solutions-l135-menu-classes.3`. A line marked + is new, and a line marked - is
 gone; each number is the line's place in the file after the lesson.
 
 ## L080

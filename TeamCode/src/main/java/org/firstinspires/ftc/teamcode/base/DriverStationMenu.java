@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.base;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import java.util.ArrayList;
+
 /**
  * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
  * for an OpMode to make as a field and call from init_loop(). The menu and its
@@ -14,8 +16,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 // 'public' so OpModes outside base can make one. 'public' allows access from any code.
 public class DriverStationMenu {
 
-    OptionMenu optionMenu;
-    MenuButtons menuButtons;
+    private OptionMenu optionMenu;
+    private MenuButtons menuButtons;
 
     // 'public' so OpModes outside base can make one. 'public' allows access from any code.
     public DriverStationMenu(OptionMenu optionMenu) {
@@ -27,31 +29,18 @@ public class DriverStationMenu {
     // 'public' so OpModes outside base can call it. 'public' allows access from any code.
     public void loop(Gamepad gamepad) {
         menuButtons.loop(gamepad);
-        String summary = optionMenu.summary();
+        String summary = optionMenu.getSummary();
         Tracker.publish("menu/summary", summary);
-        String[] lines = optionMenu.lines();
+        ArrayList<String> lines = optionMenu.getLines();
         for (String line : lines) {
             Tracker.printToDs(line);
         }
     }
 
-    /** The full name of the choice selected in the row with this name, such as chosen("Auto"). */
-    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
-    public String chosen(String rowName) {
-        String fullName = optionMenu.chosen(rowName);
-        return fullName;
-    }
-
-    /** Selects the choice with this full name in the row with this name, such as startAt("Alliance", "Blue"). */
-    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
-    public void startAt(String rowName, String fullName) {
-        optionMenu.startAt(rowName, fullName);
-    }
-
     /** Each row's selected short name, joined by "-", such as B-FS. */
     // 'public' so OpModes outside base can call it. 'public' allows access from any code.
-    public String summary() {
-        String summary = optionMenu.summary();
+    public String getSummary() {
+        String summary = optionMenu.getSummary();
         return summary;
     }
 }

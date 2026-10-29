@@ -1,0 +1,60 @@
+INIT
+R-N
+> Alliance: <Red>
+  Auto: <Nothing>
+
+right
+R-N
+> Alliance: Blue? A:OK B:Back
+  Auto: <Nothing>
+
+B
+R-N
+> Alliance: <Red>
+  Auto: <Nothing>
+
+right
+R-N
+> Alliance: Blue? A:OK B:Back
+  Auto: <Nothing>
+
+A
+B-N
+> Alliance: <Blue>
+  Auto: <Nothing>
+
+right
+B-N
+> Alliance: Red? A:OK B:Back
+  Auto: <Nothing>
+
+down
+B-N
+  Alliance: <Blue>
+> Auto: <Nothing>
+
+left
+B-N
+  Alliance: <Blue>
+> Auto: Forward Then Strafe? A:OK B:Back
+
+A
+B-FS
+  Alliance: <Blue>
+> Auto: <Forward Then Strafe>
+
+down
+B-FS
+> Alliance: <Blue>
+  Auto: <Forward Then Strafe>
+
+up
+B-FS
+  Alliance: <Blue>
+> Auto: <Forward Then Strafe>
+
+up
+B-FS
+> Alliance: <Blue>
+  Auto: <Forward Then Strafe>
+

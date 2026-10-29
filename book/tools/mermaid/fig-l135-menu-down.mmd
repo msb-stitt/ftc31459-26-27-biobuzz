@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant Buttons as menuButtons:<br/>MenuButtons
+    participant Menu as optionMenu:<br/>OptionMenu
+    participant Alliance as allianceRow:<br/>MenuRow
+    participant Auto as autoRow:<br/>MenuRow
+    Buttons->>Menu: goDown()
+    Menu->>Alliance: goBack()
+    Alliance->>Alliance: offeredIndex<br/>becomes<br/>selectedIndex
+    Menu->>Menu: pointedIndex<br/>becomes 1
