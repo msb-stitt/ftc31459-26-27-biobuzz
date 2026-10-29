@@ -1,0 +1,38 @@
+# 143 what's happening: the field from each alliance area
+
+Here you learn where Pedro's x and y lie on this season's field. You also see how they look from
+each Alliance Area. In L140, they are why pushing the stick away from you drives the robot away
+from you. That holds when you drive from the Red Alliance Area.
+
+In [L140](l140.md), the follower keeps track of where the robot is. It uses Pedro's x and y. This
+page shows them on this season's field.
+
+```java
+double heading = follower.pose().heading();
+```
+
+From above, with the audience at the bottom, (0, 0) is the corner where the red wall meets the
+audience's wall. +x runs from the red wall toward the blue wall, and +y runs away from the
+audience. The far corner is (144, 144), in inches. A heading of 0 faces +x.
+
+:::{figure} ../_figures/fig-l140-field-top.png
+:name: fig-l140-field-top
+:::
+
+The Red Alliance Area is at the red wall. From there, +x points away from the drivers and +y
+to their left. That is why, in L140, pushing the stick away drives the robot away from you.
+
+:::{figure} ../_figures/fig-l140-field-red.png
+:name: fig-l140-field-red
+:::
+
+The Blue Alliance Area is at the blue wall, across the field. The axes stay where they are, so
+from there +x points toward the drivers and +y to their right.
+
+:::{figure} ../_figures/fig-l140-field-blue.png
+:name: fig-l140-field-blue
+:::
+
+L140's first two lines are written for the Red Alliance Area. L140S060 takes the minus signs off
+for the Blue Alliance Area, so a push away from you drives the robot away from you from either
+end.
