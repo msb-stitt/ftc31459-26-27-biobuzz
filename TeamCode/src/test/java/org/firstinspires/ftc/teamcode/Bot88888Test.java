@@ -46,7 +46,7 @@ public class Bot88888Test {
     public void tearDown() {
         RobotControllerName.reader = theSdksReader;
         OpModeStorage.autonomousEndPose = theAutosEndPose;
-        OpModeStorage.alliance = "Red";
+        OpModeStorage.isRed = true;
         OpModeHarness.restoreFactories();
         Scheduler.reset();
     }
@@ -85,7 +85,7 @@ public class Bot88888Test {
 
     @Test
     public void fromTheBlueAllianceAreaTheTeleOpsStickMeansTheOtherWay() {
-        OpModeStorage.alliance = "Blue";
+        OpModeStorage.isRed = false;
         OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
         Follower follower = h.robot.follower;
         h.init();
@@ -108,7 +108,7 @@ public class Bot88888Test {
 
     @Test
     public void holdingTheLeftBumperTheTeleOpDrivesTheRobotNotTheField() {
-        OpModeStorage.alliance = "Blue";
+        OpModeStorage.isRed = false;
         OpModeHarness h = new OpModeHarness(new Bot88888TeleOp());
         Follower follower = h.robot.follower;
         h.init();
@@ -225,7 +225,7 @@ public class Bot88888Test {
         h.loops(20, 5);
         h.stop();
 
-        assertEquals("the alliance handed to the teleop", "Blue", OpModeStorage.alliance);
+        assertEquals("blue, not red, handed to the teleop", false, OpModeStorage.isRed);
         assertEquals("Nothing does not move", 133.5, follower.pose().y(), 0.1);
     }
 
