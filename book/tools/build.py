@@ -22,10 +22,8 @@ Run it in a Python that has the book's requirements. The lessons
 ref is checked out into a throwaway worktree, so nothing here is touched. In
 that copy, every pencilled box (`:::{admonition} fig-...` with `:class: pencil`)
 whose id has a picture in --figures becomes that picture, with no caption: the
-box's words only stand in for it. A picture whose PNG asks for a width, in a
-text chunk "Shown width" in CSS pixels, is shown at that width; any other is
-shown at its pixel width. The column narrows either. The lessons ref keeps its
-boxes; the pictures live in corbels-lfs-lessons.
+box's words only stand in for it. The lessons ref keeps its boxes; the pictures
+live in corbels-lfs-lessons.
 """
 
 import argparse
@@ -33,7 +31,6 @@ import hashlib
 import os
 import re
 import shutil
-import struct
 import subprocess
 import sys
 import tempfile
@@ -47,21 +44,6 @@ PENCIL = re.compile(r"^:::\{admonition\} (fig-[\w-]+)\n:class: pencil\n(.*?)\n::
 
 def run(*args, cwd=None):
     subprocess.run(args, cwd=cwd, check=True)
-
-
-def shown_width(png: Path) -> int | None:
-    """The width PNG asks to be shown at, in CSS pixels, from its tEXt chunk "Shown width".
-    None if it asks for none."""
-    data = png.read_bytes()
-    at = 8
-    while at < len(data):
-        size, kind = struct.unpack(">I4s", data[at:at + 8])
-        if kind == b"tEXt":
-            key, _, value = data[at + 8:at + 8 + size].partition(b"\0")
-            if key == b"Shown width":
-                return int(value)
-        at += 12 + size
-    return None
 
 
 def fill(source: Path) -> tuple[int, list[str]]:
@@ -84,9 +66,7 @@ def fill(source: Path) -> tuple[int, list[str]]:
             shutil.copy(png, static / png.name)
             filled += 1
             path = "../" * depth + f"_figures/{png.name}"
-            width = shown_width(png)
-            shown = f":width: {width}px\n" if width else ""
-            return f":::{{figure}} {path}\n:name: {fig}\n{shown}:::"
+            return f":::{{figure}} {path}\n:name: {fig}\n:::"
 
         new = PENCIL.sub(figure, text)
         if new != text:

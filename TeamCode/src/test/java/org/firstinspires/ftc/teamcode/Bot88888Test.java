@@ -278,10 +278,10 @@ public class Bot88888Test {
 
     /** Loops until the route has been followed and the follower has gone idle, or the time is up. */
     private static void runUntilDone(OpModeHarness h, Follower follower, double seconds) {
-        long deadline = System.nanoTime() + (long) (seconds * 1e9);
+        long deadline = h.clock.nanos() + (long) (seconds * 1e9);
         boolean followed = false;
         int loopsIdle = 0;
-        while (loopsIdle < 3 && System.nanoTime() < deadline) {
+        while (loopsIdle < 3 && h.clock.nanos() < deadline) {
             h.loop();
             if (follower.mode() == Follower.Mode.FOLLOW) followed = true;
             if (followed && follower.mode() != Follower.Mode.FOLLOW && follower.currentPath() == null) {
