@@ -2,6 +2,7 @@
 
 :::{figure} ../_figures/fig-wheel-forward.png
 :name: fig-wheel-forward
+:width: 864px
 :::
 
 Tell each motor which way it is mounted. Then run tank drive on the robot, up on blocks, and check
@@ -44,6 +45,7 @@ and the right side RIGHT, as the robot sees them when it drives forward.
 
 :::{figure} ../_figures/fig-wheel-names.png
 :name: fig-wheel-names
+:width: 648px
 :::
 
 **Check.**
@@ -65,6 +67,7 @@ The robot's own file in the `pedro` folder already says which way each motor is 
 
 :::{figure} ../_figures/fig-l050-direction.png
 :name: fig-l050-direction
+:width: 700px
 :::
 
 Finish the line, and do the same for the other three motors:

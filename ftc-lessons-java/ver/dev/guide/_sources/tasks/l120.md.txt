@@ -77,6 +77,7 @@ this step. Under it, type:
 
 :::{figure} ../_figures/fig-l120-import.png
 :name: fig-l120-import
+:width: 515px
 :::
 
 **Simulator.** In the Terminal, run:
@@ -163,6 +164,7 @@ the next step.
 
 :::{figure} ../_figures/fig-odometry-step.png
 :name: fig-odometry-step
+:width: 1440px
 :::
 
 `forward_in` is forward for the robot, not for the field. The robot starts facing along the

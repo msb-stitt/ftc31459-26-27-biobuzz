@@ -18,6 +18,7 @@ distance of 1 around its edge. 60° is 1.05 radians, so `heading` holds 1.05.
 
 :::{figure} ../_figures/fig-e142-radian.png
 :name: fig-e142-radian
+:width: 864px
 :::
 
 Each point on that circle has an x and a y. At 60°, x is cos 60°, which is 0.50, and y is
@@ -25,6 +26,7 @@ sin 60°, which is 0.87. `Math.cos` and `Math.sin` turn an angle into those two 
 
 :::{figure} ../_figures/fig-e142-unit-circle.png
 :name: fig-e142-unit-circle
+:width: 864px
 :::
 
 The angle can be any size. Past 90°, the point is left of the middle, so its cos is below 0.
@@ -32,6 +34,7 @@ Below the x axis, its sin is below 0. A negative angle turns the other way, cloc
 
 :::{figure} ../_figures/fig-e142-quadrants.png
 :name: fig-e142-quadrants
+:width: 1152px
 :::
 
 `Math.cos` and `Math.sin` take an angle in radians. People mostly talk in degrees, as this
@@ -44,6 +47,7 @@ its sin.
 
 :::{figure} ../_figures/fig-e142-unit-triangles.png
 :name: fig-e142-unit-triangles
+:width: 1152px
 :::
 
 Make the long side k times as long, and every side grows k times. The angle stays the same.
@@ -53,6 +57,7 @@ length. The cos and the sin come from the angle.
 
 :::{figure} ../_figures/fig-e142-similar.png
 :name: fig-e142-similar
+:width: 1152px
 :::
 
 Turning or flipping a triangle does not change its sides. Find the angle you know. The side next
@@ -60,6 +65,7 @@ to it is k × cos θ, and the side across from it is k × sin θ, whichever way 
 
 :::{figure} ../_figures/fig-e142-same-triangle.png
 :name: fig-e142-same-triangle
+:width: 1152px
 :::
 
 The robot's forward points the way its nose does. At heading 60°, that is the arrow
@@ -68,12 +74,14 @@ The robot's forward points the way its nose does. At heading 60°, that is the a
 
 :::{figure} ../_figures/fig-e142-robot-axes.png
 :name: fig-e142-robot-axes
+:width: 1152px
 :::
 
 Why is left's angle 60° at field y? Forward's triangle has its 60° at field x.
 
 :::{figure} ../_figures/fig-e142-triangle-turn.png
 :name: fig-e142-triangle-turn
+:width: 1080px
 :::
 
 Left's triangle is forward's, turned a quarter turn left. Turning keeps every angle and every
@@ -82,6 +90,7 @@ field x is sin 60°, going the negative way.
 
 :::{figure} ../_figures/fig-e142-triangle-turned.png
 :name: fig-e142-triangle-turned
+:width: 1080px
 :::
 
 The stick says where to go on the field. After L060's squaring, `fieldXSpeed` is 0.64 and
@@ -89,12 +98,14 @@ The stick says where to go on the field. After L060's squaring, `fieldXSpeed` is
 
 :::{figure} ../_figures/fig-e142-stick-field.png
 :name: fig-e142-stick-field
+:width: 1152px
 :::
 
 From the Red Alliance Area, that arrow points 0.64 away and 0.16 to the left.
 
 :::{figure} ../_figures/fig-e142-stick-red-3d.png
 :name: fig-e142-stick-red-3d
+:width: 1044px
 :::
 
 ```java
@@ -109,6 +120,7 @@ reach the same tip. Now the grid is the robot's.
 
 :::{figure} ../_figures/fig-e142-forward-split.png
 :name: fig-e142-forward-split
+:width: 1152px
 :::
 
 We do the same for (0, 0.16). It is left's triangle, its 60° at field y, with k = 0.16:
@@ -117,6 +129,7 @@ This picture is drawn 3 times as large, grid and all, so the pieces show.
 
 :::{figure} ../_figures/fig-e142-strafe-split.png
 :name: fig-e142-strafe-split
+:width: 1152px
 :::
 
 Now there are four pieces. End to end, they reach the stick's tip. Arrows add in any order, so
@@ -124,6 +137,7 @@ we swap the middle two.
 
 :::{figure} ../_figures/fig-e142-regroup.png
 :name: fig-e142-regroup
+:width: 1152px
 :::
 
 Each number came from `fieldXSpeed` or `fieldYSpeed` and the heading. 0.32 is `fieldXSpeed` × cos θ,
@@ -131,18 +145,21 @@ where θ is the heading.
 
 :::{figure} ../_figures/fig-e142-regroup-formula.png
 :name: fig-e142-regroup-formula
+:width: 1152px
 :::
 
 Both forward pieces come first now, then both left pieces. They still reach the same tip.
 
 :::{figure} ../_figures/fig-e142-regrouped.png
 :name: fig-e142-regrouped
+:width: 1152px
 :::
 
 The same four pieces, each with what makes it:
 
 :::{figure} ../_figures/fig-e142-regrouped-formula.png
 :name: fig-e142-regrouped-formula
+:width: 1152px
 :::
 
 Add the forward pieces: 0.32 + 0.14 = 0.46. That is `robotForwardXSpeed`. Add the left
@@ -151,12 +168,14 @@ frame, and goes where the stick points on the field.
 
 :::{figure} ../_figures/fig-e142-add.png
 :name: fig-e142-add
+:width: 1152px
 :::
 
 Write each sum with what makes it, in place of its numbers, and you have the two lines.
 
 :::{figure} ../_figures/fig-e142-add-formula.png
 :name: fig-e142-add-formula
+:width: 1152px
 :::
 
 ```java

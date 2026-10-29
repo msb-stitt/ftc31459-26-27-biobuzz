@@ -348,17 +348,20 @@ points, whichever way it faces.</p>
 <p>Pedro keeps the robot’s heading in radians. Draw a circle with a radius of 1. A radian is a
 distance of 1 around its edge. 60° is 1.05 radians, so <code class="docutils literal notranslate"><span class="pre">heading</span></code> holds 1.05.</p>
 <figure class="align-default" id="fig-e142-radian">
-<img alt="../../media/fig-e142-radian_dbc12abb88cc.png" src="../../media/fig-e142-radian_dbc12abb88cc.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-radian_dbc12abb88cc.png"><img alt="../../media/fig-e142-radian_dbc12abb88cc.png" src="../../media/fig-e142-radian_dbc12abb88cc.png" style="width: 864px;" />
+</a>
 </figure>
 <p>Each point on that circle has an x and a y. At 60°, x is cos 60°, which is 0.50, and y is
 sin 60°, which is 0.87. <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> turn an angle into those two numbers.</p>
 <figure class="align-default" id="fig-e142-unit-circle">
-<img alt="../../media/fig-e142-unit-circle_189ea2c0459a.png" src="../../media/fig-e142-unit-circle_189ea2c0459a.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-unit-circle_189ea2c0459a.png"><img alt="../../media/fig-e142-unit-circle_189ea2c0459a.png" src="../../media/fig-e142-unit-circle_189ea2c0459a.png" style="width: 864px;" />
+</a>
 </figure>
 <p>The angle can be any size. Past 90°, the point is left of the middle, so its cos is below 0.
 Below the x axis, its sin is below 0. A negative angle turns the other way, clockwise.</p>
 <figure class="align-default" id="fig-e142-quadrants">
-<img alt="../../media/fig-e142-quadrants_a7ab13c71370.png" src="../../media/fig-e142-quadrants_a7ab13c71370.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-quadrants_a7ab13c71370.png"><img alt="../../media/fig-e142-quadrants_a7ab13c71370.png" src="../../media/fig-e142-quadrants_a7ab13c71370.png" style="width: 1152px;" />
+</a>
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> take an angle in radians. People mostly talk in degrees, as this
 page does. Before you hand an angle to <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code>, check which unit it is in. Pedro’s heading is
@@ -367,44 +370,52 @@ already in radians.</p>
 When the long side is 1, the side next to that angle is its cos, and the side across from it is
 its sin.</p>
 <figure class="align-default" id="fig-e142-unit-triangles">
-<img alt="../../media/fig-e142-unit-triangles_8c421148c32f.png" src="../../media/fig-e142-unit-triangles_8c421148c32f.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-unit-triangles_8c421148c32f.png"><img alt="../../media/fig-e142-unit-triangles_8c421148c32f.png" src="../../media/fig-e142-unit-triangles_8c421148c32f.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Make the long side k times as long, and every side grows k times. The angle stays the same.
 Triangles with the same angles at different sizes are called <strong>similar triangles</strong>. So the side
 next to the angle is k × cos θ, and the side across from it is k × sin θ. The k only scales the
 length. The cos and the sin come from the angle.</p>
 <figure class="align-default" id="fig-e142-similar">
-<img alt="../../media/fig-e142-similar_685ec662e828.png" src="../../media/fig-e142-similar_685ec662e828.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-similar_685ec662e828.png"><img alt="../../media/fig-e142-similar_685ec662e828.png" src="../../media/fig-e142-similar_685ec662e828.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Turning or flipping a triangle does not change its sides. Find the angle you know. The side next
 to it is k × cos θ, and the side across from it is k × sin θ, whichever way the triangle points.</p>
 <figure class="align-default" id="fig-e142-same-triangle">
-<img alt="../../media/fig-e142-same-triangle_69648c87f7da.png" src="../../media/fig-e142-same-triangle_69648c87f7da.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-same-triangle_69648c87f7da.png"><img alt="../../media/fig-e142-same-triangle_69648c87f7da.png" src="../../media/fig-e142-same-triangle_69648c87f7da.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>The robot’s forward points the way its nose does. At heading 60°, that is the arrow
 (cos 60°, sin 60°) on the field. Its left is a quarter turn more, (-sin 60°, cos 60°). Each is
 1 long. The grid is the field’s x and y, moved to the robot’s center.</p>
 <figure class="align-default" id="fig-e142-robot-axes">
-<img alt="../../media/fig-e142-robot-axes_20c1e234de28.png" src="../../media/fig-e142-robot-axes_20c1e234de28.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-robot-axes_20c1e234de28.png"><img alt="../../media/fig-e142-robot-axes_20c1e234de28.png" src="../../media/fig-e142-robot-axes_20c1e234de28.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Why is left’s angle 60° at field y? Forward’s triangle has its 60° at field x.</p>
 <figure class="align-default" id="fig-e142-triangle-turn">
-<img alt="../../media/fig-e142-triangle-turn_9461729d7438.png" src="../../media/fig-e142-triangle-turn_9461729d7438.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-triangle-turn_9461729d7438.png"><img alt="../../media/fig-e142-triangle-turn_9461729d7438.png" src="../../media/fig-e142-triangle-turn_9461729d7438.png" style="width: 1080px;" />
+</a>
 </figure>
 <p>Left’s triangle is forward’s, turned a quarter turn left. Turning keeps every angle and every
 side, so the 60° lands at field y. The side along field y is cos 60°, and the side along
 field x is sin 60°, going the negative way.</p>
 <figure class="align-default" id="fig-e142-triangle-turned">
-<img alt="../../media/fig-e142-triangle-turned_c3cf48312d97.png" src="../../media/fig-e142-triangle-turned_c3cf48312d97.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-triangle-turned_c3cf48312d97.png"><img alt="../../media/fig-e142-triangle-turned_c3cf48312d97.png" src="../../media/fig-e142-triangle-turned_c3cf48312d97.png" style="width: 1080px;" />
+</a>
 </figure>
 <p>The stick says where to go on the field. After L060’s squaring, <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> is 0.64 and
 <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> is 0.16, so the stick asks for the arrow (0.64, 0.16) on the field’s grid.</p>
 <figure class="align-default" id="fig-e142-stick-field">
-<img alt="../../media/fig-e142-stick-field_a9d2a23f100f.png" src="../../media/fig-e142-stick-field_a9d2a23f100f.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-stick-field_a9d2a23f100f.png"><img alt="../../media/fig-e142-stick-field_a9d2a23f100f.png" src="../../media/fig-e142-stick-field_a9d2a23f100f.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>From the Red Alliance Area, that arrow points 0.64 away and 0.16 to the left.</p>
 <figure class="align-default" id="fig-e142-stick-red-3d">
-<img alt="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png" src="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png"><img alt="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png" src="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png" style="width: 1044px;" />
+</a>
 </figure>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
 <span class="kt">double</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
@@ -415,41 +426,49 @@ we break the field’s (0.64, 0) into a piece along each. It is forward’s 60°
 k = 0.64: 0.64 × cos 60° = 0.32 forward, and -0.64 × sin 60° = -0.55 left. End to end, they
 reach the same tip. Now the grid is the robot’s.</p>
 <figure class="align-default" id="fig-e142-forward-split">
-<img alt="../../media/fig-e142-forward-split_a7c0fb36704a.png" src="../../media/fig-e142-forward-split_a7c0fb36704a.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-forward-split_a7c0fb36704a.png"><img alt="../../media/fig-e142-forward-split_a7c0fb36704a.png" src="../../media/fig-e142-forward-split_a7c0fb36704a.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>We do the same for (0, 0.16). It is left’s triangle, its 60° at field y, with k = 0.16:
 0.16 × sin 60° = 0.14 forward, and 0.16 × cos 60° = 0.08 left.
 This picture is drawn 3 times as large, grid and all, so the pieces show.</p>
 <figure class="align-default" id="fig-e142-strafe-split">
-<img alt="../../media/fig-e142-strafe-split_07ffd6817e82.png" src="../../media/fig-e142-strafe-split_07ffd6817e82.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-strafe-split_07ffd6817e82.png"><img alt="../../media/fig-e142-strafe-split_07ffd6817e82.png" src="../../media/fig-e142-strafe-split_07ffd6817e82.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Now there are four pieces. End to end, they reach the stick’s tip. Arrows add in any order, so
 we swap the middle two.</p>
 <figure class="align-default" id="fig-e142-regroup">
-<img alt="../../media/fig-e142-regroup_9de157805e0a.png" src="../../media/fig-e142-regroup_9de157805e0a.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-regroup_9de157805e0a.png"><img alt="../../media/fig-e142-regroup_9de157805e0a.png" src="../../media/fig-e142-regroup_9de157805e0a.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Each number came from <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> or <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> and the heading. 0.32 is <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> × cos θ,
 where θ is the heading.</p>
 <figure class="align-default" id="fig-e142-regroup-formula">
-<img alt="../../media/fig-e142-regroup-formula_99d4c521618f.png" src="../../media/fig-e142-regroup-formula_99d4c521618f.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-regroup-formula_99d4c521618f.png"><img alt="../../media/fig-e142-regroup-formula_99d4c521618f.png" src="../../media/fig-e142-regroup-formula_99d4c521618f.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Both forward pieces come first now, then both left pieces. They still reach the same tip.</p>
 <figure class="align-default" id="fig-e142-regrouped">
-<img alt="../../media/fig-e142-regrouped_510939cc3e8c.png" src="../../media/fig-e142-regrouped_510939cc3e8c.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-regrouped_510939cc3e8c.png"><img alt="../../media/fig-e142-regrouped_510939cc3e8c.png" src="../../media/fig-e142-regrouped_510939cc3e8c.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>The same four pieces, each with what makes it:</p>
 <figure class="align-default" id="fig-e142-regrouped-formula">
-<img alt="../../media/fig-e142-regrouped-formula_b035845ed47c.png" src="../../media/fig-e142-regrouped-formula_b035845ed47c.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-regrouped-formula_b035845ed47c.png"><img alt="../../media/fig-e142-regrouped-formula_b035845ed47c.png" src="../../media/fig-e142-regrouped-formula_b035845ed47c.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Add the forward pieces: 0.32 + 0.14 = 0.46. That is <code class="docutils literal notranslate"><span class="pre">robotForwardXSpeed</span></code>. Add the left
 pieces: -0.55 + 0.08 = -0.47. That is <code class="docutils literal notranslate"><span class="pre">robotStrafeYSpeed</span></code>. The robot drives (0.46, -0.47) in its own
 frame, and goes where the stick points on the field.</p>
 <figure class="align-default" id="fig-e142-add">
-<img alt="../../media/fig-e142-add_e3168c45ab13.png" src="../../media/fig-e142-add_e3168c45ab13.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-add_e3168c45ab13.png"><img alt="../../media/fig-e142-add_e3168c45ab13.png" src="../../media/fig-e142-add_e3168c45ab13.png" style="width: 1152px;" />
+</a>
 </figure>
 <p>Write each sum with what makes it, in place of its numbers, and you have the two lines.</p>
 <figure class="align-default" id="fig-e142-add-formula">
-<img alt="../../media/fig-e142-add-formula_82bef7ca0412.png" src="../../media/fig-e142-add-formula_82bef7ca0412.png" />
+<a class="reference internal image-reference" href="../../media/fig-e142-add-formula_82bef7ca0412.png"><img alt="../../media/fig-e142-add-formula_82bef7ca0412.png" src="../../media/fig-e142-add-formula_82bef7ca0412.png" style="width: 1152px;" />
+</a>
 </figure>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </pre></div>

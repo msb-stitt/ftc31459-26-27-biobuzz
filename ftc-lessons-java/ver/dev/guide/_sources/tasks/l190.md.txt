@@ -154,6 +154,7 @@ The OpMode asks for a speed, but `setCommandedWheelSpeeds` in your drivetrain is
 
 :::{figure} ../_figures/fig-speed-loop.png
 :name: fig-speed-loop
+:width: 684px
 :::
 
 Open `L190SpeedDriveTrain`. It `extends CorbelsMecanum`, so it has everything L180's drivetrain had.

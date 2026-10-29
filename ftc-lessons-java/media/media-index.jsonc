@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "f12be4cf082c50d3340f1567f94132f68bf0909a",
+      "built_from_commit": "db53fe3e39b402a4f325c416772037f96bc253d6",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -119,7 +119,7 @@
         "fig-l125-drive24_daad530b722c.png",
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
-        "fig-l135-calls_ec87e18d760f.png",
+        "fig-l135-calls_47df6e40d9c0.png",
         "fig-l135-classes_656fc55b29b4.png",
         "fig-l135-menu_5d80f1f8f17e.png",
         "fig-l140-field-blue_3b384562de3b.png",
@@ -3089,12 +3089,17 @@
         "v0.4.0-rc.2"
       ]
     },
-    "fig-l135-calls_ec87e18d760f.png": {
-      "sha256": "ec87e18d760ff4dc8fea96aea5a3b1b5cb89046521a4a4c333e48e0b7f8debdc",
-      "bytes": 451624,
+    "fig-l135-calls_47df6e40d9c0.png": {
+      "sha256": "47df6e40d9c0ea79b648ce504903f79441de162da2627d234f13126ff55df631",
+      "bytes": 229735,
       "used_by_versions": [
         "dev"
       ]
+    },
+    "fig-l135-calls_ec87e18d760f.png": {
+      "sha256": "ec87e18d760ff4dc8fea96aea5a3b1b5cb89046521a4a4c333e48e0b7f8debdc",
+      "bytes": 451624,
+      "used_by_versions": []
     },
     "fig-l135-classes_656fc55b29b4.png": {
       "sha256": "656fc55b29b403ec1335c03b81471a57e01f027423fa037a81db44cfb1a878b3",
@@ -3743,6 +3748,7 @@
     "fig-l070-button_0e3700f4e357.png",
     "fig-l120-import_4005d43c5fff.png",
     "fig-l125-import-static_ce2adfeb54dd.png",
+    "fig-l135-calls_ec87e18d760f.png",
     "l020_a227022a8a0f.mp4",
     "mermaid-9b4185d1418d7db58b03e65095051827bd631b57_5d247a84e4af.svg",
     "mermaid-afa0058a20d3fe37ef77285d430869ed498d1ac4_de32db6b5496.svg"

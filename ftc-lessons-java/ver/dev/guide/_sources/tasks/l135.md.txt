@@ -2,6 +2,7 @@
 
 :::{figure} ../_figures/fig-l135-menu.png
 :name: fig-l135-menu
+:width: 628px
 :::
 
 After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125's auto
@@ -86,12 +87,14 @@ An arrow with a diamond means "holds": an `L135OptionMenu` holds its `L135MenuRo
 
 :::{figure} ../_figures/fig-l135-classes.png
 :name: fig-l135-classes
+:width: 302px
 :::
 
 One press of the D-pad's right goes down the classes, one call at a time:
 
 :::{figure} ../_figures/fig-l135-calls.png
 :name: fig-l135-calls
+:width: 629px
 :::
 
 You build it from the bottom up: each class, its tests first, then the class that uses it.

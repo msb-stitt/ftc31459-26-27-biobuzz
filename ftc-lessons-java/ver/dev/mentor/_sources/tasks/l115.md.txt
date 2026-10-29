@@ -2,6 +2,7 @@
 
 :::{figure} ../_figures/fig-pinpoint-mounting.png
 :name: fig-pinpoint-mounting
+:width: 648px
 :::
 
 The Pinpoint is bolted on, its two pods are in the right sockets, and the Control Hub finds it when

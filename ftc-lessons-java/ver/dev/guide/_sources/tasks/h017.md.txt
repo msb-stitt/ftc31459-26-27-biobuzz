@@ -8,6 +8,7 @@
 
 :::{figure} ../_figures/fig-l020-window.png
 :name: fig-l020-window
+:width: 700px
 :::
 
 A video shows every part of this page:

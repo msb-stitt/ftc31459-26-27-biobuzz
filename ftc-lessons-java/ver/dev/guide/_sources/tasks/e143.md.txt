@@ -17,6 +17,7 @@ audience. The far corner is (144, 144), in inches. A heading of 0 faces +x.
 
 :::{figure} ../_figures/fig-l140-field-top.png
 :name: fig-l140-field-top
+:width: 936px
 :::
 
 The Red Alliance Area is at the red wall. From there, +x points away from the drivers and +y
@@ -24,6 +25,7 @@ to their left. That is why, in L140, pushing the stick away drives the robot awa
 
 :::{figure} ../_figures/fig-l140-field-red.png
 :name: fig-l140-field-red
+:width: 1044px
 :::
 
 The Blue Alliance Area is at the blue wall, across the field. The axes stay where they are, so
@@ -31,6 +33,7 @@ from there +x points toward the drivers and +y to their right.
 
 :::{figure} ../_figures/fig-l140-field-blue.png
 :name: fig-l140-field-blue
+:width: 1044px
 :::
 
 L140's first two lines are written for the Red Alliance Area. L140S060 takes the minus signs off

@@ -98,6 +98,7 @@ OpMode stops.
 
 :::{figure} ../_figures/fig-wheel-handover.png
 :name: fig-wheel-handover
+:width: 936px
 :::
 
 **Change.** In `init()`, find the comment that names this step. Under it, type the first line

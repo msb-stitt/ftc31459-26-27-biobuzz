@@ -44,6 +44,7 @@ along and sideways at the same time. With four of them, the robot can drive, sli
 
 :::{figure} ../_figures/fig-mecanum-x.png
 :name: fig-mecanum-x
+:width: 648px
 :::
 
 Seen from above, the top rollers make an X. Game Manual 0 shows it on
@@ -196,6 +197,7 @@ pushes add up.
 
 :::{figure} ../_figures/fig-l090-wheel-pushes.png
 :name: fig-l090-wheel-pushes
+:width: 1296px
 :::
 
 **Robot.** Stop the simulator. Rest the robot on the blocks, so all four wheels are off the ground.
