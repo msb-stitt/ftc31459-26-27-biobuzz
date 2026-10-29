@@ -281,6 +281,10 @@ mermaid-cli lay it out with Menlo as its font, then draws its boxes, words and a
 style. mermaid-cli is installed by `npm ci` in `book/`, which needs Node 22.13.0 or later; it
 installs the Chrome mermaid-cli draws with into `book/.cache`.
 
+A drawing is shown at the size it is drawn, as `tools/build.py` says, and no wider than the
+column. A diagram too wide for the column at that size is laid out narrower, by breaking a
+long name onto two lines with `<br/>` and wrapping long messages, rather than shrunk.
+
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses
 for names and values:
