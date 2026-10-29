@@ -22,11 +22,10 @@ Run it in a Python that has the book's requirements. The lessons
 ref is checked out into a throwaway worktree, so nothing here is touched. In
 that copy, every pencilled box (`:::{admonition} fig-...` with `:class: pencil`)
 whose id has a picture in --figures becomes that picture, with no caption: the
-box's words only stand in for it. A picture that records its resolution is shown
-at the size it was made, its pixels at 72 to the inch, as matplotlib and a Mac
-screenshot record it; one that records none is shown at its pixel width. The
-column narrows either. The lessons ref keeps its boxes; the pictures
-live in corbels-lfs-lessons.
+box's words only stand in for it. A picture whose PNG asks for a width, in a
+text chunk "Shown width" in CSS pixels, is shown at that width; any other is
+shown at its pixel width. The column narrows either. The lessons ref keeps its
+boxes; the pictures live in corbels-lfs-lessons.
 """
 
 import argparse
@@ -51,18 +50,16 @@ def run(*args, cwd=None):
 
 
 def shown_width(png: Path) -> int | None:
-    """The width PNG is shown at, in CSS pixels: its pixels at 72 to the inch, from its pHYs
-    chunk. None if it records no resolution in pixels a metre."""
+    """The width PNG asks to be shown at, in CSS pixels, from its tEXt chunk "Shown width".
+    None if it asks for none."""
     data = png.read_bytes()
-    width = struct.unpack(">I", data[16:20])[0]
     at = 8
     while at < len(data):
         size, kind = struct.unpack(">I4s", data[at:at + 8])
-        if kind == b"pHYs":
-            per_metre, _, unit = struct.unpack(">IIB", data[at + 8:at + 17])
-            return round(width * 72 / (per_metre * 0.0254)) if unit == 1 else None
-        if kind == b"IDAT":
-            return None
+        if kind == b"tEXt":
+            key, _, value = data[at + 8:at + 8 + size].partition(b"\0")
+            if key == b"Shown width":
+                return int(value)
         at += 12 + size
     return None
 

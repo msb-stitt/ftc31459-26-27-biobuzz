@@ -281,9 +281,9 @@ mermaid-cli lay it out with Menlo as its font, then draws its boxes, words and a
 style. mermaid-cli is installed by `npm ci` in `book/`, which needs Node 22.13.0 or later; it
 installs the Chrome mermaid-cli draws with into `book/.cache`.
 
-A drawing is shown at the size it is drawn, as `tools/build.py` says, and no wider than the
-column. `draw.py` shows a Mermaid pixel as a CSS pixel, so a diagram's text is the size of the
-body's. A diagram too wide for the column at that size is laid out narrower, by breaking a
+A diagram asks to be shown with a Mermaid pixel as a CSS pixel, so its text is the size of the
+body's, as `tools/build.py` says; another picture is shown at its pixel width. The column narrows
+either. A diagram too wide for the column at that size is laid out narrower, by breaking a
 long name onto two lines with `<br/>` and wrapping long messages, rather than shrunk.
 
 Each class in a diagram has its own colour, the same in each diagram it is in, from `draw.py`'s
