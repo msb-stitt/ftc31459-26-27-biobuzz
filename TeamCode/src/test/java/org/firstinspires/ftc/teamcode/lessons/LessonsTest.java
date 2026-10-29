@@ -576,6 +576,22 @@ public class LessonsTest {
     }
 
     @Test
+    public void l135_blueFirstWhenTheLastAllianceWasBlue() {
+        OpModeStorage.isRed = false;
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l135.AutoWithMenuOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertTrue("Blue is the first choice: " + h.driverStation.text(),
+                h.driverStation.shows("B-N\n> Alliance: <Blue>\n  Auto: <Nothing>"));
+        h.start();
+        h.loops(20, 5);
+        h.stop();
+        assertEquals("Nothing does not move, from blue's start", 133.5, follower.pose().y(), 0.1);
+        assertEquals(72.0, follower.pose().x(), 0.1);
+    }
+
+    @Test
     public void l135_upWrapsAndForward24DrivesForRed() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("l135.AutoWithMenuOpMode"));
         Follower follower = h.robot.follower;
