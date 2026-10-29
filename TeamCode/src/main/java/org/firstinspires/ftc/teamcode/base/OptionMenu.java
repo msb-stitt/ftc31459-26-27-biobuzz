@@ -99,9 +99,9 @@ public class OptionMenu {
 
     /** The row with this name. */
     MenuRow rowNamed(String rowName) {
-        for (int i = 0; i < rows.length; i++) {
-            if (rows[i].name().equals(rowName)) {
-                return rows[i];
+        for (MenuRow row : rows) {
+            if (row.name().equals(rowName)) {
+                return row;
             }
         }
         throw new IllegalArgumentException("No row named " + rowName);
