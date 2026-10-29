@@ -15,7 +15,7 @@ until the Robot Controller app stops, so AdvantageScope stays connected from one
 it is on, and Start turns it the other way. The setting lasts until the Robot Controller app
 restarts. Until the switch sets it, a lesson and a copy in `mytry` are live, through
 `Tracker.serveLiveUnlessSwitchedOff()`, and StarterBot TeleOp, StarterBot Auto, Launcher Check,
-88888 TeleOp and 88888 Auto are not. Each OpMode that serves says on the Driver Station whether it is live.
+88888 TeleOp, 88888 Auto, Example TeleOp and Example Auto are not. Each OpMode that serves says on the Driver Station whether it is live.
 
 **For practice only.** FTC rule R704 forbids third-party telemetry over Wi-Fi at competitions.
 Before one, run the switch until it says off.

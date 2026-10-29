@@ -167,6 +167,33 @@ public class StarterBotTest {
     }
 
     @Test
+    public void eachIntakeCommandKeepsItsOwnSpeed() {
+        Command slowly = intake.run(() -> 0.25);
+        Command quickly = intake.run(() -> 0.75);
+        Scheduler.schedule(slowly);
+        Scheduler.execute();
+        assertEquals("the first command, built before the second", 0.25, intakeMotor.speed, 1e-9);
+        Scheduler.cancel(slowly);
+        Scheduler.schedule(quickly);
+        Scheduler.execute();
+        assertEquals(0.75, intakeMotor.speed, 1e-9);
+    }
+
+    @Test
+    public void eachFireCommandKeepsItsOwnButton() {
+        Command fire = launcher.fireWhile(() -> true);
+        Command hold = launcher.fireWhile(() -> false);
+        Scheduler.schedule(fire);
+        Scheduler.execute();
+        assertEquals("the first command, built before the second", 1250,
+                launcherMotor.targetVelocity, 0);
+        Scheduler.cancel(fire);
+        Scheduler.schedule(hold);
+        Scheduler.execute();
+        assertEquals(0, launcherMotor.targetVelocity, 0);
+    }
+
+    @Test
     public void theTeleOpRunsTheSticksTheTriggersAndTheBumper() {
         StarterBotTeleOp.intakes = map -> intake;
         StarterBotTeleOp.launchers = map -> launcher;
