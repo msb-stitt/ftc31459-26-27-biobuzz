@@ -286,6 +286,11 @@ column. `draw.py` shows a Mermaid pixel as a CSS pixel, so a diagram's text is t
 body's. A diagram too wide for the column at that size is laid out narrower, by breaking a
 long name onto two lines with `<br/>` and wrapping long messages, rather than shrunk.
 
+Each class in a diagram has its own colour, the same in each diagram it is in, from `draw.py`'s
+`MERMAID_COLORS`: its marker fill and, a darker shade, its outline. A class missing from it stops
+the draw with its name. A message's words sit on a box of paper, so the lifelines they cross stop
+around them.
+
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses
 for names and values:
