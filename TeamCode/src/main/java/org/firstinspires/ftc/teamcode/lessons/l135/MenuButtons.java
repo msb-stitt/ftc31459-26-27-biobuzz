@@ -4,6 +4,6 @@
  *
  * <p>Uses {@link OptionMenu}, and the SDK's {@link Gamepad}.
  */
-// When on L135S110, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+// When on L135S090, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s090
 // for what to write in this file.

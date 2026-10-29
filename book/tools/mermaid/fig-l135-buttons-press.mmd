@@ -1,0 +1,22 @@
+sequenceDiagram
+    %% faint: MenuRow
+    participant DS as menu:<br/>Driver<br/>StationMenu
+    participant Buttons as menuButtons:<br/>MenuButtons
+    participant Menu as optionMenu:<br/>OptionMenu
+    participant Row as allianceRow:<br/>MenuRow
+    participant Pad as gamepad1:<br/>Gamepad
+    DS->>Buttons: loop(gamepad1)
+    Buttons->>Pad: dpadUpWasPressed()
+    Pad-->>Buttons: false
+    Buttons->>Pad: dpadDownWasPressed()
+    Pad-->>Buttons: false
+    Buttons->>Pad: dpadLeftWasPressed()
+    Pad-->>Buttons: false
+    Buttons->>Pad: dpadRightWasPressed()
+    Pad-->>Buttons: true
+    Buttons->>Menu: goRight()
+    Menu->>Row: goRight()
+    Buttons->>Pad: aWasPressed()
+    Pad-->>Buttons: false
+    Buttons->>Pad: bWasPressed()
+    Pad-->>Buttons: false

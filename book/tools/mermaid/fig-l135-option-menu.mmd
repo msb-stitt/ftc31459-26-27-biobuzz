@@ -1,0 +1,30 @@
+classDiagram
+    %% faint: MenuRow
+    class OptionMenu {
+        -ArrayList~MenuRow~ rows
+        -int pointedIndex
+        +add(row)
+        goUp()
+        goDown()
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        getSummary() String
+        getLines() ArrayList~String~
+    }
+    class MenuRow {
+        -String name
+        -ArrayList~MenuItem~ items
+        -int selectedIndex
+        -int offeredIndex
+        +MenuRow(name)
+        +add(item)
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        +getSelected() MenuItem
+        getLine() String
+    }
+    OptionMenu o-- MenuRow

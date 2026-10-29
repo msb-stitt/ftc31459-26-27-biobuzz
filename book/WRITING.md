@@ -126,21 +126,29 @@ The code a student copies carries a comment where each step changes it, linking 
 
 L135 is the first. Its page and its starters are written this way:
 
-- **The problem first.** After the picture, `## the problem` says what the code does as the driver
-  sees it, not as the code holds it, and gives example output that defines it fully.
-- **The classes next.** `## the classes` gives each class's one job, then a class diagram and one
-  action traced as a sequence diagram, each written in Mermaid and drawn by `draw.py`, as *Draw
-  in the marker-sketch style* says. Each diagram is registered in `FIGURES.md`, as *A picture is
-  registered before it is drawn* says.
-- **A starter is a header**: its class Javadoc and step pointer only. The student types the
-  `package` line, the imports and the class.
+- **Its own folder.** The lesson's classes are in `mytry/lnnn/`, package `...mytry.lnnn`, named
+  without the lesson number, such as `MenuItem`; its tests are in `mytry/lnnn/` under `test`. The
+  starters are in `lessons/lnnn/`, and a step copies the folder whole. A class or member another
+  lesson's code calls from outside the folder is `public`.
+- **What it does first, press by press.** After the picture, the page shows the code working as
+  the driver sees it, not as the code holds it: one picture for each press, beside the screen it
+  leaves, made from `tools/menu/`'s captured screens. They define it fully.
+- **Then each class, from the bottom up.** A section for each class gives its one job, its class
+  diagram, what each field holds and what each method does, then a short sequence diagram for each
+  way it works with the classes it holds, then the steps that test it and write it. A class drawn
+  only to show what holds it is drawn faint. Each diagram is written in Mermaid and drawn by
+  `draw.py`, as *Draw in the marker-sketch style* says, and registered in `FIGURES.md`, as *A
+  picture is registered before it is drawn* says.
+- **A class's starter is a header**: its class Javadoc and step pointer only. The student types
+  the `package` line, the imports and the class. The OpMode's starter is like other lessons', with
+  step pointers where the student types.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
   and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
   fail, then types the code until it passes.
 - **Build** and **Test** are parts of a step. They run
   `./gradlew :TeamCode:compileDebugJavaWithJavac` and
-  `./gradlew :TeamCode:testDebugUnitTest --tests '*Lnnn*'`, with the lesson's own number; the
-  check is `BUILD SUCCESSFUL`.
+  `./gradlew :TeamCode:testDebugUnitTest --tests '*mytry.lnnn*'`, with the lesson's own number;
+  the check is `BUILD SUCCESSFUL`.
 
 ## The old pages have five parts
 
@@ -241,7 +249,8 @@ These simplifications are made everywhere, and are not marked:
 ## The code a student copies is plain Java
 
 - **Package-private by default.** A modifier is written only where the code will not work without
-  it, and then it is `public`. No lesson teaches `protected`.
+  it, and then it is `public`. From L135, which teaches it, a field of a lesson's own class is
+  `private`. No lesson teaches `protected`.
 - **Every modifier has a comment on the line before it**, saying what forced it and what it allows.
   The phrases are in `ftc-claude`'s `.docs/modifiers-explanation.md`.
 - **The code we give the students has Javadoc**, and no lesson asks a student to write any.
@@ -290,6 +299,10 @@ Each class in a diagram has its own colour, the same in each diagram it is in, f
 `MERMAID_COLORS`: its marker fill and, a darker shade, its outline. A class missing from it stops
 the draw with its name. A message's words sit on a box of paper, so the lifelines they cross stop
 around them.
+
+A line `%% faint: Name, Name` in a `.mmd` file draws those classes or objects faint, and in a
+sequence diagram the messages to and from them; a faint class's fields and methods are blurred
+too. A name with no box stops the draw.
 
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses

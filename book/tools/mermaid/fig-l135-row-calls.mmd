@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant Menu as optionMenu:<br/>OptionMenu
+    participant Row as allianceRow:<br/>MenuRow
+    participant Red as red:<br/>MenuItem
+    participant Blue as blue:<br/>MenuItem
+    Menu->>Row: getLine()
+    Row->>Red: getFullName()
+    Red-->>Row: "Red"
+    Row-->>Menu: "Alliance: #lt;Red#gt;"
+    Menu->>Row: goRight()
+    Menu->>Row: getLine()
+    Row->>Blue: getFullName()
+    Blue-->>Row: "Blue"
+    Row-->>Menu: "Alliance: Blue? A:OK B:Back"
+    Menu->>Row: select()
+    Menu->>Row: getLine()
+    Row->>Blue: getFullName()
+    Blue-->>Row: "Blue"
+    Row-->>Menu: "Alliance: #lt;Blue#gt;"
+    Menu->>Row: getSelected()
+    Row-->>Menu: blue

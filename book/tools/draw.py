@@ -198,7 +198,7 @@ def l135_menu():
     for i, line in enumerate(lines):
         ax.text(0.03, 0.84 - i * 0.18, line, transform=ax.transAxes, ha="left", va="center",
                 color="#f2f2f2", fontproperties=code)
-    ax.set_title("The Driver Station during INIT of L135 Choose Auto", fontsize=12)
+    ax.set_title("The Driver Station during INIT of L135 Auto With Menu", fontsize=12)
     stand_in(ax, "a Driver Station screenshot", x=0.98, y=0.04, ha="right", color="#bbbbbb")
     save(fig, "fig-l135-menu")
 
@@ -2882,14 +2882,14 @@ LOOP_WORDS = {"lib-s": "#6e4bb0", "frame": "#1f8a72", "human-s": "#a8742a", "hw-
 HAND_ONLY = {"→": "to", "×": "x", " ●": "", "●": ""}   # Marker Felt has none of these
 
 
-def loop_head(s, a, b, color):
+def loop_head(s, a, b, color, alpha=1.0):
     """A filled head at b, pointing from a."""
     tx, ty = b[0] - a[0], b[1] - a[1]
     n = math.hypot(tx, ty) or 1
     tx, ty, h = tx / n, ty / n, 14
     s.line([(b[0] - tx * h - ty * h * 0.5, b[1] - ty * h + tx * h * 0.5), b,
-            (b[0] - tx * h + ty * h * 0.5, b[1] - ty * h - tx * h * 0.5)], color, 1.6,
-           fill=color, closed=True)
+            (b[0] - tx * h + ty * h * 0.5, b[1] - ty * h - tx * h * 0.5)], color, 1.6, alpha,
+           fill=color, fill_alpha=alpha, closed=True)
 
 
 def loop_wire(s, pts, color, dashed, arrow):
@@ -3269,13 +3269,16 @@ MERMAID_COLUMN = 736       # the book's column, in CSS pixels; a Mermaid pixel i
 # Each class's colours, the same in each diagram it is in: its marker, from Mermaid's neo
 # palette as its neo look gave them in fig-l135-classes, and its lines, a darker shade of it.
 MERMAID_COLORS = {
-    "L135ChooseAutoOpMode": ("#A78BFA", "#6D28D9"),
-    "L135DriverStationMenu": ("#4ADE80", "#15803D"),
-    "L135MenuButtons": ("#22D3EE", "#0E7490"),
-    "L135OptionMenu": ("#FB923C", "#C2410C"),
-    "L135MenuRow": ("#2DD4BF", "#0F766E"),
-    "L135MenuItem": ("#E879F9", "#A21CAF"),
+    "AutoWithMenuOpMode": ("#A78BFA", "#6D28D9"),
+    "DriverStationMenu": ("#4ADE80", "#15803D"),
+    "MenuButtons": ("#22D3EE", "#0E7490"),
+    "OptionMenu": ("#FB923C", "#C2410C"),
+    "MenuRow": ("#2DD4BF", "#0F766E"),
+    "MenuItem": ("#E879F9", "#A21CAF"),
+    "Gamepad": ("#A4A7A9", "#3E4245"),
+    "Tracker": ("#FACC15", "#A16207"),
 }
+FAINT = re.compile(r"^\s*%% faint: (.*)$", re.M)   # names drawn faint: a class, or an object
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
 TRANSLATE = re.compile(r"translate\(\s*([-\d.e]+)[\s,]+([-\d.e]+)\s*\)")
@@ -3390,7 +3393,7 @@ def across(divider, boxes):
     return divider
 
 
-def fit(box, words, pad=12):
+def fit(box, words, pad=8):
     """The box, widened about its middle to hold each centered line inside it with pad over."""
     xs, ys = [x for x, _ in box], [y for _, y in box]
     left, right, top, bottom = min(xs), max(xs), min(ys), max(ys)
@@ -3430,17 +3433,47 @@ def inside(p, box):
     return min(xs) <= p[0] <= max(xs) and min(ys) <= p[1] <= max(ys)
 
 
-def color_of(box, words):
-    """The colours of the class whose name is centered in box, a name on two lines joined."""
+def name_of(box, words):
+    """The name centered in box, a name on two lines joined, as `red:MenuItem` or `MenuItem`."""
     lines = sorted((xy[1], s) for xy, s, anchor in words if anchor == "middle" and inside(xy, box))
-    name = "".join(s for _, s in lines)
-    if name not in MERMAID_COLORS:
-        raise SystemExit(f"{name} has no colour in draw.py's MERMAID_COLORS")
-    return MERMAID_COLORS[name]
+    return "".join(s for _, s in lines).replace(" ", "")
+
+
+def color_of(name):
+    """The colours of the class a box is, from its name or the class after an object's `:`."""
+    cls = name.split(":")[-1]
+    if cls not in MERMAID_COLORS:
+        raise SystemExit(f"{cls} has no colour in draw.py's MERMAID_COLORS")
+    return MERMAID_COLORS[cls]
+
+
+def is_faint(name, faint):
+    return name in faint or any(part in faint for part in name.split(":"))
+
+
+def middle_x(box):
+    xs = [x for x, _ in box]
+    return (min(xs) + max(xs)) / 2
+
+
+def faint_arrow(pts, faint_x):
+    """An arrow is faint when it starts or ends on a faint box's lifeline."""
+    return any(abs(p[0] - x) < 8 for p in (pts[0], pts[-1]) for x in faint_x)
+
+
+def by_faint_arrow(xy, faint_arrows):
+    """A message's words are faint when they sit just above a faint arrow, between its ends."""
+    for pts in faint_arrows:
+        xs, y = [p[0] for p in pts], min(p[1] for p in pts)
+        if min(xs) - 40 <= xy[0] <= max(xs) + 40 and y - 34 <= xy[1] <= y + 2:
+            return True
+    return False
 
 
 def mermaid(name):
     w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
+    faint = {n.strip() for found in FAINT.findall((MERMAID / f"{name}.mmd").read_text())
+             for n in found.split(",")}
     if w > MERMAID_COLUMN:
         raise SystemExit(f"{name} is {w:.0f} px wide, wider than the column's {MERMAID_COLUMN} px:"
                          " lay it out narrower")
@@ -3448,29 +3481,99 @@ def mermaid(name):
     s = Sketch(MERMAID_COLUMN, h, zlib.crc32(name.encode()))
     margin = (MERMAID_COLUMN - w) / 2
     s.ax.set_xlim(-margin, w + margin)
+    names = [name_of(box, words) for box in boxes]
+    unknown = faint - {part for n in names for part in [n, *n.split(":")]}
+    if unknown:
+        raise SystemExit(f"{name} names {', '.join(sorted(unknown))} faint, and has no such box")
+    faint_boxes = [box for box, n in zip(boxes, names) if is_faint(n, faint)]
+    faint_x = [middle_x(box) for box in faint_boxes]
     for a, b in lifelines:
-        s.line([a, b], GREY3, 1.8, 0.9).set_linestyle((0, (6, 4)))
-    colors = [color_of(box, words) for box in boxes]
+        dim = any(abs(a[0] - x) < 3 for x in faint_x)
+        s.line([a, b], GREY3, 1.8, 0.35 if dim else 0.9).set_linestyle((0, (6, 4)))
+    colors = [color_of(n) for n in names]
     for box, (fill, ink) in zip(boxes, colors):
-        s.marker(box, fill, nib=10, opacity=0.4)
-        s.ink_poly(box, over=4, color=ink)
+        dim = box in faint_boxes
+        s.marker(box, fill, nib=10, opacity=0.15 if dim else 0.4)
+        s.ink_poly(box, over=4, color=to_rgba(ink, 0.35) if dim else ink)
     for a, b in dividers:
-        ink = next(c[1] for box, c in zip(boxes, colors) if inside(((a[0] + b[0]) / 2, a[1]), box))
+        box, c = next((box, c) for box, c in zip(boxes, colors)
+                      if inside(((a[0] + b[0]) / 2, a[1]), box))
+        ink = to_rgba(c[1], 0.35) if box in faint_boxes else c[1]
         s.ink_line(a, b, width=1.8, over=2, passes=1, color=ink)
+    faint_arrows = []
     for pts, dashed, ends in arrows:
+        dim = ends == "head" and faint_arrow(pts, faint_x)
+        if dim:
+            faint_arrows.append(pts)
         if ends == "diamond":
             pts = [diamond(s, pts[0], pts[1])] + pts[1:]
-        line = s.line(pts, PEN, 2.6, 0.9)
+        line = s.line(pts, PEN, 2.6, 0.3 if dim else 0.9)
         if dashed:
             line.set_linestyle((0, (5, 3)))
         if ends == "head":
-            loop_head(s, pts[-2], pts[-1], PEN)
+            loop_head(s, pts[-2], pts[-1], PEN, 0.3 if dim else 1.0)
     for xy, words_, anchor in words:
+        box = next((box for box in boxes if inside(xy, box)), None)
+        dim = (box in faint_boxes) if box is not None else by_faint_arrow(xy, faint_arrows)
         text = s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
         # A message's words cross the lifelines: a box of paper behind them parts them.
-        if not any(inside(xy, box) for box in boxes):
+        if box is None:
             text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
+        if dim:
+            text.set_alpha(0.35)
+        # A faint class's fields and methods are blurred too: there, not to be read here.
+        if dim and anchor == "start":
+            text.set_agg_filter(Soft(1.4, 0.6))
     s.save(name)
+
+
+# -- L135's menu, a screen at a time: the gamepad with the button pressed, beside what the Driver
+# -- Station shows after it, from what TeamCode's menuCapture wrote.
+
+SCREENS = Path(__file__).resolve().parent / "menu" / "l135-screens.txt"
+DPAD = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
+FACE = {"Y": (0, -1), "A": (0, 1), "X": (-1, 0), "B": (1, 0)}
+
+
+def screens():
+    """Each screen's press, such as INIT or right, and the Driver Station's lines after it."""
+    blocks = SCREENS.read_text().strip("\n").split("\n\n")
+    return [(b.split("\n")[0], b.split("\n")[1:]) for b in blocks]
+
+
+def pad_buttons(s, cx, cy, w, h, pressed):
+    """The D-pad and the face buttons on gamepad(s, cx, cy, w, h), the one pressed in orange."""
+    dx, dy, arm = cx - 0.27 * w, cy - 0.1 * h, 0.075 * w
+    s.marker(rect(dx - arm / 2, dy - arm / 2, arm, arm), GREY1, nib=8, opacity=0.95)
+    for name, (ux, uy) in DPAD.items():
+        box = rect(dx + ux * arm - arm / 2, dy + uy * arm - arm / 2, arm, arm)
+        s.marker(box, MARKER_ORANGE if name == pressed else GREY1, nib=8, opacity=0.95)
+        s.ink_poly(box, width=1.8, over=2)
+    fx, fy, gap = cx + 0.27 * w, cy - 0.1 * h, 0.085 * w
+    for name, (ux, uy) in FACE.items():
+        c, r = (fx + ux * gap, fy + uy * gap), 0.042 * w
+        s.marker(ellipse(c, r), MARKER_ORANGE if name == pressed else GREY1, nib=8, opacity=0.95)
+        s.ink_circle(c, r, width=1.8)
+        if name in ("A", "B"):
+            s.text((c[0], c[1] + 6), name, 17)
+
+
+def l135_press(n, press, lines):
+    s = Sketch(MERMAID_COLUMN, 205, 135 + n)
+    cx, cy, w, h = 150, 120, 260, 116
+    gamepad(s, cx, cy, w, h)
+    pad_buttons(s, cx, cy, w, h, press)
+    s.text((cx, 34), "INIT, nothing pressed" if press == "INIT" else f"press {press}", 22)
+    x, y, sw, sh = 290, 25, 436, 156
+    screen_device(s, x, y, sw, sh, 14)
+    for i, line in enumerate(lines):
+        s.text((x + 26, y + 68 + i * 30), line, 15, PAPER, anchor="start", code=True)
+    s.save(f"fig-l135-press-{n:02d}")
+
+
+def l135_presses():
+    for n, (press, lines) in enumerate(screens(), start=1):
+        l135_press(n, press, lines)
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
@@ -3485,7 +3588,8 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_unit_circle, e142_radian, e142_quadrants, e142_unit_triangles, e142_similar,
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
-            e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops]
+            e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
+            l135_presses]
 
 if __name__ == "__main__":
     if OUT is None:
