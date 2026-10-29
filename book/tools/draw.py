@@ -3341,7 +3341,9 @@ def mermaid_read(root):
             else:
                 words.append((at(dx + em(el.get("x")), y), s, "start"))
         elif tag == "text" and ({"actor-box", "messageText"} & set(cls)):
-            middle = dy + float(el.get("y")) + em(el.get("dy"))
+            # A name on two lines is two texts, each moved up or down by its tspan's dy.
+            middle = dy + float(el.get("y")) + em(el.get("dy")) + sum(
+                em(t.get("dy")) for t in el.iter(SVG_NS + "tspan"))
             s = "".join(el.itertext())
             words.append((at(dx + float(el.get("x")), middle + CENTRAL * MERMAID_SIZE), s,
                           "middle"))
