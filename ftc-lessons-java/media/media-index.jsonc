@@ -1785,6 +1785,183 @@
         "route-linear_da84b53b7f66.svg",
         "route-through_e6cc8a6e02df.svg"
       ]
+    },
+    "v0.4.0-rc.6": {
+      "pages": "ftc-lessons-java/ver/v0.4.0-rc.6/",
+      "built_from_commit": "1c61e8983c3ed4a36265671fb24eff7885aad89f",
+      "media_used": [
+        "fig-advantagescope-sim_681635010d9e.png",
+        "fig-control-loops_0c687675e83c.png",
+        "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
+        "fig-e035-numberline-3d_a1504154d867.png",
+        "fig-e035-numberline_c8208c13327c.png",
+        "fig-e035-robot-3d_032b26748416.png",
+        "fig-e035-robot-frame-3d_6d65d0307746.png",
+        "fig-e035-speeds-3d_c6ee55501da0.png",
+        "fig-e035-stick_b6d2e5c7270e.png",
+        "fig-e035-switch-3d_cfeab5d0ee2f.png",
+        "fig-e035-switch_7f1981dfd636.png",
+        "fig-e035-xy-3d_e04b556528a6.png",
+        "fig-e035-xy_d5325e0ddee2.png",
+        "fig-e035-xyz_5ffe1a3d4bd3.png",
+        "fig-e141-add_64cc0dba6efa.png",
+        "fig-e141-notation_367f915c70d3.png",
+        "fig-e141-offset_31ba7445dfb4.png",
+        "fig-e141-scale-offset_d3b6a87e2d22.png",
+        "fig-e141-scale_0be400dafeea.png",
+        "fig-e142-add-formula_82bef7ca0412.png",
+        "fig-e142-add_e3168c45ab13.png",
+        "fig-e142-forward-split_a7c0fb36704a.png",
+        "fig-e142-quadrants_a7ab13c71370.png",
+        "fig-e142-radian_dbc12abb88cc.png",
+        "fig-e142-regroup-formula_99d4c521618f.png",
+        "fig-e142-regroup_9de157805e0a.png",
+        "fig-e142-regrouped-formula_b035845ed47c.png",
+        "fig-e142-regrouped_510939cc3e8c.png",
+        "fig-e142-robot-axes_20c1e234de28.png",
+        "fig-e142-same-triangle_69648c87f7da.png",
+        "fig-e142-similar_685ec662e828.png",
+        "fig-e142-stick-field_a9d2a23f100f.png",
+        "fig-e142-stick-red-3d_fc01635a5d4d.png",
+        "fig-e142-strafe-split_07ffd6817e82.png",
+        "fig-e142-triangle-turn_9461729d7438.png",
+        "fig-e142-triangle-turned_c3cf48312d97.png",
+        "fig-e142-unit-circle_189ea2c0459a.png",
+        "fig-e142-unit-triangles_8c421148c32f.png",
+        "fig-field-relative_3487ddf2e52e.png",
+        "fig-gamepad-sticks_a484af7b6aeb.png",
+        "fig-l011-advantagescope_ac1908de02ed.png",
+        "fig-l011-agp-more_ebda5cbbf3aa.png",
+        "fig-l011-archive_cc0d51832b15.png",
+        "fig-l011-build-menu_df1dda3b4389.png",
+        "fig-l011-built_1edf8a09a00a.png",
+        "fig-l011-git_73efc58f7f42.png",
+        "fig-l011-gradle-jvm_d3ca85bb654f.png",
+        "fig-l011-offers_d1d13581b4d6.png",
+        "fig-l011-setup_0dc19f60a602.png",
+        "fig-l011-smartscreen_39525aad50d6.png",
+        "fig-l011-trust_19443416b95a.png",
+        "fig-l011-wizard-standard_16599ff3f281.png",
+        "fig-l012-advantagescope_5956e0eb21d5.png",
+        "fig-l012-agp-more_070272bfb056.png",
+        "fig-l012-applications_4b04cd309596.png",
+        "fig-l012-archive_35d702368a29.png",
+        "fig-l012-build-menu_26783f2cbc11.png",
+        "fig-l012-built_466c9b4744a6.png",
+        "fig-l012-gradle-jvm_a10e16db6749.png",
+        "fig-l012-offers_423ab8908bad.png",
+        "fig-l012-tools_c313dde8986d.png",
+        "fig-l012-trust_6af16aa43d07.png",
+        "fig-l012-wizard-standard_c50c3ab73551.png",
+        "fig-l013-advantagescope_3d85caad660f.png",
+        "fig-l013-agp-more_be688c46b080.png",
+        "fig-l013-apt_13e77973c3b4.png",
+        "fig-l013-archive_5a1388926596.png",
+        "fig-l013-build-menu_0c28de9b490d.png",
+        "fig-l013-built_e752ecbd8c00.png",
+        "fig-l013-git_9ff5f96bc55c.png",
+        "fig-l013-gradle-jvm_53f0191d49b0.png",
+        "fig-l013-trust_65dc9c76febb.png",
+        "fig-l013-wizard-standard_97e3a02f3d74.png",
+        "fig-l020-complete_a7bfef7a5401.png",
+        "fig-l020-copied_ba826710cf6e.png",
+        "fig-l020-copy-class_d05eb5aad2f1.png",
+        "fig-l020-hover_c990a79d44ce.png",
+        "fig-l020-live_73d5ef72c5ed.png",
+        "fig-l020-log_bb7a5db81af7.png",
+        "fig-l020-platform_8b3cd980ac07.png",
+        "fig-l020-publish_c02b723322ff.png",
+        "fig-l020-sticky_a051629b4d17.png",
+        "fig-l020-tracker-note_9e0600fc648e.png",
+        "fig-l020-tracker_0e1b30439d3c.png",
+        "fig-l020-variable_0d0285e5c348.png",
+        "fig-l020-window_c51af20cec34.png",
+        "fig-l030-complete_9d6d554c01ff.png",
+        "fig-l030-live_c75dec2509b9.png",
+        "fig-l040-field_120293bc280c.png",
+        "fig-l040-hardware_25d94e20b03c.png",
+        "fig-l040-setpower_392e1a190c45.png",
+        "fig-l040-sticky_6caf2b0f3b43.png",
+        "fig-l050-direction_aa0cfd6446ca.png",
+        "fig-l060-deadband_6327d1a7d564.png",
+        "fig-l060-squared_97e3be716d34.png",
+        "fig-l070-button_e82d4c2f6703.png",
+        "fig-l070-pressed_a1f24208ba0f.png",
+        "fig-l070-sideways_4eeff79fdbcf.png",
+        "fig-l080-forward-turn_1a2cc39da619.png",
+        "fig-l080-scaled_a49c08e7a5d3.png",
+        "fig-l080-too-much_cf8e7438c86d.png",
+        "fig-l090-corner_c39b004c45f5.png",
+        "fig-l090-slide_3e499752b971.png",
+        "fig-l090-wheel-pushes_37409d515f56.png",
+        "fig-l110-slide_0d801b6cc793.png",
+        "fig-l120-encoders-follow_17ee96a78410.png",
+        "fig-l120-import_a86a735cc3e6.png",
+        "fig-l120-shadow-still_7eca34744b0f.png",
+        "fig-l125-drive24_daad530b722c.png",
+        "fig-l125-import-static_3e57c231ae64.png",
+        "fig-l130-two-legs_51953ca87286.png",
+        "fig-l135-buttons-idle_19297fae893e.png",
+        "fig-l135-buttons-press_63f272befa80.png",
+        "fig-l135-buttons_533b43a2f05c.png",
+        "fig-l135-calls_45f5fb9d3c1f.png",
+        "fig-l135-classes_4e288fd64f47.png",
+        "fig-l135-ds-loop_c048f10e0442.png",
+        "fig-l135-ds-menu_955d512e2d69.png",
+        "fig-l135-item_d38e2b34daaa.png",
+        "fig-l135-menu-down_286c9927e88b.png",
+        "fig-l135-menu-lines_2bf44070a4f4.png",
+        "fig-l135-menu-right_3e0d4b27ed0e.png",
+        "fig-l135-menu_766fd9eaa1e1.png",
+        "fig-l135-option-menu_4105d6d98b99.png",
+        "fig-l135-press-01_aab0aa5534ce.png",
+        "fig-l135-press-02_c6e79c5d6330.png",
+        "fig-l135-press-03_b1ea0ee4a3ab.png",
+        "fig-l135-press-04_0aba78177d95.png",
+        "fig-l135-press-05_a48f4301704e.png",
+        "fig-l135-press-06_121bfe5a09f6.png",
+        "fig-l135-press-07_ce1de048bfea.png",
+        "fig-l135-press-08_dd23451eb8a9.png",
+        "fig-l135-press-09_849e87a99e28.png",
+        "fig-l135-press-10_f816d54c2779.png",
+        "fig-l135-press-11_bad3cafc948b.png",
+        "fig-l135-press-12_dc29ce0a4c95.png",
+        "fig-l135-row-calls_fd3da7a459dc.png",
+        "fig-l135-row_1adeb1e86fcc.png",
+        "fig-l140-field-blue_3b384562de3b.png",
+        "fig-l140-field-red_27fd021cf649.png",
+        "fig-l140-field-top_a914a13d7b0a.png",
+        "fig-l140-spin-and-slide_4a3409de23d8.png",
+        "fig-l150-bumper-held_f783c8ac1b90.png",
+        "fig-l160-creep_6385ea236e2a.png",
+        "fig-l160-held_e29992a5e74d.png",
+        "fig-l170-drove-there_83f144e4565b.png",
+        "fig-l170-stands-still_c36e5a46902e.png",
+        "fig-l180-aiming_d6ff9bb58285.png",
+        "fig-l190-asks-standing-still_911602ecc989.png",
+        "fig-l190-wheel-numbers_1572e143bd65.png",
+        "fig-l195-nothing-pushed_b78bc5855097.png",
+        "fig-mecanum-x_1487c470aae6.png",
+        "fig-odometry-step_4d3452b4bec9.png",
+        "fig-panels-graph_526119dde860.png",
+        "fig-pedro-field_7a6692094c84.png",
+        "fig-pinpoint-mounting_8567a84553c8.png",
+        "fig-robot-front_f3c5afc69f89.png",
+        "fig-speed-loop_28bb48f28f6f.png",
+        "fig-stick-shaping_753bd87c5806.png",
+        "fig-stick-to-robot_e966fdf8651c.png",
+        "fig-wheel-forward_cc740ffaf4d7.png",
+        "fig-wheel-handover_d6160d25008c.png",
+        "fig-wheel-names_c5e72d252f39.png",
+        "h017_c04cb17aa6c1.mp4",
+        "l020_70047773414f.mp4",
+        "route-compound_fb6d157d50ff.svg",
+        "route-curve_7ece100f954f.svg",
+        "route-facingpoint_3972b5e77521.svg",
+        "route-line_7fb94edcf266.svg",
+        "route-linear_da84b53b7f66.svg",
+        "route-through_e6cc8a6e02df.svg"
+      ]
     }
   },
   "media": {
@@ -1801,7 +1978,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-advantagescope-sim_e48f8bbfd585.png": {
@@ -1825,7 +2003,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-motor-wheel-gear-box_c350139b64e8.png": {
@@ -1843,7 +2022,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-numberline-3d_a1504154d867.png": {
@@ -1861,7 +2041,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-numberline_c8208c13327c.png": {
@@ -1879,7 +2060,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-robot-3d_032b26748416.png": {
@@ -1897,7 +2079,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-robot-frame-3d_6d65d0307746.png": {
@@ -1915,7 +2098,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-speeds-3d_c6ee55501da0.png": {
@@ -1933,7 +2117,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-stick_b6d2e5c7270e.png": {
@@ -1951,7 +2136,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-switch-3d_cfeab5d0ee2f.png": {
@@ -1969,7 +2155,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-switch_7f1981dfd636.png": {
@@ -1987,7 +2174,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-xy-3d_e04b556528a6.png": {
@@ -2005,7 +2193,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-xy_d5325e0ddee2.png": {
@@ -2023,7 +2212,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e035-xyz_5ffe1a3d4bd3.png": {
@@ -2041,7 +2231,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e141-add_64cc0dba6efa.png": {
@@ -2057,7 +2248,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e141-notation_367f915c70d3.png": {
@@ -2073,7 +2265,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e141-offset_31ba7445dfb4.png": {
@@ -2089,7 +2282,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e141-scale-offset_d3b6a87e2d22.png": {
@@ -2105,7 +2299,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e141-scale_0be400dafeea.png": {
@@ -2121,7 +2316,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-add-formula_82bef7ca0412.png": {
@@ -2137,7 +2333,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-add_e3168c45ab13.png": {
@@ -2153,7 +2350,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-forward-split_a7c0fb36704a.png": {
@@ -2169,7 +2367,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-quadrants_a7ab13c71370.png": {
@@ -2185,7 +2384,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-radian_dbc12abb88cc.png": {
@@ -2201,7 +2401,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-regroup-formula_99d4c521618f.png": {
@@ -2217,7 +2418,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-regroup_9de157805e0a.png": {
@@ -2233,7 +2435,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-regrouped-formula_b035845ed47c.png": {
@@ -2249,7 +2452,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-regrouped_510939cc3e8c.png": {
@@ -2265,7 +2469,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-robot-axes_20c1e234de28.png": {
@@ -2281,7 +2486,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-same-triangle_69648c87f7da.png": {
@@ -2297,7 +2503,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-similar_685ec662e828.png": {
@@ -2313,7 +2520,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-stick-field_a9d2a23f100f.png": {
@@ -2329,7 +2537,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-stick-red-3d_fc01635a5d4d.png": {
@@ -2345,7 +2554,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-strafe-split_07ffd6817e82.png": {
@@ -2361,7 +2571,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-triangle-turn_9461729d7438.png": {
@@ -2377,7 +2588,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-triangle-turned_c3cf48312d97.png": {
@@ -2393,7 +2605,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-unit-circle_189ea2c0459a.png": {
@@ -2409,7 +2622,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-e142-unit-triangles_8c421148c32f.png": {
@@ -2425,7 +2639,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-field-relative_199cd5d7d0ad.png": {
@@ -2449,7 +2664,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-gamepad-sticks_a484af7b6aeb.png": {
@@ -2467,7 +2683,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-advantagescope_ac1908de02ed.png": {
@@ -2485,7 +2702,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-agp-more_ebda5cbbf3aa.png": {
@@ -2503,7 +2721,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-archive_cc0d51832b15.png": {
@@ -2521,7 +2740,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-build-menu_df1dda3b4389.png": {
@@ -2539,7 +2759,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-built_1edf8a09a00a.png": {
@@ -2557,7 +2778,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-git_73efc58f7f42.png": {
@@ -2575,7 +2797,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-gradle-jvm_d3ca85bb654f.png": {
@@ -2593,7 +2816,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-offers_d1d13581b4d6.png": {
@@ -2611,7 +2835,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-setup_0dc19f60a602.png": {
@@ -2629,7 +2854,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-smartscreen_39525aad50d6.png": {
@@ -2647,7 +2873,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-trust_19443416b95a.png": {
@@ -2665,7 +2892,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l011-wizard-standard_16599ff3f281.png": {
@@ -2683,7 +2911,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-advantagescope_5956e0eb21d5.png": {
@@ -2701,7 +2930,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-agp-more_070272bfb056.png": {
@@ -2719,7 +2949,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-applications_4b04cd309596.png": {
@@ -2737,7 +2968,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-archive_35d702368a29.png": {
@@ -2755,7 +2987,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-build-menu_26783f2cbc11.png": {
@@ -2773,7 +3006,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-built_466c9b4744a6.png": {
@@ -2791,7 +3025,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-gradle-jvm_a10e16db6749.png": {
@@ -2809,7 +3044,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-offers_423ab8908bad.png": {
@@ -2827,7 +3063,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-tools_c313dde8986d.png": {
@@ -2845,7 +3082,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-trust_6af16aa43d07.png": {
@@ -2863,7 +3101,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l012-wizard-standard_c50c3ab73551.png": {
@@ -2881,7 +3120,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-advantagescope_3d85caad660f.png": {
@@ -2899,7 +3139,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-agp-more_be688c46b080.png": {
@@ -2917,7 +3158,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-apt_13e77973c3b4.png": {
@@ -2935,7 +3177,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-archive_5a1388926596.png": {
@@ -2953,7 +3196,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-build-menu_0c28de9b490d.png": {
@@ -2971,7 +3215,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-built_e752ecbd8c00.png": {
@@ -2989,7 +3234,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-git_9ff5f96bc55c.png": {
@@ -3007,7 +3253,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-gradle-jvm_53f0191d49b0.png": {
@@ -3025,7 +3272,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-trust_65dc9c76febb.png": {
@@ -3043,7 +3291,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l013-wizard-standard_97e3a02f3d74.png": {
@@ -3061,7 +3310,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-complete_a7bfef7a5401.png": {
@@ -3079,7 +3329,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-complete_fd0fe4482243.png": {
@@ -3107,7 +3358,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-copy-class_d05eb5aad2f1.png": {
@@ -3125,7 +3377,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-hover_768ca23118fe.png": {
@@ -3148,7 +3401,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-live_15f707fb6e2d.png": {
@@ -3172,7 +3426,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-log_aa74c5c847f8.png": {
@@ -3196,7 +3451,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-platform_8b3cd980ac07.png": {
@@ -3214,7 +3470,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-publish_3bb3da107df5.png": {
@@ -3238,7 +3495,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-sticky_a051629b4d17.png": {
@@ -3256,7 +3514,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-tracker-note_9e0600fc648e.png": {
@@ -3274,7 +3533,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-tracker_0e1b30439d3c.png": {
@@ -3292,7 +3552,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-tracker_13bbd4907a20.png": {
@@ -3315,7 +3576,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-window_c51af20cec34.png": {
@@ -3333,7 +3595,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l020-window_cb6209f40e9d.png": {
@@ -3361,7 +3624,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l030-live_084b2fcffea0.png": {
@@ -3385,7 +3649,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l040-field_120293bc280c.png": {
@@ -3401,7 +3666,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l040-field_86942b3a00b2.png": {
@@ -3427,7 +3693,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l040-hardware_570e94d0d289.png": {
@@ -3450,7 +3717,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l040-setpower_8c1b3ef285a2.png": {
@@ -3473,7 +3741,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l050-direction_aa0cfd6446ca.png": {
@@ -3491,7 +3760,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l060-deadband_6327d1a7d564.png": {
@@ -3507,7 +3777,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l060-deadband_d3ae6bebec9a.png": {
@@ -3539,7 +3810,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l070-button_0e3700f4e357.png": {
@@ -3562,7 +3834,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l070-pressed_88c1aea37fa5.png": {
@@ -3586,7 +3859,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l070-sideways_26c23688eb11.png": {
@@ -3610,7 +3884,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l080-forward-turn_1a2cc39da619.png": {
@@ -3626,7 +3901,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l080-forward-turn_830bbf7fa6ba.png": {
@@ -3650,7 +3926,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l080-scaled_b68f1e132510.png": {
@@ -3682,7 +3959,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l090-corner_4043480a4451.png": {
@@ -3706,7 +3984,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l090-slide_3e499752b971.png": {
@@ -3722,7 +4001,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l090-slide_4cb7cf5a1403.png": {
@@ -3748,7 +4028,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l110-slide_0d801b6cc793.png": {
@@ -3764,7 +4045,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l110-slide_df82c1df0003.png": {
@@ -3790,7 +4072,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l120-import_3a99aa449d64.png": {
@@ -3819,7 +4102,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l120-shadow-still_7eca34744b0f.png": {
@@ -3837,7 +4121,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l125-drive24_daad530b722c.png": {
@@ -3855,7 +4140,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l125-import-static_3e57c231ae64.png": {
@@ -3871,7 +4157,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l125-import-static_7d79bca47fcb.png": {
@@ -3902,28 +4189,32 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-buttons-idle_19297fae893e.png": {
       "sha256": "19297fae893e564832be2d5c4f830a05fc5a41c4a9ab6793dacc57320055cde3",
       "bytes": 217061,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-buttons-press_63f272befa80.png": {
       "sha256": "63f272befa801c2f27b7031367f0148b3b5c56e225be1b8791c3068ae40b1c2a",
       "bytes": 258785,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-buttons_533b43a2f05c.png": {
       "sha256": "533b43a2f05cac6d3d25f0c901a9b03c3cf94d8eae15937cbf0dc7a6be9dea97",
       "bytes": 397087,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-calls_0bedbd039e97.png": {
@@ -3950,7 +4241,8 @@
       "sha256": "45f5fb9d3c1f981df80251b5a15a74b4110344a0350564f463b006e56c8431e6",
       "bytes": 229502,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-calls_47df6e40d9c0.png": {
@@ -3984,7 +4276,8 @@
       "sha256": "4e288fd64f47b407002068fb466fe91c5ddce6063e2a0021ff366556d3fd564b",
       "bytes": 954505,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-classes_656fc55b29b4.png": {
@@ -4009,42 +4302,48 @@
       "sha256": "c048f10e0442ce8b652080452571cd8309da510d1394c8867f9d7f5b9ff85a34",
       "bytes": 215882,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-ds-menu_955d512e2d69.png": {
       "sha256": "955d512e2d69ef1aa06965c122b8e905c7166ede86c739fc60b3ae82c8b086b5",
       "bytes": 596529,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-item_d38e2b34daaa.png": {
       "sha256": "d38e2b34daaa186cedb8d57fc2fbd33c0d31303eb7ba351b8dc9a919114b8f1a",
       "bytes": 155382,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-menu-down_286c9927e88b.png": {
       "sha256": "286c9927e88bc1a008ef14ec12cbf876413c99fa7b95bc089615034f6e54e74f",
       "bytes": 174948,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-menu-lines_2bf44070a4f4.png": {
       "sha256": "2bf44070a4f46e457a4f113d2053fa56b590dd0db8a4010c52427577b82e47d4",
       "bytes": 247879,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-menu-right_3e0d4b27ed0e.png": {
       "sha256": "3e0d4b27ed0eca469cad67753400760e1d622f9a1ee615c9268935e76668c083",
       "bytes": 156368,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-menu_5d80f1f8f17e.png": {
@@ -4068,112 +4367,128 @@
       "sha256": "766fd9eaa1e19bedf786e28a5ce5fdec1c8c2bf9c37d6d79290a5f8483607607",
       "bytes": 54312,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-option-menu_4105d6d98b99.png": {
       "sha256": "4105d6d98b993751b3f3b28be5bdb35d0134cce5eeef9ecfb95df3dbd0840bd6",
       "bytes": 568113,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-01_aab0aa5534ce.png": {
       "sha256": "aab0aa5534cea630f13005cc34fad3d979260093c62cc87efe693e1b6fc15a1a",
       "bytes": 200423,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-02_c6e79c5d6330.png": {
       "sha256": "c6e79c5d63309698051d19c4647ba957347c72ab07a9519121debeae694ff06c",
       "bytes": 204494,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-03_b1ea0ee4a3ab.png": {
       "sha256": "b1ea0ee4a3ab5d882ff765bf31871bd6a17acb4dd012f4b1f4b904fb21ac5d86",
       "bytes": 198410,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-04_0aba78177d95.png": {
       "sha256": "0aba78177d951d8671046a18f28971c311e5b98baa78ebfcfb54465a429cd38c",
       "bytes": 199573,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-05_a48f4301704e.png": {
       "sha256": "a48f4301704ebdb8e3478cfd4272babbd6c4b2eba1ff45e5f77b1e3c68a51b02",
       "bytes": 195489,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-06_121bfe5a09f6.png": {
       "sha256": "121bfe5a09f656e2b7b921265ad25d31d7216c011fb2ecd018a946f47f2370d6",
       "bytes": 199693,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-07_ce1de048bfea.png": {
       "sha256": "ce1de048bfea1ec855a9ecd49427266c747eb7bded3cd00b222bb030dfb7e0cc",
       "bytes": 196515,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-08_dd23451eb8a9.png": {
       "sha256": "dd23451eb8a99857ca625353ae44db5f0d1245ee3cd7580d7b72c01e005489db",
       "bytes": 202468,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-09_849e87a99e28.png": {
       "sha256": "849e87a99e28a6d9c2f39ba70c621806669a7c0ebfaf4aa9735897753b85b6d7",
       "bytes": 199323,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-10_f816d54c2779.png": {
       "sha256": "f816d54c27792543e16e281cf17a7f3e02b3d7514a8db9130564c2effbf6c93d",
       "bytes": 197298,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-11_bad3cafc948b.png": {
       "sha256": "bad3cafc948b0ae03a77468ddd903b90be7b86aac4fe36b22ba3e3ac48de3215",
       "bytes": 199789,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-press-12_dc29ce0a4c95.png": {
       "sha256": "dc29ce0a4c957621ad6031b3acf02fd891b34b1abb1a44d1547d41d9563735ca",
       "bytes": 194318,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-row-calls_fd3da7a459dc.png": {
       "sha256": "fd3da7a459dc49eeed61fc976c3239c889120817502889c3c987efc251bb0532",
       "bytes": 215515,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l135-row_1adeb1e86fcc.png": {
       "sha256": "1adeb1e86fcc1ca167cc9e417d155afed01d5652924ec9fd5ef6f31eba05fa9c",
       "bytes": 455831,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l140-field-blue_3b384562de3b.png": {
@@ -4189,7 +4504,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l140-field-red_27fd021cf649.png": {
@@ -4205,7 +4521,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l140-field-top_a914a13d7b0a.png": {
@@ -4221,7 +4538,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l140-spin-and-slide_4a3409de23d8.png": {
@@ -4237,7 +4555,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l140-spin-and-slide_d4e732a3e9c4.png": {
@@ -4269,7 +4588,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l160-creep_6385ea236e2a.png": {
@@ -4285,7 +4605,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l160-creep_7656b702c820.png": {
@@ -4317,7 +4638,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l170-drove-there_83f144e4565b.png": {
@@ -4333,7 +4655,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l170-drove-there_c7f48b744721.png": {
@@ -4359,7 +4682,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l180-aiming_1980463d97b3.png": {
@@ -4389,7 +4713,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l190-asks-standing-still_61ff2df771a9.png": {
@@ -4411,7 +4736,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l190-asks-standing-still_a8ec63ebac78.png": {
@@ -4449,7 +4775,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-l195-nothing-pushed_b78bc5855097.png": {
@@ -4467,7 +4794,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-mecanum-x_1487c470aae6.png": {
@@ -4485,7 +4813,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-odometry-step_4d3452b4bec9.png": {
@@ -4503,7 +4832,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-panels-graph_2e38a782b132.png": {
@@ -4527,7 +4857,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-pedro-field_4267365f403c.png": {
@@ -4551,7 +4882,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-pinpoint-mounting_8567a84553c8.png": {
@@ -4569,7 +4901,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-robot-front_f3c5afc69f89.png": {
@@ -4587,7 +4920,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-speed-loop_28bb48f28f6f.png": {
@@ -4603,7 +4937,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-speed-loop_d3d279442e38.png": {
@@ -4635,7 +4970,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-stick-to-robot_b606195b4067.png": {
@@ -4659,7 +4995,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-wheel-forward_cc740ffaf4d7.png": {
@@ -4677,7 +5014,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-wheel-handover_d6160d25008c.png": {
@@ -4695,7 +5033,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "fig-wheel-names_c5e72d252f39.png": {
@@ -4713,7 +5052,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "h017_c04cb17aa6c1.mp4": {
@@ -4731,7 +5071,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "l020_22f234f03597.mp4": {
@@ -4753,7 +5094,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "l020_a227022a8a0f.mp4": {
@@ -4794,7 +5136,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "route-curve_7ece100f954f.svg": {
@@ -4812,7 +5155,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "route-facingpoint_3972b5e77521.svg": {
@@ -4830,7 +5174,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "route-line_7fb94edcf266.svg": {
@@ -4848,7 +5193,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "route-linear_da84b53b7f66.svg": {
@@ -4866,7 +5212,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     },
     "route-through_e6cc8a6e02df.svg": {
@@ -4884,7 +5231,8 @@
         "v0.4.0-rc.2",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4",
-        "v0.4.0-rc.5"
+        "v0.4.0-rc.5",
+        "v0.4.0-rc.6"
       ]
     }
   },
