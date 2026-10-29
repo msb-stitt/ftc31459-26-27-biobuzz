@@ -1,5 +1,4 @@
 classDiagram
-    %% faint: MenuRow
     class OptionMenu {
         -ArrayList~MenuRow~ rows
         -int pointedIndex
@@ -27,4 +26,12 @@ classDiagram
         +getSelected() MenuItem
         getLine() String
     }
+    class MenuItem {
+        -String shortName
+        -String fullName
+        +MenuItem(shortName, fullName)
+        getShortName() String
+        getFullName() String
+    }
     OptionMenu o-- MenuRow
+    MenuRow o-- MenuItem
