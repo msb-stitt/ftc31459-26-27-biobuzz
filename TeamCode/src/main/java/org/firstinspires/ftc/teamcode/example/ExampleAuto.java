@@ -169,15 +169,15 @@ public class ExampleAuto extends CorbelsAuto {
     @Override
     public Pose startPose() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
+        Pose start = poses.of(72.0, botStartYIn, -90.0);
         return start;
     }
 
     /** L125's auto: forward 24 inches from the wall. */
     Command driveForward24() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
-        Pose end = poses.of(72.0, botStartYIn + 24.0, 90.0);
+        Pose start = poses.of(72.0, botStartYIn, -90.0);
+        Pose end = poses.of(72.0, botStartYIn + 24.0, -90.0);
 
         Command forward24 = sequential(follow(follower, line(start, end).constant(start)));
         return forward24;
@@ -186,9 +186,9 @@ public class ExampleAuto extends CorbelsAuto {
     /** L130's auto: forward to the middle, sideways to the right, then hold there. */
     Command driveForwardThenStrafe() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
-        Pose corner = poses.of(72.0, 72.0, 90.0);
-        Pose end = poses.of(96.0, 72.0, 90.0);
+        Pose start = poses.of(72.0, botStartYIn, -90.0);
+        Pose corner = poses.of(72.0, 72.0, -90.0);
+        Pose end = poses.of(96.0, 72.0, -90.0);
 
         Command driveForwardToTheCorner = follow(follower, line(start, corner).constant(start));
         Command strafeRightToTheEnd = follow(follower, line(corner, end).constant(start));
@@ -204,9 +204,9 @@ public class ExampleAuto extends CorbelsAuto {
      */
     Command shootThenIntake() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
-        Pose shootFrom = poses.of(72.0, botStartYIn + 6.0, 90.0);
-        Pose intakeAt = poses.of(48.0, botStartYIn + 6.0, 90.0);
+        Pose start = poses.of(72.0, botStartYIn, -90.0);
+        Pose shootFrom = poses.of(72.0, botStartYIn + 6.0, -90.0);
+        Pose intakeAt = poses.of(48.0, botStartYIn + 6.0, -90.0);
 
         Command driveForwardToShoot = follow(follower, line(start, shootFrom).constant(start));
         Command holdWhileShooting = hold(follower, shootFrom);
