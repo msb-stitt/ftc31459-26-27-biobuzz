@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "1ad2163f3b60180bb121452aa588c25b0b15a9d4",
+      "built_from_commit": "65b8498cf5d2ccb4fa5402cfdbb8284345361638",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -119,8 +119,8 @@
         "fig-l125-drive24_daad530b722c.png",
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
-        "fig-l135-calls_134aa7821abc.png",
-        "fig-l135-classes_6a2715c3a295.png",
+        "fig-l135-calls_0bedbd039e97.png",
+        "fig-l135-classes_227f80729238.png",
         "fig-l135-menu_5d80f1f8f17e.png",
         "fig-l140-field-blue_3b384562de3b.png",
         "fig-l140-field-red_27fd021cf649.png",
@@ -3617,11 +3617,17 @@
         "v0.4.0-rc.4"
       ]
     },
+    "fig-l135-calls_0bedbd039e97.png": {
+      "sha256": "0bedbd039e970b48ae867055bb68948e141fb0beae7f9f7a03e90595a0a09b47",
+      "bytes": 223875,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l135-calls_134aa7821abc.png": {
       "sha256": "134aa7821abc1c935134fa831c09e79949bfe817039dca21d95f36f5672cc00b",
       "bytes": 223387,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4"
       ]
@@ -3651,6 +3657,13 @@
       "bytes": 914690,
       "used_by_versions": []
     },
+    "fig-l135-classes_227f80729238.png": {
+      "sha256": "227f807292382a45976d55fde9075044bbedfbbdc30b490a8eae67bc8562d541",
+      "bytes": 1044464,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l135-classes_656fc55b29b4.png": {
       "sha256": "656fc55b29b403ec1335c03b81471a57e01f027423fa037a81db44cfb1a878b3",
       "bytes": 914690,
@@ -3660,7 +3673,6 @@
       "sha256": "6a2715c3a2953348799215b1732806f7dd6175cf122bdb2cfd4ca688c6ba43ad",
       "bytes": 966045,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.3",
         "v0.4.0-rc.4"
       ]
