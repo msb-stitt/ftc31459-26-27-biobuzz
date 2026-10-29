@@ -241,7 +241,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-l135-menu-classes.1"
+solutions = "solutions-l135-menu-classes.2"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this

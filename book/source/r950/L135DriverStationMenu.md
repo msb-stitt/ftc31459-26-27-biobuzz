@@ -1,7 +1,7 @@
 # L135DriverStationMenu
 
 What each lesson's patch does to this file, in the order the lessons come, from applying
-`solutions/` on `solutions-l135-menu-classes.1`. A line marked + is new, and a line marked - is
+`solutions/` on `solutions-l135-menu-classes.2`. A line marked + is new, and a line marked - is
 gone; each number is the line's place in the file after the lesson.
 
 ## L135
@@ -40,8 +40,8 @@ gone; each number is the line's place in the file after the lesson.
 +  31         String summary = optionMenu.summary();
 +  32         Tracker.publish("menu/summary", summary);
 +  33         String[] lines = optionMenu.lines();
-+  34         for (int i = 0; i < lines.length; i++) {
-+  35             Tracker.printToDs(lines[i]);
++  34         for (String line : lines) {
++  35             Tracker.printToDs(line);
 +  36         }
 +  37     }
 +  38
