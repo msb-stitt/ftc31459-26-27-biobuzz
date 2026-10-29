@@ -132,7 +132,9 @@ public class Launcher {
     void spinUpAndFeedOnceFastEnough() {
         double measuredTicksPerSecond = motor.getVelocity();
         boolean fastEnoughToFeed = measuredTicksPerSecond > FEED_ABOVE_TICKS_PER_SECOND;
+        fastEnoughToFeed = true;
         if (fastEnoughToFeed) {
+
             startTheWindmill();
         } else {
             stopTheWindmill();

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedro;
 import com.pedropathing.algorithm.ForesightConfig;
 import com.pedropathing.revhub.drivetrains.MecanumConfig;
 import com.pedropathing.revhub.localizers.PinpointConfig;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 /**
  * Robot 31459's own values: a StarterBot. {@link Constants#thisRobot} picks
@@ -16,7 +17,16 @@ import com.pedropathing.revhub.localizers.PinpointConfig;
 class Bot31459 {
 
     // Mecanum Tuner.
-    public static MecanumConfig drivetrainConfig = Bot37523.drivetrainConfig;
+    public static MecanumConfig drivetrainConfig = new MecanumConfig(c -> {
+        c.frontLeftName.set("Front Left");
+        c.frontRightName.set("Front Right");
+        c.backLeftName.set("Back Left");
+        c.backRightName.set("Back Right");
+        c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
+        c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
+    });
 
     // Pinpoint Tuner.
     public static PinpointConfig localizerConfig = Bot37523.localizerConfig;

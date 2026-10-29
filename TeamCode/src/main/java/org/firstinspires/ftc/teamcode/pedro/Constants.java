@@ -22,7 +22,9 @@ import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
 import org.firstinspires.ftc.teamcode.pedro.procedures.Tests;
 
 
-public class Constants {
+public class
+
+Constants {
 
     /** The robots this code is built for. Each has its own file: Bot88888 and so on. */
     public enum Robot { BOT_88888, BOT_37523, BOT_31459 }
