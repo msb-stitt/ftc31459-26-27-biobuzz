@@ -56,8 +56,6 @@ public class Launcher {
     boolean feeding;
     /** The target the hub's F was last worked out for. */
     double targetTheHubsFeedforwardIsFor;
-    /** Where {@link #fireWhile} reads the fire button each loop. */
-    BooleanSupplier fireButtonIsHeld;
 
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public Launcher(DcMotorEx motor, CRServo windmill) {
@@ -91,9 +89,8 @@ public class Launcher {
      */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public Command fireWhile(BooleanSupplier fireButton) {
-        fireButtonIsHeld = fireButton;
         Command fireWhileTheButtonIsHeld = Command.build()
-                .setExecute(this::fireOrStopThisLoop)
+                .setExecute(() -> fireOrStopThisLoop(fireButton))
                 .setDone(this::runsUntilCancelled)
                 .setEnd(this::stopTheMotorAndTheWindmill)
                 .requiring(this)
@@ -122,8 +119,8 @@ public class Launcher {
     }
 
     /** One loop of {@link #fireWhile}: the button read now. */
-    void fireOrStopThisLoop() {
-        boolean fireButtonHeldNow = fireButtonIsHeld.getAsBoolean();
+    void fireOrStopThisLoop(BooleanSupplier fireButton) {
+        boolean fireButtonHeldNow = fireButton.getAsBoolean();
         if (fireButtonHeldNow) {
             spinUpAndFeedOnceFastEnough();
         } else {

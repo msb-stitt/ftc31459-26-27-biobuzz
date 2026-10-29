@@ -33,8 +33,6 @@ public class Intake {
     final DcMotor motor;
     final CRServo leftServo;
     final CRServo rightServo;
-    /** Where {@link #run} reads its speed each loop. */
-    DoubleSupplier speedToRunAt;
 
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public Intake(DcMotor motor, CRServo leftServo, CRServo rightServo) {
@@ -72,9 +70,8 @@ public class Intake {
      */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public Command run(DoubleSupplier speed) {
-        speedToRunAt = speed;
         Command runAtTheSpeedGiven = Command.build()
-                .setExecute(this::runAtTheSpeedGivenThisLoop)
+                .setExecute(() -> runAtTheSpeedGivenThisLoop(speed))
                 .setDone(this::runsUntilCancelled)
                 .setEnd(this::stopWhenItEnds)
                 .requiring(this)
@@ -83,8 +80,8 @@ public class Intake {
     }
 
     /** One loop of {@link #run}: the speed read now, and set. */
-    void runAtTheSpeedGivenThisLoop() {
-        double speedThisLoop = speedToRunAt.getAsDouble();
+    void runAtTheSpeedGivenThisLoop(DoubleSupplier speed) {
+        double speedThisLoop = speed.getAsDouble();
         setPower(speedThisLoop);
     }
 

@@ -223,25 +223,18 @@ public class ExampleAuto extends CorbelsAuto {
     /**
      * The launcher spun up and fed once fast enough, and the intake boosted
      * while it feeds, for {@code seconds}; then both stop.
-     *
-     * <p>Each mechanism's command is built when it starts, not when the route
-     * is: {@code Intake.run} and {@code Launcher.fireWhile} keep what they are
-     * given in a field, so a second one built would replace the first's.
      */
     Command shootFor(double seconds) {
-        Command fire = lazy(this::fireTheWholeTime);
-        Command boostTheIntakeWhileFeeding = lazy(this::boostTheIntakeWhileFeeding);
+        Command fire = launcher.fireWhile(this::alwaysFire);
+        Command boostTheIntakeWhileFeeding = intake.run(this::intakeBoostWhileFeeding);
         Command shootUntilTheTimeIsUp = deadline(waitSeconds(seconds), fire,
                 boostTheIntakeWhileFeeding);
         return shootUntilTheTimeIsUp;
     }
 
-    /**
-     * The intake pulling in at full speed for {@code seconds}, built when it
-     * starts, as {@link #shootFor}'s are; then it stops.
-     */
+    /** The intake pulling in at full speed for {@code seconds}; then it stops. */
     Command intakeFor(double seconds) {
-        Command pullIn = lazy(this::pullInAtFullSpeed);
+        Command pullIn = intake.run(this::fullSpeedIn);
         Command intakeUntilTheTimeIsUp = deadline(waitSeconds(seconds), pullIn);
         return intakeUntilTheTimeIsUp;
     }
@@ -258,24 +251,6 @@ public class ExampleAuto extends CorbelsAuto {
             return waitUntil(() -> clock.getAsLong() >= doneAt);
         });
         return waitFromWhenItStarts;
-    }
-
-    /** {@link #shootFor}'s launcher command. */
-    Command fireTheWholeTime() {
-        Command fire = launcher.fireWhile(this::alwaysFire);
-        return fire;
-    }
-
-    /** {@link #shootFor}'s intake command. */
-    Command boostTheIntakeWhileFeeding() {
-        Command boost = intake.run(this::intakeBoostWhileFeeding);
-        return boost;
-    }
-
-    /** {@link #intakeFor}'s intake command. */
-    Command pullInAtFullSpeed() {
-        Command pullIn = intake.run(this::fullSpeedIn);
-        return pullIn;
     }
 
     /** {@link #shootFor} fires the whole time; its deadline stops it. */
