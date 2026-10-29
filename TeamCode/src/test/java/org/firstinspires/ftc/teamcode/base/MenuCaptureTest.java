@@ -17,8 +17,9 @@ public class MenuCaptureTest {
         Path root = MenuCapture.root();
         String shown = MenuCapture.screens(
                 Files.readAllLines(root.resolve(MenuCapture.PRESSES), StandardCharsets.UTF_8));
+        // Git on Windows may check the file out with \r\n line endings.
         String written = new String(Files.readAllBytes(root.resolve(MenuCapture.SCREENS)),
-                StandardCharsets.UTF_8);
+                StandardCharsets.UTF_8).replace("\r\n", "\n");
         assertEquals("run ./gradlew :TeamCode:menuCapture to write it again", shown, written);
     }
 }
