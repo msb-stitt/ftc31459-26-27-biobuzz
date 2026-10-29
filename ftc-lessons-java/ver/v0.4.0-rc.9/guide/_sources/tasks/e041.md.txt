@@ -1,0 +1,24 @@
+# 041 what's happening: calling a method
+
+TODO describe this lesson
+
+Here is what one of the wheel lines you wrote in [L040](l040.md) does.
+
+```java
+hardware.frontLeft.setPower(leftSpeed);
+```
+
+:::{figure} ../_figures/fig-l040-sticky.png
+:name: fig-l040-sticky
+:figclass: file-named
+
+fig-l040-sticky.png
+:::
+
+- The computer finds the variable `hardware`, and the big blue note its arrow points to.
+- On that note is the field `frontLeft`. Its arrow points to a motor's note.
+- A motor has a method, `setPower`, and the line hands it `leftSpeed`. That is the `double` on
+  `leftSpeed`'s note, 0.7 in the picture.
+- `setPower` is part of the FTC platform. It runs that motor full speed forward at +1.0, not at
+  all at 0.0, and full speed backward at -1.0.
+- The same happens for each of the four: `frontLeft`, `backLeft`, `frontRight` and `backRight`.

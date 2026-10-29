@@ -1,0 +1,47 @@
+# L180
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 4 line(s) of code to write.
+
+## Copies
+
+- `lessons/L180CombinedOpMode.java` to `mytry/L180CombinedOpMode.java`
+
+## L180CombinedOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L180CombinedOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -14,6 +14,7 @@
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+ import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -109,6 +109,9 @@
+         // When on L180S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
+         // for what to do here.
++        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++        L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
++        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```
