@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l080-scaled.png
 :name: fig-l080-scaled
+:figclass: file-named
+
+fig-l080-scaled.png
 :::
 
 Drive with one stick for going and one for turning: arcade drive. When the sticks ask for more than
@@ -106,6 +109,9 @@ speed can be along the field's axes, and its name says so.
 
 :::{figure} ../_figures/fig-pedro-field.png
 :name: fig-pedro-field
+:figclass: file-named
+
+fig-pedro-field.png
 :::
 
 **Simulator.** In the Terminal, run:
@@ -124,6 +130,9 @@ speed can be along the field's axes, and its name says so.
 
 :::{figure} ../_figures/fig-l080-forward-turn.png
 :name: fig-l080-forward-turn
+:figclass: file-named
+
+fig-l080-forward-turn.png
 :::
 
 ### L080S050: mix them into two sides
@@ -167,6 +176,9 @@ Now push the left stick all the way forward and the right stick halfway right. C
 
 :::{figure} ../_figures/fig-l080-too-much.png
 :name: fig-l080-too-much
+:figclass: file-named
+
+fig-l080-too-much.png
 :::
 
 A `setPower` speed only goes from -1.0 to +1.0. On the robot, the Control Hub cuts 1.25 down to 1.0

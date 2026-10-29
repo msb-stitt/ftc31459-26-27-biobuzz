@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/labels.css?v=64a50c8c" />
     
     
 
@@ -340,8 +341,11 @@
         <article role="main" id="furo-main-content">
           <section id="lesson-read-the-sticks">
 <h1>020 lesson: read the sticks<a class="headerlink" href="#lesson-read-the-sticks" title="Link to this heading">¶</a></h1>
-<figure class="align-default" id="fig-l020-live">
+<figure class="file-named align-default" id="fig-l020-live">
 <img alt="../../media/fig-l020-live_73d5ef72c5ed.png" src="../../media/fig-l020-live_73d5ef72c5ed.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-live.png</span><a class="headerlink" href="#fig-l020-live" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>Push the gamepad’s sticks and watch the numbers they send, live on the laptop. Nothing on the robot
 moves yet.</p>
@@ -373,16 +377,22 @@ own folder, <code class="docutils literal notranslate"><span class="pre">mytry</
 <strong>OK</strong>.</p></li>
 <li><p>If Android Studio asks whether to add the file to Git, click <strong>Add</strong>.</p></li>
 </ul>
-<figure class="align-default" id="fig-l020-copy-class">
+<figure class="file-named align-default" id="fig-l020-copy-class">
 <img alt="../../media/fig-l020-copy-class_d05eb5aad2f1.png" src="../../media/fig-l020-copy-class_d05eb5aad2f1.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-copy-class.png</span><a class="headerlink" href="#fig-l020-copy-class" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, the file is open, and its first line reads
 <code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">org.firstinspires.ftc.teamcode.mytry;</span></code>.</p></li>
 </ul>
-<figure class="align-default" id="fig-l020-copied">
+<figure class="file-named align-default" id="fig-l020-copied">
 <img alt="../../media/fig-l020-copied_ba826710cf6e.png" src="../../media/fig-l020-copied_ba826710cf6e.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-copied.png</span><a class="headerlink" href="#fig-l020-copied" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><strong>If it didn’t</strong>, and the copy landed in <code class="docutils literal notranslate"><span class="pre">lessons</span></code> beside the starter, <code class="docutils literal notranslate"><span class="pre">lessons</span></code> was the folder
 clicked before pasting, so Destination package ended in <code class="docutils literal notranslate"><span class="pre">lessons</span></code>. Delete the copy, click <code class="docutils literal notranslate"><span class="pre">mytry</span></code>,
@@ -422,8 +432,11 @@ stick.</p></li>
 arrow keys first.</p></li>
 <li><p>Type <code class="docutils literal notranslate"><span class="pre">;</span></code> to end the line.</p></li>
 </ul>
-<figure class="align-default" id="fig-l020-complete">
+<figure class="file-named align-default" id="fig-l020-complete">
 <img alt="../../media/fig-l020-complete_a7bfef7a5401.png" src="../../media/fig-l020-complete_a7bfef7a5401.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-complete.png</span><a class="headerlink" href="#fig-l020-complete" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L020S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l020.html#l020s030</span>
@@ -436,8 +449,11 @@ you chose for one. The list said <code class="docutils literal notranslate"><spa
 holds any <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
 <p>Now hold the pointer still over <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code>. A box opens and says what it is: <em>left analog stick
 vertical axis</em>. You can do this with any name you are not sure about.</p>
-<figure class="align-default" id="fig-l020-hover">
+<figure class="file-named align-default" id="fig-l020-hover">
 <img alt="../../media/fig-l020-hover_c990a79d44ce.png" src="../../media/fig-l020-hover_c990a79d44ce.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-hover.png</span><a class="headerlink" href="#fig-l020-hover" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -457,8 +473,11 @@ line:</p>
 <span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"gamepad1/leftStickY"</span><span class="p">,</span><span class="w"> </span><span class="n">leftStickY</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<figure class="align-default" id="fig-l020-tracker">
+<figure class="file-named align-default" id="fig-l020-tracker">
 <img alt="../../media/fig-l020-tracker_0e1b30439d3c.png" src="../../media/fig-l020-tracker_0e1b30439d3c.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-tracker.png</span><a class="headerlink" href="#fig-l020-tracker" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> takes a name and a value. It sends both to AdvantageScope while the code runs, and
 writes them in the flight log. Android Studio added an <code class="docutils literal notranslate"><span class="pre">import</span></code> line for <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> near the top of
@@ -500,14 +519,20 @@ line go to 1.0 or to -1.0? Now push it and see!</p>
 <li><p>All the way forward it reads -1.0, and all the way back it reads 1.0.</p></li>
 </ul>
 <p>Forward is -1.0 on gamepads. That is how most gamepads are made, not a mistake in your code.</p>
-<figure class="align-default" id="fig-gamepad-sticks">
+<figure class="file-named align-default" id="fig-gamepad-sticks">
 <img alt="../../media/fig-gamepad-sticks_a484af7b6aeb.png" src="../../media/fig-gamepad-sticks_a484af7b6aeb.png" />
+<figcaption>
+<p><span class="caption-text">fig-gamepad-sticks.png</span><a class="headerlink" href="#fig-gamepad-sticks" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>The list in AdvantageScope has the sticks twice. <code class="docutils literal notranslate"><span class="pre">sim/stick</span></code> is the gamepad as the simulator read
 it; <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> is what the student’s code published. In L020 they read the
 same, because the code passes the stick on unchanged.</p>
-<figure class="align-default" id="fig-advantagescope-sim">
+<figure class="file-named align-default" id="fig-advantagescope-sim">
 <img alt="../../media/fig-advantagescope-sim_681635010d9e.png" src="../../media/fig-advantagescope-sim_681635010d9e.png" />
+<figcaption>
+<p><span class="caption-text">fig-advantagescope-sim.png</span><a class="headerlink" href="#fig-advantagescope-sim" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>The simulator also sends where the robot is and the four wheel speeds, as above. They stay still in
 L020, since nothing drives the wheels.</p>
@@ -541,8 +566,11 @@ way:</p>
 <code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>.</p></li>
 <li><p>Drag <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> and <code class="docutils literal notranslate"><span class="pre">rightStickY</span></code> from <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> into <strong>Left Axis</strong>.</p></li>
 </ul>
-<figure class="align-default" id="fig-l020-log">
+<figure class="file-named align-default" id="fig-l020-log">
 <img alt="../../media/fig-l020-log_bb7a5db81af7.png" src="../../media/fig-l020-log_bb7a5db81af7.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-log.png</span><a class="headerlink" href="#fig-l020-log" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -561,8 +589,11 @@ command, on a button.</p>
 <p><strong>The stick’s axes.</strong> A stick reads from -1.0 to +1.0 on each axis. +x is pushed to the driver’s
 right, and +y is pulled back toward the driver, so forward on the stick is -y. From L030 on, a stick
 asks the robot for a velocity: the farther the push, the faster.</p>
-<figure class="align-default" id="fig-stick-to-robot">
+<figure class="file-named align-default" id="fig-stick-to-robot">
 <img alt="../../media/fig-stick-to-robot_e966fdf8651c.png" src="../../media/fig-stick-to-robot_e966fdf8651c.png" />
+<figcaption>
+<p><span class="caption-text">fig-stick-to-robot.png</span><a class="headerlink" href="#fig-stick-to-robot" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><strong>Turning a stick into a velocity changes axes.</strong> Forward is <code class="docutils literal notranslate"><span class="pre">-left_stick_y</span></code>, a slide to the left
 is <code class="docutils literal notranslate"><span class="pre">-left_stick_x</span></code>, and a counter-clockwise turn is <code class="docutils literal notranslate"><span class="pre">-right_stick_x</span></code>. The stick’s axes are a mirror

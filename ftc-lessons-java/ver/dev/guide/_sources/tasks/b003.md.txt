@@ -5,6 +5,9 @@ one page at a time.
 
 :::{figure} ../_figures/fig-robot-front.png
 :name: fig-robot-front
+:figclass: file-named
+
+fig-robot-front.png
 :::
 
 This guide explains how to program FTC robots, one lesson at a time. Each lesson page says

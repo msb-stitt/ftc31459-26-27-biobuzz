@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l195-nothing-pushed.png
 :name: fig-l195-nothing-pushed
+:figclass: file-named
+
+fig-l195-nothing-pushed.png
 :::
 
 Two numbers that came off this robot instead of somebody else's: how many encoder ticks make an

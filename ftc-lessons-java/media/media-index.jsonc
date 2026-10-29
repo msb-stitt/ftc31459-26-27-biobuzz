@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "1c61e8983c3ed4a36265671fb24eff7885aad89f",
+      "built_from_commit": "ab79396dad6f30befdcb41aefe32ab7f5efb2e7f",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -120,18 +120,18 @@
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
         "fig-l135-buttons-idle_19297fae893e.png",
-        "fig-l135-buttons-press_63f272befa80.png",
-        "fig-l135-buttons_533b43a2f05c.png",
+        "fig-l135-buttons-press_42db1cc72563.png",
+        "fig-l135-buttons_8af4884a062b.png",
         "fig-l135-calls_45f5fb9d3c1f.png",
         "fig-l135-classes_4e288fd64f47.png",
         "fig-l135-ds-loop_c048f10e0442.png",
-        "fig-l135-ds-menu_955d512e2d69.png",
+        "fig-l135-ds-menu_fbbbbca4a21a.png",
         "fig-l135-item_d38e2b34daaa.png",
         "fig-l135-menu-down_286c9927e88b.png",
         "fig-l135-menu-lines_2bf44070a4f4.png",
         "fig-l135-menu-right_3e0d4b27ed0e.png",
         "fig-l135-menu_766fd9eaa1e1.png",
-        "fig-l135-option-menu_4105d6d98b99.png",
+        "fig-l135-option-menu_5ade59118adf.png",
         "fig-l135-press-01_aab0aa5534ce.png",
         "fig-l135-press-02_c6e79c5d6330.png",
         "fig-l135-press-03_b1ea0ee4a3ab.png",
@@ -4201,11 +4201,17 @@
         "v0.4.0-rc.6"
       ]
     },
+    "fig-l135-buttons-press_42db1cc72563.png": {
+      "sha256": "42db1cc7256380b84656768ea0fd577a20251e5ee54a0cd6578a29d11dc8535f",
+      "bytes": 259503,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l135-buttons-press_63f272befa80.png": {
       "sha256": "63f272befa801c2f27b7031367f0148b3b5c56e225be1b8791c3068ae40b1c2a",
       "bytes": 258785,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.6"
       ]
     },
@@ -4213,8 +4219,14 @@
       "sha256": "533b43a2f05cac6d3d25f0c901a9b03c3cf94d8eae15937cbf0dc7a6be9dea97",
       "bytes": 397087,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.6"
+      ]
+    },
+    "fig-l135-buttons_8af4884a062b.png": {
+      "sha256": "8af4884a062bc5a45b84100c7e05d0598301b8b5918933c6cc4734c443cb19db",
+      "bytes": 1132059,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l135-calls_0bedbd039e97.png": {
@@ -4310,8 +4322,14 @@
       "sha256": "955d512e2d69ef1aa06965c122b8e905c7166ede86c739fc60b3ae82c8b086b5",
       "bytes": 596529,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.6"
+      ]
+    },
+    "fig-l135-ds-menu_fbbbbca4a21a.png": {
+      "sha256": "fbbbbca4a21a0eba35f8f6a5739b2433e5b66a8fc23631f60a6cc6dbe0651ee6",
+      "bytes": 718760,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l135-item_d38e2b34daaa.png": {
@@ -4375,8 +4393,14 @@
       "sha256": "4105d6d98b993751b3f3b28be5bdb35d0134cce5eeef9ecfb95df3dbd0840bd6",
       "bytes": 568113,
       "used_by_versions": [
-        "dev",
         "v0.4.0-rc.6"
+      ]
+    },
+    "fig-l135-option-menu_5ade59118adf.png": {
+      "sha256": "5ade59118adf13311cde1cf48da60f397bd3ff11fbefa648522c9512fdf701d5",
+      "bytes": 609389,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l135-press-01_aab0aa5534ce.png": {

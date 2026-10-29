@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l110-slide.png
 :name: fig-l110-slide
+:figclass: file-named
+
+fig-l110-slide.png
 :::
 
 The robot drives on the sticks as it did in L090, and the path follower is holding the drivetrain.
@@ -98,6 +101,9 @@ OpMode stops.
 
 :::{figure} ../_figures/fig-wheel-handover.png
 :name: fig-wheel-handover
+:figclass: file-named
+
+fig-wheel-handover.png
 :::
 
 **Change.** In `init()`, find the comment that names this step. Under it, type the first line

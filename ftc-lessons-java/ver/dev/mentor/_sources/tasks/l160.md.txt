@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l160-held.png
 :name: fig-l160-held
+:figclass: file-named
+
+fig-l160-held.png
 :::
 
 Let go of the turn stick and the robot keeps pointing where it was left. Push the turn stick and
@@ -40,6 +43,9 @@ Git, click **Add**.
 
 :::{figure} ../_figures/fig-l160-creep.png
 :name: fig-l160-creep
+:figclass: file-named
+
+fig-l160-creep.png
 :::
 
 The starter is L150's finished OpMode. This run pretends the turn stick rests a little off center,
@@ -154,6 +160,9 @@ is not yet worked out.
 
 :::{figure} ../_figures/fig-control-loops.png
 :name: fig-control-loops
+:figclass: file-named
+
+fig-control-loops.png
 :::
 
 **Where next.** [L170](l170.md) gives a button a pose, and the robot drives there by itself while

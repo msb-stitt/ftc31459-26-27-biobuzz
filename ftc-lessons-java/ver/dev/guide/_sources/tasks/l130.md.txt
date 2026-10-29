@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l130-two-legs.png
 :name: fig-l130-two-legs
+:figclass: file-named
+
+fig-l130-two-legs.png
 :::
 
 The robot drives forward, then slides 24 inches to its right without turning, and holds where it

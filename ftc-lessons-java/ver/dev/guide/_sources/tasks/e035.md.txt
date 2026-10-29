@@ -11,12 +11,18 @@ smaller and more negative on the left.
 
 :::{figure} ../_figures/fig-e035-numberline.png
 :name: fig-e035-numberline
+:figclass: file-named
+
+fig-e035-numberline.png
 :::
 
 We look at number lines from our point of view.
 
 :::{figure} ../_figures/fig-e035-numberline-3d.png
 :name: fig-e035-numberline-3d
+:figclass: file-named
+
+fig-e035-numberline-3d.png
 :::
 
 We use a number line to plot one quantity. It could be how many apples we have. On a robot, it
@@ -26,6 +32,9 @@ When we plot two quantities at the same time, we need a number grid.
 
 :::{figure} ../_figures/fig-e035-xy.png
 :name: fig-e035-xy
+:figclass: file-named
+
+fig-e035-xy.png
 :::
 
 We call the axis that increases to the right the **x** axis. We call the axis that increases
@@ -36,6 +45,9 @@ be farther away from us from our point of view.
 
 :::{figure} ../_figures/fig-e035-xy-3d.png
 :name: fig-e035-xy-3d
+:figclass: file-named
+
+fig-e035-xy-3d.png
 :::
 
 When we plot three values at the same time, like how far to the right, how far away, and how far up
@@ -43,12 +55,18 @@ something is, we add a third axis. A **z** axis. We expect **+z** to be up.
 
 :::{figure} ../_figures/fig-e035-xyz.png
 :name: fig-e035-xyz
+:figclass: file-named
+
+fig-e035-xyz.png
 :::
 
 The gamepad joysticks surprise us because they don't follow our normal convention.
 
 :::{figure} ../_figures/fig-e035-stick.png
 :name: fig-e035-stick
+:figclass: file-named
+
+fig-e035-stick.png
 :::
 
 The **y** axis measures how far the stick is towards us or away from us. That's good.
@@ -68,10 +86,16 @@ and turns with it.
 
 :::{figure} ../_figures/fig-e035-robot-3d.png
 :name: fig-e035-robot-3d
+:figclass: file-named
+
+fig-e035-robot-3d.png
 :::
 
 :::{figure} ../_figures/fig-e035-robot-frame-3d.png
 :name: fig-e035-robot-frame-3d
+:figclass: file-named
+
+fig-e035-robot-frame-3d.png
 :::
 
 In the robot's reference frame in Pedro Pathing, **+x** is forward, out the nose of the robot.
@@ -83,6 +107,9 @@ A speed tells the wheels how fast to go, and which way. We like forward to be po
 
 :::{figure} ../_figures/fig-e035-speeds-3d.png
 :name: fig-e035-speeds-3d
+:figclass: file-named
+
+fig-e035-speeds-3d.png
 :::
 
 We expect a joystick to control the speed of the robot. Moving at a speed for some time changes
@@ -92,10 +119,16 @@ the robot to move.
 
 :::{figure} ../_figures/fig-e035-switch.png
 :name: fig-e035-switch
+:figclass: file-named
+
+fig-e035-switch.png
 :::
 
 :::{figure} ../_figures/fig-e035-switch-3d.png
 :name: fig-e035-switch-3d
+:figclass: file-named
+
+fig-e035-switch-3d.png
 :::
 
 When you drive, pushing a stick away from you should drive the robot forward. Pushed away, the
@@ -119,4 +152,7 @@ the outside of the wheel.
 
 :::{figure} ../_figures/fig-e035-motor-wheel-gear-box.png
 :name: fig-e035-motor-wheel-gear-box
+:figclass: file-named
+
+fig-e035-motor-wheel-gear-box.png
 :::

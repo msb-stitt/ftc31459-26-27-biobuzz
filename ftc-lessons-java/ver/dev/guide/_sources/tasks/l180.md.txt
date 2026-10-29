@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l180-aiming.png
 :name: fig-l180-aiming
+:figclass: file-named
+
+fig-l180-aiming.png
 :::
 
 One teleop with all of it in. The sticks drive field relative and hold the heading they were left

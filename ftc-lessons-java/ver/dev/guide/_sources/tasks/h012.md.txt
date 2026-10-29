@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l012-built.png
 :name: fig-l012-built
+:figclass: file-named
+
+fig-l012-built.png
 :::
 
 Put the robot's code on a Mac and build it. After this, every lesson starts in Android Studio with
@@ -41,6 +44,9 @@ or an Intel chip. The files below differ for each.
 
 :::{figure} ../_figures/fig-l012-archive.png
 :name: fig-l012-archive
+:figclass: file-named
+
+fig-l012-archive.png
 :::
 
 **Install.**
@@ -54,6 +60,9 @@ or an Intel chip. The files below differ for each.
 
 :::{figure} ../_figures/fig-l012-applications.png
 :name: fig-l012-applications
+:figclass: file-named
+
+fig-l012-applications.png
 :::
 
 **Check.**
@@ -80,6 +89,9 @@ built with.
 
 :::{figure} ../_figures/fig-l012-wizard-standard.png
 :name: fig-l012-wizard-standard
+:figclass: file-named
+
+fig-l012-wizard-standard.png
 :::
 
 **Check.**
@@ -109,6 +121,9 @@ If macOS asks, click **Open**.
 
 :::{figure} ../_figures/fig-l012-advantagescope.png
 :name: fig-l012-advantagescope
+:figclass: file-named
+
+fig-l012-advantagescope.png
 :::
 
 ### H012S040: get the project
@@ -128,6 +143,9 @@ The robot's code lives on GitHub. Android Studio copies it to the laptop with a 
 
 :::{figure} ../_figures/fig-l012-tools.png
 :name: fig-l012-tools
+:figclass: file-named
+
+fig-l012-tools.png
 :::
 
 **Clone.**
@@ -144,6 +162,9 @@ The robot's code lives on GitHub. Android Studio copies it to the laptop with a 
 
 :::{figure} ../_figures/fig-l012-trust.png
 :name: fig-l012-trust
+:figclass: file-named
+
+fig-l012-trust.png
 :::
 
 **Check.**
@@ -172,10 +193,16 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l012-offers.png
 :name: fig-l012-offers
+:figclass: file-named
+
+fig-l012-offers.png
 :::
 
 :::{figure} ../_figures/fig-l012-agp-more.png
 :name: fig-l012-agp-more
+:figclass: file-named
+
+fig-l012-agp-more.png
 :::
 
 **Check.**
@@ -187,6 +214,9 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l012-gradle-jvm.png
 :name: fig-l012-gradle-jvm
+:figclass: file-named
+
+fig-l012-gradle-jvm.png
 :::
 
 ### H012S060: build the code
@@ -195,6 +225,9 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l012-build-menu.png
 :name: fig-l012-build-menu
+:figclass: file-named
+
+fig-l012-build-menu.png
 :::
 
 **Check.**

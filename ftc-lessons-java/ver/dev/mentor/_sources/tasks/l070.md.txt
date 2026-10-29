@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l070-pressed.png
 :name: fig-l070-pressed
+:figclass: file-named
+
+fig-l070-pressed.png
 :::
 
 Read the A button, say the moment it goes down and the moment it comes up, and read both sticks
@@ -47,6 +50,9 @@ it is down, `false` when it is up.
 
 :::{figure} ../_figures/fig-l070-button.png
 :name: fig-l070-button
+:figclass: file-named
+
+fig-l070-button.png
 :::
 
 Pick `a`, and finish the lines:
@@ -173,6 +179,9 @@ up and down. Under it, type:
 
 :::{figure} ../_figures/fig-l070-sideways.png
 :name: fig-l070-sideways
+:figclass: file-named
+
+fig-l070-sideways.png
 :::
 
 ### L070S070: watch the buttons on the robot

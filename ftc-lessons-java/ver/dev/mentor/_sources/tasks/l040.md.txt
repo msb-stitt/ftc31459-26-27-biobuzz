@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l040-field.png
 :name: fig-l040-field
+:figclass: file-named
+
+fig-l040-field.png
 :::
 
 The two speeds drive the wheels, and the robot drives in the simulator: tank drive!
@@ -46,6 +49,9 @@ comment that names this step, type `hardware.front`. The list offers `frontLeft`
 
 :::{figure} ../_figures/fig-l040-hardware.png
 :name: fig-l040-hardware
+:figclass: file-named
+
+fig-l040-hardware.png
 :::
 
 Type `.setP`. The list shows what a motor can be told to do. The one we want is
@@ -53,6 +59,9 @@ Type `.setP`. The list shows what a motor can be told to do. The one we want is
 
 :::{figure} ../_figures/fig-l040-setpower.png
 :name: fig-l040-setpower
+:figclass: file-named
+
+fig-l040-setpower.png
 :::
 
 Finish the line, and add the same for the back left wheel:

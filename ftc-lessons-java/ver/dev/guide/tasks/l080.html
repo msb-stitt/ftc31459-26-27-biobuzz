@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/labels.css?v=64a50c8c" />
     
     
 
@@ -335,8 +336,11 @@
         <article role="main" id="furo-main-content">
           <section id="lesson-drive-like-an-arcade-game">
 <h1>080 lesson: drive like an arcade game<a class="headerlink" href="#lesson-drive-like-an-arcade-game" title="Link to this heading">¶</a></h1>
-<figure class="align-default" id="fig-l080-scaled">
+<figure class="file-named align-default" id="fig-l080-scaled">
 <img alt="../../media/fig-l080-scaled_a49c08e7a5d3.png" src="../../media/fig-l080-scaled_a49c08e7a5d3.png" />
+<figcaption>
+<p><span class="caption-text">fig-l080-scaled.png</span><a class="headerlink" href="#fig-l080-scaled" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>Drive with one stick for going and one for turning: arcade drive. When the sticks ask for more than
 full speed, scale every wheel down together, so the robot still drives the curve the driver asked
@@ -415,8 +419,11 @@ turn to the left, counter-clockwise seen from above, is positive. So <code class
 along the robot’s +x, and the <code class="docutils literal notranslate"><span class="pre">Y</span></code> in L090’s <code class="docutils literal notranslate"><span class="pre">strafeYSpeed</span></code> is its +y. The field has an x and a y
 too. Pedro puts (0, 0) in one corner, and x and y each run from 0 in to 144 in. From L140 on, a
 speed can be along the field’s axes, and its name says so.</p>
-<figure class="align-default" id="fig-pedro-field">
+<figure class="file-named align-default" id="fig-pedro-field">
 <img alt="../../media/fig-pedro-field_7a6692094c84.png" src="../../media/fig-pedro-field_7a6692094c84.png" />
+<figcaption>
+<p><span class="caption-text">fig-pedro-field.png</span><a class="headerlink" href="#fig-pedro-field" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L080ArcadeOpMode --pad"</span>
@@ -429,8 +436,11 @@ speed can be along the field’s axes, and its name says so.</p>
 <li><p>Push the right stick halfway right, and <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> reads -0.25.</p></li>
 <li><p>The robot does not move yet.</p></li>
 </ul>
-<figure class="align-default" id="fig-l080-forward-turn">
+<figure class="file-named align-default" id="fig-l080-forward-turn">
 <img alt="../../media/fig-l080-forward-turn_1a2cc39da619.png" src="../../media/fig-l080-forward-turn_1a2cc39da619.png" />
+<figcaption>
+<p><span class="caption-text">fig-l080-forward-turn.png</span><a class="headerlink" href="#fig-l080-forward-turn" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 </section>
 <section id="l080s050">
@@ -465,8 +475,11 @@ robot from L040 is still in <strong>Poses</strong>.</p>
 <p>Now push the left stick all the way forward and the right stick halfway right. Click
 <strong>Line Graph</strong>, and drag <code class="docutils literal notranslate"><span class="pre">leftMixedSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">rightMixedSpeed</span></code> from the <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder into
 <strong>Left Axis</strong>. <code class="docutils literal notranslate"><span class="pre">drivetrain/leftMixedSpeed</span></code> reads 1.25.</p>
-<figure class="align-default" id="fig-l080-too-much">
+<figure class="file-named align-default" id="fig-l080-too-much">
 <img alt="../../media/fig-l080-too-much_cf8e7438c86d.png" src="../../media/fig-l080-too-much_cf8e7438c86d.png" />
+<figcaption>
+<p><span class="caption-text">fig-l080-too-much.png</span><a class="headerlink" href="#fig-l080-too-much" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>A <code class="docutils literal notranslate"><span class="pre">setPower</span></code> speed only goes from -1.0 to +1.0. On the robot, the Control Hub cuts 1.25 down to 1.0
 and leaves 0.75 alone. The left side loses some of what it asked for and the right side loses none,

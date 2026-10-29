@@ -15,6 +15,9 @@ is one of them. So is `gamepad2`.
 
 :::{figure} ../_figures/fig-l020-platform.png
 :name: fig-l020-platform
+:figclass: file-named
+
+fig-l020-platform.png
 :::
 
 Think of `gamepad1` as a white label with an arrow to a sticky note. The note says what kind of
@@ -39,6 +42,9 @@ points to a sticky note of type `double`. But it starts out without a value.
 
 :::{figure} ../_figures/fig-l020-variable.png
 :name: fig-l020-variable
+:figclass: file-named
+
+fig-l020-variable.png
 :::
 
 In programming, the little equals sign, `=`, does a lot of work. It's a little different than the
@@ -52,6 +58,9 @@ assignment action."
 
 :::{figure} ../_figures/fig-l020-sticky.png
 :name: fig-l020-sticky
+:figclass: file-named
+
+fig-l020-sticky.png
 :::
 
 In your code, the `=` in `leftStickY = gamepad1.left_stick_y` copies the number on the `gamepad1`
@@ -68,6 +77,9 @@ Tracker.publish("gamepad1/leftStickY", leftStickY);
 
 :::{figure} ../_figures/fig-l020-tracker-note.png
 :name: fig-l020-tracker-note
+:figclass: file-named
+
+fig-l020-tracker-note.png
 :::
 
 `Tracker` has a **method**, `publish`: a piece of code with a name. This line runs it, the way the
@@ -75,6 +87,9 @@ scheduler runs your `readTheSticks()`.
 
 :::{figure} ../_figures/fig-l020-publish.png
 :name: fig-l020-publish
+:figclass: file-named
+
+fig-l020-publish.png
 :::
 
 The line `Tracker.publish("gamepad1/leftStickY", leftStickY)` hands `publish` two things: a name for

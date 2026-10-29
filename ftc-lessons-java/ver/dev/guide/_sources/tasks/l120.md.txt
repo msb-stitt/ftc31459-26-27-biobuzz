@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l120-shadow-still.png
 :name: fig-l120-shadow-still
+:figclass: file-named
+
+fig-l120-shadow-still.png
 :::
 
 Your own localizer runs beside the robot's own, and both are published so they can be graphed
@@ -77,6 +80,9 @@ this step. Under it, type:
 
 :::{figure} ../_figures/fig-l120-import.png
 :name: fig-l120-import
+:figclass: file-named
+
+fig-l120-import.png
 :::
 
 **Simulator.** In the Terminal, run:
@@ -163,6 +169,9 @@ the next step.
 
 :::{figure} ../_figures/fig-odometry-step.png
 :name: fig-odometry-step
+:figclass: file-named
+
+fig-odometry-step.png
 :::
 
 `forward_in` is forward for the robot, not for the field. The robot starts facing along the
@@ -197,6 +206,9 @@ and `Math.sin` use radians.
 
 :::{figure} ../_figures/fig-l120-encoders-follow.png
 :name: fig-l120-encoders-follow
+:figclass: file-named
+
+fig-l120-encoders-follow.png
 :::
 
 **Simulator.** Run the command from L120S030 again, and connect AdvantageScope.

@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l125-drive24.png
 :name: fig-l125-drive24
+:figclass: file-named
+
+fig-l125-drive24.png
 :::
 
 The robot drives 24 inches forward on its own and stops there. Nobody touches a stick. The path
@@ -75,6 +78,9 @@ one thing in it. `forward24` names the list, and `return` hands it to `start()`.
 
 :::{figure} ../_figures/fig-l125-import-static.png
 :name: fig-l125-import-static
+:figclass: file-named
+
+fig-l125-import-static.png
 :::
 
 **Simulator.** In the Terminal, run:

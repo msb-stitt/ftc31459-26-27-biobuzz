@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l013-built.png
 :name: fig-l013-built
+:figclass: file-named
+
+fig-l013-built.png
 :::
 
 Put the robot's code on an Ubuntu laptop and build it. After this, every lesson starts in Android
@@ -36,6 +39,9 @@ everyone sees the same screens. It is not the newest, so it comes from the page 
 
 :::{figure} ../_figures/fig-l013-archive.png
 :name: fig-l013-archive
+:figclass: file-named
+
+fig-l013-archive.png
 :::
 
 **Install.** Open Terminal and type these two lines, then your password when `sudo` asks:
@@ -50,6 +56,9 @@ you work.
 
 :::{figure} ../_figures/fig-l013-apt.png
 :name: fig-l013-apt
+:figclass: file-named
+
+fig-l013-apt.png
 :::
 
 **Check.**
@@ -90,6 +99,9 @@ built with.
 
 :::{figure} ../_figures/fig-l013-wizard-standard.png
 :name: fig-l013-wizard-standard
+:figclass: file-named
+
+fig-l013-wizard-standard.png
 :::
 
 **Check.**
@@ -116,6 +128,9 @@ Then find AdvantageScope in the app grid and start it.
 
 :::{figure} ../_figures/fig-l013-advantagescope.png
 :name: fig-l013-advantagescope
+:figclass: file-named
+
+fig-l013-advantagescope.png
 :::
 
 ::::{only} mentor
@@ -140,6 +155,9 @@ The robot's code lives on GitHub. Android Studio copies it to the laptop with a 
 
 :::{figure} ../_figures/fig-l013-git.png
 :name: fig-l013-git
+:figclass: file-named
+
+fig-l013-git.png
 :::
 
 **Clone.**
@@ -156,6 +174,9 @@ The robot's code lives on GitHub. Android Studio copies it to the laptop with a 
 
 :::{figure} ../_figures/fig-l013-trust.png
 :name: fig-l013-trust
+:figclass: file-named
+
+fig-l013-trust.png
 :::
 
 **Check.**
@@ -183,6 +204,9 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l013-agp-more.png
 :name: fig-l013-agp-more
+:figclass: file-named
+
+fig-l013-agp-more.png
 :::
 
 **Check.**
@@ -194,6 +218,9 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l013-gradle-jvm.png
 :name: fig-l013-gradle-jvm
+:figclass: file-named
+
+fig-l013-gradle-jvm.png
 :::
 
 ### H013S060: build the code
@@ -202,6 +229,9 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l013-build-menu.png
 :name: fig-l013-build-menu
+:figclass: file-named
+
+fig-l013-build-menu.png
 :::
 
 **Check.**

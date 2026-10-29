@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l140-spin-and-slide.png
 :name: fig-l140-spin-and-slide
+:figclass: file-named
+
+fig-l140-spin-and-slide.png
 :::
 
 Push the stick away from you and the robot goes away from you. It does that whichever way the robot
@@ -72,6 +75,9 @@ The starter drives the way L110 did. Forward on the stick is forward for the rob
 
 :::{figure} ../_figures/fig-field-relative.png
 :name: fig-field-relative
+:figclass: file-named
+
+fig-field-relative.png
 :::
 
 You drive from the Red Alliance Area, as in the picture. From now on, `fieldXSpeed` means a speed
@@ -213,7 +219,9 @@ In `loop()`, under the comment, type:
 ### L140S060: turn the sticks round for the Blue Alliance Area
 
 :::{figure} ../_figures/fig-l140-field-blue.png
-:name: fig-l140-field-blue
+:figclass: file-named
+
+fig-l140-field-blue.png
 :::
 
 `fieldXSpeed = -leftStickY;` and `fieldYSpeed = -leftStickX;`, under the comment that names this

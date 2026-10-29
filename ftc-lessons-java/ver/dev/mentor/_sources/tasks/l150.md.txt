@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l150-bumper-held.png
 :name: fig-l150-bumper-held
+:figclass: file-named
+
+fig-l150-bumper-held.png
 :::
 
 The sticks mean the field, the way L140 left them, until the right bumper is held. While it is held

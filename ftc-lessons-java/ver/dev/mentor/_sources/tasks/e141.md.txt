@@ -20,6 +20,9 @@ two short sides of a triangle, and the arrow is the long side.
 
 :::{figure} ../_figures/fig-e141-notation.png
 :name: fig-e141-notation
+:figclass: file-named
+
+fig-e141-notation.png
 :::
 
 An arrow does not have to start at (0, 0). Its two numbers are its tip minus its tail. From
@@ -28,6 +31,9 @@ down has a number below 0.
 
 :::{figure} ../_figures/fig-e141-offset.png
 :name: fig-e141-offset
+:figclass: file-named
+
+fig-e141-offset.png
 :::
 
 To make an arrow twice as long, pointing the same way, multiply both numbers by 2:
@@ -35,6 +41,9 @@ To make an arrow twice as long, pointing the same way, multiply both numbers by 
 
 :::{figure} ../_figures/fig-e141-scale.png
 :name: fig-e141-scale
+:figclass: file-named
+
+fig-e141-scale.png
 :::
 
 This works for an arrow pointing any way, from any start. Multiply both numbers, even one
@@ -42,6 +51,9 @@ below 0, and the arrow keeps its direction and changes its length.
 
 :::{figure} ../_figures/fig-e141-scale-offset.png
 :name: fig-e141-scale-offset
+:figclass: file-named
+
+fig-e141-scale-offset.png
 :::
 
 To add two arrows, put the second one's tail on the first one's tip. The sum runs from the first
@@ -50,6 +62,9 @@ give the same arrow.
 
 :::{figure} ../_figures/fig-e141-add.png
 :name: fig-e141-add
+:figclass: file-named
+
+fig-e141-add.png
 :::
 
 [E142](e142.md) uses these three ideas. With them, the stick's arrow on the field becomes the

@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l020-live.png
 :name: fig-l020-live
+:figclass: file-named
+
+fig-l020-live.png
 :::
 
 Push the gamepad's sticks and watch the numbers they send, live on the laptop. Nothing on the robot
@@ -47,6 +50,9 @@ own folder, `mytry`, and change the copy.
 
 :::{figure} ../_figures/fig-l020-copy-class.png
 :name: fig-l020-copy-class
+:figclass: file-named
+
+fig-l020-copy-class.png
 :::
 
 **Check.**
@@ -56,6 +62,9 @@ own folder, `mytry`, and change the copy.
 
 :::{figure} ../_figures/fig-l020-copied.png
 :name: fig-l020-copied
+:figclass: file-named
+
+fig-l020-copied.png
 :::
 
 ::::{only} mentor
@@ -107,6 +116,9 @@ simulator presses all three for you.
 
 :::{figure} ../_figures/fig-l020-complete.png
 :name: fig-l020-complete
+:figclass: file-named
+
+fig-l020-complete.png
 :::
 
 ```{code-block} java
@@ -127,6 +139,9 @@ vertical axis*. You can do this with any name you are not sure about.
 
 :::{figure} ../_figures/fig-l020-hover.png
 :name: fig-l020-hover
+:figclass: file-named
+
+fig-l020-hover.png
 :::
 
 **Check.**
@@ -155,6 +170,9 @@ line:
 
 :::{figure} ../_figures/fig-l020-tracker.png
 :name: fig-l020-tracker
+:figclass: file-named
+
+fig-l020-tracker.png
 :::
 
 `Tracker.publish` takes a name and a value. It sends both to AdvantageScope while the code runs, and
@@ -211,6 +229,9 @@ Forward is -1.0 on gamepads. That is how most gamepads are made, not a mistake i
 
 :::{figure} ../_figures/fig-gamepad-sticks.png
 :name: fig-gamepad-sticks
+:figclass: file-named
+
+fig-gamepad-sticks.png
 :::
 
 ::::{only} mentor
@@ -220,6 +241,9 @@ same, because the code passes the stick on unchanged.
 
 :::{figure} ../_figures/fig-advantagescope-sim.png
 :name: fig-advantagescope-sim
+:figclass: file-named
+
+fig-advantagescope-sim.png
 :::
 
 The simulator also sends where the robot is and the four wheel speeds, as above. They stay still in
@@ -266,6 +290,9 @@ way:
 
 :::{figure} ../_figures/fig-l020-log.png
 :name: fig-l020-log
+:figclass: file-named
+
+fig-l020-log.png
 :::
 
 **Check.**
@@ -292,6 +319,9 @@ asks the robot for a velocity: the farther the push, the faster.
 
 :::{figure} ../_figures/fig-stick-to-robot.png
 :name: fig-stick-to-robot
+:figclass: file-named
+
+fig-stick-to-robot.png
 :::
 
 **Turning a stick into a velocity changes axes.** Forward is `-left_stick_y`, a slide to the left

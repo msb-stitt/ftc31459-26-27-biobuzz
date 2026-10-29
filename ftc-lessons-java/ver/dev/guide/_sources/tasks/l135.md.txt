@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l135-menu.png
 :name: fig-l135-menu
+:figclass: file-named
+
+fig-l135-menu.png
 :::
 
 After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125's auto
@@ -35,72 +38,108 @@ Each picture is one press, and the screen it leaves.
 
 :::{figure} ../_figures/fig-l135-press-01.png
 :name: fig-l135-press-01
+:figclass: file-named
+
+fig-l135-press-01.png
 :::
 
 At INIT, each row starts at its first choice, selected, and the `>` is on `Alliance`.
 
 :::{figure} ../_figures/fig-l135-press-02.png
 :name: fig-l135-press-02
+:figclass: file-named
+
+fig-l135-press-02.png
 :::
 
 Right offers Blue. The status line still reads `R-N`: nothing is selected yet.
 
 :::{figure} ../_figures/fig-l135-press-03.png
 :name: fig-l135-press-03
+:figclass: file-named
+
+fig-l135-press-03.png
 :::
 
 B clears the offer. Red is still selected.
 
 :::{figure} ../_figures/fig-l135-press-04.png
 :name: fig-l135-press-04
+:figclass: file-named
+
+fig-l135-press-04.png
 :::
 
 Right offers Blue again.
 
 :::{figure} ../_figures/fig-l135-press-05.png
 :name: fig-l135-press-05
+:figclass: file-named
+
+fig-l135-press-05.png
 :::
 
 A selects Blue. Now the status line reads `B-N`.
 
 :::{figure} ../_figures/fig-l135-press-06.png
 :name: fig-l135-press-06
+:figclass: file-named
+
+fig-l135-press-06.png
 :::
 
 Right goes past Blue, the end of the row, round to Red.
 
 :::{figure} ../_figures/fig-l135-press-07.png
 :name: fig-l135-press-07
+:figclass: file-named
+
+fig-l135-press-07.png
 :::
 
 Down moves the `>` to `Auto`, and clears the offer of Red. Blue stays selected.
 
 :::{figure} ../_figures/fig-l135-press-08.png
 :name: fig-l135-press-08
+:figclass: file-named
+
+fig-l135-press-08.png
 :::
 
 Left goes back past Nothing, the start of the row, round to Forward Then Strafe.
 
 :::{figure} ../_figures/fig-l135-press-09.png
 :name: fig-l135-press-09
+:figclass: file-named
+
+fig-l135-press-09.png
 :::
 
 A selects it. The status line reads `B-FS`.
 
 :::{figure} ../_figures/fig-l135-press-10.png
 :name: fig-l135-press-10
+:figclass: file-named
+
+fig-l135-press-10.png
 :::
 
 Down goes past the last row, round to the first.
 
 :::{figure} ../_figures/fig-l135-press-11.png
 :name: fig-l135-press-11
+:figclass: file-named
+
+fig-l135-press-11.png
 :::
 
 Up goes past the first row, round to the last.
 
 :::{figure} ../_figures/fig-l135-press-12.png
 :name: fig-l135-press-12
+:figclass: file-named
+
+fig-l135-press-12.png
 :::
 
 Up moves the `>` back to `Alliance`. Press PLAY now, and the robot runs Forward Then Strafe for the
@@ -119,8 +158,8 @@ A class diagram is a box for each class: its name, then its fields, then its met
 - No mark means any class in the same folder can use it.
 - `: String` after a method is what it gives back.
 - An arrow with a diamond means "holds": a `MenuRow` holds its `MenuItem`s.
-
-A class drawn faint is there to show what holds what. Its own diagram is where you read it.
+- A dashed arrow with an open head means "uses": a `MenuButtons` is handed a `Gamepad` each
+  loop and asks it about its buttons, but does not hold one.
 
 ### L135S010: copy the starters into mytry
 
@@ -159,6 +198,9 @@ A `MenuItem`'s one job is to hold a choice's two names.
 
 :::{figure} ../_figures/fig-l135-item.png
 :name: fig-l135-item
+:figclass: file-named
+
+fig-l135-item.png
 :::
 
 - `shortName` holds the name for the status line, such as `F24`.
@@ -175,6 +217,7 @@ the test first, watch it fail, then write the code until it passes.
 **Change.** In `MenuItemTest`, above the comment, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuItemTest.java
 package org.firstinspires.ftc.teamcode.mytry.l135;
 
 import static org.junit.Assert.assertEquals;
@@ -185,6 +228,7 @@ import org.junit.Test;
 The `package` line is the first line of each file in `l135`. Below the comment, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuItemTest.java
 // 'public' so JUnit can run it. 'public' allows access from any code.
 public class MenuItemTest {
 
@@ -221,6 +265,7 @@ are `public`.
 **Change.** In `MenuItem`, type the `package` line above the comment, and below it:
 
 ```{code-block} java
+:caption: mytry/l135/MenuItem.java
 // 'public' so L140, in another package, can use it. 'public' allows access from any code.
 public class MenuItem {
 
@@ -257,6 +302,9 @@ A `MenuRow`'s one job is to know which of its choices is selected, and which is 
 
 :::{figure} ../_figures/fig-l135-row.png
 :name: fig-l135-row
+:figclass: file-named
+
+fig-l135-row.png
 :::
 
 - `name` holds the row's name, such as `Alliance`.
@@ -276,6 +324,9 @@ Here `optionMenu` asks `allianceRow` for its line, offers Blue, then selects it:
 
 :::{figure} ../_figures/fig-l135-row-calls.png
 :name: fig-l135-row-calls
+:figclass: file-named
+
+fig-l135-row-calls.png
 :::
 
 ### L135S040: one row, and its line
@@ -288,6 +339,7 @@ lets the class use it.
 **Change.** In `MenuRowTest`, type the `package` line above the comment, and under it:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuRowTest.java
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -298,6 +350,7 @@ import org.junit.Test;
 Below the comment, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuRowTest.java
 // 'public' so JUnit can run it. 'public' allows access from any code.
 public class MenuRowTest {
 
@@ -328,12 +381,14 @@ public class MenuRowTest {
 In `MenuRow`, type the `package` line above the comment, and under it:
 
 ```{code-block} java
+:caption: mytry/l135/MenuRow.java
 import java.util.ArrayList;
 ```
 
 Below the comment, type:
 
 ```{code-block} java
+:caption: mytry/l135/MenuRow.java
 // 'public' so L140, in another package, can use it. 'public' allows access from any code.
 public class MenuRow {
 
@@ -386,6 +441,7 @@ public class MenuRow {
 **Change.** In `MenuRowTest`, under the last test, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuRowTest.java
     @Test
     // 'public' so JUnit can run it. 'public' allows access from any code.
     public void rightOffersTheNextChoice() {
@@ -424,6 +480,7 @@ public class MenuRow {
 **Change.** In `MenuRow`, under `add()`, type:
 
 ```{code-block} java
+:caption: mytry/l135/MenuRow.java
     void goRight() {
         int lastIndex = items.size() - 1;
         offeredIndex = offeredIndex + 1;
@@ -452,6 +509,7 @@ public class MenuRow {
 **Change.** In `MenuRowTest`, under the last test, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuRowTest.java
     @Test
     // 'public' so JUnit can run it. 'public' allows access from any code.
     public void selectSelectsTheChoiceOffered() {
@@ -478,6 +536,7 @@ public class MenuRow {
 **Change.** In `MenuRow`, under `goLeft()`, type:
 
 ```{code-block} java
+:caption: mytry/l135/MenuRow.java
     void select() {
         selectedIndex = offeredIndex;
     }
@@ -496,10 +555,14 @@ public class MenuRow {
 ## OptionMenu: the rows together
 
 An `OptionMenu`'s one job is to know which row the `>` is on, and hand each press to that row.
-`MenuRow` is drawn faint: you know it already.
+The diagram shows `MenuRow` and `MenuItem` too, since the calls below reach them. `MenuItem` is
+drawn as only its name; its own diagram is above.
 
 :::{figure} ../_figures/fig-l135-option-menu.png
 :name: fig-l135-option-menu
+:figclass: file-named
+
+fig-l135-option-menu.png
 :::
 
 - `rows` holds the menu's `MenuRow`s, in the order they were added.
@@ -514,18 +577,27 @@ Right goes to the row the `>` is on:
 
 :::{figure} ../_figures/fig-l135-menu-right.png
 :name: fig-l135-menu-right
+:figclass: file-named
+
+fig-l135-menu-right.png
 :::
 
 Down clears the offer, then moves the `>`:
 
 :::{figure} ../_figures/fig-l135-menu-down.png
 :name: fig-l135-menu-down
+:figclass: file-named
+
+fig-l135-menu-down.png
 :::
 
 The lines ask each row for its selected item, then for its line:
 
 :::{figure} ../_figures/fig-l135-menu-lines.png
 :name: fig-l135-menu-lines
+:figclass: file-named
+
+fig-l135-menu-lines.png
 :::
 
 ### L135S070: the status line and the lines
@@ -537,6 +609,7 @@ whether they are the same object: `row == pointedRow` is `true` for the row the 
 **Change.** In `OptionMenuTest`, type the `package` line above the comment, and under it:
 
 ```{code-block} java
+:caption: (test) mytry/l135/OptionMenuTest.java
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -548,6 +621,7 @@ import java.util.ArrayList;
 Below the comment, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/OptionMenuTest.java
 // 'public' so JUnit can run it. 'public' allows access from any code.
 public class OptionMenuTest {
 
@@ -604,6 +678,7 @@ In `OptionMenu`, type the `package` line and `import java.util.ArrayList;` above
 below it:
 
 ```{code-block} java
+:caption: mytry/l135/OptionMenu.java
 // 'public' so L140, in another package, can use it. 'public' allows access from any code.
 public class OptionMenu {
 
@@ -661,6 +736,7 @@ public class OptionMenu {
 **Change.** In `OptionMenuTest`, under the last test and above `assertLines`, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/OptionMenuTest.java
     @Test
     // 'public' so JUnit can run it. 'public' allows access from any code.
     public void rightOffersInTheRowThePointerIsOn() {
@@ -706,6 +782,7 @@ public class OptionMenu {
 **Change.** In `OptionMenu`, under `add()`, type:
 
 ```{code-block} java
+:caption: mytry/l135/OptionMenu.java
     void goUp() {
         goBack();
         pointedIndex = pointedIndex - 1;
@@ -756,24 +833,35 @@ A `MenuButtons`' one job is the OpMode loop's work of checking the gamepad's but
 
 :::{figure} ../_figures/fig-l135-buttons.png
 :name: fig-l135-buttons
+:figclass: file-named
+
+fig-l135-buttons.png
 :::
+
+The diagram shows `DriverStationMenu`, `Gamepad`, `OptionMenu` and `MenuRow` too, since the calls
+below reach them. `Gamepad` shows only the methods `MenuButtons` calls.
 
 - `optionMenu` holds the menu it moves.
 - `MenuButtons(optionMenu)` makes a `MenuButtons` for that menu.
 - `loop(gamepad)` asks the gamepad about each button, and calls the menu's method for each one
   pressed.
 
-A loop with the D-pad's right newly pressed. `allianceRow` is faint: what it does there is
-`MenuRow`'s job.
+A loop with the D-pad's right newly pressed.
 
 :::{figure} ../_figures/fig-l135-buttons-press.png
 :name: fig-l135-buttons-press
+:figclass: file-named
+
+fig-l135-buttons-press.png
 :::
 
 The next loop, with nothing newly pressed, asks the same and calls nothing:
 
 :::{figure} ../_figures/fig-l135-buttons-idle.png
 :name: fig-l135-buttons-idle
+:figclass: file-named
+
+fig-l135-buttons-idle.png
 :::
 
 ### L135S090: turn presses into moves
@@ -785,6 +873,7 @@ held, as the robot does between loops.
 **Change.** In `MenuButtonsTest`, type the `package` line above the comment, and under it:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuButtonsTest.java
 import static org.junit.Assert.assertEquals;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -796,6 +885,7 @@ import org.junit.Test;
 Below the comment, type:
 
 ```{code-block} java
+:caption: (test) mytry/l135/MenuButtonsTest.java
 // 'public' so JUnit can run it. 'public' allows access from any code.
 public class MenuButtonsTest {
 
@@ -870,6 +960,7 @@ public class MenuButtonsTest {
 `import com.qualcomm.robotcore.hardware.Gamepad;` above the comment, and below it:
 
 ```{code-block} java
+:caption: mytry/l135/MenuButtons.java
 class MenuButtons {
 
     // 'private' so only this class can use it. 'private' allows access from this class only.
@@ -915,7 +1006,12 @@ Then it shows the lines on the Driver Station.
 
 :::{figure} ../_figures/fig-l135-ds-menu.png
 :name: fig-l135-ds-menu
+:figclass: file-named
+
+fig-l135-ds-menu.png
 :::
+
+`Tracker` shows only the methods `DriverStationMenu` calls. It uses `Tracker` and holds none.
 
 - `optionMenu` holds the menu, and `menuButtons` the `MenuButtons` it makes for it.
 - `DriverStationMenu(optionMenu)` makes one for the menu.
@@ -927,6 +1023,9 @@ One `loop()`, from the OpMode's `init_loop()`:
 
 :::{figure} ../_figures/fig-l135-ds-loop.png
 :name: fig-l135-ds-loop
+:figclass: file-named
+
+fig-l135-ds-loop.png
 :::
 
 ### L135S100: put the menu on the Driver Station
@@ -938,6 +1037,7 @@ it is `false`, Blue is added first, so Blue is the choice the menu starts at.
 **Change.** In `DriverStationMenu`, type the `package` line above the comment, and under it:
 
 ```{code-block} java
+:caption: mytry/l135/DriverStationMenu.java
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -948,6 +1048,7 @@ import java.util.ArrayList;
 Below the comment, type:
 
 ```{code-block} java
+:caption: mytry/l135/DriverStationMenu.java
 // 'public' so L140, in another package, can use it. 'public' allows access from any code.
 public class DriverStationMenu {
 
@@ -984,6 +1085,7 @@ public class DriverStationMenu {
 In `AutoWithMenuOpMode`, near the top of the class, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
 :emphasize-lines: 4-12
 
     // When on L135S100, see
@@ -1003,6 +1105,7 @@ In `AutoWithMenuOpMode`, near the top of the class, under the comment that names
 In `init()`, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
 :emphasize-lines: 4-15
 
         // When on L135S100, see
@@ -1026,6 +1129,7 @@ Between INIT and PLAY, the robot calls `init_loop()` again and again. In `init_l
 comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
 :emphasize-lines: 4
 
         // When on L135S100, see
@@ -1054,12 +1158,18 @@ Each class, and which one holds which:
 
 :::{figure} ../_figures/fig-l135-classes.png
 :name: fig-l135-classes
+:figclass: file-named
+
+fig-l135-classes.png
 :::
 
 One press of the D-pad's right, down the classes and back:
 
 :::{figure} ../_figures/fig-l135-calls.png
 :name: fig-l135-calls
+:figclass: file-named
+
+fig-l135-calls.png
 :::
 
 ### L135S110: run the auto that was selected
@@ -1072,6 +1182,7 @@ forward24` is `true` when the item selected is the very `forward24` the OpMode m
 that names this step, type:
 
 ```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
 :emphasize-lines: 4-18
 
         // When on L135S110, see
@@ -1099,6 +1210,7 @@ that names this step, type:
 In `loop()`, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
 :emphasize-lines: 4-5
 
         // When on L135S110, see
@@ -1131,6 +1243,7 @@ the autos stay written for red.
 **Change.** Stop the simulator. In `poses()`, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
 :emphasize-lines: 4-7
 
         // When on L135S120, see

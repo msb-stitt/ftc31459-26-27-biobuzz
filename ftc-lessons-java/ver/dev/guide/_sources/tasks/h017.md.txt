@@ -8,6 +8,9 @@
 
 :::{figure} ../_figures/fig-l020-window.png
 :name: fig-l020-window
+:figclass: file-named
+
+fig-l020-window.png
 :::
 
 A video shows every part of this page:

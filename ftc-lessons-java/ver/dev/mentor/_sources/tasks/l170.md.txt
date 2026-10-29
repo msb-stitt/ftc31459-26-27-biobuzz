@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l170-drove-there.png
 :name: fig-l170-drove-there
+:figclass: file-named
+
+fig-l170-drove-there.png
 :::
 
 Press Y and the robot drives itself to a spot on the field. Push any stick and the driver has it
@@ -40,6 +43,9 @@ Git, click **Add**.
 
 :::{figure} ../_figures/fig-l170-stands-still.png
 :name: fig-l170-stands-still
+:figclass: file-named
+
+fig-l170-stands-still.png
 :::
 
 The starter is L160's finished OpMode, moved around a little. Near the top are two new fields.

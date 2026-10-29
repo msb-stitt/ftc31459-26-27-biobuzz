@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/labels.css?v=64a50c8c" />
     
     
 
@@ -344,8 +345,11 @@ the computer to do things.</p>
 </div>
 <p>The FTC programming platform gives your program many <strong>objects</strong> to help program robots. <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code>
 is one of them. So is <code class="docutils literal notranslate"><span class="pre">gamepad2</span></code>.</p>
-<figure class="align-default" id="fig-l020-platform">
+<figure class="file-named align-default" id="fig-l020-platform">
 <img alt="../../media/fig-l020-platform_8b3cd980ac07.png" src="../../media/fig-l020-platform_8b3cd980ac07.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-platform.png</span><a class="headerlink" href="#fig-l020-platform" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>Think of <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> as a white label with an arrow to a sticky note. The note says what kind of
 thing it is: a <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code>.</p>
@@ -361,8 +365,11 @@ program can read it.</p>
 </div>
 <p>That makes a <strong>variable</strong>. Also think of a variable as a name, drawn as a white label. Its arrow
 points to a sticky note of type <code class="docutils literal notranslate"><span class="pre">double</span></code>. But it starts out without a value.</p>
-<figure class="align-default" id="fig-l020-variable">
+<figure class="file-named align-default" id="fig-l020-variable">
 <img alt="../../media/fig-l020-variable_0d0285e5c348.png" src="../../media/fig-l020-variable_0d0285e5c348.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-variable.png</span><a class="headerlink" href="#fig-l020-variable" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>In programming, the little equals sign, <code class="docutils literal notranslate"><span class="pre">=</span></code>, does a lot of work. It’s a little different than the
 <code class="docutils literal notranslate"><span class="pre">=</span></code> in math. In math, <code class="docutils literal notranslate"><span class="pre">=</span></code> means two things are equal. In math we can say “2 = 2” is true, and
@@ -371,8 +378,11 @@ points to a sticky note of type <code class="docutils literal notranslate"><span
 being true or false. We’re telling the computer to take an action. The action is to forget about
 whatever was on the <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> sticky note, and write down a 1.0 on it. The <code class="docutils literal notranslate"><span class="pre">=</span></code> means “do the
 assignment action.”</p>
-<figure class="align-default" id="fig-l020-sticky">
+<figure class="file-named align-default" id="fig-l020-sticky">
 <img alt="../../media/fig-l020-sticky_a051629b4d17.png" src="../../media/fig-l020-sticky_a051629b4d17.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-sticky.png</span><a class="headerlink" href="#fig-l020-sticky" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>In your code, the <code class="docutils literal notranslate"><span class="pre">=</span></code> in <code class="docutils literal notranslate"><span class="pre">leftStickY</span> <span class="pre">=</span> <span class="pre">gamepad1.left_stick_y</span></code> copies the number on the <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code>
 <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code> <code class="docutils literal notranslate"><span class="pre">float</span></code> note onto <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s note. <code class="docutils literal notranslate"><span class="pre">=</span></code> is an action: put this value here.</p>
@@ -382,13 +392,19 @@ assignment action.”</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> is also provided by the platform. It lets you track things that you want to log to the
 <strong>AdvantageScope</strong> program.</p>
-<figure class="align-default" id="fig-l020-tracker-note">
+<figure class="file-named align-default" id="fig-l020-tracker-note">
 <img alt="../../media/fig-l020-tracker-note_9e0600fc648e.png" src="../../media/fig-l020-tracker-note_9e0600fc648e.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-tracker-note.png</span><a class="headerlink" href="#fig-l020-tracker-note" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> has a <strong>method</strong>, <code class="docutils literal notranslate"><span class="pre">publish</span></code>: a piece of code with a name. This line runs it, the way the
 scheduler runs your <code class="docutils literal notranslate"><span class="pre">readTheSticks()</span></code>.</p>
-<figure class="align-default" id="fig-l020-publish">
+<figure class="file-named align-default" id="fig-l020-publish">
 <img alt="../../media/fig-l020-publish_c02b723322ff.png" src="../../media/fig-l020-publish_c02b723322ff.png" />
+<figcaption>
+<p><span class="caption-text">fig-l020-publish.png</span><a class="headerlink" href="#fig-l020-publish" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>The line <code class="docutils literal notranslate"><span class="pre">Tracker.publish(&quot;gamepad1/leftStickY&quot;,</span> <span class="pre">leftStickY)</span></code> hands <code class="docutils literal notranslate"><span class="pre">publish</span></code> two things: a name for
 the value, in quotes, and a copy of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s number.</p>

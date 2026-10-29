@@ -65,6 +65,9 @@ means some loop blocked.
 
 :::{figure} ../_figures/fig-panels-graph.png
 :name: fig-panels-graph
+:figclass: file-named
+
+fig-panels-graph.png
 :::
 
 ### step 4: look at where it thinks it is

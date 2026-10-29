@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
     <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
     <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/labels.css?v=64a50c8c" />
     
     
 
@@ -335,8 +336,11 @@
         <article role="main" id="furo-main-content">
           <section id="lesson-drive-like-a-tank">
 <h1>040 lesson: drive like a tank<a class="headerlink" href="#lesson-drive-like-a-tank" title="Link to this heading">¶</a></h1>
-<figure class="align-default" id="fig-l040-field">
+<figure class="file-named align-default" id="fig-l040-field">
 <img alt="../../media/fig-l040-field_120293bc280c.png" src="../../media/fig-l040-field_120293bc280c.png" />
+<figcaption>
+<p><span class="caption-text">fig-l040-field.png</span><a class="headerlink" href="#fig-l040-field" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>The two speeds drive the wheels, and the robot drives in the simulator: tank drive!</p>
 <section id="the-steps">
@@ -367,13 +371,19 @@ in L030.</p>
 <p><strong>Change.</strong> The robot has four motors, one on each wheel. <code class="docutils literal notranslate"><span class="pre">hardware</span></code> holds all four. Under the
 comment that names this step, type <code class="docutils literal notranslate"><span class="pre">hardware.front</span></code>. The list offers <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code> and
 <code class="docutils literal notranslate"><span class="pre">frontRight</span></code>. Pick <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code> and press Tab.</p>
-<figure class="align-default" id="fig-l040-hardware">
+<figure class="file-named align-default" id="fig-l040-hardware">
 <img alt="../../media/fig-l040-hardware_25d94e20b03c.png" src="../../media/fig-l040-hardware_25d94e20b03c.png" />
+<figcaption>
+<p><span class="caption-text">fig-l040-hardware.png</span><a class="headerlink" href="#fig-l040-hardware" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>Type <code class="docutils literal notranslate"><span class="pre">.setP</span></code>. The list shows what a motor can be told to do. The one we want is
 <code class="docutils literal notranslate"><span class="pre">setPower(double</span> <span class="pre">power)</span></code>.</p>
-<figure class="align-default" id="fig-l040-setpower">
+<figure class="file-named align-default" id="fig-l040-setpower">
 <img alt="../../media/fig-l040-setpower_392e1a190c45.png" src="../../media/fig-l040-setpower_392e1a190c45.png" />
+<figcaption>
+<p><span class="caption-text">fig-l040-setpower.png</span><a class="headerlink" href="#fig-l040-setpower" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
 <p>Finish the line, and add the same for the back left wheel:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L040S030, see</span>

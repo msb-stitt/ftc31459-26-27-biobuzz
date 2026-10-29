@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l090-slide.png
 :name: fig-l090-slide
+:figclass: file-named
+
+fig-l090-slide.png
 :::
 
 Drive a mecanum robot: the left stick drives and slides, the right stick turns, and all three can
@@ -44,6 +47,9 @@ along and sideways at the same time. With four of them, the robot can drive, sli
 
 :::{figure} ../_figures/fig-mecanum-x.png
 :name: fig-mecanum-x
+:figclass: file-named
+
+fig-mecanum-x.png
 :::
 
 Seen from above, the top rollers make an X. Game Manual 0 shows it on
@@ -185,6 +191,9 @@ The two lines that bring in one more wheel change `biggest`, as L060's squaring 
 
 :::{figure} ../_figures/fig-l090-corner.png
 :name: fig-l090-corner
+:figclass: file-named
+
+fig-l090-corner.png
 :::
 
 ### L090S060: check every wheel on blocks
@@ -196,6 +205,9 @@ pushes add up.
 
 :::{figure} ../_figures/fig-l090-wheel-pushes.png
 :name: fig-l090-wheel-pushes
+:figclass: file-named
+
+fig-l090-wheel-pushes.png
 :::
 
 **Robot.** Stop the simulator. Rest the robot on the blocks, so all four wheels are off the ground.

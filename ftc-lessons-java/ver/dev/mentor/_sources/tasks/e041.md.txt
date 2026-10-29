@@ -10,6 +10,9 @@ hardware.frontLeft.setPower(leftSpeed);
 
 :::{figure} ../_figures/fig-l040-sticky.png
 :name: fig-l040-sticky
+:figclass: file-named
+
+fig-l040-sticky.png
 :::
 
 - The computer finds the variable `hardware`, and the big blue note its arrow points to.

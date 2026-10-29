@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l190-wheel-numbers.png
 :name: fig-l190-wheel-numbers
+:figclass: file-named
+
+fig-l190-wheel-numbers.png
 :::
 
 Full stick means 40 inches per second, not `setPower(1.0)`. The drivetrain measures how fast each
@@ -86,6 +89,9 @@ This is L110S050 again, with the new drivetrain.
 
 :::{figure} ../_figures/fig-l190-asks-standing-still.png
 :name: fig-l190-asks-standing-still
+:figclass: file-named
+
+fig-l190-asks-standing-still.png
 :::
 
 `MAX_IPS` is 40.0, in inches per second. `MAX_TURN_RADPS` is pi radians per second, half a turn
@@ -154,6 +160,9 @@ The OpMode asks for a speed, but `setCommandedWheelSpeeds` in your drivetrain is
 
 :::{figure} ../_figures/fig-speed-loop.png
 :name: fig-speed-loop
+:figclass: file-named
+
+fig-speed-loop.png
 :::
 
 Open `L190SpeedDriveTrain`. It `extends CorbelsMecanum`, so it has everything L180's drivetrain had.

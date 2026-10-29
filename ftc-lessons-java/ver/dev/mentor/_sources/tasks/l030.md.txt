@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l030-live.png
 :name: fig-l030-live
+:figclass: file-named
+
+fig-l030-live.png
 :::
 
 Turn each stick into a wheel speed, where forward is positive. Nothing on the robot moves yet.
@@ -60,6 +63,9 @@ offers `leftStickY`, the name from the lines above. Press Tab, then finish the t
 
 :::{figure} ../_figures/fig-l030-complete.png
 :name: fig-l030-complete
+:figclass: file-named
+
+fig-l030-complete.png
 :::
 
 ```{code-block} java

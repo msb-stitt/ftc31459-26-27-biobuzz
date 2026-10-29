@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-l011-built.png
 :name: fig-l011-built
+:figclass: file-named
+
+fig-l011-built.png
 :::
 
 Put the robot's code on a Windows laptop and build it. After this, every lesson starts in Android
@@ -36,6 +39,9 @@ everyone sees the same screens. It is not the newest, so it comes from the page 
 
 :::{figure} ../_figures/fig-l011-archive.png
 :name: fig-l011-archive
+:figclass: file-named
+
+fig-l011-archive.png
 :::
 
 **Install.**
@@ -49,6 +55,9 @@ everyone sees the same screens. It is not the newest, so it comes from the page 
 
 :::{figure} ../_figures/fig-l011-setup.png
 :name: fig-l011-setup
+:figclass: file-named
+
+fig-l011-setup.png
 :::
 
 **Check.**
@@ -75,6 +84,9 @@ built with.
 
 :::{figure} ../_figures/fig-l011-wizard-standard.png
 :name: fig-l011-wizard-standard
+:figclass: file-named
+
+fig-l011-wizard-standard.png
 :::
 
 **Check.**
@@ -106,6 +118,9 @@ Under **Assets**, click `advantagescope-win-x64-v26.0.2.exe`.
 
 :::{figure} ../_figures/fig-l011-smartscreen.png
 :name: fig-l011-smartscreen
+:figclass: file-named
+
+fig-l011-smartscreen.png
 :::
 
 **Check.**
@@ -114,6 +129,9 @@ Under **Assets**, click `advantagescope-win-x64-v26.0.2.exe`.
 
 :::{figure} ../_figures/fig-l011-advantagescope.png
 :name: fig-l011-advantagescope
+:figclass: file-named
+
+fig-l011-advantagescope.png
 :::
 
 ### H011S040: get the project
@@ -136,6 +154,9 @@ The robot's code lives on GitHub. Android Studio copies it to the laptop with a 
 
 :::{figure} ../_figures/fig-l011-git.png
 :name: fig-l011-git
+:figclass: file-named
+
+fig-l011-git.png
 :::
 
 **Trust.** Android Studio asks if you trust the project. A box about Microsoft Defender is ticked.
@@ -143,6 +164,9 @@ Leave it ticked, and click **Trust Project**.
 
 :::{figure} ../_figures/fig-l011-trust.png
 :name: fig-l011-trust
+:figclass: file-named
+
+fig-l011-trust.png
 :::
 
 **Check.**
@@ -168,10 +192,16 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l011-offers.png
 :name: fig-l011-offers
+:figclass: file-named
+
+fig-l011-offers.png
 :::
 
 :::{figure} ../_figures/fig-l011-agp-more.png
 :name: fig-l011-agp-more
+:figclass: file-named
+
+fig-l011-agp-more.png
 :::
 
 **Check.**
@@ -183,6 +213,9 @@ This is called a *sync*. The first sync downloads Java 17 and more, and takes a 
 
 :::{figure} ../_figures/fig-l011-gradle-jvm.png
 :name: fig-l011-gradle-jvm
+:figclass: file-named
+
+fig-l011-gradle-jvm.png
 :::
 
 ::::{only} mentor
@@ -198,6 +231,9 @@ Files**.
 
 :::{figure} ../_figures/fig-l011-build-menu.png
 :name: fig-l011-build-menu
+:figclass: file-named
+
+fig-l011-build-menu.png
 :::
 
 **Check.**

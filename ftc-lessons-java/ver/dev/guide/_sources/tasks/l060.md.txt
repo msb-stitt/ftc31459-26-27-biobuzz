@@ -2,6 +2,9 @@
 
 :::{figure} ../_figures/fig-stick-shaping.png
 :name: fig-stick-shaping
+:figclass: file-named
+
+fig-stick-shaping.png
 :::
 
 Make the robot sit still when the sticks are let go, and make a gentle push mean gently.
@@ -124,6 +127,9 @@ from the `drivetrain` folder into **Left Axis**.
 
 :::{figure} ../_figures/fig-l060-deadband.png
 :name: fig-l060-deadband
+:figclass: file-named
+
+fig-l060-deadband.png
 :::
 
 ### L060S050: write squaring
@@ -203,6 +209,9 @@ making a new one.
 
 :::{figure} ../_figures/fig-l060-squared.png
 :name: fig-l060-squared
+:figclass: file-named
+
+fig-l060-squared.png
 :::
 
 ### L060S070: drive it on the robot
