@@ -31,8 +31,8 @@ index 82c49d1..2b8129f 100644
 +        String summary = optionMenu.summary();
 +        Tracker.publish("menu/summary", summary);
 +        String[] lines = optionMenu.lines();
-+        for (int i = 0; i < lines.length; i++) {
-+            Tracker.printToDs(lines[i]);
++        for (String line : lines) {
++            Tracker.printToDs(line);
 +        }
 +    }
 +
