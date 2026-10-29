@@ -26,12 +26,5 @@ classDiagram
         +getSelected() MenuItem
         getLine() String
     }
-    class MenuItem {
-        -String shortName
-        -String fullName
-        +MenuItem(shortName, fullName)
-        getShortName() String
-        getFullName() String
-    }
     OptionMenu o-- MenuRow
     MenuRow o-- MenuItem
