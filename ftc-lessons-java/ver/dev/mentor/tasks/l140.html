@@ -277,16 +277,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenu.html">L135OptionMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItem.html">L135MenuItem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRow.html">L135MenuRow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtons.html">L135MenuButtons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135DriverStationMenu.html">L135DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItemTest.html">L135MenuItemTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRowTest.html">L135MenuRowTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenuTest.html">L135OptionMenuTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -370,15 +370,15 @@ time.</p>
 <section id="l140s020">
 <span id="l140s020-switch-your-copies-on"></span><h3>L140S020: switch your copies on<a class="headerlink" href="#l140s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In each copy, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this step.</p>
-<p><code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code> uses the menu you wrote in L135. Your menu is in <code class="docutils literal notranslate"><span class="pre">mytry</span></code>, not in <code class="docutils literal notranslate"><span class="pre">lessons</span></code>. So
-the starter turns those lines into comments. Find each other comment that names this step. Under
-it, delete the <code class="docutils literal notranslate"><span class="pre">//</span></code> at the start of each line.</p>
+<p><code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code> uses the menu you wrote in L135. Your menu is in <code class="docutils literal notranslate"><span class="pre">mytry.l135</span></code>, not in <code class="docutils literal notranslate"><span class="pre">lessons</span></code>.
+So the starter turns those lines into comments. Find each other comment that names this step,
+the first one among the <code class="docutils literal notranslate"><span class="pre">import</span></code> lines. Under it, delete the <code class="docutils literal notranslate"><span class="pre">//</span></code> at the start of each line.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>In each, under the step’s comment, the next line reads
 <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
 <li><p>In <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>, near the top of the class, the line under the comment reads
-<code class="docutils literal notranslate"><span class="pre">L135MenuItem</span> <span class="pre">red</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">L135MenuItem(&quot;R&quot;,</span> <span class="pre">&quot;Red&quot;);</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">MenuItem</span> <span class="pre">red</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">MenuItem(&quot;R&quot;,</span> <span class="pre">&quot;Red&quot;);</span></code>.</p></li>
 <li><p>No name in the file is red.</p></li>
 </ul>
 </section>
@@ -440,27 +440,49 @@ Field, along +x.</p></li>
 <span id="l140s050-give-the-teleop-a-menu"></span><h3>L140S050: give the teleop a menu<a class="headerlink" href="#l140s050" title="Link to this heading">¶</a></h3>
 <p>The teleop gets L135’s menu, with two rows. <code class="docutils literal notranslate"><span class="pre">Alliance</span></code> says which end of the field you drive from.
 <code class="docutils literal notranslate"><span class="pre">Start</span></code> says where the robot starts: where the auto ended, or against the wall, for a run with no
-auto first. <code class="docutils literal notranslate"><span class="pre">OpModeStorage.alliance</span></code> is the alliance the auto chose. L140S090 makes the auto set it.</p>
-<p><strong>Change.</strong> Stop the simulator. Near the top of the class, under the comment that names this step,
+auto first. <code class="docutils literal notranslate"><span class="pre">OpModeStorage.isRed</span></code> is true when the auto chose red. L140S090 makes the auto set
+it.</p>
+<p><strong>Change.</strong> Stop the simulator. Under the <code class="docutils literal notranslate"><span class="pre">import</span></code> lines, under the comment that names this step,
 type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// When on L140S050, see</span>
+<span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
+<span class="c1">// for what to do here.</span>
+<span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry.l135.DriverStationMenu</span><span class="p">;</span>
+</span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry.l135.MenuItem</span><span class="p">;</span>
+</span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry.l135.MenuRow</span><span class="p">;</span>
+</span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry.l135.OptionMenu</span><span class="p">;</span>
+</span></pre></div>
+</div>
+<p>Near the top of the class, under the comment that names this step, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L140S050, see</span>
 <span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">autoEnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span><span class="w"> </span><span class="s">"Auto End"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135MenuItem</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuItem</span><span class="p">(</span><span class="s">"W"</span><span class="p">,</span><span class="w"> </span><span class="s">"Wall"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135MenuRow</span><span class="w"> </span><span class="n">startRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135MenuRow</span><span class="p">(</span><span class="s">"Start"</span><span class="p">,</span><span class="w"> </span><span class="n">autoEnd</span><span class="p">,</span><span class="w"> </span><span class="n">wall</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135OptionMenu</span><span class="p">(</span><span class="n">allianceRow</span><span class="p">,</span><span class="w"> </span><span class="n">startRow</span><span class="p">);</span>
-</span><span class="hll"><span class="w">    </span><span class="n">L135DriverStationMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L135DriverStationMenu</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
+<span class="hll"><span class="w">    </span><span class="n">MenuItem</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MenuItem</span><span class="p">(</span><span class="s">"R"</span><span class="p">,</span><span class="w"> </span><span class="s">"Red"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">MenuItem</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MenuItem</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"Blue"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">MenuRow</span><span class="w"> </span><span class="n">allianceRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MenuRow</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">MenuItem</span><span class="w"> </span><span class="n">autoEnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MenuItem</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span><span class="w"> </span><span class="s">"Auto End"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">MenuItem</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MenuItem</span><span class="p">(</span><span class="s">"W"</span><span class="p">,</span><span class="w"> </span><span class="s">"Wall"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">MenuRow</span><span class="w"> </span><span class="n">startRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MenuRow</span><span class="p">(</span><span class="s">"Start"</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="n">OptionMenu</span><span class="w"> </span><span class="n">optionMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OptionMenu</span><span class="p">();</span>
+</span><span class="hll"><span class="w">    </span><span class="n">DriverStationMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DriverStationMenu</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p>At the end of <code class="docutils literal notranslate"><span class="pre">init()</span></code>, under the comment, type:</p>
+<p>At the end of <code class="docutils literal notranslate"><span class="pre">init()</span></code>, under the comment, type the lines that fill the menu. The choice added
+first starts selected, so the alliance the auto chose goes first:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">menu</span><span class="p">.</span><span class="na">startAt</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">,</span><span class="w"> </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">alliance</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">isRed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">red</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">blue</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">blue</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">red</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="n">startRow</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">autoEnd</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">startRow</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">wall</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">allianceRow</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">startRow</span><span class="p">);</span>
 </span></pre></div>
 </div>
 <p>In <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the comment, type:</p>
@@ -474,7 +496,7 @@ type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">summary</span><span class="p">());</span>
+<span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">getSummary</span><span class="p">());</span>
 </span></pre></div>
 </div>
 <p><strong>Simulator.</strong> Run it with <code class="docutils literal notranslate"><span class="pre">--init</span></code>, as in L135:</p>
@@ -503,8 +525,7 @@ Delete the lines under it, down to the comment that names L140S040, and type:</p
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Red"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">allianceRow</span><span class="p">.</span><span class="na">getSelected</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">red</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickY</span><span class="p">;</span>
 </span><span class="hll"><span class="w">            </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">leftStickX</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
@@ -542,11 +563,10 @@ on the 2D Field, along +x.</p></li>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">startPlace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Start"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">startPlace</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Wall"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">startRow</span><span class="p">.</span><span class="na">getSelected</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">wall</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="n">PoseFactory</span><span class="w"> </span><span class="n">poses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poses</span><span class="p">();</span>
-</span><span class="hll"><span class="w">            </span><span class="n">Pose</span><span class="w"> </span><span class="n">wall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poses</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="n">botStartY_in</span><span class="p">,</span><span class="w"> </span><span class="mf">90.0</span><span class="p">);</span>
-</span><span class="hll"><span class="w">            </span><span class="n">follower</span><span class="p">.</span><span class="na">setPose</span><span class="p">(</span><span class="n">wall</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">Pose</span><span class="w"> </span><span class="n">wallPose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">poses</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="n">botStartY_in</span><span class="p">,</span><span class="w"> </span><span class="mf">90.0</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">follower</span><span class="p">.</span><span class="na">setPose</span><span class="p">(</span><span class="n">wallPose</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span></pre></div>
 </div>
@@ -554,8 +574,7 @@ on the 2D Field, along +x.</p></li>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alliance</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">allianceRow</span><span class="p">.</span><span class="na">getSelected</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">blue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">            </span><span class="n">chosenPoses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">redPoses</span><span class="p">.</span><span class="na">rotateAround</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="mf">180.0</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span></pre></div>
@@ -591,8 +610,7 @@ when the auto ends.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S090, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">menu</span><span class="p">.</span><span class="na">chosen</span><span class="p">(</span><span class="s">"Alliance"</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">alliance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alliance</span><span class="p">;</span>
+<span class="hll"><span class="w">        </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">isRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">getSelected</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">red</span><span class="p">;</span>
 </span></pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> turns red. Click it and press Option+Enter.</p>
@@ -634,7 +652,7 @@ blue’s <code class="docutils literal notranslate"><span class="pre">fieldXSpee
 <code class="docutils literal notranslate"><span class="pre">their</span> <span class="pre">left</span> <span class="pre">is</span> <span class="pre">-y,</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">right</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">robot</span> <span class="pre">facing</span> <span class="pre">+x</span> <span class="pre">expected:&lt;-1.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;1.0&gt;</span></code>,
 blue’s <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> still has its minus.</p>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l140_theAutoHandsItsAllianceToTheTeleOp</span></code> fails with
-<code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">alliance</span> <span class="pre">handed</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">teleop</span> <span class="pre">expected:&lt;[Blue]&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;[Red]&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">blue,</span> <span class="pre">not</span> <span class="pre">red,</span> <span class="pre">handed</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">teleop</span> <span class="pre">expected:&lt;false&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;true&gt;</span></code>,
 the lines from L140S090 are missing from the auto’s <code class="docutils literal notranslate"><span class="pre">start()</span></code>.</p>
 <p>The Driver Station chooses the teleop only when the auto ends on its own or its 30 seconds run
 out; pressing STOP leaves it unchosen. The drive team still presses INIT and PLAY for it, and its

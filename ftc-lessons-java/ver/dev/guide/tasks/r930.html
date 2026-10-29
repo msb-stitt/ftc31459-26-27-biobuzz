@@ -272,16 +272,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenu.html">L135OptionMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItem.html">L135MenuItem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRow.html">L135MenuRow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtons.html">L135MenuButtons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135DriverStationMenu.html">L135DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItemTest.html">L135MenuItemTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRowTest.html">L135MenuRowTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenuTest.html">L135OptionMenuTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -399,7 +399,7 @@ names that lesson: its check is on the floor.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l130*'</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>L135</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L135</span> <span class="pre">Choose</span> <span class="pre">Auto</span></code> (Autonomous)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L135</span> <span class="pre">Auto</span> <span class="pre">With</span> <span class="pre">Menu</span></code> (Autonomous)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l135*'</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>L140</p></td>
@@ -551,18 +551,18 @@ names that lesson: its check is on the floor.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">menu/alliance</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AutoWithMenuOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">menu/auto</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L135ChooseAutoOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AutoWithMenuOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">menu/summary</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L135DriverStationMenu</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DriverStationMenu</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Generated by applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.2</span></code>, every lesson in order.</p>
+<p>Generated by applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.3</span></code>, every lesson in order.</p>
 </section>
 </section>
 
