@@ -33,9 +33,7 @@ class Bot37523 {
         c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
     });
 
-    // Pinpoint Tuner, 2026-10-27. MEASURE: swingarm pods set as 4-bar ones read
-    // 16 in for a 24 in push. If its pods are swingarm, run the tuner again with
-    // SWING_ARM.
+    // Pinpoint Tuner, 2026-10-28.
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
@@ -47,8 +45,7 @@ class Bot37523 {
         c.offsetUnits.set(DistanceUnit.INCH);
     });
 
-    // Foresight Tuner, 2026-10-27, with the Pinpoint above. MEASURE: again once
-    // the pods are settled.
+    // Foresight Tuner, 2026-10-28.
     public static ForesightConfig foresightConfig = new ForesightConfig(
             c -> {
                 Controller primaryTranslationalForward = Controller.proportional(0.19309146376508124);
