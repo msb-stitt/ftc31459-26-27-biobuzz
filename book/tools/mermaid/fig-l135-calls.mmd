@@ -1,9 +1,9 @@
 sequenceDiagram
-    participant OpMode as L135ChooseAuto<br/>OpMode
+    participant OpMode as L135Choose<br/>AutoOpMode
     participant DS as L135Driver<br/>StationMenu
     participant Buttons as L135Menu<br/>Buttons
     participant Menu as L135Option<br/>Menu
-    participant Row as L135MenuRow
+    participant Row as L135Menu<br/>Row
     OpMode->>DS: loop(gamepad1),<br/>from init_loop()
     DS->>Buttons: loop(gamepad)
     Buttons->>Menu: right()
