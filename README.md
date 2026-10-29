@@ -78,8 +78,8 @@ bumper drives the robot instead: the stick pushed away drives the robot's front 
 teleop records its alliance as `Alliance`. **Example Auto** and **Example TeleOp**, in `example`, are
 88888's two with StarterBot's intake and launcher, for 37523, and stop at INIT on a robot without
 them. The teleop adds StarterBot TeleOp's triggers and right bumper. The auto adds the route Shoot
-Then Intake: forward 6 inches, shoot for 10 seconds, wait 3 seconds, 24 inches to the robot's left,
-then the intake in for 3 seconds. In the simulator, an OpMode's intake and launcher are stand-ins
+Then Intake: forward 6 inches, shoot for 10 seconds, wait 3 seconds, 24 inches left, as the
+audience sees red's route, then the intake in for 3 seconds. In the simulator, an OpMode's intake and launcher are stand-ins
 that keep what they are given, the launcher reporting the speed it was asked for. These six, Launcher Check, Robot Name Check and Live
 NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
 six and Launcher Check send the flight log live to AdvantageScope as well, for practice;

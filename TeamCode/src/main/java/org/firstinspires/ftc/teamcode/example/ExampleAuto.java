@@ -35,8 +35,8 @@ import java.util.function.LongSupplier;
  * as 37523. On a robot without them it stops at INIT, when it looks them up.
  *
  * <p>Shoot Then Intake drives forward 6 inches and holds there; shoots for 10
- * seconds, then stops shooting; waits 3 seconds; strafes 24 inches to the
- * robot's left and holds there; then runs the intake in for 3 seconds.
+ * seconds, then stops shooting; waits 3 seconds; strafes 24 inches left and
+ * holds there; then runs the intake in for 3 seconds.
  * Shooting is what Example TeleOp's held right bumper does: the launcher spins
  * up, the windmill feeds once it is fast enough, and the intake gets goBILDA's
  * boost while it feeds.
@@ -45,7 +45,9 @@ import java.util.function.LongSupplier;
  * Station: the alliance, and the auto, which is Nothing until another is
  * chosen. The poses are written for the red alliance. For the blue alliance,
  * {@code poses()} turns each one a half-turn about the field's middle, at
- * (72, 72).
+ * (72, 72). Left, right, forward and backward are as the audience sees them,
+ * from below y = 0 looking toward +y. The field's x and y:
+ * https://coding.stitt.cc/ftc-lessons-java/guide/tasks/e143.html
  *
  * <p>At PLAY the alliance is handed to Example TeleOp, which the Driver
  * Station picks when this auto ends, by itself or at the end of its 30
@@ -197,10 +199,63 @@ public class ExampleAuto extends CorbelsAuto {
         return forwardThenStrafeRoute;
     }
 
+    // Start: (72, 10.5), against the audience's wall, facing -y, toward the
+    // audience. v is the way the robot faces.
+    //
+    //        y (in)
+    //        ^
+    //   16.5 +
+    //   10.5 +                [v]
+    //        |
+    //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
+    //        0     24    48    72    96    120   144
+    //                      audience
+    //
+    // Forward 6 in, to +y, away from the audience: the robot drives backward.
+    //
+    //        y (in)
+    //        ^
+    //   16.5 +                [v]
+    //   10.5 +                ( )
+    //        |
+    //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
+    //        0     24    48    72    96    120   144
+    //
+    // Shoot for 10 s at (72, 16.5), then wait 3 s, holding there.
+    //
+    //        y (in)
+    //        ^
+    //   16.5 +                [v]
+    //   10.5 +
+    //        |
+    //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
+    //        0     24    48    72    96    120   144
+    //
+    // Left 24 in, to -x, toward the red wall: the robot strafes to its own right.
+    //
+    //        y (in)
+    //        ^
+    //   16.5 +          [v]<<<( )
+    //   10.5 +
+    //        |
+    //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
+    //        0     24    48    72    96    120   144
+    //
+    // Stop at (48, 16.5) and intake for 3 s, holding there.
+    //
+    //        y (in)
+    //        ^
+    //   16.5 +          [v]
+    //   10.5 +
+    //        |
+    //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
+    //        0     24    48    72    96    120   144
+
     /**
      * Forward 6 inches and hold; shoot for 10 seconds, then stop; wait 3
-     * seconds; strafe 24 inches to the robot's left and hold; intake for 3
-     * seconds. The robot faces away from the wall, +y, so its left is -x.
+     * seconds; strafe 24 inches left and hold; intake for 3 seconds. The robot
+     * faces -y, toward the audience, so it drives backward and strafes to its
+     * own right.
      */
     Command shootThenIntake() {
         PoseFactory poses = poses();
