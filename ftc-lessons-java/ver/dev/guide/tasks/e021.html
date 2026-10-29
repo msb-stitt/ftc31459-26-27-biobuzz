@@ -345,8 +345,7 @@ the computer to do things.</p>
 <p>The FTC programming platform gives your program many <strong>objects</strong> to help program robots. <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code>
 is one of them. So is <code class="docutils literal notranslate"><span class="pre">gamepad2</span></code>.</p>
 <figure class="align-default" id="fig-l020-platform">
-<a class="reference internal image-reference" href="../../media/fig-l020-platform_8b3cd980ac07.png"><img alt="../../media/fig-l020-platform_8b3cd980ac07.png" src="../../media/fig-l020-platform_8b3cd980ac07.png" style="width: 720px;" />
-</a>
+<img alt="../../media/fig-l020-platform_8b3cd980ac07.png" src="../../media/fig-l020-platform_8b3cd980ac07.png" />
 </figure>
 <p>Think of <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> as a white label with an arrow to a sticky note. The note says what kind of
 thing it is: a <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code>.</p>
@@ -363,8 +362,7 @@ program can read it.</p>
 <p>That makes a <strong>variable</strong>. Also think of a variable as a name, drawn as a white label. Its arrow
 points to a sticky note of type <code class="docutils literal notranslate"><span class="pre">double</span></code>. But it starts out without a value.</p>
 <figure class="align-default" id="fig-l020-variable">
-<a class="reference internal image-reference" href="../../media/fig-l020-variable_0d0285e5c348.png"><img alt="../../media/fig-l020-variable_0d0285e5c348.png" src="../../media/fig-l020-variable_0d0285e5c348.png" style="width: 648px;" />
-</a>
+<img alt="../../media/fig-l020-variable_0d0285e5c348.png" src="../../media/fig-l020-variable_0d0285e5c348.png" />
 </figure>
 <p>In programming, the little equals sign, <code class="docutils literal notranslate"><span class="pre">=</span></code>, does a lot of work. It’s a little different than the
 <code class="docutils literal notranslate"><span class="pre">=</span></code> in math. In math, <code class="docutils literal notranslate"><span class="pre">=</span></code> means two things are equal. In math we can say “2 = 2” is true, and
@@ -374,8 +372,7 @@ being true or false. We’re telling the computer to take an action. The action 
 whatever was on the <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> sticky note, and write down a 1.0 on it. The <code class="docutils literal notranslate"><span class="pre">=</span></code> means “do the
 assignment action.”</p>
 <figure class="align-default" id="fig-l020-sticky">
-<a class="reference internal image-reference" href="../../media/fig-l020-sticky_a051629b4d17.png"><img alt="../../media/fig-l020-sticky_a051629b4d17.png" src="../../media/fig-l020-sticky_a051629b4d17.png" style="width: 1008px;" />
-</a>
+<img alt="../../media/fig-l020-sticky_a051629b4d17.png" src="../../media/fig-l020-sticky_a051629b4d17.png" />
 </figure>
 <p>In your code, the <code class="docutils literal notranslate"><span class="pre">=</span></code> in <code class="docutils literal notranslate"><span class="pre">leftStickY</span> <span class="pre">=</span> <span class="pre">gamepad1.left_stick_y</span></code> copies the number on the <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code>
 <code class="docutils literal notranslate"><span class="pre">left_stick_y</span></code> <code class="docutils literal notranslate"><span class="pre">float</span></code> note onto <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s note. <code class="docutils literal notranslate"><span class="pre">=</span></code> is an action: put this value here.</p>
@@ -386,14 +383,12 @@ assignment action.”</p>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> is also provided by the platform. It lets you track things that you want to log to the
 <strong>AdvantageScope</strong> program.</p>
 <figure class="align-default" id="fig-l020-tracker-note">
-<a class="reference internal image-reference" href="../../media/fig-l020-tracker-note_9e0600fc648e.png"><img alt="../../media/fig-l020-tracker-note_9e0600fc648e.png" src="../../media/fig-l020-tracker-note_9e0600fc648e.png" style="width: 634px;" />
-</a>
+<img alt="../../media/fig-l020-tracker-note_9e0600fc648e.png" src="../../media/fig-l020-tracker-note_9e0600fc648e.png" />
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">Tracker</span></code> has a <strong>method</strong>, <code class="docutils literal notranslate"><span class="pre">publish</span></code>: a piece of code with a name. This line runs it, the way the
 scheduler runs your <code class="docutils literal notranslate"><span class="pre">readTheSticks()</span></code>.</p>
 <figure class="align-default" id="fig-l020-publish">
-<a class="reference internal image-reference" href="../../media/fig-l020-publish_c02b723322ff.png"><img alt="../../media/fig-l020-publish_c02b723322ff.png" src="../../media/fig-l020-publish_c02b723322ff.png" style="width: 1152px;" />
-</a>
+<img alt="../../media/fig-l020-publish_c02b723322ff.png" src="../../media/fig-l020-publish_c02b723322ff.png" />
 </figure>
 <p>The line <code class="docutils literal notranslate"><span class="pre">Tracker.publish(&quot;gamepad1/leftStickY&quot;,</span> <span class="pre">leftStickY)</span></code> hands <code class="docutils literal notranslate"><span class="pre">publish</span></code> two things: a name for
 the value, in quotes, and a copy of <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code>’s number.</p>

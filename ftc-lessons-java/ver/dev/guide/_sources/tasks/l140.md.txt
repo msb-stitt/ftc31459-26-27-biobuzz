@@ -72,7 +72,6 @@ The starter drives the way L110 did. Forward on the stick is forward for the rob
 
 :::{figure} ../_figures/fig-field-relative.png
 :name: fig-field-relative
-:width: 1044px
 :::
 
 You drive from the Red Alliance Area, as in the picture. From now on, `fieldXSpeed` means a speed
@@ -189,7 +188,6 @@ In `loop()`, under the comment, type:
 
 :::{figure} ../_figures/fig-l140-field-blue.png
 :name: fig-l140-field-blue
-:width: 1044px
 :::
 
 `fieldXSpeed = -leftStickY;` and `fieldYSpeed = -leftStickX;`, under the comment that names this

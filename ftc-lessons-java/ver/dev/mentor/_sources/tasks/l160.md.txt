@@ -154,7 +154,6 @@ is not yet worked out.
 
 :::{figure} ../_figures/fig-control-loops.png
 :name: fig-control-loops
-:width: 2016px
 :::
 
 **Where next.** [L170](l170.md) gives a button a pose, and the robot drives there by itself while

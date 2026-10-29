@@ -2,7 +2,6 @@
 
 :::{figure} ../_figures/fig-stick-shaping.png
 :name: fig-stick-shaping
-:width: 739px
 :::
 
 Make the robot sit still when the sticks are let go, and make a gentle push mean gently.

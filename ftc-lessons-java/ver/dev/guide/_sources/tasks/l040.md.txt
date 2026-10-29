@@ -46,7 +46,6 @@ comment that names this step, type `hardware.front`. The list offers `frontLeft`
 
 :::{figure} ../_figures/fig-l040-hardware.png
 :name: fig-l040-hardware
-:width: 700px
 :::
 
 Type `.setP`. The list shows what a motor can be told to do. The one we want is
@@ -54,7 +53,6 @@ Type `.setP`. The list shows what a motor can be told to do. The one we want is
 
 :::{figure} ../_figures/fig-l040-setpower.png
 :name: fig-l040-setpower
-:width: 700px
 :::
 
 Finish the line, and add the same for the back left wheel:

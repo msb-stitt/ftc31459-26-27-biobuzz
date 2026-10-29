@@ -2,7 +2,6 @@
 
 :::{figure} ../_figures/fig-l135-menu.png
 :name: fig-l135-menu
-:width: 628px
 :::
 
 After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125's auto

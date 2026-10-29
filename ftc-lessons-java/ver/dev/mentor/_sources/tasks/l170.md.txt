@@ -40,7 +40,6 @@ Git, click **Add**.
 
 :::{figure} ../_figures/fig-l170-stands-still.png
 :name: fig-l170-stands-still
-:width: 700px
 :::
 
 The starter is L160's finished OpMode, moved around a little. Near the top are two new fields.

@@ -106,7 +106,6 @@ speed can be along the field's axes, and its name says so.
 
 :::{figure} ../_figures/fig-pedro-field.png
 :name: fig-pedro-field
-:width: 1296px
 :::
 
 **Simulator.** In the Terminal, run:

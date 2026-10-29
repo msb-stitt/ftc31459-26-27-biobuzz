@@ -47,7 +47,6 @@ it is down, `false` when it is up.
 
 :::{figure} ../_figures/fig-l070-button.png
 :name: fig-l070-button
-:width: 700px
 :::
 
 Pick `a`, and finish the lines:
