@@ -1,0 +1,21 @@
+classDiagram
+    %% faint: OptionMenu
+    class MenuButtons {
+        -OptionMenu optionMenu
+        MenuButtons(optionMenu)
+        loop(gamepad)
+    }
+    class OptionMenu {
+        -ArrayList~MenuRow~ rows
+        -int pointedIndex
+        +add(row)
+        goUp()
+        goDown()
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        getSummary() String
+        getLines() ArrayList~String~
+    }
+    MenuButtons o-- OptionMenu

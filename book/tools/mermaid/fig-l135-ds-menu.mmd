@@ -1,0 +1,29 @@
+classDiagram
+    %% faint: OptionMenu, MenuButtons
+    class DriverStationMenu {
+        -OptionMenu optionMenu
+        -MenuButtons menuButtons
+        +DriverStationMenu(optionMenu)
+        +loop(gamepad)
+        +getSummary() String
+    }
+    class OptionMenu {
+        -ArrayList~MenuRow~ rows
+        -int pointedIndex
+        +add(row)
+        goUp()
+        goDown()
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        getSummary() String
+        getLines() ArrayList~String~
+    }
+    class MenuButtons {
+        -OptionMenu optionMenu
+        MenuButtons(optionMenu)
+        loop(gamepad)
+    }
+    DriverStationMenu o-- OptionMenu
+    DriverStationMenu o-- MenuButtons

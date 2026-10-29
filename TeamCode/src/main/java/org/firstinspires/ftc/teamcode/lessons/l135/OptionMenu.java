@@ -5,6 +5,6 @@
  *
  * <p>Uses {@link MenuRow} for each row, and through it {@link MenuItem}.
  */
-// When on L135S030, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+// When on L135S070, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
 // for what to write in this file.

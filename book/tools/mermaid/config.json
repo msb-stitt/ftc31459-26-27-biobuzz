@@ -4,6 +4,6 @@
   "themeVariables": {"fontFamily": "Menlo"},
   "htmlLabels": false,
   "class": {"useMaxWidth": false, "htmlLabels": false},
-  "sequence": {"useMaxWidth": false, "wrap": true, "width": 120, "actorMargin": 10,
+  "sequence": {"useMaxWidth": false, "wrap": true, "width": 128, "actorMargin": 12,
                "diagramMarginX": 6, "mirrorActors": false}
 }
