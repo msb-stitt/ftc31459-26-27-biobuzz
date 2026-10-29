@@ -1,0 +1,929 @@
+# L135
+
+10 file(s) copied, then 24 change(s) in 10 file(s), 542 line(s) of code to write.
+
+## Copies
+
+- `lessons/L135OptionMenu.java` to `mytry/L135OptionMenu.java`
+- `lessons/L135MenuItem.java` to `mytry/L135MenuItem.java`
+- `lessons/L135MenuRow.java` to `mytry/L135MenuRow.java`
+- `lessons/L135MenuButtons.java` to `mytry/L135MenuButtons.java`
+- `lessons/L135DriverStationMenu.java` to `mytry/L135DriverStationMenu.java`
+- `lessons/L135ChooseAutoOpMode.java` to `mytry/L135ChooseAutoOpMode.java`
+- `lessons/L135MenuItemTest.java` to `mytry/L135MenuItemTest.java`, under `test`
+- `lessons/L135MenuRowTest.java` to `mytry/L135MenuRowTest.java`, under `test`
+- `lessons/L135OptionMenuTest.java` to `mytry/L135OptionMenuTest.java`, under `test`
+- `lessons/L135MenuButtonsTest.java` to `mytry/L135MenuButtonsTest.java`, under `test`
+
+## L135OptionMenu
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135OptionMenu.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,5 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
+ /**
+  * The rows of a menu, and which row the pointer is on. Up and down move the
+  * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
+```
+
+### A change
+
+Delete 0 lines, write 87 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -10,3 +10,90 @@
+ // When on L135S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+ // for what to write in this file.
++class L135OptionMenu {
++
++    L135MenuRow[] rows;
++    int pointedRow = 0;
++
++    L135OptionMenu(L135MenuRow... rows) {
++        this.rows = rows;
++    }
++
++    void up() {
++        back();
++        pointedRow = pointedRow - 1;
++        if (pointedRow < 0) {
++            pointedRow = rows.length - 1;
++        }
++    }
++
++    void down() {
++        back();
++        pointedRow = pointedRow + 1;
++        if (pointedRow == rows.length) {
++            pointedRow = 0;
++        }
++    }
++
++    void left() {
++        rows[pointedRow].left();
++    }
++
++    void right() {
++        rows[pointedRow].right();
++    }
++
++    void select() {
++        rows[pointedRow].select();
++    }
++
++    void back() {
++        rows[pointedRow].back();
++    }
++
++    String chosen(String rowName) {
++        L135MenuRow row = rowNamed(rowName);
++        L135MenuItem selectedItem = row.selected();
++        String fullName = selectedItem.fullName();
++        return fullName;
++    }
++
++    void startAt(String rowName, String fullName) {
++        L135MenuRow row = rowNamed(rowName);
++        row.startAt(fullName);
++    }
++
++    String summary() {
++        String summary = "";
++        for (int i = 0; i < rows.length; i++) {
++            L135MenuItem selectedItem = rows[i].selected();
++            if (i > 0) {
++                summary = summary + "-";
++            }
++            summary = summary + selectedItem.shortName();
++        }
++        return summary;
++    }
++
++    String[] lines() {
++        String[] lines = new String[rows.length + 1];
++        lines[0] = summary();
++        for (int i = 0; i < rows.length; i++) {
++            String pointer = "  ";
++            if (i == pointedRow) {
++                pointer = "> ";
++            }
++            lines[i + 1] = pointer + rows[i].line();
++        }
++        return lines;
++    }
++
++    L135MenuRow rowNamed(String rowName) {
++        for (L135MenuRow row : rows) {
++            if (row.name().equals(rowName)) {
++                return row;
++            }
++        }
++        throw new IllegalArgumentException("No row named " + rowName);
++    }
++}
+```
+
+## L135MenuItem
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuItem.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,5 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
+ /**
+  * One choice in a {@link L135MenuRow}: its short name, such as F24, for the
+  * menu's summary line, and its full name, such as Forward 24, for its row's
+```
+
+### A change
+
+Delete 0 lines, write 18 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -10,3 +10,21 @@
+ // When on L135S040, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+ // for what to write in this file.
++class L135MenuItem {
++
++    String shortName;
++    String fullName;
++
++    L135MenuItem(String shortName, String fullName) {
++        this.shortName = shortName;
++        this.fullName = fullName;
++    }
++
++    String shortName() {
++        return shortName;
++    }
++
++    String fullName() {
++        return fullName;
++    }
++}
+```
+
+## L135MenuRow
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRow.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,5 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
+ /**
+  * One row of an {@link L135OptionMenu}: its name and its choices. Left and right
+  * offer the choice before or after, and wrap at the ends. A selects the choice
+```
+
+### A change
+
+Delete 0 lines, write 64 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -10,3 +10,67 @@
+ // When on L135S050, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+ // for what to write in this file.
++class L135MenuRow {
++
++    String name;
++    L135MenuItem[] items;
++    int selectedIndex = 0;
++    int offeredIndex = 0;
++
++    L135MenuRow(String name, L135MenuItem... items) {
++        this.name = name;
++        this.items = items;
++    }
++
++    String name() {
++        return name;
++    }
++
++    void right() {
++        int lastIndex = items.length - 1;
++        offeredIndex = offeredIndex + 1;
++        if (offeredIndex > lastIndex) {
++            offeredIndex = 0;
++        }
++    }
++
++    void left() {
++        int lastIndex = items.length - 1;
++        offeredIndex = offeredIndex - 1;
++        if (offeredIndex < 0) {
++            offeredIndex = lastIndex;
++        }
++    }
++
++    void select() {
++        selectedIndex = offeredIndex;
++    }
++
++    void back() {
++        offeredIndex = selectedIndex;
++    }
++
++    L135MenuItem selected() {
++        L135MenuItem selectedItem = items[selectedIndex];
++        return selectedItem;
++    }
++
++    void startAt(String fullName) {
++        for (int i = 0; i < items.length; i++) {
++            if (items[i].fullName().equals(fullName)) {
++                selectedIndex = i;
++                offeredIndex = i;
++            }
++        }
++    }
++
++    String line() {
++        L135MenuItem offeredItem = items[offeredIndex];
++        String choiceShown = "<" + offeredItem.fullName() + ">";
++        if (offeredIndex != selectedIndex) {
++            choiceShown = offeredItem.fullName() + "? A:OK B:Back";
++        }
++        String rowLine = name + ": " + choiceShown;
++        return rowLine;
++    }
++}
+```
+
+## L135MenuButtons
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtons.java`
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,7 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
+ /**
+  * Turns each new press of a gamepad's D-pad, A and B into one move of an
+  * {@link L135OptionMenu}.
+```
+
+### A change
+
+Delete 0 lines, write 29 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -11,3 +11,32 @@
+ // When on L135S110, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+ // for what to write in this file.
++class L135MenuButtons {
++
++    L135OptionMenu optionMenu;
++
++    L135MenuButtons(L135OptionMenu optionMenu) {
++        this.optionMenu = optionMenu;
++    }
++
++    void loop(Gamepad gamepad) {
++        if (gamepad.dpadUpWasPressed()) {
++            optionMenu.up();
++        }
++        if (gamepad.dpadDownWasPressed()) {
++            optionMenu.down();
++        }
++        if (gamepad.dpadLeftWasPressed()) {
++            optionMenu.left();
++        }
++        if (gamepad.dpadRightWasPressed()) {
++            optionMenu.right();
++        }
++        if (gamepad.aWasPressed()) {
++            optionMenu.select();
++        }
++        if (gamepad.bWasPressed()) {
++            optionMenu.back();
++        }
++    }
++}
+```
+
+## L135DriverStationMenu
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135DriverStationMenu.java`
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,9 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
++import org.firstinspires.ftc.teamcode.base.Tracker;
++
+ /**
+  * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
+  * for an OpMode to make as a field and call from init_loop(). The menu and its
+```
+
+### A change
+
+Delete 0 lines, write 34 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -16,3 +16,37 @@
+ // When on L135S120, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+ // for what to write in this file.
++class L135DriverStationMenu {
++
++    L135OptionMenu optionMenu;
++    L135MenuButtons menuButtons;
++
++    L135DriverStationMenu(L135OptionMenu optionMenu) {
++        this.optionMenu = optionMenu;
++        menuButtons = new L135MenuButtons(optionMenu);
++    }
++
++    void loop(Gamepad gamepad) {
++        menuButtons.loop(gamepad);
++        String summary = optionMenu.summary();
++        Tracker.publish("menu/summary", summary);
++        String[] lines = optionMenu.lines();
++        for (String line : lines) {
++            Tracker.printToDs(line);
++        }
++    }
++
++    String chosen(String rowName) {
++        String fullName = optionMenu.chosen(rowName);
++        return fullName;
++    }
++
++    void startAt(String rowName, String fullName) {
++        optionMenu.startAt(rowName, fullName);
++    }
++
++    String summary() {
++        String summary = optionMenu.summary();
++        return summary;
++    }
++}
+```
+
+## L135ChooseAutoOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L135ChooseAutoOpMode.java`
+
+### A change
+
+Delete 1 line, write 0 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -10,7 +10,6 @@
+ import com.pedropathing.ivy.Scheduler;
+ import com.pedropathing.math.Pose;
+ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+```
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -38,6 +38,15 @@
+     // When on L135S120, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+     // for what to do here.
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
++    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
++    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
++    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
++    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
++    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
+ 
+     double robotHalfLength_in = 9.0;
+     double fieldPerimeterWidth_in = 1.5;
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -69,6 +69,7 @@
+         // When on L135S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 15 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -80,6 +80,21 @@
+         // When on L135S130, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        Tracker.publish("menu/alliance", alliance);
++
++        String auto = menu.chosen("Auto");
++        Tracker.publish("menu/auto", auto);
++        Command chosenAuto = Command.NOOP;
++        switch (auto) {
++            case "Forward 24":
++                chosenAuto = driveForward24();
++                break;
++            case "Forward Then Strafe":
++                chosenAuto = driveForwardThenStrafe();
++                break;
++        }
++        Scheduler.schedule(chosenAuto);
+         startAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -105,6 +105,7 @@
+         // When on L135S130, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
+         // for what to do here.
++        Tracker.printToDs(menu.summary());
+         Tracker.printPoseSpeedLoopToDs(follower);
+         loopAfter();
+     }
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -123,6 +123,10 @@
+         // When on L135S140, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s140
+         // for what to do here.
++        String alliance = menu.chosen("Alliance");
++        if (alliance.equals("Blue")) {
++            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
++        }
+         return chosenPoses;
+     }
+ 
+```
+
+## L135MenuItemTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuItemTest.java`
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,9 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link L135MenuItem}: an item gives back the short name and
+  * the full name it was made with.
+```
+
+### A change
+
+Delete 0 lines, write 13 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -11,3 +11,16 @@
+ // When on L135S040, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class L135MenuItemTest {
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void anItemHasAShortNameAndAFullName() {
++        L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
++        String shortName = forward24.shortName();
++        assertEquals("F24", shortName);
++        String fullName = forward24.fullName();
++        assertEquals("Forward 24", fullName);
++    }
++}
+```
+
+## L135MenuRowTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuRowTest.java`
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,9 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link L135MenuRow}: a row starts at its first choice,
+  * selected; left and right offer a choice and wrap at the ends; A selects
+```
+
+### A change
+
+Delete 0 lines, write 72 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -13,3 +13,75 @@
+ // When on L135S050, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class L135MenuRowTest {
++
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void aRowStartsAtItsFirstChoiceSelected() {
++        String line = allianceRow.line();
++        assertEquals("Alliance: <Red>", line);
++        L135MenuItem selected = allianceRow.selected();
++        assertEquals(red, selected);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightOffersTheNextChoice() {
++        allianceRow.right();
++        String line = allianceRow.line();
++        assertEquals("Alliance: Blue? A:OK B:Back", line);
++        L135MenuItem selected = allianceRow.selected();
++        assertEquals(red, selected);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void leftWrapsFromTheFirstChoiceToTheLast() {
++        allianceRow.left();
++        String line = allianceRow.line();
++        assertEquals("Alliance: Blue? A:OK B:Back", line);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightWrapsFromTheLastChoiceToTheFirst() {
++        allianceRow.right();
++        allianceRow.select();
++        allianceRow.right();
++        String line = allianceRow.line();
++        assertEquals("Alliance: Red? A:OK B:Back", line);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void selectSelectsTheChoiceOffered() {
++        allianceRow.right();
++        allianceRow.select();
++        String line = allianceRow.line();
++        assertEquals("Alliance: <Blue>", line);
++        L135MenuItem selected = allianceRow.selected();
++        assertEquals(blue, selected);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void backClearsTheOffer() {
++        allianceRow.right();
++        allianceRow.back();
++        String line = allianceRow.line();
++        assertEquals("Alliance: <Red>", line);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void startAtSelectsTheChoiceWithThatFullName() {
++        allianceRow.startAt("Blue");
++        String line = allianceRow.line();
++        assertEquals("Alliance: <Blue>", line);
++    }
++}
+```
+
+## L135OptionMenuTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135OptionMenuTest.java`
+
+### A change
+
+Delete 0 lines, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,10 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import static org.junit.Assert.assertArrayEquals;
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link L135OptionMenu}: the summary first, then each row's
+  * line with a pointer; up and down move the pointer, wrap at the ends and
+```
+
+### A change
+
+Delete 0 lines, write 97 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -13,3 +13,100 @@
+ // When on L135S080, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s080
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class L135OptionMenuTest {
++
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
++    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
++    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
++    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
++    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void theMenuStartsWithThePointerOnTheFirstRow() {
++        String[] expected = {"R-N", "> Alliance: <Red>", "  Auto: <Nothing>"};
++        String[] lines = optionMenu.lines();
++        assertArrayEquals(expected, lines);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightOffersInTheRowThePointerIsOn() {
++        optionMenu.right();
++        String[] expected = {"R-N", "> Alliance: Blue? A:OK B:Back", "  Auto: <Nothing>"};
++        String[] lines = optionMenu.lines();
++        assertArrayEquals(expected, lines);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void selectChangesTheSummary() {
++        optionMenu.right();
++        optionMenu.select();
++        String summary = optionMenu.summary();
++        assertEquals("B-N", summary);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void downMovesThePointerAndClearsTheOffer() {
++        optionMenu.right();
++        optionMenu.down();
++        String[] expected = {"R-N", "  Alliance: <Red>", "> Auto: <Nothing>"};
++        String[] lines = optionMenu.lines();
++        assertArrayEquals(expected, lines);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void downWrapsFromTheLastRowToTheFirst() {
++        optionMenu.down();
++        optionMenu.down();
++        String[] expected = {"R-N", "> Alliance: <Red>", "  Auto: <Nothing>"};
++        String[] lines = optionMenu.lines();
++        assertArrayEquals(expected, lines);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void upWrapsFromTheFirstRowToTheLast() {
++        optionMenu.up();
++        String[] expected = {"R-N", "  Alliance: <Red>", "> Auto: <Nothing>"};
++        String[] lines = optionMenu.lines();
++        assertArrayEquals(expected, lines);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void leftWrapsToTheLastChoice() {
++        optionMenu.down();
++        optionMenu.left();
++        optionMenu.select();
++        String summary = optionMenu.summary();
++        assertEquals("R-FS", summary);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void chosenGivesTheFullNameSelected() {
++        optionMenu.down();
++        optionMenu.right();
++        optionMenu.select();
++        String alliance = optionMenu.chosen("Alliance");
++        assertEquals("Red", alliance);
++        String auto = optionMenu.chosen("Auto");
++        assertEquals("Forward 24", auto);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void startAtSelectsInTheNamedRow() {
++        optionMenu.startAt("Alliance", "Blue");
++        String alliance = optionMenu.chosen("Alliance");
++        assertEquals("Blue", alliance);
++    }
++}
+```
+
+## L135MenuButtonsTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/L135MenuButtonsTest.java`
+
+### A change
+
+Delete 0 lines, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,11 @@
++package org.firstinspires.ftc.teamcode.mytry;
++
++import static org.junit.Assert.assertEquals;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link L135MenuButtons}: a press of the D-pad, A or B on a
+  * gamepad moves the menu once.
+```
+
+### A change
+
+Delete 0 lines, write 55 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -13,3 +13,58 @@
+ // When on L135S110, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class L135MenuButtonsTest {
++
++    L135MenuItem red = new L135MenuItem("R", "Red");
++    L135MenuItem blue = new L135MenuItem("B", "Blue");
++    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
++    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
++    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
++    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24);
++    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
++    L135MenuButtons menuButtons = new L135MenuButtons(optionMenu);
++    Gamepad gamepad = new Gamepad();
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void theDpadAndAWorkTheMenu() {
++        Gamepad rightHeld = new Gamepad();
++        rightHeld.dpad_right = true;
++        press(rightHeld);
++        Gamepad aHeld = new Gamepad();
++        aHeld.a = true;
++        press(aHeld);
++        Gamepad downHeld = new Gamepad();
++        downHeld.dpad_down = true;
++        press(downHeld);
++        press(rightHeld);
++        press(aHeld);
++        String summary = optionMenu.summary();
++        assertEquals("B-F24", summary);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void bClearsTheOffer() {
++        Gamepad rightHeld = new Gamepad();
++        rightHeld.dpad_right = true;
++        press(rightHeld);
++        Gamepad bHeld = new Gamepad();
++        bHeld.b = true;
++        press(bHeld);
++        Gamepad aHeld = new Gamepad();
++        aHeld.a = true;
++        press(aHeld);
++        String summary = optionMenu.summary();
++        assertEquals("R-N", summary);
++    }
++
++    void press(Gamepad held) {
++        gamepad.copy(held);
++        menuButtons.loop(gamepad);
++        Gamepad letGo = new Gamepad();
++        gamepad.copy(letGo);
++        menuButtons.loop(gamepad);
++    }
++}
+```

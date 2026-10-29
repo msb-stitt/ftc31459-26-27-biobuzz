@@ -1,0 +1,515 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="143 what’s happening: the field from each alliance area" href="e143.html"><link rel="prev" title="141 what’s happening: arrows as two numbers" href="e141.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>142 what’s happening: turning the stick into the robot’s frame - Corbels FTC Programming Lessons in Java</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
+    <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../student_index.html"><div class="brand">Corbels FTC Programming Lessons in Java</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
+  
+  <span class="sidebar-brand-text">Corbels FTC Programming Lessons in Java</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">welcome</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b003.html">003 welcome</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b010.html">010 getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h011.html">011 how-to: get started on Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h012.html">012 how-to: get started on macOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h013.html">013 how-to: get started on Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h017.html">017 how-to: navigate Android Studio’s panes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">drive it with the sticks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l020.html">020 lesson: read the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e021.html">021 what’s happening: assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l030.html">030 lesson: turn the sticks into speeds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: hand the wheels to the path follower</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: one OpMode a driver could take to a match</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L020SticksOpMode.html">L020SticksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L030SpeedsOpMode.html">L030SpeedsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenu.html">L135OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItem.html">L135MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRow.html">L135MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtons.html">L135MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135DriverStationMenu.html">L135DriverStationMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135ChooseAutoOpMode.html">L135ChooseAutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuItemTest.html">L135MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuRowTest.html">L135MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135OptionMenuTest.html">L135OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L135MenuButtonsTest.html">L135MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tasks/e142.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="what-s-happening-turning-the-stick-into-the-robot-s-frame">
+<h1>142 what’s happening: turning the stick into the robot’s frame<a class="headerlink" href="#what-s-happening-turning-the-stick-into-the-robot-s-frame" title="Link to this heading">¶</a></h1>
+<p>Here you learn how <code class="docutils literal notranslate"><span class="pre">cos</span></code> and <code class="docutils literal notranslate"><span class="pre">sin</span></code> find the sides of a triangle from one angle. Then you use them
+to turn the stick’s arrow on the field into the robot’s own forward and strafe. In L140,
+<code class="docutils literal notranslate"><span class="pre">Math.cos(heading)</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin(heading)</span></code> do this. That is how the robot drives where the stick
+points, whichever way it faces.</p>
+<p>This page takes the three lines you typed in <a class="reference internal" href="l140.html"><span class="std std-doc">L140</span></a> one at a time. It uses the arrows of
+<a class="reference internal" href="e141.html"><span class="std std-doc">E141</span></a>. We follow one example all the way: the robot faces 60°, and the stick asks for
+0.64 along the field’s x and 0.16 along its y.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="na">pose</span><span class="p">().</span><span class="na">heading</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Pedro keeps the robot’s heading in radians. Draw a circle with a radius of 1. A radian is a
+distance of 1 around its edge. 60° is 1.05 radians, so <code class="docutils literal notranslate"><span class="pre">heading</span></code> holds 1.05.</p>
+<figure class="align-default" id="fig-e142-radian">
+<img alt="../../media/fig-e142-radian_dbc12abb88cc.png" src="../../media/fig-e142-radian_dbc12abb88cc.png" />
+</figure>
+<p>Each point on that circle has an x and a y. At 60°, x is cos 60°, which is 0.50, and y is
+sin 60°, which is 0.87. <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> turn an angle into those two numbers.</p>
+<figure class="align-default" id="fig-e142-unit-circle">
+<img alt="../../media/fig-e142-unit-circle_189ea2c0459a.png" src="../../media/fig-e142-unit-circle_189ea2c0459a.png" />
+</figure>
+<p>The angle can be any size. Past 90°, the point is left of the middle, so its cos is below 0.
+Below the x axis, its sin is below 0. A negative angle turns the other way, clockwise.</p>
+<figure class="align-default" id="fig-e142-quadrants">
+<img alt="../../media/fig-e142-quadrants_a7ab13c71370.png" src="../../media/fig-e142-quadrants_a7ab13c71370.png" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> take an angle in radians. People mostly talk in degrees, as this
+page does. Before you hand an angle to <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code>, check which unit it is in. Pedro’s heading is
+already in radians.</p>
+<p>The same idea finds the sides of any triangle with a square corner. Label the angle you use.
+When the long side is 1, the side next to that angle is its cos, and the side across from it is
+its sin.</p>
+<figure class="align-default" id="fig-e142-unit-triangles">
+<img alt="../../media/fig-e142-unit-triangles_8c421148c32f.png" src="../../media/fig-e142-unit-triangles_8c421148c32f.png" />
+</figure>
+<p>Make the long side k times as long, and every side grows k times. The angle stays the same.
+Triangles with the same angles at different sizes are called <strong>similar triangles</strong>. So the side
+next to the angle is k × cos θ, and the side across from it is k × sin θ. The k only scales the
+length. The cos and the sin come from the angle.</p>
+<figure class="align-default" id="fig-e142-similar">
+<img alt="../../media/fig-e142-similar_685ec662e828.png" src="../../media/fig-e142-similar_685ec662e828.png" />
+</figure>
+<p>Turning or flipping a triangle does not change its sides. Find the angle you know. The side next
+to it is k × cos θ, and the side across from it is k × sin θ, whichever way the triangle points.</p>
+<figure class="align-default" id="fig-e142-same-triangle">
+<img alt="../../media/fig-e142-same-triangle_69648c87f7da.png" src="../../media/fig-e142-same-triangle_69648c87f7da.png" />
+</figure>
+<p>The robot’s forward points the way its nose does. At heading 60°, that is the arrow
+(cos 60°, sin 60°) on the field. Its left is a quarter turn more, (-sin 60°, cos 60°). Each is
+1 long. The grid is the field’s x and y, moved to the robot’s center.</p>
+<figure class="align-default" id="fig-e142-robot-axes">
+<img alt="../../media/fig-e142-robot-axes_20c1e234de28.png" src="../../media/fig-e142-robot-axes_20c1e234de28.png" />
+</figure>
+<p>Why is left’s angle 60° at field y? Forward’s triangle has its 60° at field x.</p>
+<figure class="align-default" id="fig-e142-triangle-turn">
+<img alt="../../media/fig-e142-triangle-turn_9461729d7438.png" src="../../media/fig-e142-triangle-turn_9461729d7438.png" />
+</figure>
+<p>Left’s triangle is forward’s, turned a quarter turn left. Turning keeps every angle and every
+side, so the 60° lands at field y. The side along field y is cos 60°, and the side along
+field x is sin 60°, going the negative way.</p>
+<figure class="align-default" id="fig-e142-triangle-turned">
+<img alt="../../media/fig-e142-triangle-turned_c3cf48312d97.png" src="../../media/fig-e142-triangle-turned_c3cf48312d97.png" />
+</figure>
+<p>The stick says where to go on the field. After L060’s squaring, <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> is 0.64 and
+<code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> is 0.16, so the stick asks for the arrow (0.64, 0.16) on the field’s grid.</p>
+<figure class="align-default" id="fig-e142-stick-field">
+<img alt="../../media/fig-e142-stick-field_a9d2a23f100f.png" src="../../media/fig-e142-stick-field_a9d2a23f100f.png" />
+</figure>
+<p>From the Red Alliance Area, that arrow points 0.64 away and 0.16 to the left.</p>
+<figure class="align-default" id="fig-e142-stick-red-3d">
+<img alt="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png" src="../../media/fig-e142-stick-red-3d_fc01635a5d4d.png" />
+</figure>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The robot can’t drive along the field’s x. It drives along its own forward and its own left. So
+we break the field’s (0.64, 0) into a piece along each. It is forward’s 60° triangle with
+k = 0.64: 0.64 × cos 60° = 0.32 forward, and -0.64 × sin 60° = -0.55 left. End to end, they
+reach the same tip. Now the grid is the robot’s.</p>
+<figure class="align-default" id="fig-e142-forward-split">
+<img alt="../../media/fig-e142-forward-split_a7c0fb36704a.png" src="../../media/fig-e142-forward-split_a7c0fb36704a.png" />
+</figure>
+<p>We do the same for (0, 0.16). It is left’s triangle, its 60° at field y, with k = 0.16:
+0.16 × sin 60° = 0.14 forward, and 0.16 × cos 60° = 0.08 left.
+This picture is drawn 3 times as large, grid and all, so the pieces show.</p>
+<figure class="align-default" id="fig-e142-strafe-split">
+<img alt="../../media/fig-e142-strafe-split_07ffd6817e82.png" src="../../media/fig-e142-strafe-split_07ffd6817e82.png" />
+</figure>
+<p>Now there are four pieces. End to end, they reach the stick’s tip. Arrows add in any order, so
+we swap the middle two.</p>
+<figure class="align-default" id="fig-e142-regroup">
+<img alt="../../media/fig-e142-regroup_9de157805e0a.png" src="../../media/fig-e142-regroup_9de157805e0a.png" />
+</figure>
+<p>Each number came from <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> or <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code> and the heading. 0.32 is <code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span></code> × cos θ,
+where θ is the heading.</p>
+<figure class="align-default" id="fig-e142-regroup-formula">
+<img alt="../../media/fig-e142-regroup-formula_99d4c521618f.png" src="../../media/fig-e142-regroup-formula_99d4c521618f.png" />
+</figure>
+<p>Both forward pieces come first now, then both left pieces. They still reach the same tip.</p>
+<figure class="align-default" id="fig-e142-regrouped">
+<img alt="../../media/fig-e142-regrouped_510939cc3e8c.png" src="../../media/fig-e142-regrouped_510939cc3e8c.png" />
+</figure>
+<p>The same four pieces, each with what makes it:</p>
+<figure class="align-default" id="fig-e142-regrouped-formula">
+<img alt="../../media/fig-e142-regrouped-formula_b035845ed47c.png" src="../../media/fig-e142-regrouped-formula_b035845ed47c.png" />
+</figure>
+<p>Add the forward pieces: 0.32 + 0.14 = 0.46. That is <code class="docutils literal notranslate"><span class="pre">robotForwardXSpeed</span></code>. Add the left
+pieces: -0.55 + 0.08 = -0.47. That is <code class="docutils literal notranslate"><span class="pre">robotStrafeYSpeed</span></code>. The robot drives (0.46, -0.47) in its own
+frame, and goes where the stick points on the field.</p>
+<figure class="align-default" id="fig-e142-add">
+<img alt="../../media/fig-e142-add_e3168c45ab13.png" src="../../media/fig-e142-add_e3168c45ab13.png" />
+</figure>
+<p>Write each sum with what makes it, in place of its numbers, and you have the two lines.</p>
+<figure class="align-default" id="fig-e142-add-formula">
+<img alt="../../media/fig-e142-add-formula_82bef7ca0412.png" src="../../media/fig-e142-add-formula_82bef7ca0412.png" />
+</figure>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The drivetrain gets the robot’s own forward and strafe, and drives them.
+<a class="reference internal" href="e143.html"><span class="std std-doc">E143</span></a> shows where the field’s x and y are from each Alliance Area.</p>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="e143.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">143 what’s happening: the field from each alliance area</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="e141.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">141 what’s happening: arrows as two numbers</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, Mike Stitt
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+/* A list marked {.steps} holds actions a student is doing for the first time,
+   and each one is set apart by a line of space. Every other list, a Check
+   among them, stays close. book/WRITING.md holds the rule. */
+ul.steps > li + li {
+    margin-top: 1em;
+}
