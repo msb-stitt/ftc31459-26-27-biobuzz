@@ -1,0 +1,1083 @@
+# 135 lesson: choose the alliance and the auto
+
+:::{figure} ../_figures/fig-l135-menu.png
+:name: fig-l135-menu
+:::
+
+After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125's auto
+or L130's, with the gamepad's D-pad, before pressing PLAY.
+
+::::{only} mentor
+**Before you start.**
+
+- L130 is done.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot, the Driver Station, a gamepad, and about 1 m by 2 m of clear floor for the last step.
+::::
+
+## the problem
+
+The menu has two rows. `Alliance` is Red or Blue, and `Auto` is Nothing, Forward 24 or Forward
+Then Strafe. Each row starts at its first choice.
+
+- The first line is the menu in short: a few letters for each row's choice, joined by `-`.
+- The `>` marks the row the D-pad is on.
+- The D-pad's right and left offer the next or the last choice in that row, as
+  `Blue? A:OK B:Back`. Past the end of the row, they go round to the other end.
+- A selects the choice offered. Only then does the first line change.
+- B, up or down clears the offer and goes back to the menu.
+- The D-pad's down and up move the `>`. Past the last row, it goes round to the first.
+- At PLAY, the auto asks the menu which alliance and which auto were selected.
+
+This is what the Driver Station shows, after each press:
+
+```text
+INIT                    R-N
+                        > Alliance: <Red>
+                          Auto: <Nothing>
+right                   R-N
+                        > Alliance: Blue? A:OK B:Back
+                          Auto: <Nothing>
+B                       R-N
+                        > Alliance: <Red>
+                          Auto: <Nothing>
+right, A                B-N
+                        > Alliance: <Blue>
+                          Auto: <Nothing>
+right, wraps to Red     B-N
+                        > Alliance: Red? A:OK B:Back
+                          Auto: <Nothing>
+down, clears the offer  B-N
+                          Alliance: <Blue>
+                        > Auto: <Nothing>
+left, wraps to the last B-N
+                          Alliance: <Blue>
+                        > Auto: Forward Then Strafe? A:OK B:Back
+A                       B-FS
+                          Alliance: <Blue>
+                        > Auto: <Forward Then Strafe>
+down, wraps to the top  B-FS
+                        > Alliance: <Blue>
+                          Auto: <Forward Then Strafe>
+up, wraps to the bottom B-FS
+                          Alliance: <Blue>
+                        > Auto: <Forward Then Strafe>
+up                      B-FS
+                        > Alliance: <Blue>
+                          Auto: <Forward Then Strafe>
+PLAY                    chosen("Alliance") gives "Blue"
+                        chosen("Auto") gives "Forward Then Strafe"
+```
+
+## the classes
+
+Each class does one job. A class that does one small job is easy to test, and easy to change.
+
+- `L135MenuItem` is one choice: a short name, such as `F24`, and a full name, such as
+  `Forward 24`.
+- `L135MenuRow` is one row: its name and its items. It knows which item is selected, and which
+  is offered.
+- `L135OptionMenu` is the rows, and which row the `>` is on.
+- `L135MenuButtons` turns each press of the gamepad into one move of the menu.
+- `L135DriverStationMenu` is what the OpMode uses. It reads the buttons, then shows the menu on the
+  Driver Station.
+
+An arrow with a diamond means "holds": an `L135OptionMenu` holds its `L135MenuRow`s.
+
+:::{figure} ../_figures/fig-l135-classes.png
+:name: fig-l135-classes
+:width: 420px
+:::
+
+One press of the D-pad's right goes down the classes, one call at a time:
+
+:::{figure} ../_figures/fig-l135-calls.png
+:name: fig-l135-calls
+:width: 722px
+:::
+
+You build it from the bottom up: each class, its tests first, then the class that uses it.
+
+## the steps
+
+### L135S010: copy the starters into mytry
+
+Each starter holds only a comment: what its class does, and which classes it uses. You type the
+rest.
+
+**Copy.** In `lessons`, copy `L135OptionMenu`, `L135MenuItem`, `L135MenuRow`, `L135MenuButtons`,
+`L135DriverStationMenu` and `L135ChooseAutoOpMode` into `mytry`, one at a time, as in L120.
+
+The tests have starters too. In the `lessons` folder that is under `test`, copy `L135MenuItemTest`,
+`L135MenuRowTest`, `L135OptionMenuTest` and `L135MenuButtonsTest` into the `mytry` folder that is
+under `test`.
+
+**Check.**
+
+- `mytry` holds the six files, and the `mytry` under `test` holds the four tests.
+
+### L135S020: switch your copy on
+
+**Change.** In `L135ChooseAutoOpMode`, delete the line `@Disabled`, under the comment that names
+this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L135S030: say what the menu can do
+
+Start with what the rest of the code will ask of the menu. Each method is empty for now, and a
+method that gives something back gives an empty answer. The code builds, and does nothing yet.
+
+**Change.** In `L135OptionMenu`, above the comment, type the `package` line. Below the comment,
+type:
+
+```{code-block} java
+class L135OptionMenu {
+
+    L135OptionMenu() {
+    }
+
+    void up() {
+    }
+
+    void down() {
+    }
+
+    void left() {
+    }
+
+    void right() {
+    }
+
+    void select() {
+    }
+
+    void back() {
+    }
+
+    String chosen(String rowName) {
+        String fullName = "";
+        return fullName;
+    }
+
+    void startAt(String rowName, String fullName) {
+    }
+
+    String summary() {
+        String summary = "";
+        return summary;
+    }
+
+    String[] lines() {
+        String[] lines = new String[0];
+        return lines;
+    }
+}
+```
+
+The `package` line is the first line of each file in `mytry`:
+
+```{code-block} java
+package org.firstinspires.ftc.teamcode.mytry;
+```
+
+**Build.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:compileDebugJavaWithJavac
+```
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S040: one choice, test first
+
+A **test** is code that runs your code and checks what it gives back. `@Test` marks a method JUnit
+runs. `assertEquals(expected, actual)` stops the test with a failure when the two differ. You write
+the test first, watch it fail, then write the code until it passes.
+
+**Change.** In `L135MenuItemTest`, type the `package` line above the comment, and below it:
+
+```{code-block} java
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+```
+
+Put those two imports above the comment, under the `package` line. Below the comment, type:
+
+```{code-block} java
+// 'public' so JUnit can run it. 'public' allows access from any code.
+public class L135MenuItemTest {
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void anItemHasAShortNameAndAFullName() {
+        L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
+        String shortName = forward24.shortName();
+        assertEquals("F24", shortName);
+        String fullName = forward24.fullName();
+        assertEquals("Forward 24", fullName);
+    }
+}
+```
+
+**Test.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:testDebugUnitTest --tests '*L135*'
+```
+
+**Check.**
+
+- It fails with `cannot find symbol` and `class L135MenuItem`. There is no such class yet.
+
+A **constructor** is the method that makes an object. It has the class's name and no return type.
+`this.shortName` is the object's field; `shortName` alone is what was handed in.
+
+**Change.** In `L135MenuItem`, type the `package` line, and below the comment:
+
+```{code-block} java
+class L135MenuItem {
+
+    String shortName;
+    String fullName;
+
+    L135MenuItem(String shortName, String fullName) {
+        this.shortName = shortName;
+        this.fullName = fullName;
+    }
+
+    String shortName() {
+        return shortName;
+    }
+
+    String fullName() {
+        return fullName;
+    }
+}
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S050: one row, and its line
+
+`L135MenuItem... items` takes any number of items, and they arrive as an array. `selectedIndex` is
+the item selected, and `offeredIndex` the item the row shows. Both start at 0, the first item.
+
+**Change.** In `L135MenuRowTest`, type the `package` line and the two imports, as in
+`L135MenuItemTest`. Below the comment, type:
+
+```{code-block} java
+// 'public' so JUnit can run it. 'public' allows access from any code.
+public class L135MenuRowTest {
+
+    L135MenuItem red = new L135MenuItem("R", "Red");
+    L135MenuItem blue = new L135MenuItem("B", "Blue");
+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void aRowStartsAtItsFirstChoiceSelected() {
+        String line = allianceRow.line();
+        assertEquals("Alliance: <Red>", line);
+        L135MenuItem selected = allianceRow.selected();
+        assertEquals(red, selected);
+    }
+}
+```
+
+In `L135MenuRow`, type the `package` line, and below the comment:
+
+```{code-block} java
+class L135MenuRow {
+
+    String name;
+    L135MenuItem[] items;
+    int selectedIndex = 0;
+    int offeredIndex = 0;
+
+    L135MenuRow(String name, L135MenuItem... items) {
+        this.name = name;
+        this.items = items;
+    }
+
+    String name() {
+        return name;
+    }
+
+    L135MenuItem selected() {
+        L135MenuItem selectedItem = items[selectedIndex];
+        return selectedItem;
+    }
+
+    String line() {
+        L135MenuItem offeredItem = items[offeredIndex];
+        String choiceShown = "<" + offeredItem.fullName() + ">";
+        if (offeredIndex != selectedIndex) {
+            choiceShown = offeredItem.fullName() + "? A:OK B:Back";
+        }
+        String rowLine = name + ": " + choiceShown;
+        return rowLine;
+    }
+}
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S060: offer the next choice, or the last
+
+**Change.** In `L135MenuRowTest`, under the last test, type:
+
+```{code-block} java
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void rightOffersTheNextChoice() {
+        allianceRow.right();
+        String line = allianceRow.line();
+        assertEquals("Alliance: Blue? A:OK B:Back", line);
+        L135MenuItem selected = allianceRow.selected();
+        assertEquals(red, selected);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void leftWrapsFromTheFirstChoiceToTheLast() {
+        allianceRow.left();
+        String line = allianceRow.line();
+        assertEquals("Alliance: Blue? A:OK B:Back", line);
+    }
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- It fails with `cannot find symbol` and `method right()`.
+
+**Change.** In `L135MenuRow`, under `name()`, type:
+
+```{code-block} java
+    void right() {
+        int lastIndex = items.length - 1;
+        offeredIndex = offeredIndex + 1;
+        if (offeredIndex > lastIndex) {
+            offeredIndex = 0;
+        }
+    }
+
+    void left() {
+        int lastIndex = items.length - 1;
+        offeredIndex = offeredIndex - 1;
+        if (offeredIndex < 0) {
+            offeredIndex = lastIndex;
+        }
+    }
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S070: select it, or clear it
+
+A selects the item offered. B clears the offer, so the row shows the item selected again.
+`startAt` selects an item by its full name, for a menu that starts somewhere other than its first
+item. L140 uses it.
+
+**Change.** In `L135MenuRowTest`, under the last test, type:
+
+```{code-block} java
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void rightWrapsFromTheLastChoiceToTheFirst() {
+        allianceRow.right();
+        allianceRow.select();
+        allianceRow.right();
+        String line = allianceRow.line();
+        assertEquals("Alliance: Red? A:OK B:Back", line);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void selectSelectsTheChoiceOffered() {
+        allianceRow.right();
+        allianceRow.select();
+        String line = allianceRow.line();
+        assertEquals("Alliance: <Blue>", line);
+        L135MenuItem selected = allianceRow.selected();
+        assertEquals(blue, selected);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void backClearsTheOffer() {
+        allianceRow.right();
+        allianceRow.back();
+        String line = allianceRow.line();
+        assertEquals("Alliance: <Red>", line);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void startAtSelectsTheChoiceWithThatFullName() {
+        allianceRow.startAt("Blue");
+        String line = allianceRow.line();
+        assertEquals("Alliance: <Blue>", line);
+    }
+```
+
+**Test.** Run the same command again, and watch it fail.
+
+**Change.** In `L135MenuRow`, under `left()`, type:
+
+```{code-block} java
+    void select() {
+        selectedIndex = offeredIndex;
+    }
+
+    void back() {
+        offeredIndex = selectedIndex;
+    }
+```
+
+Under `selected()`, type:
+
+```{code-block} java
+    void startAt(String fullName) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].fullName().equals(fullName)) {
+                selectedIndex = i;
+                offeredIndex = i;
+            }
+        }
+    }
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S080: the rows together
+
+Now `L135OptionMenu` gets its rows. `pointedRow` is the row the `>` is on. `lines()` puts the
+summary first, then each row's line, with `> ` or two spaces in front.
+
+**Change.** In `L135OptionMenuTest`, type the `package` line and these imports:
+
+```{code-block} java
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+```
+
+Below the comment, type:
+
+```{code-block} java
+// 'public' so JUnit can run it. 'public' allows access from any code.
+public class L135OptionMenuTest {
+
+    L135MenuItem red = new L135MenuItem("R", "Red");
+    L135MenuItem blue = new L135MenuItem("B", "Blue");
+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
+    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void theMenuStartsWithThePointerOnTheFirstRow() {
+        String[] expected = {"R-N", "> Alliance: <Red>", "  Auto: <Nothing>"};
+        String[] lines = optionMenu.lines();
+        assertArrayEquals(expected, lines);
+    }
+}
+```
+
+**Change.** In `L135OptionMenu`, replace the empty constructor with:
+
+```{code-block} java
+    L135MenuRow[] rows;
+    int pointedRow = 0;
+
+    L135OptionMenu(L135MenuRow... rows) {
+        this.rows = rows;
+    }
+```
+
+Replace `summary()` and `lines()` with:
+
+```{code-block} java
+    String summary() {
+        String summary = "";
+        for (int i = 0; i < rows.length; i++) {
+            L135MenuItem selectedItem = rows[i].selected();
+            if (i > 0) {
+                summary = summary + "-";
+            }
+            summary = summary + selectedItem.shortName();
+        }
+        return summary;
+    }
+
+    String[] lines() {
+        String[] lines = new String[rows.length + 1];
+        lines[0] = summary();
+        for (int i = 0; i < rows.length; i++) {
+            String pointer = "  ";
+            if (i == pointedRow) {
+                pointer = "> ";
+            }
+            lines[i + 1] = pointer + rows[i].line();
+        }
+        return lines;
+    }
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S090: move the pointer, and hand the rest to its row
+
+Left, right, A and B belong to the row the `>` is on, so `L135OptionMenu` hands each one to that
+row. Up and down clear the offer in the row they leave.
+
+**Change.** In `L135OptionMenuTest`, under the last test, type:
+
+```{code-block} java
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void rightOffersInTheRowThePointerIsOn() {
+        optionMenu.right();
+        String[] expected = {"R-N", "> Alliance: Blue? A:OK B:Back", "  Auto: <Nothing>"};
+        String[] lines = optionMenu.lines();
+        assertArrayEquals(expected, lines);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void selectChangesTheSummary() {
+        optionMenu.right();
+        optionMenu.select();
+        String summary = optionMenu.summary();
+        assertEquals("B-N", summary);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void downMovesThePointerAndClearsTheOffer() {
+        optionMenu.right();
+        optionMenu.down();
+        String[] expected = {"R-N", "  Alliance: <Red>", "> Auto: <Nothing>"};
+        String[] lines = optionMenu.lines();
+        assertArrayEquals(expected, lines);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void downWrapsFromTheLastRowToTheFirst() {
+        optionMenu.down();
+        optionMenu.down();
+        String[] expected = {"R-N", "> Alliance: <Red>", "  Auto: <Nothing>"};
+        String[] lines = optionMenu.lines();
+        assertArrayEquals(expected, lines);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void upWrapsFromTheFirstRowToTheLast() {
+        optionMenu.up();
+        String[] expected = {"R-N", "  Alliance: <Red>", "> Auto: <Nothing>"};
+        String[] lines = optionMenu.lines();
+        assertArrayEquals(expected, lines);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void leftWrapsToTheLastChoice() {
+        optionMenu.down();
+        optionMenu.left();
+        optionMenu.select();
+        String summary = optionMenu.summary();
+        assertEquals("R-FS", summary);
+    }
+```
+
+**Test.** Run the same command again, and watch it fail.
+
+**Change.** In `L135OptionMenu`, replace the six empty methods, `up()` to `back()`, with:
+
+```{code-block} java
+    void up() {
+        back();
+        pointedRow = pointedRow - 1;
+        if (pointedRow < 0) {
+            pointedRow = rows.length - 1;
+        }
+    }
+
+    void down() {
+        back();
+        pointedRow = pointedRow + 1;
+        if (pointedRow == rows.length) {
+            pointedRow = 0;
+        }
+    }
+
+    void left() {
+        rows[pointedRow].left();
+    }
+
+    void right() {
+        rows[pointedRow].right();
+    }
+
+    void select() {
+        rows[pointedRow].select();
+    }
+
+    void back() {
+        rows[pointedRow].back();
+    }
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S100: ask which choice was selected
+
+`rowNamed` finds a row by its name. A name no row has is a mistake in the code, so it stops the
+program with a message that names it.
+
+**Change.** In `L135OptionMenuTest`, under the last test, type:
+
+```{code-block} java
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void chosenGivesTheFullNameSelected() {
+        optionMenu.down();
+        optionMenu.right();
+        optionMenu.select();
+        String alliance = optionMenu.chosen("Alliance");
+        assertEquals("Red", alliance);
+        String auto = optionMenu.chosen("Auto");
+        assertEquals("Forward 24", auto);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void startAtSelectsInTheNamedRow() {
+        optionMenu.startAt("Alliance", "Blue");
+        String alliance = optionMenu.chosen("Alliance");
+        assertEquals("Blue", alliance);
+    }
+```
+
+**Test.** Run the same command again, and watch it fail.
+
+**Change.** In `L135OptionMenu`, replace `chosen()` and `startAt()` with:
+
+```{code-block} java
+    String chosen(String rowName) {
+        L135MenuRow row = rowNamed(rowName);
+        L135MenuItem selectedItem = row.selected();
+        String fullName = selectedItem.fullName();
+        return fullName;
+    }
+
+    void startAt(String rowName, String fullName) {
+        L135MenuRow row = rowNamed(rowName);
+        row.startAt(fullName);
+    }
+```
+
+At the end of the class, above its last `}`, type:
+
+```{code-block} java
+    L135MenuRow rowNamed(String rowName) {
+        for (L135MenuRow row : rows) {
+            if (row.name().equals(rowName)) {
+                return row;
+            }
+        }
+        throw new IllegalArgumentException("No row named " + rowName);
+    }
+```
+
+`for (L135MenuRow row : rows)` runs the lines inside its braces once for each row in `rows`, with
+`row` holding that row. It is a for-each loop, and it needs no `i`.
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S110: turn presses into moves
+
+`dpadRightWasPressed()` is `true` once for each press, the first time it is asked after the button
+goes down. The test copies a gamepad with the button held into `gamepad`, then one with nothing
+held, as the robot does between loops.
+
+**Change.** In `L135MenuButtonsTest`, type the `package` line and these imports:
+
+```{code-block} java
+import static org.junit.Assert.assertEquals;
+
+import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.junit.Test;
+```
+
+Below the comment, type:
+
+```{code-block} java
+// 'public' so JUnit can run it. 'public' allows access from any code.
+public class L135MenuButtonsTest {
+
+    L135MenuItem red = new L135MenuItem("R", "Red");
+    L135MenuItem blue = new L135MenuItem("B", "Blue");
+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24);
+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
+    L135MenuButtons menuButtons = new L135MenuButtons(optionMenu);
+    Gamepad gamepad = new Gamepad();
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void theDpadAndAWorkTheMenu() {
+        Gamepad rightHeld = new Gamepad();
+        rightHeld.dpad_right = true;
+        press(rightHeld);
+        Gamepad aHeld = new Gamepad();
+        aHeld.a = true;
+        press(aHeld);
+        Gamepad downHeld = new Gamepad();
+        downHeld.dpad_down = true;
+        press(downHeld);
+        press(rightHeld);
+        press(aHeld);
+        String summary = optionMenu.summary();
+        assertEquals("B-F24", summary);
+    }
+
+    @Test
+    // 'public' so JUnit can run it. 'public' allows access from any code.
+    public void bClearsTheOffer() {
+        Gamepad rightHeld = new Gamepad();
+        rightHeld.dpad_right = true;
+        press(rightHeld);
+        Gamepad bHeld = new Gamepad();
+        bHeld.b = true;
+        press(bHeld);
+        Gamepad aHeld = new Gamepad();
+        aHeld.a = true;
+        press(aHeld);
+        String summary = optionMenu.summary();
+        assertEquals("R-N", summary);
+    }
+
+    void press(Gamepad held) {
+        gamepad.copy(held);
+        menuButtons.loop(gamepad);
+        Gamepad letGo = new Gamepad();
+        gamepad.copy(letGo);
+        menuButtons.loop(gamepad);
+    }
+}
+```
+
+**Test.** Run the same command again, and watch it fail.
+
+**Change.** In `L135MenuButtons`, type the `package` line and `import
+com.qualcomm.robotcore.hardware.Gamepad;` above the comment, and below it:
+
+```{code-block} java
+class L135MenuButtons {
+
+    L135OptionMenu optionMenu;
+
+    L135MenuButtons(L135OptionMenu optionMenu) {
+        this.optionMenu = optionMenu;
+    }
+
+    void loop(Gamepad gamepad) {
+        if (gamepad.dpadUpWasPressed()) {
+            optionMenu.up();
+        }
+        if (gamepad.dpadDownWasPressed()) {
+            optionMenu.down();
+        }
+        if (gamepad.dpadLeftWasPressed()) {
+            optionMenu.left();
+        }
+        if (gamepad.dpadRightWasPressed()) {
+            optionMenu.right();
+        }
+        if (gamepad.aWasPressed()) {
+            optionMenu.select();
+        }
+        if (gamepad.bWasPressed()) {
+            optionMenu.back();
+        }
+    }
+}
+```
+
+**Test.** Run the same command again.
+
+**Check.**
+
+- The Terminal ends with `BUILD SUCCESSFUL`.
+
+### L135S120: put the menu on the Driver Station
+
+`L135DriverStationMenu` joins the rest up for the OpMode. It makes its own `L135MenuButtons`. Its
+`loop` reads the buttons, then prints each line on the Driver Station, and logs the summary as
+`menu/summary`.
+
+**Change.** In `L135DriverStationMenu`, type the `package` line and these imports above the
+comment:
+
+```{code-block} java
+import com.qualcomm.robotcore.hardware.Gamepad;
+
+import org.firstinspires.ftc.teamcode.base.Tracker;
+```
+
+Below the comment, type:
+
+```{code-block} java
+class L135DriverStationMenu {
+
+    L135OptionMenu optionMenu;
+    L135MenuButtons menuButtons;
+
+    L135DriverStationMenu(L135OptionMenu optionMenu) {
+        this.optionMenu = optionMenu;
+        menuButtons = new L135MenuButtons(optionMenu);
+    }
+
+    void loop(Gamepad gamepad) {
+        menuButtons.loop(gamepad);
+        String summary = optionMenu.summary();
+        Tracker.publish("menu/summary", summary);
+        String[] lines = optionMenu.lines();
+        for (String line : lines) {
+            Tracker.printToDs(line);
+        }
+    }
+
+    String chosen(String rowName) {
+        String fullName = optionMenu.chosen(rowName);
+        return fullName;
+    }
+
+    void startAt(String rowName, String fullName) {
+        optionMenu.startAt(rowName, fullName);
+    }
+
+    String summary() {
+        String summary = optionMenu.summary();
+        return summary;
+    }
+}
+```
+
+In `L135ChooseAutoOpMode`, near the top of the class, under the comment that names this step,
+type:
+
+```{code-block} java
+:emphasize-lines: 4-12
+
+    // When on L135S120, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+    // for what to do here.
+    L135MenuItem red = new L135MenuItem("R", "Red");
+    L135MenuItem blue = new L135MenuItem("B", "Blue");
+    L135MenuRow allianceRow = new L135MenuRow("Alliance", red, blue);
+    L135MenuItem nothing = new L135MenuItem("N", "Nothing");
+    L135MenuItem forward24 = new L135MenuItem("F24", "Forward 24");
+    L135MenuItem forwardThenStrafe = new L135MenuItem("FS", "Forward Then Strafe");
+    L135MenuRow autoRow = new L135MenuRow("Auto", nothing, forward24, forwardThenStrafe);
+    L135OptionMenu optionMenu = new L135OptionMenu(allianceRow, autoRow);
+    L135DriverStationMenu menu = new L135DriverStationMenu(optionMenu);
+```
+
+Between INIT and PLAY, the robot calls `init_loop()` again and again. In `init_loop()`, under the
+comment that names this step, type:
+
+```{code-block} java
+:emphasize-lines: 4
+
+        // When on L135S120, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+        // for what to do here.
+        menu.loop(gamepad1);
+```
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L135ChooseAutoOpMode --init --pad"
+```
+
+`--init` keeps the simulator in INIT. The Terminal shows the Driver Station's lines each time they
+change. Press Enter in the Terminal for PLAY.
+
+**Check.**
+
+- Press the gamepad's buttons in the order the problem gives them. After each, the Terminal shows
+  what the problem shows.
+
+### L135S130: run the auto that was selected
+
+At PLAY, `start()` asks the menu which alliance and which auto were selected, and logs both. A
+`switch` compares `auto` with each `case` and runs the lines under the one that matches, down to
+its `break`. The words in each `case` have to match the item's full name exactly. `Command.NOOP`
+is a command that does nothing. It is what runs for `Nothing`, which no `case` matches.
+
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. In `start()`, under the comment
+that names this step, type:
+
+```{code-block} java
+:emphasize-lines: 4-18
+
+        // When on L135S130, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
+        // for what to do here.
+        String alliance = menu.chosen("Alliance");
+        Tracker.publish("menu/alliance", alliance);
+
+        String auto = menu.chosen("Auto");
+        Tracker.publish("menu/auto", auto);
+        Command chosenAuto = Command.NOOP;
+        switch (auto) {
+            case "Forward 24":
+                chosenAuto = driveForward24();
+                break;
+            case "Forward Then Strafe":
+                chosenAuto = driveForwardThenStrafe();
+                break;
+        }
+        Scheduler.schedule(chosenAuto);
+```
+
+In `loop()`, under the comment that names this step, type:
+
+```{code-block} java
+:emphasize-lines: 4
+
+        // When on L135S130, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s130
+        // for what to do here.
+        Tracker.printToDs(menu.summary());
+```
+
+This keeps the summary on the Driver Station after PLAY.
+
+**Simulator.** Run the same command again.
+
+**AdvantageScope.** Connect to the simulator, click **2D Field**, and open `Localizer`, then
+`pinPoint`. Open `menu` too.
+
+**Check.**
+
+- `menu/summary` reads `R-N`. Press the D-pad's down, then left, then A. It reads `R-FS`.
+- Press Enter in the Terminal. `menu/alliance` reads `Red` and `menu/auto` reads
+  `Forward Then Strafe`.
+- The robot drives forward, then slides to its right, as in L130. `x_in` reads 96 and `y_in` 72.
+
+### L135S140: turn the field for the blue alliance
+
+Each blue place is a red place turned a half-turn about the middle of the field, (72, 72).
+`PoseFactory` makes poses. `rotateAround` gives a `PoseFactory` that turns each pose it makes. So
+the autos stay written for red.
+
+**Change.** Stop the simulator. In `poses()`, under the comment that names this step, type:
+
+```{code-block} java
+:emphasize-lines: 4-7
+
+        // When on L135S140, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s140
+        // for what to do here.
+        String alliance = menu.chosen("Alliance");
+        if (alliance.equals("Blue")) {
+            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
+        }
+```
+
+`equals` compares two pieces of text. `==` does not work for text.
+
+**Simulator.** Run the same command again.
+
+**Check.**
+
+- Press the D-pad's right, then A, then down, then right, then A. The first line reads `B-F24`.
+- Press Enter. The robot jumps to the top of the field, at `x_in` 72 and `y_in` 133.5, facing down,
+  `heading_deg` 270.
+- It drives 24 inches down the field and stops at `y_in` 109.5.
+
+### L135S150: work the menu on the robot
+
+**Send.** Stop the simulator. Send the code, pick `L135 Choose Auto` from the autonomous list, and
+press INIT. Press Start and A on the gamepad, so it is gamepad 1.
+
+**Robot.** Put the robot on the floor with a piece of tape at its front edge.
+
+**Check.**
+
+- The Driver Station shows the menu, with `R-N` first.
+- The D-pad's down and left, then A, change the first line to `R-FS`.
+- Press PLAY. The robot drives forward, then slides to its right.
+- The Driver Station still shows `R-FS` while it drives.
+
+The robot drives the same on the floor for either alliance. Only the numbers on the Driver Station
+change, because the field is turned, not the robot.
+
+::::{only} mentor
+**No gamepad.** Control options stand in for the presses during INIT, held from the first pass:
+`--args="mytry.L135ChooseAutoOpMode --init --dpad_right=true"` offers Blue,
+`--dpad_right=true --a=true` selects it, and `--dpad_down=true --dpad_left=true --a=true` gives
+`R-FS`. Enter is still PLAY.
+
+**Our tests.** When the student's tests pass, `LessonsTest`'s L135 tests run the OpMode during
+INIT with a gamepad, and check where each auto ends:
+`./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l135*'`.
+
+**What you just did.** Each class does one job, and each was tested before the next was built on
+it. The OpMode only makes the menu, calls its `loop` and asks it what was chosen. A new route is a
+new item in the `Auto` row and a new `case`. The routes are written once, for red, and the field
+is turned for blue.
+
+**Where next.** [L140](l140.md) uses the same menu to tell the teleop which end of the field the
+driver stands at.
+::::
