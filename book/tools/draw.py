@@ -2882,14 +2882,14 @@ LOOP_WORDS = {"lib-s": "#6e4bb0", "frame": "#1f8a72", "human-s": "#a8742a", "hw-
 HAND_ONLY = {"→": "to", "×": "x", " ●": "", "●": ""}   # Marker Felt has none of these
 
 
-def loop_head(s, a, b, color, alpha=1.0):
+def loop_head(s, a, b, color):
     """A filled head at b, pointing from a."""
     tx, ty = b[0] - a[0], b[1] - a[1]
     n = math.hypot(tx, ty) or 1
     tx, ty, h = tx / n, ty / n, 14
     s.line([(b[0] - tx * h - ty * h * 0.5, b[1] - ty * h + tx * h * 0.5), b,
-            (b[0] - tx * h + ty * h * 0.5, b[1] - ty * h - tx * h * 0.5)], color, 1.6, alpha,
-           fill=color, fill_alpha=alpha, closed=True)
+            (b[0] - tx * h + ty * h * 0.5, b[1] - ty * h - tx * h * 0.5)], color, 1.6,
+           fill=color, closed=True)
 
 
 def loop_wire(s, pts, color, dashed, arrow):
@@ -3278,7 +3278,6 @@ MERMAID_COLORS = {
     "Gamepad": ("#A4A7A9", "#3E4245"),
     "Tracker": ("#FACC15", "#A16207"),
 }
-FAINT = re.compile(r"^\s*%% faint: (.*)$", re.M)   # names drawn faint: a class, or an object
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
 TRANSLATE = re.compile(r"translate\(\s*([-\d.e]+)[\s,]+([-\d.e]+)\s*\)")
@@ -3376,8 +3375,10 @@ def mermaid_read(root):
             arrows.append((pts, False, "head"))
         elif tag == "path" and "relation" in cls:
             pts = json.loads(base64.b64decode(el.get("data-points")))
-            ends = "diamond" if "aggregation" in el.get("marker-start", "") else "none"
-            arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts], False, ends))
+            ends = ("diamond" if "aggregation" in el.get("marker-start", "") else
+                    "open" if "dependency" in el.get("marker-end", "") else "none")
+            arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts],
+                           "edge-pattern-dashed" in cls, ends))
     w, h = (float(v) for v in root.get("viewBox").split()[2:])
     boxes = [fit(box, words) for box in boxes]
     return w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows
@@ -3428,6 +3429,15 @@ def diamond(s, tip, toward):
     return back
 
 
+def open_head(s, a, b):
+    """An open head at b, pointing from a: uses."""
+    tx, ty = b[0] - a[0], b[1] - a[1]
+    n = math.hypot(tx, ty) or 1
+    tx, ty, h = tx / n, ty / n, 14
+    s.line([(b[0] - tx * h - ty * h * 0.6, b[1] - ty * h + tx * h * 0.6), b,
+            (b[0] - tx * h + ty * h * 0.6, b[1] - ty * h - tx * h * 0.6)], PEN, 2.6, 0.9)
+
+
 def inside(p, box):
     xs, ys = [x for x, _ in box], [y for _, y in box]
     return min(xs) <= p[0] <= max(xs) and min(ys) <= p[1] <= max(ys)
@@ -3447,33 +3457,8 @@ def color_of(name):
     return MERMAID_COLORS[cls]
 
 
-def is_faint(name, faint):
-    return name in faint or any(part in faint for part in name.split(":"))
-
-
-def middle_x(box):
-    xs = [x for x, _ in box]
-    return (min(xs) + max(xs)) / 2
-
-
-def faint_arrow(pts, faint_x):
-    """An arrow is faint when it starts or ends on a faint box's lifeline."""
-    return any(abs(p[0] - x) < 8 for p in (pts[0], pts[-1]) for x in faint_x)
-
-
-def by_faint_arrow(xy, faint_arrows):
-    """A message's words are faint when they sit just above a faint arrow, between its ends."""
-    for pts in faint_arrows:
-        xs, y = [p[0] for p in pts], min(p[1] for p in pts)
-        if min(xs) - 40 <= xy[0] <= max(xs) + 40 and y - 34 <= xy[1] <= y + 2:
-            return True
-    return False
-
-
 def mermaid(name):
     w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
-    faint = {n.strip() for found in FAINT.findall((MERMAID / f"{name}.mmd").read_text())
-             for n in found.split(",")}
     if w > MERMAID_COLUMN:
         raise SystemExit(f"{name} is {w:.0f} px wide, wider than the column's {MERMAID_COLUMN} px:"
                          " lay it out narrower")
@@ -3482,48 +3467,30 @@ def mermaid(name):
     margin = (MERMAID_COLUMN - w) / 2
     s.ax.set_xlim(-margin, w + margin)
     names = [name_of(box, words) for box in boxes]
-    unknown = faint - {part for n in names for part in [n, *n.split(":")]}
-    if unknown:
-        raise SystemExit(f"{name} names {', '.join(sorted(unknown))} faint, and has no such box")
-    faint_boxes = [box for box, n in zip(boxes, names) if is_faint(n, faint)]
-    faint_x = [middle_x(box) for box in faint_boxes]
     for a, b in lifelines:
-        dim = any(abs(a[0] - x) < 3 for x in faint_x)
-        s.line([a, b], GREY3, 1.8, 0.35 if dim else 0.9).set_linestyle((0, (6, 4)))
+        s.line([a, b], GREY3, 1.8, 0.9).set_linestyle((0, (6, 4)))
     colors = [color_of(n) for n in names]
     for box, (fill, ink) in zip(boxes, colors):
-        dim = box in faint_boxes
-        s.marker(box, fill, nib=10, opacity=0.15 if dim else 0.4)
-        s.ink_poly(box, over=4, color=to_rgba(ink, 0.35) if dim else ink)
+        s.marker(box, fill, nib=10, opacity=0.4)
+        s.ink_poly(box, over=4, color=ink)
     for a, b in dividers:
-        box, c = next((box, c) for box, c in zip(boxes, colors)
-                      if inside(((a[0] + b[0]) / 2, a[1]), box))
-        ink = to_rgba(c[1], 0.35) if box in faint_boxes else c[1]
+        ink = next(c[1] for box, c in zip(boxes, colors) if inside(((a[0] + b[0]) / 2, a[1]), box))
         s.ink_line(a, b, width=1.8, over=2, passes=1, color=ink)
-    faint_arrows = []
     for pts, dashed, ends in arrows:
-        dim = ends == "head" and faint_arrow(pts, faint_x)
-        if dim:
-            faint_arrows.append(pts)
         if ends == "diamond":
             pts = [diamond(s, pts[0], pts[1])] + pts[1:]
-        line = s.line(pts, PEN, 2.6, 0.3 if dim else 0.9)
+        line = s.line(pts, PEN, 2.6, 0.9)
         if dashed:
             line.set_linestyle((0, (5, 3)))
         if ends == "head":
-            loop_head(s, pts[-2], pts[-1], PEN, 0.3 if dim else 1.0)
+            loop_head(s, pts[-2], pts[-1], PEN)
+        if ends == "open":
+            open_head(s, pts[-2], pts[-1])
     for xy, words_, anchor in words:
-        box = next((box for box in boxes if inside(xy, box)), None)
-        dim = (box in faint_boxes) if box is not None else by_faint_arrow(xy, faint_arrows)
         text = s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
         # A message's words cross the lifelines: a box of paper behind them parts them.
-        if box is None:
+        if not any(inside(xy, box) for box in boxes):
             text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
-        if dim:
-            text.set_alpha(0.35)
-        # A faint class's fields and methods are blurred too: there, not to be read here.
-        if dim and anchor == "start":
-            text.set_agg_filter(Soft(1.4, 0.6))
     s.save(name)
 
 

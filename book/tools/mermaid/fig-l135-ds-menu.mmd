@@ -1,5 +1,4 @@
 classDiagram
-    %% faint: OptionMenu, MenuButtons
     class DriverStationMenu {
         -OptionMenu optionMenu
         -MenuButtons menuButtons
@@ -25,5 +24,11 @@ classDiagram
         MenuButtons(optionMenu)
         loop(gamepad)
     }
+    class Tracker {
+        +publish(key, value)$
+        +printToDs(line)$
+    }
     DriverStationMenu o-- OptionMenu
     DriverStationMenu o-- MenuButtons
+    DriverStationMenu ..> Tracker
+    MenuButtons o-- OptionMenu

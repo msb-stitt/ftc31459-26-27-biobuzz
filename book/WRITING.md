@@ -135,13 +135,16 @@ L135 is the first. Its page and its starters are written this way:
   leaves, made from `tools/menu/`'s captured screens. They define it fully.
 - **Then each class, from the bottom up.** A section for each class gives its one job, its class
   diagram, what each field holds and what each method does, then a short sequence diagram for each
-  way it works with the classes it holds, then the steps that test it and write it. A class drawn
-  only to show what holds it is drawn faint. Each diagram is written in Mermaid and drawn by
-  `draw.py`, as *Draw in the marker-sketch style* says, and registered in `FIGURES.md`, as *A
-  picture is registered before it is drawn* says.
+  way it works with the classes it holds, then the steps that test it and write it. Each diagram
+  is written in Mermaid and drawn by `draw.py`, as *Draw in the marker-sketch style* says, and
+  registered in `FIGURES.md`, as *A picture is registered before it is drawn* says.
 - **A class's starter is a header**: its class Javadoc and step pointer only. The student types
   the `package` line, the imports and the class. The OpMode's starter is like other lessons', with
   step pointers where the student types.
+- **A Java block names its file.** Its `:caption:` is the file's path under `teamcode/`, with
+  `(test) ` in front for a test, such as `(test) mytry/l135/MenuItemTest.java`; `labels.css` draws
+  it as a grey tab on the block's top edge. `tools/check_labels.py` fails a block whose lines are
+  not in that file as the lesson leaves it, and a Java block in L135 with no caption.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
   and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
   fail, then types the code until it passes.
@@ -272,7 +275,8 @@ Every figure has a row in [`FIGURES.md`](FIGURES.md) and an id of the form `fig-
 figure that does not exist yet is a pencilled box in the page, so the gap is visible to a reader and
 not blocking to a writer. The box shows the row's *What it must show*, which the build puts there,
 so write it only in the row. A figure no page shows any more is marked `unused` in its row, not
-deleted. `tools/check_figures.py` checks both directions.
+deleted. `tools/check_figures.py` checks both directions. The build captions each figure it puts
+in place with its file's name, such as `fig-l135-press-01.png`, small at the right.
 
 ## Draw in the marker-sketch style
 
@@ -300,9 +304,8 @@ Each class in a diagram has its own colour, the same in each diagram it is in, f
 the draw with its name. A message's words sit on a box of paper, so the lifelines they cross stop
 around them.
 
-A line `%% faint: Name, Name` in a `.mmd` file draws those classes or objects faint, and in a
-sequence diagram the messages to and from them; a faint class's fields and methods are blurred
-too. A name with no box stops the draw.
+A diagram draws each class and object in full. Mermaid's `..>`, "uses", is drawn dashed with an
+open head.
 
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses
