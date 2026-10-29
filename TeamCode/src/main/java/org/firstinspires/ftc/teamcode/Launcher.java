@@ -30,14 +30,16 @@ import java.util.function.BooleanSupplier;
  * the flight log under {@code launcher/}, so a flight log shows whether it
  * holds its speed.
  */
-class Launcher {
+// 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+public class Launcher {
 
     /** The robot's target, in encoder ticks per second: goBILDA's 1250 is about 2678 RPM. */
     static final double TARGET_TICKS_PER_SECOND = Constants.launcherTargetTicksPerSecond;
     /** The windmill feeds only above this: goBILDA's 1200 is about 2571 RPM. */
     static final double FEED_ABOVE_TICKS_PER_SECOND = Constants.launcherFeedAboveTicksPerSecond;
     /** Added to the intake's speed while feeding, as goBILDA's example does. */
-    static final double INTAKE_BOOST = 0.5;
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public static final double INTAKE_BOOST = 0.5;
 
     /** The launcher motor stopped. */
     static final double STOPPED_TICKS_PER_SECOND = 0;
@@ -57,7 +59,8 @@ class Launcher {
     /** Where {@link #fireWhile} reads the fire button each loop. */
     BooleanSupplier fireButtonIsHeld;
 
-    Launcher(DcMotorEx motor, CRServo windmill) {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public Launcher(DcMotorEx motor, CRServo windmill) {
         this.motor = motor;
         this.windmill = windmill;
         useTheMotorsOwnVelocityControl();
@@ -66,7 +69,8 @@ class Launcher {
     }
 
     /** The two devices, by the names in {@link Constants}. */
-    static Launcher from(HardwareMap map) {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public static Launcher from(HardwareMap map) {
         DcMotorEx launcherMotor = map.get(DcMotorEx.class, Constants.launcherName);
         CRServo windmillServo = map.get(CRServo.class, Constants.windmillServoName);
         Launcher launcher = new Launcher(launcherMotor, windmillServo);
@@ -74,7 +78,8 @@ class Launcher {
     }
 
     /** True while the windmill is feeding. */
-    boolean feeding() {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public boolean feeding() {
         return feeding;
     }
 
@@ -84,7 +89,8 @@ class Launcher {
      * stop. A command that also needs the launcher sets this one aside while it
      * runs, and this one comes back when it ends.
      */
-    Command fireWhile(BooleanSupplier fireButton) {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public Command fireWhile(BooleanSupplier fireButton) {
         fireButtonIsHeld = fireButton;
         Command fireWhileTheButtonIsHeld = Command.build()
                 .setExecute(this::fireOrStopThisLoop)

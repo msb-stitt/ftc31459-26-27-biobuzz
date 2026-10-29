@@ -20,13 +20,15 @@ import java.util.function.DoubleSupplier;
  *
  * <p>Each speed set goes to the flight log as {@code intake/speed}.
  */
-class Intake {
+// 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+public class Intake {
 
     /** The intake still. */
     static final double STOPPED_SPEED = 0;
     /** Full speed, out or in. */
     static final double FULL_SPEED_OUT = -1;
-    static final double FULL_SPEED_IN = 1;
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public static final double FULL_SPEED_IN = 1;
 
     final DcMotor motor;
     final CRServo leftServo;
@@ -34,7 +36,8 @@ class Intake {
     /** Where {@link #run} reads its speed each loop. */
     DoubleSupplier speedToRunAt;
 
-    Intake(DcMotor motor, CRServo leftServo, CRServo rightServo) {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public Intake(DcMotor motor, CRServo leftServo, CRServo rightServo) {
         this.motor = motor;
         this.leftServo = leftServo;
         this.rightServo = rightServo;
@@ -44,7 +47,8 @@ class Intake {
     }
 
     /** The three devices, by the names in {@link Constants}. */
-    static Intake from(HardwareMap map) {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public static Intake from(HardwareMap map) {
         DcMotor intakeMotor = map.get(DcMotor.class, Constants.intakeName);
         CRServo leftIntakeServo = map.get(CRServo.class, Constants.leftIntakeServoName);
         CRServo rightIntakeServo = map.get(CRServo.class, Constants.rightIntakeServoName);
@@ -66,7 +70,8 @@ class Intake {
      * A command that also needs the intake sets this one aside while it runs,
      * and this one comes back when it ends.
      */
-    Command run(DoubleSupplier speed) {
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public Command run(DoubleSupplier speed) {
         speedToRunAt = speed;
         Command runAtTheSpeedGiven = Command.build()
                 .setExecute(this::runAtTheSpeedGivenThisLoop)
