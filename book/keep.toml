@@ -252,4 +252,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-l135-menu-classes"
-commit = "e8b40a1f4e357418841f8e59dac1d42c5ea0900c"
+commit = "318ee1fd713c250c711a9844e82cf95afd8174b1"

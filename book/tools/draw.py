@@ -416,10 +416,12 @@ class Sketch:
     def text(self, xy, s, size=26, color=PEN, anchor="middle", rot=0, code=False):
         x, y = self.at(xy)
         self.z += 1
-        self.ax.text(x, y, s, fontproperties=self.code if code else self.hand, fontsize=size * PX,
-                     color=color, ha={"middle": "center", "start": "left", "end": "right"}[anchor],
-                     va="baseline", rotation=-(rot + self.turn[2]), rotation_mode="anchor",
-                     zorder=self.z)
+        return self.ax.text(x, y, s, fontproperties=self.code if code else self.hand,
+                            fontsize=size * PX,
+                            color=color,
+                            ha={"middle": "center", "start": "left", "end": "right"}[anchor],
+                            va="baseline", rotation=-(rot + self.turn[2]),
+                            rotation_mode="anchor", zorder=self.z)
 
     def lines(self, xy, rows, size=26, gap=1.25, **kw):
         """Text a row at a time, each its own baseline, gap sizes apart."""
@@ -3267,6 +3269,16 @@ MMDC = BOOK / "node_modules" / ".bin" / "mmdc"
 SVG_NS = "{http://www.w3.org/2000/svg}"
 MERMAID_SIZE = 16          # Mermaid's font size, in its pixels
 MERMAID_SHOWN = 72 * DPI / 100  # the resolution that shows a Mermaid pixel as a CSS pixel
+# Each class's colours, the same in each diagram it is in: its marker, from Mermaid's neo
+# palette as its neo look gave them in fig-l135-classes, and its lines, a darker shade of it.
+MERMAID_COLORS = {
+    "L135ChooseAutoOpMode": ("#A78BFA", "#6D28D9"),
+    "L135DriverStationMenu": ("#4ADE80", "#15803D"),
+    "L135MenuButtons": ("#22D3EE", "#0E7490"),
+    "L135OptionMenu": ("#FB923C", "#C2410C"),
+    "L135MenuRow": ("#2DD4BF", "#0F766E"),
+    "L135MenuItem": ("#E879F9", "#A21CAF"),
+}
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
 TRANSLATE = re.compile(r"translate\(\s*([-\d.e]+)[\s,]+([-\d.e]+)\s*\)")
@@ -3411,31 +3423,50 @@ def diamond(s, tip, toward):
     back = (tip[0] - tx * 2 * h, tip[1] - ty * 2 * h)
     mid = (tip[0] - tx * h, tip[1] - ty * h)
     s.line([tip, (mid[0] - ty * h * 0.55, mid[1] + tx * h * 0.55), back,
-            (mid[0] + ty * h * 0.55, mid[1] - tx * h * 0.55)], PEN, 1.8, 0.9, fill=PAPER,
+            (mid[0] + ty * h * 0.55, mid[1] - tx * h * 0.55)], PEN, 2.6, 0.9, fill=PAPER,
            closed=True)
     return back
+
+
+def inside(p, box):
+    xs, ys = [x for x, _ in box], [y for _, y in box]
+    return min(xs) <= p[0] <= max(xs) and min(ys) <= p[1] <= max(ys)
+
+
+def color_of(box, words):
+    """The colours of the class whose name is centered in box, a name on two lines joined."""
+    lines = sorted((xy[1], s) for xy, s, anchor in words if anchor == "middle" and inside(xy, box))
+    name = "".join(s for _, s in lines)
+    if name not in MERMAID_COLORS:
+        raise SystemExit(f"{name} has no colour in draw.py's MERMAID_COLORS")
+    return MERMAID_COLORS[name]
 
 
 def mermaid(name):
     w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
     s = Sketch(w, h, zlib.crc32(name.encode()))
     for a, b in lifelines:
-        s.line([a, b], GREY2, 1.4, 0.9).set_linestyle((0, (6, 4)))
-    for box in boxes:
-        s.marker(box, MARKER_BLUE, nib=10, opacity=0.4)
-        s.ink_poly(box, width=1.8, over=4)
+        s.line([a, b], GREY3, 1.8, 0.9).set_linestyle((0, (6, 4)))
+    colors = [color_of(box, words) for box in boxes]
+    for box, (fill, ink) in zip(boxes, colors):
+        s.marker(box, fill, nib=10, opacity=0.4)
+        s.ink_poly(box, over=4, color=ink)
     for a, b in dividers:
-        s.ink_line(a, b, width=1.2, over=2, passes=1)
+        ink = next(c[1] for box, c in zip(boxes, colors) if inside(((a[0] + b[0]) / 2, a[1]), box))
+        s.ink_line(a, b, width=1.8, over=2, passes=1, color=ink)
     for pts, dashed, ends in arrows:
         if ends == "diamond":
             pts = [diamond(s, pts[0], pts[1])] + pts[1:]
-        line = s.line(pts, PEN, 1.8, 0.9)
+        line = s.line(pts, PEN, 2.6, 0.9)
         if dashed:
             line.set_linestyle((0, (5, 3)))
         if ends == "head":
             loop_head(s, pts[-2], pts[-1], PEN)
     for xy, words_, anchor in words:
-        s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
+        text = s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
+        # A message's words cross the lifelines: a box of paper behind them parts them.
+        if not any(inside(xy, box) for box in boxes):
+            text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
     s.save(name, MERMAID_SHOWN)
 
 
