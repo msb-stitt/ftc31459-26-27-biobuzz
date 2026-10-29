@@ -22,7 +22,8 @@ A `steps` file holds one step per line; `#` starts a comment.
 `copy` paths are under teamcode/, or under the tests' teamcode/ after the word
 `test`, as in `copy test lessons/L135MenuRowTest.java mytry/L135MenuRowTest.java`.
 The copy does what a student does to it:
-the folder is made if it is not there, the package line becomes mytry's, an
+the folder is made if it is not there, the package line becomes its folder's, such as
+`mytry.l135` for `mytry/l135/MenuRow.java`, an
 `@Disabled` line goes, and a copy under a new name has its class renamed. `patch` names a file beside `steps`, applied
 from the root with `git apply`. `test` is a `--tests` pattern.
 """
@@ -69,13 +70,13 @@ def copy(tree: Path, src: str, dst: str, root: Path = TEAMCODE) -> None:
     if target.exists():
         raise Stop(f"copy: {root / dst} is already there")
     text = source.read_text()
-    package = dst.split("/")[0]
+    package = ".".join(Path(dst).parent.parts)
     text = re.sub(r"^package [\w.]+;", f"package {PACKAGE}.{package};", text, count=1, flags=re.M)
     text = re.sub(r"^@Disabled\n", "", text, flags=re.M)
     old, new = Path(src).stem, Path(dst).stem
     if old != new:
         text = re.sub(rf"\b{old}\b", new, text)
-    target.parent.mkdir(exist_ok=True)
+    target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(text, newline="\n")
     run(tree, "git", "add", str(root / dst))
 
