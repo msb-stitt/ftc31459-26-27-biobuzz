@@ -455,12 +455,12 @@ class Sketch:
     def dot(self, c, r=6, color=PEN):
         self.line(ellipse(c, r, n=24), None, fill=color, closed=True)
 
-    def save(self, name, shown=DPI):
-        """Drawn at DPI; the PNG records shown as its resolution, which sets its size on the
-        page, as tools/build.py says."""
+    def save(self, name, shown=None):
+        """Drawn at DPI. With shown, the PNG asks to be shown that many CSS pixels wide, as
+        tools/build.py says."""
         OUT.mkdir(exist_ok=True)
         self.fig.savefig(OUT / f"{name}.png", dpi=DPI, facecolor=PAPER,
-                         pil_kwargs={"dpi": (shown, shown)})
+                         metadata={"Shown width": str(shown)} if shown else None)
         plt.close(self.fig)
 
 
@@ -3268,7 +3268,6 @@ BOOK = Path(__file__).resolve().parents[1]
 MMDC = BOOK / "node_modules" / ".bin" / "mmdc"
 SVG_NS = "{http://www.w3.org/2000/svg}"
 MERMAID_SIZE = 16          # Mermaid's font size, in its pixels
-MERMAID_SHOWN = 72 * DPI / 100  # the resolution that shows a Mermaid pixel as a CSS pixel
 # Each class's colours, the same in each diagram it is in: its marker, from Mermaid's neo
 # palette as its neo look gave them in fig-l135-classes, and its lines, a darker shade of it.
 MERMAID_COLORS = {
@@ -3467,7 +3466,7 @@ def mermaid(name):
         # A message's words cross the lifelines: a box of paper behind them parts them.
         if not any(inside(xy, box) for box in boxes):
             text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
-    s.save(name, MERMAID_SHOWN)
+    s.save(name, shown=round(w))  # a Mermaid pixel shown as a CSS pixel
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
