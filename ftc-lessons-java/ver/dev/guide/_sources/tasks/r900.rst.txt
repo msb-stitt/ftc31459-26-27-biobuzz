@@ -2,7 +2,7 @@
 ===========================
 
 Every way to say where the robot should go, and which ones to avoid.
-This project resolves ``com.pedropathing:core:3.0.1``. Where the
+This project resolves ``com.pedropathing:core:3.0.2``. Where the
 documentation and the jar disagree, the jar is what is written here.
 
 In the pictures the black line is where the robot drives and each red pin is
