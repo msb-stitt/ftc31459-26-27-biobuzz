@@ -341,7 +341,7 @@
           <section id="l135driverstationmenu">
 <h1>L135DriverStationMenu<a class="headerlink" href="#l135driverstationmenu" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from applying
-<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.1</span></code>. A line marked + is new, and a line marked - is
+<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.2</span></code>. A line marked + is new, and a line marked - is
 gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l135">
 <h2>L135<a class="headerlink" href="#l135" title="Link to this heading">¶</a></h2>
@@ -376,8 +376,8 @@ gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gi">+  31         String summary = optionMenu.summary();</span>
 <span class="gi">+  32         Tracker.publish("menu/summary", summary);</span>
 <span class="gi">+  33         String[] lines = optionMenu.lines();</span>
-<span class="gi">+  34         for (int i = 0; i &lt; lines.length; i++) {</span>
-<span class="gi">+  35             Tracker.printToDs(lines[i]);</span>
+<span class="gi">+  34         for (String line : lines) {</span>
+<span class="gi">+  35             Tracker.printToDs(line);</span>
 <span class="gi">+  36         }</span>
 <span class="gi">+  37     }</span>
 <span class="gi">+  38</span>

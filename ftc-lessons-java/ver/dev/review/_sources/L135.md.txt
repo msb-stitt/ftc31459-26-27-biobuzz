@@ -124,9 +124,9 @@ Delete 0 lines, write 87 lines.
 +    }
 +
 +    L135MenuRow rowNamed(String rowName) {
-+        for (int i = 0; i < rows.length; i++) {
-+            if (rows[i].name().equals(rowName)) {
-+                return rows[i];
++        for (L135MenuRow row : rows) {
++            if (row.name().equals(rowName)) {
++                return row;
 +            }
 +        }
 +        throw new IllegalArgumentException("No row named " + rowName);
@@ -392,8 +392,8 @@ Delete 0 lines, write 34 lines.
 +        String summary = optionMenu.summary();
 +        Tracker.publish("menu/summary", summary);
 +        String[] lines = optionMenu.lines();
-+        for (int i = 0; i < lines.length; i++) {
-+            Tracker.printToDs(lines[i]);
++        for (String line : lines) {
++            Tracker.printToDs(line);
 +        }
 +    }
 +

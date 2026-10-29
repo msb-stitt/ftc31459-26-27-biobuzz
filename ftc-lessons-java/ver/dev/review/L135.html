@@ -372,9 +372,9 @@
 <span class="gi">+    }</span>
 <span class="gi">+</span>
 <span class="gi">+    L135MenuRow rowNamed(String rowName) {</span>
-<span class="gi">+        for (int i = 0; i &lt; rows.length; i++) {</span>
-<span class="gi">+            if (rows[i].name().equals(rowName)) {</span>
-<span class="gi">+                return rows[i];</span>
+<span class="gi">+        for (L135MenuRow row : rows) {</span>
+<span class="gi">+            if (row.name().equals(rowName)) {</span>
+<span class="gi">+                return row;</span>
 <span class="gi">+            }</span>
 <span class="gi">+        }</span>
 <span class="gi">+        throw new IllegalArgumentException("No row named " + rowName);</span>
@@ -632,8 +632,8 @@
 <span class="gi">+        String summary = optionMenu.summary();</span>
 <span class="gi">+        Tracker.publish("menu/summary", summary);</span>
 <span class="gi">+        String[] lines = optionMenu.lines();</span>
-<span class="gi">+        for (int i = 0; i &lt; lines.length; i++) {</span>
-<span class="gi">+            Tracker.printToDs(lines[i]);</span>
+<span class="gi">+        for (String line : lines) {</span>
+<span class="gi">+            Tracker.printToDs(line);</span>
 <span class="gi">+        }</span>
 <span class="gi">+    }</span>
 <span class="gi">+</span>

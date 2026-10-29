@@ -341,7 +341,7 @@
           <section id="l135optionmenu">
 <h1>L135OptionMenu<a class="headerlink" href="#l135optionmenu" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from applying
-<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.1</span></code>. A line marked + is new, and a line marked - is
+<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.2</span></code>. A line marked + is new, and a line marked - is
 gone; each number is the line’s place in the file after the lesson.</p>
 <section id="l135">
 <h2>L135<a class="headerlink" href="#l135" title="Link to this heading">¶</a></h2>
@@ -436,9 +436,9 @@ gone; each number is the line’s place in the file after the lesson.</p>
 <span class="gi">+  89     }</span>
 <span class="gi">+  90</span>
 <span class="gi">+  91     L135MenuRow rowNamed(String rowName) {</span>
-<span class="gi">+  92         for (int i = 0; i &lt; rows.length; i++) {</span>
-<span class="gi">+  93             if (rows[i].name().equals(rowName)) {</span>
-<span class="gi">+  94                 return rows[i];</span>
+<span class="gi">+  92         for (L135MenuRow row : rows) {</span>
+<span class="gi">+  93             if (row.name().equals(rowName)) {</span>
+<span class="gi">+  94                 return row;</span>
 <span class="gi">+  95             }</span>
 <span class="gi">+  96         }</span>
 <span class="gi">+  97         throw new IllegalArgumentException("No row named " + rowName);</span>

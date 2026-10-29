@@ -1,7 +1,7 @@
 # L135OptionMenu
 
 What each lesson's patch does to this file, in the order the lessons come, from applying
-`solutions/` on `solutions-l135-menu-classes.1`. A line marked + is new, and a line marked - is
+`solutions/` on `solutions-l135-menu-classes.2`. A line marked + is new, and a line marked - is
 gone; each number is the line's place in the file after the lesson.
 
 ## L135
@@ -100,9 +100,9 @@ gone; each number is the line's place in the file after the lesson.
 +  89     }
 +  90
 +  91     L135MenuRow rowNamed(String rowName) {
-+  92         for (int i = 0; i < rows.length; i++) {
-+  93             if (rows[i].name().equals(rowName)) {
-+  94                 return rows[i];
++  92         for (L135MenuRow row : rows) {
++  93             if (row.name().equals(rowName)) {
++  94                 return row;
 +  95             }
 +  96         }
 +  97         throw new IllegalArgumentException("No row named " + rowName);
