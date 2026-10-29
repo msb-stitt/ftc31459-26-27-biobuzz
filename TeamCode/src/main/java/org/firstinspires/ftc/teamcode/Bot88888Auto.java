@@ -42,12 +42,12 @@ public class Bot88888Auto extends CorbelsAuto {
 
     MenuItem red = new MenuItem("R", "Red");
     MenuItem blue = new MenuItem("B", "Blue");
-    MenuRow allianceRow = new MenuRow("Alliance", red, blue);
+    MenuRow allianceRow = new MenuRow("Alliance");
     MenuItem nothing = new MenuItem("N", "Nothing");
     MenuItem forward24 = new MenuItem("F24", "Forward 24");
     MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
-    MenuRow autoRow = new MenuRow("Auto", nothing, forward24, forwardThenStrafe);
-    OptionMenu optionMenu = new OptionMenu(allianceRow, autoRow);
+    MenuRow autoRow = new MenuRow("Auto");
+    OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
 
     double robotHalfLengthIn = 9.0;
@@ -59,6 +59,14 @@ public class Bot88888Auto extends CorbelsAuto {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
+        allianceRow.add(red);
+        allianceRow.add(blue);
+        autoRow.add(nothing);
+        autoRow.add(forward24);
+        autoRow.add(forwardThenStrafe);
+        optionMenu.add(allianceRow);
+        optionMenu.add(autoRow);
+
         initBefore();
         // Live in AdvantageScope from INIT, at 192.168.43.1, only when the
         // Live NetworkTables switch OpMode has turned it on. For practice only:
@@ -80,20 +88,17 @@ public class Bot88888Auto extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
-        String alliance = menu.chosen("Alliance");
-        Tracker.publish("menu/alliance", alliance);
-        OpModeStorage.alliance = alliance;
+        Tracker.publish("menu/alliance", allianceRow.getSelected().getFullName());
+        OpModeStorage.isRed = allianceRow.getSelected() == red;
 
-        String auto = menu.chosen("Auto");
-        Tracker.publish("menu/auto", auto);
+        MenuItem auto = autoRow.getSelected();
+        Tracker.publish("menu/auto", auto.getFullName());
         Command chosenAuto = Command.NOOP;
-        switch (auto) {
-            case "Forward 24":
-                chosenAuto = driveForward24();
-                break;
-            case "Forward Then Strafe":
-                chosenAuto = driveForwardThenStrafe();
-                break;
+        if (auto == forward24) {
+            chosenAuto = driveForward24();
+        }
+        if (auto == forwardThenStrafe) {
+            chosenAuto = driveForwardThenStrafe();
         }
         Scheduler.schedule(chosenAuto);
         startAfter();
@@ -104,7 +109,7 @@ public class Bot88888Auto extends CorbelsAuto {
     @Override
     public void loop() {
         loopBefore();
-        Tracker.printToDs(menu.summary());
+        Tracker.printToDs(menu.getSummary());
         Tracker.printPoseSpeedLoopToDs(follower);
         loopAfter();
     }
@@ -119,8 +124,7 @@ public class Bot88888Auto extends CorbelsAuto {
     PoseFactory poses() {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
-        String alliance = menu.chosen("Alliance");
-        if (alliance.equals("Blue")) {
+        if (allianceRow.getSelected() == blue) {
             chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
         }
         return chosenPoses;

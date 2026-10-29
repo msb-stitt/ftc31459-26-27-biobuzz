@@ -53,11 +53,11 @@ public final class OpModeStorage {
     public static Pose autonomousEndPose = POSES.of(72, botStartYIn, 90);
 
     /**
-     * The alliance the last autonomous ran for, "Red" or "Blue", so the next
-     * teleop drives from that Alliance Area. "Red" for a teleop run with no
-     * autonomous before it.
+     * Whether the last autonomous ran for the red alliance, so the next teleop
+     * drives from that Alliance Area. True for a teleop run with no autonomous
+     * before it.
      */
-    public static String alliance = "Red";
+    public static boolean isRed = true;
 
     private OpModeStorage() {
     }
