@@ -338,8 +338,8 @@ public class StarterBotTest {
         h.init();
         h.start();
         double drift = 0;
-        long deadline = System.nanoTime() + 3_000_000_000L;
-        while (follower.pose().y() < 66 && System.nanoTime() < deadline) {
+        long deadline = h.clock.nanos() + 3_000_000_000L;
+        while (follower.pose().y() < 66 && h.clock.nanos() < deadline) {
             h.loop();
             drift = Math.max(drift, Math.abs(follower.pose().x() - 72));
             OpModeHarness.sleep(5);
@@ -348,8 +348,8 @@ public class StarterBotTest {
         // routine is done only once it has stayed that way for a few loops.
         boolean followed = false;
         int loopsIdle = 0;
-        deadline = System.nanoTime() + 6_000_000_000L;
-        while (loopsIdle < 3 && System.nanoTime() < deadline) {
+        deadline = h.clock.nanos() + 6_000_000_000L;
+        while (loopsIdle < 3 && h.clock.nanos() < deadline) {
             h.loop();
             boolean following = follower.mode() == Follower.Mode.FOLLOW;
             boolean hasAPath = follower.currentPath() != null;

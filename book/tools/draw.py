@@ -455,12 +455,9 @@ class Sketch:
     def dot(self, c, r=6, color=PEN):
         self.line(ellipse(c, r, n=24), None, fill=color, closed=True)
 
-    def save(self, name, shown=None):
-        """Drawn at DPI. With shown, the PNG asks to be shown that many CSS pixels wide, as
-        tools/build.py says."""
+    def save(self, name):
         OUT.mkdir(exist_ok=True)
-        self.fig.savefig(OUT / f"{name}.png", dpi=DPI, facecolor=PAPER,
-                         metadata={"Shown width": str(shown)} if shown else None)
+        self.fig.savefig(OUT / f"{name}.png", dpi=DPI, facecolor=PAPER)
         plt.close(self.fig)
 
 
@@ -3268,6 +3265,7 @@ BOOK = Path(__file__).resolve().parents[1]
 MMDC = BOOK / "node_modules" / ".bin" / "mmdc"
 SVG_NS = "{http://www.w3.org/2000/svg}"
 MERMAID_SIZE = 16          # Mermaid's font size, in its pixels
+MERMAID_COLUMN = 736       # the book's column, in CSS pixels; a Mermaid pixel is drawn as one
 # Each class's colours, the same in each diagram it is in: its marker, from Mermaid's neo
 # palette as its neo look gave them in fig-l135-classes, and its lines, a darker shade of it.
 MERMAID_COLORS = {
@@ -3443,7 +3441,13 @@ def color_of(box, words):
 
 def mermaid(name):
     w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
-    s = Sketch(w, h, zlib.crc32(name.encode()))
+    if w > MERMAID_COLUMN:
+        raise SystemExit(f"{name} is {w:.0f} px wide, wider than the column's {MERMAID_COLUMN} px:"
+                         " lay it out narrower")
+    # The paper is the column's width, as the other drawings' is, with the diagram in its middle.
+    s = Sketch(MERMAID_COLUMN, h, zlib.crc32(name.encode()))
+    margin = (MERMAID_COLUMN - w) / 2
+    s.ax.set_xlim(-margin, w + margin)
     for a, b in lifelines:
         s.line([a, b], GREY3, 1.8, 0.9).set_linestyle((0, (6, 4)))
     colors = [color_of(box, words) for box in boxes]
@@ -3466,7 +3470,7 @@ def mermaid(name):
         # A message's words cross the lifelines: a box of paper behind them parts them.
         if not any(inside(xy, box) for box in boxes):
             text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
-    s.save(name, shown=round(w))  # a Mermaid pixel shown as a CSS pixel
+    s.save(name)
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]

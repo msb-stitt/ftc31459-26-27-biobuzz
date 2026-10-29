@@ -504,8 +504,8 @@ public class LessonsTest {
         h.start();
         // The first leg runs straight up x = 72, so x holds until near the corner.
         double drift = 0;
-        long deadline = System.nanoTime() + 3_000_000_000L;
-        while (follower.pose().y() < 66 && System.nanoTime() < deadline) {
+        long deadline = h.clock.nanos() + 3_000_000_000L;
+        while (follower.pose().y() < 66 && h.clock.nanos() < deadline) {
             h.loop();
             drift = Math.max(drift, Math.abs(follower.pose().x() - 72));
             OpModeHarness.sleep(5);
@@ -954,10 +954,10 @@ public class LessonsTest {
     }
 
     private static void runUntilDone(OpModeHarness h, Follower follower, double seconds) {
-        long deadline = System.nanoTime() + (long) (seconds * 1e9);
+        long deadline = h.clock.nanos() + (long) (seconds * 1e9);
         boolean followed = false;
         int loopsIdle = 0;
-        while (loopsIdle < 3 && System.nanoTime() < deadline) {
+        while (loopsIdle < 3 && h.clock.nanos() < deadline) {
             h.loop();
             if (follower.mode() == Follower.Mode.FOLLOW) followed = true;
             if (followed && follower.mode() != Follower.Mode.FOLLOW && follower.currentPath() == null) {
