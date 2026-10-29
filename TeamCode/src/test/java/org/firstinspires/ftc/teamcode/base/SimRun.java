@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode"
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1"
- * ./gradlew :TeamCode:simRun --args="mytry.L135ChooseAutoOpMode --init --pad"
+ * ./gradlew :TeamCode:simRun --args="mytry.l135.AutoWithMenuOpMode --init --pad"
  * </pre>
  *
  * <p>{@link SimArgs} holds the four forms, the 21 controls that can be set and

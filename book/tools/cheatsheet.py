@@ -25,7 +25,7 @@ from bookpaths import book_root
 OUT = "source/tasks/r930.md"
 
 OPMODE_NAME = re.compile(r'@(TeleOp|Autonomous)\(name\s*=\s*"([^"]*)"')
-LESSON_ID = re.compile(r"^L(\d+[ab]?)")
+LESSON_ID = re.compile(r"^[Ll](\d+[ab]?)")  # L135Row.java, or l135/MenuRow.java
 TEST = re.compile(r"\b([A-Z]\w*Test)(?:\.(\w+))?")
 TEST_LESSON = re.compile(r"^l(\d+[ab]?)_")
 TODO_LESSON = re.compile(r"TODO \d+ \(L(\d+[ab]?)\)")
@@ -171,7 +171,7 @@ def generate(solutions: str | None = None) -> str:
     patched, final, _ = apply_all(solutions)
     tests_in = dict(final)
     for patch in patched:
-        tests_in[f"{Path(patch.path).name} before {patch.lesson}"] = patch.before
+        tests_in[f"{patch.path.split('/mytry/', 1)[-1]} before {patch.lesson}"] = patch.before
     return page(final, tests_in, solutions)
 
 

@@ -12,6 +12,9 @@ import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+// When on L140S050, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
+// for what to do here.
 
 /**
  * L140: field relative. Push the stick away from you and the robot goes away

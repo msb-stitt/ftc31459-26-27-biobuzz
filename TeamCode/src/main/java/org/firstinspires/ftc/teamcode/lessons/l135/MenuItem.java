@@ -1,7 +1,7 @@
 /**
- * One choice in a {@link L135MenuRow}: its short name, such as F24, for the
+ * One choice in a {@link MenuRow}: its short name, such as F24, for the
  * menu's summary line, and its full name, such as Forward 24, for its row's
- * line and for {@link L135OptionMenu#chosen(String)}.
+ * line.
  *
  * <p>Uses no other class.
  */

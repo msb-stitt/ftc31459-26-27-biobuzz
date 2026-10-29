@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.lessons;
+package org.firstinspires.ftc.teamcode.lessons.l135;
 
 import static com.pedropathing.api.Paths.line;
 import static com.pedropathing.ivy.groups.Groups.sequential;
@@ -29,13 +29,13 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * l135_redAndNothingWhenNothingIsChanged and
  * l135_upWrapsAndForward24DrivesForRed
  */
-@Autonomous(name = "L135 Choose Auto", group = "Lessons")
+@Autonomous(name = "L135 Auto With Menu", group = "Lessons")
 // When on L135S020, see
 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
-public class L135ChooseAutoOpMode extends CorbelsAuto {
+public class AutoWithMenuOpMode extends CorbelsAuto {
 
     // When on L135S120, see
     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
@@ -50,6 +50,9 @@ public class L135ChooseAutoOpMode extends CorbelsAuto {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
+        // When on L135S120, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+        // for what to do here.
         initBefore();
         drivetrain = new CorbelsMecanum(hardware);
         initAfter(drivetrain);
