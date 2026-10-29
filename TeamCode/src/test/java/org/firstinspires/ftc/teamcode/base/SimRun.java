@@ -82,6 +82,8 @@ public final class SimRun {
                 System.exit(2);
                 return;
             }
+            // No HardwareMap here, so an OpMode's intake and launcher are stand-ins.
+            SimMechanisms.install(opMode.getClass());
             harness = new OpModeHarness(opMode);
             harness.logTo(logHome());
         }

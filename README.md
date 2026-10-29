@@ -25,6 +25,7 @@ runs it on its own.
 | One lesson's test | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l125*'` |
 | Watch a lesson drive | `./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"` |
 | Drive it without a gamepad | `./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1 --right_stick_y=-1"` |
+| Watch Example Auto, its intake and launcher stand-ins | `./gradlew :TeamCode:simRun --args="example.ExampleAuto --init --pad"` |
 | Every option the simulator takes | `./gradlew :TeamCode:simRun --args="--help"` |
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
 | Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
@@ -78,7 +79,8 @@ teleop records its alliance as `Alliance`. **Example Auto** and **Example TeleOp
 88888's two with StarterBot's intake and launcher, for 37523, and stop at INIT on a robot without
 them. The teleop adds StarterBot TeleOp's triggers and right bumper. The auto adds the route Shoot
 Then Intake: forward 6 inches, shoot for 10 seconds, wait 3 seconds, 24 inches to the robot's left,
-then the intake in for 3 seconds. These six, Launcher Check, Robot Name Check and Live
+then the intake in for 3 seconds. In the simulator, an OpMode's intake and launcher are stand-ins
+that keep what they are given, the launcher reporting the speed it was asked for. These six, Launcher Check, Robot Name Check and Live
 NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
 six and Launcher Check send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
