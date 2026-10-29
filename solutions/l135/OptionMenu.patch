@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java
-index b00f9a0..978d2ac 100644
+index be1cbd2..53a08ef 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java
 @@ -1,3 +1,7 @@
@@ -10,21 +10,24 @@ index b00f9a0..978d2ac 100644
  /**
   * The rows of a menu, and which row the pointer is on. Up and down move the
   * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
-@@ -8,3 +12,69 @@
- // When on L135S030, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+@@ -8,3 +12,81 @@
+ // When on L135S070, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
  // for what to write in this file.
-+// 'public' so L140's OpModes, in another package, can use it.
++// 'public' so L140, in another package, can use it. 'public' allows access from any code.
 +public class OptionMenu {
 +
++    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private ArrayList<MenuRow> rows = new ArrayList<>();
++    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private int pointedIndex = 0;
 +
++    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
 +    public void add(MenuRow row) {
 +        rows.add(row);
 +    }
 +
-+    public void goUp() {
++    void goUp() {
 +        goBack();
 +        pointedIndex = pointedIndex - 1;
 +        if (pointedIndex < 0) {
@@ -32,7 +35,7 @@ index b00f9a0..978d2ac 100644
 +        }
 +    }
 +
-+    public void goDown() {
++    void goDown() {
 +        goBack();
 +        pointedIndex = pointedIndex + 1;
 +        if (pointedIndex == rows.size()) {
@@ -40,42 +43,51 @@ index b00f9a0..978d2ac 100644
 +        }
 +    }
 +
-+    public void goRight() {
-+        rows.get(pointedIndex).goRight();
++    void goRight() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.goRight();
 +    }
 +
-+    public void goLeft() {
-+        rows.get(pointedIndex).goLeft();
++    void goLeft() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.goLeft();
 +    }
 +
-+    public void select() {
-+        rows.get(pointedIndex).select();
++    void select() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.select();
 +    }
 +
-+    public void goBack() {
-+        rows.get(pointedIndex).goBack();
++    void goBack() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.goBack();
 +    }
 +
-+    public String getSummary() {
++    String getSummary() {
 +        String summary = "";
 +        String between = "";
 +        for (MenuRow row : rows) {
-+            summary = summary + between + row.getSelected().getShortName();
++            MenuItem selectedItem = row.getSelected();
++            String shortName = selectedItem.getShortName();
++            summary = summary + between + shortName;
 +            between = "-";
 +        }
 +        return summary;
 +    }
 +
-+    public ArrayList<String> getLines() {
++    ArrayList<String> getLines() {
 +        ArrayList<String> lines = new ArrayList<>();
-+        lines.add(getSummary());
-+        MenuRow pointed = rows.get(pointedIndex);
++        String summary = getSummary();
++        lines.add(summary);
++        MenuRow pointedRow = rows.get(pointedIndex);
 +        for (MenuRow row : rows) {
 +            String pointer = "  ";
-+            if (row == pointed) {
++            if (row == pointedRow) {
 +                pointer = "> ";
 +            }
-+            lines.add(pointer + row.getLine());
++            String rowLine = row.getLine();
++            String pointedLine = pointer + rowLine;
++            lines.add(pointedLine);
 +        }
 +        return lines;
 +    }

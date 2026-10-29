@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItem.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItem.java
-index 957a302..ce2080a 100644
+index e4cab03..82b15f6 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItem.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItem.java
 @@ -1,3 +1,5 @@
@@ -8,26 +8,29 @@ index 957a302..ce2080a 100644
  /**
   * One choice in a {@link MenuRow}: its short name, such as F24, for the
   * menu's summary line, and its full name, such as Forward 24, for its row's
-@@ -8,3 +10,22 @@
- // When on L135S040, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+@@ -8,3 +10,25 @@
+ // When on L135S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
  // for what to write in this file.
-+// 'public' so L140's OpModes, in another package, can use it.
++// 'public' so L140, in another package, can use it. 'public' allows access from any code.
 +public class MenuItem {
 +
++    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private String shortName;
++    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private String fullName;
 +
++    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
 +    public MenuItem(String shortName, String fullName) {
 +        this.shortName = shortName;
 +        this.fullName = fullName;
 +    }
 +
-+    public String getShortName() {
++    String getShortName() {
 +        return shortName;
 +    }
 +
-+    public String getFullName() {
++    String getFullName() {
 +        return fullName;
 +    }
 +}

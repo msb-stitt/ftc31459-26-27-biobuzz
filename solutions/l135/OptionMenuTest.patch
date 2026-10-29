@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenuTest.java b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenuTest.java
-index aadccc2..713bb69 100644
+index 5863f61..1ed9662 100644
 --- a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenuTest.java
 +++ b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenuTest.java
 @@ -1,3 +1,12 @@
@@ -7,17 +7,17 @@ index aadccc2..713bb69 100644
 +
 +import static org.junit.Assert.assertEquals;
 +
-+import java.util.Arrays;
-+
 +import org.junit.Before;
 +import org.junit.Test;
++
++import java.util.ArrayList;
 +
  /**
   * Tests for {@link OptionMenu}: the summary first, then each row's line with
   * a pointer; up and down move the pointer, wrap at the ends and clear an
-@@ -6,3 +15,87 @@
- // When on L135S080, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s080
+@@ -6,3 +15,90 @@
+ // When on L135S070, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
  // for what to write in this file.
 +// 'public' so JUnit can run it. 'public' allows access from any code.
 +public class OptionMenuTest {
@@ -46,25 +46,23 @@ index aadccc2..713bb69 100644
 +    @Test
 +    // 'public' so JUnit can run it. 'public' allows access from any code.
 +    public void theMenuStartsWithThePointerOnTheFirstRow() {
-+        assertEquals(Arrays.asList("R-N", "> Alliance: <Red>", "  Auto: <Nothing>"),
-+                optionMenu.getLines());
++        assertLines("R-N", "> Alliance: <Red>", "  Auto: <Nothing>");
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void selectChangesTheSummary() {
++        allianceRow.goRight();
++        allianceRow.select();
++        String summary = optionMenu.getSummary();
++        assertEquals("B-N", summary);
 +    }
 +
 +    @Test
 +    // 'public' so JUnit can run it. 'public' allows access from any code.
 +    public void rightOffersInTheRowThePointerIsOn() {
 +        optionMenu.goRight();
-+        assertEquals(Arrays.asList("R-N", "> Alliance: Blue? A:OK B:Back", "  Auto: <Nothing>"),
-+                optionMenu.getLines());
-+    }
-+
-+    @Test
-+    // 'public' so JUnit can run it. 'public' allows access from any code.
-+    public void selectChangesTheSummary() {
-+        optionMenu.goRight();
-+        optionMenu.select();
-+        assertEquals("B-N", optionMenu.getSummary());
-+        assertEquals(blue, allianceRow.getSelected());
++        assertLines("R-N", "> Alliance: Blue? A:OK B:Back", "  Auto: <Nothing>");
 +    }
 +
 +    @Test
@@ -72,8 +70,7 @@ index aadccc2..713bb69 100644
 +    public void downMovesThePointerAndClearsTheOffer() {
 +        optionMenu.goRight();
 +        optionMenu.goDown();
-+        assertEquals(Arrays.asList("R-N", "  Alliance: <Red>", "> Auto: <Nothing>"),
-+                optionMenu.getLines());
++        assertLines("R-N", "  Alliance: <Red>", "> Auto: <Nothing>");
 +    }
 +
 +    @Test
@@ -81,25 +78,31 @@ index aadccc2..713bb69 100644
 +    public void downWrapsFromTheLastRowToTheFirst() {
 +        optionMenu.goDown();
 +        optionMenu.goDown();
-+        assertEquals(Arrays.asList("R-N", "> Alliance: <Red>", "  Auto: <Nothing>"),
-+                optionMenu.getLines());
++        assertLines("R-N", "> Alliance: <Red>", "  Auto: <Nothing>");
 +    }
 +
 +    @Test
 +    // 'public' so JUnit can run it. 'public' allows access from any code.
 +    public void upWrapsFromTheFirstRowToTheLast() {
 +        optionMenu.goUp();
-+        assertEquals(Arrays.asList("R-N", "  Alliance: <Red>", "> Auto: <Nothing>"),
-+                optionMenu.getLines());
++        assertLines("R-N", "  Alliance: <Red>", "> Auto: <Nothing>");
 +    }
 +
 +    @Test
 +    // 'public' so JUnit can run it. 'public' allows access from any code.
-+    public void leftWrapsToTheLastChoice() {
++    public void leftAndSelectWorkInTheRowThePointerIsOn() {
 +        optionMenu.goDown();
 +        optionMenu.goLeft();
 +        optionMenu.select();
-+        assertEquals("R-FS", optionMenu.getSummary());
-+        assertEquals(forwardThenStrafe, autoRow.getSelected());
++        assertLines("R-FS", "  Alliance: <Red>", "> Auto: <Forward Then Strafe>");
++    }
++
++    void assertLines(String summaryLine, String allianceLine, String autoLine) {
++        ArrayList<String> expected = new ArrayList<>();
++        expected.add(summaryLine);
++        expected.add(allianceLine);
++        expected.add(autoLine);
++        ArrayList<String> lines = optionMenu.getLines();
++        assertEquals(expected, lines);
 +    }
 +}
