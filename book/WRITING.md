@@ -124,7 +124,8 @@ The code a student copies carries a comment where each step changes it, linking 
 
 ## A lesson can have the student write whole classes
 
-L135 is the first. Its page and its starters are written this way:
+L065 is the first, with one class and no test of its own; its diagrams are on E067, the page
+after it. L135 is the first with each part below. Their pages and starters are written this way:
 
 - **Its own folder.** The lesson's classes are in `mytry/lnnn/`, package `...mytry.lnnn`, named
   without the lesson number, such as `MenuItem`; its tests are in `mytry/lnnn/` under `test`. The
@@ -144,7 +145,7 @@ L135 is the first. Its page and its starters are written this way:
 - **A Java block names its file.** Its `:caption:` is the file's path under `teamcode/`, with
   `(test) ` in front for a test, such as `(test) mytry/l135/MenuItemTest.java`; `labels.css` draws
   it as a grey tab on the block's top edge. `tools/check_labels.py` fails a block whose lines are
-  not in that file as the lesson leaves it, and a Java block in L135 with no caption.
+  not in that file as the lesson leaves it, and a Java block in L065 or L135 with no caption.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
   and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
   fail, then types the code until it passes.

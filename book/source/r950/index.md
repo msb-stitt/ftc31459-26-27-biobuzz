@@ -11,6 +11,8 @@ L030SpeedsOpMode
 L040TankOpMode
 L050BlocksOpMode
 L060ShapingOpMode
+StickShaper
+L065ShaperOpMode
 L070ButtonsOpMode
 L080ArcadeOpMode
 L090MecanumOpMode
