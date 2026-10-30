@@ -15,7 +15,7 @@ from answers import pins
 from applied import apply_all
 from bookpaths import relative, tracked
 
-LABELLED = {"l135"}
+LABELLED = {"l065", "l135"}
 BLOCK = re.compile(r"^```\{code-block\} java\n((?::[\w-]+:[^\n]*\n)*)(.*?)^```", re.M | re.S)
 CAPTION = re.compile(r"^:caption: (.*)$", re.M)
 ROOTS = {"TeamCode/src/main/java/org/firstinspires/ftc/teamcode/": "",
