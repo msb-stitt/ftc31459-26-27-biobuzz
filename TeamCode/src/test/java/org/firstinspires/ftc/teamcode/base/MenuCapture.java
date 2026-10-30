@@ -10,45 +10,74 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Runs base's menu through a list of presses, with L135's rows, and writes what
- * the Driver Station shows after each, for the figures book/tools/draw.py draws.
+ * Runs base's menu through a list of presses, with L093's rows and with L135's,
+ * and writes what the Driver Station shows after each, for the figures
+ * book/tools/draw.py draws.
  *
  * <pre>
  * ./gradlew :TeamCode:menuCapture
  * </pre>
  *
- * <p>Reads {@link #PRESSES}, one screen a line: {@code INIT}, or the buttons
- * pressed, such as {@code right} or {@code A}, a space between two. Writes
- * {@link #SCREENS}: each screen's line, the Driver Station's lines, and a blank
- * line. {@link MenuCaptureTest} fails when the file written is not what the menu
- * shows.
+ * <p>For each lesson in {@link #LESSONS}, reads its {@link #presses} file, one
+ * screen a line: {@code INIT}, or the buttons pressed, such as {@code right} or
+ * {@code A}, a space between two. Writes its {@link #screens} file: each
+ * screen's line, the Driver Station's lines, and a blank line.
+ * {@link MenuCaptureTest} fails when a file written is not what the menu shows.
  */
 public class MenuCapture {
 
-    static final Path PRESSES = Paths.get("book/tools/menu/l135-presses.txt");
-    static final Path SCREENS = Paths.get("book/tools/menu/l135-screens.txt");
+    static final String[] LESSONS = {"l093", "l135"};
+
+    static Path presses(String lesson) {
+        return Paths.get("book/tools/menu/" + lesson + "-presses.txt");
+    }
+
+    static Path screens(String lesson) {
+        return Paths.get("book/tools/menu/" + lesson + "-screens.txt");
+    }
 
     public static void main(String[] args) throws IOException {
         Path root = root();
-        String screens = screens(Files.readAllLines(root.resolve(PRESSES), StandardCharsets.UTF_8));
-        Files.write(root.resolve(SCREENS), screens.getBytes(StandardCharsets.UTF_8));
-        System.out.println("wrote " + SCREENS);
+        for (String lesson : LESSONS) {
+            String screens = screens(optionMenu(lesson),
+                    Files.readAllLines(root.resolve(presses(lesson)), StandardCharsets.UTF_8));
+            Files.write(root.resolve(screens(lesson)), screens.getBytes(StandardCharsets.UTF_8));
+            System.out.println("wrote " + screens(lesson));
+        }
     }
 
     /** The repository's top folder: the working folder, or the first above it holding the presses. */
     static Path root() {
         Path at = Paths.get("").toAbsolutePath();
-        while (at != null && !Files.exists(at.resolve(PRESSES))) {
+        while (at != null && !Files.exists(at.resolve(presses(LESSONS[0])))) {
             at = at.getParent();
         }
         if (at == null) {
-            throw new IllegalStateException("no " + PRESSES + " here or above");
+            throw new IllegalStateException("no " + presses(LESSONS[0]) + " here or above");
         }
         return at;
     }
 
-    /** What the Driver Station shows after each screen's presses. */
-    static String screens(List<String> presses) {
+    /** The lesson's menu, with the rows its OpMode makes. */
+    static OptionMenu optionMenu(String lesson) {
+        OptionMenu optionMenu = new OptionMenu();
+        if (lesson.equals("l093")) {
+            MenuRow lightRow = new MenuRow("Light");
+            lightRow.add(new MenuItem("ON", "On"));
+            lightRow.add(new MenuItem("OFF", "Off"));
+            MenuRow speedRow = new MenuRow("Speed");
+            speedRow.add(new MenuItem("S", "Slow"));
+            speedRow.add(new MenuItem("M", "Medium"));
+            speedRow.add(new MenuItem("F", "Fast"));
+            MenuRow colorRow = new MenuRow("Color");
+            colorRow.add(new MenuItem("R", "Red"));
+            colorRow.add(new MenuItem("G", "Green"));
+            colorRow.add(new MenuItem("B", "Blue"));
+            optionMenu.add(lightRow);
+            optionMenu.add(speedRow);
+            optionMenu.add(colorRow);
+            return optionMenu;
+        }
         MenuRow allianceRow = new MenuRow("Alliance");
         allianceRow.add(new MenuItem("R", "Red"));
         allianceRow.add(new MenuItem("B", "Blue"));
@@ -56,9 +85,13 @@ public class MenuCapture {
         autoRow.add(new MenuItem("N", "Nothing"));
         autoRow.add(new MenuItem("F24", "Forward 24"));
         autoRow.add(new MenuItem("FS", "Forward Then Strafe"));
-        OptionMenu optionMenu = new OptionMenu();
         optionMenu.add(allianceRow);
         optionMenu.add(autoRow);
+        return optionMenu;
+    }
+
+    /** What the Driver Station shows after each screen's presses. */
+    static String screens(OptionMenu optionMenu, List<String> presses) {
         MenuButtons menuButtons = new MenuButtons(optionMenu);
         Gamepad gamepad = new Gamepad();
 

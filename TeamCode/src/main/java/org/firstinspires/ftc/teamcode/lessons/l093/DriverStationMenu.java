@@ -7,6 +7,6 @@
  * {@link Tracker}, which shows the menu on the Driver Station and logs its
  * summary as menu/summary.
  */
-// When on L135S100, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s100
+// When on L093S100, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s100
 // for what to write in this file.
