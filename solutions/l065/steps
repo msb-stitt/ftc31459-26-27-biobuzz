@@ -1,0 +1,6 @@
+# L065: the two starters copied into mytry/l065, and each filled in.
+copy lessons/l065/StickShaper.java mytry/l065/StickShaper.java
+copy lessons/l065/L065ShaperOpMode.java mytry/l065/L065ShaperOpMode.java
+patch StickShaper.patch
+patch L065ShaperOpMode.patch
+test *LessonsTest.l065*

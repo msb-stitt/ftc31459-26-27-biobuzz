@@ -1,0 +1,33 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l065/L065ShaperOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l065/L065ShaperOpMode.java
+index f459bf62..44f5a081 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l065/L065ShaperOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l065/L065ShaperOpMode.java
+@@ -35,6 +35,7 @@ public class L065ShaperOpMode extends CorbelsTeleOp {
+     // When on L065S060, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l065.html#l065s060
+     // for what to do here.
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+@@ -84,12 +85,16 @@ public class L065ShaperOpMode extends CorbelsTeleOp {
+         // When on L065S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l065.html#l065s070
+         // for what to do here.
++        double leftShapedSpeed = stickShaper.shaped(leftSpeed);
++        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
++        double rightShapedSpeed = stickShaper.shaped(rightSpeed);
++        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
+ 
+-        hardware.frontLeft.setPower(leftSpeed);
+-        hardware.backLeft.setPower(leftSpeed);
++        hardware.frontLeft.setPower(leftShapedSpeed);
++        hardware.backLeft.setPower(leftShapedSpeed);
+ 
+-        hardware.frontRight.setPower(rightSpeed);
+-        hardware.backRight.setPower(rightSpeed);
++        hardware.frontRight.setPower(rightShapedSpeed);
++        hardware.backRight.setPower(rightShapedSpeed);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
