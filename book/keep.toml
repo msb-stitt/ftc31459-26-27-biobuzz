@@ -242,7 +242,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-l135-menu-classes.3"
+solutions = "solutions-e111"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -252,5 +252,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-l135-menu-classes"
-commit = "6baa4c36c3a779665df4ccbce3738f62b69f6404"
+ref = "lessons-e111"
+commit = ""
