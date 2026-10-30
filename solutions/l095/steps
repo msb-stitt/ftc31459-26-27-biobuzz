@@ -1,0 +1,4 @@
+# L095: the shaping-menu starter, copied into mytry and filled in.
+copy lessons/L095ShapingMenuOpMode.java mytry/L095ShapingMenuOpMode.java
+patch L095ShapingMenuOpMode.patch
+test *LessonsTest.l095*
