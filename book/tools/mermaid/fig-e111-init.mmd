@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant Platform
+  participant OpMode as L110Follower<br/>OpMode
+  participant Base as Corbels<br/>OpMode
+  participant Follower
+  participant DT as L110Follower<br/>DriveTrain
+  Platform->>OpMode: init()
+  OpMode->>Base: initBefore()
+  Note over Base: hardware =<br/>RobotHardware
+  OpMode->>DT: new L110FollowerDriveTrain(hardware)
+  OpMode->>Base: initAfter(<br/>drivetrain)
+  Base->>Follower: made, holding the drivetrain
+  loop until PLAY
+    Platform->>OpMode: init_loop()
+    OpMode->>Follower: localizer.update()
+  end

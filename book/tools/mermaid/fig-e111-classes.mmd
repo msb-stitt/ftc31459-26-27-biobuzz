@@ -1,0 +1,33 @@
+classDiagram
+  namespace FTC_Platform {
+    class Platform
+    class OpMode
+  }
+  namespace Pedro_Pathing {
+    class Drivetrain
+    class Follower
+    class Scheduler
+  }
+  namespace Our_base_classes {
+    class CorbelsOpMode
+    class CorbelsTeleOp
+    class CorbelsDriveTrain
+    class RobotHardware
+    class Tracker
+  }
+  class L110FollowerOpMode
+  class L110FollowerDriveTrain
+  class StickShaper
+  Platform o-- OpMode : runs the chosen OpMode
+  OpMode <|-- CorbelsOpMode
+  CorbelsOpMode <|-- CorbelsTeleOp
+  CorbelsTeleOp <|-- L110FollowerOpMode
+  CorbelsOpMode o-- RobotHardware : hardware
+  CorbelsOpMode o-- Follower : follower
+  Follower o-- Drivetrain : drives
+  Drivetrain <|.. CorbelsDriveTrain
+  CorbelsDriveTrain <|-- L110FollowerDriveTrain
+  L110FollowerDriveTrain ..> RobotHardware : built from
+  L110FollowerOpMode o-- StickShaper : stickShaper
+  L110FollowerOpMode ..> Tracker
+  L110FollowerOpMode ..> Scheduler : schedule

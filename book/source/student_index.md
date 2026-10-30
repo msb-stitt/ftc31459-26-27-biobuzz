@@ -44,6 +44,7 @@ tasks/l095
 :caption: connect the drivetrain to the follower
 
 tasks/l110
+tasks/e111
 ```
 
 ```{toctree}

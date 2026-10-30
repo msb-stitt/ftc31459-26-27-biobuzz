@@ -3281,6 +3281,17 @@ MERMAID_COLORS = {
     "L065ShaperOpMode": ("#A78BFA", "#6D28D9"),
     "StickShaper": ("#4ADE80", "#15803D"),
     "Shape": ("#FB923C", "#C2410C"),
+    "Platform": ("#A4A7A9", "#3E4245"),
+    "OpMode": ("#A4A7A9", "#3E4245"),
+    "CorbelsOpMode": ("#60A5FA", "#1D4ED8"),
+    "CorbelsTeleOp": ("#22D3EE", "#0E7490"),
+    "L110FollowerOpMode": ("#A78BFA", "#6D28D9"),
+    "Drivetrain": ("#F472B6", "#BE185D"),
+    "CorbelsDriveTrain": ("#FB923C", "#C2410C"),
+    "L110FollowerDriveTrain": ("#A3E635", "#4D7C0F"),
+    "Follower": ("#2DD4BF", "#0F766E"),
+    "Scheduler": ("#E879F9", "#A21CAF"),
+    "RobotHardware": ("#FACC15", "#A16207"),
 }
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
@@ -3332,13 +3343,43 @@ def mermaid_read(root):
     x0, y0 = (float(v) for v in root.get("viewBox").split()[:2])
     at = lambda x, y: (x - x0, y - y0)
     boxes, dividers, words, lifelines, arrows = [], [], [], [], []
-    node_x, names = 0.0, set()
+    clusters, notes, frames, figures = [], [], [], []
+    node_x, names, cluster_words = 0.0, set(), set()
     for el, dx, dy in walk(root):
         tag, cls = el.tag.removeprefix(SVG_NS), classes(el)
         if tag == "g" and "node" in cls:
             node_x = dx
         if tag == "g" and "label-group" in cls:
             names |= set(el.iter())
+        if tag == "g" and "cluster-label" in cls:
+            cluster_words |= set(el.iter())
+        if tag == "g" and "cluster" in cls and el.find(SVG_NS + "rect") is not None:
+            r = el.find(SVG_NS + "rect")
+            clusters.append(rect(*at(dx + float(r.get("x")), dy + float(r.get("y"))),
+                                 float(r.get("width")), float(r.get("height"))))
+        if tag == "g" and "actor-man" in cls:
+            for part in el:
+                ptag = part.tag.removeprefix(SVG_NS)
+                if ptag == "line":
+                    figures.append(("line", at(dx + float(part.get("x1")), dy + float(part.get("y1"))),
+                                    at(dx + float(part.get("x2")), dy + float(part.get("y2")))))
+                elif ptag == "circle":
+                    figures.append(("circle", at(dx + float(part.get("cx")), dy + float(part.get("cy"))),
+                                    float(part.get("r"))))
+        if tag == "rect" and "note" in cls:
+            x, y = at(dx + float(el.get("x")), dy + float(el.get("y")))
+            notes.append(rect(x, y, float(el.get("width")), float(el.get("height"))))
+        if tag == "line" and "loopLine" in cls:
+            frames.append((at(dx + float(el.get("x1")), dy + float(el.get("y1"))),
+                           at(dx + float(el.get("x2")), dy + float(el.get("y2")))))
+        if tag == "polygon" and "labelBox" in cls:
+            frames.append([at(dx + x, dy + y) for x, y in path_points(el.get("points"))])
+        if tag == "text" and ({"noteText", "labelText", "loopText"} & set(cls)):
+            y = dy + float(el.get("y")) + em(el.get("dy"))
+            if "loopText" in cls:
+                y -= CENTRAL * MERMAID_SIZE
+            words.append((at(dx + float(el.get("x")), y + CENTRAL * MERMAID_SIZE),
+                          "".join(el.itertext()), "middle"))
         if tag == "g" and "outer-path" in cls:
             pts = path_points(el[0].get("d"))
             xs, ys = [x for x, _ in pts], [y for _, y in pts]
@@ -3355,11 +3396,13 @@ def mermaid_read(root):
             s = "".join(t.text or "" for t in el.iter(SVG_NS + "tspan") if t is not el)
             y = dy + em(el.get("y")) + em(el.get("dy"))
             # A class's name, which Mermaid measures in another font than Menlo: centered.
-            if el in names:
+            if el in cluster_words:
+                words.append((at(dx + em(el.get("x")), y), s.replace("_", " "), "start"))
+            elif el in names:
                 words.append((at(node_x, y), s, "middle"))
             else:
                 words.append((at(dx + em(el.get("x")), y), s, "start"))
-        elif tag == "text" and ({"actor-box", "messageText"} & set(cls)):
+        elif tag == "text" and ({"actor-box", "actor-man", "messageText"} & set(cls)):
             # A name on two lines is two texts, each moved up or down by its tspan's dy.
             middle = dy + float(el.get("y")) + em(el.get("dy")) + sum(
                 em(t.get("dy")) for t in el.iter(SVG_NS + "tspan"))
@@ -3380,12 +3423,14 @@ def mermaid_read(root):
         elif tag == "path" and "relation" in cls:
             pts = json.loads(base64.b64decode(el.get("data-points")))
             ends = ("diamond" if "aggregation" in el.get("marker-start", "") else
+                    "triangle" if "extension" in el.get("marker-start", "") else
                     "open" if "dependency" in el.get("marker-end", "") else "none")
             arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts],
                            "edge-pattern-dashed" in cls, ends))
     w, h = (float(v) for v in root.get("viewBox").split()[2:])
     boxes = [fit(box, words) for box in boxes]
-    return w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows
+    return (w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows,
+            (clusters, notes, frames, figures))
 
 
 def across(divider, boxes):
@@ -3433,6 +3478,18 @@ def diamond(s, tip, toward):
     return back
 
 
+def triangle(s, tip, toward):
+    """A hollow triangle with its point at tip, lying along the line toward toward: is a."""
+    tx, ty = tip[0] - toward[0], tip[1] - toward[1]
+    n = math.hypot(tx, ty) or 1
+    tx, ty, h = tx / n, ty / n, 16
+    back = (tip[0] - tx * h, tip[1] - ty * h)
+    s.line([tip, (back[0] - ty * h * 0.6, back[1] + tx * h * 0.6),
+            (back[0] + ty * h * 0.6, back[1] - tx * h * 0.6)], PEN, 2.6, 0.9, fill=PAPER,
+           closed=True)
+    return back
+
+
 def open_head(s, a, b):
     """An open head at b, pointing from a: uses."""
     tx, ty = b[0] - a[0], b[1] - a[1]
@@ -3450,7 +3507,8 @@ def inside(p, box):
 def name_of(box, words):
     """The name centered in box, a name on two lines joined, as `red:MenuItem` or `MenuItem`."""
     lines = sorted((xy[1], s) for xy, s, anchor in words if anchor == "middle" and inside(xy, box))
-    return "".join(s for _, s in lines).replace(" ", "")
+    # A long name Mermaid wraps is broken with a hyphen it adds.
+    return "".join(s.removesuffix("-") for _, s in lines).replace(" ", "")
 
 
 def color_of(name):
@@ -3462,7 +3520,8 @@ def color_of(name):
 
 
 def mermaid(name):
-    w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
+    w, h, boxes, dividers, words, lifelines, arrows, extras = mermaid_read(mermaid_svg(name))
+    clusters, notes, frames, figures = extras
     if w > MERMAID_COLUMN:
         raise SystemExit(f"{name} is {w:.0f} px wide, wider than the column's {MERMAID_COLUMN} px:"
                          " lay it out narrower")
@@ -3471,8 +3530,30 @@ def mermaid(name):
     margin = (MERMAID_COLUMN - w) / 2
     s.ax.set_xlim(-margin, w + margin)
     names = [name_of(box, words) for box in boxes]
+    for box in clusters:
+        # Mermaid sizes a namespace's label in another font than Menlo: widen the box to hold it.
+        xs, ys = [x for x, _ in box], [y for _, y in box]
+        label = [(xy, t) for xy, t, a in words if a == "start" and min(xs) <= xy[0] <= max(xs)
+                 and abs(xy[1] - min(ys)) < MERMAID_SIZE * 1.5]
+        right = max([max(xs)] + [xy[0] + len(t) * MENLO_ADVANCE * MERMAID_SIZE + 8
+                                 for xy, t in label])
+        corners = [(min(xs), min(ys)), (right, min(ys)), (right, max(ys)), (min(xs), max(ys))]
+        s.line(corners, GREY3, 1.8, 0.9, closed=True)
     for a, b in lifelines:
         s.line([a, b], GREY3, 1.8, 0.9).set_linestyle((0, (6, 4)))
+    for frame in frames:
+        if len(frame) == 2:
+            s.line(list(frame), GREY4, 1.8, 0.9).set_linestyle((0, (3, 3)))
+        else:
+            s.line(frame, GREY4, 1.8, 0.9, fill=PAPER, closed=True)
+    for box in notes:
+        s.marker(box, MARKER_YELLOW, nib=10, opacity=0.4)
+        s.ink_poly(box, over=4, color=GREY4)
+    for kind, a, b in figures:
+        if kind == "line":
+            s.line([a, b], PEN, 2.6, 0.9)
+        else:
+            s.ink_circle(a, b, width=2.6)
     colors = [color_of(n) for n in names]
     for box, (fill, ink) in zip(boxes, colors):
         s.marker(box, fill, nib=10, opacity=0.4)
@@ -3483,6 +3564,8 @@ def mermaid(name):
     for pts, dashed, ends in arrows:
         if ends == "diamond":
             pts = [diamond(s, pts[0], pts[1])] + pts[1:]
+        if ends == "triangle":
+            pts = [triangle(s, pts[0], pts[1])] + pts[1:]
         line = s.line(pts, PEN, 2.6, 0.9)
         if dashed:
             line.set_linestyle((0, (5, 3)))
@@ -3493,7 +3576,7 @@ def mermaid(name):
     for xy, words_, anchor in words:
         text = s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
         # A message's words cross the lifelines: a box of paper behind them parts them.
-        if not any(inside(xy, box) for box in boxes):
+        if not any(inside(xy, box) for box in boxes + notes):
             text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
     s.save(name)
 
