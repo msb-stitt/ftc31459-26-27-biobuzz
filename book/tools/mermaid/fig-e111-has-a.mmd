@@ -1,0 +1,17 @@
+classDiagram
+  namespace FTC_Platform {
+    class Platform
+  }
+  namespace Pedro_Pathing {
+    class Follower
+  }
+  namespace Our_base_classes {
+    class RobotHardware
+  }
+  Platform o-- L110FollowerOpMode : runs
+  L110FollowerOpMode o-- RobotHardware : hardware
+  L110FollowerOpMode o-- Follower : follower
+  L110FollowerOpMode o-- L110FollowerDriveTrain : drivetrain
+  L110FollowerOpMode o-- StickShaper : stickShaper
+  Follower o-- L110FollowerDriveTrain : drives, as a Drivetrain
+  L110FollowerDriveTrain o-- RobotHardware : its motors

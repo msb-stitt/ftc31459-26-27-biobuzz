@@ -1,0 +1,24 @@
+%%{init: {"sequence": {"width": 104, "actorMargin": 8}}}%%
+sequenceDiagram
+  participant Platform
+  participant OpMode as L110Follower<br/>OpMode
+  participant Base as Corbels<br/>OpMode
+  participant Scheduler
+  participant Follower
+  participant DT as L110Follower<br/>DriveTrain
+  Platform->>OpMode: start()
+  OpMode->>Base: startBefore()
+  Base->>Follower: manual(0, 0, 0)
+  OpMode->>Scheduler: schedule(<br/>driveFromTheSticks)
+  OpMode->>Base: startAfter()
+  loop until STOP
+    Platform->>OpMode: loop()
+    OpMode->>Base: loopAfter()
+    Base->>Scheduler: execute()
+    Scheduler->>OpMode: driveFromTheSticks()
+    Note over OpMode: each stick<br/>through<br/>shaped()
+    OpMode->>DT: sticks(...)
+    Base->>Follower: update()
+    Follower->>DT: drive(powers, true)
+    Note over DT: the wheels' powers to the motors
+  end
