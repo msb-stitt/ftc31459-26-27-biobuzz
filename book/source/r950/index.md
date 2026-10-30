@@ -16,8 +16,9 @@ L080ArcadeOpMode
 L090MecanumOpMode
 L110FollowerDriveTrain
 L110FollowerOpMode
-L120CompareLocalizersOpMode
-L120EncoderLocalizer
+L113LocalizerOpMode
+L113EncoderLocalizer
+L122CompareLocalizersOpMode
 L125Drive24OpMode
 L130ForwardThenStrafeOpMode
 OptionMenu
