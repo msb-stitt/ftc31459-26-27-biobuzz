@@ -15,7 +15,7 @@ index ee4374c..8c5517b 100644
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
          // for what to do here.
 +        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-+        L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
++        L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
 +        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
      }
  

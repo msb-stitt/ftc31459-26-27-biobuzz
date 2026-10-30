@@ -1,0 +1,7 @@
+# L113: both starters, copied into mytry and filled in.
+copy lessons/L113LocalizerOpMode.java mytry/L113LocalizerOpMode.java
+copy lessons/L113EncoderLocalizer.java mytry/L113EncoderLocalizer.java
+patch L113LocalizerOpMode.patch
+patch L113EncoderLocalizer.patch
+test *LessonsTest.l113*
+test *L113EncoderLocalizerTest*

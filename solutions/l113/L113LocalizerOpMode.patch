@@ -1,0 +1,22 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113LocalizerOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113LocalizerOpMode.java
+index db2395a..3752650 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113LocalizerOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113LocalizerOpMode.java
+@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+ 
+ /**
+  * L113: drive around with your own localizer running beside the robot's. Yours
+@@ -91,6 +92,9 @@ public class L113LocalizerOpMode extends CorbelsTeleOp {
+         // When on L113S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s030
+         // for what to do here.
++        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++        L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
++        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
