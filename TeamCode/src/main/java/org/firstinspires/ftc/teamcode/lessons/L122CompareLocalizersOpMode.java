@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
- * L120: drive around while two localizers disagree. Your localizer reads the
- * four drive wheels, and the robot's own reads the Pinpoint's two pods. Both
+ * L122: drive around while two localizers disagree. Your localizer from L113
+ * reads the four drive wheels, and the robot's own reads the Pinpoint's two pods. Both
  * are published under Localizer/, so they can be graphed against each other
  * and checked with a tape measure.
  *
@@ -24,15 +24,15 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * a command, and the scheduler runs it inside {@code loopAfter()}, once every
  * loop.
  *
- * <p>Passes when: LessonsTest.l120_theEncoderLocalizerRunsAlongsideAndIsLogged
+ * <p>Passes when: LessonsTest.l122_bothLocalizersAreLogged
  */
-@TeleOp(name = "L120 Compare Localizers", group = "Lessons")
-// When on L120S020, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s020
+@TeleOp(name = "L122 Compare Localizers", group = "Lessons")
+// When on L122S020, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l122.html#l122s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
-public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
+public class L122CompareLocalizersOpMode extends CorbelsTeleOp {
 
     CorbelsMecanum drivetrain;
 
@@ -89,8 +89,8 @@ public class L120CompareLocalizersOpMode extends CorbelsTeleOp {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void shadowLocalizers() {
-        // When on L120S030, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
+        // When on L122S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l122.html#l122s030
         // for what to do here.
     }
 

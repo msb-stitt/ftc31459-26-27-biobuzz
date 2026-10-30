@@ -37,7 +37,7 @@ tasks/l090
 
 ```{toctree}
 :maxdepth: 1
-:caption: hand the wheels to the follower
+:caption: connect the drivetrain to the follower
 
 tasks/l110
 ```
@@ -46,9 +46,10 @@ tasks/l110
 :maxdepth: 1
 :caption: know where it is
 
+tasks/l113
 tasks/l115
 tasks/l117
-tasks/l120
+tasks/l122
 ```
 
 ```{toctree}
