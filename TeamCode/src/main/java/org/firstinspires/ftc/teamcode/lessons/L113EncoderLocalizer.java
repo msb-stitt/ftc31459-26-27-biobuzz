@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.odometry.WheelSource;
 import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
 
 /**
- * L120: work out where the robot is from the drive wheels and the IMU.
+ * L113: work out where the robot is from the drive wheels and the IMU.
  *
  * <p>Pedro has localizers for the Pinpoint and for dead wheels, but not for
  * drive encoders, so this one is yours to write. Every loop it asks how far
@@ -22,9 +22,9 @@ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
  *
  * <p>Wheel order is front left, front right, back left, back right, in inches.
  *
- * <p>Passes when: L120EncoderLocalizerTest (all of it)
+ * <p>Passes when: L113EncoderLocalizerTest (all of it)
  */
-class L120EncoderLocalizer implements Localizer {
+class L113EncoderLocalizer implements Localizer {
 
     PoseFactory poses = PoseFactory.radians();
 
@@ -40,7 +40,7 @@ class L120EncoderLocalizer implements Localizer {
     double[] lastWheels_in;
     double lastRawHeading_rad;
 
-    L120EncoderLocalizer(WheelSource source) {
+    L113EncoderLocalizer(WheelSource source) {
         this.source = source;
     }
 
@@ -50,12 +50,12 @@ class L120EncoderLocalizer implements Localizer {
         double[] wheels_in = source.wheelInches();
         double rawHeading_rad = source.headingRadians();
 
-        // When on L120S040, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
+        // When on L113S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s040
         // for what to do here.
 
-        // When on L120S050, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+        // When on L113S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s050
         // for what to do here.
 
         lastWheels_in = wheels_in.clone();

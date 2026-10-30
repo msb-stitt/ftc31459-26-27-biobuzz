@@ -9,8 +9,8 @@ import com.pedropathing.math.Pose;
 import org.firstinspires.ftc.teamcode.base.odometry.WheelSource;
 import org.junit.Test;
 
-/** L120: does the encoder localizer's arithmetic work, on a laptop, with no robot? */
-public class L120EncoderLocalizerTest {
+/** L113: does the encoder localizer's arithmetic work, on a laptop, with no robot? */
+public class L113EncoderLocalizerTest {
 
     private static final PoseFactory POSES = PoseFactory.degrees();
     private static final double EPS = 1e-6;
@@ -40,7 +40,7 @@ public class L120EncoderLocalizerTest {
     }
 
     private final FakeWheels wheels = new FakeWheels();
-    private final Localizer localizer = MyTry.make("L120EncoderLocalizer", Localizer.class, wheels);
+    private final Localizer localizer = MyTry.make("L113EncoderLocalizer", Localizer.class, wheels);
 
     private void step() {
         localizer.update();
