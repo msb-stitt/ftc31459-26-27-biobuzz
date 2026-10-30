@@ -216,7 +216,7 @@ path = "source/tasks/l195.md"
 words = 1700
 
 [[page]]
-path = "source/tasks/h093.md"
+path = "source/tasks/h096.md"
 words = 1000
 
 # Raised from 1000 on 2026-09-28. The split build gave the page a second command
@@ -231,7 +231,7 @@ words = 1000
 # "no OpMode called ..." and exit 2. The commands and the sentence explaining them
 # carry the package now. Mike raised the ceiling rather than cut a sentence.
 [[page]]
-path = "source/tasks/h095.md"
+path = "source/tasks/h097.md"
 words = 1150
 
 [[page]]

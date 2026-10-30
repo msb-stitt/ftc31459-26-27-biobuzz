@@ -4,15 +4,15 @@ What each lesson's patch does to this file, in the order the lessons come, from 
 `solutions/` on `solutions-e111`. A line marked + is new, and a line marked - is gone; each number
 is the line's place in the file after the lesson.
 
-## L135
+## L093
 
 ```{code-block} diff
 :class: answer-diff
 
---- mytry/l135/MenuRowTest.java  (before L135)
-+++ mytry/l135/MenuRowTest.java  (after L135)
+--- mytry/l093/MenuRowTest.java  (before L093)
++++ mytry/l093/MenuRowTest.java  (after L093)
 @@ lines 1 to 10 @@
-+   1 package org.firstinspires.ftc.teamcode.mytry.l135;
++   1 package org.firstinspires.ftc.teamcode.mytry.l093;
 +   2
 +   3 import static org.junit.Assert.assertEquals;
 +   4
@@ -23,8 +23,8 @@ is the line's place in the file after the lesson.
     9  * Tests for {@link MenuRow}: a row starts at the first choice added,
    10  * selected; left and right offer a choice and wrap at the ends; A selects
 @@ lines 14 to 89 @@
-   14 // When on L135S040, see
-   15 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+   14 // When on L093S040, see
+   15 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s040
    16 // for what to write in this file.
 +  17 // 'public' so JUnit can run it. 'public' allows access from any code.
 +  18 public class MenuRowTest {

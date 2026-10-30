@@ -4,15 +4,15 @@ What each lesson's patch does to this file, in the order the lessons come, from 
 `solutions/` on `solutions-e111`. A line marked + is new, and a line marked - is gone; each number
 is the line's place in the file after the lesson.
 
-## L135
+## L093
 
 ```{code-block} diff
 :class: answer-diff
 
---- mytry/l135/OptionMenu.java  (before L135)
-+++ mytry/l135/OptionMenu.java  (after L135)
+--- mytry/l093/OptionMenu.java  (before L093)
++++ mytry/l093/OptionMenu.java  (after L093)
 @@ lines 1 to 7 @@
-+   1 package org.firstinspires.ftc.teamcode.mytry.l135;
++   1 package org.firstinspires.ftc.teamcode.mytry.l093;
 +   2
 +   3 import java.util.ArrayList;
 +   4
@@ -20,10 +20,10 @@ is the line's place in the file after the lesson.
     6  * The rows of a menu, and which row the pointer is on. Up and down move the
     7  * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
 @@ lines 12 to 92 @@
-   12 // When on L135S070, see
-   13 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
+   12 // When on L093S070, see
+   13 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s070
    14 // for what to write in this file.
-+  15 // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++  15 // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +  16 public class OptionMenu {
 +  17
 +  18     // 'private' so only this class can use it. 'private' allows access from this class only.
@@ -31,7 +31,7 @@ is the line's place in the file after the lesson.
 +  20     // 'private' so only this class can use it. 'private' allows access from this class only.
 +  21     private int pointedIndex = 0;
 +  22
-+  23     // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++  23     // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +  24     public void add(MenuRow row) {
 +  25         rows.add(row);
 +  26     }

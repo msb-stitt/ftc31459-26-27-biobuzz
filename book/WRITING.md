@@ -260,7 +260,7 @@ These simplifications are made everywhere, and are not marked:
 - **The code we give the students has Javadoc**, and no lesson asks a student to write any.
 - **`mytry` holds no `package-info.java`.**
 - **A student page uses AdvantageScope, not Panels.** Panels stays in the code for driving the robot
-  without a Driver Station, and its page, H093, is in the mentor book only.
+  without a Driver Station, and its page, H096, is in the mentor book only.
 
 ## Say nothing about what the lessons do not teach
 
