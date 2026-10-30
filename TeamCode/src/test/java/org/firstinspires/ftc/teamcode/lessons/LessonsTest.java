@@ -441,6 +441,45 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l095_theMenuStartsAtTheDefault() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L095ShapingMenuOpMode"));
+        h.init();
+        h.initLoop();
+        assertTrue("each row starts at the default: " + h.driverStation.text(),
+                h.driverStation.shows("0.05-S\n> Band: <0.05>\n  Shape: <Squared>"));
+        h.start();
+        h.gamepad1.left_stick_y = -0.04f;     // inside a band of 0.05
+        h.loop();
+        assertWheels("inside the band", h, 0, 0, 0, 0);
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+        assertWheels("half a stick, squared", h, 0.25, 0.25, 0.25, 0.25);
+        h.stop();
+    }
+
+    @Test
+    public void l095_theMenuChoosesTheBandAndTheShape() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L095ShapingMenuOpMode"));
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_left = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("0.10 and Linear chosen: " + h.driverStation.text(),
+                h.driverStation.shows("0.10-L\n  Band: <0.10>\n> Shape: <Linear>"));
+        h.start();
+        h.gamepad1.left_stick_y = -0.08f;     // inside a band of 0.10
+        h.loop();
+        assertWheels("inside the chosen band", h, 0, 0, 0, 0);
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+        assertWheels("half a stick, linear", h, 0.5, 0.5, 0.5, 0.5);
+        h.stop();
+    }
+
     /**
      * L110's mixArcadeToWheelSpeeds, driven the way the follower drives it: the
      * arcade command in, wheel speeds on the motors. Each assert names the wheel, so a wrong sign says
