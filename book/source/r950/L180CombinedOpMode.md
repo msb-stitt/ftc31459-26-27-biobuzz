@@ -24,7 +24,7 @@ is the line's place in the file after the lesson.
   110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
   111         // for what to do here.
 + 112         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-+ 113         L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
++ 113         L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
 + 114         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
   115     }
   116

@@ -1,19 +1,19 @@
-# L120EncoderLocalizer
+# L113EncoderLocalizer
 
 What each lesson's patch does to this file, in the order the lessons come, from applying
 `solutions/` on `solutions-e111`. A line marked + is new, and a line marked - is gone; each number
 is the line's place in the file after the lesson.
 
-## L120
+## L113
 
 ```{code-block} diff
 :class: answer-diff
 
---- mytry/L120EncoderLocalizer.java  (before L120)
-+++ mytry/L120EncoderLocalizer.java  (after L120)
+--- mytry/L113EncoderLocalizer.java  (before L113)
++++ mytry/L113EncoderLocalizer.java  (after L113)
 @@ lines 53 to 80 @@
-   53         // When on L120S040, see
-   54         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
+   53         // When on L113S040, see
+   54         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s040
    55         // for what to do here.
 +  56         if (lastWheels_in == null) {
 +  57             lastWheels_in = wheels_in.clone();
@@ -29,8 +29,8 @@ is the line's place in the file after the lesson.
 +  67         double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;
 +  68         double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
    69
-   70         // When on L120S050, see
-   71         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+   70         // When on L113S050, see
+   71         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s050
    72         // for what to do here.
 +  73         double heading_rad = rawHeading_rad + headingOffset_rad;
 +  74         double sinHeading = Math.sin(heading_rad);
