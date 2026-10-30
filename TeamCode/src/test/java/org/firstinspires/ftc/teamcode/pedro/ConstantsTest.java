@@ -74,14 +74,6 @@ public class ConstantsTest {
     }
 
     @Test
-    public void robot31459Uses37523sValuesUntilItsOwnAreMeasured() {
-        assertSame(Bot37523.drivetrainConfig, Bot31459.drivetrainConfig);
-        assertSame(Bot37523.localizerConfig, Bot31459.localizerConfig);
-        assertSame(Bot37523.foresightConfig, Bot31459.foresightConfig);
-        assertEquals(Bot37523.launcherStaticPower, Bot31459.launcherStaticPower, 0);
-    }
-
-    @Test
     public void thisRobotPicksWhichFileTheValuesComeFrom() {
         try {
             Constants.thisRobot = Constants.Robot.BOT_88888;
