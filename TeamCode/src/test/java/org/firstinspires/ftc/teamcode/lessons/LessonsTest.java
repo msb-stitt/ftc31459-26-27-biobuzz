@@ -190,6 +190,67 @@ public class LessonsTest {
     }
 
     @Test
+    public void l065_aLetGoStickCountsAsCentred() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l065.L065ShaperOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.03f;     // two sticks that were let go
+        h.gamepad1.right_stick_y = 0.04f;
+        h.loop();
+
+        assertEquals("inside the deadband, so the robot does not creep",
+                0.0, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
+        h.stop();
+    }
+
+    @Test
+    public void l065_halfAStickIsAQuarterOfTheSpeed() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l065.L065ShaperOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.gamepad1.right_stick_y = 0.5f;      // half back
+        h.loop();
+
+        assertEquals("a new StickShaper squares, so half stick is quarter speed",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals("and squaring keeps the sign",
+                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
+        h.stop();
+    }
+
+    /** {@code StickShaper.Shape}'s constant named {@code name}, out of {@code mytry.l065}. */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static Object shape(String name) throws ClassNotFoundException {
+        Class shapes = Class.forName(MyTry.PACKAGE + ".l065.StickShaper$Shape");
+        return Enum.valueOf(shapes, name);
+    }
+
+    @Test
+    public void l065_theShaperGivesEachShape() throws ClassNotFoundException {
+        Object shaper = MyTry.make("l065.StickShaper", Object.class, 0.05);
+        assertEquals("squared until told otherwise",
+                0.25, (double) MyTry.call(shaper, "shaped", 0.5), EPS);
+        assertEquals("inside the band is 0",
+                0.0, (double) MyTry.call(shaper, "shaped", -0.04), EPS);
+
+        MyTry.call(shaper, "setShape", shape("LINEAR"));
+        assertEquals(0.5, (double) MyTry.call(shaper, "shaped", 0.5), EPS);
+        MyTry.call(shaper, "setShape", shape("CUBED"));
+        assertEquals("cubed keeps the sign",
+                -0.125, (double) MyTry.call(shaper, "shaped", -0.5), EPS);
+
+        MyTry.call(shaper, "setBand", 0.1);
+        assertEquals("a wider band",
+                0.0, (double) MyTry.call(shaper, "shaped", 0.08), EPS);
+    }
+
+    @Test
     public void l070_logsTheAButton() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L070ButtonsOpMode"));
         h.init();
