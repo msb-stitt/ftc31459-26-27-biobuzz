@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Runs base's menu through a list of presses, with L093's rows and with L135's,
+ * Runs base's menu through a list of presses, with L093's rows, L095's and L135's,
  * and writes what the Driver Station shows after each, for the figures
  * book/tools/draw.py draws.
  *
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class MenuCapture {
 
-    static final String[] LESSONS = {"l093", "l135"};
+    static final String[] LESSONS = {"l093", "l095", "l135"};
 
     static Path presses(String lesson) {
         return Paths.get("book/tools/menu/" + lesson + "-presses.txt");
@@ -76,6 +76,21 @@ public class MenuCapture {
             optionMenu.add(lightRow);
             optionMenu.add(speedRow);
             optionMenu.add(colorRow);
+            return optionMenu;
+        }
+        if (lesson.equals("l095")) {
+            MenuRow bandRow = new MenuRow("Band");
+            bandRow.add(new MenuItem("0.05", "0.05"));
+            bandRow.add(new MenuItem("0.00", "0.00"));
+            bandRow.add(new MenuItem("0.025", "0.025"));
+            bandRow.add(new MenuItem("0.075", "0.075"));
+            bandRow.add(new MenuItem("0.10", "0.10"));
+            MenuRow shapeRow = new MenuRow("Shape");
+            shapeRow.add(new MenuItem("S", "Squared"));
+            shapeRow.add(new MenuItem("L", "Linear"));
+            shapeRow.add(new MenuItem("C", "Cubed"));
+            optionMenu.add(bandRow);
+            optionMenu.add(shapeRow);
             return optionMenu;
         }
         MenuRow allianceRow = new MenuRow("Alliance");

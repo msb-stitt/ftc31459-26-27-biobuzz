@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/** The screens L093's and L135's figures are drawn from are what base's menu shows. */
+/** The screens L093's, L095's and L135's figures are drawn from are what base's menu shows. */
 public class MenuCaptureTest {
 
     @Test
