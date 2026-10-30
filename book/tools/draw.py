@@ -3544,7 +3544,7 @@ def menu_press(lesson, n, press, lines):
 
 
 def menu_presses():
-    for lesson in ("l093", "l135"):
+    for lesson in ("l093", "l095", "l135"):
         for n, (press, lines) in enumerate(screens(lesson), start=1):
             menu_press(lesson, n, press, lines)
 

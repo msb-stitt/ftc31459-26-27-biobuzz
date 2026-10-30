@@ -223,7 +223,7 @@ afterEvaluate {
     // MenuCapture's javadoc says which files; MenuCaptureTest checks the one written.
     tasks.register('menuCapture', JavaExec) {
         group = 'documentation'
-        description = "Write the Driver Station's text for each of L093's and L135's presses."
+        description = "Write the Driver Station's text for each of L093's, L095's and L135's presses."
         dependsOn 'compileDebugUnitTestJavaWithJavac'
         mainClass = 'org.firstinspires.ftc.teamcode.base.MenuCapture'
         classpath = tasks.named('testDebugUnitTest').get().classpath

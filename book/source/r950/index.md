@@ -26,6 +26,7 @@ MenuItemTest
 MenuRowTest
 OptionMenuTest
 MenuButtonsTest
+L095ShapingMenuOpMode
 L110FollowerDriveTrain
 L110FollowerOpMode
 L113LocalizerOpMode
