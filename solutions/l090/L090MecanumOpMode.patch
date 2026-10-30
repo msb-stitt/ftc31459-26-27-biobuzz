@@ -1,13 +1,48 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java
-index 0183d94..ef2b576 100644
+index da17f76..47c0326 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java
-@@ -81,10 +81,38 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
+@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
+ // When on L090S020, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+ // for what to do here.
+-//import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
++import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
+ 
+ /**
+  * L090: mecanum drive. The left stick drives and slides, the right stick
+@@ -39,7 +39,7 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
+     // When on L090S020, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+     // for what to do here.
+-//    StickShaper stickShaper = new StickShaper(0.05);
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+@@ -83,22 +83,53 @@ public class L090MecanumOpMode extends CorbelsTeleOp {
+         // When on L090S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+         // for what to do here.
+-//        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
++        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
+         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+         double turnCcwSpeed = -rightStickX;
+         // When on L090S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+         // for what to do here.
+-//        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
++        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
+         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+ 
          // When on L090S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
          // for what to do here.
 +        double strafeYSpeed = -leftStickX;
-+        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
++        // When on L090S020, see
++        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
++        // for what to do here.
++        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
 +        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
  
          // When on L090S040, see

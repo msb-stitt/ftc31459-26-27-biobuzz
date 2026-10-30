@@ -1,26 +1,27 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
-index 37655b6..823c6a1 100644
+index 0754382..f7345b3 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L160HeadingHoldOpMode.java
-@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+@@ -8,8 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  
  import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
  import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 +import org.firstinspires.ftc.teamcode.base.HeadingHold;
+ import org.firstinspires.ftc.teamcode.base.StickShaper;
  import org.firstinspires.ftc.teamcode.base.Tracker;
 +import org.firstinspires.ftc.teamcode.pedro.Constants;
  
  /**
   * L160: hold the heading the driver left. Let go of the turn stick and the
-@@ -32,6 +34,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
- public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+@@ -35,6 +37,7 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+     StickShaper stickShaper = new StickShaper(0.05);
  
      CorbelsMecanum drivetrain;
 +    HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
  
      // 'public' to match the parent class. 'public' allows access from any code.
      @Override
-@@ -78,6 +81,9 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+@@ -80,6 +83,9 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
          // When on L160S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
          // for what to do here.
@@ -29,4 +30,4 @@ index 37655b6..823c6a1 100644
 +        Tracker.publish("drivetrain/holdingHeading", holdingHeading);
  
          double fieldYSpeed = -leftStickX;
-         fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+         fieldYSpeed = stickShaper.shaped(fieldYSpeed);

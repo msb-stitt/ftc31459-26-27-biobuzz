@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
-index 459834d..9dc101c 100644
+index b23e423..1b8160f 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L150RobotRelativeButtonOpMode.java
-@@ -85,11 +85,20 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
+@@ -87,11 +87,20 @@ public class L150RobotRelativeButtonOpMode extends CorbelsTeleOp {
          // When on L150S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
          // for what to do here.
@@ -15,9 +15,9 @@ index 459834d..9dc101c 100644
 +        Tracker.publish("drivetrain/robotRelative", robotRelative);
 +        if (robotRelative) {
 +            robotForwardXSpeed = -leftStickY;
-+            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
++            robotForwardXSpeed = stickShaper.shaped(robotForwardXSpeed);
 +            robotStrafeYSpeed = -leftStickX;
-+            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
++            robotStrafeYSpeed = stickShaper.shaped(robotStrafeYSpeed);
 +        } else {
 +            double heading_rad = follower.pose().heading();
 +            double sinHeading = Math.sin(heading_rad);

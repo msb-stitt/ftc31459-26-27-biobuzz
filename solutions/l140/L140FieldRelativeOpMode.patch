@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-index a245bac..cd2c25d 100644
+index fd4de39..a913957 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L140FieldRelativeOpMode.java
-@@ -15,6 +15,10 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
+@@ -16,6 +16,10 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  // When on L140S050, see
  // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
  // for what to do here.
@@ -13,7 +13,7 @@ index a245bac..cd2c25d 100644
  
  /**
   * L140: field relative. Push the stick away from you and the robot goes away
-@@ -46,6 +50,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -49,6 +53,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
      // When on L140S050, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
      // for what to do here.
@@ -28,7 +28,7 @@ index a245bac..cd2c25d 100644
  
      double robotHalfLength_in = 9.0;
      double fieldPerimeterWidth_in = 1.5;
-@@ -64,6 +76,17 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -67,6 +79,17 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
          // for what to do here.
@@ -46,7 +46,7 @@ index a245bac..cd2c25d 100644
      }
  
      /** Again and again between INIT and PLAY. */
-@@ -73,6 +96,7 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -76,6 +99,7 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
          // for what to do here.
@@ -54,7 +54,7 @@ index a245bac..cd2c25d 100644
          initLoopAfter();
      }
  
-@@ -83,6 +107,11 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -86,6 +110,11 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S070, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
          // for what to do here.
@@ -66,7 +66,7 @@ index a245bac..cd2c25d 100644
          Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
          Scheduler.schedule(driveFromTheSticksEveryLoop);
          startAfter();
-@@ -95,6 +124,7 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -98,6 +127,7 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
          // for what to do here.
@@ -74,7 +74,7 @@ index a245bac..cd2c25d 100644
          loopAfter();
      }
  
-@@ -111,8 +141,15 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -113,8 +143,15 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
          // for what to do here.
@@ -90,9 +90,9 @@ index a245bac..cd2c25d 100644
 +            fieldYSpeed = leftStickX;
 +        }
  
-         fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+         fieldXSpeed = stickShaper.shaped(fieldXSpeed);
          Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
-@@ -126,7 +163,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -128,7 +165,14 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040
          // for what to do here.
@@ -108,7 +108,7 @@ index a245bac..cd2c25d 100644
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
-@@ -142,6 +186,9 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+@@ -144,6 +188,9 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
          // When on L140S070, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
          // for what to do here.
@@ -117,4 +117,4 @@ index a245bac..cd2c25d 100644
 +        }
          return chosenPoses;
      }
- 
+ }

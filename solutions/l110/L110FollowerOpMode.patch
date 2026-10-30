@@ -1,8 +1,23 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
-index b53161b..3d7f3c9 100644
+index 2bee926..87f51f5 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L110FollowerOpMode.java
-@@ -34,6 +34,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
+ // When on L110S020, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s020
+ // for what to do here.
+-//import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
++import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
+ 
+ /**
+  * L110: hand the wheels to the path follower. The robot drives on the sticks
+@@ -38,11 +38,12 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+     // When on L110S020, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s020
+     // for what to do here.
+-//    StickShaper stickShaper = new StickShaper(0.05);
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
      // When on L110S040, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s040
      // for what to do here.
@@ -10,7 +25,7 @@ index b53161b..3d7f3c9 100644
  
      // 'public' to match the parent class. 'public' allows access from any code.
      @Override
-@@ -43,8 +44,9 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+@@ -52,8 +53,9 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
          // When on L110S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s050
          // for what to do here.
@@ -21,7 +36,29 @@ index b53161b..3d7f3c9 100644
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
-@@ -87,6 +89,7 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+@@ -85,25 +87,26 @@ public class L110FollowerOpMode extends CorbelsTeleOp {
+         // When on L110S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s020
+         // for what to do here.
+-//        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
++        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
+         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+         double turnCcwSpeed = -rightStickX;
+         // When on L110S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s020
+         // for what to do here.
+-//        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
++        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
+         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+ 
+         double strafeYSpeed = -leftStickX;
+         // When on L110S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s020
+         // for what to do here.
+-//        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
++        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
+         Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
+ 
          // When on L110S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
          // for what to do here.
