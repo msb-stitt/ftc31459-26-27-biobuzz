@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.StickShaper;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
@@ -31,6 +32,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L160HeadingHoldOpMode extends CorbelsTeleOp {
+
+    StickShaper stickShaper = new StickShaper(0.05);
 
     CorbelsMecanum drivetrain;
 
@@ -69,19 +72,18 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
         double rightStickX = gamepad1.right_stick_x;
         Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double bandToSetToZero = 0.05;
         double fieldXSpeed = -leftStickY;
-        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        fieldXSpeed = stickShaper.shaped(fieldXSpeed);
         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
         double turnCcwSpeed = -rightStickX;
-        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
         // When on L160S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
         // for what to do here.
 
         double fieldYSpeed = -leftStickX;
-        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        fieldYSpeed = stickShaper.shaped(fieldYSpeed);
         Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
 
         double robotForwardXSpeed;
@@ -90,9 +92,9 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
         Tracker.publish("drivetrain/robotRelative", robotRelative);
         if (robotRelative) {
             robotForwardXSpeed = -leftStickY;
-            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
+            robotForwardXSpeed = stickShaper.shaped(robotForwardXSpeed);
             robotStrafeYSpeed = -leftStickX;
-            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
+            robotStrafeYSpeed = stickShaper.shaped(robotStrafeYSpeed);
         } else {
             double heading_rad = follower.pose().heading();
             double sinHeading = Math.sin(heading_rad);
@@ -109,26 +111,5 @@ public class L160HeadingHoldOpMode extends CorbelsTeleOp {
     @Override
     public void stop() {
         stopAfter();
-    }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-
-    double signedSquared(double value) {
-        double alwaysPositiveValue = Math.abs(value);
-        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
-        return valueSquaredKeepingTheSign;
-    }
-
-    double speedShaped(double value, double band) {
-        double deadbanded = deadband(value, band);
-        double shapedSpeed = signedSquared(deadbanded);
-        return shapedSpeed;
     }
 }
