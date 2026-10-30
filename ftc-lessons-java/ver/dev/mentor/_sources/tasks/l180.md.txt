@@ -1,4 +1,4 @@
-# 180 lesson: one OpMode a driver could take to a match
+# 180 lesson: three drive modes in one OpMode
 
 :::{figure} ../_figures/fig-l180-aiming.png
 :name: fig-l180-aiming
