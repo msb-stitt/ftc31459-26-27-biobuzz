@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * a command, and the scheduler runs it inside {@code loopAfter()}, once every
  * loop.
  *
- * <p>Between INIT and PLAY, L135's menu chooses the alliance, which starts as
+ * <p>Between INIT and PLAY, L093's menu chooses the alliance, which starts as
  * the one L140's auto handed over, and where the robot starts: where the auto
  * ended, or against the wall, for a teleop run with no auto first.
  *

@@ -5,6 +5,6 @@
  *
  * <p>Uses no other class.
  */
-// When on L135S030, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+// When on L093S030, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s030
 // for what to write in this file.

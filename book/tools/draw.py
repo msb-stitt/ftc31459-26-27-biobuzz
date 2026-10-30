@@ -3270,6 +3270,7 @@ MERMAID_COLUMN = 736       # the book's column, in CSS pixels; a Mermaid pixel i
 # palette as its neo look gave them in fig-l135-classes, and its lines, a darker shade of it.
 MERMAID_COLORS = {
     "AutoWithMenuOpMode": ("#A78BFA", "#6D28D9"),
+    "L093MenuOpMode": ("#A78BFA", "#6D28D9"),
     "DriverStationMenu": ("#4ADE80", "#15803D"),
     "MenuButtons": ("#22D3EE", "#0E7490"),
     "OptionMenu": ("#FB923C", "#C2410C"),
@@ -3277,6 +3278,9 @@ MERMAID_COLORS = {
     "MenuItem": ("#E879F9", "#A21CAF"),
     "Gamepad": ("#A4A7A9", "#3E4245"),
     "Tracker": ("#FACC15", "#A16207"),
+    "L065ShaperOpMode": ("#A78BFA", "#6D28D9"),
+    "StickShaper": ("#4ADE80", "#15803D"),
+    "Shape": ("#FB923C", "#C2410C"),
 }
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
@@ -3494,17 +3498,17 @@ def mermaid(name):
     s.save(name)
 
 
-# -- L135's menu, a screen at a time: the gamepad with the button pressed, beside what the Driver
-# -- Station shows after it, from what TeamCode's menuCapture wrote.
+# -- L093's menu and L135's, a screen at a time: the gamepad with the button pressed, beside what
+# -- the Driver Station shows after it, from what TeamCode's menuCapture wrote.
 
-SCREENS = Path(__file__).resolve().parent / "menu" / "l135-screens.txt"
+MENU = Path(__file__).resolve().parent / "menu"
 DPAD = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
 FACE = {"Y": (0, -1), "A": (0, 1), "X": (-1, 0), "B": (1, 0)}
 
 
-def screens():
+def screens(lesson):
     """Each screen's press, such as INIT or right, and the Driver Station's lines after it."""
-    blocks = SCREENS.read_text().strip("\n").split("\n\n")
+    blocks = (MENU / f"{lesson}-screens.txt").read_text().strip("\n").split("\n\n")
     return [(b.split("\n")[0], b.split("\n")[1:]) for b in blocks]
 
 
@@ -3525,22 +3529,24 @@ def pad_buttons(s, cx, cy, w, h, pressed):
             s.text((c[0], c[1] + 6), name, 17)
 
 
-def l135_press(n, press, lines):
-    s = Sketch(MERMAID_COLUMN, 205, 135 + n)
+def menu_press(lesson, n, press, lines):
+    more = 30 * (len(lines) - 3)  # each line past a status line and two rows
+    s = Sketch(MERMAID_COLUMN, 205 + more, int(lesson[1:]) + n)
     cx, cy, w, h = 150, 120, 260, 116
     gamepad(s, cx, cy, w, h)
     pad_buttons(s, cx, cy, w, h, press)
     s.text((cx, 34), "INIT, nothing pressed" if press == "INIT" else f"press {press}", 22)
-    x, y, sw, sh = 290, 25, 436, 156
+    x, y, sw, sh = 290, 25, 436, 156 + more
     screen_device(s, x, y, sw, sh, 14)
     for i, line in enumerate(lines):
         s.text((x + 26, y + 68 + i * 30), line, 15, PAPER, anchor="start", code=True)
-    s.save(f"fig-l135-press-{n:02d}")
+    s.save(f"fig-{lesson}-press-{n:02d}")
 
 
-def l135_presses():
-    for n, (press, lines) in enumerate(screens(), start=1):
-        l135_press(n, press, lines)
+def menu_presses():
+    for lesson in ("l093", "l135"):
+        for n, (press, lines) in enumerate(screens(lesson), start=1):
+            menu_press(lesson, n, press, lines)
 
 
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
@@ -3556,7 +3562,7 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
             e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
-            l135_presses]
+            menu_presses]
 
 if __name__ == "__main__":
     if OUT is None:

@@ -405,6 +405,42 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l093_eachRowStartsAtItsFirstChoice() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l093.L093MenuOpMode"));
+        h.init();
+        h.initLoop();
+        assertTrue("the menu is on the Driver Station during INIT: " + h.driverStation.text(),
+                h.driverStation.shows("ON-S-R\n> Light: <On>\n  Speed: <Slow>\n  Color: <Red>"));
+        assertEquals("the summary is logged during INIT", "ON-S-R", Tracker.values().get("menu/summary"));
+        h.stop();
+    }
+
+    @Test
+    public void l093_thePressesMoveTheMenu() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l093.L093MenuOpMode"));
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        assertTrue("right offers Off, not yet selected: " + h.driverStation.text(),
+                h.driverStation.shows("ON-S-R\n> Light: Off? A:OK B:Back\n  Speed: <Slow>"));
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_left = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("left wraps to the last choice, and A selects it: " + h.driverStation.text(),
+                h.driverStation.shows("OFF-F-R\n  Light: <Off>\n> Speed: <Fast>\n  Color: <Red>"));
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        assertTrue("down wraps from the last row to the first: " + h.driverStation.text(),
+                h.driverStation.shows("OFF-F-R\n> Light: <Off>\n  Speed: <Fast>\n  Color: <Red>"));
+        h.start();
+        h.loop();
+        assertTrue("after PLAY, the status line: " + h.driverStation.text(),
+                h.driverStation.shows("OFF-F-R"));
+        h.stop();
+    }
+
     /**
      * L110's mixArcadeToWheelSpeeds, driven the way the follower drives it: the
      * arcade command in, wheel speeds on the motors. Each assert names the wheel, so a wrong sign says

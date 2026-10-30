@@ -1,0 +1,49 @@
+classDiagram
+    class MenuItem {
+        -String shortName
+        -String fullName
+        getShortName()
+        +getFullName()
+    }
+    class MenuRow {
+        -String name
+        -ArrayList~MenuItem~ items
+        -int selectedIndex
+        -int offeredIndex
+        +add(item)
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        +getSelected()
+        getLine()
+    }
+    class OptionMenu {
+        -ArrayList~MenuRow~ rows
+        -int pointedIndex
+        +add(row)
+        goUp()
+        goDown()
+        goRight()
+        goLeft()
+        select()
+        goBack()
+        getSummary()
+        getLines()
+    }
+    class MenuButtons {
+        -OptionMenu optionMenu
+        loop(gamepad)
+    }
+    class DriverStationMenu {
+        -OptionMenu optionMenu
+        -MenuButtons menuButtons
+        +loop(gamepad)
+        +getSummary()
+    }
+    L093MenuOpMode o-- DriverStationMenu
+    DriverStationMenu o-- OptionMenu
+    DriverStationMenu o-- MenuButtons
+    MenuButtons o-- OptionMenu
+    OptionMenu o-- MenuRow
+    MenuRow o-- MenuItem

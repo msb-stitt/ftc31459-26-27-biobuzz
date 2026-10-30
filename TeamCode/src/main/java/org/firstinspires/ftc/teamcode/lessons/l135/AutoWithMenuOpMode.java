@@ -16,10 +16,17 @@ import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+// When on L135S020, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s020
+// for what to do here.
+//import org.firstinspires.ftc.teamcode.mytry.l093.DriverStationMenu;
+//import org.firstinspires.ftc.teamcode.mytry.l093.MenuItem;
+//import org.firstinspires.ftc.teamcode.mytry.l093.MenuRow;
+//import org.firstinspires.ftc.teamcode.mytry.l093.OptionMenu;
 
 /**
  * L135: choose the alliance and the auto on the Driver Station between INIT
- * and PLAY, from nothing, L125's and L130's, with the menu L135's classes
+ * and PLAY, from nothing, L125's and L130's, with the menu L093's classes
  * make. The alliance and the auto chosen go to the flight log at PLAY.
  *
  * <p>The poses are written for the red alliance. For the blue alliance,
@@ -39,8 +46,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class AutoWithMenuOpMode extends CorbelsAuto {
 
-    // When on L135S100, see
-    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s100
+    // When on L135S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
     // for what to do here.
 
     double robotHalfLength_in = 9.0;
@@ -52,8 +59,8 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
-        // When on L135S100, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s100
+        // When on L135S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
         // for what to do here.
         initBefore();
         drivetrain = new CorbelsMecanum(hardware);
@@ -64,8 +71,8 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init_loop() {
-        // When on L135S100, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s100
+        // When on L135S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
         // for what to do here.
         initLoopAfter();
     }
@@ -74,8 +81,8 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
     @Override
     public void start() {
         startBefore();
-        // When on L135S110, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+        // When on L135S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
         // for what to do here.
         startAfter();
     }
@@ -84,8 +91,8 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
     @Override
     public void loop() {
         loopBefore();
-        // When on L135S110, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s110
+        // When on L135S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
         // for what to do here.
         Tracker.printPoseSpeedLoopToDs(follower);
         loopAfter();
@@ -101,8 +108,8 @@ public class AutoWithMenuOpMode extends CorbelsAuto {
     PoseFactory poses() {
         PoseFactory redPoses = PoseFactory.degrees();
         PoseFactory chosenPoses = redPoses;
-        // When on L135S120, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s120
+        // When on L135S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
         // for what to do here.
         return chosenPoses;
     }

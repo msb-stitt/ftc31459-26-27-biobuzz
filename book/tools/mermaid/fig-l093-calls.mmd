@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant OpMode as L093<br/>MenuOpMode
+    participant DS as DriverStation<br/>Menu
+    participant Buttons as Menu<br/>Buttons
+    participant Menu as Option<br/>Menu
+    participant Row as Menu<br/>Row
+    OpMode->>DS: loop(gamepad1)
+    DS->>Buttons: loop(gamepad)
+    Buttons->>Menu: goRight()
+    Menu->>Row: goRight()
+    DS->>Menu: getLines()
+    Menu->>Row: getLine()
+    Row-->>Menu: "Light:<br/>Off? A:OK<br/>B:Back"
+    Menu-->>DS: the summary and<br/>each row's line
+    DS->>DS: printToDs,<br/>for each line
