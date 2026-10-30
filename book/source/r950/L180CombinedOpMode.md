@@ -11,22 +11,22 @@ is the line's place in the file after the lesson.
 
 --- mytry/L180CombinedOpMode.java  (before L180)
 +++ mytry/L180CombinedOpMode.java  (after L180)
-@@ lines 14 to 20 @@
-   14 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+@@ lines 15 to 21 @@
    15 import org.firstinspires.ftc.teamcode.base.HeadingHold;
-   16 import org.firstinspires.ftc.teamcode.base.Tracker;
-+  17 import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
-   18 import org.firstinspires.ftc.teamcode.pedro.Constants;
-   19
-   20 /**
-@@ lines 109 to 117 @@
-  109         // When on L180S030, see
-  110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
-  111         // for what to do here.
-+ 112         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-+ 113         L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
-+ 114         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
-  115     }
-  116
-  117     // 'public' to match the parent class. 'public' allows access from any code.
+   16 import org.firstinspires.ftc.teamcode.base.StickShaper;
+   17 import org.firstinspires.ftc.teamcode.base.Tracker;
++  18 import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
+   19 import org.firstinspires.ftc.teamcode.pedro.Constants;
+   20
+   21 /**
+@@ lines 112 to 120 @@
+  112         // When on L180S030, see
+  113         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l180.html#l180s030
+  114         // for what to do here.
++ 115         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++ 116         L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
++ 117         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+  118     }
+  119
+  120     // 'public' to match the parent class. 'public' allows access from any code.
 ```

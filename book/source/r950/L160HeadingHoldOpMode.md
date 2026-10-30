@@ -11,32 +11,33 @@ is the line's place in the file after the lesson.
 
 --- mytry/L160HeadingHoldOpMode.java  (before L160)
 +++ mytry/L160HeadingHoldOpMode.java  (after L160)
-@@ lines 8 to 16 @@
+@@ lines 8 to 17 @@
     8
     9 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
    10 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 +  11 import org.firstinspires.ftc.teamcode.base.HeadingHold;
-   12 import org.firstinspires.ftc.teamcode.base.Tracker;
-+  13 import org.firstinspires.ftc.teamcode.pedro.Constants;
-   14
-   15 /**
-   16  * L160: hold the heading the driver left. Let go of the turn stick and the
-@@ lines 34 to 40 @@
-   34 public class L160HeadingHoldOpMode extends CorbelsTeleOp {
-   35
-   36     CorbelsMecanum drivetrain;
-+  37     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
+   12 import org.firstinspires.ftc.teamcode.base.StickShaper;
+   13 import org.firstinspires.ftc.teamcode.base.Tracker;
++  14 import org.firstinspires.ftc.teamcode.pedro.Constants;
+   15
+   16 /**
+   17  * L160: hold the heading the driver left. Let go of the turn stick and the
+@@ lines 37 to 43 @@
+   37     StickShaper stickShaper = new StickShaper(0.05);
    38
-   39     // 'public' to match the parent class. 'public' allows access from any code.
-   40     @Override
-@@ lines 81 to 89 @@
-   81         // When on L160S040, see
-   82         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
-   83         // for what to do here.
-+  84         turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
-+  85         boolean holdingHeading = hold.target() != null;
-+  86         Tracker.publish("drivetrain/holdingHeading", holdingHeading);
-   87
-   88         double fieldYSpeed = -leftStickX;
-   89         fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+   39     CorbelsMecanum drivetrain;
++  40     HeadingHold hold = new HeadingHold(Constants.foresightConfig.headingFeedback.get());
+   41
+   42     // 'public' to match the parent class. 'public' allows access from any code.
+   43     @Override
+@@ lines 83 to 91 @@
+   83         // When on L160S040, see
+   84         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l160.html#l160s040
+   85         // for what to do here.
++  86         turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
++  87         boolean holdingHeading = hold.target() != null;
++  88         Tracker.publish("drivetrain/holdingHeading", holdingHeading);
+   89
+   90         double fieldYSpeed = -leftStickX;
+   91         fieldYSpeed = stickShaper.shaped(fieldYSpeed);
 ```
