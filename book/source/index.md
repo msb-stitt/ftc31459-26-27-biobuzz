@@ -42,8 +42,8 @@ tasks/l093
 :maxdepth: 1
 :caption: see what it is doing
 
-tasks/h093
-tasks/h095
+tasks/h096
+tasks/h097
 ```
 
 ```{toctree}
