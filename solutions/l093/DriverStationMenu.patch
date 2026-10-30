@@ -1,9 +1,9 @@
-diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java
-index 0119a3a..71b47dc 100644
---- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java
-+++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/DriverStationMenu.java
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/DriverStationMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/DriverStationMenu.java
+index 1ff4108..b661b0d 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/DriverStationMenu.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/DriverStationMenu.java
 @@ -1,3 +1,11 @@
-+package org.firstinspires.ftc.teamcode.mytry.l135;
++package org.firstinspires.ftc.teamcode.mytry.l093;
 +
 +import com.qualcomm.robotcore.hardware.Gamepad;
 +
@@ -15,10 +15,10 @@ index 0119a3a..71b47dc 100644
   * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
   * for an OpMode to make as a field and call from init_loop(). The menu and its
 @@ -10,3 +18,34 @@
- // When on L135S100, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s100
+ // When on L093S100, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s100
  // for what to write in this file.
-+// 'public' so L140, in another package, can use it. 'public' allows access from any code.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +public class DriverStationMenu {
 +
 +    // 'private' so only this class can use it. 'private' allows access from this class only.
@@ -26,13 +26,13 @@ index 0119a3a..71b47dc 100644
 +    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private MenuButtons menuButtons;
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public DriverStationMenu(OptionMenu optionMenu) {
 +        this.optionMenu = optionMenu;
 +        menuButtons = new MenuButtons(optionMenu);
 +    }
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public void loop(Gamepad gamepad) {
 +        menuButtons.loop(gamepad);
 +        String summary = optionMenu.getSummary();
@@ -43,7 +43,7 @@ index 0119a3a..71b47dc 100644
 +        }
 +    }
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public String getSummary() {
 +        String summary = optionMenu.getSummary();
 +        return summary;

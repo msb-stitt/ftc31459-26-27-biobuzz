@@ -1,9 +1,9 @@
-diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java
-index be1cbd2..53a08ef 100644
---- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java
-+++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/OptionMenu.java
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/OptionMenu.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/OptionMenu.java
+index f44fb7b..54599d2 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/OptionMenu.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/OptionMenu.java
 @@ -1,3 +1,7 @@
-+package org.firstinspires.ftc.teamcode.mytry.l135;
++package org.firstinspires.ftc.teamcode.mytry.l093;
 +
 +import java.util.ArrayList;
 +
@@ -11,10 +11,10 @@ index be1cbd2..53a08ef 100644
   * The rows of a menu, and which row the pointer is on. Up and down move the
   * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
 @@ -8,3 +12,81 @@
- // When on L135S070, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s070
+ // When on L093S070, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s070
  // for what to write in this file.
-+// 'public' so L140, in another package, can use it. 'public' allows access from any code.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +public class OptionMenu {
 +
 +    // 'private' so only this class can use it. 'private' allows access from this class only.
@@ -22,7 +22,7 @@ index be1cbd2..53a08ef 100644
 +    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private int pointedIndex = 0;
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public void add(MenuRow row) {
 +        rows.add(row);
 +    }

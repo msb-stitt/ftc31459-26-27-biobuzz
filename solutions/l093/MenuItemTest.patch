@@ -1,9 +1,9 @@
-diff --git a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java
-index 8bd349d..29039c3 100644
---- a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java
-+++ b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuItemTest.java
+diff --git a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuItemTest.java b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuItemTest.java
+index 3ba0b8c..9300b9e 100644
+--- a/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuItemTest.java
++++ b/TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuItemTest.java
 @@ -1,3 +1,9 @@
-+package org.firstinspires.ftc.teamcode.mytry.l135;
++package org.firstinspires.ftc.teamcode.mytry.l093;
 +
 +import static org.junit.Assert.assertEquals;
 +
@@ -13,8 +13,8 @@ index 8bd349d..29039c3 100644
   * Tests for {@link MenuItem}: an item gives back the short name and the full
   * name it was made with.
 @@ -5,3 +11,16 @@
- // When on L135S030, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+ // When on L093S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s030
  // for what to write in this file.
 +// 'public' so JUnit can run it. 'public' allows access from any code.
 +public class MenuItemTest {

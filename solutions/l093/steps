@@ -1,0 +1,23 @@
+# L093: the five menu starters, the OpMode and the four test starters, copied into mytry/l093, and each filled in.
+copy lessons/l093/OptionMenu.java mytry/l093/OptionMenu.java
+copy lessons/l093/MenuItem.java mytry/l093/MenuItem.java
+copy lessons/l093/MenuRow.java mytry/l093/MenuRow.java
+copy lessons/l093/MenuButtons.java mytry/l093/MenuButtons.java
+copy lessons/l093/DriverStationMenu.java mytry/l093/DriverStationMenu.java
+copy lessons/l093/L093MenuOpMode.java mytry/l093/L093MenuOpMode.java
+copy test lessons/l093/MenuItemTest.java mytry/l093/MenuItemTest.java
+copy test lessons/l093/MenuRowTest.java mytry/l093/MenuRowTest.java
+copy test lessons/l093/OptionMenuTest.java mytry/l093/OptionMenuTest.java
+copy test lessons/l093/MenuButtonsTest.java mytry/l093/MenuButtonsTest.java
+patch OptionMenu.patch
+patch MenuItem.patch
+patch MenuRow.patch
+patch MenuButtons.patch
+patch DriverStationMenu.patch
+patch L093MenuOpMode.patch
+patch MenuItemTest.patch
+patch MenuRowTest.patch
+patch OptionMenuTest.patch
+patch MenuButtonsTest.patch
+test *.mytry.l093.*
+test *LessonsTest.l093*

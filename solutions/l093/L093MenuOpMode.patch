@@ -1,0 +1,59 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/L093MenuOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/L093MenuOpMode.java
+index 3bc7120..3469677 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/L093MenuOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/L093MenuOpMode.java
+@@ -24,6 +24,19 @@ public class L093MenuOpMode extends CorbelsTeleOp {
+     // When on L093S110, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+     // for what to do here.
++    MenuItem on = new MenuItem("ON", "On");
++    MenuItem off = new MenuItem("OFF", "Off");
++    MenuRow lightRow = new MenuRow("Light");
++    MenuItem slow = new MenuItem("S", "Slow");
++    MenuItem medium = new MenuItem("M", "Medium");
++    MenuItem fast = new MenuItem("F", "Fast");
++    MenuRow speedRow = new MenuRow("Speed");
++    MenuItem red = new MenuItem("R", "Red");
++    MenuItem green = new MenuItem("G", "Green");
++    MenuItem blue = new MenuItem("B", "Blue");
++    MenuRow colorRow = new MenuRow("Color");
++    OptionMenu optionMenu = new OptionMenu();
++    DriverStationMenu menu = new DriverStationMenu(optionMenu);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+@@ -31,6 +44,17 @@ public class L093MenuOpMode extends CorbelsTeleOp {
+         // When on L093S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+         // for what to do here.
++        lightRow.add(on);
++        lightRow.add(off);
++        speedRow.add(slow);
++        speedRow.add(medium);
++        speedRow.add(fast);
++        colorRow.add(red);
++        colorRow.add(green);
++        colorRow.add(blue);
++        optionMenu.add(lightRow);
++        optionMenu.add(speedRow);
++        optionMenu.add(colorRow);
+         initBefore();
+         initAfter();
+     }
+@@ -42,6 +66,7 @@ public class L093MenuOpMode extends CorbelsTeleOp {
+         // When on L093S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+@@ -59,6 +84,8 @@ public class L093MenuOpMode extends CorbelsTeleOp {
+         // When on L093S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+         // for what to do here.
++        String summary = menu.getSummary();
++        Tracker.printToDs(summary);
+         loopAfter();
+     }
+ 

@@ -1,9 +1,9 @@
-diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRow.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRow.java
-index c12f607..3b01c80 100644
---- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRow.java
-+++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l135/MenuRow.java
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuRow.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuRow.java
+index 467ef15..d49b2eb 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuRow.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuRow.java
 @@ -1,3 +1,7 @@
-+package org.firstinspires.ftc.teamcode.mytry.l135;
++package org.firstinspires.ftc.teamcode.mytry.l093;
 +
 +import java.util.ArrayList;
 +
@@ -11,10 +11,10 @@ index c12f607..3b01c80 100644
   * One row of an {@link OptionMenu}: its name and the choices added to it.
   * Left and right offer the choice before or after, and wrap at the ends. A
 @@ -9,3 +13,66 @@
- // When on L135S040, see
- // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+ // When on L093S040, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s040
  // for what to write in this file.
-+// 'public' so L140, in another package, can use it. 'public' allows access from any code.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +public class MenuRow {
 +
 +    // 'private' so only this class can use it. 'private' allows access from this class only.
@@ -26,12 +26,12 @@ index c12f607..3b01c80 100644
 +    // 'private' so only this class can use it. 'private' allows access from this class only.
 +    private int offeredIndex = 0;
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public MenuRow(String name) {
 +        this.name = name;
 +    }
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public void add(MenuItem item) {
 +        items.add(item);
 +    }
@@ -60,7 +60,7 @@ index c12f607..3b01c80 100644
 +        offeredIndex = selectedIndex;
 +    }
 +
-+    // 'public' so L140, in another package, can use it. 'public' allows access from any code.
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
 +    public MenuItem getSelected() {
 +        MenuItem selectedItem = items.get(selectedIndex);
 +        return selectedItem;
