@@ -11,47 +11,52 @@ is the line's place in the file after the lesson.
 
 --- mytry/L080ArcadeOpMode.java  (before L080)
 +++ mytry/L080ArcadeOpMode.java  (after L080)
-@@ lines 79 to 110 @@
-   79         // When on L080S040, see
-   80         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
-   81         // for what to do here.
-+  82         double bandToSetToZero = 0.05;
-+  83         double forwardXSpeed = -leftStickY;
-+  84         forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);
-+  85         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
-+  86         double turnCcwSpeed = -rightStickX;
-+  87         turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
-+  88         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
-   89
-   90         // When on L080S050, see
-   91         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
-   92         // for what to do here.
-+  93         double leftMixedSpeed = forwardXSpeed - turnCcwSpeed;
-+  94         double rightMixedSpeed = forwardXSpeed + turnCcwSpeed;
-+  95         double leftSize = Math.abs(leftMixedSpeed);
-+  96         double rightSize = Math.abs(rightMixedSpeed);
-+  97         double biggest = Math.max(leftSize, rightSize);
-+  98         double biggestOrOne = Math.max(1.0, biggest);
-+  99         double leftSpeed = leftMixedSpeed / biggestOrOne;
-+ 100         double rightSpeed = rightMixedSpeed / biggestOrOne;
-+ 101         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
-+ 102         Tracker.publish("drivetrain/rightSpeed", rightSpeed);
-+ 103
-+ 104         hardware.frontLeft.setPower(leftSpeed);
-+ 105         hardware.backLeft.setPower(leftSpeed);
-+ 106         hardware.frontRight.setPower(rightSpeed);
-+ 107         hardware.backRight.setPower(rightSpeed);
-  108
-  109         boolean buttonA = gamepad1.a;
-  110         Tracker.publish("gamepad1/buttonA", buttonA);
-@@ lines 143 to 151 @@
-  143     // When on L080S030, see
-  144     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-  145     // for what to do here.
-+ 146     double speedShaped(double value, double band) {
-+ 147         double deadbanded = deadband(value, band);
-+ 148         double shapedSpeed = signedSquared(deadbanded);
-+ 149         return shapedSpeed;
-+ 150     }
-  151 }
+@@ lines 11 to 17 @@
+   11 // When on L080S030, see
+   12 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+   13 // for what to do here.
++  14 import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
+   15
+   16 /**
+   17  * L080: arcade drive. The left stick drives forward and back, the right stick
+@@ lines 40 to 46 @@
+   40     // When on L080S030, see
+   41     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+   42     // for what to do here.
++  43     StickShaper stickShaper = new StickShaper(0.05);
+   44
+   45     boolean previousButtonA;
+   46
+@@ lines 88 to 118 @@
+   88         // When on L080S040, see
+   89         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
+   90         // for what to do here.
++  91         double forwardXSpeed = -leftStickY;
++  92         forwardXSpeed = stickShaper.shaped(forwardXSpeed);
++  93         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
++  94         double turnCcwSpeed = -rightStickX;
++  95         turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
++  96         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+   97
+   98         // When on L080S050, see
+   99         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
+  100         // for what to do here.
++ 101         double leftMixedSpeed = forwardXSpeed - turnCcwSpeed;
++ 102         double rightMixedSpeed = forwardXSpeed + turnCcwSpeed;
++ 103         double leftSize = Math.abs(leftMixedSpeed);
++ 104         double rightSize = Math.abs(rightMixedSpeed);
++ 105         double biggest = Math.max(leftSize, rightSize);
++ 106         double biggestOrOne = Math.max(1.0, biggest);
++ 107         double leftSpeed = leftMixedSpeed / biggestOrOne;
++ 108         double rightSpeed = rightMixedSpeed / biggestOrOne;
++ 109         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
++ 110         Tracker.publish("drivetrain/rightSpeed", rightSpeed);
++ 111
++ 112         hardware.frontLeft.setPower(leftSpeed);
++ 113         hardware.backLeft.setPower(leftSpeed);
++ 114         hardware.frontRight.setPower(rightSpeed);
++ 115         hardware.backRight.setPower(rightSpeed);
+  116
+  117         boolean buttonA = gamepad1.a;
+  118         Tracker.publish("gamepad1/buttonA", buttonA);
 ```
