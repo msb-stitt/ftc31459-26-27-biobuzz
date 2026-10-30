@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.StickShaper;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
@@ -36,6 +37,8 @@ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L190VelocityDriveOpMode extends CorbelsTeleOp {
 
+    StickShaper stickShaper = new StickShaper(0.05);
+
     /** How fast full stick asks for, forward and sideways. Inches per second. */
     static final double MAX_IPS = 40.0;
 
@@ -50,6 +53,7 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
     @Override
     public void init() {
         initBefore();
+        stickShaper.setShape(StickShaper.Shape.LINEAR);
 
         // When on L190S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
@@ -83,7 +87,6 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
         double rightStickX = gamepad1.right_stick_x;
         Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double bandToSetToZero = 0.05;
         // When on L190S050, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
         // for what to do here.
@@ -99,14 +102,5 @@ public class L190VelocityDriveOpMode extends CorbelsTeleOp {
     @Override
     public void stop() {
         stopAfter();
-    }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
     }
 }

@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+// When on L070S020, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
+// for what to do here.
+//import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
 
 /**
  * L070: the A button, the moment it changes, and both sticks sideways, all
@@ -32,6 +36,11 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L070ButtonsOpMode extends CorbelsTeleOp {
+
+    // When on L070S020, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
+    // for what to do here.
+//    StickShaper stickShaper = new StickShaper(0.05);
 
     // When on L070S040, see
     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s040
@@ -82,19 +91,19 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
         double rightSpeed = -rightStickY;
         Tracker.publish("drivetrain/rightSpeed", rightSpeed);
 
-        double bandToSetToZero = 0.05;
-        double leftShapedSpeed = deadband(leftSpeed, bandToSetToZero);
-        leftShapedSpeed = signedSquared(leftShapedSpeed);
-        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
-        double rightShapedSpeed = deadband(rightSpeed, bandToSetToZero);
-        rightShapedSpeed = signedSquared(rightShapedSpeed);
-        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
-
-        hardware.frontLeft.setPower(leftShapedSpeed);
-        hardware.backLeft.setPower(leftShapedSpeed);
-
-        hardware.frontRight.setPower(rightShapedSpeed);
-        hardware.backRight.setPower(rightShapedSpeed);
+        // When on L070S020, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
+        // for what to do here.
+//        double leftShapedSpeed = stickShaper.shaped(leftSpeed);
+//        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
+//        double rightShapedSpeed = stickShaper.shaped(rightSpeed);
+//        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
+//
+//        hardware.frontLeft.setPower(leftShapedSpeed);
+//        hardware.backLeft.setPower(leftShapedSpeed);
+//
+//        hardware.frontRight.setPower(rightShapedSpeed);
+//        hardware.backRight.setPower(rightShapedSpeed);
 
         // When on L070S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
@@ -109,20 +118,5 @@ public class L070ButtonsOpMode extends CorbelsTeleOp {
     @Override
     public void stop() {
         stopAfter();
-    }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-
-    double signedSquared(double value) {
-        double alwaysPositiveValue = Math.abs(value);
-        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
-        return valueSquaredKeepingTheSign;
     }
 }

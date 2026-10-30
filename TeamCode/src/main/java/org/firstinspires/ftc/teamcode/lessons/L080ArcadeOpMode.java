@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+// When on L080S030, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+// for what to do here.
 
 /**
  * L080: arcade drive. The left stick drives forward and back, the right stick
@@ -33,6 +36,10 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L080ArcadeOpMode extends CorbelsTeleOp {
+
+    // When on L080S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+    // for what to do here.
 
     boolean previousButtonA;
 
@@ -103,23 +110,4 @@ public class L080ArcadeOpMode extends CorbelsTeleOp {
     public void stop() {
         stopAfter();
     }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-
-    double signedSquared(double value) {
-        double alwaysPositiveValue = Math.abs(value);
-        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
-        return valueSquaredKeepingTheSign;
-    }
-
-    // When on L080S030, see
-    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-    // for what to do here.
 }

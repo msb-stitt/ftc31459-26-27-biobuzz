@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.StickShaper;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
@@ -33,6 +34,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L122CompareLocalizersOpMode extends CorbelsTeleOp {
+
+    StickShaper stickShaper = new StickShaper(0.05);
 
     CorbelsMecanum drivetrain;
 
@@ -71,16 +74,15 @@ public class L122CompareLocalizersOpMode extends CorbelsTeleOp {
         double rightStickX = gamepad1.right_stick_x;
         Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double bandToSetToZero = 0.05;
         double forwardXSpeed = -leftStickY;
-        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);
+        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
         double turnCcwSpeed = -rightStickX;
-        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 
         double strafeYSpeed = -leftStickX;
-        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
+        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
         Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
 
         drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
@@ -98,26 +100,5 @@ public class L122CompareLocalizersOpMode extends CorbelsTeleOp {
     @Override
     public void stop() {
         stopAfter();
-    }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-
-    double signedSquared(double value) {
-        double alwaysPositiveValue = Math.abs(value);
-        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
-        return valueSquaredKeepingTheSign;
-    }
-
-    double speedShaped(double value, double band) {
-        double deadbanded = deadband(value, band);
-        double shapedSpeed = signedSquared(deadbanded);
-        return shapedSpeed;
     }
 }
