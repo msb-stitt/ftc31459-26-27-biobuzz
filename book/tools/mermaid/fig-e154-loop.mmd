@@ -1,0 +1,21 @@
+%%{init: {"sequence": {"width": 124, "actorMargin": 12}}}%%
+sequenceDiagram
+  participant OpMode as L153<br/>Feedforward<br/>OpMode
+  participant Scheduler
+  participant Measure as measureEvery<br/>Loop:<br/>Command<br/>Builder
+  participant Runs as runs:<br/>Sequential
+  participant Run as run:<br/>Sequential
+  loop until STOP
+    OpMode->>Scheduler: execute()
+    Scheduler->>Measure: execute()
+    Measure->>OpMode: measure()
+    Scheduler->>Measure: done()
+    Measure-->>Scheduler: false
+    Scheduler->>Runs: execute()
+    Runs->>Run: execute()
+    Note over Runs,Run: through turnRuns
+    Run->>OpMode: timeToStop()
+    OpMode-->>Run: false
+    Scheduler->>Runs: done()
+    Runs-->>Scheduler: false
+  end

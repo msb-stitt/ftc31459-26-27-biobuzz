@@ -226,6 +226,11 @@ path = "source/tasks/l153.md"
 words = 1200
 
 [[page]]
+path = "source/tasks/e154.md"
+# Measured off the first draft, 535 words, and rounded up, 2026-10-31.
+words = 600
+
+[[page]]
 path = "source/tasks/l157.md"
 # Measured off the first draft and rounded up, 2026-10-31.
 words = 1200
@@ -307,4 +312,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-e111"
-commit = "bd9e311143cd985d856dae74468c00fe939d86d0"
+commit = "02d97504d8c3ddc1195454ff7fa10f85ee73afdc"
