@@ -3296,6 +3296,11 @@ MERMAID_COLORS = {
     "A": ("#60A5FA", "#1D4ED8"),
     "B": ("#4ADE80", "#15803D"),
     "Mode": ("#FB923C", "#C2410C"),
+    "CorbelsAuto": ("#22D3EE", "#0E7490"),
+    "L153FeedforwardOpMode": ("#A78BFA", "#6D28D9"),
+    "Command": ("#F472B6", "#BE185D"),
+    "CommandBuilder": ("#FB923C", "#C2410C"),
+    "Sequential": ("#4ADE80", "#15803D"),
 }
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes

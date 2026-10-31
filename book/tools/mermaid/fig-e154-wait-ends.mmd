@@ -1,0 +1,14 @@
+%%{init: {"sequence": {"width": 120, "actorMargin": 16}}}%%
+sequenceDiagram
+  participant OpMode as L153<br/>Feedforward<br/>OpMode
+  participant Scheduler
+  participant Runs as runs:<br/>Sequential
+  participant Run as run:<br/>Sequential
+  OpMode->>Scheduler: execute()
+  Scheduler->>Runs: execute()
+  Runs->>Run: execute()
+  Note over Runs,Run: through turnRuns
+  Run->>OpMode: timeToStop()
+  OpMode-->>Run: true
+  Note over Run: the wait<br/>is over.<br/>The next<br/>step starts.
+  Run->>OpMode: stopTheRun()
