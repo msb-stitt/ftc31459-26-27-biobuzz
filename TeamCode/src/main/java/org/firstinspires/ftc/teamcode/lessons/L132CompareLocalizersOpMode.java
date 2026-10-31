@@ -47,6 +47,10 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
     Localizer driveWheelEncoders;
     Localizer pinpointPods;
 
+    // When on L132S110, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+    // for what to do here.
+
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
@@ -113,6 +117,10 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
         // When on L132S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
         // for what to do here.
+
+        // When on L132S110, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+        // for what to do here.
     }
 
     // When on L132S050, see
@@ -124,6 +132,10 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
     public void shadowLocalizers() {
         // When on L132S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
+        // for what to do here.
+
+        // When on L132S110, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
         // for what to do here.
     }
 
