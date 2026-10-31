@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.lessons;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.commands.Commands;
+import com.pedropathing.localization.Localizer;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,7 +17,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * reads the four drive wheels, your localizer from L120 reads the Pinpoint's two
  * pods, and the robot's own reads the Pinpoint's own answer. Each is published
  * under Localizer/, so they can be graphed against each other and checked with
- * a tape measure.
+ * a tape measure. Each loop, how far each of yours is from the robot's own is
+ * published under Error/, and how fast each says the robot goes under Speed/.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
@@ -26,7 +28,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * a command, and the scheduler runs it inside {@code loopAfter()}, once every
  * loop.
  *
- * <p>Passes when: LessonsTest.l132_yourLocalizersAreLogged
+ * <p>Passes when: LessonsTest.l132_yourLocalizersAreLogged and
+ * LessonsTest.l132_theErrorAndSpeedAreLogged
  */
 @TeleOp(name = "L132 Compare Localizers", group = "Lessons")
 // When on L132S020, see
@@ -39,6 +42,10 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
     StickShaper stickShaper = new StickShaper(0.05);
 
     CorbelsMecanum drivetrain;
+
+    /** Your localizers, kept so compareWithPedros() can read them every loop. */
+    Localizer driveWheelEncoders;
+    Localizer pinpointPods;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -56,6 +63,11 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
         startBefore();
         Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
         Scheduler.schedule(driveFromTheSticksEveryLoop);
+
+        // When on L132S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+        // for what to do here.
+
         startAfter();
     }
 
@@ -88,6 +100,24 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
 
         drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
     }
+
+    /**
+     * Once every loop, from PLAY until STOP: the scheduler runs it, before the
+     * localizers update, so it compares where each said the robot was last loop.
+     */
+    void compareWithPedros() {
+        // When on L132S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+        // for what to do here.
+
+        // When on L132S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
+        // for what to do here.
+    }
+
+    // When on L132S050, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+    // for what to do here.
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
