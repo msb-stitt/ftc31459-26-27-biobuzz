@@ -12,10 +12,11 @@ import org.firstinspires.ftc.teamcode.base.StickShaper;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
- * L122: drive around while two localizers disagree. Your localizer from L113
- * reads the four drive wheels, and the robot's own reads the Pinpoint's two pods. Both
- * are published under Localizer/, so they can be graphed against each other
- * and checked with a tape measure.
+ * L122: drive around while three localizers disagree. Your localizer from L113
+ * reads the four drive wheels, your localizer from L120 reads the Pinpoint's two
+ * pods, and the robot's own reads the Pinpoint's own answer. Each is published
+ * under Localizer/, so they can be graphed against each other and checked with
+ * a tape measure.
  *
  * <p>Every OpMode has four methods. {@code init} runs once when INIT is
  * pressed, {@code start} once when PLAY is pressed, {@code loop} over and over
@@ -25,7 +26,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * a command, and the scheduler runs it inside {@code loopAfter()}, once every
  * loop.
  *
- * <p>Passes when: LessonsTest.l122_bothLocalizersAreLogged
+ * <p>Passes when: LessonsTest.l122_yourLocalizersAreLogged
  */
 @TeleOp(name = "L122 Compare Localizers", group = "Lessons")
 // When on L122S020, see
