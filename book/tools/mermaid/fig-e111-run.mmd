@@ -1,0 +1,19 @@
+sequenceDiagram
+  actor Driver
+  participant Platform
+  participant OpMode as L110Follower<br/>OpMode
+  Driver->>Platform: presses INIT
+  Platform->>OpMode: init()
+  Note over Platform,OpMode: the INIT diagram shows what init() does
+  loop until PLAY
+    Platform->>OpMode: init_loop()
+  end
+  Driver->>Platform: presses PLAY
+  Platform->>OpMode: start()
+  Note over Platform,OpMode: the PLAY diagram shows what start() and loop() do
+  loop until STOP
+    Platform->>OpMode: loop()
+  end
+  Driver->>Platform: presses STOP
+  Platform->>OpMode: stop()
+  Note over Platform,OpMode: the STOP diagram shows what stop() does

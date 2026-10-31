@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant OpMode as opMode:<br/>L065ShaperOpMode
+    participant Shaper as stickShaper:<br/>StickShaper
+    OpMode->>Shaper: new StickShaper(0.05)
+    OpMode->>Shaper: shaped(0.5)
+    Shaper-->>OpMode: 0.25
+    OpMode->>Shaper: shaped(-0.5)
+    Shaper-->>OpMode: -0.25

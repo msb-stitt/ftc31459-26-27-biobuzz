@@ -61,7 +61,7 @@ myst_substitutions = made_from()
 # The tag `mentor` picks the book. With it, the mentor book, rooted at index.md.
 # Without it, the student book, rooted at student_index.md and leaving out the
 # pages only a mentor reads. B003, the welcome, is the first page of both.
-MENTOR_ONLY = ["index.md", "tasks/h093.md", "tasks/h095.md"]
+MENTOR_ONLY = ["index.md", "tasks/h096.md", "tasks/h097.md"]
 
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 if tags.has("mentor"):  # noqa: F821, Sphinx puts `tags` in this file's namespace

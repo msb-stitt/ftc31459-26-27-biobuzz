@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.StickShaper;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 // When on L140S050, see
 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
@@ -28,7 +29,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * a command, and the scheduler runs it inside {@code loopAfter()}, once every
  * loop.
  *
- * <p>Between INIT and PLAY, L135's menu chooses the alliance, which starts as
+ * <p>Between INIT and PLAY, L093's menu chooses the alliance, which starts as
  * the one L140's auto handed over, and where the robot starts: where the auto
  * ended, or against the wall, for a teleop run with no auto first.
  *
@@ -43,6 +44,8 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L140FieldRelativeOpMode extends CorbelsTeleOp {
+
+    StickShaper stickShaper = new StickShaper(0.05);
 
     // When on L140S050, see
     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050
@@ -108,20 +111,19 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
         double rightStickX = gamepad1.right_stick_x;
         Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double bandToSetToZero = 0.05;
         // When on L140S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060
         // for what to do here.
         double fieldXSpeed = -leftStickY;
         double fieldYSpeed = -leftStickX;
 
-        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        fieldXSpeed = stickShaper.shaped(fieldXSpeed);
         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
-        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        fieldYSpeed = stickShaper.shaped(fieldYSpeed);
         Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
 
         double turnCcwSpeed = -rightStickX;
-        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 
         // When on L140S040, see
@@ -144,26 +146,5 @@ public class L140FieldRelativeOpMode extends CorbelsTeleOp {
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070
         // for what to do here.
         return chosenPoses;
-    }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-
-    double signedSquared(double value) {
-        double alwaysPositiveValue = Math.abs(value);
-        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
-        return valueSquaredKeepingTheSign;
-    }
-
-    double speedShaped(double value, double band) {
-        double deadbanded = deadband(value, band);
-        double shapedSpeed = signedSquared(deadbanded);
-        return shapedSpeed;
     }
 }

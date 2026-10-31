@@ -28,35 +28,43 @@ tasks/l030
 tasks/e035
 tasks/l040
 tasks/e041
+tasks/l045
 tasks/l050
 tasks/l060
+tasks/l065
+tasks/e067
 tasks/l070
 tasks/l080
 tasks/l090
+tasks/l093
+tasks/l095
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: see what it is doing
 
-tasks/h093
-tasks/h095
+tasks/h096
+tasks/h097
 ```
 
 ```{toctree}
 :maxdepth: 1
-:caption: hand the wheels to the follower
+:caption: connect the drivetrain to the follower
 
 tasks/l110
+tasks/e111
 ```
 
 ```{toctree}
 :maxdepth: 1
 :caption: know where it is
 
+tasks/l113
 tasks/l115
 tasks/l117
 tasks/l120
+tasks/l122
 ```
 
 ```{toctree}

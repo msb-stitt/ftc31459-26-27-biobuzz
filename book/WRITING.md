@@ -124,7 +124,8 @@ The code a student copies carries a comment where each step changes it, linking 
 
 ## A lesson can have the student write whole classes
 
-L135 is the first. Its page and its starters are written this way:
+L065 is the first, with one class and no test of its own; its diagrams are on E067, the page
+after it. L093 is the first with each part below. Their pages and starters are written this way:
 
 - **Its own folder.** The lesson's classes are in `mytry/lnnn/`, package `...mytry.lnnn`, named
   without the lesson number, such as `MenuItem`; its tests are in `mytry/lnnn/` under `test`. The
@@ -142,9 +143,9 @@ L135 is the first. Its page and its starters are written this way:
   the `package` line, the imports and the class. The OpMode's starter is like other lessons', with
   step pointers where the student types.
 - **A Java block names its file.** Its `:caption:` is the file's path under `teamcode/`, with
-  `(test) ` in front for a test, such as `(test) mytry/l135/MenuItemTest.java`; `labels.css` draws
+  `(test) ` in front for a test, such as `(test) mytry/l093/MenuItemTest.java`; `labels.css` draws
   it as a grey tab on the block's top edge. `tools/check_labels.py` fails a block whose lines are
-  not in that file as the lesson leaves it, and a Java block in L135 with no caption.
+  not in that file as the lesson leaves it, and a Java block in L065, L093 or L135 with no caption.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
   and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
   fail, then types the code until it passes.
@@ -252,14 +253,14 @@ These simplifications are made everywhere, and are not marked:
 ## The code a student copies is plain Java
 
 - **Package-private by default.** A modifier is written only where the code will not work without
-  it, and then it is `public`. From L135, which teaches it, a field of a lesson's own class is
+  it, and then it is `public`. From L093, which teaches it, a field of a lesson's own class is
   `private`. No lesson teaches `protected`.
 - **Every modifier has a comment on the line before it**, saying what forced it and what it allows.
   The phrases are in `ftc-claude`'s `.docs/modifiers-explanation.md`.
 - **The code we give the students has Javadoc**, and no lesson asks a student to write any.
 - **`mytry` holds no `package-info.java`.**
 - **A student page uses AdvantageScope, not Panels.** Panels stays in the code for driving the robot
-  without a Driver Station, and its page, H093, is in the mentor book only.
+  without a Driver Station, and its page, H096, is in the mentor book only.
 
 ## Say nothing about what the lessons do not teach
 
@@ -277,6 +278,14 @@ not blocking to a writer. The box shows the row's *What it must show*, which the
 so write it only in the row. A figure no page shows any more is marked `unused` in its row, not
 deleted. `tools/check_figures.py` checks both directions. The build captions each figure it puts
 in place with its file's name, such as `fig-l135-press-01.png`, small at the right.
+
+## Show the field the student's own driving makes
+
+A step checked on AdvantageScope's 2D Field has the student drive the robot around the field with
+the gamepad, and its picture shows the field that driving makes: the robot partway around, on the
+field, its trail behind it. A picture of the robot driven by sticks held still, heading off the
+field, shows the student a field their driving never makes. [`FIGURES.md`](FIGURES.md) says how
+the picture is taken.
 
 ## Draw in the marker-sketch style
 

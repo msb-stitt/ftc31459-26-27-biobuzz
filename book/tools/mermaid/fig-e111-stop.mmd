@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant Platform
+  participant OpMode as L110Follower<br/>OpMode
+  participant Base as Corbels<br/>OpMode
+  participant Follower
+  participant DT as L110Follower<br/>DriveTrain
+  Platform->>OpMode: stop()
+  OpMode->>Base: stopAfter()
+  Base->>Follower: manual(0, 0, 0)
+  Base->>Follower: update()
+  Base->>DT: stop()
+  Note over DT: four zeros to the motors

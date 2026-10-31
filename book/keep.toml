@@ -17,7 +17,8 @@ words = 240
 # only the contents now, and each keeps the ceiling it had.
 [[page]]
 path = "source/tasks/b003.md"
-words = 240
+# Raised from 240 words for *What you need*, at 269 words.
+words = 290
 
 [[page]]
 path = "source/student_index.md"
@@ -100,12 +101,26 @@ path = "source/tasks/e041.md"
 words = 150
 
 [[page]]
+path = "source/tasks/l045.md"
+# Measured off the first draft, 708 words, and rounded up.
+words = 800
+
+[[page]]
 path = "source/tasks/l050.md"
 words = 1100
 
 [[page]]
 path = "source/tasks/l060.md"
 words = 1300
+
+[[page]]
+path = "source/tasks/l065.md"
+words = 1500
+
+[[page]]
+path = "source/tasks/e067.md"
+# Measured off the first draft, 452 words, and rounded up.
+words = 500
 
 [[page]]
 path = "source/tasks/l070.md"
@@ -124,16 +139,39 @@ path = "source/tasks/l117.md"
 words = 1700
 
 [[page]]
+path = "source/tasks/l093.md"
+# L135's menu classes, moved, with L093's own presses and OpMode, 2159 words, 2026-10-30.
+words = 2300
+
+[[page]]
+path = "source/tasks/l095.md"
+# Measured off the first draft, 609 words, 2026-10-30, and rounded up.
+words = 700
+
+[[page]]
 path = "source/tasks/l110.md"
 words = 1800
+
+[[page]]
+path = "source/tasks/e111.md"
+# Measured off the first draft, 846 words, and rounded up.
+words = 900
 
 [[page]]
 path = "source/tasks/l115.md"
 words = 1200
 
 [[page]]
-path = "source/tasks/l120.md"
+path = "source/tasks/l113.md"
 words = 1800
+
+[[page]]
+path = "source/tasks/l120.md"
+words = 1400
+
+[[page]]
+path = "source/tasks/l122.md"
+words = 1200
 
 [[page]]
 path = "source/tasks/l125.md"
@@ -149,7 +187,8 @@ path = "source/tasks/l135.md"
 # auto's choice and the summary typed by the student, and the gamepad checks, 936 words, 2026-10-27.
 # Raised for the five menu classes and their tests, typed test first, 1860 words, 2026-10-28.
 # Raised for the menu press by press and each class's diagrams, 2613 words, 2026-10-29.
-words = 2700
+# The menu classes moved to L093, 1095 words, 2026-10-30.
+words = 1200
 
 [[page]]
 path = "source/tasks/l140.md"
@@ -197,7 +236,7 @@ path = "source/tasks/l195.md"
 words = 1700
 
 [[page]]
-path = "source/tasks/h093.md"
+path = "source/tasks/h096.md"
 words = 1000
 
 # Raised from 1000 on 2026-09-28. The split build gave the page a second command
@@ -212,7 +251,7 @@ words = 1000
 # "no OpMode called ..." and exit 2. The commands and the sentence explaining them
 # carry the package now. Mike raised the ceiling rather than cut a sentence.
 [[page]]
-path = "source/tasks/h095.md"
+path = "source/tasks/h097.md"
 words = 1150
 
 [[page]]
@@ -242,7 +281,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-l135-menu-classes.3"
+solutions = "solutions-e111.1"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -252,5 +291,5 @@ solutions_commit = ""
 # tools/publish_check.py fails when the checkout it is given is anywhere else.
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
-ref = "lessons-l135-menu-classes"
-commit = "6baa4c36c3a779665df4ccbce3738f62b69f6404"
+ref = "lessons-e111"
+commit = "b092af9f41890cb474e27c666105d62cfd151cb9"

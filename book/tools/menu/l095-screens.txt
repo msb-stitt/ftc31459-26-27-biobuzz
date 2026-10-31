@@ -1,0 +1,10 @@
+INIT
+0.05-S
+> Band: <0.05>
+  Shape: <Squared>
+
+left A down right A
+0.10-L
+  Band: <0.10>
+> Shape: <Linear>
+

@@ -1,0 +1,21 @@
+classDiagram
+  namespace FTC_Platform {
+    class OpMode
+  }
+  namespace Pedro_Pathing {
+    class Drivetrain {
+      <<interface>>
+    }
+  }
+  namespace Our_base_classes {
+    class CorbelsOpMode
+    class CorbelsTeleOp
+    class CorbelsDriveTrain {
+      <<abstract>>
+    }
+  }
+  OpMode <|-- CorbelsOpMode
+  CorbelsOpMode <|-- CorbelsTeleOp
+  CorbelsTeleOp <|-- L110FollowerOpMode
+  Drivetrain <|.. CorbelsDriveTrain
+  CorbelsDriveTrain <|-- L110FollowerDriveTrain

@@ -1,0 +1,2 @@
+INIT
+left A down right A

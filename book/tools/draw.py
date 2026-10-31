@@ -3270,6 +3270,7 @@ MERMAID_COLUMN = 736       # the book's column, in CSS pixels; a Mermaid pixel i
 # palette as its neo look gave them in fig-l135-classes, and its lines, a darker shade of it.
 MERMAID_COLORS = {
     "AutoWithMenuOpMode": ("#A78BFA", "#6D28D9"),
+    "L093MenuOpMode": ("#A78BFA", "#6D28D9"),
     "DriverStationMenu": ("#4ADE80", "#15803D"),
     "MenuButtons": ("#22D3EE", "#0E7490"),
     "OptionMenu": ("#FB923C", "#C2410C"),
@@ -3277,6 +3278,20 @@ MERMAID_COLORS = {
     "MenuItem": ("#E879F9", "#A21CAF"),
     "Gamepad": ("#A4A7A9", "#3E4245"),
     "Tracker": ("#FACC15", "#A16207"),
+    "L065ShaperOpMode": ("#A78BFA", "#6D28D9"),
+    "StickShaper": ("#4ADE80", "#15803D"),
+    "Shape": ("#FB923C", "#C2410C"),
+    "Platform": ("#A4A7A9", "#3E4245"),
+    "OpMode": ("#A4A7A9", "#3E4245"),
+    "CorbelsOpMode": ("#60A5FA", "#1D4ED8"),
+    "CorbelsTeleOp": ("#22D3EE", "#0E7490"),
+    "L110FollowerOpMode": ("#A78BFA", "#6D28D9"),
+    "Drivetrain": ("#F472B6", "#BE185D"),
+    "CorbelsDriveTrain": ("#FB923C", "#C2410C"),
+    "L110FollowerDriveTrain": ("#A3E635", "#4D7C0F"),
+    "Follower": ("#2DD4BF", "#0F766E"),
+    "Scheduler": ("#E879F9", "#A21CAF"),
+    "RobotHardware": ("#FACC15", "#A16207"),
 }
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
@@ -3328,13 +3343,43 @@ def mermaid_read(root):
     x0, y0 = (float(v) for v in root.get("viewBox").split()[:2])
     at = lambda x, y: (x - x0, y - y0)
     boxes, dividers, words, lifelines, arrows = [], [], [], [], []
-    node_x, names = 0.0, set()
+    clusters, notes, frames, figures = [], [], [], []
+    node_x, names, cluster_words = 0.0, set(), set()
     for el, dx, dy in walk(root):
         tag, cls = el.tag.removeprefix(SVG_NS), classes(el)
         if tag == "g" and "node" in cls:
             node_x = dx
         if tag == "g" and "label-group" in cls:
             names |= set(el.iter())
+        if tag == "g" and "cluster-label" in cls:
+            cluster_words |= set(el.iter())
+        if tag == "g" and "cluster" in cls and el.find(SVG_NS + "rect") is not None:
+            r = el.find(SVG_NS + "rect")
+            clusters.append(rect(*at(dx + float(r.get("x")), dy + float(r.get("y"))),
+                                 float(r.get("width")), float(r.get("height"))))
+        if tag == "g" and "actor-man" in cls:
+            for part in el:
+                ptag = part.tag.removeprefix(SVG_NS)
+                if ptag == "line":
+                    figures.append(("line", at(dx + float(part.get("x1")), dy + float(part.get("y1"))),
+                                    at(dx + float(part.get("x2")), dy + float(part.get("y2")))))
+                elif ptag == "circle":
+                    figures.append(("circle", at(dx + float(part.get("cx")), dy + float(part.get("cy"))),
+                                    float(part.get("r"))))
+        if tag == "rect" and "note" in cls:
+            x, y = at(dx + float(el.get("x")), dy + float(el.get("y")))
+            notes.append(rect(x, y, float(el.get("width")), float(el.get("height"))))
+        if tag == "line" and "loopLine" in cls:
+            frames.append((at(dx + float(el.get("x1")), dy + float(el.get("y1"))),
+                           at(dx + float(el.get("x2")), dy + float(el.get("y2")))))
+        if tag == "polygon" and "labelBox" in cls:
+            frames.append([at(dx + x, dy + y) for x, y in path_points(el.get("points"))])
+        if tag == "text" and ({"noteText", "labelText", "loopText"} & set(cls)):
+            y = dy + float(el.get("y")) + em(el.get("dy"))
+            if "loopText" in cls:
+                y -= CENTRAL * MERMAID_SIZE
+            words.append((at(dx + float(el.get("x")), y + CENTRAL * MERMAID_SIZE),
+                          "".join(el.itertext()), "middle"))
         if tag == "g" and "outer-path" in cls:
             pts = path_points(el[0].get("d"))
             xs, ys = [x for x, _ in pts], [y for _, y in pts]
@@ -3351,11 +3396,13 @@ def mermaid_read(root):
             s = "".join(t.text or "" for t in el.iter(SVG_NS + "tspan") if t is not el)
             y = dy + em(el.get("y")) + em(el.get("dy"))
             # A class's name, which Mermaid measures in another font than Menlo: centered.
-            if el in names:
+            if el in cluster_words:
+                words.append((at(dx + em(el.get("x")), y), s.replace("_", " "), "start"))
+            elif el in names:
                 words.append((at(node_x, y), s, "middle"))
             else:
                 words.append((at(dx + em(el.get("x")), y), s, "start"))
-        elif tag == "text" and ({"actor-box", "messageText"} & set(cls)):
+        elif tag == "text" and ({"actor-box", "actor-man", "messageText"} & set(cls)):
             # A name on two lines is two texts, each moved up or down by its tspan's dy.
             middle = dy + float(el.get("y")) + em(el.get("dy")) + sum(
                 em(t.get("dy")) for t in el.iter(SVG_NS + "tspan"))
@@ -3376,12 +3423,14 @@ def mermaid_read(root):
         elif tag == "path" and "relation" in cls:
             pts = json.loads(base64.b64decode(el.get("data-points")))
             ends = ("diamond" if "aggregation" in el.get("marker-start", "") else
+                    "triangle" if "extension" in el.get("marker-start", "") else
                     "open" if "dependency" in el.get("marker-end", "") else "none")
             arrows.append(([at(dx + p["x"], dy + p["y"]) for p in pts],
                            "edge-pattern-dashed" in cls, ends))
     w, h = (float(v) for v in root.get("viewBox").split()[2:])
     boxes = [fit(box, words) for box in boxes]
-    return w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows
+    return (w, h, boxes, [across(d, boxes) for d in dividers], words, lifelines, arrows,
+            (clusters, notes, frames, figures))
 
 
 def across(divider, boxes):
@@ -3429,6 +3478,18 @@ def diamond(s, tip, toward):
     return back
 
 
+def triangle(s, tip, toward):
+    """A hollow triangle with its point at tip, lying along the line toward toward: is a."""
+    tx, ty = tip[0] - toward[0], tip[1] - toward[1]
+    n = math.hypot(tx, ty) or 1
+    tx, ty, h = tx / n, ty / n, 16
+    back = (tip[0] - tx * h, tip[1] - ty * h)
+    s.line([tip, (back[0] - ty * h * 0.6, back[1] + tx * h * 0.6),
+            (back[0] + ty * h * 0.6, back[1] - tx * h * 0.6)], PEN, 2.6, 0.9, fill=PAPER,
+           closed=True)
+    return back
+
+
 def open_head(s, a, b):
     """An open head at b, pointing from a: uses."""
     tx, ty = b[0] - a[0], b[1] - a[1]
@@ -3446,7 +3507,8 @@ def inside(p, box):
 def name_of(box, words):
     """The name centered in box, a name on two lines joined, as `red:MenuItem` or `MenuItem`."""
     lines = sorted((xy[1], s) for xy, s, anchor in words if anchor == "middle" and inside(xy, box))
-    return "".join(s for _, s in lines).replace(" ", "")
+    # A long name Mermaid wraps is broken with a hyphen it adds.
+    return "".join(s.removesuffix("-") for _, s in lines).replace(" ", "")
 
 
 def color_of(name):
@@ -3458,7 +3520,8 @@ def color_of(name):
 
 
 def mermaid(name):
-    w, h, boxes, dividers, words, lifelines, arrows = mermaid_read(mermaid_svg(name))
+    w, h, boxes, dividers, words, lifelines, arrows, extras = mermaid_read(mermaid_svg(name))
+    clusters, notes, frames, figures = extras
     if w > MERMAID_COLUMN:
         raise SystemExit(f"{name} is {w:.0f} px wide, wider than the column's {MERMAID_COLUMN} px:"
                          " lay it out narrower")
@@ -3467,8 +3530,30 @@ def mermaid(name):
     margin = (MERMAID_COLUMN - w) / 2
     s.ax.set_xlim(-margin, w + margin)
     names = [name_of(box, words) for box in boxes]
+    for box in clusters:
+        # Mermaid sizes a namespace's label in another font than Menlo: widen the box to hold it.
+        xs, ys = [x for x, _ in box], [y for _, y in box]
+        label = [(xy, t) for xy, t, a in words if a == "start" and min(xs) <= xy[0] <= max(xs)
+                 and abs(xy[1] - min(ys)) < MERMAID_SIZE * 1.5]
+        right = max([max(xs)] + [xy[0] + len(t) * MENLO_ADVANCE * MERMAID_SIZE + 8
+                                 for xy, t in label])
+        corners = [(min(xs), min(ys)), (right, min(ys)), (right, max(ys)), (min(xs), max(ys))]
+        s.line(corners, GREY3, 1.8, 0.9, closed=True)
     for a, b in lifelines:
         s.line([a, b], GREY3, 1.8, 0.9).set_linestyle((0, (6, 4)))
+    for frame in frames:
+        if len(frame) == 2:
+            s.line(list(frame), GREY4, 1.8, 0.9).set_linestyle((0, (3, 3)))
+        else:
+            s.line(frame, GREY4, 1.8, 0.9, fill=PAPER, closed=True)
+    for box in notes:
+        s.marker(box, MARKER_YELLOW, nib=10, opacity=0.4)
+        s.ink_poly(box, over=4, color=GREY4)
+    for kind, a, b in figures:
+        if kind == "line":
+            s.line([a, b], PEN, 2.6, 0.9)
+        else:
+            s.ink_circle(a, b, width=2.6)
     colors = [color_of(n) for n in names]
     for box, (fill, ink) in zip(boxes, colors):
         s.marker(box, fill, nib=10, opacity=0.4)
@@ -3479,6 +3564,8 @@ def mermaid(name):
     for pts, dashed, ends in arrows:
         if ends == "diamond":
             pts = [diamond(s, pts[0], pts[1])] + pts[1:]
+        if ends == "triangle":
+            pts = [triangle(s, pts[0], pts[1])] + pts[1:]
         line = s.line(pts, PEN, 2.6, 0.9)
         if dashed:
             line.set_linestyle((0, (5, 3)))
@@ -3489,22 +3576,22 @@ def mermaid(name):
     for xy, words_, anchor in words:
         text = s.text(xy, words_, MERMAID_SIZE, anchor=anchor, code=True)
         # A message's words cross the lifelines: a box of paper behind them parts them.
-        if not any(inside(xy, box) for box in boxes):
+        if not any(inside(xy, box) for box in boxes + notes):
             text.set_bbox(dict(facecolor=PAPER, edgecolor="none", pad=1))
     s.save(name)
 
 
-# -- L135's menu, a screen at a time: the gamepad with the button pressed, beside what the Driver
-# -- Station shows after it, from what TeamCode's menuCapture wrote.
+# -- L093's menu and L135's, a screen at a time: the gamepad with the button pressed, beside what
+# -- the Driver Station shows after it, from what TeamCode's menuCapture wrote.
 
-SCREENS = Path(__file__).resolve().parent / "menu" / "l135-screens.txt"
+MENU = Path(__file__).resolve().parent / "menu"
 DPAD = {"up": (0, -1), "down": (0, 1), "left": (-1, 0), "right": (1, 0)}
 FACE = {"Y": (0, -1), "A": (0, 1), "X": (-1, 0), "B": (1, 0)}
 
 
-def screens():
+def screens(lesson):
     """Each screen's press, such as INIT or right, and the Driver Station's lines after it."""
-    blocks = SCREENS.read_text().strip("\n").split("\n\n")
+    blocks = (MENU / f"{lesson}-screens.txt").read_text().strip("\n").split("\n\n")
     return [(b.split("\n")[0], b.split("\n")[1:]) for b in blocks]
 
 
@@ -3525,25 +3612,143 @@ def pad_buttons(s, cx, cy, w, h, pressed):
             s.text((c[0], c[1] + 6), name, 17)
 
 
-def l135_press(n, press, lines):
-    s = Sketch(MERMAID_COLUMN, 205, 135 + n)
+def menu_press(lesson, n, press, lines):
+    more = 30 * (len(lines) - 3)  # each line past a status line and two rows
+    s = Sketch(MERMAID_COLUMN, 205 + more, int(lesson[1:]) + n)
     cx, cy, w, h = 150, 120, 260, 116
     gamepad(s, cx, cy, w, h)
     pad_buttons(s, cx, cy, w, h, press)
     s.text((cx, 34), "INIT, nothing pressed" if press == "INIT" else f"press {press}", 22)
-    x, y, sw, sh = 290, 25, 436, 156
+    x, y, sw, sh = 290, 25, 436, 156 + more
     screen_device(s, x, y, sw, sh, 14)
     for i, line in enumerate(lines):
         s.text((x + 26, y + 68 + i * 30), line, 15, PAPER, anchor="start", code=True)
-    s.save(f"fig-l135-press-{n:02d}")
+    s.save(f"fig-{lesson}-press-{n:02d}")
 
 
-def l135_presses():
-    for n, (press, lines) in enumerate(screens(), start=1):
-        l135_press(n, press, lines)
+def menu_presses():
+    for lesson in ("l093", "l095", "l135"):
+        for n, (press, lines) in enumerate(screens(lesson), start=1):
+            menu_press(lesson, n, press, lines)
 
 
-PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
+def cubed(v):
+    return v * v * v
+
+
+def l065_shapes():
+    x = np.linspace(-1, 1, 801)
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+    for ax, y, title in [(axes[0], deadband(x), "LINEAR"),
+                         (axes[1], squared(deadband(x)), "SQUARED"),
+                         (axes[2], cubed(deadband(x)), "CUBED")]:
+        ax.plot(x, y, color=BLUE, linewidth=2.5)
+        ax.axhline(0, color=GREY, linewidth=0.8)
+        ax.axvline(0, color=GREY, linewidth=0.8)
+        ax.axvspan(-DEADBAND, DEADBAND, color=RED, alpha=0.15)
+        ax.set_xlim(-1.05, 1.05)
+        ax.set_ylim(-1.05, 1.05)
+        ax.set_aspect("equal")
+        ax.set_title(title, fontsize=13)
+        ax.set_xlabel("stick, -1.0 to 1.0")
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("shaped speed, -1.0 to 1.0")
+    save(fig, "fig-l065-shapes")
+
+
+def l045_wiring():
+    # L045's wiring, from above with the nose up: each wheel's motor to its motor port, its
+    # encoder to the encoder port with the same number; the IMU inside the hub, on I2C Bus 0;
+    # the Pinpoint dashed on I2C Bus 1, since L115 mounts it.
+    s = Sketch(1100, 1000, 45)
+    cx, cy, side = 550, 470, 700
+    centers = robot_inside(s, cx, cy, side, nose=True)
+    hub = rect(cx - 100, cy - 110, 200, 220)
+    s.marker(hub, "#d9dee0", nib=14, opacity=0.95)
+    s.ink_poly(hub, width=2.4, over=6)
+    s.lines((cx, cy - 8), ["Control", "Hub"], 24)
+    s.lines((cx, cy + 86), ["imu inside,", "I2C Bus 0"], 14, gap=1.1, code=True)
+    ports = {"front left": 0, "front right": 1, "back left": 2, "back right": 3}
+    names = {"front left": "Front Left", "front right": "Front Right",
+             "back left": "Back Left", "back right": "Back Right"}
+    colors = {0: MARKER_RED, 1: MARKER_BLUE, 2: MARKER_GREEN, 3: MARKER_ORANGE}
+    for wheel, (wx, wy) in centers.items():
+        n = ports[wheel]
+        left = wx < cx
+        k = 1 if left else -1
+        front = wy < cy
+        mx = wx + 70 * k
+        motor = rect(mx - 22, wy - 40, 44, 80)
+        s.marker(motor, GREY2, nib=10, opacity=0.8)
+        s.ink_poly(motor, width=2.0, over=4)
+        s.text((mx, wy + (60 if front else -52)), "motor", 18)
+        s.text((wx, wy + (-158 if front else 176)), names[wheel], 22, code=True)
+        edge = cx - 100 * k
+        row = cy + (-80 if front else 30)
+        power_x, enc_x = cx - 125 * k, cx - 113 * k
+        s.line([(mx + 22 * k, wy - 12), (power_x, wy - 12), (power_x, row), (edge, row)],
+               colors[n], 3.2, 0.9)
+        s.line([(mx + 22 * k, wy + 12), (enc_x, wy + 12), (enc_x, row + 22), (edge, row + 22)],
+               colors[n], 3.2, 0.9).set_linestyle((0, (5, 3)))
+        s.text((edge + 8 * k, row + 6), f"motor {n}", 14, anchor="start" if left else "end",
+               code=True)
+        s.text((edge + 8 * k, row + 28), f"encoder {n}", 14, anchor="start" if left else "end",
+               code=True)
+    pin = rect(cx - 55, 190, 110, 70)
+    s.line(pin + pin[:1], GREY3, 2.4).set_linestyle((0, (6, 4)))
+    s.lines((cx, 218), ["Pinpoint,", "from L115"], 16)
+    s.text((cx, 180), "pinpoint", 16, code=True)
+    s.line([(cx, 260), (cx, cy - 110)], GREY3, 2.6).set_linestyle((0, (6, 4)))
+    s.text((cx + 8, 300), "I2C Bus 1", 14, anchor="start", code=True)
+    batt = rect(cx - 90, 680, 110, 60)
+    s.marker(batt, GREY1, nib=12, opacity=0.95)
+    s.ink_poly(batt, width=2.2, over=4)
+    s.text((cx - 35, 717), "battery", 20)
+    sw = rect(cx + 40, 690, 50, 40)
+    s.marker(sw, GREY2, nib=10, opacity=0.9)
+    s.ink_poly(sw, width=2.2, over=4)
+    s.text((cx + 65, 760), "switch", 18)
+    s.line([(cx + 20, 710), (cx + 40, 710)], PEN, 3.0)
+    s.line([(cx + 65, 690), (cx + 65, cy + 110)], PEN, 3.0)
+    s.text((cx, 960), "solid: motor power    dashed: encoder", 22)
+    s.save("fig-l045-wiring")
+
+
+def l120_pod_turn():
+    # L120S050: the robot turning left on the spot. The forward pod, left of the middle, rolls
+    # backward along its circle; the strafe pod, ahead of the middle, rolls left along its.
+    s = Sketch(900, 860, 120)
+    cx, cy, side = 450, 470, 560
+    s.construct((cx, cy - side / 2 - 40), (cx, cy + side / 2 + 40))
+    s.construct((cx - side / 2 - 40, cy), (cx + side / 2 + 40, cy))
+    frame_top(s, cx - side / 2, cy - side / 2, side, side)
+    s.dot((cx, cy), 9)
+    s.text((cx, cy + 104), "middle", 22)
+    xr, yr = 170, 150
+    for r in (xr, yr):
+        s.line(arc((cx, cy), r, 0, 360, 96), CONSTRUCT, 1.4)
+    fx, fy = cx - xr, cy                               # the forward pod, left of the middle
+    wheel_top(s, fx, fy, 40, 96)
+    s.marker_arrow((fx - 34, fy - 30), (fx - 34, fy + 70), MARKER_BLUE, nib=7)
+    s.lines((fx, fy - 84), ["forward pod", "rolls backward"], 22)
+    s.text((cx - xr / 2 + 10, cy + 64), "xPodOffset_in", 17, code=True)
+    s.ink_line((fx, cy + 4), (cx, cy + 4), width=1.4, over=0, passes=1)
+    sx, sy = cx, cy - yr                               # the strafe pod, ahead of the middle
+    s.turn = (sx, sy, 90)
+    wheel_top(s, sx, sy, 40, 96)
+    s.turn = (0.0, 0.0, 0.0)
+    s.marker_arrow((sx + 30, sy - 40), (sx - 80, sy - 40), MARKER_BLUE, nib=7)
+    s.text((sx - 90, sy - 54), "strafe pod rolls left", 22, anchor="end")
+    s.ink_line((cx + 4, sy), (cx + 4, cy), width=1.4, over=0, passes=1)
+    s.text((cx + 70, cy - yr / 2 - 30), "yPodOffset_in", 17, anchor="start", code=True)
+    turn = arc((cx, cy), 60, 30, -200, 40)
+    s.line(turn, MARKER_RED, 6, 0.85)
+    s.marker_arrow(turn[-3], turn[-1], MARKER_RED, nib=6)
+    s.text((cx + 80, cy + 80), "turning left", 24, MARKER_RED, anchor="start")
+    s.save("fig-l120-pod-turn")
+
+
+PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
@@ -3556,7 +3761,7 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
             e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
-            l135_presses]
+            menu_presses, l045_wiring, l120_pod_turn]
 
 if __name__ == "__main__":
     if OUT is None:

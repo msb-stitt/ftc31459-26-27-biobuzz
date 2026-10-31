@@ -1,0 +1,24 @@
+classDiagram
+    class L065ShaperOpMode {
+        StickShaper stickShaper
+        driveFromTheSticks()
+    }
+    class StickShaper {
+        double band
+        Shape shape
+        +StickShaper(bandToSetToZero)
+        +setBand(bandToSetToZero)
+        +setShape(newShape)
+        +shaped(value) double
+        deadband(value, band) double
+        signedSquared(value) double
+        cubed(value) double
+    }
+    class Shape {
+        <<enumeration>>
+        LINEAR
+        SQUARED
+        CUBED
+    }
+    L065ShaperOpMode o-- StickShaper
+    StickShaper o-- Shape

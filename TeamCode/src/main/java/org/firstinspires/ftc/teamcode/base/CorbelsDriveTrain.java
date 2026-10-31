@@ -203,7 +203,12 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
 
     // ------------------------------------------------------- shaping what the driver asked for
 
-    /** Zero when the stick is inside the band, and the stick itself when it is not. */
+    /**
+     * Zero when the stick is inside the band, and the stick itself when it is not.
+     *
+     * @deprecated Use {@link StickShaper}. Kept until no student code on the team calls it.
+     */
+    @Deprecated
     public double deadband(double value, double band) {
         if (Math.abs(value) < band) {
             return 0.0;
@@ -212,7 +217,12 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         }
     }
 
-    /** The number times itself, with the sign it started with. */
+    /**
+     * The number times itself, with the sign it started with.
+     *
+     * @deprecated Use {@link StickShaper}. Kept until no student code on the team calls it.
+     */
+    @Deprecated
     public double signedSquared(double value) {
         double magnitude = value * value;
         if (value < 0.0) {

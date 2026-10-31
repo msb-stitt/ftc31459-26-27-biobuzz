@@ -190,6 +190,67 @@ public class LessonsTest {
     }
 
     @Test
+    public void l065_aLetGoStickCountsAsCentred() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l065.L065ShaperOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.03f;     // two sticks that were let go
+        h.gamepad1.right_stick_y = 0.04f;
+        h.loop();
+
+        assertEquals("inside the deadband, so the robot does not creep",
+                0.0, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(0.0, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
+        h.stop();
+    }
+
+    @Test
+    public void l065_halfAStickIsAQuarterOfTheSpeed() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l065.L065ShaperOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.gamepad1.right_stick_y = 0.5f;      // half back
+        h.loop();
+
+        assertEquals("a new StickShaper squares, so half stick is quarter speed",
+                0.25, h.motors.get(OpModeHarness.FRONT_LEFT).speed, EPS);
+        assertEquals(0.25, h.motors.get(OpModeHarness.BACK_LEFT).speed, EPS);
+        assertEquals("and squaring keeps the sign",
+                -0.25, h.motors.get(OpModeHarness.FRONT_RIGHT).speed, EPS);
+        assertEquals(-0.25, h.motors.get(OpModeHarness.BACK_RIGHT).speed, EPS);
+        h.stop();
+    }
+
+    /** {@code StickShaper.Shape}'s constant named {@code name}, out of {@code mytry.l065}. */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static Object shape(String name) throws ClassNotFoundException {
+        Class shapes = Class.forName(MyTry.PACKAGE + ".l065.StickShaper$Shape");
+        return Enum.valueOf(shapes, name);
+    }
+
+    @Test
+    public void l065_theShaperGivesEachShape() throws ClassNotFoundException {
+        Object shaper = MyTry.make("l065.StickShaper", Object.class, 0.05);
+        assertEquals("squared until told otherwise",
+                0.25, (double) MyTry.call(shaper, "shaped", 0.5), EPS);
+        assertEquals("inside the band is 0",
+                0.0, (double) MyTry.call(shaper, "shaped", -0.04), EPS);
+
+        MyTry.call(shaper, "setShape", shape("LINEAR"));
+        assertEquals(0.5, (double) MyTry.call(shaper, "shaped", 0.5), EPS);
+        MyTry.call(shaper, "setShape", shape("CUBED"));
+        assertEquals("cubed keeps the sign",
+                -0.125, (double) MyTry.call(shaper, "shaped", -0.5), EPS);
+
+        MyTry.call(shaper, "setBand", 0.1);
+        assertEquals("a wider band",
+                0.0, (double) MyTry.call(shaper, "shaped", 0.08), EPS);
+    }
+
+    @Test
     public void l070_logsTheAButton() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L070ButtonsOpMode"));
         h.init();
@@ -344,6 +405,81 @@ public class LessonsTest {
         h.stop();
     }
 
+    @Test
+    public void l093_eachRowStartsAtItsFirstChoice() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l093.L093MenuOpMode"));
+        h.init();
+        h.initLoop();
+        assertTrue("the menu is on the Driver Station during INIT: " + h.driverStation.text(),
+                h.driverStation.shows("ON-S-R\n> Light: <On>\n  Speed: <Slow>\n  Color: <Red>"));
+        assertEquals("the summary is logged during INIT", "ON-S-R", Tracker.values().get("menu/summary"));
+        h.stop();
+    }
+
+    @Test
+    public void l093_thePressesMoveTheMenu() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("l093.L093MenuOpMode"));
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        assertTrue("right offers Off, not yet selected: " + h.driverStation.text(),
+                h.driverStation.shows("ON-S-R\n> Light: Off? A:OK B:Back\n  Speed: <Slow>"));
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_left = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("left wraps to the last choice, and A selects it: " + h.driverStation.text(),
+                h.driverStation.shows("OFF-F-R\n  Light: <Off>\n> Speed: <Fast>\n  Color: <Red>"));
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        assertTrue("down wraps from the last row to the first: " + h.driverStation.text(),
+                h.driverStation.shows("OFF-F-R\n> Light: <Off>\n  Speed: <Fast>\n  Color: <Red>"));
+        h.start();
+        h.loop();
+        assertTrue("after PLAY, the status line: " + h.driverStation.text(),
+                h.driverStation.shows("OFF-F-R"));
+        h.stop();
+    }
+
+    @Test
+    public void l095_theMenuStartsAtTheDefault() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L095ShapingMenuOpMode"));
+        h.init();
+        h.initLoop();
+        assertTrue("each row starts at the default: " + h.driverStation.text(),
+                h.driverStation.shows("0.05-S\n> Band: <0.05>\n  Shape: <Squared>"));
+        h.start();
+        h.gamepad1.left_stick_y = -0.04f;     // inside a band of 0.05
+        h.loop();
+        assertWheels("inside the band", h, 0, 0, 0, 0);
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+        assertWheels("half a stick, squared", h, 0.25, 0.25, 0.25, 0.25);
+        h.stop();
+    }
+
+    @Test
+    public void l095_theMenuChoosesTheBandAndTheShape() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L095ShapingMenuOpMode"));
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_left = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_right = true);
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue("0.10 and Linear chosen: " + h.driverStation.text(),
+                h.driverStation.shows("0.10-L\n  Band: <0.10>\n> Shape: <Linear>"));
+        h.start();
+        h.gamepad1.left_stick_y = -0.08f;     // inside a band of 0.10
+        h.loop();
+        assertWheels("inside the chosen band", h, 0, 0, 0, 0);
+        h.gamepad1.left_stick_y = -0.5f;      // half forward
+        h.loop();
+        assertWheels("half a stick, linear", h, 0.5, 0.5, 0.5, 0.5);
+        h.stop();
+    }
+
     /**
      * L110's mixArcadeToWheelSpeeds, driven the way the follower drives it: the
      * arcade command in, wheel speeds on the motors. Each assert names the wheel, so a wrong sign says
@@ -436,7 +572,7 @@ public class LessonsTest {
     @Test
     public void everyLessonTurnsClockwiseWhenTheRightStickGoesRight() {
         List<String> wrongWay = new ArrayList<>();
-        for (OpMode lesson : new OpMode[]{MyTry.opMode("L120CompareLocalizersOpMode"),
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L122CompareLocalizersOpMode"),
                 MyTry.opMode("L140FieldRelativeOpMode"),
                 MyTry.opMode("L150RobotRelativeButtonOpMode"),
                 MyTry.opMode("L170DriveToPoseOpMode")}) {
@@ -456,8 +592,8 @@ public class LessonsTest {
     }
 
     @Test
-    public void l120_theEncoderLocalizerRunsAlongsideAndIsLogged() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L120CompareLocalizersOpMode"));
+    public void l113_theEncoderLocalizerRunsAlongsideAndIsLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L113LocalizerOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -470,6 +606,65 @@ public class LessonsTest {
         Map<String, Object> values = Tracker.values();
         assertTrue("the shadow localizer is logged: " + values.keySet(),
                 values.containsKey("Localizer/driveWheelEncoders/x_in"));
+        assertEquals("the shadow must not steer the robot", 0.0, h.wheelsForward(), EPS);
+        assertNotEquals("it moved in its own estimate",
+                0.0, number(values, "Localizer/driveWheelEncoders/x_in"), 0.1);
+        assertEquals("the robot's own localizer, to compare against",
+                follower.pose().x(), number(values, "Localizer/pinPoint/x_in"), EPS);
+        assertEquals(follower.pose().y(), number(values, "Localizer/pinPoint/y_in"), EPS);
+    }
+
+    @Test
+    public void l120_thePinpointLocalizerFollowsTheRobot() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L120PinpointOpMode"));
+        h.init();
+        h.start();
+        h.loop();
+        double startX_in = number(Tracker.values(), "Localizer/pinPoint/x_in");
+        double startY_in = number(Tracker.values(), "Localizer/pinPoint/y_in");
+        // Forward and to the left while turning, so each pod rolls from both.
+        h.gamepad1.left_stick_y = -0.6f;
+        h.gamepad1.left_stick_x = -0.4f;
+        h.gamepad1.right_stick_x = -0.3f;
+        for (int i = 0; i < 100; i++) {
+            h.loop();
+        }
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the shadow localizer is logged: " + values.keySet(),
+                values.containsKey("Localizer/pinpointPods/x_in"));
+        double moved_in = Math.hypot(number(values, "Localizer/pinPoint/x_in") - startX_in,
+                number(values, "Localizer/pinPoint/y_in") - startY_in);
+        assertTrue("the robot moved: " + moved_in, moved_in > 12.0);
+        assertEquals("x follows the robot's own localizer",
+                number(values, "Localizer/pinPoint/x_in"),
+                number(values, "Localizer/pinpointPods/x_in"), 0.5);
+        assertEquals("y follows the robot's own localizer",
+                number(values, "Localizer/pinPoint/y_in"),
+                number(values, "Localizer/pinpointPods/y_in"), 0.5);
+        assertEquals("the heading follows the robot's own localizer",
+                number(values, "Localizer/pinPoint/heading_deg"),
+                number(values, "Localizer/pinpointPods/heading_deg"), 0.5);
+    }
+
+    @Test
+    public void l122_yourLocalizersAreLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L122CompareLocalizersOpMode"));
+        Follower follower = h.robot.follower;
+        h.init();
+        h.start();
+        h.loop();
+        // 45 inches of wheel travel on every wheel = 45 inches forward
+        h.setWheelTicks(2025, 2025, 2025, 2025);
+        h.loop();
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the shadow localizer is logged: " + values.keySet(),
+                values.containsKey("Localizer/driveWheelEncoders/x_in"));
+        assertTrue("L120's localizer is logged: " + values.keySet(),
+                values.containsKey("Localizer/pinpointPods/x_in"));
         assertEquals("the shadow must not steer the robot", 0.0, h.wheelsForward(), EPS);
         assertNotEquals("it moved in its own estimate",
                 0.0, number(values, "Localizer/driveWheelEncoders/x_in"), 0.1);

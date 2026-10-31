@@ -2,7 +2,7 @@
 
 WRITING.md's *A Java block names its file* sets the rule. A caption is
 the file's path under teamcode/, `(test) ` in front for a test, such as
-`(test) mytry/l135/MenuItemTest.java`. Each line of the block has to be in that
+`(test) mytry/l093/MenuItemTest.java`. Each line of the block has to be in that
 file as the page's lesson leaves it, read by applying solutions/ on the ref
 keep.toml pins, as the answer pages are. A page in LABELLED has a caption on
 each Java block.
@@ -15,7 +15,7 @@ from answers import pins
 from applied import apply_all
 from bookpaths import relative, tracked
 
-LABELLED = {"l135"}
+LABELLED = {"l065", "l093", "l135"}
 BLOCK = re.compile(r"^```\{code-block\} java\n((?::[\w-]+:[^\n]*\n)*)(.*?)^```", re.M | re.S)
 CAPTION = re.compile(r"^:caption: (.*)$", re.M)
 ROOTS = {"TeamCode/src/main/java/org/firstinspires/ftc/teamcode/": "",

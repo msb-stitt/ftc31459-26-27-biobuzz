@@ -1,0 +1,72 @@
+INIT
+ON-S-R
+> Light: <On>
+  Speed: <Slow>
+  Color: <Red>
+
+right
+ON-S-R
+> Light: Off? A:OK B:Back
+  Speed: <Slow>
+  Color: <Red>
+
+B
+ON-S-R
+> Light: <On>
+  Speed: <Slow>
+  Color: <Red>
+
+right
+ON-S-R
+> Light: Off? A:OK B:Back
+  Speed: <Slow>
+  Color: <Red>
+
+A
+OFF-S-R
+> Light: <Off>
+  Speed: <Slow>
+  Color: <Red>
+
+down
+OFF-S-R
+  Light: <Off>
+> Speed: <Slow>
+  Color: <Red>
+
+left
+OFF-S-R
+  Light: <Off>
+> Speed: Fast? A:OK B:Back
+  Color: <Red>
+
+A
+OFF-F-R
+  Light: <Off>
+> Speed: <Fast>
+  Color: <Red>
+
+down
+OFF-F-R
+  Light: <Off>
+  Speed: <Fast>
+> Color: <Red>
+
+right
+OFF-F-R
+  Light: <Off>
+  Speed: <Fast>
+> Color: Green? A:OK B:Back
+
+down
+OFF-F-R
+> Light: <Off>
+  Speed: <Fast>
+  Color: <Red>
+
+up
+OFF-F-R
+  Light: <Off>
+  Speed: <Fast>
+> Color: <Red>
+

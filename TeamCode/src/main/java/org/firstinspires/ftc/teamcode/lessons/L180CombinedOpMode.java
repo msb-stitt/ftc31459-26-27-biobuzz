@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
 import org.firstinspires.ftc.teamcode.base.HeadingHold;
+import org.firstinspires.ftc.teamcode.base.StickShaper;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
@@ -40,6 +41,8 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class L180CombinedOpMode extends CorbelsTeleOp {
+
+    StickShaper stickShaper = new StickShaper(0.05);
 
     boolean previousButtonY;
     boolean previousButtonAForAiming;
@@ -129,12 +132,11 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         double rightStickX = gamepad1.right_stick_x;
         Tracker.publish("gamepad1/rightStickX", rightStickX);
 
-        double bandToSetToZero = 0.05;
         double fieldXSpeed = -leftStickY;
-        fieldXSpeed = speedShaped(fieldXSpeed, bandToSetToZero);
+        fieldXSpeed = stickShaper.shaped(fieldXSpeed);
         Tracker.publish("drivetrain/fieldXSpeed", fieldXSpeed);
         double turnCcwSpeed = -rightStickX;
-        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
         turnCcwSpeed = hold.turn(follower, turnCcwSpeed);
         boolean holdingHeading = hold.target() != null;
@@ -146,7 +148,7 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         }
 
         double fieldYSpeed = -leftStickX;
-        fieldYSpeed = speedShaped(fieldYSpeed, bandToSetToZero);
+        fieldYSpeed = stickShaper.shaped(fieldYSpeed);
         Tracker.publish("drivetrain/fieldYSpeed", fieldYSpeed);
 
         Tracker.publish("drivetrain/driveMode", "DRIVER");
@@ -156,9 +158,9 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         Tracker.publish("drivetrain/robotRelative", robotRelative);
         if (robotRelative) {
             robotForwardXSpeed = -leftStickY;
-            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
+            robotForwardXSpeed = stickShaper.shaped(robotForwardXSpeed);
             robotStrafeYSpeed = -leftStickX;
-            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
+            robotStrafeYSpeed = stickShaper.shaped(robotStrafeYSpeed);
         } else {
             double heading_rad = follower.pose().heading();
             double sinHeading = Math.sin(heading_rad);
@@ -208,26 +210,5 @@ public class L180CombinedOpMode extends CorbelsTeleOp {
         Scheduler.cancel(driveToTheTarget);
         double fortyFive_rad = Math.toRadians(45.0);
         hold.aimAt(fortyFive_rad);
-    }
-
-    double deadband(double value, double band) {
-        double alwaysPositiveMagnitude = Math.abs(value);
-        boolean isCloseToZero = alwaysPositiveMagnitude < band;
-        if (isCloseToZero) {
-            return 0.0;
-        }
-        return value;
-    }
-
-    double signedSquared(double value) {
-        double alwaysPositiveValue = Math.abs(value);
-        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
-        return valueSquaredKeepingTheSign;
-    }
-
-    double speedShaped(double value, double band) {
-        double deadbanded = deadband(value, band);
-        double shapedSpeed = signedSquared(deadbanded);
-        return shapedSpeed;
     }
 }
