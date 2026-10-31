@@ -1009,6 +1009,125 @@ public class LessonsTest {
     }
 
     @Test
+    public void l157_theRespreadStartsFromZeroJustPastTheBand() {
+        Object shaper = MyTry.make("l157.StickShaper", Object.class, 0.05);
+        assertEquals("without the re-spread, squared: 0.525 times 0.525",
+                0.275625, (double) MyTry.call(shaper, "shaped", 0.525), EPS);
+
+        MyTry.call(shaper, "setRespread", true);
+        assertEquals("inside the band", 0.0, (double) MyTry.call(shaper, "shaped", 0.04), EPS);
+        assertEquals("just past the band, nearly 0", 0.0,
+                (double) MyTry.call(shaper, "shaped", 0.0501), 1e-6);
+        assertEquals("halfway from the band to 1 is 0.5, squared", 0.25,
+                (double) MyTry.call(shaper, "shaped", 0.525), EPS);
+        assertEquals("and backwards", -0.25, (double) MyTry.call(shaper, "shaped", -0.525), EPS);
+        assertEquals("all the way is still 1", 1.0, (double) MyTry.call(shaper, "shaped", 1.0), EPS);
+    }
+
+    /** L157's drivetrain on fake motors and a 12 V battery, for the three tests below. */
+    private static final class FeedforwardWheels {
+        final OpModeHarness.FakeMotor fl = new OpModeHarness.FakeMotor();
+        final OpModeHarness.FakeMotor fr = new OpModeHarness.FakeMotor();
+        final OpModeHarness.FakeMotor bl = new OpModeHarness.FakeMotor();
+        final OpModeHarness.FakeMotor br = new OpModeHarness.FakeMotor();
+        final Drivetrain drivetrain = MyTry.make("L157FeedforwardDriveTrain", Drivetrain.class,
+                new RobotHardware(fl.motor, fr.motor, bl.motor, br.motor,
+                        new OpModeHarness.FakeImu().imu, OpModeHarness.freshConfig()));
+
+        /** Asks for the speeds, and lets the drivetrain write the wheels as the follower would. */
+        void speeds(double forward_ips, double strafe_ips, double turn_radps) {
+            MyTry.call(drivetrain, "speeds", forward_ips, strafe_ips, turn_radps);
+            drivetrain.drive(DrivePowers.zero(), true);
+        }
+
+        /** What each wheel was last told, before a motor's write cache can hold a small change back. */
+        double[] wheels() {
+            return (double[]) MyTry.call(drivetrain, "wheelSpeeds");
+        }
+    }
+
+    @Test
+    public void l157_theVoltsAreKsPlusKvTimesTheSpeed() {
+        FeedforwardWheels w = new FeedforwardWheels();
+        w.speeds(30, 0, 0);
+        double forward = (Constants.kSForwardVolts + Constants.kVForwardVoltSecondsPerInch * 30) / 12;
+        assertEquals("forward: front left", forward, w.wheels()[0], EPS);
+        assertEquals("forward: back right", forward, w.wheels()[3], EPS);
+
+        w.speeds(0, 30, 0);
+        double strafe = (Constants.kSStrafeVolts + Constants.kVStrafeVoltSecondsPerInch * 30) / 12;
+        assertEquals("strafe left: front left", -strafe, w.wheels()[0], EPS);
+        assertEquals("strafe left: front right", strafe, w.wheels()[1], EPS);
+
+        w.speeds(0, 0, 2);
+        double turn = (Constants.kSTurnVolts + Constants.kVTurnVoltSecondsPerRadian * 2) / 12;
+        assertEquals("turn left: front left", -turn, w.wheels()[0], EPS);
+        assertEquals("turn left: front right", turn, w.wheels()[1], EPS);
+
+        // Forward and left at once: the front right gets both, and both ways' kS, each
+        // counted by its share of the wheel's volts.
+        w.speeds(30, 30, 0);
+        double forwardVolts = Constants.kVForwardVoltSecondsPerInch * 30;
+        double strafeVolts = Constants.kVStrafeVoltSecondsPerInch * 30;
+        double blendedKs = (forwardVolts * Constants.kSForwardVolts
+                + strafeVolts * Constants.kSStrafeVolts) / (forwardVolts + strafeVolts);
+        assertEquals("forward and left: front right",
+                (forwardVolts + strafeVolts + blendedKs) / 12, w.wheels()[1], EPS);
+    }
+
+    @Test
+    public void l157_kSWaitsForTheWheelToBeAskedToMove() {
+        FeedforwardWheels w = new FeedforwardWheels();
+        double kS = Constants.kSForwardVolts;
+        double kV = Constants.kVForwardVoltSecondsPerInch;
+        // Speeds whose kV volts are 3%, 6%, 3% and 1.5% of kS: off, on, still on, off.
+        double[] percents = {3, 6, 3, 1.5};
+        boolean[] kSOn = {false, true, true, false};
+        for (int i = 0; i < percents.length; i++) {
+            double speed = percents[i] / 100 * kS / kV;
+            w.speeds(speed, 0, 0);
+            double expected = (kV * speed + (kSOn[i] ? kS : 0.0)) / 12;
+            assertEquals("kV volts at " + percents[i] + "% of kS", expected, w.wheels()[0], EPS);
+        }
+    }
+
+    @Test
+    public void l157_aRequestTooBigIsCutToFit() {
+        FeedforwardWheels w = new FeedforwardWheels();
+        double strafe_ips = 100;
+        w.speeds(0, strafe_ips, 0);
+        double fits = (12 - Constants.kSStrafeVolts) / (Constants.kVStrafeVoltSecondsPerInch * strafe_ips);
+        assertEquals("the strafe is cut to what 12 V can give", fits,
+                number(Tracker.values(), "feedforward/scale"), EPS);
+        assertEquals("so each wheel is at full power: front left", -1.0, w.wheels()[0], EPS);
+        assertEquals("front right", 1.0, w.wheels()[1], EPS);
+    }
+
+    @Test
+    public void l157_theRobotGoesTheSpeedTheStickAsksFor() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L157FeedforwardOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.right_bumper = true;
+        h.gamepad1.left_stick_y = -0.5f;
+        long deadline = h.clock.nanos() + 2_000_000_000L;
+        while (h.clock.nanos() < deadline) {
+            h.loop();
+            OpModeHarness.sleep(5);
+        }
+        Map<String, Object> values = Tracker.values();
+        h.stop();
+
+        double asked = number(values, "feedforward/askedForward_ips");
+        assertEquals("half a stick, re-spread and squared, of the top speed",
+                Math.pow((0.5 - 0.05) / 0.95, 2)
+                        * (12 - Constants.kSForwardVolts) / Constants.kVForwardVoltSecondsPerInch,
+                asked, 1e-3);
+        assertEquals("and the robot goes it", asked,
+                number(values, "feedforward/actualForward_ips"), 0.02 * asked);
+    }
+
+    @Test
     public void l160_theRobotHoldsItsHeadingWhenTheStickIsReleased() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L160HeadingHoldOpMode"));
         Follower follower = h.robot.follower;
