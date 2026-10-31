@@ -268,10 +268,11 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
      *
      * <p>Every other door here takes a fraction of full speed, which is
      * whatever the battery and the carpet make of it. This one takes a speed
-     * and gets it, two ways at once: a feedforward guess at the fraction of
-     * full speed a speed needs, from
-     * {@link Constants#powerPerInchPerSecond}, plus a correction proportional to
-     * the difference between the speed asked for and the speed measured.
+     * and gets it, two ways at once: a feedforward guess at the volts a speed
+     * needs, from L153's {@link Constants#kSForwardVolts} and
+     * {@link Constants#kVForwardVoltSecondsPerInch}, divided by the battery's
+     * volts, plus a correction proportional to the difference between the
+     * speed asked for and the speed measured.
      */
     public void setCommandedWheelSpeeds(double frontLeft_ips, double frontRight_ips,
                                         double backLeft_ips, double backRight_ips) {
@@ -282,9 +283,12 @@ public abstract class CorbelsDriveTrain implements Drivetrain {
         wanted[BR] = backRight_ips;
 
         double[] measured = measuredSpeeds.all();
+        double batteryVolts = hardware.batteryVolts();
         double[] speeds = new double[4];
         for (int i = 0; i < speeds.length; i++) {
-            double feedforward = Constants.powerPerInchPerSecond * wanted[i];
+            double feedforwardVolts = Math.signum(wanted[i]) * Constants.kSForwardVolts
+                    + Constants.kVForwardVoltSecondsPerInch * wanted[i];
+            double feedforward = feedforwardVolts / batteryVolts;
             double feedback = VELOCITY_KP * (wanted[i] - measured[i]);
             speeds[i] = clampToFullSpeed(feedforward + feedback);
         }
