@@ -3293,6 +3293,9 @@ MERMAID_COLORS = {
     "Follower": ("#2DD4BF", "#0F766E"),
     "Scheduler": ("#E879F9", "#A21CAF"),
     "RobotHardware": ("#FACC15", "#A16207"),
+    "A": ("#60A5FA", "#1D4ED8"),
+    "B": ("#4ADE80", "#15803D"),
+    "Mode": ("#FB923C", "#C2410C"),
 }
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
@@ -3520,6 +3523,30 @@ def color_of(name):
     return MERMAID_COLORS[cls]
 
 
+def fit_to_menlo(boxes, dividers, words, pad=8):
+    """Mermaid sizes a class's lines in another font than Menlo: each box widened, both ways from
+    its middle, to hold its longest line, and its dividers with it."""
+    fitted, moved = [], []
+    for box in boxes:
+        xs = [x for x, _ in box]
+        mid, right = (min(xs) + max(xs)) / 2, max(xs)
+        grow = 0.0
+        for xy, text, anchor in words:
+            if not inside(xy, box):
+                continue
+            width = len(text) * MENLO_ADVANCE * MERMAID_SIZE
+            end = mid + width / 2 if anchor == "middle" else xy[0] + width
+            grow = max(grow, end + pad - right)
+        fitted.append([(x - grow if x < mid else x + grow, y) for x, y in box])
+        moved.append((box, mid, grow))
+    widened = []
+    for a, b in dividers:
+        centre = ((a[0] + b[0]) / 2, a[1])
+        box, mid, grow = next((m for m in moved if inside(centre, m[0])), (None, 0.0, 0.0))
+        widened.append(tuple((x - grow if x < mid else x + grow, y) for x, y in (a, b)))
+    return fitted, widened
+
+
 def mermaid(name):
     w, h, boxes, dividers, words, lifelines, arrows, extras = mermaid_read(mermaid_svg(name))
     clusters, notes, frames, figures = extras
@@ -3531,6 +3558,7 @@ def mermaid(name):
     margin = (MERMAID_COLUMN - w) / 2
     s.ax.set_xlim(-margin, w + margin)
     names = [name_of(box, words) for box in boxes]
+    boxes, dividers = fit_to_menlo(boxes, dividers, words)
     for box in clusters:
         # Mermaid sizes a namespace's label in another font than Menlo: widen the box to hold it.
         xs, ys = [x for x, _ in box], [y for _, y in box]
