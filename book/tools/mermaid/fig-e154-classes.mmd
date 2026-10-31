@@ -1,0 +1,27 @@
+classDiagram
+  namespace Pedro_Pathing {
+    class Scheduler {
+      +schedule(command)
+      +execute()
+    }
+    class Command {
+      <<interface>>
+      +start()
+      +execute()
+      +done() boolean
+    }
+    class CommandBuilder
+    class Sequential
+  }
+  namespace Our_base_classes {
+    class CorbelsOpMode
+    class CorbelsAuto
+  }
+  CorbelsOpMode <|-- CorbelsAuto
+  CorbelsAuto <|-- L153FeedforwardOpMode
+  Command <|.. CommandBuilder
+  CommandBuilder <|-- Sequential
+  Scheduler o-- Command : runningCommands
+  Sequential o-- Command : commands
+  L153FeedforwardOpMode ..> Scheduler : schedule
+  CorbelsOpMode ..> Scheduler : execute
