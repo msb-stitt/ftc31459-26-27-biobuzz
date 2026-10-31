@@ -81,6 +81,19 @@ class Bot37523 {
     static double ticksPerInch = 45.0;
     static double turnRadiusInches = 8.0;
 
+    /**
+     * The drivetrain's feedforward, in SysId's units: kS, the volts it takes to
+     * start moving, and kV, the volts for each inch per second, or each radian
+     * per second turning. L153 measures them. Until it is run on this robot,
+     * they are the simulator's.
+     */
+    static double kSForwardVolts = 0.6;
+    static double kVForwardVoltSecondsPerInch = 0.177;
+    static double kSStrafeVolts = 0.96;
+    static double kVStrafeVoltSecondsPerInch = 0.204;
+    static double kSTurnVolts = 0.72;
+    static double kVTurnVoltSecondsPerRadian = 2.82;
+
     /** goBILDA's launcher speeds: spin to the target, feed only above the second. */
     static double launcherTargetTicksPerSecond = 1250;
     static double launcherFeedAboveTicksPerSecond = 1200;

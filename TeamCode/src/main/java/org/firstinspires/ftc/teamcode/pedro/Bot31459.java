@@ -38,6 +38,14 @@ class Bot31459 {
     static double ticksPerInch = Bot37523.ticksPerInch;
     static double turnRadiusInches = Bot37523.turnRadiusInches;
 
+    /** L153 measures them. */
+    static double kSForwardVolts = Bot37523.kSForwardVolts;
+    static double kVForwardVoltSecondsPerInch = Bot37523.kVForwardVoltSecondsPerInch;
+    static double kSStrafeVolts = Bot37523.kSStrafeVolts;
+    static double kVStrafeVoltSecondsPerInch = Bot37523.kVStrafeVoltSecondsPerInch;
+    static double kSTurnVolts = Bot37523.kSTurnVolts;
+    static double kVTurnVoltSecondsPerRadian = Bot37523.kVTurnVoltSecondsPerRadian;
+
     static double launcherTargetTicksPerSecond = Bot37523.launcherTargetTicksPerSecond;
     static double launcherFeedAboveTicksPerSecond = Bot37523.launcherFeedAboveTicksPerSecond;
     static double launcherVelocityP = Bot37523.launcherVelocityP;
