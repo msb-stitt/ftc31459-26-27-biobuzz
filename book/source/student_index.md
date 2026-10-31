@@ -28,6 +28,7 @@ tasks/l030
 tasks/e035
 tasks/l040
 tasks/e041
+tasks/l045
 tasks/l050
 tasks/l060
 tasks/l065

@@ -17,7 +17,8 @@ words = 240
 # only the contents now, and each keeps the ceiling it had.
 [[page]]
 path = "source/tasks/b003.md"
-words = 240
+# Raised from 240 words for *What you need*, at 269 words.
+words = 290
 
 [[page]]
 path = "source/student_index.md"
@@ -98,6 +99,11 @@ words = 800
 path = "source/tasks/e041.md"
 # Measured off the first draft, 143 words, and rounded up: L040's What's happening, moved.
 words = 150
+
+[[page]]
+path = "source/tasks/l045.md"
+# Measured off the first draft, 708 words, and rounded up.
+words = 800
 
 [[page]]
 path = "source/tasks/l050.md"
