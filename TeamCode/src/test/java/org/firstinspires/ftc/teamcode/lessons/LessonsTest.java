@@ -572,7 +572,7 @@ public class LessonsTest {
     @Test
     public void everyLessonTurnsClockwiseWhenTheRightStickGoesRight() {
         List<String> wrongWay = new ArrayList<>();
-        for (OpMode lesson : new OpMode[]{MyTry.opMode("L122CompareLocalizersOpMode"),
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L132CompareLocalizersOpMode"),
                 MyTry.opMode("L140FieldRelativeOpMode"),
                 MyTry.opMode("L150RobotRelativeButtonOpMode"),
                 MyTry.opMode("L170DriveToPoseOpMode")}) {
@@ -649,8 +649,8 @@ public class LessonsTest {
     }
 
     @Test
-    public void l122_yourLocalizersAreLogged() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L122CompareLocalizersOpMode"));
+    public void l132_yourLocalizersAreLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L132CompareLocalizersOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -1098,8 +1098,8 @@ public class LessonsTest {
     }
 
     @Test
-    public void l195_theTicksDoorReportsWhatEachEncoderCounted() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L195MeasureTicksPerInchOpMode"));
+    public void l131_theTicksDoorReportsWhatEachEncoderCounted() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L131MeasureTicksPerInchOpMode"));
         h.init();
         h.setWheelTicks(10, 20, 30, 40);
         assertArrayEquals("front left, front right, back left, back right",
@@ -1108,9 +1108,9 @@ public class LessonsTest {
     }
 
     @Test
-    public void l195_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards() {
-        for (OpMode lesson : new OpMode[]{MyTry.opMode("L195MeasureTicksPerInchOpMode"),
-                MyTry.opMode("L195MeasureTurnRadiusOpMode")}) {
+    public void l131_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards() {
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L131MeasureTicksPerInchOpMode"),
+                MyTry.opMode("L131MeasureTurnRadiusOpMode")}) {
             String name = lesson.getClass().getSimpleName();
             OpModeHarness h = new OpModeHarness(lesson);
             h.init();
@@ -1129,8 +1129,8 @@ public class LessonsTest {
     }
 
     @Test
-    public void l195_stoppingBeforeASingleLoopStillPutsBrakingBack() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L195MeasureTicksPerInchOpMode"));
+    public void l131_stoppingBeforeASingleLoopStillPutsBrakingBack() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L131MeasureTicksPerInchOpMode"));
         h.init();
         h.start();
         h.stop();                                  // STOP pressed straight away

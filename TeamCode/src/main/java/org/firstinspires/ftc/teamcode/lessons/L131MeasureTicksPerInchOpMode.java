@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
 
 /**
- * L195: measure how many encoder ticks make an inch -- by pushing the robot.
+ * L131: measure how many encoder ticks make an inch -- by pushing the robot.
  *
  * <p>L190 needed to know how fast a wheel was turning in inches per second,
  * and the code was given a number to convert with. This measures it instead.
@@ -33,16 +33,16 @@ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
  * measurement comes out short. Do it three times and see whether you get the
  * same answer.
  *
- * <p>Passes when: LessonsTest.l195_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards
- * and LessonsTest.l195_stoppingBeforeASingleLoopStillPutsBrakingBack
+ * <p>Passes when: LessonsTest.l131_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards
+ * and LessonsTest.l131_stoppingBeforeASingleLoopStillPutsBrakingBack
  */
-@TeleOp(name = "L195 Measure ticks per inch", group = "Lessons")
-// When on L195S020, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l195.html#l195s020
+@TeleOp(name = "L131 Measure ticks per inch", group = "Lessons")
+// When on L131S020, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l131.html#l131s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
-public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
+public class L131MeasureTicksPerInchOpMode extends CorbelsTeleOp {
 
     double needed_in = 36.0;
 
@@ -50,13 +50,13 @@ public class L195MeasureTicksPerInchOpMode extends CorbelsTeleOp {
     double startX_in, startY_in;
     double pushed_in, ticks;
 
-    L195TicksDriveTrain drivetrain;
+    L131TicksDriveTrain drivetrain;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
-        drivetrain = new L195TicksDriveTrain(hardware);
+        drivetrain = new L131TicksDriveTrain(hardware);
         initAfter(drivetrain);
     }
 

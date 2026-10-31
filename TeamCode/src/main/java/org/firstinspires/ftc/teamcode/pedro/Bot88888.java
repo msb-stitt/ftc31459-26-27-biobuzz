@@ -73,7 +73,7 @@ class Bot88888 {
             }
     );
 
-    /** Ticks per inch of wheel travel, and how far a wheel sits from the middle. L195 measures both. */
+    /** Ticks per inch of wheel travel, and how far a wheel sits from the middle. L131 measures both. */
     static double ticksPerInch = 45.0;
     static double turnRadiusInches = 8.0;
 

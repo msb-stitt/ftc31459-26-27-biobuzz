@@ -34,7 +34,7 @@ class Bot31459 {
     // Foresight Tuner.
     public static ForesightConfig foresightConfig = Bot37523.foresightConfig;
 
-    /** L195 measures both. */
+    /** L131 measures both. */
     static double ticksPerInch = Bot37523.ticksPerInch;
     static double turnRadiusInches = Bot37523.turnRadiusInches;
 

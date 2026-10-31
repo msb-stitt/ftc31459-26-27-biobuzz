@@ -77,10 +77,10 @@ public class Constants {
     public static PinpointConfig localizerConfig;
     public static ForesightConfig foresightConfig;
 
-    /** Ticks per inch of wheel travel. L195 measures it. */
+    /** Ticks per inch of wheel travel. L131 measures it. */
     public static double ticksPerInch;
 
-    /** How far a wheel sits from the middle, inches. L195 measures it. */
+    /** How far a wheel sits from the middle, inches. L131 measures it. */
     public static double turnRadiusInches;
 
     /**
