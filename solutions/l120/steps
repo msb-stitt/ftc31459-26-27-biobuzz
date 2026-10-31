@@ -1,0 +1,7 @@
+# L120: both starters, copied into mytry and filled in.
+copy lessons/L120PinpointOpMode.java mytry/L120PinpointOpMode.java
+copy lessons/L120PinpointLocalizer.java mytry/L120PinpointLocalizer.java
+patch L120PinpointOpMode.patch
+patch L120PinpointLocalizer.patch
+test *LessonsTest.l120*
+test *L120PinpointLocalizerTest*

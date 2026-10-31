@@ -1,0 +1,56 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java
+index fad0f7a..2bde7f7 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java
+@@ -61,6 +61,15 @@ class L120PinpointLocalizer implements Localizer {
+         // When on L120S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
+         // for what to do here.
++        ticksPerInch = PinpointSource.ticksPerMm(config.podType.get()) * 25.4;
++        if (config.xPodDirection.get() == GoBildaPinpointDriver.EncoderDirection.REVERSED) {
++            xSign = -1.0;
++        }
++        if (config.yPodDirection.get() == GoBildaPinpointDriver.EncoderDirection.REVERSED) {
++            ySign = -1.0;
++        }
++        xPodOffset_in = config.xPodOffset.get();
++        yPodOffset_in = config.yPodOffset.get();
+     }
+ 
+     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
+@@ -74,14 +83,35 @@ class L120PinpointLocalizer implements Localizer {
+         // When on L120S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
+         // for what to do here.
++        forwardPod_in = xSign * source.getEncoderX() / ticksPerInch;
++        strafePod_in = ySign * source.getEncoderY() / ticksPerInch;
++
++        if (firstLoop) {
++            firstLoop = false;
++            lastForwardPod_in = forwardPod_in;
++            lastStrafePod_in = strafePod_in;
++            lastRawHeading_rad = rawHeading_rad;
++            return;
++        }
++
++        double forwardPodStep_in = forwardPod_in - lastForwardPod_in;
++        double strafePodStep_in = strafePod_in - lastStrafePod_in;
++        double turn_rad = rawHeading_rad - lastRawHeading_rad;
+ 
+         // When on L120S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+         // for what to do here.
++        double forward_in = forwardPodStep_in + xPodOffset_in * turn_rad;
++        double strafe_in = strafePodStep_in - yPodOffset_in * turn_rad;
+ 
+         // When on L120S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s060
+         // for what to do here.
++        double heading_rad = rawHeading_rad + headingOffset_rad;
++        double sinHeading = Math.sin(heading_rad);
++        double cosHeading = Math.cos(heading_rad);
++        x_in += forward_in * cosHeading - strafe_in * sinHeading;
++        y_in += forward_in * sinHeading + strafe_in * cosHeading;
+ 
+         lastForwardPod_in = forwardPod_in;
+         lastStrafePod_in = strafePod_in;

@@ -1,0 +1,33 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointOpMode.java
+index e78ccfd..f53daa2 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointOpMode.java
+@@ -10,6 +10,9 @@ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.StickShaper;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwarePinpointSource;
++import org.firstinspires.ftc.teamcode.base.odometry.PinpointSource;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L120: drive around with your own Pinpoint localizer running beside the robot's. Yours
+@@ -30,7 +33,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
+ // When on L120S020, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s020
+ // for what to do here.
+-@Disabled
+ // 'public' so the robot can run this OpMode. 'public' allows access from any code.
+ public class L120PinpointOpMode extends CorbelsTeleOp {
+ 
+@@ -93,6 +95,10 @@ public class L120PinpointOpMode extends CorbelsTeleOp {
+         // When on L120S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
+         // for what to do here.
++        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
++        L120PinpointLocalizer pinpointPods =
++                new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
++        shadowLocalizers.add("pinpointPods", pinpointPods);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
