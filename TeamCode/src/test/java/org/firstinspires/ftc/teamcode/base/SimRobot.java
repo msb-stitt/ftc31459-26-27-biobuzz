@@ -169,6 +169,9 @@ public final class SimRobot {
         private double turned;
         /** How far each wheel has rolled, front left, front right, back left, back right, inches. */
         private final double[] rolled = new double[4];
+        /** How far the robot has moved along its own forward and leftward, inches. */
+        private double forwardTravel;
+        private double strafeTravel;
         private long lastNs;
         private MotionState state = MotionState.zero();
 
@@ -211,6 +214,20 @@ public final class SimRobot {
             return rolled[wheel];
         }
 
+        /**
+         * How far the robot has moved forward along itself since it was made,
+         * in inches, which {@link #setPose} does not change. A pod at its middle
+         * would read this.
+         */
+        public double forwardInches() {
+            return forwardTravel;
+        }
+
+        /** How far the robot has moved to its own left since it was made, in inches. */
+        public double strafeInches() {
+            return strafeTravel;
+        }
+
         @Override
         public void setPose(Pose p) {
             x = p.x();
@@ -244,6 +261,8 @@ public final class SimRobot {
             y += (vx * Math.sin(heading) + vy * Math.cos(heading)) * dt;
             heading += omega * dt;
             turned += omega * dt;
+            forwardTravel += vx * dt;
+            strafeTravel += vy * dt;
             double[] speeds = wheelSpeeds();
             for (int i = 0; i < 4; i++) rolled[i] += speeds[i] * dt;
             state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));

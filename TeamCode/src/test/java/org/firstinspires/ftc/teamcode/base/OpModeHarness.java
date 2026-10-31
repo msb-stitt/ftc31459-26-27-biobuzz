@@ -321,6 +321,10 @@ public final class OpModeHarness {
             motors.get(wheels[i]).follow(() -> robot.localizer.rolledInches(wheel),
                     () -> robot.localizer.wheelSpeeds()[wheel]);
         }
+        // A localizer that reads the Pinpoint itself gets one on the simulated
+        // robot, its pods mounted as this robot's localizerConfig says.
+        RobotFactory.pinpoint = map -> new SimPinpoint(robot.localizer,
+                org.firstinspires.ftc.teamcode.pedro.Constants.localizerConfig);
         // Pedro gets the simulated drivetrain, which passes what it is asked
         // for on to the drivetrain the lesson built. Without that, nothing the
         // follower computes ever reaches a motor.
