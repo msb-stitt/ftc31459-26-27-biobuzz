@@ -1310,6 +1310,9 @@ public class LessonsTest {
         double right = (Double) Tracker.values().get("wheel/frontRight/target_ips");
         assertEquals("opposite", -left, right, 1e-6);
         assertTrue("turning counter-clockwise drives the left side backwards", left < 0);
+        double leftSpeed = (Double) Tracker.values().get("wheel/frontLeft/speed");
+        double rightSpeed = (Double) Tracker.values().get("wheel/frontRight/speed");
+        assertEquals("and kS pushes each side the way it turns", -leftSpeed, rightSpeed, 1e-6);
     }
 
     @Test
