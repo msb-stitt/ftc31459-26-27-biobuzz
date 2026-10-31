@@ -674,6 +674,38 @@ public class LessonsTest {
     }
 
     @Test
+    public void l132_theErrorAndSpeedAreLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L132CompareLocalizersOpMode"));
+        h.init();
+        h.start();
+        h.loop();
+        // 45 inches of wheel travel on every wheel = 45 inches forward
+        h.setWheelTicks(2025, 2025, 2025, 2025);
+        h.loop();
+        // The comparison runs before the localizers update, so it sees the move one loop later.
+        h.loop();
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the wheels' error is logged: " + values.keySet(),
+                values.containsKey("Error/driveWheelEncoders/x_in"));
+        assertEquals("yours less the robot's own, in x",
+                number(values, "Localizer/driveWheelEncoders/x_in")
+                        - number(values, "Localizer/pinPoint/x_in"),
+                number(values, "Error/driveWheelEncoders/x_in"), EPS);
+        assertEquals("yours less the robot's own, in y",
+                number(values, "Localizer/driveWheelEncoders/y_in")
+                        - number(values, "Localizer/pinPoint/y_in"),
+                number(values, "Error/driveWheelEncoders/y_in"), EPS);
+        assertTrue("the pods' error is logged: " + values.keySet(),
+                values.containsKey("Error/pinpointPods/heading_deg"));
+        assertTrue("L120's speed is logged: " + values.keySet(),
+                values.containsKey("Speed/pinpointPods/forward_ips"));
+        assertTrue("the robot's own speed is logged: " + values.keySet(),
+                values.containsKey("Speed/pinPoint/forward_ips"));
+    }
+
+    @Test
     public void l125_autoDrives24InchesForwardAndStops() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L125Drive24OpMode"));
         Follower follower = h.robot.follower;
