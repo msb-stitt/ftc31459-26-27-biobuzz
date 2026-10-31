@@ -220,6 +220,11 @@ path = "source/tasks/l150.md"
 words = 1700
 
 [[page]]
+path = "source/tasks/l153.md"
+# Measured off the first draft, 1041 words, and rounded up, 2026-10-31.
+words = 1200
+
+[[page]]
 path = "source/tasks/l160.md"
 words = 1700
 

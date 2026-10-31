@@ -43,6 +43,8 @@ AutoWithMenuOpMode
 L140FieldRelativeOpMode
 L140AutoOpMode
 L150RobotRelativeButtonOpMode
+L153FeedforwardFit
+L153FeedforwardOpMode
 L160HeadingHoldOpMode
 L170DriveToPoseOpMode
 L180CombinedOpMode
