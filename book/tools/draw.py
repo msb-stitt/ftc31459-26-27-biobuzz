@@ -3632,7 +3632,123 @@ def menu_presses():
             menu_press(lesson, n, press, lines)
 
 
-PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu]
+def cubed(v):
+    return v * v * v
+
+
+def l065_shapes():
+    x = np.linspace(-1, 1, 801)
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+    for ax, y, title in [(axes[0], deadband(x), "LINEAR"),
+                         (axes[1], squared(deadband(x)), "SQUARED"),
+                         (axes[2], cubed(deadband(x)), "CUBED")]:
+        ax.plot(x, y, color=BLUE, linewidth=2.5)
+        ax.axhline(0, color=GREY, linewidth=0.8)
+        ax.axvline(0, color=GREY, linewidth=0.8)
+        ax.axvspan(-DEADBAND, DEADBAND, color=RED, alpha=0.15)
+        ax.set_xlim(-1.05, 1.05)
+        ax.set_ylim(-1.05, 1.05)
+        ax.set_aspect("equal")
+        ax.set_title(title, fontsize=13)
+        ax.set_xlabel("stick, -1.0 to 1.0")
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("shaped speed, -1.0 to 1.0")
+    save(fig, "fig-l065-shapes")
+
+
+def l045_wiring():
+    # L045's wiring, from above with the nose up: each wheel's motor to its motor port, its
+    # encoder to the encoder port with the same number; the IMU inside the hub, on I2C Bus 0;
+    # the Pinpoint dashed on I2C Bus 1, since L115 mounts it.
+    s = Sketch(1100, 1000, 45)
+    cx, cy, side = 550, 470, 700
+    centers = robot_inside(s, cx, cy, side, nose=True)
+    hub = rect(cx - 100, cy - 110, 200, 220)
+    s.marker(hub, "#d9dee0", nib=14, opacity=0.95)
+    s.ink_poly(hub, width=2.4, over=6)
+    s.lines((cx, cy - 8), ["Control", "Hub"], 24)
+    s.lines((cx, cy + 86), ["imu inside,", "I2C Bus 0"], 14, gap=1.1, code=True)
+    ports = {"front left": 0, "front right": 1, "back left": 2, "back right": 3}
+    names = {"front left": "Front Left", "front right": "Front Right",
+             "back left": "Back Left", "back right": "Back Right"}
+    colors = {0: MARKER_RED, 1: MARKER_BLUE, 2: MARKER_GREEN, 3: MARKER_ORANGE}
+    for wheel, (wx, wy) in centers.items():
+        n = ports[wheel]
+        left = wx < cx
+        k = 1 if left else -1
+        front = wy < cy
+        mx = wx + 70 * k
+        motor = rect(mx - 22, wy - 40, 44, 80)
+        s.marker(motor, GREY2, nib=10, opacity=0.8)
+        s.ink_poly(motor, width=2.0, over=4)
+        s.text((mx, wy + (60 if front else -52)), "motor", 18)
+        s.text((wx, wy + (-158 if front else 176)), names[wheel], 22, code=True)
+        edge = cx - 100 * k
+        row = cy + (-80 if front else 30)
+        power_x, enc_x = cx - 125 * k, cx - 113 * k
+        s.line([(mx + 22 * k, wy - 12), (power_x, wy - 12), (power_x, row), (edge, row)],
+               colors[n], 3.2, 0.9)
+        s.line([(mx + 22 * k, wy + 12), (enc_x, wy + 12), (enc_x, row + 22), (edge, row + 22)],
+               colors[n], 3.2, 0.9).set_linestyle((0, (5, 3)))
+        s.text((edge + 8 * k, row + 6), f"motor {n}", 14, anchor="start" if left else "end",
+               code=True)
+        s.text((edge + 8 * k, row + 28), f"encoder {n}", 14, anchor="start" if left else "end",
+               code=True)
+    pin = rect(cx - 55, 190, 110, 70)
+    s.line(pin + pin[:1], GREY3, 2.4).set_linestyle((0, (6, 4)))
+    s.lines((cx, 218), ["Pinpoint,", "from L115"], 16)
+    s.text((cx, 180), "pinpoint", 16, code=True)
+    s.line([(cx, 260), (cx, cy - 110)], GREY3, 2.6).set_linestyle((0, (6, 4)))
+    s.text((cx + 8, 300), "I2C Bus 1", 14, anchor="start", code=True)
+    batt = rect(cx - 90, 680, 110, 60)
+    s.marker(batt, GREY1, nib=12, opacity=0.95)
+    s.ink_poly(batt, width=2.2, over=4)
+    s.text((cx - 35, 717), "battery", 20)
+    sw = rect(cx + 40, 690, 50, 40)
+    s.marker(sw, GREY2, nib=10, opacity=0.9)
+    s.ink_poly(sw, width=2.2, over=4)
+    s.text((cx + 65, 760), "switch", 18)
+    s.line([(cx + 20, 710), (cx + 40, 710)], PEN, 3.0)
+    s.line([(cx + 65, 690), (cx + 65, cy + 110)], PEN, 3.0)
+    s.text((cx, 960), "solid: motor power    dashed: encoder", 22)
+    s.save("fig-l045-wiring")
+
+
+def l120_pod_turn():
+    # L120S050: the robot turning left on the spot. The forward pod, left of the middle, rolls
+    # backward along its circle; the strafe pod, ahead of the middle, rolls left along its.
+    s = Sketch(900, 860, 120)
+    cx, cy, side = 450, 470, 560
+    s.construct((cx, cy - side / 2 - 40), (cx, cy + side / 2 + 40))
+    s.construct((cx - side / 2 - 40, cy), (cx + side / 2 + 40, cy))
+    frame_top(s, cx - side / 2, cy - side / 2, side, side)
+    s.dot((cx, cy), 9)
+    s.text((cx, cy + 104), "middle", 22)
+    xr, yr = 170, 150
+    for r in (xr, yr):
+        s.line(arc((cx, cy), r, 0, 360, 96), CONSTRUCT, 1.4)
+    fx, fy = cx - xr, cy                               # the forward pod, left of the middle
+    wheel_top(s, fx, fy, 40, 96)
+    s.marker_arrow((fx - 34, fy - 30), (fx - 34, fy + 70), MARKER_BLUE, nib=7)
+    s.lines((fx, fy - 84), ["forward pod", "rolls backward"], 22)
+    s.text((cx - xr / 2 + 10, cy + 64), "xPodOffset_in", 17, code=True)
+    s.ink_line((fx, cy + 4), (cx, cy + 4), width=1.4, over=0, passes=1)
+    sx, sy = cx, cy - yr                               # the strafe pod, ahead of the middle
+    s.turn = (sx, sy, 90)
+    wheel_top(s, sx, sy, 40, 96)
+    s.turn = (0.0, 0.0, 0.0)
+    s.marker_arrow((sx + 30, sy - 40), (sx - 80, sy - 40), MARKER_BLUE, nib=7)
+    s.text((sx - 90, sy - 54), "strafe pod rolls left", 22, anchor="end")
+    s.ink_line((cx + 4, sy), (cx + 4, cy), width=1.4, over=0, passes=1)
+    s.text((cx + 70, cy - yr / 2 - 30), "yPodOffset_in", 17, anchor="start", code=True)
+    turn = arc((cx, cy), 60, 30, -200, 40)
+    s.line(turn, MARKER_RED, 6, 0.85)
+    s.marker_arrow(turn[-3], turn[-1], MARKER_RED, nib=6)
+    s.text((cx + 80, cy + 80), "turning left", 24, MARKER_RED, anchor="start")
+    s.save("fig-l120-pod-turn")
+
+
+PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
@@ -3645,7 +3761,7 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
             e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
-            menu_presses]
+            menu_presses, l045_wiring, l120_pod_turn]
 
 if __name__ == "__main__":
     if OUT is None:
