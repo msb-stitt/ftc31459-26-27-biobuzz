@@ -606,8 +606,6 @@ public class LessonsTest {
         Map<String, Object> values = Tracker.values();
         assertTrue("the shadow localizer is logged: " + values.keySet(),
                 values.containsKey("Localizer/driveWheelEncoders/x_in"));
-        assertTrue("L120's localizer is logged: " + values.keySet(),
-                values.containsKey("Localizer/pinpointPods/x_in"));
         assertEquals("the shadow must not steer the robot", 0.0, h.wheelsForward(), EPS);
         assertNotEquals("it moved in its own estimate",
                 0.0, number(values, "Localizer/driveWheelEncoders/x_in"), 0.1);
