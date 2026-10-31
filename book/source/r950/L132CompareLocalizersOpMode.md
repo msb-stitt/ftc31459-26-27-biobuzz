@@ -32,63 +32,100 @@ is the line's place in the file after the lesson.
    21
    22 /**
    23  * L132: drive around while three localizers disagree. Your localizer from L113
-@@ lines 73 to 80 @@
-   73         // When on L132S050, see
-   74         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
-   75         // for what to do here.
-+  76         Command compareWithPedrosEveryLoop = Commands.infinite(this::compareWithPedros);
-+  77         Scheduler.schedule(compareWithPedrosEveryLoop);
-   78
-   79         startAfter();
-   80     }
-@@ lines 117 to 151 @@
-  117         // When on L132S050, see
-  118         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
-  119         // for what to do here.
-+ 120         Pose pedros = follower.pose();
-+ 121         publishError("driveWheelEncoders", driveWheelEncoders.pose(), pedros);
-+ 122         publishError("pinpointPods", pinpointPods.pose(), pedros);
-  123
-  124         // When on L132S060, see
-  125         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
-  126         // for what to do here.
-+ 127         Twist podsSpeed = pinpointPods.twist();
-+ 128         Twist pedrosSpeed = follower.localizer.twist();
-+ 129         Tracker.publish("Speed/pinpointPods/forward_ips", podsSpeed.vx);
-+ 130         Tracker.publish("Speed/pinPoint/forward_ips", pedrosSpeed.vx);
-+ 131         Tracker.publish("Speed/pinpointPods/strafe_ips", podsSpeed.vy);
-+ 132         Tracker.publish("Speed/pinPoint/strafe_ips", pedrosSpeed.vy);
-+ 133         Tracker.publish("Speed/pinpointPods/turn_degps", Math.toDegrees(podsSpeed.omega));
-+ 134         Tracker.publish("Speed/pinPoint/turn_degps", Math.toDegrees(pedrosSpeed.omega));
-  135     }
-  136
-  137     // When on L132S050, see
-  138     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
-  139     // for what to do here.
-+ 140     /** How far one of your localizers is from the robot's own, in x, y and heading. */
-+ 141     void publishError(String name, Pose yours, Pose pedros) {
-+ 142         double xError_in = yours.x() - pedros.x();
-+ 143         double yError_in = yours.y() - pedros.y();
-+ 144         double headingError_rad = Angle.normalizeSigned(yours.heading() - pedros.heading());
-+ 145         Tracker.publish("Error/" + name + "/x_in", xError_in);
-+ 146         Tracker.publish("Error/" + name + "/y_in", yError_in);
-+ 147         Tracker.publish("Error/" + name + "/heading_deg", Math.toDegrees(headingError_rad));
-+ 148     }
-  149
-  150     // 'public' to match the parent class. 'public' allows access from any code.
-  151     @Override
-@@ lines 153 to 165 @@
-  153         // When on L132S030, see
-  154         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
-  155         // for what to do here.
-+ 156         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-+ 157         driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
-+ 158         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
-+ 159
-+ 160         PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
-+ 161         pinpointPods = new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
-+ 162         shadowLocalizers.add("pinpointPods", pinpointPods);
-  163     }
-  164
-  165     // 'public' to match the parent class. 'public' allows access from any code.
+@@ lines 77 to 84 @@
+   77         // When on L132S050, see
+   78         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+   79         // for what to do here.
++  80         Command compareWithPedrosEveryLoop = Commands.infinite(this::compareWithPedros);
++  81         Scheduler.schedule(compareWithPedrosEveryLoop);
+   82
+   83         startAfter();
+   84     }
+@@ lines 121 to 141 @@
+  121         // When on L132S050, see
+  122         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+  123         // for what to do here.
++ 124         Pose pedros = follower.pose();
++ 125         publishError("driveWheelEncoders", driveWheelEncoders.pose(), pedros);
++ 126         publishError("pinpointPods", pinpointPods.pose(), pedros);
+  127
+  128         // When on L132S060, see
+  129         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
+  130         // for what to do here.
++ 131         Twist podsSpeed = pinpointPods.twist();
++ 132         Twist pedrosSpeed = follower.localizer.twist();
++ 133         Tracker.publish("Speed/pinpointPods/forward_ips", podsSpeed.vx);
++ 134         Tracker.publish("Speed/pinPoint/forward_ips", pedrosSpeed.vx);
++ 135         Tracker.publish("Speed/pinpointPods/strafe_ips", podsSpeed.vy);
++ 136         Tracker.publish("Speed/pinPoint/strafe_ips", pedrosSpeed.vy);
++ 137         Tracker.publish("Speed/pinpointPods/turn_degps", Math.toDegrees(podsSpeed.omega));
++ 138         Tracker.publish("Speed/pinPoint/turn_degps", Math.toDegrees(pedrosSpeed.omega));
+  139
+  140         // When on L132S110, see
+  141         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+@@ lines 145 to 159 @@
+  145     // When on L132S050, see
+  146     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+  147     // for what to do here.
++ 148     /** How far one of your localizers is from the robot's own, in x, y and heading. */
++ 149     void publishError(String name, Pose yours, Pose pedros) {
++ 150         double xError_in = yours.x() - pedros.x();
++ 151         double yError_in = yours.y() - pedros.y();
++ 152         double headingError_rad = Angle.normalizeSigned(yours.heading() - pedros.heading());
++ 153         Tracker.publish("Error/" + name + "/x_in", xError_in);
++ 154         Tracker.publish("Error/" + name + "/y_in", yError_in);
++ 155         Tracker.publish("Error/" + name + "/heading_deg", Math.toDegrees(headingError_rad));
++ 156     }
+  157
+  158     // 'public' to match the parent class. 'public' allows access from any code.
+  159     @Override
+@@ lines 161 to 173 @@
+  161         // When on L132S030, see
+  162         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
+  163         // for what to do here.
++ 164         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++ 165         driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
++ 166         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
++ 167
++ 168         PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
++ 169         pinpointPods = new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
++ 170         shadowLocalizers.add("pinpointPods", pinpointPods);
+  171
+  172         // When on L132S110, see
+  173         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+```
+
+## L132
+
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L132CompareLocalizersOpMode.java  (before L132)
++++ mytry/L132CompareLocalizersOpMode.java  (after L132)
+@@ lines 56 to 62 @@
+   56     // When on L132S110, see
+   57     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+   58     // for what to do here.
++  59     L113EncoderLocalizer measuredWheels;
+   60
+   61     // 'public' to match the parent class. 'public' allows access from any code.
+   62     @Override
+@@ lines 141 to 147 @@
+  141         // When on L132S110, see
+  142         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+  143         // for what to do here.
++ 144         publishError("measuredWheels", measuredWheels.pose(), pedros);
+  145     }
+  146
+  147     // When on L132S050, see
+@@ lines 174 to 182 @@
+  174         // When on L132S110, see
+  175         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+  176         // for what to do here.
++ 177         measuredWheels = new L113EncoderLocalizer(wheelSource);
++ 178         measuredWheels.cotAlpha = 1.19;
++ 179         shadowLocalizers.add("measuredWheels", measuredWheels);
+  180     }
+  181
+  182     // 'public' to match the parent class. 'public' allows access from any code.
 ```

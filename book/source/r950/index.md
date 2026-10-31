@@ -37,6 +37,8 @@ L125Drive24OpMode
 L130ForwardThenStrafeOpMode
 L131TicksDriveTrain
 L132CompareLocalizersOpMode
+L132WheelFit
+L132WheelAngleOpMode
 AutoWithMenuOpMode
 L140FieldRelativeOpMode
 L140AutoOpMode
