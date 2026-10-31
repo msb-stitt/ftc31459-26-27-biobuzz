@@ -3748,6 +3748,38 @@ def l120_pod_turn():
     s.save("fig-l120-pod-turn")
 
 
+def l113_wheel_vectors():
+    # L113S050: each wheel pushes 40 degrees from forward, not 45, so its forward part is longer
+    # than its sideways part. Driving forward, the forward parts add and the sideways parts cancel;
+    # sliding left, the reverse, and the sum is shorter. Up the page is forward.
+    a = math.radians(40)
+    pushes = {"front left": (1, -1), "front right": (-1, -1), "back left": (-1, -1),
+              "back right": (1, -1)}
+    motions = [("driving forward", {"front left": 1, "front right": 1, "back left": 1,
+                                    "back right": 1}),
+               ("sliding left", {"front left": -1, "front right": 1, "back left": 1,
+                                 "back right": -1})]
+    s = Sketch(1400, 900, 113)
+    side, n = 420, 100
+    for i, (title, spin) in enumerate(motions):
+        cx, cy = 360 + 680 * i, 450
+        s.text((cx, 80), title, 36)
+        centers = robot_inside(s, cx, cy, side)
+        sx = sy = 0.0
+        for name, (wx, wy) in centers.items():
+            ux, uy = (pushes[name][0] * math.sin(a) * spin[name],
+                      pushes[name][1] * math.cos(a) * spin[name])
+            sx, sy = sx + ux, sy + uy
+            s.marker_arrow((wx, wy), (wx + n * ux, wy + n * uy), MARKER_RED, nib=7)
+            s.marker_arrow((wx, wy), (wx, wy + n * uy), MARKER_ORANGE, nib=5)
+            s.marker_arrow((wx, wy + n * uy), (wx + n * ux, wy + n * uy), MARKER_BLUE, nib=5)
+        s.marker_arrow((cx, cy), (cx + n / 2 * sx, cy + n / 2 * sy), MARKER_GREEN, nib=10)
+    s.lines((700, 790), ["red: which way each wheel pushes, 40 degrees from forward",
+                         "orange: its forward part      blue: its sideways part",
+                         "green: what the four pushes add up to"], 26)
+    s.save("fig-l113-wheel-vectors")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
@@ -3761,7 +3793,7 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
             e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
-            menu_presses, l045_wiring, l120_pod_turn]
+            menu_presses, l045_wiring, l120_pod_turn, l113_wheel_vectors]
 
 if __name__ == "__main__":
     if OUT is None:
