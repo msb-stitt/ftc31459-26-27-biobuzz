@@ -46,9 +46,10 @@ own voltage sensor each loop. Battery sag then shows up as what it is -- the
 same speed giving fewer volts -- rather than as noise in the fit.
 
 That makes the numbers SysId returns genuinely volt-based, so kV comes out in
-volts per inch per second, and dividing by a nominal 12 V gives the
-fraction of full speed per inch per second that
-`Constants.powerPerInchPerSecond` holds today.
+volts per inch per second. L153 measures kS and kV in these units, into each
+robot's `pedro/Bot*.java`, and L157 and L190 divide their volts by the
+battery's volts each loop. `Constants.powerPerInchPerSecond`, Foresight's coast
+feedforward in fraction of full speed per inch per second, is deprecated.
 
 ## The tests to run
 

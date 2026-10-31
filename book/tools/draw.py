@@ -12,8 +12,8 @@ drawing the book uses. The diagrams among them are written in Mermaid, as tools/
 mermaid-cli lays each out, and this draws it again.
 
 Every number in a figure is the code's: the 0.05 deadband and the sign-keeping square of L060, the
-four mixing sums of L090, the field rotation of L140, and L190's 40 in/s, its feedforward of
-Constants.powerPerInchPerSecond and its correction of 0.008 per in/s.
+four mixing sums of L090, the field rotation of L140, and L190's 40 in/s, its feedforward from
+L153's kS and kV, and its correction of 0.008 per in/s.
 
 The marker-sketch style, as the lesson outline sets it:
 
@@ -73,7 +73,8 @@ GREY = "#888888"
 LIGHT = "#eeeeee"
 
 DEADBAND = 0.05                        # L060
-POWER_PER_IPS = 0.016695978563625216   # pedro/Constants.powerPerInchPerSecond
+KS_FORWARD_VOLTS = 0.6                 # pedro/Bot37523.kSForwardVolts, L153
+KV_FORWARD = 0.177                     # pedro/Bot37523.kVForwardVoltSecondsPerInch, L153
 VELOCITY_KP = 0.008                    # LessonsDriveTrain.VELOCITY_KP
 MAX_IPS = 40                           # L190VelocityDriveOpMode.MAX_IPS
 
@@ -140,9 +141,9 @@ def stick_shaping():
 
 def speed_loop():
     fig, ax = plt.subplots(figsize=(12, 5))
-    ff = POWER_PER_IPS * MAX_IPS
+    ff = (KS_FORWARD_VOLTS + KV_FORWARD * MAX_IPS) / 12
     box(ax, (1.2, 3.2), 2.0, 1.0, f"stick full forward\nwanted {MAX_IPS} in/s", "#fde2d2")
-    box(ax, (4.4, 4.2), 2.6, 0.9, f"feedforward\n{POWER_PER_IPS:.4f} x {MAX_IPS} = {ff:.3f}",
+    box(ax, (4.4, 4.2), 3.0, 1.1, f"feedforward\n{KS_FORWARD_VOLTS} V + {KV_FORWARD} V·s/in x {MAX_IPS} in/s\n= {ff * 12:.2f} V; over 12 V, {ff:.2f}",
         "#dbe8f7", fontsize=10)
     box(ax, (4.4, 2.0), 2.6, 0.9, f"error x {VELOCITY_KP}\n(wanted - measured)", "#e3f1e3",
         fontsize=10)
@@ -150,9 +151,9 @@ def speed_loop():
     ax.text(7.0, 3.2, "+", ha="center", va="center", fontsize=18)
     box(ax, (9.0, 3.2), 1.8, 1.0, "speed\nto the motor", "#eeeeee")
     box(ax, (9.0, 0.8), 1.8, 0.9, "encoder:\nmeasured in/s", "#eeeeee", fontsize=10)
-    arrow(ax, (2.2, 3.4), (3.1, 4.1))
+    arrow(ax, (2.2, 3.4), (2.85, 3.9))
     arrow(ax, (2.2, 3.0), (3.1, 2.1))
-    arrow(ax, (5.7, 4.1), (6.75, 3.4))
+    arrow(ax, (5.95, 3.85), (6.75, 3.4))
     arrow(ax, (5.7, 2.1), (6.75, 3.0))
     arrow(ax, (7.32, 3.2), (8.1, 3.2))
     arrow(ax, (9.0, 2.7), (9.0, 1.25))
