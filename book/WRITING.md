@@ -126,6 +126,14 @@ The code a student copies carries a comment where each step changes it, linking 
 // for what to do here.
 ```
 
+**A Java block names its file.** It is a `{code-block} java` whose `:caption:` is the file's path
+under `teamcode/`, with `(test) ` in front for a test, such as
+`(test) mytry/l093/MenuItemTest.java`, or `pedro/Bot*.java` for the robot's own file. `labels.css`
+draws it as a grey tab on the block's top edge. A code example that is in no file, such as E021's
+`double leftStickY`, has `:class: example` in place of a caption. `tools/check_labels.py` fails a
+Java block with neither, and a line that is not in its file as the page leaves it. A line a later
+step on the page deletes or changes is read at its own step.
+
 ## A lesson can have the student write whole classes
 
 L065 is the first, with one class and no test of its own; its diagrams are on E067, the page
@@ -146,10 +154,6 @@ after it. L093 is the first with each part below. Their pages and starters are w
 - **A class's starter is a header**: its class Javadoc and step pointer only. The student types
   the `package` line, the imports and the class. The OpMode's starter is like other lessons', with
   step pointers where the student types.
-- **A Java block names its file.** Its `:caption:` is the file's path under `teamcode/`, with
-  `(test) ` in front for a test, such as `(test) mytry/l093/MenuItemTest.java`; `labels.css` draws
-  it as a grey tab on the block's top edge. `tools/check_labels.py` fails a block whose lines are
-  not in that file as the lesson leaves it, and a Java block in L065, L093 or L135 with no caption.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
   and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
   fail, then types the code until it passes.
