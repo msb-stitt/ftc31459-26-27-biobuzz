@@ -1,8 +1,8 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java
-index fad0f7a..2bde7f7 100644
+index 4edc744..8092d33 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java
-@@ -61,6 +61,15 @@ class L120PinpointLocalizer implements Localizer {
+@@ -68,6 +68,15 @@ class L120PinpointLocalizer implements Localizer {
          // When on L120S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
          // for what to do here.
@@ -18,7 +18,7 @@ index fad0f7a..2bde7f7 100644
      }
  
      // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
-@@ -74,14 +83,35 @@ class L120PinpointLocalizer implements Localizer {
+@@ -82,18 +91,44 @@ class L120PinpointLocalizer implements Localizer {
          // When on L120S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
          // for what to do here.
@@ -30,6 +30,7 @@ index fad0f7a..2bde7f7 100644
 +            lastForwardPod_in = forwardPod_in;
 +            lastStrafePod_in = strafePod_in;
 +            lastRawHeading_rad = rawHeading_rad;
++            lastReadTime_s = readTime_s;
 +            return;
 +        }
 +
@@ -51,6 +52,14 @@ index fad0f7a..2bde7f7 100644
 +        double cosHeading = Math.cos(heading_rad);
 +        x_in += forward_in * cosHeading - strafe_in * sinHeading;
 +        y_in += forward_in * sinHeading + strafe_in * cosHeading;
+ 
+         // When on L120S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s070
+         // for what to do here.
++        double period_s = readTime_s - lastReadTime_s;
++        forwardSpeed_ips = forward_in / period_s;
++        strafeSpeed_ips = strafe_in / period_s;
++        turnSpeed_radps = turn_rad / period_s;
  
          lastForwardPod_in = forwardPod_in;
          lastStrafePod_in = strafePod_in;
