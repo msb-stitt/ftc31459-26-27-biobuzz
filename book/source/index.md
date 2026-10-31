@@ -100,6 +100,7 @@ tasks/l190
 
 tasks/r900
 tasks/r910
+tasks/r915
 tasks/r920
 tasks/r930
 r950/index
