@@ -29,7 +29,8 @@ import java.util.function.Supplier;
  * A real Pedro {@link Follower} driving a simulated robot, for tests.
  *
  * <p>The localizer turns forward, strafe and turn into motion (speed x max
- * speed, with a short lag standing in for inertia) and integrates a pose.
+ * speed, less static friction, with a short lag standing in for inertia) and
+ * integrates a pose.
  * Crude physics, but enough for the follower to finish a path the way it does
  * on the robot.
  *
@@ -45,6 +46,15 @@ public final class SimRobot {
     public static final double MAX_STRAFE_IPS = 43.6;
     public static final double MAX_TURN_RADPS = 4.0;
     public static final double LAG_S = 0.15;
+
+    /**
+     * Static friction on each axis, forward, strafe and turn, as the power it
+     * takes before the robot moves at all. Guesses, so L153's fit has a kS to
+     * find; see {@link #overFriction}.
+     */
+    public static final double KS_FORWARD = 0.05;
+    public static final double KS_STRAFE = 0.08;
+    public static final double KS_TURN = 0.06;
 
     public final SimDrive drive = new SimDrive();
     public final SimLocalizer localizer;
@@ -81,6 +91,16 @@ public final class SimRobot {
                 (frontLeft + frontRight + backLeft + backRight) / 4,
                 (-frontLeft + frontRight + backLeft - backRight) / 4,
                 (-frontLeft + frontRight - backLeft + backRight) / 4};
+    }
+
+    /**
+     * What is left of a power once static friction {@code kS} has taken its
+     * share: nothing up to {@code kS}, and above it (power - kS) / (1 - kS), so
+     * full power still gives full speed. The sign stays the power's.
+     */
+    public static double overFriction(double power, double kS) {
+        double over = Math.max(0, Math.abs(power) - kS) / (1 - kS);
+        return Math.copySign(over, power);
     }
 
     public static final PoseFactory POSES = PoseFactory.degrees();
@@ -254,9 +274,9 @@ public final class SimRobot {
             lastNs = now;
             double k = Math.min(1, dt / LAG_S);
             double[] c = chassisVelocitySupplier.get();
-            vx += (c[0] * MAX_FORWARD_IPS - vx) * k;
-            vy += (c[1] * MAX_STRAFE_IPS - vy) * k;
-            omega += (c[2] * MAX_TURN_RADPS - omega) * k;
+            vx += (overFriction(c[0], KS_FORWARD) * MAX_FORWARD_IPS - vx) * k;
+            vy += (overFriction(c[1], KS_STRAFE) * MAX_STRAFE_IPS - vy) * k;
+            omega += (overFriction(c[2], KS_TURN) * MAX_TURN_RADPS - omega) * k;
             x += (vx * Math.cos(heading) - vy * Math.sin(heading)) * dt;
             y += (vx * Math.sin(heading) + vy * Math.cos(heading)) * dt;
             heading += omega * dt;
