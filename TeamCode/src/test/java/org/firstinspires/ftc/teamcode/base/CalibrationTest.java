@@ -55,4 +55,17 @@ public class CalibrationTest {
         }
         assertEquals(2 * Math.PI, total, 1e-6);
     }
+
+    @Test
+    public void ticksPerInchFromGoBildasParts() {
+        // goBILDA's 312 RPM motor counts 537.7 for each turn of its output
+        // shaft, which turns the 104 mm wheel once through two 24-tooth gears.
+        assertEquals(41.80, Calibration.ticksPerInchFromTheParts(537.7, 104), 0.01);
+    }
+
+    @Test
+    public void theTurnRadiusIsHalfTheLengthPlusHalfTheWidth() {
+        assertEquals("A + B, not the hypotenuse, 9.55",
+                13.5, Calibration.turnRadiusFromTheWheels(6.5, 7.0), 1e-9);
+    }
 }

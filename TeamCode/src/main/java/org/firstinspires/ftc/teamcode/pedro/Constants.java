@@ -77,10 +77,14 @@ public class Constants {
     public static PinpointConfig localizerConfig;
     public static ForesightConfig foresightConfig;
 
-    /** Ticks per inch of wheel travel. L131 measures it. */
+    /** Ticks per inch of wheel travel. L113 works it out from the parts, and L131 measures it. */
     public static double ticksPerInch;
 
-    /** How far a wheel sits from the middle, inches. L131 measures it. */
+    /**
+     * How far a wheel's rim rolls for each radian the robot turns, inches: A + B
+     * for 45-degree mecanum wheels. L113 works it out from where the wheels sit,
+     * and L131 measures it.
+     */
     public static double turnRadiusInches;
 
     /**

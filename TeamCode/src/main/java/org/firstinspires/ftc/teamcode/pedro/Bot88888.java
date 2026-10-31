@@ -73,7 +73,10 @@ class Bot88888 {
             }
     );
 
-    /** Ticks per inch of wheel travel, and how far a wheel sits from the middle. L131 measures both. */
+    /**
+     * Ticks per inch of wheel travel, and how far a wheel's rim rolls for each
+     * radian the robot turns. L113 works both out, and L131 measures them.
+     */
     static double ticksPerInch = 45.0;
     static double turnRadiusInches = 8.0;
 
