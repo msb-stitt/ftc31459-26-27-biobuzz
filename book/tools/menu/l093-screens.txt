@@ -58,15 +58,33 @@ OFF-F-R
   Speed: <Fast>
 > Color: Green? A:OK B:Back
 
-down
-OFF-F-R
-> Light: <Off>
-  Speed: <Fast>
-  Color: <Red>
-
-up
+right
 OFF-F-R
   Light: <Off>
   Speed: <Fast>
-> Color: <Red>
+> Color: Blue? A:OK B:Back
+
+A
+OFF-F-B
+  Light: <Off>
+  Speed: <Fast>
+> Color: <Blue>
+
+right
+OFF-F-B
+  Light: <Off>
+  Speed: <Fast>
+> Color: Red? A:OK B:Back
+
+down
+OFF-F-B
+> Light: <Off>
+  Speed: <Fast>
+  Color: <Blue>
+
+up
+OFF-F-B
+  Light: <Off>
+  Speed: <Fast>
+> Color: <Blue>
 
