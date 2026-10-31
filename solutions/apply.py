@@ -6,7 +6,7 @@ tests of the lesson it stops at.
     python3 solutions/apply.py l020
     python3 solutions/apply.py l030 --copies-only --keep
     python3 solutions/apply.py l030 --unpatched
-    python3 solutions/apply.py l195 --every
+    python3 solutions/apply.py l190 --every
 
 It makes a fresh worktree of solutions-try, so nothing in the checkout it runs
 from is touched, and reads `order` and each lesson's `steps` out of that

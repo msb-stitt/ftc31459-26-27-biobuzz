@@ -1,0 +1,6 @@
+# L131: all three starters, copied into mytry, and the drivetrain filled in.
+copy lessons/L131MeasureTicksPerInchOpMode.java mytry/L131MeasureTicksPerInchOpMode.java
+copy lessons/L131MeasureTurnRadiusOpMode.java mytry/L131MeasureTurnRadiusOpMode.java
+copy lessons/L131TicksDriveTrain.java mytry/L131TicksDriveTrain.java
+patch L131TicksDriveTrain.patch
+test *LessonsTest.l131*

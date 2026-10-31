@@ -1,0 +1,4 @@
+# L132: the starter, copied into mytry and filled in; it runs L113's localizer.
+copy lessons/L132CompareLocalizersOpMode.java mytry/L132CompareLocalizersOpMode.java
+patch L132CompareLocalizersOpMode.patch
+test *LessonsTest.l132*
