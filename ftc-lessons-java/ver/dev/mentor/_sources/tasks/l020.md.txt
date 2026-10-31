@@ -122,6 +122,7 @@ fig-l020-complete.png
 :::
 
 ```{code-block} java
+:caption: mytry/L020SticksOpMode.java
 :emphasize-lines: 4
 
         // When on L020S030, see
@@ -160,6 +161,7 @@ was pressed. Change the letter by hand.
 line:
 
 ```{code-block} java
+:caption: mytry/L020SticksOpMode.java
 :emphasize-lines: 4
 
         // When on L020S040, see
@@ -257,6 +259,7 @@ too, not ⌘C. Under the comment that names this step, read and write down the r
 way:
 
 ```{code-block} java
+:caption: mytry/L020SticksOpMode.java
 :emphasize-lines: 4-5
 
         // When on L020S050, see

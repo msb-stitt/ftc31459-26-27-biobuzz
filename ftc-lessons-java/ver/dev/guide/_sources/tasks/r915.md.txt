@@ -1,0 +1,338 @@
+# 915 reference: UML glossary
+
+Here is each mark the UML diagrams use. Each one is drawn on two small classes, `A` and `B`. Its
+code is beside it. Each entry names the page that first shows it.
+
+(uml-class)=
+
+## a class box
+
+A class diagram draws each class as a box: its name, then its fields, then its methods.
+
+- A field line is its type, then its name: `double size`.
+- `+` in front of a name means **public**: any code can use it.
+- No mark means any class in the same folder can use it.
+- `: double` after a method is what it gives back.
+
+:::{figure} ../_figures/fig-uml-class.png
+:figclass: file-named
+
+fig-uml-class.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    double size;
+
+    public A(double startSize) {
+        size = startSize;
+    }
+
+    public double grow(double by) {
+        size = size + by;
+        return size;
+    }
+
+    double half() {
+        return size / 2;
+    }
+}
+```
+
+Introduced in [E067](e067.md).
+
+(uml-private)=
+
+## `-`, private
+
+`-` in front of a name means **private**: only the class's own code can use it.
+
+:::{figure} ../_figures/fig-uml-private.png
+:figclass: file-named
+
+fig-uml-private.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    private int count;
+
+    public int next() {
+        count = count + 1;
+        return count;
+    }
+}
+```
+
+Introduced in [L093](l093.md).
+
+(uml-has-a)=
+
+## the diamond, has-a
+
+An arrow with a hollow diamond means **has-a**: the class at the diamond holds the other one. A
+field makes it.
+
+:::{figure} ../_figures/fig-uml-has-a.png
+:figclass: file-named
+
+fig-uml-has-a.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    B b;
+}
+```
+
+Introduced in [E067](e067.md).
+
+(uml-field-name)=
+
+## the word on an arrow
+
+The word on a has-a arrow is the name of the field that holds the other class.
+
+:::{figure} ../_figures/fig-uml-field-name.png
+:figclass: file-named
+
+fig-uml-field-name.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    B b;
+}
+```
+
+Introduced in [E111](e111.md).
+
+(uml-enum)=
+
+## `«enumeration»`
+
+`«enumeration»` marks an `enum`. Its box lists the values it can be.
+
+:::{figure} ../_figures/fig-uml-enum.png
+:figclass: file-named
+
+fig-uml-enum.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    public enum Mode { ON, OFF }
+
+    Mode mode = Mode.ON;
+}
+```
+
+Introduced in [E067](e067.md).
+
+(uml-uses)=
+
+## the dashed arrow, uses
+
+A dashed arrow with an open head means **uses**. The class at the tail is handed the other one. It
+calls it, but does not hold one.
+
+:::{figure} ../_figures/fig-uml-uses.png
+:figclass: file-named
+
+fig-uml-uses.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    void look(B b) {
+        b.go();
+    }
+}
+```
+
+Introduced in [L093](l093.md).
+
+(uml-is-a)=
+
+## the triangle, is-a
+
+An arrow with a hollow triangle means **is-a**: the class is a "kind of" the class the triangle
+points at. It is the word `extends`.
+
+:::{figure} ../_figures/fig-uml-is-a.png
+:figclass: file-named
+
+fig-uml-is-a.png
+:::
+
+```{code-block} java
+:class: example
+public class B extends A {
+}
+```
+
+Introduced in [E111](e111.md).
+
+(uml-implements)=
+
+## the dashed triangle, and `«interface»`
+
+`«interface»` marks a list of methods with no code in them. A dashed line with a hollow triangle
+means is-a for an interface. It is the word `implements`, and the class has to write each method.
+
+:::{figure} ../_figures/fig-uml-implements.png
+:figclass: file-named
+
+fig-uml-implements.png
+:::
+
+```{code-block} java
+:class: example
+public interface A {
+    void go();
+}
+
+public class B implements A {
+    public void go() {
+        // B's own code
+    }
+}
+```
+
+Introduced in [E111](e111.md).
+
+(uml-abstract)=
+
+## `«abstract»`
+
+`«abstract»` marks a class that leaves a method for the class below it to write.
+
+:::{figure} ../_figures/fig-uml-abstract.png
+:figclass: file-named
+
+fig-uml-abstract.png
+:::
+
+```{code-block} java
+:class: example
+public abstract class A {
+    public abstract void mix();
+}
+
+public class B extends A {
+    public void mix() {
+        // B's own code
+    }
+}
+```
+
+Introduced in [E111](e111.md).
+
+(uml-group)=
+
+## a grey box
+
+A grey box groups classes by who wrote them. No code makes it.
+
+:::{figure} ../_figures/fig-uml-group.png
+:figclass: file-named
+
+fig-uml-group.png
+:::
+
+Introduced in [E111](e111.md).
+
+(uml-call)=
+
+## an object, a call, and what it gives back
+
+A sequence diagram shows calls in time order, from the top down. Each object has a box and a
+dashed line down from it. The box says the object's name, then its class. A solid arrow is a call,
+and a dashed arrow is what the call gives back.
+
+:::{figure} ../_figures/fig-uml-call.png
+:figclass: file-named
+
+fig-uml-call.png
+:::
+
+```{code-block} java
+:class: example
+        double total = b.grow(2);
+```
+
+Introduced in [E067](e067.md).
+
+(uml-new)=
+
+## the arrow marked `new`
+
+An arrow marked `new` makes the object at its end.
+
+:::{figure} ../_figures/fig-uml-new.png
+:figclass: file-named
+
+fig-uml-new.png
+:::
+
+```{code-block} java
+:class: example
+        B b = new B(3);
+```
+
+Introduced in [E067](e067.md).
+
+(uml-loop)=
+
+## a box marked `loop`
+
+A box marked `loop` holds calls that happen again and again.
+
+:::{figure} ../_figures/fig-uml-loop.png
+:figclass: file-named
+
+fig-uml-loop.png
+:::
+
+```{code-block} java
+:class: example
+    public void loop() {
+        b.grow(2);
+    }
+```
+
+Introduced in [E111](e111.md).
+
+(uml-note)=
+
+## a note
+
+A note says what an arrow does not. No code makes it.
+
+:::{figure} ../_figures/fig-uml-note.png
+:figclass: file-named
+
+fig-uml-note.png
+:::
+
+Introduced in [E111](e111.md).
+
+(uml-actor)=
+
+## a stick figure
+
+A stick figure is a person, such as the driver, not code. No code makes it.
+
+:::{figure} ../_figures/fig-uml-actor.png
+:figclass: file-named
+
+fig-uml-actor.png
+:::
+
+Introduced in [E111](e111.md).

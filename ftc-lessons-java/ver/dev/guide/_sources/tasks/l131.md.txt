@@ -1,0 +1,196 @@
+# 131 lesson: check L113's numbers by measuring them
+
+:::{figure} ../_figures/fig-l131-nothing-pushed.png
+:name: fig-l131-nothing-pushed
+:figclass: file-named
+
+fig-l131-nothing-pushed.png
+:::
+
+L113 worked out two numbers from the robot's parts and a tape measure: how many encoder ticks make
+an inch, and the turn radius. Now the robot measures the same two numbers while you push it and
+spin it by hand. Where a measured number differs from the worked-out one, the measured one goes in
+the robot's own file.
+
+::::{only} mentor
+**Before you start.**
+
+- L130 is done, and L113, so the robot's own file holds the ticks per inch and the turn radius
+  worked out from its parts.
+- The Pinpoint is mounted, as in L115, and its offsets set, as in L117, because this measurement
+  believes it.
+- AdvantageScope is installed on the same laptop.
+- The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
+  the robot on the spot.
+::::
+
+## the steps
+
+### L131S010: copy the three starters into mytry
+
+This lesson has three files. Two are OpModes, one for each measurement. The third is the
+drivetrain, which tells them what each wheel's encoder has counted.
+
+**Copy.** In `lessons`, click `L131MeasureTicksPerInchOpMode` once. Hold Shift and click
+`L131TicksDriveTrain`, so all three are picked. Copy them, click `mytry` once, and paste. In the
+**Copy** box, click **OK**. If Android Studio asks whether to add the files to Git, click **Add**.
+
+Copy all three at once. Copied one at a time, the OpModes still point at the drivetrain in
+`lessons`, and turn red.
+
+**Check.**
+
+- `mytry` holds `L131MeasureTicksPerInchOpMode`, `L131MeasureTurnRadiusOpMode` and
+  `L131TicksDriveTrain`, and none of them shows red.
+
+### L131S020: switch both OpModes on
+
+**Change.** In `L131MeasureTicksPerInchOpMode`, delete the line `@Disabled`, under the comment that
+names this step. Do the same in `L131MeasureTurnRadiusOpMode`.
+
+**Check.**
+
+- In both, under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L131S030: open a door to the encoders
+
+Open `L131TicksDriveTrain`. A drivetrain sends four speeds out to the motors. `wheelTicks()` is
+the same shape pointing the other way: it brings four numbers back.
+
+**Change.** In `wheelTicks()`, find the comment that names this step. Under it, type:
+
+```{code-block} java
+:caption: mytry/L131TicksDriveTrain.java
+:emphasize-lines: 4-7
+
+        // When on L131S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l131.html#l131s030
+        // for what to do here.
+        ticks[FL] = hardware.frontLeft.getCurrentPosition();
+        ticks[FR] = hardware.frontRight.getCurrentPosition();
+        ticks[BL] = hardware.backLeft.getCurrentPosition();
+        ticks[BR] = hardware.backRight.getCurrentPosition();
+```
+
+`getCurrentPosition()` is how many ticks a motor's encoder has counted since the robot started.
+`FL`, `FR`, `BL` and `BR` name the slots, as in L113.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L131MeasureTicksPerInchOpMode"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the `measure`
+folder.
+
+**Check.**
+
+- `pushed_in` and `ticks` read 0.0.
+- `measuredTicksPerInch` reads NaN, which means "not a number".
+
+Nobody can push a robot in the simulator, so it stays at x 72 in and y 10.5 in. And 0.0 divided by
+0.0 is not a number. The measuring is for the robot.
+
+### L131S040: push the robot and measure an inch
+
+An encoder counts small steps, called **ticks**, as its motor turns. Many ticks make one turn of
+the wheel.
+
+The robot keeps two accounts of the same trip. The Pinpoint says how far it went in inches, since
+its own wheels measure the floor. The drive encoders say how many ticks they counted. One divided
+by the other is the number.
+
+**Robot.** Stop the simulator. Send the code, and run `L131 Measure ticks per inch` from the
+Driver Station.
+
+**Push.** Push the robot slowly straight forward, at least 36 in, keeping it pointing the same way.
+Push slowly: a wheel that slips travels without turning, and the answer comes out short.
+
+**Check.**
+
+- The Driver Station shows `measuredTicksPerInch` with a number after it.
+
+Do it three times. Three answers a tick or two apart are a measurement.
+
+**Change.** Open the file of the robot `thisRobot` names, in the `pedro` folder, such as `Bot37523`.
+Put the number in `ticksPerInch`, in place of the one L113S060 worked out. Send the code again and
+run it once more to check.
+
+Compare the two. On the Strafer, L113S060 worked out 41.8. A gap of more than a tick or two means
+the wheel rolls as if it were a little bigger or smaller than the 104 mm on its page.
+
+### L131S050: spin the robot and measure the radius
+
+A wheel `r` inches from the middle travels `r` inches for every radian the robot turns. So the
+radius is the wheel's inches divided by the radians. This OpMode turns ticks into inches with
+`ticksPerInch`, so L131S040 comes first.
+
+**Robot.** Run `L131 Measure turn radius` from the Driver Station.
+
+**Spin.** Spin the robot on the spot by hand, at least two full turns, keeping it in about the same
+place.
+
+**Check.**
+
+- The Driver Station shows a turn radius.
+- It is close to the turn radius L113S070 worked out, A + B.
+
+**Change.** Put the number in `turnRadiusInches` in the robot's own file, in place of L113S070's.
+
+A gap here can mean the rollers do not push at quite 45°. L132 looks into why.
+
+::::{only} mentor
+**No gamepad.** None of the runs above needs one. Pushing a robot by hand is not something the
+simulator does, so L131S040 and L131S050 are robot steps only.
+
+**If it didn't**, and `LessonsTest.l131_theTicksDoorReportsWhatEachEncoderCounted` fails, the test
+puts 10, 20, 30 and 40 on the four encoders, so the numbers in the message name the wheel they came
+from. Each of these was planted and run.
+
+- `front left, front right, back left, back right: arrays first differed at element [0];
+  expected:<10> but was:<0>`: L131S030 is not typed yet. Every measurement would say the robot
+  never moved.
+- `arrays first differed at element [1]; expected:<20> but was:<30>`: the front right and back
+  left went into each other's slots. 30 is the back left's count, in the front right's place.
+
+`getVelocity()` in place of `getCurrentPosition()` does not build. Android Studio underlines it
+red, and the test run stops with:
+
+```
+error: incompatible types: possible lossy conversion from double to int
+```
+
+`getVelocity()` is how fast a wheel turns, as a decimal. `getCurrentPosition()` is the one that
+counts.
+
+With `@Disabled` left in, every test passes. The OpMode is missing from the Driver Station's list.
+
+**If it didn't**, on the robot, and it says `Encoders counted 0 ticks` while the inches climb,
+L131S030 is not on the robot you sent to.
+
+**If it didn't**, and the turn radius is about half what the tape says, the robot was swung around
+the room rather than spun on the spot. The Pinpoint counts the turning, and driving in a circle adds
+turning the wheels never made.
+
+**The wheels have to roll.** Both OpModes make the wheels coast in `start()` and put braking back in
+`stop()`. It is given code, and the other two `l131_` tests watch it. They pass on the starter. Each
+of these was planted in `L131MeasureTicksPerInchOpMode` and run.
+
+- `allowConfiguredBrakeMode()` added at the end of `measureTicksPerInch()`: the coast lasts one
+  loop, and the test says `L131MeasureTicksPerInchOpMode still coasts five loops in`. The wheels
+  would brake while the student was still pushing.
+- `allowConfiguredBrakeMode()` taken out of `stop()`: two messages,
+  `L131MeasureTicksPerInchOpMode brakes again afterwards` and `braking is back although no loop
+  ran`. The second is a run where STOP came before the first loop, which leaves the next OpMode
+  coasting.
+
+**What you just did.** Two worked-out numbers became measurements. L113 worked them out from
+goBILDA's pages and a tape measure. No code could tell whether they were right, because code cannot
+check a number it has no other way of knowing. Here the robot measured the same things with two
+instruments that do not talk to each other, the Pinpoint and the drive encoders, and the
+measurements were compared with the sums. Work a number out, then measure it before trusting it.
+
+**Where next.** [L132](l132.md) compares your localizers with the Pinpoint's.
+::::

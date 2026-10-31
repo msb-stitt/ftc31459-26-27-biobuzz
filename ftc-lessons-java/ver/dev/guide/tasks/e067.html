@@ -236,12 +236,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -251,19 +252,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -272,7 +272,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -294,19 +294,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -358,24 +365,80 @@ classes in pictures called <strong>UML</strong>, the Unified Modeling Language. 
 diagram, of what each class has, and a sequence diagram, of who calls whom.</p>
 <section id="the-class-diagram">
 <h2>the class diagram<a class="headerlink" href="#the-class-diagram" title="Link to this heading">¶</a></h2>
+<p>A <strong><a class="reference internal" href="r915.html#uml-class"><span class="std std-ref">class diagram</span></a></strong> is a box for each class: its name, then its fields, then its
+methods. Here is a small class, <code class="docutils literal notranslate"><span class="pre">A</span></code>, drawn as a box, and its code:</p>
+<figure class="file-named align-default" id="fig-uml-class">
+<img alt="../../media/fig-uml-class_c3e2c89ada03.png" src="../../media/fig-uml-class_c3e2c89ada03.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-class.png</span><a class="headerlink" href="#fig-uml-class" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">startSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startSize</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">grow</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">by</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">by</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">half</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">size</span></code> is a field: its type, then its name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> in front of a name means <strong>public</strong>: any code can use it. <code class="docutils literal notranslate"><span class="pre">A</span></code>’s constructor and <code class="docutils literal notranslate"><span class="pre">grow</span></code> are
+<code class="docutils literal notranslate"><span class="pre">public</span></code>.</p></li>
+<li><p>No mark means any class in the same folder can use it. <code class="docutils literal notranslate"><span class="pre">half</span></code> has no mark.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">double</span></code> after a method is what it gives back.</p></li>
+</ul>
+<p>An arrow with a diamond means <strong><a class="reference internal" href="r915.html#uml-has-a"><span class="std std-ref">has-a</span></a></strong>: the class at the diamond holds the other
+one. A field makes it. Here <code class="docutils literal notranslate"><span class="pre">A</span></code> has-a <code class="docutils literal notranslate"><span class="pre">B</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-has-a">
+<img alt="../../media/fig-uml-has-a_5ceb4fcc9ec9.png" src="../../media/fig-uml-has-a_5ceb4fcc9ec9.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-has-a.png</span><a class="headerlink" href="#fig-uml-has-a" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="r915.html#uml-enum"><span class="std std-ref">«enumeration»</span></a> marks an <code class="docutils literal notranslate"><span class="pre">enum</span></code>. Its box lists the values it can be. Here <code class="docutils literal notranslate"><span class="pre">A</span></code> holds
+(has-a) a <code class="docutils literal notranslate"><span class="pre">Mode</span></code>, which is <code class="docutils literal notranslate"><span class="pre">ON</span></code> or <code class="docutils literal notranslate"><span class="pre">OFF</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-enum">
+<img alt="../../media/fig-uml-enum_4b5cb170fe31.png" src="../../media/fig-uml-enum_4b5cb170fe31.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-enum.png</span><a class="headerlink" href="#fig-uml-enum" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Mode</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ON</span><span class="p">,</span><span class="w"> </span><span class="n">OFF</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Mode</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mode</span><span class="p">.</span><span class="na">ON</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here are your classes from L065, drawn the same way:</p>
 <figure class="file-named align-default" id="fig-e067-class">
-<img alt="../../media/fig-e067-class_113723a121ba.png" src="../../media/fig-e067-class_113723a121ba.png" />
+<img alt="../../media/fig-e067-class_e544e9b8e134.png" src="../../media/fig-e067-class_e544e9b8e134.png" />
 <figcaption>
 <p><span class="caption-text">fig-e067-class.png</span><a class="headerlink" href="#fig-e067-class" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>A <strong>class diagram</strong> is a box for each class: its name, then its fields, then its methods.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">StickShaper</span> <span class="pre">stickShaper</span></code> is the OpMode’s field: its type, then its name.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> in front of a name means <strong>public</strong>: any code can use it. You typed <code class="docutils literal notranslate"><span class="pre">public</span></code> on the
-constructor, <code class="docutils literal notranslate"><span class="pre">setBand</span></code>, <code class="docutils literal notranslate"><span class="pre">setShape</span></code> and <code class="docutils literal notranslate"><span class="pre">shaped</span></code>.</p></li>
-<li><p>No mark means any class in the same folder can use it. <code class="docutils literal notranslate"><span class="pre">deadband</span></code>, <code class="docutils literal notranslate"><span class="pre">signedSquared</span></code> and <code class="docutils literal notranslate"><span class="pre">cubed</span></code>
-have no mark.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">double</span></code> after a method is what it gives back.</p></li>
-<li><p>An arrow with a diamond means “holds”. The diamond is at the end that holds. The OpMode holds a
-<code class="docutils literal notranslate"><span class="pre">StickShaper</span></code>, and the <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code> holds a <code class="docutils literal notranslate"><span class="pre">Shape</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code> marks an <code class="docutils literal notranslate"><span class="pre">enum</span></code>. Its box lists the values it can be: <code class="docutils literal notranslate"><span class="pre">LINEAR</span></code>, <code class="docutils literal notranslate"><span class="pre">SQUARED</span></code> and
-<code class="docutils literal notranslate"><span class="pre">CUBED</span></code>.</p></li>
+<li><p>You typed <code class="docutils literal notranslate"><span class="pre">public</span></code> on the constructor, <code class="docutils literal notranslate"><span class="pre">setBand</span></code>, <code class="docutils literal notranslate"><span class="pre">setShape</span></code> and <code class="docutils literal notranslate"><span class="pre">shaped</span></code>, so each has a <code class="docutils literal notranslate"><span class="pre">+</span></code>.
+<code class="docutils literal notranslate"><span class="pre">deadband</span></code>, <code class="docutils literal notranslate"><span class="pre">signedSquared</span></code> and <code class="docutils literal notranslate"><span class="pre">cubed</span></code> have no mark.</p></li>
+<li><p>The OpMode has-a <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code>, and the <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code> holds (has-a) a <code class="docutils literal notranslate"><span class="pre">Shape</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Shape</span></code>’s box lists <code class="docutils literal notranslate"><span class="pre">LINEAR</span></code>, <code class="docutils literal notranslate"><span class="pre">SQUARED</span></code> and <code class="docutils literal notranslate"><span class="pre">CUBED</span></code>.</p></li>
 </ul>
 <p>The OpMode’s box shows only <code class="docutils literal notranslate"><span class="pre">stickShaper</span></code> and <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>. The OpMode has <code class="docutils literal notranslate"><span class="pre">init()</span></code>,
 <code class="docutils literal notranslate"><span class="pre">loop()</span></code> and more, but this diagram is about the shaping. A diagram shows what it is about and
@@ -383,28 +446,55 @@ leaves out the rest.</p>
 </section>
 <section id="the-sequence-diagram">
 <h2>the sequence diagram<a class="headerlink" href="#the-sequence-diagram" title="Link to this heading">¶</a></h2>
+<p>A <strong><a class="reference internal" href="r915.html#uml-call"><span class="std std-ref">sequence diagram</span></a></strong> shows calls in time order, from the top down. Each object
+has a box and a dashed line down from it. The box says the object’s name, then its class:
+<code class="docutils literal notranslate"><span class="pre">stickShaper:</span></code> is the field’s name, and <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code> is its class. A solid arrow is a call, and a
+dashed arrow is what the call gives back.</p>
+<p>Here an object <code class="docutils literal notranslate"><span class="pre">a</span></code> calls <code class="docutils literal notranslate"><span class="pre">grow(2)</span></code> on an object <code class="docutils literal notranslate"><span class="pre">b</span></code> of class <code class="docutils literal notranslate"><span class="pre">B</span></code>, and 5 comes back:</p>
+<figure class="file-named align-default" id="fig-uml-call">
+<img alt="../../media/fig-uml-call_6098e5b9f011.png" src="../../media/fig-uml-call_6098e5b9f011.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-call.png</span><a class="headerlink" href="#fig-uml-call" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="na">grow</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>An arrow marked <a class="reference internal" href="r915.html#uml-new"><span class="std std-ref">new</span></a> makes the object at its end:</p>
+<figure class="file-named align-default" id="fig-uml-new">
+<img alt="../../media/fig-uml-new_77683ee77a03.png" src="../../media/fig-uml-new_77683ee77a03.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-new.png</span><a class="headerlink" href="#fig-uml-new" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Here are your calls from L065:</p>
 <figure class="file-named align-default" id="fig-e067-calls">
 <img alt="../../media/fig-e067-calls_544a24fb8734.png" src="../../media/fig-e067-calls_544a24fb8734.png" />
 <figcaption>
 <p><span class="caption-text">fig-e067-calls.png</span><a class="headerlink" href="#fig-e067-calls" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>A <strong>sequence diagram</strong> shows calls in time order, from the top down. Each object has a box and a
-dashed line down from it. The box says the object’s name, then its class: <code class="docutils literal notranslate"><span class="pre">stickShaper:</span></code> is the
-field’s name, and <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code> is its class. A solid arrow is a call, and a dashed arrow is what
-the call gives back.</p>
 <p>These are the lines you wrote, with the left stick halfway forward and the right stick halfway
 back:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/l065/L065ShaperOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">StickShaper</span><span class="w"> </span><span class="n">stickShaper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StickShaper</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>The first arrow is <code class="docutils literal notranslate"><span class="pre">new</span></code>. It makes the object, and the constructor keeps 0.05 as its band. This
 happens once, when the OpMode is made.</p></li>
 </ul>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/l065/L065ShaperOpMode.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stickShaper</span><span class="p">.</span><span class="na">shaped</span><span class="p">(</span><span class="n">leftSpeed</span><span class="p">);</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightShapedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stickShaper</span><span class="p">.</span><span class="na">shaped</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">);</span>
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">shaped(0.5)</span></code> hands the object the left speed. Its dashed arrow brings back 0.25: past the band,

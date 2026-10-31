@@ -72,6 +72,7 @@ comes from the left stick, sideways.
 **Change.** In `driveFromTheSticks()`, find the comment that names this step. Under it, type:
 
 ```{code-block} java
+:caption: mytry/L090MecanumOpMode.java
 :emphasize-lines: 4-6
 
         // When on L090S030, see
@@ -103,6 +104,7 @@ Each wheel adds up the three numbers its own way:
 **Change.** Find the comment that names this step. Under it, type:
 
 ```{code-block} java
+:caption: mytry/L090MecanumOpMode.java
 :emphasize-lines: 4-16
 
         // When on L090S040, see
@@ -152,6 +154,7 @@ the wheel speeds. Under them, type the scaling. Then change the `Tracker.publish
 lines to use the scaled speeds:
 
 ```{code-block} java
+:caption: mytry/L090MecanumOpMode.java
 :emphasize-lines: 5-25
 
         double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;

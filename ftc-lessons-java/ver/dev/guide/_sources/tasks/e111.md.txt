@@ -16,9 +16,35 @@ says who wrote it:
 - **Pedro Pathing** is the path follower's code.
 - **Our base classes** are in `base/`. Our team wrote them for these lessons.
 
-Your classes are outside the boxes.
+Your classes are outside the boxes. A {ref}`grey box <uml-group>` only groups classes; no code makes
+it. Here `A` is in a box named Their code, and `B` is outside it:
 
-## is a
+:::{figure} ../_figures/fig-uml-group.png
+:name: fig-uml-group
+:figclass: file-named
+
+fig-uml-group.png
+:::
+
+## is-a
+
+An arrow with a hollow triangle means **{ref}`is-a <uml-is-a>`**: the class is a "kind of" the class
+the triangle points at, the class it builds on. It is the word `extends`. Here `B` is-a `A`:
+
+:::{figure} ../_figures/fig-uml-is-a.png
+:name: fig-uml-is-a
+:figclass: file-named
+
+fig-uml-is-a.png
+:::
+
+```{code-block} java
+:class: example
+public class B extends A {
+}
+```
+
+Here are your classes and the classes they build on:
 
 :::{figure} ../_figures/fig-e111-is-a.png
 :name: fig-e111-is-a
@@ -27,19 +53,64 @@ Your classes are outside the boxes.
 fig-e111-is-a.png
 :::
 
-An arrow with a hollow triangle means "is a kind of". The triangle points at the class built on.
-It is the word `extends`. `L110FollowerOpMode extends CorbelsTeleOp`, so an `L110FollowerOpMode`
-is a `CorbelsTeleOp`, which is a `CorbelsOpMode`, which is an `OpMode`.
+`L110FollowerOpMode extends CorbelsTeleOp`, so an `L110FollowerOpMode` is a `CorbelsTeleOp`,
+which is a `CorbelsOpMode`, which is an `OpMode`.
 
 A class gets everything the classes above it have. That is why `gamepad1` and `hardware` work in
 your OpMode, though you never made them. `gamepad1` comes from `OpMode`, and `hardware` from
 `CorbelsOpMode`. Each lesson's OpMode since L020 has started with `extends CorbelsTeleOp`.
 
-- `«interface»` on `Drivetrain` marks a list of methods with no code in them. A dashed line with a
-  hollow triangle means "is a kind of", for an interface. It is the word `implements`.
-  `CorbelsDriveTrain implements Drivetrain`, so it has to write each of those methods.
-- `«abstract»` on `CorbelsDriveTrain` marks a class that leaves a method for the class below it.
-  It leaves `mixArcadeToWheelSpeeds`, and you wrote it in L110S030.
+{ref}`«interface» <uml-implements>` marks a list of methods with no code in them. A dashed line with
+a hollow triangle means is-a too, for an interface. It is the word `implements`. Here `B` has to
+write `go()`:
+
+:::{figure} ../_figures/fig-uml-implements.png
+:name: fig-uml-implements
+:figclass: file-named
+
+fig-uml-implements.png
+:::
+
+```{code-block} java
+:class: example
+public interface A {
+    void go();
+}
+
+public class B implements A {
+    public void go() {
+        // B's own code
+    }
+}
+```
+
+`Drivetrain` is an interface. `CorbelsDriveTrain implements Drivetrain`, so it has to write each
+of those methods.
+
+{ref}`«abstract» <uml-abstract>` marks a class that leaves a method for the class below it. Here `B`
+writes `mix()`:
+
+:::{figure} ../_figures/fig-uml-abstract.png
+:name: fig-uml-abstract
+:figclass: file-named
+
+fig-uml-abstract.png
+:::
+
+```{code-block} java
+:class: example
+public abstract class A {
+    public abstract void mix();
+}
+
+public class B extends A {
+    public void mix() {
+        // B's own code
+    }
+}
+```
+
+`CorbelsDriveTrain` is abstract. It leaves `mixArcadeToWheelSpeeds`, and you wrote it in L110S030.
 
 `@Override` sits above a method that a class above already names. `OpMode` names `init()` and
 `loop()` with no code, so each OpMode has to write them. `CorbelsOpMode` already has a `start()`
@@ -48,7 +119,26 @@ and a `stop()`, and yours replace them.
 Your `init()` calls `initBefore()` and `initAfter()`. Those are `final` in `CorbelsOpMode`: a class
 below can call them, but it cannot replace them.
 
-## has a
+## has-a
+
+An arrow with a diamond means has-a, as in E067. The {ref}`word on the arrow <uml-field-name>` is
+the name of the field. Here `A` holds (has-a) a `B` in its field `b`:
+
+:::{figure} ../_figures/fig-uml-field-name.png
+:name: fig-uml-field-name
+:figclass: file-named
+
+fig-uml-field-name.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    B b;
+}
+```
+
+Here is what your OpMode holds:
 
 :::{figure} ../_figures/fig-e111-has-a.png
 :name: fig-e111-has-a
@@ -57,15 +147,13 @@ below can call them, but it cannot replace them.
 fig-e111-has-a.png
 :::
 
-An arrow with a diamond means "holds", as in E067. On an arrow from your OpMode, the word is the
-name of the field.
 
-- Your OpMode holds `hardware` and `follower`. `CorbelsOpMode` declares them, and your OpMode gets
-  them.
+- Your OpMode holds (has-a) `hardware` and `follower`. `CorbelsOpMode` declares them, and your
+  OpMode gets them.
 - You typed `drivetrain` and `stickShaper`.
 - The follower holds your drivetrain too, from `initAfter(drivetrain)`. It holds it as a
-  `Drivetrain`. It does not know your class, only that it is a kind of `Drivetrain`. So it can
-  drive any drivetrain that is.
+  `Drivetrain`. It does not know your class, only that it is a "kind of" (is-a) `Drivetrain`. So it
+  can drive any drivetrain that is.
 - `RobotHardware` holds the robot's motors. In the simulator, the same `hardware` holds simulated
   motors, so your code runs on both without a change.
 
@@ -81,11 +169,47 @@ fig-e111-run.png
 :::
 
 This sequence diagram starts with a stick figure: the driver. When the driver presses INIT, the
-platform calls `init()` once. Then it calls `init_loop()` over and over, until PLAY. A box marked
-`loop` holds calls that happen again and again.
+platform calls `init()` once. Then it calls `init_loop()` over and over, until PLAY.
 
 Your code never calls `init()` or `loop()`. The platform does, when the Driver Station's buttons
-are pressed. Each note names the diagram that shows what the call does.
+are pressed.
+
+A {ref}`stick figure <uml-actor>` is a person, not code. No code makes it. Here the driver presses
+PLAY:
+
+:::{figure} ../_figures/fig-uml-actor.png
+:name: fig-uml-actor
+:figclass: file-named
+
+fig-uml-actor.png
+:::
+
+A box marked {ref}`loop <uml-loop>` holds calls that happen again and again. Here `a` calls
+`grow(2)` in each `loop()`:
+
+:::{figure} ../_figures/fig-uml-loop.png
+:name: fig-uml-loop
+:figclass: file-named
+
+fig-uml-loop.png
+:::
+
+```{code-block} java
+:class: example
+    public void loop() {
+        b.grow(2);
+    }
+```
+
+A {ref}`note <uml-note>` says what an arrow does not. No code makes it. In the driver's diagram at
+the top of this section, each note names the diagram that shows what the call does.
+
+:::{figure} ../_figures/fig-uml-note.png
+:name: fig-uml-note
+:figclass: file-named
+
+fig-uml-note.png
+:::
 
 ### INIT
 
@@ -138,7 +262,7 @@ fig-e111-stop.png
 fig-e111-classes.png
 :::
 
-This diagram puts the "is a" and "holds" arrows together. A dashed arrow with an open head means
+This diagram puts the is-a and has-a arrows together. A dashed arrow with an open head means
 "uses", as in L093. Your OpMode calls `Tracker` and the `Scheduler`. Your drivetrain is made from
 `RobotHardware`.
 

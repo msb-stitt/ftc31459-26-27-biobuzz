@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="L195" href="L195.html"><link rel="prev" title="L180" href="L180.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="L180" href="L180.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>L190 - What the student writes</title>
@@ -205,17 +205,19 @@
 <li class="toctree-l1"><a class="reference internal" href="L110.html">L110</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L113.html">L113</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L120.html">L120</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L122.html">L122</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L125.html">L125</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L130.html">L130</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L131.html">L131</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L132.html">L132</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L135.html">L135</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L140.html">L140</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L150.html">L150</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L153.html">L153</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L157.html">L157</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L160.html">L160</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L170.html">L170</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L180.html">L180</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L190</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L195.html">L195</a></li>
 </ul>
 
 </div>
@@ -256,7 +258,7 @@
         <article role="main" id="furo-main-content">
           <section id="l190">
 <h1>L190<a class="headerlink" href="#l190" title="Link to this heading">¶</a></h1>
-<p>2 file(s) copied, then 10 change(s) in 2 file(s), 29 line(s) of code to write.</p>
+<p>2 file(s) copied, then 10 change(s) in 2 file(s), 32 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -285,17 +287,20 @@
 </section>
 <section id="id1">
 <h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 9 lines.</p>
+<p>Delete 0 lines, write 12 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -39,5 +39,14 @@</span>
+<span class="gu">@@ -39,5 +39,17 @@</span>
 <span class="w"> </span>        // When on L190S060, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
 <span class="w"> </span>        // for what to do here.
 <span class="gi">+        double[] measured_ips = measuredSpeeds.all();</span>
+<span class="gi">+        double batteryVolts = hardware.batteryVolts();</span>
 <span class="gi">+        double[] wheelSpeeds = new double[4];</span>
 <span class="gi">+        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="gi">+            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];</span>
+<span class="gi">+            double feedforwardVolts = Math.signum(wanted_ips[i]) * Constants.kSForwardVolts</span>
+<span class="gi">+                    + Constants.kVForwardVoltSecondsPerInch * wanted_ips[i];</span>
+<span class="gi">+            double feedforward = feedforwardVolts / batteryVolts;</span>
 <span class="gi">+            double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);</span>
 <span class="gi">+            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);</span>
 <span class="gi">+        }</span>
@@ -461,15 +466,7 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="L195.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">L195</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
+          
           <a class="prev-page" href="L180.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">

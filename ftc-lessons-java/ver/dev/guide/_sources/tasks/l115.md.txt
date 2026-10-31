@@ -14,7 +14,8 @@ that.
 ::::{only} mentor
 **Before you start.**
 
-- L110 is done, so the follower holds the drivetrain. The follower is what builds the Pinpoint.
+- L113 is done, and L110 before it, so the follower holds the drivetrain. The follower is what
+  builds the Pinpoint.
 - The robot, the two odometry pods, and whatever driver the robot's own screws take.
 - The I2C cable the Pinpoint came with, and the Driver Station.
 
@@ -46,27 +47,32 @@ The Pinpoint talks to the Control Hub over I2C. Port 0 already has the Control H
 so the Pinpoint goes on port 1. In L045S030 you named the device on port 1 `pinpoint`. That is the
 name the code asks for:
 
-```java
+```{code-block} java
+:caption: pedro/Bot*.java
 c.name.set("pinpoint");
 ```
 
 **Mount.** Bolt the Pinpoint on with its sticker side, the side the ports are on, facing **up**.
 Plug its cable into I2C port 1 on the Control Hub.
 
+**Robot.** Pick `L110 Follower` from the `Lessons` group and press INIT, but not PLAY. Connect
+AdvantageScope to the robot as in L050, and drag `heading_deg` from `Localizer/pinPoint` into
+**Left Axis**. Turn the robot a quarter turn by hand.
+
 **Check.**
 
-- Pick `L110 Follower` from the `Lessons` group and press INIT.
-- INIT finishes with no warning about the Pinpoint.
+- `Localizer/pinPoint/heading_deg` changes by about 90 as the robot turns.
 
-Until now, INIT warned that the Pinpoint was missing. With no warning, it was found.
+Only a Pinpoint that was found can tell the robot turned. Until now, INIT also warned that the
+Pinpoint was missing, and now it does not.
 
 ### L115S030: hold the robot still while it inits
 
 Pressing INIT builds the follower, and the follower builds the Pinpoint. The Pinpoint then resets
 its own gyro, which takes about a quarter of a second. The robot has to sit still for it.
 
-**Robot.** Put the robot on the floor, step back, safety glasses on! Pick `L110 Follower` on the
-Driver Station and press INIT, but not PLAY yet. Watch it in AdvantageScope.
+**Robot.** Press STOP. Put the robot on the floor, step back, safety glasses on! Pick
+`L110 Follower` on the Driver Station and press INIT, but not PLAY yet. Watch it in AdvantageScope.
 
 **Check.**
 
@@ -103,8 +109,8 @@ the SDK. The reset at INIT is `PinpointConfig`'s default `resetMode`, which `Pin
 constructor acts on. The still robot and the quarter second are from the goBILDA driver's own
 javadoc.
 
-**What you just did.** Every lesson from L117 on believes the Pinpoint. L122 puts your L113
-localizer beside it and shows the drive encoders drifting away from it over a run. L195
+**What you just did.** Every lesson from L117 on believes the Pinpoint. L132 puts your L113
+localizer beside it and shows the drive encoders drifting away from it over a run. L131
 measures the robot against it. A pod in the wrong socket makes all of that quietly wrong instead of
 loudly broken.
 

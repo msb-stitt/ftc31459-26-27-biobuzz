@@ -236,12 +236,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -251,19 +252,18 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -272,7 +272,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -294,19 +294,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -358,8 +365,11 @@ points, whichever way it faces.</p>
 <p>This page takes the three lines you typed in <a class="reference internal" href="l140.html"><span class="std std-doc">L140</span></a> one at a time. It uses the arrows of
 <a class="reference internal" href="e141.html"><span class="std std-doc">E141</span></a>. We follow one example all the way: the robot faces 60°, and the stick asks for
 0.64 along the field’s x and 0.16 along its y.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">base/HeadingHold.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="na">pose</span><span class="p">().</span><span class="na">heading</span><span class="p">();</span>
 </pre></div>
+</div>
 </div>
 <p>Pedro keeps the robot’s heading in radians. Draw a circle with a radius of 1. A radian is a
 distance of 1 around its edge. 60° is 1.05 radians, so <code class="docutils literal notranslate"><span class="pre">heading</span></code> holds 1.05.</p>
@@ -455,9 +465,15 @@ field x is sin 60°, going the negative way.</p>
 <p><span class="caption-text">fig-e142-stick-red-3d.png</span><a class="headerlink" href="#fig-e142-stick-red-3d" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading</span><span class="p">);</span>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">heading_rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="na">pose</span><span class="p">().</span><span class="na">heading</span><span class="p">();</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">sinHeading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading_rad</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">cosHeading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">cos</span><span class="p">(</span><span class="n">heading_rad</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">robotForwardXSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosHeading</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sinHeading</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">fieldXSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sinHeading</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fieldYSpeed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosHeading</span><span class="p">;</span>
 </pre></div>
+</div>
 </div>
 <p>The robot can’t drive along the field’s x. It drives along its own forward and its own left. So
 we break the field’s (0.64, 0) into a piece along each. It is forward’s 60° triangle with
@@ -524,8 +540,11 @@ frame, and goes where the stick points on the field.</p>
 <p><span class="caption-text">fig-e142-add-formula.png</span><a class="headerlink" href="#fig-e142-add-formula" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </pre></div>
+</div>
 </div>
 <p>The drivetrain gets the robot’s own forward and strafe, and drives them.
 <a class="reference internal" href="e143.html"><span class="std std-doc">E143</span></a> shows where the field’s x and y are from each Alliance Area.</p>

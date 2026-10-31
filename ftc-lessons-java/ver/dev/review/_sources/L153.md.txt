@@ -1,0 +1,148 @@
+# L153
+
+2 file(s) copied, then 6 change(s) in 2 file(s), 34 line(s) of code to write.
+
+## Copies
+
+- `lessons/L153FeedforwardFit.java` to `mytry/L153FeedforwardFit.java`
+- `lessons/L153FeedforwardOpMode.java` to `mytry/L153FeedforwardOpMode.java`
+
+## L153FeedforwardFit
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L153FeedforwardFit.java`
+
+### A change
+
+Delete 0 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -25,6 +25,11 @@
+         // When on L153S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s030
+         // for what to do here.
++        count += 1;
++        sumSpeed += speed;
++        sumVolts += volts;
++        sumSpeedSquared += speed * speed;
++        sumSpeedTimesVolts += speed * volts;
+     }
+ 
+     /** How many more volts each unit of speed takes: the line's slope. */
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -38,6 +38,9 @@
+         // When on L153S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s030
+         // for what to do here.
++        double top = count * sumSpeedTimesVolts - sumSpeed * sumVolts;
++        double bottom = count * sumSpeedSquared - sumSpeed * sumSpeed;
++        kV = top / bottom;
+         return kV;
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -50,6 +50,7 @@
+         // When on L153S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s040
+         // for what to do here.
++        kS = (sumVolts - kV() * sumSpeed) / count;
+         return kS;
+     }
+ }
+```
+
+## L153FeedforwardOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L153FeedforwardOpMode.java`
+
+### A change
+
+Delete 1 line, write 0 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -12,7 +12,6 @@
+ import com.pedropathing.math.Twist;
+ import com.pedropathing.utils.Angle;
+ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+```
+
+### A change
+
+Delete 1 line, write 11 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -130,7 +130,17 @@
+         // When on L153S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s050
+         // for what to do here.
+-        return Command.NOOP;
++        Command turnRuns = sequential(
++                oneRun(Axis.TURN, 0.2), oneRun(Axis.TURN, 0.4),
++                oneRun(Axis.TURN, 0.6), oneRun(Axis.TURN, 0.8));
++        Command forwardRuns = sequential(
++                oneRun(Axis.FORWARD, 0.2), oneRun(Axis.FORWARD, -0.4),
++                oneRun(Axis.FORWARD, 0.6), oneRun(Axis.FORWARD, -0.8));
++        Command strafeRuns = sequential(
++                oneRun(Axis.STRAFE, 0.2), oneRun(Axis.STRAFE, -0.4),
++                oneRun(Axis.STRAFE, 0.6), oneRun(Axis.STRAFE, -0.8));
++        Command runs = sequential(turnRuns, forwardRuns, strafeRuns, instant(this::publishTheFits));
++        return runs;
+     }
+ 
+     /** One run: drive at a fixed power, stop in time, hold until still, and keep what it found. */
+```
+
+### A change
+
+Delete 0 lines, write 14 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -265,6 +265,20 @@
+         // When on L153S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s060
+         // for what to do here.
++        double earlySpeed = earlySpeedSum / earlyLoops;
++        double lateSpeed = lateSpeedSum / lateLoops;
++        double volts = lateVoltsSum / lateLoops;
++        boolean steady = Math.abs(lateSpeed - earlySpeed) < STEADY_FRACTION * lateSpeed;
++        if (steady && axis == Axis.FORWARD) {
++            forwardFit.add(volts, lateSpeed);
++        } else if (steady && axis == Axis.STRAFE) {
++            strafeFit.add(volts, lateSpeed);
++        } else if (steady) {
++            turnFit.add(volts, lateSpeed);
++        }
++        Tracker.publish("Run/volts", volts);
++        Tracker.publish("Run/speed", lateSpeed);
++        Tracker.publish("Run/steady", steady);
+     }
+ 
+     /** What each fit found, for AdvantageScope. */
+```

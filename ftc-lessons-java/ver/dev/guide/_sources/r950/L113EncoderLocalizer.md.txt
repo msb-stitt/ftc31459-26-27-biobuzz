@@ -1,7 +1,7 @@
 # L113EncoderLocalizer
 
 What each lesson's patch does to this file, in the order the lessons come, from applying
-`solutions/` on `solutions-e111.1`. A line marked + is new, and a line marked - is gone; each number
+`solutions/` on `solutions-e111.2`. A line marked + is new, and a line marked - is gone; each number
 is the line's place in the file after the lesson.
 
 ## L113
@@ -40,4 +40,33 @@ is the line's place in the file after the lesson.
    78
    79         lastWheels_in = wheels_in.clone();
    80         lastRawHeading_rad = rawHeading_rad;
+```
+
+## L132
+
+```{code-block} diff
+:class: answer-diff
+
+--- mytry/L113EncoderLocalizer.java  (before L132)
++++ mytry/L113EncoderLocalizer.java  (after L132)
+@@ lines 40 to 48 @@
+   40     double[] lastWheels_in;
+   41     double lastRawHeading_rad;
+   42
++  43     /** How far the wheels roll for each inch the robot slides: L132 measures it. */
++  44     double cotAlpha = 1.0;
++  45
+   46     L113EncoderLocalizer(WheelSource source) {
+   47         this.source = source;
+   48     }
+@@ lines 68 to 75 @@
+   68         }
+   69
+   70         double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;
+-             double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++  71         double wheelStrafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++  72         double strafe_in = wheelStrafe_in / cotAlpha;
+   73
+   74         // When on L113S050, see
+   75         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s050
 ```

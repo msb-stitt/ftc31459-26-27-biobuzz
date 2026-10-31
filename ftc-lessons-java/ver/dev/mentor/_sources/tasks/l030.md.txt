@@ -69,6 +69,7 @@ fig-l030-complete.png
 :::
 
 ```{code-block} java
+:caption: mytry/L030SpeedsOpMode.java
 :emphasize-lines: 4-5
 
         // When on L030S030, see
@@ -104,6 +105,7 @@ Drag `leftStickY` from the `gamepad1` folder, and `leftSpeed` from the `drivetra
 step, do the same for the right stick:
 
 ```{code-block} java
+:caption: mytry/L030SpeedsOpMode.java
 :emphasize-lines: 4-5
 
         // When on L030S040, see

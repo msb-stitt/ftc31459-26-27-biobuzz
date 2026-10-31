@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="170 lesson: press Y and the robot drives itself there" href="l170.html"><link rel="prev" title="150 lesson: give the driver both" href="l150.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="170 lesson: press Y and the robot drives itself there" href="l170.html"><link rel="prev" title="157 lesson: ask for a speed, and send the volts it takes" href="l157.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>160 lesson: hold the heading the driver left - Corbels FTC Programming Lessons in Java</title>
@@ -241,12 +241,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -256,19 +257,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -277,7 +277,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -299,19 +299,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -367,7 +374,7 @@ the driver has it back at once.</p>
 <p><strong>Before you start.</strong></p>
 <ul class="simple">
 <li><p>L150 is done.</p></li>
-<li><p>AdvantageScope is installed on the same laptop. No gamepad is needed until the last step.</p></li>
+<li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
 <li><p>The robot, the Driver Station, a gamepad, and about 2 m by 2 m of clear floor for the last step.</p></li>
 </ul>
 <section id="the-steps">
@@ -399,17 +406,20 @@ Git, click <strong>Add</strong>.</p>
 <p><span class="caption-text">fig-l160-creep.png</span><a class="headerlink" href="#fig-l160-creep" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>The starter is L150’s finished OpMode. This run pretends the turn stick rests a little off center,
-the way a worn stick does.</p>
+<p>The starter is L150’s finished OpMode. A worn turn stick rests a little off center. Here your thumb
+plays the worn stick.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L160HeadingHoldOpMode --left_stick_y=-0.3 --right_stick_x=0.2"</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L160HeadingHoldOpMode --pad"</span>
 </pre></div>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
 <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder, then <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> reads -0.040, which is small.</p></li>
+<li><p>Push the left stick a little forward. Push the right stick a fifth of the way to the right, and
+hold both.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> reads about -0.04, which is small. If it goes past -0.05, ease off the right
+stick.</p></li>
 <li><p>The robot drives to the right, and it turns as it goes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> started at 90 and keeps dropping.</p></li>
 </ul>
@@ -420,18 +430,23 @@ the way a worn stick does.</p>
 straight back and the driver steers. On the loop the stick is let go, it remembers the heading.
 After that it hands back the turn that steers the robot back to that heading.</p>
 <p>Its own deadband is 0.05, so a stick that is nearly centered counts as let go. <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> at
--0.040 is inside it.</p>
+about -0.04 is inside it.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the line
 <code class="docutils literal notranslate"><span class="pre">CorbelsMecanum</span> <span class="pre">drivetrain;</span></code> near the top of the class. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/L160HeadingHoldOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">CorbelsMecanum</span><span class="w"> </span><span class="n">drivetrain</span><span class="p">;</span>
 <span class="hll"><span class="w">    </span><span class="n">HeadingHold</span><span class="w"> </span><span class="n">hold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HeadingHold</span><span class="p">(</span><span class="n">Constants</span><span class="p">.</span><span class="na">foresightConfig</span><span class="p">.</span><span class="na">headingFeedback</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
 </span></pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Constants.foresightConfig</span></code> holds the follower’s own settings. <code class="docutils literal notranslate"><span class="pre">headingFeedback</span></code> is the part that
 steers the heading in autonomous. Tune the follower, and this hold gets the same tuning.</p>
 <p><code class="docutils literal notranslate"><span class="pre">HeadingHold</span></code> and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> turn red. Click each one and press Option+Enter, as in L113. The
 popup for <code class="docutils literal notranslate"><span class="pre">Constants</span></code> names <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode.pedro.Constants</span></code>.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L160HeadingHoldOpMode.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">rightStickX</span><span class="p">;</span>
 <span class="w">        </span><span class="n">turnCcwSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stickShaper</span><span class="p">.</span><span class="na">shaped</span><span class="p">(</span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 <span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/turnCcwSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
@@ -443,12 +458,14 @@ popup for <code class="docutils literal notranslate"><span class="pre">Constants
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/holdingHeading"</span><span class="p">,</span><span class="w"> </span><span class="n">holdingHeading</span><span class="p">);</span>
 </span></pre></div>
 </div>
+</div>
 <p>The first new line swaps the stick’s turn for the hold’s. The <code class="docutils literal notranslate"><span class="pre">sticks</span></code> call below uses
 <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code>, so it drives with it. Android Studio now underlines <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> everywhere. That
 marks a variable that changes after it is made. It is not an error.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
+<li><p>Hold the sticks as in L160S030.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">holdingHeading</span></code> is green, since the hold has a heading to keep.</p></li>
 <li><p>The robot drives to the right, its nose still pointing up the field, and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> stays at
 90.</p></li>
@@ -463,8 +480,11 @@ marks a variable that changes after it is made. It is not an error.</p>
 <li><p>The nose stays where it was.</p></li>
 <li><p>Then take hold of the robot and twist it a little. It turns back on its own.</p></li>
 </ul>
-<p><strong>No gamepad.</strong> The two runs above need none. With <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, a driver can turn, let go, and watch
-the hold take over.</p>
+<p><strong>No gamepad.</strong> This holds the sticks as L160S030 asks, for the picture at the top, and
+<code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> reads -0.040:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L160HeadingHoldOpMode --left_stick_y=-0.3 --right_stick_x=0.2"</span>
+</pre></div>
+</div>
 <p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">LessonsTest.l160_theRobotHoldsItsHeadingWhenTheStickIsReleased</span></code> fails with
 <code class="docutils literal notranslate"><span class="pre">it</span> <span class="pre">steers</span> <span class="pre">back</span></code>, nothing listens to the hold. Either the line is missing, or it reads
 <code class="docutils literal notranslate"><span class="pre">hold.turn(follower,</span> <span class="pre">turnCcwSpeed);</span></code> without <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span> <span class="pre">=</span></code> in front, so its answer is thrown
@@ -510,14 +530,14 @@ the driver watches.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="l150.html">
+          <a class="prev-page" href="l157.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">150 lesson: give the driver both</div>
+                <div class="title">157 lesson: ask for a speed, and send the volts it takes</div>
                 
               </div>
             </a>

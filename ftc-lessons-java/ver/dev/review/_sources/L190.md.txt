@@ -1,6 +1,6 @@
 # L190
 
-2 file(s) copied, then 10 change(s) in 2 file(s), 29 line(s) of code to write.
+2 file(s) copied, then 10 change(s) in 2 file(s), 32 line(s) of code to write.
 
 ## Copies
 
@@ -30,19 +30,22 @@ Delete 0 lines, write 1 line.
 
 ### A change
 
-Delete 0 lines, write 9 lines.
+Delete 0 lines, write 12 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -39,5 +39,14 @@
+@@ -39,5 +39,17 @@
          // When on L190S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
          // for what to do here.
 +        double[] measured_ips = measuredSpeeds.all();
++        double batteryVolts = hardware.batteryVolts();
 +        double[] wheelSpeeds = new double[4];
 +        for (int i = 0; i < 4; i++) {
-+            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];
++            double feedforwardVolts = Math.signum(wanted_ips[i]) * Constants.kSForwardVolts
++                    + Constants.kVForwardVoltSecondsPerInch * wanted_ips[i];
++            double feedforward = feedforwardVolts / batteryVolts;
 +            double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);
 +            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
 +        }

@@ -146,17 +146,18 @@ bytes, because nothing closed it. Watched. Use step 2 instead, and tell a mentor
 ## what you just did
 
 Both halves run the same model of the robot, and it is a small one. Each loop, the four wheel speeds
-are mixed back into forward, sideways and turn. Each of those three chases what was asked of it with
-a 0.15 s lag. The answer is added up into a pose.
+are mixed back into forward, sideways and turn. Each of those three loses the power its static
+friction takes, then chases what is left with a 0.15 s lag. The answer is added up into a pose. The
+wheels push 40 degrees from forward, not 45, so sideways is slower than forward.
 
-| Axis | Flat out |
-| --- | --- |
-| Forward | 64.4 in/s |
-| Sideways | 43.6 in/s |
-| Turn | 4.0 rad/s |
+| Axis | Flat out | Static friction, as power |
+| --- | --- | --- |
+| Forward | 64.4 in/s | 0.05 |
+| Sideways | 54.0 in/s | 0.08 |
+| Turn | 4.0 rad/s | 0.06 |
 
-So the model has no slip, no scrub, no sagging battery, no floor, no field wall, no motor wired
-backwards and no Pinpoint. It will drive straight through the perimeter and never mention it, and it
+So the model has no slip, no scrub, no sagging battery, no floor, no field wall and no motor wired
+backwards. It will drive straight through the perimeter and never mention it, and it
 cannot tell you a path is too fast for the wheels. When the simulator and the robot disagree, the
 robot is right.
 

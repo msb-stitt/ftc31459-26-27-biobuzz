@@ -253,7 +253,7 @@ change. Press Enter in the Terminal for PLAY.
 
 ## all of it together
 
-Each class, and which one holds which:
+Each class, and which one holds (has-a) which:
 
 :::{figure} ../_figures/fig-l135-classes.png
 :name: fig-l135-classes

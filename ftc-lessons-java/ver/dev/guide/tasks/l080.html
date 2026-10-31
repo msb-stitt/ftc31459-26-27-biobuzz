@@ -236,12 +236,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -251,19 +252,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -272,7 +272,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -294,19 +294,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -389,12 +396,18 @@ yet.</p>
 L065. Yours is in the package <code class="docutils literal notranslate"><span class="pre">mytry.l065</span></code>, and this OpMode is in <code class="docutils literal notranslate"><span class="pre">mytry</span></code>. A class in another
 package needs an <strong><code class="docutils literal notranslate"><span class="pre">import</span></code></strong> line, which names its package.</p>
 <p><strong>Change.</strong> Find the comment that names this step among the <code class="docutils literal notranslate"><span class="pre">import</span></code> lines. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/L080ArcadeOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry.l065.StickShaper</span><span class="p">;</span>
 </pre></div>
 </div>
+</div>
 <p>Then find the comment that names this step near the top of the class. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L080ArcadeOpMode.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">StickShaper</span><span class="w"> </span><span class="n">stickShaper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StickShaper</span><span class="p">(</span><span class="mf">0.05</span><span class="p">);</span>
 </pre></div>
+</div>
 </div>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -407,6 +420,8 @@ package needs an <strong><code class="docutils literal notranslate"><span class=
 <p>Tank drive asks the driver to think in left wheels and right wheels. Arcade drive asks for forward
 and turn instead, which is how a driver already thinks. The code works out the two sides.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">mytry/L080ArcadeOpMode.java</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L080S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -417,6 +432,7 @@ and turn instead, which is how a driver already thinks. The code works out the t
 </span><span class="hll"><span class="w">        </span><span class="n">turnCcwSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stickShaper</span><span class="p">.</span><span class="na">shaped</span><span class="p">(</span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/turnCcwSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </span></pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">forwardXSpeed</span></code> comes from the left stick, up and down. <code class="docutils literal notranslate"><span class="pre">turnCcwSpeed</span></code> comes from the right stick,
 sideways. Both get a minus sign. For <code class="docutils literal notranslate"><span class="pre">forwardXSpeed</span></code>, that makes pushing away from you positive, as
@@ -460,6 +476,8 @@ below 0.0, so taking <code class="docutils literal notranslate"><span class="pre
 right side slows that side down.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Find the comment that names this
 step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">mytry/L080ArcadeOpMode.java</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L080S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -473,6 +491,7 @@ step. Under it, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightMixedSpeed</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightMixedSpeed</span><span class="p">);</span>
 </span></pre></div>
+</div>
 </div>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope. Click <strong>2D Field</strong>. The
 robot from L040 is still in <strong>Poses</strong>.</p>
@@ -503,6 +522,8 @@ a little slower, and the curve stays the one the driver asked for.</p>
 <p><strong>Change.</strong> Press Ctrl+C to stop the simulator. Go back to the two lines from L080S050 that make
 <code class="docutils literal notranslate"><span class="pre">leftMixedSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">rightMixedSpeed</span></code>. Under them, type the scaling. Then change the
 <code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> and <code class="docutils literal notranslate"><span class="pre">setPower</span></code> lines to use the scaled speeds:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">mytry/L080ArcadeOpMode.java</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftMixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
 <span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">rightMixedSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardXSpeed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">;</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">leftSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">abs</span><span class="p">(</span><span class="n">leftMixedSpeed</span><span class="p">);</span>
@@ -519,6 +540,7 @@ a little slower, and the curve stays the one the driver asked for.</p>
 </span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">frontRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">hardware</span><span class="p">.</span><span class="na">backRight</span><span class="p">.</span><span class="na">setPower</span><span class="p">(</span><span class="n">rightSpeed</span><span class="p">);</span>
 </span></pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">leftSize</span></code> and <code class="docutils literal notranslate"><span class="pre">rightSize</span></code> are the mixed speeds with their minus signs taken off. <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> gives
 back the bigger of two numbers, so the first <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> finds the bigger size. The second makes

@@ -124,13 +124,41 @@ Right offers Green.
 fig-l093-press-11.png
 :::
 
-Down goes past the last row, round to the first, and clears the offer of Green. Red stays selected.
+Right offers Blue.
 
 :::{figure} ../_figures/fig-l093-press-12.png
 :name: fig-l093-press-12
 :figclass: file-named
 
 fig-l093-press-12.png
+:::
+
+A selects Blue. The status line reads `OFF-F-B`.
+
+:::{figure} ../_figures/fig-l093-press-13.png
+:name: fig-l093-press-13
+:figclass: file-named
+
+fig-l093-press-13.png
+:::
+
+Right goes past Blue, the end of the row, round to Red.
+
+:::{figure} ../_figures/fig-l093-press-14.png
+:name: fig-l093-press-14
+:figclass: file-named
+
+fig-l093-press-14.png
+:::
+
+Down goes past the last row, round to the first, and clears the offer of Red. Blue stays
+selected.
+
+:::{figure} ../_figures/fig-l093-press-15.png
+:name: fig-l093-press-15
+:figclass: file-named
+
+fig-l093-press-15.png
 :::
 
 Up goes past the first row, round to the last.
@@ -142,11 +170,52 @@ them from the bottom up: `MenuItem`, then `MenuRow`, which holds `MenuItem`s, th
 `MenuButtons` and `DriverStationMenu`. For each class, you test it first, then write it. The tests
 use the rows L135's auto uses, `Alliance` and `Auto`.
 
-The class diagrams are drawn as in [E067](e067.md). Two marks are new:
+The class diagrams are drawn as in [E067](e067.md). Two marks are new.
 
-- `-` in front of a name means **private**: only the class's own code can use it.
-- A dashed arrow with an open head means "uses": a `MenuButtons` is handed a `Gamepad` each
-  loop and asks it about its buttons, but does not hold one.
+`-` in front of a name means **{ref}`private <uml-private>`**: only the class's own code can use it.
+Here only `A`'s own `next()` can read or change `count`:
+
+:::{figure} ../_figures/fig-uml-private.png
+:name: fig-uml-private
+:figclass: file-named
+
+fig-uml-private.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    private int count;
+
+    public int next() {
+        count = count + 1;
+        return count;
+    }
+}
+```
+
+A dashed arrow with an open head means {ref}`uses <uml-uses>`: the class at the tail is handed the
+other one and calls it, but does not hold one. No field makes it. Here `A` is handed a `B` and calls
+its `go()`:
+
+:::{figure} ../_figures/fig-uml-uses.png
+:name: fig-uml-uses
+:figclass: file-named
+
+fig-uml-uses.png
+:::
+
+```{code-block} java
+:class: example
+public class A {
+    void look(B b) {
+        b.go();
+    }
+}
+```
+
+A `MenuButtons` uses a `Gamepad` the same way: it is handed one each loop and asks it about its
+buttons.
 
 ### L093S010: copy the starters into mytry
 
@@ -817,6 +886,8 @@ public class OptionMenu {
 
 A `MenuButtons`' one job is the OpMode loop's work of checking the gamepad's buttons, and telling
 `OptionMenu` what to do for each press. Nothing outside `l093` uses it, so it has no `public`.
+`DriverStationMenu` makes one with `new MenuButtons(optionMenu)` and calls its `loop`. That works
+with no `public` because `DriverStationMenu` is in `l093` too.
 
 :::{figure} ../_figures/fig-l093-buttons.png
 :name: fig-l093-buttons
@@ -1000,6 +1071,9 @@ fig-l093-ds-menu.png
 
 `Tracker` shows only the methods `DriverStationMenu` calls. It uses `Tracker` and holds none.
 
+`L093MenuOpMode` shows only `menu` and `init_loop()`, which calls `loop`. You type them in
+L093S110.
+
 - `optionMenu` holds the menu, and `menuButtons` the `MenuButtons` it makes for it.
 - `DriverStationMenu(optionMenu)` makes one for the menu.
 - `loop(gamepad)` moves the menu for each press, logs the status line as `menu/summary`, and
@@ -1168,7 +1242,7 @@ change. Press Enter in the Terminal for PLAY.
 
 ## all of it together
 
-Each class, and which one holds which:
+Each class, and which one holds (has-a) which:
 
 :::{figure} ../_figures/fig-l093-classes.png
 :name: fig-l093-classes

@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "642e7000bad1216a8c7a656fd845f3d97b600a95",
+      "built_from_commit": "1bc99b5b60924a3218e6a054d87b792dab9a5f15",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -23,11 +23,11 @@
         "fig-e035-xy_d5325e0ddee2.png",
         "fig-e035-xyz_5ffe1a3d4bd3.png",
         "fig-e067-calls_544a24fb8734.png",
-        "fig-e067-class_113723a121ba.png",
+        "fig-e067-class_e544e9b8e134.png",
         "fig-e111-classes_844f487c66dc.png",
         "fig-e111-has-a_89c98ca26038.png",
         "fig-e111-init_1f866e411f72.png",
-        "fig-e111-is-a_5e16df8f357d.png",
+        "fig-e111-is-a_6829cddd308d.png",
         "fig-e111-play_2717103c6bad.png",
         "fig-e111-run_d221fb565a58.png",
         "fig-e111-stop_5f01a30c725f.png",
@@ -125,11 +125,11 @@
         "fig-l090-wheel-pushes_37409d515f56.png",
         "fig-l093-buttons-idle_08c1c0fcf91d.png",
         "fig-l093-buttons-press_680e9d10cb8b.png",
-        "fig-l093-buttons_a329f2e57b8d.png",
+        "fig-l093-buttons_94065b5c085f.png",
         "fig-l093-calls_722979d72d04.png",
         "fig-l093-classes_b4276945ca3c.png",
-        "fig-l093-ds-loop_a2bb3538af49.png",
-        "fig-l093-ds-menu_26b4ff15f49f.png",
+        "fig-l093-ds-loop_0c221be1c28d.png",
+        "fig-l093-ds-menu_cf208ad1cc8d.png",
         "fig-l093-item_6480ed94f491.png",
         "fig-l093-menu-down_65a32120ef67.png",
         "fig-l093-menu-lines_b37f135cb2d8.png",
@@ -145,21 +145,30 @@
         "fig-l093-press-08_dba75094e9bb.png",
         "fig-l093-press-09_bce8f0b94eff.png",
         "fig-l093-press-10_b0c9ec106444.png",
-        "fig-l093-press-11_f9390306fba7.png",
-        "fig-l093-press-12_729e12d44d41.png",
+        "fig-l093-press-11_d0bc90853d52.png",
+        "fig-l093-press-12_9f6f8ea7cf8e.png",
+        "fig-l093-press-13_3556eb103f5b.png",
+        "fig-l093-press-14_923c0678fa60.png",
+        "fig-l093-press-15_889b5ce44fef.png",
         "fig-l093-row-calls_f85af6edcc11.png",
         "fig-l093-row_a0ab012bffec.png",
         "fig-l095-press-01_6c14fee11476.png",
         "fig-l095-press-02_5db6606ec2c3.png",
         "fig-l110-slide_0d801b6cc793.png",
+        "fig-l113-circle_383ddb9aa69b.png",
         "fig-l113-encoders-follow_17ee96a78410.png",
         "fig-l113-import_618c7648d441.png",
+        "fig-l113-mecanum-turn_a914d78d3d98.png",
+        "fig-l113-rectangle_c1765bb75ad2.png",
         "fig-l113-shadow-still_7eca34744b0f.png",
+        "fig-l113-wheel-vectors_bb1795d8b0f1.png",
+        "fig-l113-x-drive_5780febd3f88.png",
         "fig-l120-pod-turn_a661054f2c99.png",
         "fig-l120-pods-follow_1e2bcc2e4a0a.png",
         "fig-l125-drive24_daad530b722c.png",
         "fig-l125-import-static_3e57c231ae64.png",
         "fig-l130-two-legs_51953ca87286.png",
+        "fig-l131-nothing-pushed_b78bc5855097.png",
         "fig-l135-calls_45f5fb9d3c1f.png",
         "fig-l135-classes_5f539e1665d9.png",
         "fig-l135-menu_766fd9eaa1e1.png",
@@ -180,6 +189,8 @@
         "fig-l140-field-top_a914a13d7b0a.png",
         "fig-l140-spin-and-slide_4a3409de23d8.png",
         "fig-l150-bumper-held_f783c8ac1b90.png",
+        "fig-l153-fit_e73d53fb2a08.png",
+        "fig-l157-respread_bb167a9e1f20.png",
         "fig-l160-creep_6385ea236e2a.png",
         "fig-l160-held_e29992a5e74d.png",
         "fig-l170-drove-there_83f144e4565b.png",
@@ -187,16 +198,30 @@
         "fig-l180-aiming_d6ff9bb58285.png",
         "fig-l190-asks-standing-still_911602ecc989.png",
         "fig-l190-wheel-numbers_1572e143bd65.png",
-        "fig-l195-nothing-pushed_b78bc5855097.png",
         "fig-mecanum-x_1487c470aae6.png",
         "fig-odometry-step_4d3452b4bec9.png",
         "fig-panels-graph_526119dde860.png",
         "fig-pedro-field_7a6692094c84.png",
         "fig-pinpoint-mounting_8567a84553c8.png",
         "fig-robot-front_f3c5afc69f89.png",
-        "fig-speed-loop_28bb48f28f6f.png",
+        "fig-speed-loop_e84f56159ee0.png",
         "fig-stick-shaping_753bd87c5806.png",
         "fig-stick-to-robot_e966fdf8651c.png",
+        "fig-uml-abstract_eb732efc4995.png",
+        "fig-uml-actor_5566b268002b.png",
+        "fig-uml-call_6098e5b9f011.png",
+        "fig-uml-class_c3e2c89ada03.png",
+        "fig-uml-enum_4b5cb170fe31.png",
+        "fig-uml-field-name_e18b40470203.png",
+        "fig-uml-group_4c29aedafdc4.png",
+        "fig-uml-has-a_5ceb4fcc9ec9.png",
+        "fig-uml-implements_f638f1a23851.png",
+        "fig-uml-is-a_ce1cd2d4d573.png",
+        "fig-uml-loop_bc7fdf829edc.png",
+        "fig-uml-new_77683ee77a03.png",
+        "fig-uml-note_7a8dcacddd0e.png",
+        "fig-uml-private_054ae80e098c.png",
+        "fig-uml-uses_5fec852239cc.png",
         "fig-wheel-forward_cc740ffaf4d7.png",
         "fig-wheel-handover_d6160d25008c.png",
         "fig-wheel-names_c5e72d252f39.png",
@@ -3642,8 +3667,14 @@
       "sha256": "113723a121ba0302b1adfdb5abd83d88e03ec8f644508cda6c1e9cc5ffd6d600",
       "bytes": 479807,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-e067-class_e544e9b8e134.png": {
+      "sha256": "e544e9b8e134c29f7199bddbe9978df49361fea22f4b554fe14b758470e680be",
+      "bytes": 487915,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-e111-classes_844f487c66dc.png": {
@@ -3674,8 +3705,14 @@
       "sha256": "5e16df8f357d84495cb1e45277987ba9438660346d2fd104787e4e726cda9094",
       "bytes": 324111,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-e111-is-a_6829cddd308d.png": {
+      "sha256": "6829cddd308da1bc7e8ca111de0aa47d9713653a839024a1b17c4ffaff6e5727",
+      "bytes": 324275,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-e111-play_2717103c6bad.png": {
@@ -6161,11 +6198,17 @@
         "v0.5.0-rc.1"
       ]
     },
+    "fig-l093-buttons_94065b5c085f.png": {
+      "sha256": "94065b5c085fefe6ded0478e4694b153dd3c2e97a11623505d5342fceffabf32",
+      "bytes": 1139591,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l093-buttons_a329f2e57b8d.png": {
       "sha256": "a329f2e57b8d6d4c766c8c97bb2668acada000022118757b263ac9e22c65079a",
       "bytes": 1136300,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
       ]
     },
@@ -6185,11 +6228,17 @@
         "v0.5.0-rc.1"
       ]
     },
+    "fig-l093-ds-loop_0c221be1c28d.png": {
+      "sha256": "0c221be1c28d2ed58337c17f3584ca13bc6d1ab1bb92da47e728112bf8413c7a",
+      "bytes": 218959,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l093-ds-loop_a2bb3538af49.png": {
       "sha256": "a2bb3538af4995b18e4610d581401c024c20b73b359592410762e7dacc5fd9b0",
       "bytes": 216465,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
       ]
     },
@@ -6197,8 +6246,14 @@
       "sha256": "26b4ff15f49fec795837788e997036e2f00e48ebd8fea6de2894f6b560620adb",
       "bytes": 725975,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-l093-ds-menu_cf208ad1cc8d.png": {
+      "sha256": "cf208ad1cc8dec822c1bc37e2f6fd1f626ec38bf6405e8f6e607c978d7caa894",
+      "bytes": 815916,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l093-item_6480ed94f491.png": {
@@ -6321,11 +6376,17 @@
         "v0.5.0-rc.1"
       ]
     },
+    "fig-l093-press-11_d0bc90853d52.png": {
+      "sha256": "d0bc90853d52e51df78885faedecd720554b9bbc592026f9b2f49e064a7c6874",
+      "bytes": 218782,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l093-press-11_f9390306fba7.png": {
       "sha256": "f9390306fba7b96c9f5672b1bafbf5e393c74b3a87abf238a322368530583b3b",
       "bytes": 215812,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
       ]
     },
@@ -6333,8 +6394,35 @@
       "sha256": "729e12d44d41c0d40c0a90d30d06ee054ba6db4eff199f41f7441f55cccf1425",
       "bytes": 215626,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-l093-press-12_9f6f8ea7cf8e.png": {
+      "sha256": "9f6f8ea7cf8e204f32f45256cf0fd01a17973c9a18416d90b5e943a4c9e29130",
+      "bytes": 215057,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l093-press-13_3556eb103f5b.png": {
+      "sha256": "3556eb103f5bd1b878455e9ae9708297a94eae542522a979f8c12cef2c85121b",
+      "bytes": 216669,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l093-press-14_923c0678fa60.png": {
+      "sha256": "923c0678fa60b8ee46323543a09040eebd628a6f4c2fcf069c69b147263bbda5",
+      "bytes": 214142,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l093-press-15_889b5ce44fef.png": {
+      "sha256": "889b5ce44fef8ea63074f5d142c0e3234e1e750d05d5586bc60f966b6b065ff1",
+      "bytes": 212736,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l093-row-calls_f85af6edcc11.png": {
@@ -6401,6 +6489,13 @@
         "v0.2.0-rc.1"
       ]
     },
+    "fig-l113-circle_383ddb9aa69b.png": {
+      "sha256": "383ddb9aa69bbc44e7ecc7b58c3b9aa0028da6c168098d8cda1508cc647bdf66",
+      "bytes": 426079,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l113-encoders-follow_17ee96a78410.png": {
       "sha256": "17ee96a784108c716a8bc79329ddc2dff93263ad4e8e559b2b9fc4d757ad6951",
       "bytes": 243224,
@@ -6417,12 +6512,40 @@
         "v0.5.0-rc.1"
       ]
     },
+    "fig-l113-mecanum-turn_a914d78d3d98.png": {
+      "sha256": "a914d78d3d982752c144656ceca771931b5bc73e27522e9cc17499f5bb7bd0f0",
+      "bytes": 139625,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l113-rectangle_c1765bb75ad2.png": {
+      "sha256": "c1765bb75ad212e2d09b18d0795e8fadffb558d181a846180a66be17f25f0ede",
+      "bytes": 390336,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l113-shadow-still_7eca34744b0f.png": {
       "sha256": "7eca34744b0f099436efeb04795f1b50e22df5ffcd2bfe4b62088dac58083bfb",
       "bytes": 233549,
       "used_by_versions": [
         "dev",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-l113-wheel-vectors_bb1795d8b0f1.png": {
+      "sha256": "bb1795d8b0f1cb644d331b68bc6ad9a65406981d00e188635012b6969695a7c9",
+      "bytes": 672342,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l113-x-drive_5780febd3f88.png": {
+      "sha256": "5780febd3f8869e09f82a868a2d9ce9fc1f2de417c3b0eb3467fb824b7c94b58",
+      "bytes": 476696,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l120-encoders-follow_17ee96a78410.png": {
@@ -6611,6 +6734,13 @@
         "v0.4.0-rc.8",
         "v0.4.0-rc.9",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-l131-nothing-pushed_b78bc5855097.png": {
+      "sha256": "b78bc585509754ba2ffa71f5cfba0efa7513f24b07f674dcc39f13cd05cdf842",
+      "bytes": 260606,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l135-buttons-idle_19297fae893e.png": {
@@ -7242,6 +7372,20 @@
         "v0.5.0-rc.1"
       ]
     },
+    "fig-l153-fit_e73d53fb2a08.png": {
+      "sha256": "e73d53fb2a0853f985b93fedba556008e02e5ca748ac74ded028819d0b7f926c",
+      "bytes": 88889,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-l157-respread_bb167a9e1f20.png": {
+      "sha256": "bb167a9e1f204c421bb2851ce17493220ae7431c6b21126ab37ad26c1d2aaf00",
+      "bytes": 122770,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
     "fig-l160-creep_6385ea236e2a.png": {
       "sha256": "6385ea236e2a9a53083e28b6edba083b1a67f99a0042a688d47ac0ee1344bbdb",
       "bytes": 288363,
@@ -7482,7 +7626,6 @@
       "sha256": "b78bc585509754ba2ffa71f5cfba0efa7513f24b07f674dcc39f13cd05cdf842",
       "bytes": 260606,
       "used_by_versions": [
-        "dev",
         "v0.2.0",
         "v0.2.0-rc.1",
         "v0.3.0",
@@ -7676,7 +7819,6 @@
       "sha256": "28bb48f28f6f036f2c55fa92b0c43a575658b33398f980a583fd0b18a13f749d",
       "bytes": 85619,
       "used_by_versions": [
-        "dev",
         "v0.3.0",
         "v0.3.0-rc.1",
         "v0.3.0-rc.2",
@@ -7702,6 +7844,13 @@
       "used_by_versions": [
         "v0.2.0",
         "v0.2.0-rc.1"
+      ]
+    },
+    "fig-speed-loop_e84f56159ee0.png": {
+      "sha256": "e84f56159ee0a45521111acc6dae1a9e22b273f2f7bb330ee27565e0f9ef6c45",
+      "bytes": 90825,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-stick-shaping_491ad8686c3a.png": {
@@ -7766,6 +7915,111 @@
         "v0.4.0-rc.8",
         "v0.4.0-rc.9",
         "v0.5.0-rc.1"
+      ]
+    },
+    "fig-uml-abstract_eb732efc4995.png": {
+      "sha256": "eb732efc4995c8deec6d5b74187fff5f70ad9a5ec9ebaa9f8251c384ce9b3631",
+      "bytes": 92133,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-actor_5566b268002b.png": {
+      "sha256": "5566b268002b157712aa0af3456ad15cf91da63ab49a1c29e7dfba6cf949c4b1",
+      "bytes": 42375,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-call_6098e5b9f011.png": {
+      "sha256": "6098e5b9f0115090409c93e9ae6ed9314b8a1c0d316f8a2a3326eab19b596efa",
+      "bytes": 64483,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-class_c3e2c89ada03.png": {
+      "sha256": "c3e2c89ada03f7827781b2a7c702a506721e305ad2301de3235af9ff75b32cb4",
+      "bytes": 108236,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-enum_4b5cb170fe31.png": {
+      "sha256": "4b5cb170fe3101ae8abd952feea99407f44f42b83d70ff2fa64beeeea9deace1",
+      "bytes": 115003,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-field-name_e18b40470203.png": {
+      "sha256": "e18b40470203c030bc870c52ab13d08ad63caead20f2b4afd5f309d158231e18",
+      "bytes": 32781,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-group_4c29aedafdc4.png": {
+      "sha256": "4c29aedafdc4d1131c5cc1f0e0671230788ba8dff798bf2fdb4fffa5f81981d3",
+      "bytes": 35821,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-has-a_5ceb4fcc9ec9.png": {
+      "sha256": "5ceb4fcc9ec9dc18c2ae5f300898c7ea11d52166f2df1d7c081b8702348e6fac",
+      "bytes": 31277,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-implements_f638f1a23851.png": {
+      "sha256": "f638f1a23851289098e1d8605e994e105b16912ae11f37d338a128f38f094d18",
+      "bytes": 91880,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-is-a_ce1cd2d4d573.png": {
+      "sha256": "ce1cd2d4d573595aa4f13aa79a97cafa713247563b02768559cfeac1f7a20bb0",
+      "bytes": 30643,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-loop_bc7fdf829edc.png": {
+      "sha256": "bc7fdf829edc1ef01cf7a1ff4f06a77d3ea7a1e5964cd545f180e005469574db",
+      "bytes": 71965,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-new_77683ee77a03.png": {
+      "sha256": "77683ee77a03a651a2d4c979d2b5bd44cc50ff5858098d3fe2fa94a71ffed991",
+      "bytes": 63022,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-note_7a8dcacddd0e.png": {
+      "sha256": "7a8dcacddd0ec36fbf93e4b872d55e49f2f6d596b67624c08b1dee48b1521c3c",
+      "bytes": 109305,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-private_054ae80e098c.png": {
+      "sha256": "054ae80e098cc8239b405767c2a6983c8aa9d2f138b6da9913c92e5600bf4ec5",
+      "bytes": 58156,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-uml-uses_5fec852239cc.png": {
+      "sha256": "5fec852239cc1b926766a85c78f4b751f5263612b785caa0d0660e0d1430cbac",
+      "bytes": 72022,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-wheel-forward_cc740ffaf4d7.png": {

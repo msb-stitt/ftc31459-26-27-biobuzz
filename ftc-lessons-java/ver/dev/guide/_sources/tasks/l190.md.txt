@@ -14,8 +14,9 @@ slope.
 ::::{only} mentor
 **Before you start.**
 
-- L180 is done.
-- AdvantageScope is installed on the same laptop. No gamepad is needed until the last step.
+- L180 is done, and L131, so the robot's own file holds its ticks per inch and turn radius, and
+  L153, so it holds its kS and kV.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot, the Driver Station, a gamepad, about 3 m of clear floor, and something gentle to drive
   up, like a folded mat, for the last step.
 ::::
@@ -50,6 +51,7 @@ this step.
 **Change.** Near the top of the class, find the comment that names this step. Under it, type:
 
 ```{code-block} java
+:caption: mytry/L190VelocityDriveOpMode.java
 :emphasize-lines: 4
 
     // When on L190S030, see
@@ -69,6 +71,7 @@ this step.
 below. Then change `initAfter();` to `initAfter(drivetrain);`:
 
 ```{code-block} java
+:caption: mytry/L190VelocityDriveOpMode.java
 :emphasize-lines: 4,6
 
         // When on L190S040, see
@@ -103,6 +106,7 @@ make the stick's speed, and change its `0.0` as below. Then, under the last `pub
 last lines:
 
 ```{code-block} java
+:caption: mytry/L190VelocityDriveOpMode.java
 :emphasize-lines: 4-6,8-10,12-14,17-20
 
         // When on L190S050, see
@@ -144,7 +148,7 @@ class**, and click it. The box for `Constants` names
 **Simulator.** In the Terminal, run:
 
 ```
-./gradlew :TeamCode:simRun --args="mytry.L190VelocityDriveOpMode --left_stick_y=-0.5"
+./gradlew :TeamCode:simRun --args="mytry.L190VelocityDriveOpMode --pad"
 ```
 
 **AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
@@ -152,7 +156,8 @@ class**, and click it. The box for `Constants` names
 
 **Check.**
 
-- `forwardX_ips` reads 20, half of 40.
+- Push the left stick halfway forward and hold it.
+- `forwardX_ips` reads about 20, half of 40.
 - The robot does not move, and `y_in` stays at 10.5.
 
 The OpMode asks for a speed, but `setCommandedWheelSpeeds` in your drivetrain is still empty.
@@ -170,9 +175,9 @@ Open `L190SpeedDriveTrain`. It `extends CorbelsMecanum`, so it has everything L1
 `setCommandedWheelSpeeds` puts the four speeds into the array `wanted_ips`. Each wheel gets its
 fraction of full speed from two parts added together.
 
-- **Feedforward** is a guess, made before anything is measured. `Constants.powerPerInchPerSecond` is
-  the fraction of full speed one inch per second needs, so the guess gets most of the way there at
-  once.
+- **Feedforward** is a guess, made before anything is measured. It is L153's volts: kS to get the
+  wheel moving, plus kV for each inch per second. Divided by the battery's volts, that is the
+  fraction of full speed, so the guess gets most of the way there at once.
 - **Feedback** is the correction. `measuredSpeeds.all()` reads how fast each wheel really turns.
   The difference between wanted and measured, times `VELOCITY_KP`, is added on.
 
@@ -187,15 +192,19 @@ around, then `FR`, `BL` and `BR`.
 the comment that names this step. Under it, type:
 
 ```{code-block} java
-:emphasize-lines: 4-12
+:caption: mytry/L190SpeedDriveTrain.java
+:emphasize-lines: 4-15
 
         // When on L190S060, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
         // for what to do here.
         double[] measured_ips = measuredSpeeds.all();
+        double batteryVolts = hardware.batteryVolts();
         double[] wheelSpeeds = new double[4];
         for (int i = 0; i < 4; i++) {
-            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];
+            double feedforwardVolts = Math.signum(wanted_ips[i]) * Constants.kSForwardVolts
+                    + Constants.kVForwardVoltSecondsPerInch * wanted_ips[i];
+            double feedforward = feedforwardVolts / batteryVolts;
             double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);
             wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
         }
@@ -205,26 +214,26 @@ the comment that names this step. Under it, type:
 
 Android Studio types the `}` of the `for` loop for you, when you press Enter after the `{`.
 
+`Math.signum` gives kS the wheel's own direction, as in L157, so a wheel going backwards is pushed
+backwards.
+
 `clampToFullSpeed` keeps each speed between -1.0 and +1.0. `setCommandedWheels` sends the four to
 the wheels, as in L110. `publishWheelSpeeds` puts each wheel's numbers in the `wheel` folder.
 
 `Constants` turns red. Import it as in L190S050.
 
-**Simulator.** Run the command again, with the stick pushed less so the robot stays on the field
-longer:
-
-```
-./gradlew :TeamCode:simRun --args="mytry.L190VelocityDriveOpMode --left_stick_y=-0.2"
-```
+**Simulator.** Run the same command again.
 
 **AdvantageScope.** Connect, and open `wheel`, then `frontLeft`.
 
 **Check.**
 
-- `forwardX_ips` and `target_ips` read 8.
+- Push the left stick a fifth of the way forward, less than before, so the robot stays on the
+  field longer.
+- `forwardX_ips` and `target_ips` read about 8.
 - The robot drives up the field.
-- On the first loop `speed` reads 0.198: the guess, 0.134, plus the correction for a wheel not yet
-  turning.
+- As it starts, `speed` reads more than the guess, about 0.134: the correction adds to it for a
+  wheel not yet turning.
 
 `actual_ips` climbs to about 8 in under half a second and settles a little above 8, so `error_ips`
 settles a little below 0.0. `speed` drops to about 0.13 and stays there. The guess was a little too
@@ -244,8 +253,11 @@ and watch it in AdvantageScope.
   it.
 
 ::::{only} mentor
-**No gamepad.** The runs above need none. With `--pad`, a driver can push the stick and watch the
-numbers.
+**No gamepad.** `--args="mytry.L190VelocityDriveOpMode --left_stick_y=-0.5"` holds the stick for
+L190S050, and `--left_stick_y=-0.2` in its place holds it for L190S060.
+
+With `--left_stick_y=-0.2`, the first loop's `speed` reads 0.198. That is the guess, 0.134, plus
+the correction for a wheel not yet turning.
 
 **If it didn't**, and every `LessonsTest.l190_` test fails with this, no wheel's speed was published
 under `wheel/`:
@@ -270,12 +282,15 @@ planted and run.
   `expected:<0.0> but was:<-80.0>`.
 - `turning counter-clockwise drives the left side backwards`, on its own: the minus sign in front of
   `rightStickX` is missing.
-- `expected:<0.9878391425450086> but was:<0.6678391425450086>`: the feedback is not added. The
-  difference is `0.008 * 40.0`.
-- `expected:<0.9878391425450086> but was:<0.32>`: the feedforward is not added. A wheel already at
-  speed then gets 0.0.
-- `expected:<0.9878391425450086> but was:<0.34783914254500864>`: the error is the wrong way around,
+- `expected:<0.96> but was:<0.64>`: the feedback is not added. The difference is `0.008 * 40.0`.
+- `expected:<0.96> but was:<0.32>`, and `the speed is the feedforward alone` fails with `but
+  was:<0.0>`: the feedforward is not added.
+- `expected:<0.96> but was:<0.32>` on its own: the error is the wrong way around,
   `measured_ips[i] - wanted_ips[i]`.
+- `on a 13 V battery, the same volts are a smaller share of it`: the volts are divided by `12.0`,
+  not by `batteryVolts`.
+- `kS pushes each side the way it turns`: `Math.signum(wanted_ips[i]) *` is missing, so kS pushes
+  each wheel forwards.
 - `measured speed matches the command expected:<40.0> but was:<0.0>`: `measured_ips` is not read
   from `measuredSpeeds.all()`.
 
@@ -289,14 +304,14 @@ both the `wheel` numbers were right while the robot stood still at x 72 in, y 10
 A number in the log is what the code decided, not what the robot did.
 
 **If it didn't**, and on the robot it is slower than `target_ips` everywhere,
-`powerPerInchPerSecond` is off for this robot. L117 measures it. If turning is the wrong speed
-while driving straight is right, `turnRadiusInches` is 8 in, and this robot may not be. L195
-measures it.
+kS and kV are off for this robot. L153 measures them. If turning is the wrong speed
+while driving straight is right, `turnRadiusInches` may not be this robot's. L113 works it out,
+and L131 measures it.
 
 **What you just did.** A fraction of full speed is an instruction, and inches per second is a
 result. Every lesson before this one sent instructions. This one states the result it wants,
 measures, and corrects.
 
-**Where next.** [L195](l195.md) measures the numbers this lesson trusted: how far a wheel goes for
-each encoder count, and the turn radius.
+**Where next.** L190 is the last lesson. [L131](l131.md) measured the numbers it trusts: how far
+a wheel goes for each encoder count, and the turn radius.
 ::::

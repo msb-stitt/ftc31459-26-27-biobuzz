@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="195 lesson: measure the two numbers L190 trusted" href="l195.html"><link rel="prev" title="180 lesson: three drive modes in one OpMode" href="l180.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="900 reference: Pedro routes" href="r900.html"><link rel="prev" title="180 lesson: three drive modes in one OpMode" href="l180.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>190 lesson: ask the wheels for a speed - Corbels FTC Programming Lessons in Java</title>
@@ -236,12 +236,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -251,19 +252,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -272,7 +272,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -294,19 +294,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -387,11 +394,14 @@ this step.</p>
 <section id="l190s030">
 <span id="l190s030-make-room-for-the-drivetrain"></span><h3>L190S030: make room for the drivetrain<a class="headerlink" href="#l190s030" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> Near the top of the class, find the comment that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/L190VelocityDriveOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L190S030, see</span>
 <span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">    </span><span class="n">L190SpeedDriveTrain</span><span class="w"> </span><span class="n">drivetrain</span><span class="p">;</span>
 </span></pre></div>
+</div>
 </div>
 <p><strong>Check.</strong></p>
 <ul class="simple">
@@ -403,6 +413,8 @@ this step.</p>
 <span id="l190s040-hand-the-drivetrain-to-the-follower"></span><h3>L190S040: hand the drivetrain to the follower<a class="headerlink" href="#l190s040" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">init()</span></code>, find the comment that names this step. Under it, type the first line
 below. Then change <code class="docutils literal notranslate"><span class="pre">initAfter();</span></code> to <code class="docutils literal notranslate"><span class="pre">initAfter(drivetrain);</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L190VelocityDriveOpMode.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -410,6 +422,7 @@ below. Then change <code class="docutils literal notranslate"><span class="pre">
 </span>
 <span class="hll"><span class="w">        </span><span class="n">initAfter</span><span class="p">(</span><span class="n">drivetrain</span><span class="p">);</span>
 </span></pre></div>
+</div>
 </div>
 <p>This is L110S050 again, with the new drivetrain.</p>
 <p><strong>Check.</strong></p>
@@ -431,6 +444,8 @@ each second. Both are near the top of the class.</p>
 lines that end in <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">0.0;</span></code>, each with its <code class="docutils literal notranslate"><span class="pre">publish</span></code> line. Above each one, type the two lines that
 make the stick’s speed, and change its <code class="docutils literal notranslate"><span class="pre">0.0</span></code> as below. Then, under the last <code class="docutils literal notranslate"><span class="pre">publish</span></code> line, type the
 last lines:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">mytry/L190VelocityDriveOpMode.java</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -453,6 +468,7 @@ last lines:</p>
 </span><span class="hll"><span class="w">                </span><span class="n">wheel_ips</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="p">);</span>
 </span></pre></div>
 </div>
+</div>
 <p>The minus signs are the ones from L030. A stick pushed up reads less than 0.0. The starter sets
 <code class="docutils literal notranslate"><span class="pre">stickShaper</span></code> to <code class="docutils literal notranslate"><span class="pre">LINEAR</span></code> in <code class="docutils literal notranslate"><span class="pre">init()</span></code>, so it applies the deadband and does not square the speed.
 Each speed is a fraction of full speed, and times <code class="docutils literal notranslate"><span class="pre">MAX_IPS</span></code> it becomes inches per second. The end of
@@ -465,14 +481,15 @@ the middle of the robot.</p>
 class</strong>, and click it. The box for <code class="docutils literal notranslate"><span class="pre">Constants</span></code> names
 <code class="docutils literal notranslate"><span class="pre">org.firstinspires.ftc.teamcode.pedro.Constants</span></code>.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L190VelocityDriveOpMode --left_stick_y=-0.5"</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L190VelocityDriveOpMode --pad"</span>
 </pre></div>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020, click <strong>2D Field</strong>, and open the
 <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> folder. Then open <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">forwardX_ips</span></code> reads 20, half of 40.</p></li>
+<li><p>Push the left stick halfway forward and hold it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forwardX_ips</span></code> reads about 20, half of 40.</p></li>
 <li><p>The robot does not move, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> stays at 10.5.</p></li>
 </ul>
 <p>The OpMode asks for a speed, but <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> in your drivetrain is still empty.</p>
@@ -480,7 +497,7 @@ class</strong>, and click it. The box for <code class="docutils literal notransl
 <section id="l190s060">
 <span id="l190s060-turn-inches-per-second-into-a-fraction-of-full-speed"></span><h3>L190S060: turn inches per second into a fraction of full speed<a class="headerlink" href="#l190s060" title="Link to this heading">¶</a></h3>
 <figure class="file-named align-default" id="fig-speed-loop">
-<img alt="../../media/fig-speed-loop_28bb48f28f6f.png" src="../../media/fig-speed-loop_28bb48f28f6f.png" />
+<img alt="../../media/fig-speed-loop_e84f56159ee0.png" src="../../media/fig-speed-loop_e84f56159ee0.png" />
 <figcaption>
 <p><span class="caption-text">fig-speed-loop.png</span><a class="headerlink" href="#fig-speed-loop" title="Link to this image">¶</a></p>
 </figcaption>
@@ -489,9 +506,9 @@ class</strong>, and click it. The box for <code class="docutils literal notransl
 <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code> puts the four speeds into the array <code class="docutils literal notranslate"><span class="pre">wanted_ips</span></code>. Each wheel gets its
 fraction of full speed from two parts added together.</p>
 <ul class="simple">
-<li><p><strong>Feedforward</strong> is a guess, made before anything is measured. <code class="docutils literal notranslate"><span class="pre">Constants.powerPerInchPerSecond</span></code> is
-the fraction of full speed one inch per second needs, so the guess gets most of the way there at
-once.</p></li>
+<li><p><strong>Feedforward</strong> is a guess, made before anything is measured. It is L153’s volts: kS to get the
+wheel moving, plus kV for each inch per second. Divided by the battery’s volts, that is the
+fraction of full speed, so the guess gets most of the way there at once.</p></li>
 <li><p><strong>Feedback</strong> is the correction. <code class="docutils literal notranslate"><span class="pre">measuredSpeeds.all()</span></code> reads how fast each wheel really turns.
 The difference between wanted and measured, times <code class="docutils literal notranslate"><span class="pre">VELOCITY_KP</span></code>, is added on.</p></li>
 </ul>
@@ -502,13 +519,18 @@ Together they get there and stay there.</p>
 around, then <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code>.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">setCommandedWheelSpeeds</span></code>, find
 the comment that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">mytry/L190SpeedDriveTrain.java</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L190S060, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">measured_ips</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measuredSpeeds</span><span class="p">.</span><span class="na">all</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">batteryVolts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hardware</span><span class="p">.</span><span class="na">batteryVolts</span><span class="p">();</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">wheelSpeeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedforward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">powerPerInchPerSecond</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">wanted_ips</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedforwardVolts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">signum</span><span class="p">(</span><span class="n">wanted_ips</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">kSForwardVolts</span>
+</span><span class="hll"><span class="w">                    </span><span class="o">+</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">kVForwardVoltSecondsPerInch</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">wanted_ips</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedforward</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">feedforwardVolts</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">batteryVolts</span><span class="p">;</span>
 </span><span class="hll"><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">feedback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VELOCITY_KP</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">wanted_ips</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">measured_ips</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
 </span><span class="hll"><span class="w">            </span><span class="n">wheelSpeeds</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clampToFullSpeed</span><span class="p">(</span><span class="n">feedforward</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">feedback</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
@@ -516,22 +538,23 @@ the comment that names this step. Under it, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">publishWheelSpeeds</span><span class="p">(</span><span class="n">wanted_ips</span><span class="p">,</span><span class="w"> </span><span class="n">measured_ips</span><span class="p">);</span>
 </span></pre></div>
 </div>
+</div>
 <p>Android Studio types the <code class="docutils literal notranslate"><span class="pre">}</span></code> of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop for you, when you press Enter after the <code class="docutils literal notranslate"><span class="pre">{</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Math.signum</span></code> gives kS the wheel’s own direction, as in L157, so a wheel going backwards is pushed
+backwards.</p>
 <p><code class="docutils literal notranslate"><span class="pre">clampToFullSpeed</span></code> keeps each speed between -1.0 and +1.0. <code class="docutils literal notranslate"><span class="pre">setCommandedWheels</span></code> sends the four to
 the wheels, as in L110. <code class="docutils literal notranslate"><span class="pre">publishWheelSpeeds</span></code> puts each wheel’s numbers in the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> folder.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Constants</span></code> turns red. Import it as in L190S050.</p>
-<p><strong>Simulator.</strong> Run the command again, with the stick pushed less so the robot stays on the field
-longer:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L190VelocityDriveOpMode --left_stick_y=-0.2"</span>
-</pre></div>
-</div>
+<p><strong>Simulator.</strong> Run the same command again.</p>
 <p><strong>AdvantageScope.</strong> Connect, and open <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, then <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">forwardX_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read 8.</p></li>
+<li><p>Push the left stick a fifth of the way forward, less than before, so the robot stays on the
+field longer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forwardX_ips</span></code> and <code class="docutils literal notranslate"><span class="pre">target_ips</span></code> read about 8.</p></li>
 <li><p>The robot drives up the field.</p></li>
-<li><p>On the first loop <code class="docutils literal notranslate"><span class="pre">speed</span></code> reads 0.198: the guess, 0.134, plus the correction for a wheel not yet
-turning.</p></li>
+<li><p>As it starts, <code class="docutils literal notranslate"><span class="pre">speed</span></code> reads more than the guess, about 0.134: the correction adds to it for a
+wheel not yet turning.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">actual_ips</span></code> climbs to about 8 in under half a second and settles a little above 8, so <code class="docutils literal notranslate"><span class="pre">error_ips</span></code>
 settles a little below 0.0. <code class="docutils literal notranslate"><span class="pre">speed</span></code> drops to about 0.13 and stays there. The guess was a little too
@@ -558,12 +581,12 @@ it.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="l195.html">
+          <a class="next-page" href="r900.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">195 lesson: measure the two numbers L190 trusted</div>
+                <div class="title">900 reference: Pedro routes</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

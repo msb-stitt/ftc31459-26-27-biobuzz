@@ -241,12 +241,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -256,19 +257,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -277,7 +277,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -299,19 +299,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -370,29 +377,83 @@ says who wrote it:</p>
 <li><p><strong>Pedro Pathing</strong> is the path follower’s code.</p></li>
 <li><p><strong>Our base classes</strong> are in <code class="docutils literal notranslate"><span class="pre">base/</span></code>. Our team wrote them for these lessons.</p></li>
 </ul>
-<p>Your classes are outside the boxes.</p>
+<p>Your classes are outside the boxes. A <a class="reference internal" href="r915.html#uml-group"><span class="std std-ref">grey box</span></a> only groups classes; no code makes
+it. Here <code class="docutils literal notranslate"><span class="pre">A</span></code> is in a box named Their code, and <code class="docutils literal notranslate"><span class="pre">B</span></code> is outside it:</p>
+<figure class="file-named align-default" id="fig-uml-group">
+<img alt="../../media/fig-uml-group_4c29aedafdc4.png" src="../../media/fig-uml-group_4c29aedafdc4.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-group.png</span><a class="headerlink" href="#fig-uml-group" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="is-a">
-<h2>is a<a class="headerlink" href="#is-a" title="Link to this heading">¶</a></h2>
+<h2>is-a<a class="headerlink" href="#is-a" title="Link to this heading">¶</a></h2>
+<p>An arrow with a hollow triangle means <strong><a class="reference internal" href="r915.html#uml-is-a"><span class="std std-ref">is-a</span></a></strong>: the class is a “kind of” the class
+the triangle points at, the class it builds on. It is the word <code class="docutils literal notranslate"><span class="pre">extends</span></code>. Here <code class="docutils literal notranslate"><span class="pre">B</span></code> is-a <code class="docutils literal notranslate"><span class="pre">A</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-is-a">
+<img alt="../../media/fig-uml-is-a_ce1cd2d4d573.png" src="../../media/fig-uml-is-a_ce1cd2d4d573.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-is-a.png</span><a class="headerlink" href="#fig-uml-is-a" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here are your classes and the classes they build on:</p>
 <figure class="file-named align-default" id="fig-e111-is-a">
-<img alt="../../media/fig-e111-is-a_5e16df8f357d.png" src="../../media/fig-e111-is-a_5e16df8f357d.png" />
+<img alt="../../media/fig-e111-is-a_6829cddd308d.png" src="../../media/fig-e111-is-a_6829cddd308d.png" />
 <figcaption>
 <p><span class="caption-text">fig-e111-is-a.png</span><a class="headerlink" href="#fig-e111-is-a" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>An arrow with a hollow triangle means “is a kind of”. The triangle points at the class built on.
-It is the word <code class="docutils literal notranslate"><span class="pre">extends</span></code>. <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span> <span class="pre">extends</span> <span class="pre">CorbelsTeleOp</span></code>, so an <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>
-is a <code class="docutils literal notranslate"><span class="pre">CorbelsTeleOp</span></code>, which is a <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>, which is an <code class="docutils literal notranslate"><span class="pre">OpMode</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span> <span class="pre">extends</span> <span class="pre">CorbelsTeleOp</span></code>, so an <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code> is a <code class="docutils literal notranslate"><span class="pre">CorbelsTeleOp</span></code>,
+which is a <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>, which is an <code class="docutils literal notranslate"><span class="pre">OpMode</span></code>.</p>
 <p>A class gets everything the classes above it have. That is why <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> and <code class="docutils literal notranslate"><span class="pre">hardware</span></code> work in
 your OpMode, though you never made them. <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> comes from <code class="docutils literal notranslate"><span class="pre">OpMode</span></code>, and <code class="docutils literal notranslate"><span class="pre">hardware</span></code> from
 <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>. Each lesson’s OpMode since L020 has started with <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CorbelsTeleOp</span></code>.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">«interface»</span></code> on <code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code> marks a list of methods with no code in them. A dashed line with a
-hollow triangle means “is a kind of”, for an interface. It is the word <code class="docutils literal notranslate"><span class="pre">implements</span></code>.
-<code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span> <span class="pre">implements</span> <span class="pre">Drivetrain</span></code>, so it has to write each of those methods.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">«abstract»</span></code> on <code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span></code> marks a class that leaves a method for the class below it.
-It leaves <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>, and you wrote it in L110S030.</p></li>
-</ul>
+<p><a class="reference internal" href="r915.html#uml-implements"><span class="std std-ref">«interface»</span></a> marks a list of methods with no code in them. A dashed line with
+a hollow triangle means is-a too, for an interface. It is the word <code class="docutils literal notranslate"><span class="pre">implements</span></code>. Here <code class="docutils literal notranslate"><span class="pre">B</span></code> has to
+write <code class="docutils literal notranslate"><span class="pre">go()</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-implements">
+<img alt="../../media/fig-uml-implements_f638f1a23851.png" src="../../media/fig-uml-implements_f638f1a23851.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-implements.png</span><a class="headerlink" href="#fig-uml-implements" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">go</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">go</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// B's own code</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code> is an interface. <code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span> <span class="pre">implements</span> <span class="pre">Drivetrain</span></code>, so it has to write each
+of those methods.</p>
+<p><a class="reference internal" href="r915.html#uml-abstract"><span class="std std-ref">«abstract»</span></a> marks a class that leaves a method for the class below it. Here <code class="docutils literal notranslate"><span class="pre">B</span></code>
+writes <code class="docutils literal notranslate"><span class="pre">mix()</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-abstract">
+<img alt="../../media/fig-uml-abstract_eb732efc4995.png" src="../../media/fig-uml-abstract_eb732efc4995.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-abstract.png</span><a class="headerlink" href="#fig-uml-abstract" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">mix</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">mix</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// B's own code</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span></code> is abstract. It leaves <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>, and you wrote it in L110S030.</p>
 <p><code class="docutils literal notranslate"><span class="pre">&#64;Override</span></code> sits above a method that a class above already names. <code class="docutils literal notranslate"><span class="pre">OpMode</span></code> names <code class="docutils literal notranslate"><span class="pre">init()</span></code> and
 <code class="docutils literal notranslate"><span class="pre">loop()</span></code> with no code, so each OpMode has to write them. <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code> already has a <code class="docutils literal notranslate"><span class="pre">start()</span></code>
 and a <code class="docutils literal notranslate"><span class="pre">stop()</span></code>, and yours replace them.</p>
@@ -400,22 +461,34 @@ and a <code class="docutils literal notranslate"><span class="pre">stop()</span>
 below can call them, but it cannot replace them.</p>
 </section>
 <section id="has-a">
-<h2>has a<a class="headerlink" href="#has-a" title="Link to this heading">¶</a></h2>
+<h2>has-a<a class="headerlink" href="#has-a" title="Link to this heading">¶</a></h2>
+<p>An arrow with a diamond means has-a, as in E067. The <a class="reference internal" href="r915.html#uml-field-name"><span class="std std-ref">word on the arrow</span></a> is
+the name of the field. Here <code class="docutils literal notranslate"><span class="pre">A</span></code> holds (has-a) a <code class="docutils literal notranslate"><span class="pre">B</span></code> in its field <code class="docutils literal notranslate"><span class="pre">b</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-field-name">
+<img alt="../../media/fig-uml-field-name_e18b40470203.png" src="../../media/fig-uml-field-name_e18b40470203.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-field-name.png</span><a class="headerlink" href="#fig-uml-field-name" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is what your OpMode holds:</p>
 <figure class="file-named align-default" id="fig-e111-has-a">
 <img alt="../../media/fig-e111-has-a_89c98ca26038.png" src="../../media/fig-e111-has-a_89c98ca26038.png" />
 <figcaption>
 <p><span class="caption-text">fig-e111-has-a.png</span><a class="headerlink" href="#fig-e111-has-a" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>An arrow with a diamond means “holds”, as in E067. On an arrow from your OpMode, the word is the
-name of the field.</p>
 <ul class="simple">
-<li><p>Your OpMode holds <code class="docutils literal notranslate"><span class="pre">hardware</span></code> and <code class="docutils literal notranslate"><span class="pre">follower</span></code>. <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code> declares them, and your OpMode gets
-them.</p></li>
+<li><p>Your OpMode holds (has-a) <code class="docutils literal notranslate"><span class="pre">hardware</span></code> and <code class="docutils literal notranslate"><span class="pre">follower</span></code>. <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code> declares them, and your
+OpMode gets them.</p></li>
 <li><p>You typed <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> and <code class="docutils literal notranslate"><span class="pre">stickShaper</span></code>.</p></li>
 <li><p>The follower holds your drivetrain too, from <code class="docutils literal notranslate"><span class="pre">initAfter(drivetrain)</span></code>. It holds it as a
-<code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>. It does not know your class, only that it is a kind of <code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>. So it can
-drive any drivetrain that is.</p></li>
+<code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>. It does not know your class, only that it is a “kind of” (is-a) <code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>. So it
+can drive any drivetrain that is.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RobotHardware</span></code> holds the robot’s motors. In the simulator, the same <code class="docutils literal notranslate"><span class="pre">hardware</span></code> holds simulated
 motors, so your code runs on both without a change.</p></li>
 </ul>
@@ -430,10 +503,38 @@ motors, so your code runs on both without a change.</p></li>
 </figcaption>
 </figure>
 <p>This sequence diagram starts with a stick figure: the driver. When the driver presses INIT, the
-platform calls <code class="docutils literal notranslate"><span class="pre">init()</span></code> once. Then it calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> over and over, until PLAY. A box marked
-<code class="docutils literal notranslate"><span class="pre">loop</span></code> holds calls that happen again and again.</p>
+platform calls <code class="docutils literal notranslate"><span class="pre">init()</span></code> once. Then it calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> over and over, until PLAY.</p>
 <p>Your code never calls <code class="docutils literal notranslate"><span class="pre">init()</span></code> or <code class="docutils literal notranslate"><span class="pre">loop()</span></code>. The platform does, when the Driver Station’s buttons
-are pressed. Each note names the diagram that shows what the call does.</p>
+are pressed.</p>
+<p>A <a class="reference internal" href="r915.html#uml-actor"><span class="std std-ref">stick figure</span></a> is a person, not code. No code makes it. Here the driver presses
+PLAY:</p>
+<figure class="file-named align-default" id="fig-uml-actor">
+<img alt="../../media/fig-uml-actor_5566b268002b.png" src="../../media/fig-uml-actor_5566b268002b.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-actor.png</span><a class="headerlink" href="#fig-uml-actor" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>A box marked <a class="reference internal" href="r915.html#uml-loop"><span class="std std-ref">loop</span></a> holds calls that happen again and again. Here <code class="docutils literal notranslate"><span class="pre">a</span></code> calls
+<code class="docutils literal notranslate"><span class="pre">grow(2)</span></code> in each <code class="docutils literal notranslate"><span class="pre">loop()</span></code>:</p>
+<figure class="file-named align-default" id="fig-uml-loop">
+<img alt="../../media/fig-uml-loop_bc7fdf829edc.png" src="../../media/fig-uml-loop_bc7fdf829edc.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-loop.png</span><a class="headerlink" href="#fig-uml-loop" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">b</span><span class="p">.</span><span class="na">grow</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>A <a class="reference internal" href="r915.html#uml-note"><span class="std std-ref">note</span></a> says what an arrow does not. No code makes it. In the driver’s diagram at
+the top of this section, each note names the diagram that shows what the call does.</p>
+<figure class="file-named align-default" id="fig-uml-note">
+<img alt="../../media/fig-uml-note_7a8dcacddd0e.png" src="../../media/fig-uml-note_7a8dcacddd0e.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-note.png</span><a class="headerlink" href="#fig-uml-note" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
 <section id="init">
 <h3>INIT<a class="headerlink" href="#init" title="Link to this heading">¶</a></h3>
 <figure class="file-named align-default" id="fig-e111-init">
@@ -486,7 +587,7 @@ wheels’ powers go to the motors.</p></li>
 <p><span class="caption-text">fig-e111-classes.png</span><a class="headerlink" href="#fig-e111-classes" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>This diagram puts the “is a” and “holds” arrows together. A dashed arrow with an open head means
+<p>This diagram puts the is-a and has-a arrows together. A dashed arrow with an open head means
 “uses”, as in L093. Your OpMode calls <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> and the <code class="docutils literal notranslate"><span class="pre">Scheduler</span></code>. Your drivetrain is made from
 <code class="docutils literal notranslate"><span class="pre">RobotHardware</span></code>.</p>
 <p>No box here lists fields or methods. Each diagram on this page shows what it is about and leaves
@@ -551,8 +652,8 @@ out the rest. A drawing of the whole program, with everything in it, would be to
             <ul>
 <li><a class="reference internal" href="#">111 what’s happening: the classes your OpMode builds on</a><ul>
 <li><a class="reference internal" href="#who-wrote-what">who wrote what</a></li>
-<li><a class="reference internal" href="#is-a">is a</a></li>
-<li><a class="reference internal" href="#has-a">has a</a></li>
+<li><a class="reference internal" href="#is-a">is-a</a></li>
+<li><a class="reference internal" href="#has-a">has-a</a></li>
 <li><a class="reference internal" href="#what-the-platform-calls">what the platform calls</a><ul>
 <li><a class="reference internal" href="#init">INIT</a></li>
 <li><a class="reference internal" href="#play">PLAY</a></li>

@@ -1,0 +1,723 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="920 reference: keyboard shortcuts" href="r920.html"><link rel="prev" title="910 reference: glossary" href="r910.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>915 reference: UML glossary - Corbels FTC Programming Lessons in Java</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/pencil.css?v=fe295335" />
+    <link rel="stylesheet" type="text/css" href="../_static/steps.css?v=ce318689" />
+    <link rel="stylesheet" type="text/css" href="../_static/diff.css?v=022f88b8" />
+    <link rel="stylesheet" type="text/css" href="../_static/labels.css?v=64a50c8c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Corbels FTC Programming Lessons in Java</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">Corbels FTC Programming Lessons in Java</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">welcome</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b003.html">003 welcome</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">get started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="b010.html">010 getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h011.html">011 how-to: get started on Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h012.html">012 how-to: get started on macOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h013.html">013 how-to: get started on Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h017.html">017 how-to: navigate Android Studio’s panes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">drive it with the sticks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l020.html">020 lesson: read the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e021.html">021 what’s happening: assignments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l030.html">030 lesson: turn the sticks into speeds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l045.html">045 lesson: set up the robot’s configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e067.html">067 what’s happening: drawing a class and its calls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l095.html">095 lesson: choose the shaping from a menu</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="h096.html">096 how-to: watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h097.html">097 how-to: check your work without a robot</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l140.html">140 lesson: make the sticks mean the field</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e141.html">141 what’s happening: arrows as two numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">915 reference: UML glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L020SticksOpMode.html">L020SticksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L030SpeedsOpMode.html">L030SpeedsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L093MenuOpMode.html">L093MenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="b990.html">990 where this came from</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/tasks/r915.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="reference-uml-glossary">
+<h1>915 reference: UML glossary<a class="headerlink" href="#reference-uml-glossary" title="Link to this heading">¶</a></h1>
+<p>Here is each mark the UML diagrams use. Each one is drawn on two small classes, <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>. Its
+code is beside it. Each entry names the page that first shows it.</p>
+<section id="a-class-box">
+<span id="uml-class"></span><h2>a class box<a class="headerlink" href="#a-class-box" title="Link to this heading">¶</a></h2>
+<p>A class diagram draws each class as a box: its name, then its fields, then its methods.</p>
+<ul class="simple">
+<li><p>A field line is its type, then its name: <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">size</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> in front of a name means <strong>public</strong>: any code can use it.</p></li>
+<li><p>No mark means any class in the same folder can use it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">double</span></code> after a method is what it gives back.</p></li>
+</ul>
+<figure class="file-named align-default" id="id1">
+<img alt="../../media/fig-uml-class_c3e2c89ada03.png" src="../../media/fig-uml-class_c3e2c89ada03.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-class.png</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">startSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startSize</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">grow</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">by</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">by</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">half</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e067.html"><span class="std std-doc">E067</span></a>.</p>
+</section>
+<section id="private">
+<span id="uml-private"></span><h2><code class="docutils literal notranslate"><span class="pre">-</span></code>, private<a class="headerlink" href="#private" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">-</span></code> in front of a name means <strong>private</strong>: only the class’s own code can use it.</p>
+<figure class="file-named align-default" id="id2">
+<img alt="../../media/fig-uml-private_054ae80e098c.png" src="../../media/fig-uml-private_054ae80e098c.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-private.png</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a>.</p>
+</section>
+<section id="the-diamond-has-a">
+<span id="uml-has-a"></span><h2>the diamond, has-a<a class="headerlink" href="#the-diamond-has-a" title="Link to this heading">¶</a></h2>
+<p>An arrow with a hollow diamond means <strong>has-a</strong>: the class at the diamond holds the other one. A
+field makes it.</p>
+<figure class="file-named align-default" id="id3">
+<img alt="../../media/fig-uml-has-a_5ceb4fcc9ec9.png" src="../../media/fig-uml-has-a_5ceb4fcc9ec9.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-has-a.png</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e067.html"><span class="std std-doc">E067</span></a>.</p>
+</section>
+<section id="the-word-on-an-arrow">
+<span id="uml-field-name"></span><h2>the word on an arrow<a class="headerlink" href="#the-word-on-an-arrow" title="Link to this heading">¶</a></h2>
+<p>The word on a has-a arrow is the name of the field that holds the other class.</p>
+<figure class="file-named align-default" id="id4">
+<img alt="../../media/fig-uml-field-name_e18b40470203.png" src="../../media/fig-uml-field-name_e18b40470203.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-field-name.png</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="enumeration">
+<span id="uml-enum"></span><h2><code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code><a class="headerlink" href="#enumeration" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code> marks an <code class="docutils literal notranslate"><span class="pre">enum</span></code>. Its box lists the values it can be.</p>
+<figure class="file-named align-default" id="id5">
+<img alt="../../media/fig-uml-enum_4b5cb170fe31.png" src="../../media/fig-uml-enum_4b5cb170fe31.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-enum.png</span><a class="headerlink" href="#id5" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Mode</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ON</span><span class="p">,</span><span class="w"> </span><span class="n">OFF</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Mode</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mode</span><span class="p">.</span><span class="na">ON</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e067.html"><span class="std std-doc">E067</span></a>.</p>
+</section>
+<section id="the-dashed-arrow-uses">
+<span id="uml-uses"></span><h2>the dashed arrow, uses<a class="headerlink" href="#the-dashed-arrow-uses" title="Link to this heading">¶</a></h2>
+<p>A dashed arrow with an open head means <strong>uses</strong>. The class at the tail is handed the other one. It
+calls it, but does not hold one.</p>
+<figure class="file-named align-default" id="id6">
+<img alt="../../media/fig-uml-uses_5fec852239cc.png" src="../../media/fig-uml-uses_5fec852239cc.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-uses.png</span><a class="headerlink" href="#id6" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">look</span><span class="p">(</span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">b</span><span class="p">.</span><span class="na">go</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a>.</p>
+</section>
+<section id="the-triangle-is-a">
+<span id="uml-is-a"></span><h2>the triangle, is-a<a class="headerlink" href="#the-triangle-is-a" title="Link to this heading">¶</a></h2>
+<p>An arrow with a hollow triangle means <strong>is-a</strong>: the class is a “kind of” the class the triangle
+points at. It is the word <code class="docutils literal notranslate"><span class="pre">extends</span></code>.</p>
+<figure class="file-named align-default" id="id7">
+<img alt="../../media/fig-uml-is-a_ce1cd2d4d573.png" src="../../media/fig-uml-is-a_ce1cd2d4d573.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-is-a.png</span><a class="headerlink" href="#id7" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="the-dashed-triangle-and-interface">
+<span id="uml-implements"></span><h2>the dashed triangle, and <code class="docutils literal notranslate"><span class="pre">«interface»</span></code><a class="headerlink" href="#the-dashed-triangle-and-interface" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">«interface»</span></code> marks a list of methods with no code in them. A dashed line with a hollow triangle
+means is-a for an interface. It is the word <code class="docutils literal notranslate"><span class="pre">implements</span></code>, and the class has to write each method.</p>
+<figure class="file-named align-default" id="id8">
+<img alt="../../media/fig-uml-implements_f638f1a23851.png" src="../../media/fig-uml-implements_f638f1a23851.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-implements.png</span><a class="headerlink" href="#id8" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">go</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">go</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// B's own code</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="abstract">
+<span id="uml-abstract"></span><h2><code class="docutils literal notranslate"><span class="pre">«abstract»</span></code><a class="headerlink" href="#abstract" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">«abstract»</span></code> marks a class that leaves a method for the class below it to write.</p>
+<figure class="file-named align-default" id="id9">
+<img alt="../../media/fig-uml-abstract_eb732efc4995.png" src="../../media/fig-uml-abstract_eb732efc4995.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-abstract.png</span><a class="headerlink" href="#id9" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">mix</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">mix</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// B's own code</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="a-grey-box">
+<span id="uml-group"></span><h2>a grey box<a class="headerlink" href="#a-grey-box" title="Link to this heading">¶</a></h2>
+<p>A grey box groups classes by who wrote them. No code makes it.</p>
+<figure class="file-named align-default" id="id10">
+<img alt="../../media/fig-uml-group_4c29aedafdc4.png" src="../../media/fig-uml-group_4c29aedafdc4.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-group.png</span><a class="headerlink" href="#id10" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="an-object-a-call-and-what-it-gives-back">
+<span id="uml-call"></span><h2>an object, a call, and what it gives back<a class="headerlink" href="#an-object-a-call-and-what-it-gives-back" title="Link to this heading">¶</a></h2>
+<p>A sequence diagram shows calls in time order, from the top down. Each object has a box and a
+dashed line down from it. The box says the object’s name, then its class. A solid arrow is a call,
+and a dashed arrow is what the call gives back.</p>
+<figure class="file-named align-default" id="id11">
+<img alt="../../media/fig-uml-call_6098e5b9f011.png" src="../../media/fig-uml-call_6098e5b9f011.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-call.png</span><a class="headerlink" href="#id11" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="na">grow</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e067.html"><span class="std std-doc">E067</span></a>.</p>
+</section>
+<section id="the-arrow-marked-new">
+<span id="uml-new"></span><h2>the arrow marked <code class="docutils literal notranslate"><span class="pre">new</span></code><a class="headerlink" href="#the-arrow-marked-new" title="Link to this heading">¶</a></h2>
+<p>An arrow marked <code class="docutils literal notranslate"><span class="pre">new</span></code> makes the object at its end.</p>
+<figure class="file-named align-default" id="id12">
+<img alt="../../media/fig-uml-new_77683ee77a03.png" src="../../media/fig-uml-new_77683ee77a03.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-new.png</span><a class="headerlink" href="#id12" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e067.html"><span class="std std-doc">E067</span></a>.</p>
+</section>
+<section id="a-box-marked-loop">
+<span id="uml-loop"></span><h2>a box marked <code class="docutils literal notranslate"><span class="pre">loop</span></code><a class="headerlink" href="#a-box-marked-loop" title="Link to this heading">¶</a></h2>
+<p>A box marked <code class="docutils literal notranslate"><span class="pre">loop</span></code> holds calls that happen again and again.</p>
+<figure class="file-named align-default" id="id13">
+<img alt="../../media/fig-uml-loop_bc7fdf829edc.png" src="../../media/fig-uml-loop_bc7fdf829edc.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-loop.png</span><a class="headerlink" href="#id13" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">b</span><span class="p">.</span><span class="na">grow</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="a-note">
+<span id="uml-note"></span><h2>a note<a class="headerlink" href="#a-note" title="Link to this heading">¶</a></h2>
+<p>A note says what an arrow does not. No code makes it.</p>
+<figure class="file-named align-default" id="id14">
+<img alt="../../media/fig-uml-note_7a8dcacddd0e.png" src="../../media/fig-uml-note_7a8dcacddd0e.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-note.png</span><a class="headerlink" href="#id14" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+<section id="a-stick-figure">
+<span id="uml-actor"></span><h2>a stick figure<a class="headerlink" href="#a-stick-figure" title="Link to this heading">¶</a></h2>
+<p>A stick figure is a person, such as the driver, not code. No code makes it.</p>
+<figure class="file-named align-default" id="id15">
+<img alt="../../media/fig-uml-actor_5566b268002b.png" src="../../media/fig-uml-actor_5566b268002b.png" />
+<figcaption>
+<p><span class="caption-text">fig-uml-actor.png</span><a class="headerlink" href="#id15" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Introduced in <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a>.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="r920.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">920 reference: keyboard shortcuts</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="r910.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">910 reference: glossary</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, Mike Stitt
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">915 reference: UML glossary</a><ul>
+<li><a class="reference internal" href="#a-class-box">a class box</a></li>
+<li><a class="reference internal" href="#private"><code class="docutils literal notranslate"><span class="pre">-</span></code>, private</a></li>
+<li><a class="reference internal" href="#the-diamond-has-a">the diamond, has-a</a></li>
+<li><a class="reference internal" href="#the-word-on-an-arrow">the word on an arrow</a></li>
+<li><a class="reference internal" href="#enumeration"><code class="docutils literal notranslate"><span class="pre">«enumeration»</span></code></a></li>
+<li><a class="reference internal" href="#the-dashed-arrow-uses">the dashed arrow, uses</a></li>
+<li><a class="reference internal" href="#the-triangle-is-a">the triangle, is-a</a></li>
+<li><a class="reference internal" href="#the-dashed-triangle-and-interface">the dashed triangle, and <code class="docutils literal notranslate"><span class="pre">«interface»</span></code></a></li>
+<li><a class="reference internal" href="#abstract"><code class="docutils literal notranslate"><span class="pre">«abstract»</span></code></a></li>
+<li><a class="reference internal" href="#a-grey-box">a grey box</a></li>
+<li><a class="reference internal" href="#an-object-a-call-and-what-it-gives-back">an object, a call, and what it gives back</a></li>
+<li><a class="reference internal" href="#the-arrow-marked-new">the arrow marked <code class="docutils literal notranslate"><span class="pre">new</span></code></a></li>
+<li><a class="reference internal" href="#a-box-marked-loop">a box marked <code class="docutils literal notranslate"><span class="pre">loop</span></code></a></li>
+<li><a class="reference internal" href="#a-note">a note</a></li>
+<li><a class="reference internal" href="#a-stick-figure">a stick figure</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

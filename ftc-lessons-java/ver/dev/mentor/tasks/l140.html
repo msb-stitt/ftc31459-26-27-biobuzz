@@ -241,12 +241,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -256,19 +257,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -277,7 +277,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -299,19 +299,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -435,6 +442,8 @@ step on the field, through the heading. This turns the other way, from the field
 the signs on <code class="docutils literal notranslate"><span class="pre">sin</span></code> swap.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the
 comment that names this step. Delete the line <code class="docutils literal notranslate"><span class="pre">drivetrain.sticks(fieldXSpeed,</span> <span class="pre">fieldYSpeed,</span> <span class="pre">turnCcwSpeed);</span></code> under it, and type:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -447,6 +456,7 @@ comment that names this step. Delete the line <code class="docutils literal notr
 </span><span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"drivetrain/robotStrafeYSpeed"</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">drivetrain</span><span class="p">.</span><span class="na">sticks</span><span class="p">(</span><span class="n">robotForwardXSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">robotStrafeYSpeed</span><span class="p">,</span><span class="w"> </span><span class="n">turnCcwSpeed</span><span class="p">);</span>
 </span></pre></div>
+</div>
 </div>
 <p>The follower knows which way the robot faces. The drivetrain does not. So the OpMode asks the
 follower, and does the turn itself.</p>
@@ -466,6 +476,8 @@ auto first. <code class="docutils literal notranslate"><span class="pre">OpModeS
 it.</p>
 <p><strong>Change.</strong> Stop the simulator. Under the <code class="docutils literal notranslate"><span class="pre">import</span></code> lines, under the comment that names this step,
 type:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// When on L140S050, see</span>
 <span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="c1">// for what to do here.</span>
@@ -475,7 +487,10 @@ type:</p>
 </span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode.mytry.l093.OptionMenu</span><span class="p">;</span>
 </span></pre></div>
 </div>
+</div>
 <p>Near the top of the class, under the comment that names this step, type:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// When on L140S050, see</span>
 <span class="w">    </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">    </span><span class="c1">// for what to do here.</span>
@@ -489,8 +504,11 @@ type:</p>
 </span><span class="hll"><span class="w">    </span><span class="n">DriverStationMenu</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DriverStationMenu</span><span class="p">(</span><span class="n">optionMenu</span><span class="p">);</span>
 </span></pre></div>
 </div>
+</div>
 <p>At the end of <code class="docutils literal notranslate"><span class="pre">init()</span></code>, under the comment, type the lines that fill the menu. The choice added
 first starts selected, so the alliance the auto chose goes first:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -507,19 +525,26 @@ first starts selected, so the alliance the auto chose goes first:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">optionMenu</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">startRow</span><span class="p">);</span>
 </span></pre></div>
 </div>
+</div>
 <p>In <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code>, under the comment, type:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">menu</span><span class="p">.</span><span class="na">loop</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">);</span>
 </span></pre></div>
 </div>
+</div>
 <p>In <code class="docutils literal notranslate"><span class="pre">loop()</span></code>, under the comment, type:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">Tracker</span><span class="p">.</span><span class="na">printToDs</span><span class="p">(</span><span class="n">menu</span><span class="p">.</span><span class="na">getSummary</span><span class="p">());</span>
 </span></pre></div>
+</div>
 </div>
 <p><strong>Simulator.</strong> Run it with <code class="docutils literal notranslate"><span class="pre">--init</span></code>, as in L135:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L140FieldRelativeOpMode --init --pad"</span>
@@ -533,10 +558,10 @@ first starts selected, so the alliance the auto chose goes first:</p>
 </section>
 <section id="l140s060">
 <span id="l140s060-turn-the-sticks-round-for-the-blue-alliance-area"></span><h3>L140S060: turn the sticks round for the Blue Alliance Area<a class="headerlink" href="#l140s060" title="Link to this heading">¶</a></h3>
-<figure class="file-named align-default" id="id1">
+<figure class="file-named align-default" id="id7">
 <img alt="../../media/fig-l140-field-blue_3b384562de3b.png" src="../../media/fig-l140-field-blue_3b384562de3b.png" />
 <figcaption>
-<p><span class="caption-text">fig-l140-field-blue.png</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+<p><span class="caption-text">fig-l140-field-blue.png</span><a class="headerlink" href="#id7" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p><code class="docutils literal notranslate"><span class="pre">fieldXSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickY;</span></code> and <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span> <span class="pre">=</span> <span class="pre">-leftStickX;</span></code>, under the comment that names this
@@ -545,6 +570,8 @@ field’s -x. Your left is -y. A push away makes <code class="docutils literal n
 <code class="docutils literal notranslate"><span class="pre">leftStickY</span></code> with no minus. The same goes for <code class="docutils literal notranslate"><span class="pre">fieldYSpeed</span></code>.</p>
 <p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>, find the comment that names this step.
 Delete the lines under it, down to the comment that names L140S040, and type:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S060, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -570,6 +597,7 @@ Delete the lines under it, down to the comment that names L140S040, and type:</p
 <span class="w">        </span><span class="c1">// When on L140S040, see</span>
 </pre></div>
 </div>
+</div>
 <p>Each speed is made first with no value, then given one in whichever half of the <code class="docutils literal notranslate"><span class="pre">if</span></code> runs. Then
 each speed is shaped as in L080 and published, and the turn is read from the right stick.</p>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
@@ -585,6 +613,8 @@ on the 2D Field, along +x.</p></li>
 <span id="l140s070-start-against-the-wall"></span><h3>L140S070: start against the wall<a class="headerlink" href="#l140s070" title="Link to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">poses()</span></code> already makes the red alliance’s poses. Like L135’s, it turns them for blue.</p>
 <p><strong>Change.</strong> Stop the simulator. In <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id9" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -595,7 +625,10 @@ on the 2D Field, along +x.</p></li>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span></pre></div>
 </div>
+</div>
 <p>In <code class="docutils literal notranslate"><span class="pre">poses()</span></code>, under the comment, type:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">mytry/L140FieldRelativeOpMode.java</span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S070, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s070</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -603,6 +636,7 @@ on the 2D Field, along +x.</p></li>
 </span><span class="hll"><span class="w">            </span><span class="n">chosenPoses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">redPoses</span><span class="p">.</span><span class="na">rotateAround</span><span class="p">(</span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="mf">72.0</span><span class="p">,</span><span class="w"> </span><span class="mf">180.0</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span></pre></div>
+</div>
 </div>
 <p><strong>Simulator.</strong> Run the same command again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
@@ -632,11 +666,14 @@ that last from one OpMode to the next, such as where the auto ended. At the top 
 <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">preselectTeleOp</span> <span class="pre">=</span> <span class="pre">&quot;L140</span> <span class="pre">Field</span> <span class="pre">Relative&quot;</span></code> has the Driver Station choose the teleop
 when the auto ends.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L140AutoOpMode</span></code>’s <code class="docutils literal notranslate"><span class="pre">start()</span></code>, under the comment that names this step, type:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">mytry/L140AutoOpMode.java</span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L140S090, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l140.html#l140s090</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="n">OpModeStorage</span><span class="p">.</span><span class="na">isRed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allianceRow</span><span class="p">.</span><span class="na">getSelected</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">red</span><span class="p">;</span>
 </span></pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> turns red. Click it and press Option+Enter.</p>
 <p><strong>Robot.</strong> Send the code. Run <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Auto</span></code> from the autonomous list. During INIT, choose <code class="docutils literal notranslate"><span class="pre">Blue</span></code> and

@@ -126,7 +126,7 @@ sockets. L115S010 is where that gets fixed, and no tuning works around it.
 five hold lines are still in `setWhatEveryRobotShares` in `Constants`.
 
 **What you just did.** Every number in the robot's own file either came off this robot or is
-waiting to. AutoTune measures the ones that need the robot driving itself. L195
+waiting to. AutoTune measures the ones that need the robot driving itself. L131
 measures the two it does not: ticks per inch and the turn radius.
 
 **Where next.** [L120](l120.md) works out where the robot is from the Pinpoint's pods, with

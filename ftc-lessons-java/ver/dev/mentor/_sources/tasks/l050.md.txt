@@ -80,6 +80,7 @@ fig-l050-direction.png
 Finish the line, and do the same for the other three motors:
 
 ```{code-block} java
+:caption: mytry/L050BlocksOpMode.java
 :emphasize-lines: 4-7
 
         // When on L050S040, see

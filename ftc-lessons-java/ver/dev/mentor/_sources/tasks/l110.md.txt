@@ -69,6 +69,7 @@ left wheel's slot, and `FR`, `BL` and `BR` name the others.
 L090's mixing lines, each wheel into its own slot:
 
 ```{code-block} java
+:caption: mytry/L110FollowerDriveTrain.java
 :emphasize-lines: 4-7
 
         // When on L110S030, see
@@ -90,6 +91,7 @@ L090's mixing lines, each wheel into its own slot:
 step. Under it, type:
 
 ```{code-block} java
+:caption: mytry/L110FollowerOpMode.java
 :emphasize-lines: 4
 
     // When on L110S040, see
@@ -118,6 +120,7 @@ fig-wheel-handover.png
 below. Then change `initAfter();` to `initAfter(drivetrain);`:
 
 ```{code-block} java
+:caption: mytry/L110FollowerOpMode.java
 :emphasize-lines: 4,6
 
         // When on L110S050, see
@@ -144,6 +147,7 @@ direction itself, from the same config.
 `strafeYSpeed` lines. Under it, type:
 
 ```{code-block} java
+:caption: mytry/L110FollowerOpMode.java
 :emphasize-lines: 4
 
         // When on L110S060, see

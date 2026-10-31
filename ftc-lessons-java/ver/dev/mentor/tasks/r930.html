@@ -241,12 +241,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -256,19 +257,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -277,7 +277,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -299,19 +299,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -427,49 +434,57 @@ names that lesson: its check is on the floor.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">L120</span> <span class="pre">Pinpoint</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*L120PinpointLocalizerTest*'</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l120_thePinpointLocalizerFollowsTheRobot'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L122</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L122</span> <span class="pre">Compare</span> <span class="pre">Localizers</span></code> (TeleOp)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l122*'</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>L125</p></td>
+<tr class="row-even"><td><p>L125</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L125</span> <span class="pre">Drive</span> <span class="pre">24</span></code> (Autonomous)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l125*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L130</p></td>
+<tr class="row-odd"><td><p>L130</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L130</span> <span class="pre">Forward</span> <span class="pre">Then</span> <span class="pre">Strafe</span></code> (Autonomous)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l130*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L135</p></td>
+<tr class="row-even"><td><p>L131</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131</span> <span class="pre">Measure</span> <span class="pre">ticks</span> <span class="pre">per</span> <span class="pre">inch</span></code> (TeleOp) <code class="docutils literal notranslate"><span class="pre">L131</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code> (TeleOp)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l131*'</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>L132</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132</span> <span class="pre">Compare</span> <span class="pre">Localizers</span></code> (TeleOp) <code class="docutils literal notranslate"><span class="pre">L132</span> <span class="pre">Wheel</span> <span class="pre">Angle</span></code> (Autonomous)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l132_yourLocalizersAreLogged'</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l132_theErrorAndSpeedAreLogged'</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l132_theRunsFindTheWheelAngleAndTurnRadius'</span> <span class="pre">--tests</span> <span class="pre">'*L132WheelFitTest*'</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>L135</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L135</span> <span class="pre">Auto</span> <span class="pre">With</span> <span class="pre">Menu</span></code> (Autonomous)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l135*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L140</p></td>
+<tr class="row-odd"><td><p>L140</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Auto</span></code> (Autonomous) <code class="docutils literal notranslate"><span class="pre">L140</span> <span class="pre">Field</span> <span class="pre">Relative</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l140*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L150</p></td>
+<tr class="row-even"><td><p>L150</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L150</span> <span class="pre">Robot</span> <span class="pre">Relative</span> <span class="pre">Button</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l150*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L160</p></td>
+<tr class="row-odd"><td><p>L153</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153</span> <span class="pre">Feedforward</span></code> (Autonomous)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*L153FeedforwardFitTest*'</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l153_theRunsFindTheSimulatorsKsAndKv'</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>L157</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157</span> <span class="pre">Feedforward</span></code> (TeleOp)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l157*'</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>L160</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L160</span> <span class="pre">Heading</span> <span class="pre">Hold</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l160*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L170</p></td>
+<tr class="row-even"><td><p>L170</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L170</span> <span class="pre">Drive</span> <span class="pre">To</span> <span class="pre">Pose</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l170*'</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>L180</p></td>
+<tr class="row-odd"><td><p>L180</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L180</span> <span class="pre">Combined</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l180*'</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>L190</p></td>
+<tr class="row-even"><td><p>L190</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L190</span> <span class="pre">Velocity</span> <span class="pre">Drive</span></code> (TeleOp)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l190*'</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>L195</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">ticks</span> <span class="pre">per</span> <span class="pre">inch</span></code> (TeleOp) <code class="docutils literal notranslate"><span class="pre">L195</span> <span class="pre">Measure</span> <span class="pre">turn</span> <span class="pre">radius</span></code> (TeleOp)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">./gradlew</span> <span class="pre">:TeamCode:testDebugUnitTest</span> <span class="pre">--tests</span> <span class="pre">'*LessonsTest.l195*'</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -486,77 +501,167 @@ names that lesson: its check is on the floor.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Localizer/driveWheelEncoders/...</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Error/...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/forward/kS_V</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/forward/kV_Vs_per_in</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/forward/runs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/mixedRun/cotAlpha</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132WheelAngleOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/mixedRun/turnRadius_in</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132WheelAngleOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/strafe/kS_V</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/strafe/kV_Vs_per_in</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/strafe/runs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/strafeRun/cotAlpha</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132WheelAngleOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/turn/kS_V</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/turn/kV_Vs_per_rad</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Fit/turn/runs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Localizer/driveWheelEncoders/...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Localizer/measuredWheels/...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Localizer/pinpointPods/...</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/bl_speed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Run/speed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Run/steady</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Run/volts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L153FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Speed/pinPoint/forward_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Speed/pinPoint/strafe_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Speed/pinPoint/turn_degps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Speed/pinpointPods/forward_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Speed/pinpointPods/strafe_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Speed/pinpointPods/turn_degps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/bl_speed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/br_speed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/br_speed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/driveMode</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/driveMode</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fieldXSpeed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fieldXSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fieldYSpeed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fieldYSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fl_speed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fl_speed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/forwardXSpeed</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/forwardXSpeed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/forwardX_ips</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/forwardX_ips</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fr_speed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/fr_speed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/holdingHeading</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/holdingHeading</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/rightShapedSpeed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/rightShapedSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/rightSpeed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/rightSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/robotForwardXSpeed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/robotForwardXSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/robotRelative</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/robotRelative</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/robotStrafeYSpeed</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/robotStrafeYSpeed</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/strafeYSpeed</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/strafeYSpeed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/strafeY_ips</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/strafeY_ips</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/targetHeading_deg</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/targetHeading_deg</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/turnCcwSpeed</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/turnCcwSpeed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/turn_radps</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drivetrain/turn_radps</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/actualForward_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/actualStrafe_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/actualTurn_radps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/askedForward_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/askedStrafe_ips</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/askedTurn_radps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardOpMode</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feedforward/scale</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L157FeedforwardDriveTrain</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gamepad1/buttonA</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code></p></td>
@@ -565,34 +670,34 @@ names that lesson: its check is on the floor.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gamepad1/leftStickX</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gamepad1/leftStickY</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gamepad1/rightStickX</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L122CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L090MecanumOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L095ShapingMenuOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L132CompareLocalizersOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L140FieldRelativeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L150RobotRelativeButtonOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L160HeadingHoldOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L170DriveToPoseOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L180CombinedOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L190VelocityDriveOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gamepad1/rightStickY</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">L020SticksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L040TankOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L050BlocksOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L060ShapingOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>, <code class="docutils literal notranslate"><span class="pre">L065ShaperOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">measure/measuredTicksPerInch</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131MeasureTicksPerInchOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">measure/measuredTurnRadius_in</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131MeasureTurnRadiusOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">measure/pushed_in</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131MeasureTicksPerInchOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">measure/ticks</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTicksPerInchOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131MeasureTicksPerInchOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">measure/turned_rad</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131MeasureTurnRadiusOpMode</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">measure/wheel_in</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">L195MeasureTurnRadiusOpMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">L131MeasureTurnRadiusOpMode</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">menu/alliance</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">AutoWithMenuOpMode</span></code></p></td>
@@ -612,7 +717,7 @@ names that lesson: its check is on the floor.</p>
 </tbody>
 </table>
 </div>
-<p>Generated by applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-e111.1</span></code>, every lesson in order.</p>
+<p>Generated by applying <code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-e111.2</span></code>, every lesson in order.</p>
 </section>
 </section>
 

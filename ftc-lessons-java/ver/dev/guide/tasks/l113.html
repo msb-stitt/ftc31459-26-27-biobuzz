@@ -236,12 +236,13 @@
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="l125.html">125 lesson: the first autonomous</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l130.html">130 lesson: two legs, forward then sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l131.html">131 lesson: check L113’s numbers by measuring them</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l132.html">132 lesson: compare your localizers with the Pinpoint’s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l135.html">135 lesson: choose the alliance and the auto</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it like a driver</span></p>
@@ -251,19 +252,18 @@
 <li class="toctree-l1"><a class="reference internal" href="e142.html">142 what’s happening: turning the stick into the robot’s frame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e143.html">143 what’s happening: the field from each alliance area</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l150.html">150 lesson: give the driver both</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l153.html">153 lesson: measure the volts it takes to move</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l157.html">157 lesson: ask for a speed, and send the volts it takes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l160.html">160 lesson: hold the heading the driver left</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l170.html">170 lesson: press Y and the robot drives itself there</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l180.html">180 lesson: three drive modes in one OpMode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l190.html">190 lesson: ask the wheels for a speed</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">measure the robot</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l195.html">195 lesson: measure the two numbers L190 trusted</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">the back of the book</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="r900.html">900 reference: Pedro routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r910.html">910 reference: glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r915.html">915 reference: UML glossary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r920.html">920 reference: keyboard shortcuts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r930.html">930 reference: cheat sheet</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../r950/index.html">950 reference: answers</a><input aria-label="Toggle navigation of 950 reference: answers" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -272,7 +272,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l065-StickShaper.html">l065-StickShaper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
@@ -294,19 +294,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L131TicksDriveTrain.html">L131TicksDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132CompareLocalizersOpMode.html">L132CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelFit.html">L132WheelFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L132WheelAngleOpMode.html">L132WheelAngleOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardFit.html">L153FeedforwardFit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L153FeedforwardOpMode.html">L153FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardOpMode.html">L157FeedforwardOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/l157-StickShaper.html">l157-StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L157FeedforwardDriveTrain.html">L157FeedforwardDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L160HeadingHoldOpMode.html">L160HeadingHoldOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L170DriveToPoseOpMode.html">L170DriveToPoseOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L180CombinedOpMode.html">L180CombinedOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190SpeedDriveTrain.html">L190SpeedDriveTrain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L190VelocityDriveOpMode.html">L190VelocityDriveOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L195TicksDriveTrain.html">L195TicksDriveTrain</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="b980.html">980 before a competition</a></li>
@@ -392,6 +399,8 @@ is, so it is the one to check yours against. A <strong>shadow</strong> localizer
 and published every loop, but it never steers the robot.</p>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L113LocalizerOpMode</span></code>, find <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code> and the comment that names
 this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/L113LocalizerOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L113S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -399,6 +408,7 @@ this step. Under it, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">L113EncoderLocalizer</span><span class="w"> </span><span class="n">driveWheelEncoders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L113EncoderLocalizer</span><span class="p">(</span><span class="n">wheelSource</span><span class="p">);</span>
 </span><span class="hll"><span class="w">        </span><span class="n">shadowLocalizers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"driveWheelEncoders"</span><span class="p">,</span><span class="w"> </span><span class="n">driveWheelEncoders</span><span class="p">);</span>
 </span></pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code> turns red, because this file does not know where it lives yet.</p>
 <ul class="steps simple">
@@ -435,6 +445,8 @@ remembers last loop’s numbers and takes them away.</p>
 <p>The first loop has nothing to take away from, so it only remembers.</p>
 <p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Open <code class="docutils literal notranslate"><span class="pre">L113EncoderLocalizer</span></code>. In
 <code class="docutils literal notranslate"><span class="pre">update</span></code>, find the comment that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L113EncoderLocalizer.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L113S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -453,8 +465,9 @@ remembers last loop’s numbers and takes them away.</p>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">delta_in</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
 </span><span class="hll">
 </span><span class="hll"><span class="w">        </span><span class="n">x_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward_in</span><span class="p">;</span>
-</span><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strafe_in</span><span class="p">;</span>
-</pre></div>
+</span><span class="hll"><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strafe_in</span><span class="p">;</span>
+</span></pre></div>
+</div>
 </div>
 <p>Android Studio types the <code class="docutils literal notranslate"><span class="pre">}</span></code> for you when you press Enter after the <code class="docutils literal notranslate"><span class="pre">{</span></code>. Type the rest below it.</p>
 <p><code class="docutils literal notranslate"><span class="pre">null</span></code> means “nothing yet”. <code class="docutils literal notranslate"><span class="pre">.clone()</span></code> makes a copy, so next loop’s numbers do not change it.
@@ -491,6 +504,8 @@ the next step.</p>
 field’s y, so its forward is the field’s y. L113S040 added it to x.</p>
 <p><strong>Change.</strong> Delete the two lines <code class="docutils literal notranslate"><span class="pre">x_in</span> <span class="pre">+=</span> <span class="pre">forward_in;</span></code> and <code class="docutils literal notranslate"><span class="pre">y_in</span> <span class="pre">+=</span> <span class="pre">strafe_in;</span></code>. Find the comment
 that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">mytry/L113EncoderLocalizer.java</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L113S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s050</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
@@ -500,6 +515,7 @@ that names this step. Under it, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">x_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosHeading</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strafe_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sinHeading</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sinHeading</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosHeading</span><span class="p">;</span>
 </span></pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> share the step out between x and y. Facing along x, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 1.0 and <code class="docutils literal notranslate"><span class="pre">sin</span></code>
 is 0.0, so forward all goes on x. Facing along y, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 0.0 and <code class="docutils literal notranslate"><span class="pre">sin</span></code> is 1.0, so forward all goes
@@ -521,12 +537,114 @@ and <code class="docutils literal notranslate"><span class="pre">Math.sin</span>
 <ul class="simple">
 <li><p>Push the left stick forward. This time <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders/y_in</span></code> climbs with <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code>, and
 the two stay within a tenth of an inch.</p></li>
+<li><p>Let go, then push the left stick to the left. <code class="docutils literal notranslate"><span class="pre">pinPoint/x_in</span></code> goes down, and
+<code class="docutils literal notranslate"><span class="pre">driveWheelEncoders/x_in</span></code> goes down faster, about 1.2 times as far.</p></li>
 </ul>
 <p>The simulator turns each wheel’s encoder by how far it rolls, so your localizer has something to
 count.</p>
+<figure class="file-named align-default" id="fig-l113-wheel-vectors">
+<img alt="../../media/fig-l113-wheel-vectors_bb1795d8b0f1.png" src="../../media/fig-l113-wheel-vectors_bb1795d8b0f1.png" />
+<figcaption>
+<p><span class="caption-text">fig-l113-wheel-vectors.png</span><a class="headerlink" href="#fig-l113-wheel-vectors" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Why does sliding read too far? A mecanum wheel pushes the robot at an angle. On paper the angle is
+45 degrees from forward, so its forward part and its sideways part are the same size. In this
+simulator the push is 40 degrees from forward, so each push has a longer forward part than
+sideways part.</p>
+<p>Driving forward, the four forward parts add up, and the sideways parts cancel. Sliding left, the
+sideways parts add up, and the forward parts cancel. The sideways sum is shorter, so the same
+wheel turns slide the robot less far than they drive it forward. Your localizer takes the push to
+be at 45 degrees, so it counts more slide than the robot made. L132 measures the angle.</p>
 </section>
 <section id="l113s060">
-<span id="l113s060-drive-it-then-measure-it"></span><h3>L113S060: drive it, then measure it<a class="headerlink" href="#l113s060" title="Link to this heading">¶</a></h3>
+<span id="l113s060-work-out-ticks-per-inch-from-the-parts"></span><h3>L113S060: work out ticks per inch from the parts<a class="headerlink" href="#l113s060" title="Link to this heading">¶</a></h3>
+<p>Your localizer turns ticks into inches with <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, a number in the robot’s own file. It is
+45.0 until you change it. Before you use a number, work it out.</p>
+<p>The motor’s page on goBILDA’s site gives its <strong>encoder resolution</strong>: how many ticks it counts for
+one turn of its output shaft. The wheel’s page gives its diameter. On the Strafer chassis, these
+are the pages:</p>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://www.gobilda.com/5203-series-yellow-jacket-planetary-gear-motor-19-2-1-ratio-24mm-length-8mm-rex-shaft-312-rpm-3-3-5v-encoder/">312 RPM motor</a> reads “537.7 PPR at the Output Shaft”. PPR means ticks per turn.</p></li>
+<li><p>The <a class="reference external" href="https://www.gobilda.com/gripforce-mecanum-wheel-set-o104mm-40a-durometer-rollers/">GripForce wheel</a> reads “Ø104mm”, a diameter of 104 mm.</p></li>
+</ul>
+<p>On the Strafer, two gears with 24 teeth each join the shaft to the wheel, so one turn of the shaft
+is one turn of the wheel.</p>
+<p>One turn rolls the wheel once around its edge, which is pi times its diameter. 104 mm is
+104 ÷ 25.4 = 4.09 in, so one turn rolls 3.14 × 4.09 = 12.86 in. Then 537.7 ticks ÷ 12.86 in is
+41.8 ticks per inch.</p>
+<p><strong>Change.</strong> Open the file of the robot <code class="docutils literal notranslate"><span class="pre">thisRobot</span></code> names, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, such as
+<code class="docutils literal notranslate"><span class="pre">Bot37523</span></code>. Change the line <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">double</span> <span class="pre">ticksPerInch</span> <span class="pre">=</span> <span class="pre">45.0;</span></code> to work it out from the robot’s
+parts. For the Strafer, it reads:</p>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">ticksPerInch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calibration</span><span class="p">.</span><span class="na">ticksPerInchFromTheParts</span><span class="p">(</span><span class="mf">537.7</span><span class="p">,</span><span class="w"> </span><span class="mi">104</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Calibration</span></code> turns red. Click it, and press Option+Enter on a Mac, Alt+Enter on Windows, to
+import it, as in L113S030.</p>
+<p><strong>Check.</strong></p>
+<ul>
+<li><p>Run this in the Terminal. It ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testDebugUnitTest</span> <span class="o">--</span><span class="n">tests</span> <span class="s1">'*CalibrationTest*'</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ticksPerInchFromGoBildasParts</span></code> checks the same sum: 537.7 ticks and 104 mm give 41.8.</p>
+</section>
+<section id="l113s070">
+<span id="l113s070-work-out-the-turn-radius-from-where-the-wheels-sit"></span><h3>L113S070: work out the turn radius from where the wheels sit<a class="headerlink" href="#l113s070" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> says how far a wheel’s rim rolls each time the robot turns one radian. Your
+localizer reads its heading from the IMU, so it does not need this number. L131 measures it, and
+L190 uses it.</p>
+<figure class="file-named align-default" id="fig-l113-rectangle">
+<img alt="../../media/fig-l113-rectangle_c1765bb75ad2.png" src="../../media/fig-l113-rectangle_c1765bb75ad2.png" />
+<figcaption>
+<p><span class="caption-text">fig-l113-rectangle.png</span><a class="headerlink" href="#fig-l113-rectangle" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>Measure.</strong> Look at the robot from above. The four wheel centres make a rectangle. Measure its
+length, front to back, and its width, side to side, from the middle of one wheel to the middle of
+the next. Half the length is <strong>A</strong>. Half the width is <strong>B</strong>. The rectangle’s two diagonals cross at
+the middle of the robot, and that is where it turns.</p>
+<figure class="file-named align-default" id="fig-l113-circle">
+<img alt="../../media/fig-l113-circle_383ddb9aa69b.png" src="../../media/fig-l113-circle_383ddb9aa69b.png" />
+<figcaption>
+<p><span class="caption-text">fig-l113-circle.png</span><a class="headerlink" href="#fig-l113-circle" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>As the robot turns, each wheel centre goes around a circle through all four. Its radius is half a
+diagonal. By Pythagoras, that is √(A² + B²).</p>
+<figure class="file-named align-default" id="fig-l113-x-drive">
+<img alt="../../media/fig-l113-x-drive_5780febd3f88.png" src="../../media/fig-l113-x-drive_5780febd3f88.png" />
+<figcaption>
+<p><span class="caption-text">fig-l113-x-drive.png</span><a class="headerlink" href="#fig-l113-x-drive" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>On an <strong>X-drive</strong>, each omni wheel is turned to sit along that circle. It rolls the whole way
+round, so its turn radius is √(A² + B²).</p>
+<figure class="file-named align-default" id="fig-l113-mecanum-turn">
+<img alt="../../media/fig-l113-mecanum-turn_a914d78d3d98.png" src="../../media/fig-l113-mecanum-turn_a914d78d3d98.png" />
+<figcaption>
+<p><span class="caption-text">fig-l113-mecanum-turn.png</span><a class="headerlink" href="#fig-l113-mecanum-turn" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>A mecanum wheel points straight ahead, not along the circle. Its centre’s move splits into two
+parts. The forward part is B for each radian, and the wheel rolls it as when driving forward. The
+sideways part is A for each radian, and the wheel rolls it as when sliding, as in L090. So the rim
+rolls A + B. With A = 6.5 in and B = 7 in, the turn radius is 13.5 in, not 9.55 in.</p>
+<p><strong>Change.</strong> In the same file, change the line <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">double</span> <span class="pre">turnRadiusInches</span> <span class="pre">=</span> <span class="pre">8.0;</span></code> to use
+the robot’s own A and B. With A = 6.5 in and B = 7 in, it reads:</p>
+<div class="example highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">turnRadiusInches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calibration</span><span class="p">.</span><span class="na">turnRadiusFromTheWheels</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span><span class="w"> </span><span class="mf">7.0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Run the same test command again. It ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">theTurnRadiusIsHalfTheLengthPlusHalfTheWidth</span></code> checks A + B, and fails if the sum is the diagonal.</p>
+</section>
+<section id="l113s080">
+<span id="l113s080-drive-it-then-measure-it"></span><h3>L113S080: drive it, then measure it<a class="headerlink" href="#l113s080" title="Link to this heading">¶</a></h3>
 <p><strong>Robot.</strong> Stop the simulator. Send the code, run <code class="docutils literal notranslate"><span class="pre">L113</span> <span class="pre">Localizer</span></code> from the Driver Station, and
 watch it in AdvantageScope.</p>
 <p><strong>Check.</strong></p>
@@ -603,7 +721,9 @@ does not go anywhere. <code class="docutils literal notranslate"><span class="pr
 <li><a class="reference internal" href="#l113s030-run-your-localizer-beside-the-robot-s-own">L113S030: run your localizer beside the robot’s own</a></li>
 <li><a class="reference internal" href="#l113s040-add-up-how-far-the-wheels-rolled">L113S040: add up how far the wheels rolled</a></li>
 <li><a class="reference internal" href="#l113s050-turn-the-step-to-face-the-way-the-robot-faces">L113S050: turn the step to face the way the robot faces</a></li>
-<li><a class="reference internal" href="#l113s060-drive-it-then-measure-it">L113S060: drive it, then measure it</a></li>
+<li><a class="reference internal" href="#l113s060-work-out-ticks-per-inch-from-the-parts">L113S060: work out ticks per inch from the parts</a></li>
+<li><a class="reference internal" href="#l113s070-work-out-the-turn-radius-from-where-the-wheels-sit">L113S070: work out the turn radius from where the wheels sit</a></li>
+<li><a class="reference internal" href="#l113s080-drive-it-then-measure-it">L113S080: drive it, then measure it</a></li>
 </ul>
 </li>
 </ul>

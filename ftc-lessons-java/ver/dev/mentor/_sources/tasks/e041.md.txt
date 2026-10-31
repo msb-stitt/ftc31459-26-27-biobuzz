@@ -4,7 +4,8 @@ TODO describe this lesson
 
 Here is what one of the wheel lines you wrote in [L040](l040.md) does.
 
-```java
+```{code-block} java
+:caption: mytry/L040TankOpMode.java
 hardware.frontLeft.setPower(leftSpeed);
 ```
 

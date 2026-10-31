@@ -95,6 +95,7 @@ comment that names this step. Delete the line `drivetrain.sticks(fieldXSpeed, fi
 turnCcwSpeed);` under it, and type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-11
 
         // When on L140S040, see
@@ -132,6 +133,7 @@ it.
 type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-7
 
 // When on L140S050, see
@@ -146,6 +148,7 @@ import org.firstinspires.ftc.teamcode.mytry.l093.OptionMenu;
 Near the top of the class, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-11
 
     // When on L140S050, see
@@ -165,6 +168,7 @@ At the end of `init()`, under the comment, type the lines that fill the menu. Th
 first starts selected, so the alliance the auto chose goes first:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-14
 
         // When on L140S050, see
@@ -186,6 +190,7 @@ first starts selected, so the alliance the auto chose goes first:
 In `init_loop()`, under the comment, type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4
 
         // When on L140S050, see
@@ -197,6 +202,7 @@ In `init_loop()`, under the comment, type:
 In `loop()`, under the comment, type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4
 
         // When on L140S050, see
@@ -233,6 +239,7 @@ field's -x. Your left is -y. A push away makes `leftStickY` negative. So for blu
 Delete the lines under it, down to the comment that names L140S040, and type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-21
 
         // When on L140S060, see
@@ -279,6 +286,7 @@ each speed is shaped as in L080 and published, and the turn is read from the rig
 **Change.** Stop the simulator. In `start()`, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-8
 
         // When on L140S070, see
@@ -294,6 +302,7 @@ each speed is shaped as in L080 and published, and the turn is read from the rig
 In `poses()`, under the comment, type:
 
 ```{code-block} java
+:caption: mytry/L140FieldRelativeOpMode.java
 :emphasize-lines: 4-6
 
         // When on L140S070, see
@@ -335,6 +344,7 @@ when the auto ends.
 **Change.** In `L140AutoOpMode`'s `start()`, under the comment that names this step, type:
 
 ```{code-block} java
+:caption: mytry/L140AutoOpMode.java
 :emphasize-lines: 4
 
         // When on L140S090, see

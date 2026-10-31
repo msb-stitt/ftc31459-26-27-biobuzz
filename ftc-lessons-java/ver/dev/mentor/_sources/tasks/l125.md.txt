@@ -13,7 +13,7 @@ follower does the driving, and you write one line to tell it where to go.
 ::::{only} mentor
 **Before you start.**
 
-- L122 is done. Nothing here uses L122's code; the follower uses the robot's own localizer.
+- L120 is done. Nothing here uses L120's code; the follower uses the robot's own localizer.
 - AdvantageScope is installed on the same laptop. No gamepad is needed.
 - The robot, the Driver Station, a piece of tape, a tape measure, and about 1 m of clear floor in
   front of the robot for the last step.
@@ -53,6 +53,7 @@ tells the follower where the robot is at the start.
 `return Command.NOOP;` under it, and type:
 
 ```{code-block} java
+:caption: mytry/L125Drive24OpMode.java
 :emphasize-lines: 4-5
 
         // When on L125S030, see
