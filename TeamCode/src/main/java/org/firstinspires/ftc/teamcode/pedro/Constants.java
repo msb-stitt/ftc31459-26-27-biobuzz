@@ -108,6 +108,12 @@ public class Constants {
      */
     public static double maxForwardInchesPerSecond;
     public static double maxStrafeInchesPerSecond;
+    /**
+     * @deprecated Use L153's {@link #kSForwardVolts} and
+     * {@link #kVForwardVoltSecondsPerInch}, divided by the battery's volts, as
+     * L190 does. Kept until no student code on the team uses it.
+     */
+    @Deprecated
     public static double powerPerInchPerSecond;
 
     /** The launcher's target speed, and the speed above which the windmill feeds it, ticks/s. */

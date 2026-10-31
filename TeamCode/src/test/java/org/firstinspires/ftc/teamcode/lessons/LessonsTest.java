@@ -1263,8 +1263,10 @@ public class LessonsTest {
         assertEquals("the wheels are not moving yet, so the error is the whole target",
                 40.0, (Double) Tracker.values().get("wheel/frontLeft/error_ips"), 1e-6);
 
-        // the measured feedforward for 40 in/s, plus the feedback on a 40 in/s error
-        assertEquals(Constants.powerPerInchPerSecond * 40 + 0.008 * 40,
+        // L153's feedforward for 40 in/s on the harness's 12 V battery, plus the feedback on a
+        // 40 in/s error
+        double feedforwardVolts = Constants.kSForwardVolts + Constants.kVForwardVoltSecondsPerInch * 40;
+        assertEquals(feedforwardVolts / 12.0 + 0.008 * 40,
                 (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
     }
 
@@ -1284,8 +1286,15 @@ public class LessonsTest {
                 (Double) Tracker.values().get("wheel/frontLeft/actual_ips"), 1e-6);
         assertEquals("so no correction is needed", 0.0,
                 (Double) Tracker.values().get("wheel/frontLeft/error_ips"), 1e-6);
-        assertEquals("and the speed is the feedforward alone",
-                Constants.powerPerInchPerSecond * 40,
+        double feedforwardVolts = Constants.kSForwardVolts + Constants.kVForwardVoltSecondsPerInch * 40;
+        assertEquals("and the speed is the feedforward alone, kS and kV's volts over 12 V",
+                feedforwardVolts / 12.0,
+                (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
+
+        h.batteryVolts = 13.0;
+        h.loop();
+        assertEquals("on a 13 V battery, the same volts are a smaller share of it",
+                feedforwardVolts / 13.0,
                 (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
     }
 
