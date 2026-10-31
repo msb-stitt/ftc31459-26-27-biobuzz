@@ -1,0 +1,340 @@
+# 157 lesson: ask for a speed, and send the volts it takes
+
+:::{figure} ../_figures/fig-l157-respread.png
+:name: fig-l157-respread
+:figclass: file-named
+
+fig-l157-respread.png
+:::
+
+The sticks ask for a speed in inches per second, and the robot goes that speed. Just past the
+deadband, the robot creeps, so the driver can line up slowly.
+
+::::{only} mentor
+**Before you start.**
+
+- L153 is done, so the robot's own file holds its kS and kV, and L150 and L065 are done, so `mytry`
+  holds the student's `StickShaper` in `mytry/l065`.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
+::::
+
+## the steps
+
+### L157S010: copy the two starters into mytry
+
+`L157FeedforwardOpMode` reads the sticks. `L157FeedforwardDriveTrain` turns the speeds they ask for
+into volts.
+
+**Copy.** In `lessons`, click `L157FeedforwardDriveTrain` once. Hold Shift and click
+`L157FeedforwardOpMode`, so both are picked. Copy them, click `mytry` once, and paste. In the
+**Copy** box, click **OK**. If Android Studio asks whether to add the files to Git, click **Add**.
+
+**Check.**
+
+- `mytry` holds `L157FeedforwardDriveTrain` and `L157FeedforwardOpMode`, and neither shows red.
+
+### L157S020: switch your copy on
+
+**Change.** In `L157FeedforwardOpMode`, delete the line `@Disabled`, under the comment that names
+this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L157S030: bring in your StickShaper from L065
+
+This lesson changes your `StickShaper`, so it gets its own copy. L065's copy stays as it is, for
+the lessons that use it.
+
+**Copy.** Right-click `mytry`, and pick **New**, then **Package**. Type `l157` and press Enter. In
+`mytry/l065`, click `StickShaper` once and copy it. Click `l157` once and paste. In the **Copy
+Class** box, click **OK**.
+
+**Change.** In `L157FeedforwardOpMode`, find each comment that names this step. Under each, delete
+the `//` at the start of the lines, so they read:
+
+```{code-block} java
+:caption: mytry/L157FeedforwardOpMode.java
+
+import org.firstinspires.ftc.teamcode.mytry.l157.StickShaper;
+```
+
+```{code-block} java
+:caption: mytry/L157FeedforwardOpMode.java
+
+    StickShaper stickShaper = new StickShaper(0.05);
+```
+
+```{code-block} java
+:caption: mytry/L157FeedforwardOpMode.java
+
+        forwardFraction = stickShaper.shaped(forwardFraction);
+        leftFraction = stickShaper.shaped(leftFraction);
+        turnFraction = stickShaper.shaped(turnFraction);
+```
+
+**Check.**
+
+- The first line of `mytry/l157/StickShaper` reads
+  `package org.firstinspires.ftc.teamcode.mytry.l157;`.
+- Nothing in `mytry` shows red.
+
+### L157S040: spread what is past the band from 0 to 1
+
+The deadband sets a stick inside it to 0. Just past it, the stick jumps from 0 to the band: from 0
+to 0.05. So the slowest the robot can be asked to go is 0.05 of top speed, and squared, 0.0025.
+
+The **re-spread** takes what is past the band and spreads it from 0 to 1 again:
+
+```
+spread = (|stick| − band) ÷ (1 − band)
+```
+
+At the band, that is 0. At 1, it is still 1. Halfway between, at 0.525, it is 0.5. The deadband
+still works, and nothing jumps.
+
+**Change.** In `mytry/l157/StickShaper`, add a field under `shape`:
+
+```{code-block} java
+:caption: mytry/l157/StickShaper.java
+:emphasize-lines: 2
+
+    Shape shape = Shape.SQUARED;
+    boolean respread;
+```
+
+Under `setShape`, add a setter for it:
+
+```{code-block} java
+:caption: mytry/l157/StickShaper.java
+
+    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
+    public void setRespread(boolean respreadPastTheBand) {
+        respread = respreadPastTheBand;
+    }
+```
+
+In `shaped`, under the line that calls `deadband`, type:
+
+```{code-block} java
+:caption: mytry/l157/StickShaper.java
+:emphasize-lines: 2-4
+
+        double outsideTheBand = deadband(value, band);
+        if (respread) {
+            outsideTheBand = respreadPastTheBand(outsideTheBand, band);
+        }
+```
+
+Under `deadband`, add the method that does it:
+
+```{code-block} java
+:caption: mytry/l157/StickShaper.java
+
+    double respreadPastTheBand(double value, double band) {
+        double pastTheBand = Math.abs(value) - band;
+        double spreadFromZeroToOne = pastTheBand / (1.0 - band);
+        return Math.signum(value) * spreadFromZeroToOne;
+    }
+```
+
+`Math.signum` is 1 for a number above 0, −1 below, and 0 for 0. So a stick pulled back stays
+backwards, and a stick inside the band stays 0.
+
+**Change.** In `L157FeedforwardOpMode`, in `init()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L157FeedforwardOpMode.java
+:emphasize-lines: 5
+
+        drivetrain = new L157FeedforwardDriveTrain(hardware);
+        // When on L157S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s040
+        // for what to do here.
+        stickShaper.setRespread(true);
+```
+
+**Check.**
+
+- In the Terminal, run this. It prints `BUILD SUCCESSFUL`.
+
+  ```
+  ./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l157_theRespread*'
+  ```
+
+### L157S050: turn the sticks into speeds
+
+Open `L157FeedforwardOpMode` and read `driveFromTheSticks()`. Each stick is shaped, then multiplied
+by the fastest the robot can go that way. So the drivetrain is asked for inches per second, not a
+power.
+
+The fastest is worked out from L153's numbers. On a 12 V battery, kS takes its volts, and kV turns
+the rest into speed:
+
+```
+maxForward_ips = (12 − kS) ÷ kV
+```
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L157FeedforwardOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020. Open the `feedforward` folder, and graph
+`askedForward_ips` and `actualForward_ips`.
+
+**Check.**
+
+- Hold the right bumper and push the left stick halfway away from you. `askedForward_ips` reads
+  about 14 in/s.
+- `actualForward_ips` stays at 0. The drivetrain sends no volts yet. That is L157S060.
+
+### L157S060: send each wheel its volts
+
+Open `L157FeedforwardDriveTrain`. `speeds` mixes the forward, strafe and turn speeds into the four
+wheels, as L090 mixed powers. Here each wheel gets three parts, each in volts: kV times that way's
+speed.
+
+A wheel that is both driving forward and strafing needs some of each way's kS. Each way counts by
+its share of the wheel's volts.
+
+**Change.** In `blendedKs`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L157FeedforwardDriveTrain.java
+:emphasize-lines: 4-11
+
+        // When on L157S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s060
+        // for what to do here.
+        double forwardShare = Math.abs(forwardVolts);
+        double strafeShare = Math.abs(strafeVolts);
+        double turnShare = Math.abs(turnVolts);
+        double allShares = forwardShare + strafeShare + turnShare;
+        if (allShares > 0.0) {
+            kS = (forwardShare * Constants.kSForwardVolts + strafeShare * Constants.kSStrafeVolts
+                    + turnShare * Constants.kSTurnVolts) / allShares;
+        }
+```
+
+Before the second loop in `speeds`, `scale` is worked out. A wheel can have no more volts than the
+battery. Turning gets its volts first. If forward and strafe ask for more than is left, both are
+cut by the same `scale`, so the robot still goes the way the driver asked, only slower.
+
+**Change.** In `speeds`, in the second loop, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L157FeedforwardDriveTrain.java
+:emphasize-lines: 4-6
+
+            // When on L157S060, see
+            // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s060
+            // for what to do here.
+            double kVVolts = turnVolts[i] + scale * (forwardVolts[i] + strafeVolts[i]);
+            double volts = kVVolts + steppedKs(i, kVVolts, kS[i]);
+            powers[i] = volts / batteryVolts;
+```
+
+A power is a share of the battery, from −1 to 1. So the power is the volts over the battery's
+volts.
+
+**Check.**
+
+- Run the tests as in L157S040, with `'*LessonsTest.l157*'` in place of
+  `'*LessonsTest.l157_theRespread*'`. It prints `5 tests completed, 1 failed`. The one that fails
+  is `l157_kSWaitsForTheWheelToBeAskedToMove`, which is L157S070.
+
+### L157S070: give kS only to a wheel asked to move
+
+kS is the push it takes to unstick a wheel. A wheel asked to go 0.01 in/s still gets all of it, and
+lurches. So kS waits: it turns on when kV's volts pass 5% of kS. It turns off only when they drop
+below 2.5%. The gap between them stops it flickering on and off at the edge.
+
+**Change.** In `steppedKs`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L157FeedforwardDriveTrain.java
+:emphasize-lines: 4-12
+
+        // When on L157S070, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s070
+        // for what to do here.
+        double kVSize = Math.abs(kVVolts);
+        if (kSOn[wheel] && kVSize < KS_OFF_SHARE * kS) {
+            kSOn[wheel] = false;
+        } else if (!kSOn[wheel] && kVSize > KS_ON_SHARE * kS) {
+            kSOn[wheel] = true;
+        }
+        if (!kSOn[wheel]) {
+            stepped = 0.0;
+        }
+```
+
+`kSOn` is a field, one for each wheel, so it remembers from one loop to the next.
+
+**Check.**
+
+- Run the tests as in L157S060. They all pass.
+
+### L157S080: drive at the speed you ask for
+
+**Simulator.** Run the simulator again, as in L157S050, and graph the same two lines.
+
+**Check.**
+
+- Hold the right bumper and push the left stick halfway away from you. `actualForward_ips` climbs
+  to `askedForward_ips`, about 14 in/s, and stays on it.
+- Push the stick just past the middle. The robot creeps.
+
+**Try.** In `init()`, under `stickShaper.setRespread(true);`, add
+`stickShaper.setShape(StickShaper.Shape.CUBED);`. Run it again and creep. Cubed keeps more of the
+stick for slow speeds. Keep the shape you like better.
+
+### L157S090: drive the robot at a speed
+
+**Robot.** Stop the simulator. Send the code, and run `L157 Feedforward` from the Driver Station.
+Stand off the robot's left side, as in L140.
+
+**AdvantageScope.** Connect to the robot, and graph the same two lines.
+
+**Check.**
+
+- Hold the right bumper and push the left stick halfway. `actualForward_ips` comes up close to
+  `askedForward_ips`.
+- Let go of the bumper and push away from you. The robot drives away from you, as in L150.
+- Ease the stick just past the middle. The robot creeps, rather than jumping.
+
+::::{only} mentor
+**Not yet run on a team robot.** The simulator's numbers came from L153 run in the simulator, so
+there the asked and actual speeds agree to 0.001 in/s: asked 14.451 in/s, actual 14.450 in/s. On a
+robot they agree as well as its L153 numbers match it.
+
+**If it didn't**, and `LessonsTest.l157_*` fails, each of these was planted and run.
+
+- `halfway from the band to 1 is 0.5, squared expected:<0.25> but was:<0.22562500000000002>`:
+  the re-spread is missing `/ (1.0 - band)`.
+- At L157S050, `forward: front left expected:<0.4925> but was:<0.0>` and three more like it: the
+  volts are not typed yet.
+- `strafe left: front left expected:<-0.59> but was:<-0.5599999999999999>`: `blendedKs` uses one
+  way's kS for another.
+- At L157S060, `kV volts at 3.0% of kS expected:<0.0014999999999999998> but was:<0.0515>`: kS
+  is always on, which is L157S070.
+
+`L157 Feedforward` is the student's own copy in `mytry`, and the robot shows it only once
+`@Disabled` is deleted.
+
+**What you just did.** The sticks used to ask for a share of the battery. A share of a full battery
+and a share of a tired one are different speeds, and a share near zero did not move the robot at
+all. Now the sticks ask for a speed, and L153's kS and kV turn it into volts for each wheel. kS is
+there only when a wheel is asked to move, so letting go stops the robot and easing past the deadband
+creeps it. When the driver asks for more than the battery has, forward and strafe are cut together,
+so the robot keeps the direction and gives up speed. That is the same promise L090's `normalized`
+made with powers.
+
+**Where next.** [L160](l160.md) holds a heading for the driver, so the robot stops turning when
+nobody is turning it.
+::::

@@ -1,0 +1,56 @@
+# 950 reference: answers
+
+What each lesson changes, file by file, out of the solutions line. Use it when you are
+stuck, not instead of being stuck.
+
+```{toctree}
+:maxdepth: 1
+
+L020SticksOpMode
+L030SpeedsOpMode
+L040TankOpMode
+L050BlocksOpMode
+L060ShapingOpMode
+l065-StickShaper
+L065ShaperOpMode
+L070ButtonsOpMode
+L080ArcadeOpMode
+L090MecanumOpMode
+OptionMenu
+MenuItem
+MenuRow
+MenuButtons
+DriverStationMenu
+L093MenuOpMode
+MenuItemTest
+MenuRowTest
+OptionMenuTest
+MenuButtonsTest
+L095ShapingMenuOpMode
+L110FollowerDriveTrain
+L110FollowerOpMode
+L113LocalizerOpMode
+L113EncoderLocalizer
+L120PinpointOpMode
+L120PinpointLocalizer
+L125Drive24OpMode
+L130ForwardThenStrafeOpMode
+L131TicksDriveTrain
+L132CompareLocalizersOpMode
+L132WheelFit
+L132WheelAngleOpMode
+AutoWithMenuOpMode
+L140FieldRelativeOpMode
+L140AutoOpMode
+L150RobotRelativeButtonOpMode
+L153FeedforwardFit
+L153FeedforwardOpMode
+L157FeedforwardOpMode
+l157-StickShaper
+L157FeedforwardDriveTrain
+L160HeadingHoldOpMode
+L170DriveToPoseOpMode
+L180CombinedOpMode
+L190SpeedDriveTrain
+L190VelocityDriveOpMode
+```
