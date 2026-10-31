@@ -31,6 +31,8 @@ L110FollowerDriveTrain
 L110FollowerOpMode
 L113LocalizerOpMode
 L113EncoderLocalizer
+L120PinpointOpMode
+L120PinpointLocalizer
 L122CompareLocalizersOpMode
 L125Drive24OpMode
 L130ForwardThenStrafeOpMode
