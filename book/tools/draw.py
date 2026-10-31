@@ -3780,6 +3780,120 @@ def l113_wheel_vectors():
     s.save("fig-l113-wheel-vectors")
 
 
+def l113_robot(s, cx, cy, a, b, mecanum=True):
+    """L113S070's robot from above, nose up: a wheel centre at each corner of a rectangle 2b wide
+    and 2a long, the frame around it. Mecanum wheels face forward; an X-drive's omni wheels sit
+    along the circle through the centres. Gives back each wheel's centre."""
+    frame_top(s, cx - b - 70, cy - a - 90, 2 * b + 140, 2 * a + 180)
+    centers = [(cx - b, cy - a), (cx + b, cy - a), (cx - b, cy + a), (cx + b, cy + a)]
+    for wx, wy in centers:
+        if not mecanum:
+            s.turn = (wx, wy, math.degrees(math.atan2(wy - cy, wx - cx)))
+        wheel_top(s, wx, wy, 44, 104)
+        s.turn = (0.0, 0.0, 0.0)
+        s.dot((wx, wy), 6)
+    return centers
+
+
+def l113_rectangle_lines(s, cx, cy, a, b, diagonals=True):
+    """The rectangle through the wheel centres, A and B marked from the middle, and its
+    diagonals crossing at the middle."""
+    corners = [(cx - b, cy - a), (cx + b, cy - a), (cx + b, cy + a), (cx - b, cy + a)]
+    for i in range(4):
+        s.construct(corners[i], corners[(i + 1) % 4])
+    if diagonals:
+        s.construct(corners[0], corners[2])
+        s.construct(corners[1], corners[3])
+    s.dot((cx, cy), 9)
+    s.construct((cx + b, cy - a), (cx + b + 110, cy - a))
+    s.construct((cx + b, cy + a), (cx + b, cy + a + 130))
+    s.ink_line((cx + b + 100, cy), (cx + b + 100, cy - a), width=1.6, over=0, passes=1)
+    s.text((cx + b + 114, cy - a / 2 + 10), "A", 34, anchor="start")
+    s.ink_line((cx, cy + a + 120), (cx + b, cy + a + 120), width=1.6, over=0, passes=1)
+    s.text((cx + b / 2, cy + a + 160), "B", 34)
+
+
+def l113_rectangle():
+    # L113S070: the robot from above, a wheel centre at each corner of a rectangle. A is half its
+    # length and B half its width; its diagonals cross at the middle, where the robot turns.
+    s = Sketch(900, 1000, 1131)
+    cx, cy, a, b = 420, 460, 195, 210
+    l113_robot(s, cx, cy, a, b)
+    l113_rectangle_lines(s, cx, cy, a, b)
+    s.text((cx, cy + 44), "middle", 24)
+    s.lines((450, 900), ["A: half the length, front to back", "B: half the width, side to side"],
+            24)
+    s.save("fig-l113-rectangle")
+
+
+def l113_circle():
+    # L113S070: turning on the spot, each wheel centre goes round the circle through all four,
+    # radius the square root of A squared plus B squared, by Pythagoras.
+    s = Sketch(900, 1000, 1132)
+    cx, cy, a, b = 420, 460, 195, 210
+    r = math.hypot(a, b)
+    l113_robot(s, cx, cy, a, b)
+    l113_rectangle_lines(s, cx, cy, a, b, diagonals=False)
+    s.line(arc((cx, cy), r, 0, 360, 120), MARKER_RED, 3, 0.8)
+    s.ink_line((cx, cy), (cx + b, cy - a), width=2.2, over=0, passes=1)
+    s.text((cx + b / 2 - 70, cy - a / 2 - 10), "\u221a(A\u00b2 + B\u00b2)", 26)
+    for wx, wy in [(cx - b, cy - a), (cx + b, cy - a), (cx - b, cy + a), (cx + b, cy + a)]:
+        ux, uy = (wy - cy) / r, -(wx - cx) / r        # turning left, nose up
+        s.marker_arrow((wx, wy), (wx + 90 * ux, wy + 90 * uy), MARKER_RED, nib=7)
+    s.lines((450, 920), ["turning left, each wheel centre goes round the red circle"], 24)
+    s.save("fig-l113-circle")
+
+
+def l113_x_drive():
+    # L113S070's contrast: an X-drive's omni wheels sit along the circle, so each rolls the whole
+    # of its centre's motion, and its turn radius is the hypotenuse.
+    s = Sketch(900, 900, 1133)
+    cx, cy, a, b = 450, 430, 195, 210
+    r = math.hypot(a, b)
+    l113_robot(s, cx, cy, a, b, mecanum=False)
+    s.line(arc((cx, cy), r, 0, 360, 120), MARKER_RED, 3, 0.8)
+    s.dot((cx, cy), 9)
+    s.ink_line((cx, cy), (cx + b, cy - a), width=2.2, over=0, passes=1)
+    s.text((cx + b / 2 - 70, cy - a / 2 - 10), "\u221a(A\u00b2 + B\u00b2)", 26)
+    for wx, wy in [(cx - b, cy - a), (cx + b, cy - a), (cx - b, cy + a), (cx + b, cy + a)]:
+        ux, uy = (wy - cy) / r, -(wx - cx) / r
+        s.marker_arrow((wx, wy), (wx + 90 * ux, wy + 90 * uy), MARKER_RED, nib=7)
+    s.lines((cx, 800), ["an X-drive: each omni wheel rolls along the circle,",
+                        "so its turn radius is \u221a(A\u00b2 + B\u00b2)"], 24)
+    s.save("fig-l113-x-drive")
+
+
+def l113_mecanum_turn():
+    # L113S070: one mecanum wheel, the front right, as the robot turns left. Its centre's motion
+    # along the circle splits into a forward part, B for each radian, and a sideways part, A. The
+    # rim rolls the forward part as in driving forward and the sideways part as in sliding, so it
+    # rolls A + B.
+    s = Sketch(900, 900, 1134)
+    cx, cy, a, b = 330, 520, 195, 210
+    r = math.hypot(a, b)
+    s.line(arc((cx, cy), r, -90, 0, 40), MARKER_RED, 3, 0.6)
+    s.construct((cx - b, cy - a), (cx + b, cy - a))
+    s.construct((cx + b, cy - a), (cx + b, cy + 100))
+    s.dot((cx, cy), 9)
+    s.text((cx, cy + 44), "middle", 24)
+    s.ink_line((cx + b + 60, cy), (cx + b + 60, cy - a), width=1.6, over=0, passes=1)
+    s.text((cx + b + 74, cy - a / 2 + 10), "A", 34, anchor="start")
+    s.ink_line((cx, cy + 80), (cx + b, cy + 80), width=1.6, over=0, passes=1)
+    s.text((cx + b / 2, cy + 120), "B", 34)
+    wx, wy = cx + b, cy - a
+    wheel_top(s, wx, wy, 44, 104)
+    s.dot((wx, wy), 6)
+    k = 0.75                                           # page pixels per inch of A or B
+    s.marker_arrow((wx, wy), (wx - k * a, wy - k * b), MARKER_RED, nib=8)
+    s.marker_arrow((wx, wy), (wx, wy - k * b), MARKER_ORANGE, nib=6)
+    s.marker_arrow((wx, wy - k * b), (wx - k * a, wy - k * b), MARKER_BLUE, nib=6)
+    s.lines((500, 760), ["red: the wheel centre's move",
+                         "orange: its forward part, B",
+                         "blue: its sideways part, A",
+                         "the rim rolls B + A"], 24, anchor="start")
+    s.save("fig-l113-mecanum-turn")
+
+
 PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
@@ -3793,7 +3907,8 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
             e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
-            menu_presses, l045_wiring, l120_pod_turn, l113_wheel_vectors]
+            menu_presses, l045_wiring, l120_pod_turn, l113_wheel_vectors, l113_rectangle,
+            l113_circle, l113_x_drive, l113_mecanum_turn]
 
 if __name__ == "__main__":
     if OUT is None:

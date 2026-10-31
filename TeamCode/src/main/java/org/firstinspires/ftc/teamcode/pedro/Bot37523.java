@@ -74,8 +74,9 @@ class Bot37523 {
 
 
     /**
-     * Ticks per inch of wheel travel, and how far a wheel sits from the middle.
-     * MEASURE: run L131. These are the first robot's.
+     * Ticks per inch of wheel travel, and how far a wheel's rim rolls for each
+     * radian the robot turns. L113 works both out, and L131 measures them. These
+     * are the first robot's.
      */
     static double ticksPerInch = 45.0;
     static double turnRadiusInches = 8.0;
