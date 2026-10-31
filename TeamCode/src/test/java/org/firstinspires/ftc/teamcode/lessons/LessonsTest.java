@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsOpMode;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.RobotHardware;
+import org.firstinspires.ftc.teamcode.base.SimRobot;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
@@ -703,6 +704,29 @@ public class LessonsTest {
                 values.containsKey("Speed/pinpointPods/forward_ips"));
         assertTrue("the robot's own speed is logged: " + values.keySet(),
                 values.containsKey("Speed/pinPoint/forward_ips"));
+    }
+
+    @Test
+    public void l132_theRunsFindTheWheelAngleAndTurnRadius() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L132WheelAngleOpMode"));
+        h.init();
+        h.start();
+        long deadline = h.clock.nanos() + 7_000_000_000L;
+        while (h.clock.nanos() < deadline) {
+            h.loop();
+            OpModeHarness.sleep(5);
+        }
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the strafe run's cot α is logged: " + values.keySet(),
+                values.containsKey("Fit/strafeRun/cotAlpha"));
+        assertEquals("the strafe run finds the simulator's wheel angle",
+                SimRobot.COT_WHEEL_ANGLE, number(values, "Fit/strafeRun/cotAlpha"), 0.01);
+        assertEquals("so does the mixed run",
+                SimRobot.COT_WHEEL_ANGLE, number(values, "Fit/mixedRun/cotAlpha"), 0.02);
+        assertEquals("and the turn radius, from the robot's own file",
+                Constants.turnRadiusInches, number(values, "Fit/mixedRun/turnRadius_in"), 0.1);
     }
 
     @Test
