@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
 
 /**
- * L195: measure how far a wheel is from the middle of the robot -- by spinning
+ * L131: measure how far a wheel is from the middle of the robot -- by spinning
  * the robot.
  *
  * <p>L190 turned "turn at one radian per second" into a wheel speed by
@@ -25,7 +25,7 @@ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
  * <p>A wheel {@code r} inches from the middle travels {@code r} inches for every
  * radian the robot turns. So radius is wheel inches divided by radians.
  *
- * <p><b>Run L195MeasureTicksPerInchOpMode first</b> -- this one converts ticks to inches with
+ * <p><b>Run L131MeasureTicksPerInchOpMode first</b> -- this one converts ticks to inches with
  * {@link Constants#ticksPerInch}, so a wrong value there makes a wrong answer
  * here.
  *
@@ -33,15 +33,15 @@ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
  * {@link #neededTurns} full turns, keeping it in roughly the same place. Read
  * the number off the Driver Station.
  *
- * <p>Passes when: LessonsTest.l195_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards
+ * <p>Passes when: LessonsTest.l131_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards
  */
-@TeleOp(name = "L195 Measure turn radius", group = "Lessons")
-// When on L195S020, see
-// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l195.html#l195s020
+@TeleOp(name = "L131 Measure turn radius", group = "Lessons")
+// When on L131S020, see
+// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l131.html#l131s020
 // for what to do here.
 @Disabled
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
-public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
+public class L131MeasureTurnRadiusOpMode extends CorbelsTeleOp {
 
     double neededTurns = 2.0;
 
@@ -49,13 +49,13 @@ public class L195MeasureTurnRadiusOpMode extends CorbelsTeleOp {
     double previousHeading_rad;
     double turned_rad, wheel_in;
 
-    L195TicksDriveTrain drivetrain;
+    L131TicksDriveTrain drivetrain;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init() {
         initBefore();
-        drivetrain = new L195TicksDriveTrain(hardware);
+        drivetrain = new L131TicksDriveTrain(hardware);
         initAfter(drivetrain);
     }
 

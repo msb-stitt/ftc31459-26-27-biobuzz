@@ -1,16 +1,16 @@
-# L122CompareLocalizersOpMode
+# L132CompareLocalizersOpMode
 
 What each lesson's patch does to this file, in the order the lessons come, from applying
 `solutions/` on `solutions-e111`. A line marked + is new, and a line marked - is gone; each number
 is the line's place in the file after the lesson.
 
-## L122
+## L132
 
 ```{code-block} diff
 :class: answer-diff
 
---- mytry/L122CompareLocalizersOpMode.java  (before L122)
-+++ mytry/L122CompareLocalizersOpMode.java  (after L122)
+--- mytry/L132CompareLocalizersOpMode.java  (before L132)
++++ mytry/L132CompareLocalizersOpMode.java  (after L132)
 @@ lines 10 to 19 @@
    10 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
    11 import org.firstinspires.ftc.teamcode.base.StickShaper;
@@ -21,10 +21,10 @@ is the line's place in the file after the lesson.
 +  16 import org.firstinspires.ftc.teamcode.pedro.Constants;
    17
    18 /**
-   19  * L122: drive around while three localizers disagree. Your localizer from L113
+   19  * L132: drive around while three localizers disagree. Your localizer from L113
 @@ lines 98 to 111 @@
-   98         // When on L122S030, see
-   99         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l122.html#l122s030
+   98         // When on L132S030, see
+   99         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
   100         // for what to do here.
 + 101         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
 + 102         L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);

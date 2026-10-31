@@ -106,7 +106,7 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot
-  with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L195.
+  with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L131.
 
 **Robot Name Check** shows whether the Robot Controller name, such as 37523-RC, picked the robot in
 place of the `thisRobot` written in `Constants`. Nothing moves. Restart the Robot Controller app,

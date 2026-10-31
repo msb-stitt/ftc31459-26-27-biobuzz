@@ -170,16 +170,20 @@ path = "source/tasks/l120.md"
 words = 1400
 
 [[page]]
-path = "source/tasks/l122.md"
-words = 1200
-
-[[page]]
 path = "source/tasks/l125.md"
 words = 1300
 
 [[page]]
 path = "source/tasks/l130.md"
 words = 1300
+
+[[page]]
+path = "source/tasks/l131.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l132.md"
+words = 1200
 
 [[page]]
 path = "source/tasks/l135.md"
@@ -229,10 +233,6 @@ words = 1700
 
 [[page]]
 path = "source/tasks/l190.md"
-words = 1700
-
-[[page]]
-path = "source/tasks/l195.md"
 words = 1700
 
 [[page]]

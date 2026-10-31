@@ -64,7 +64,6 @@ tasks/l113
 tasks/l115
 tasks/l117
 tasks/l120
-tasks/l122
 ```
 
 ```{toctree}
@@ -73,6 +72,8 @@ tasks/l122
 
 tasks/l125
 tasks/l130
+tasks/l131
+tasks/l132
 tasks/l135
 ```
 
@@ -89,13 +90,6 @@ tasks/l160
 tasks/l170
 tasks/l180
 tasks/l190
-```
-
-```{toctree}
-:maxdepth: 1
-:caption: measure the robot
-
-tasks/l195
 ```
 
 ```{toctree}
