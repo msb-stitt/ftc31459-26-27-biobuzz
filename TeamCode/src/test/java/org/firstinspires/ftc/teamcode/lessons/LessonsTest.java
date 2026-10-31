@@ -615,6 +615,40 @@ public class LessonsTest {
     }
 
     @Test
+    public void l120_thePinpointLocalizerFollowsTheRobot() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L120PinpointOpMode"));
+        h.init();
+        h.start();
+        h.loop();
+        double startX_in = number(Tracker.values(), "Localizer/pinPoint/x_in");
+        double startY_in = number(Tracker.values(), "Localizer/pinPoint/y_in");
+        // Forward and to the left while turning, so each pod rolls from both.
+        h.gamepad1.left_stick_y = -0.6f;
+        h.gamepad1.left_stick_x = -0.4f;
+        h.gamepad1.right_stick_x = -0.3f;
+        for (int i = 0; i < 100; i++) {
+            h.loop();
+        }
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the shadow localizer is logged: " + values.keySet(),
+                values.containsKey("Localizer/pinpointPods/x_in"));
+        double moved_in = Math.hypot(number(values, "Localizer/pinPoint/x_in") - startX_in,
+                number(values, "Localizer/pinPoint/y_in") - startY_in);
+        assertTrue("the robot moved: " + moved_in, moved_in > 12.0);
+        assertEquals("x follows the robot's own localizer",
+                number(values, "Localizer/pinPoint/x_in"),
+                number(values, "Localizer/pinpointPods/x_in"), 0.5);
+        assertEquals("y follows the robot's own localizer",
+                number(values, "Localizer/pinPoint/y_in"),
+                number(values, "Localizer/pinpointPods/y_in"), 0.5);
+        assertEquals("the heading follows the robot's own localizer",
+                number(values, "Localizer/pinPoint/heading_deg"),
+                number(values, "Localizer/pinpointPods/heading_deg"), 0.5);
+    }
+
+    @Test
     public void l122_bothLocalizersAreLogged() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L122CompareLocalizersOpMode"));
         Follower follower = h.robot.follower;
