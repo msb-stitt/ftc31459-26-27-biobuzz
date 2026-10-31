@@ -79,19 +79,19 @@ documentation and the Driver Station all use this one.
   radians even where a page says degrees. [L090](l090.md)
 
 **Localizer**
-: Whatever works out the pose. A robot can run more than one at a time. That is what L120 is for.
-  [L120](l120.md)
+: Whatever works out the pose. A robot can run more than one at a time. That is what L113 is for.
+  [L113](l113.md)
 
 **Shadow localizer**
 : A second localizer that is read and logged but never steers anything. It is how two answers get
-  compared on one run. [L120](l120.md)
+  compared on one run. [L113](l113.md)
 
 **Encoder**
-: The counter inside a drive motor that counts how far the motor has turned. [L120](l120.md)
+: The counter inside a drive motor that counts how far the motor has turned. [L113](l113.md)
 
 **Dead reckoning**
 : Working out where you are by adding up every step you took, with nothing to check it against. The
-  drive encoders do it; the Pinpoint does it better. [L120](l120.md)
+  drive encoders do it; the Pinpoint does it better. [L113](l113.md)
 
 **Pinpoint**
 : The odometry computer. It has its own two measuring wheels, and it works out the pose. The

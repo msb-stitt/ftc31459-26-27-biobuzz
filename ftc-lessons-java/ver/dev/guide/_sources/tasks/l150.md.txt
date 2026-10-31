@@ -68,9 +68,9 @@ Mac, Ctrl+X on Windows, and paste them inside the `else`:
         Tracker.publish("drivetrain/robotRelative", robotRelative);
         if (robotRelative) {
             robotForwardXSpeed = -leftStickY;
-            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);
+            robotForwardXSpeed = stickShaper.shaped(robotForwardXSpeed);
             robotStrafeYSpeed = -leftStickX;
-            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);
+            robotStrafeYSpeed = stickShaper.shaped(robotStrafeYSpeed);
         } else {
             double heading_rad = follower.pose().heading();
             double sinHeading = Math.sin(heading_rad);

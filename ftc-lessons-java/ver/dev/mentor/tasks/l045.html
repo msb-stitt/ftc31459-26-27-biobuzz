@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="110 lesson: hand the wheels to the path follower" href="l110.html"><link rel="prev" title="093 how-to: watch the numbers while it drives" href="h093.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="050 lesson: drive the robot on blocks" href="l050.html"><link rel="prev" title="041 what’s happening: calling a method" href="e041.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>095 how-to: check your work without a robot - Corbels FTC Programming Lessons in Java</title>
+        <title>045 lesson: set up the robot’s configuration - Corbels FTC Programming Lessons in Java</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -207,33 +207,41 @@
 <li class="toctree-l1"><a class="reference internal" href="h017.html">017 how-to: navigate Android Studio’s panes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it with the sticks</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="l020.html">020 lesson: read the sticks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e021.html">021 what’s happening: assignments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l030.html">030 lesson: turn the sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="h093.html">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">095 how-to: check your work without a robot</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h096.html">096 how-to: watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h097.html">097 how-to: check your work without a robot</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +277,32 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -321,7 +336,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/tasks/h095.md.txt" title="View this page">
+  <a class="muted-link" href="../_sources/tasks/l045.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -339,163 +354,121 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="how-to-check-your-work-without-a-robot">
-<h1>095 how-to: check your work without a robot<a class="headerlink" href="#how-to-check-your-work-without-a-robot" title="Link to this heading">¶</a></h1>
-<section id="what-you-will-have-when-this-is-done">
-<h2>what you will have when this is done<a class="headerlink" href="#what-you-will-have-when-this-is-done" title="Link to this heading">¶</a></h2>
-<p>Two ways to try a lesson with no robot in front of you. One runs every test and tells you which
-lessons are finished. The other runs a single lesson on the laptop and draws the robot moving, so
-you can see what your code does before it is your turn at the field.</p>
-</section>
-<section id="before-you-start">
-<h2>before you start<a class="headerlink" href="#before-you-start" title="Link to this heading">¶</a></h2>
+          <section id="lesson-set-up-the-robot-s-configuration">
+<h1>045 lesson: set up the robot’s configuration<a class="headerlink" href="#lesson-set-up-the-robot-s-configuration" title="Link to this heading">¶</a></h1>
+<figure class="file-named align-default" id="fig-l045-wiring">
+<img alt="../../media/fig-l045-wiring_8c1fc2a12337.png" src="../../media/fig-l045-wiring_8c1fc2a12337.png" />
+<figcaption>
+<p><span class="caption-text">fig-l045-wiring.png</span><a class="headerlink" href="#fig-l045-wiring" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Wire the robot’s four wheel motors to the Control Hub. Then give each one the name the code asks
+for, in the Robot Configuration on the Driver Station.</p>
+<p><strong>Before you start.</strong></p>
 <ul class="simple">
-<li><p>Android Studio opens the project, and you can type a Gradle command into its terminal. Ask a
-mentor to get a laptop that far.</p></li>
-<li><p><a class="reference internal" href="l040.html"><span class="std std-doc">L040</span></a> is written, or step 2 has no lesson to show you.</p></li>
-<li><p>AdvantageScope installed on the same laptop, for step 2 and step 3.</p></li>
+<li><p>A robot with 4 mecanum wheels, each with its own motor, and a REV Control Hub.</p></li>
+<li><p>A charged battery, and a Driver Station paired with the Control Hub.</p></li>
+<li><p>No code is needed, and no laptop.</p></li>
 </ul>
-</section>
+<p>The Pinpoint is named here, before L115 mounts it, because the code asks for it at INIT from L050
+on.</p>
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
-<section id="step-1-run-the-tests-and-read-the-report">
-<h3>step 1: run the tests and read the report<a class="headerlink" href="#step-1-run-the-tests-and-read-the-report" title="Link to this heading">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">test</span>
-</pre></div>
-</div>
-<p>That runs the tests for everything the lessons are built on, and leaves the lesson tests out. It
-says so while it runs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Skipping</span> <span class="n">org</span><span class="o">.</span><span class="n">firstinspires</span><span class="o">.</span><span class="n">ftc</span><span class="o">.</span><span class="n">teamcode</span><span class="o">.</span><span class="n">lessons</span><span class="o">.*.</span> <span class="n">Run</span> <span class="n">them</span> <span class="k">with</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testLessons</span><span class="o">.</span>
-</pre></div>
-</div>
-<p><strong>You’ll know it worked when</strong> it ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>. Nothing underneath the lessons is
-broken, so whatever fails next is yours.</p>
-<p><strong>If it didn’t</strong>, and it says <code class="docutils literal notranslate"><span class="pre">SDK</span> <span class="pre">location</span> <span class="pre">not</span> <span class="pre">found</span></code>, the laptop has no <code class="docutils literal notranslate"><span class="pre">local.properties</span></code> file
-yet. That file is not kept in git, and Android Studio writes it the first time it opens the project.
-Open the project once, then run the command again.</p>
-<p>Now the tests for your own work:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testLessons</span>
-</pre></div>
-</div>
-<p>On a fresh copy, where nobody has written a lesson yet, the report counts 44 tests and 44 failures.
-Forty-four failures is not a broken copy. Each one is a lesson nobody has written, and the count
-drops as you write them.</p>
-<p><strong>You’ll know it worked when</strong> the last lines name a report:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">There</span> <span class="n">were</span> <span class="n">failing</span> <span class="n">tests</span><span class="o">.</span> <span class="n">See</span> <span class="n">the</span> <span class="n">report</span> <span class="n">at</span><span class="p">:</span> <span class="n">file</span><span class="p">:</span><span class="o">///.../</span><span class="n">index</span><span class="o">.</span><span class="n">html</span>
-</pre></div>
-</div>
-<p>Open that link in a browser, click the class and then the test, and you get the message the test
-wrote. The console does not give you that. All the console gives you is this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L120EncoderLocalizerTest</span> <span class="o">&gt;</span> <span class="n">countsStraightAhead</span> <span class="n">FAILED</span>
-    <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AssertionError</span> <span class="n">at</span> <span class="n">L120EncoderLocalizerTest</span><span class="o">.</span><span class="n">java</span><span class="p">:</span><span class="mi">61</span>
-</pre></div>
-</div>
-<p>A file and a line, and no word about what went wrong. The report for that same run also holds
-<code class="docutils literal notranslate"><span class="pre">robot</span> <span class="pre">relative</span> <span class="pre">while</span> <span class="pre">held</span> <span class="pre">expected:&lt;1.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;5.551115123125783E-17&gt;</span></code>, which is L150’s starter
-copied and not yet changed. Every <em>if it didn’t</em> line in this guide quotes a message out of the
-report, so every one of them starts here.</p>
-</section>
-<section id="step-2-watch-one-lesson-move">
-<h3>step 2: watch one lesson move<a class="headerlink" href="#step-2-watch-one-lesson-move" title="Link to this heading">¶</a></h3>
-<p>A test says where the robot ended up. It does not show you the robot. For that, run one lesson on
-its own:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"lessons.L040TankOpMode --left_stick_y=-1 --right_stick_y=-1"</span>
-</pre></div>
-</div>
-<p>The first word inside the quotes is the lesson’s class name, with the package it sits in before it.
-Each option after it holds one gamepad control at one value for the whole run, named the way the
-gamepad names it. So <code class="docutils literal notranslate"><span class="pre">--left_stick_y=-1</span></code> is the left stick pushed fully forward, and <code class="docutils literal notranslate"><span class="pre">--a=true</span></code> is
-the A button held down. Ask for <code class="docutils literal notranslate"><span class="pre">--args=&quot;--help&quot;</span></code> and it lists every control you can set.</p>
-<p>To push the sticks yourself, plug a gamepad into the laptop and add <code class="docutils literal notranslate"><span class="pre">--pad</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"lessons.L040TankOpMode --pad"</span>
-</pre></div>
-</div>
-<p>One gamepad becomes <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> on its own. With two plugged in, hold Start and press A on the one
-you want to drive with.</p>
-<p>Plug it in before the run or during it, whichever suits. Pull it out and the sticks go back to rest,
-so the robot stops. Plug it back in and it is yours again.</p>
-<p>Use <code class="docutils literal notranslate"><span class="pre">--pad</span></code>, or set the controls yourself, but not both. Together they are an error, and the run
-names the setting that clashed.</p>
-<p>It prints where the flight log goes, then runs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Flight</span> <span class="n">log</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">repository</span><span class="s1">'s top folder&gt;</span>
-<span class="n">lessons</span><span class="o">.</span><span class="n">L040TankOpMode</span> <span class="n">running</span><span class="o">.</span> <span class="n">Connect</span> <span class="n">AdvantageScope</span> <span class="n">to</span> <span class="mf">127.0.0.1</span> <span class="k">as</span> <span class="n">NetworkTables</span> <span class="mi">4</span><span class="p">,</span> <span class="ow">and</span> <span class="n">Ctrl</span><span class="o">-</span><span class="n">C</span> <span class="n">to</span> <span class="n">stop</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>Open AdvantageScope and connect to <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> as NetworkTables 4. The topics arrive under <code class="docutils literal notranslate"><span class="pre">sim/</span></code>.
-Add a 2D field and give it <code class="docutils literal notranslate"><span class="pre">sim/Pose</span></code>.</p>
-<p><strong>You’ll know it worked when</strong> the robot moves. <code class="docutils literal notranslate"><span class="pre">sim/wheels/frontLeft</span></code> and its three neighbors say
-what reached each motor, and <code class="docutils literal notranslate"><span class="pre">sim/vel/forward_ips</span></code> says how fast the robot is going.</p>
-<p><strong>If it didn’t</strong>, and the robot sits still with all four wheels reading 0, that lesson is still
-blank. Watched with the old L2b lesson’s blanks open and both sticks forward: the pose never changed
-for the whole run. Nothing is wrong with the simulator. It ran a lesson that writes nothing to the
-motors.</p>
-<p><strong>If it didn’t</strong>, and no topics arrive at all, nothing connected. The address is <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code>, and
-the kind is NetworkTables 4 rather than a log file.</p>
-<p>Ctrl-C stops it. The flight log is in the project’s top folder, which the first line it prints
-names.</p>
-<div class="note admonition">
-<p class="admonition-title">Which way around the field gets drawn</p>
-<p>The corner the arrow starts in and the way it points do not agree with the numbers going out.
-Trust that the robot moves, and how far it moves, rather than which way it faces on the screen.</p>
-</div>
-</section>
-<section id="step-3-open-the-log-a-failing-test-left">
-<h3>step 3: open the log a failing test left<a class="headerlink" href="#step-3-open-the-log-a-failing-test-left" title="Link to this heading">¶</a></h3>
-<p>Some test classes hand you their flight log when they fail. Watched, by asking the simulator’s own
-test for 400 in when the robot drives 54.75 in:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">AssertionError</span><span class="p">:</span> <span class="n">drove</span> <span class="n">forward</span><span class="p">,</span> <span class="ow">and</span> <span class="n">got</span> <span class="n">a</span> <span class="n">fair</span> <span class="n">way</span><span class="p">:</span> <span class="mf">54.75097300967889</span>
-<span class="n">AdvantageScope</span> <span class="n">can</span> <span class="nb">open</span> <span class="n">what</span> <span class="n">ran</span><span class="p">:</span>
-  <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/.../</span><span class="n">Tank</span><span class="o">-</span><span class="mi">20260928</span><span class="o">-</span><span class="mf">065400.</span><span class="n">wpilog</span> <span class="p">(</span><span class="mi">37502</span> <span class="nb">bytes</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>You’ll know it worked when</strong> that file opens in AdvantageScope as a log, not as a connection, and
-holds the run up to the moment the test gave up. There is more in it than <code class="docutils literal notranslate"><span class="pre">simRun</span></code> sends out:
-<code class="docutils literal notranslate"><span class="pre">/Robot/Pose</span></code>, <code class="docutils literal notranslate"><span class="pre">/Robot/Speeds</span></code>, <code class="docutils literal notranslate"><span class="pre">/Robot/Twist</span></code>, all four wheels, and the loop timing.</p>
-<p><strong>If it didn’t</strong>, and the failure names no log, that class never asked for one. The lesson tests are
-all like that today. So <code class="docutils literal notranslate"><span class="pre">l2b_theSticksMoveTheSimulatedRobot</span></code> fails with
-<code class="docutils literal notranslate"><span class="pre">drove</span> <span class="pre">forward,</span> <span class="pre">and</span> <span class="pre">got</span> <span class="pre">a</span> <span class="pre">fair</span> <span class="pre">way:</span> <span class="pre">0.0</span></code> and no path to open. A log does get written, and it holds 0
-bytes, because nothing closed it. Watched. Use step 2 instead, and tell a mentor.</p>
-</section>
-</section>
-<section id="what-you-just-did">
-<h2>what you just did<a class="headerlink" href="#what-you-just-did" title="Link to this heading">¶</a></h2>
-<p>Both halves run the same model of the robot, and it is a small one. Each loop, the four wheel speeds
-are mixed back into forward, sideways and turn. Each of those three chases what was asked of it with
-a 0.15 s lag. The answer is added up into a pose.</p>
+<section id="l045s010">
+<span id="l045s010-wire-it"></span><h3>L045S010: wire it<a class="headerlink" href="#l045s010" title="Link to this heading">¶</a></h3>
+<p>The picture at the top shows the wiring. Each motor has two cables. Its power cable goes into a
+<strong>motor</strong> port on the Control Hub, numbered 0 to 3. Its encoder cable counts how far the wheel
+turns, and goes into the <strong>encoder</strong> port with the same number.</p>
+<p><strong>Wire.</strong> With the robot switched off, plug each wheel’s motor into its own motor port, and its
+encoder into the encoder port with the same number. Plug the battery into the switch, and the
+switch into the Control Hub.</p>
+<p>Write down which wheel is on which port:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>Axis</p></th>
-<th class="head"><p>Flat out</p></th>
+<tr class="row-odd"><th class="head"><p>Wheel</p></th>
+<th class="head"><p>Port</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Forward</p></td>
-<td><p>64.4 in/s</p></td>
+<tr class="row-even"><td><p>front left</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p>Sideways</p></td>
-<td><p>43.6 in/s</p></td>
+<tr class="row-odd"><td><p>front right</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p>Turn</p></td>
-<td><p>4.0 rad/s</p></td>
+<tr class="row-even"><td><p>back left</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>back right</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>So the model has no slip, no scrub, no sagging battery, no floor, no field wall, no motor wired
-backwards and no Pinpoint. It will drive straight through the perimeter and never mention it, and it
-cannot tell you a path is too fast for the wheels. When the simulator and the robot disagree, the
-robot is right.</p>
-<p>That is why a green test run is not a finished lesson. These two catch the mistakes that live in the
-arithmetic, which are most of them. What is left over is the kind of mistake only a robot on a floor
-will show you, and that is why every lesson’s last step is a robot on a floor.</p>
-</section>
-<section id="where-next">
-<h2>where next<a class="headerlink" href="#where-next" title="Link to this heading">¶</a></h2>
+<p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a> hands the wheels to the path follower. From here on you can try each lesson on the
-laptop before you take it to the field.</p></li>
+<li><p>Each motor port, 0 to 3, has one motor.</p></li>
+<li><p>Each encoder port has the encoder cable from the motor with the same number.</p></li>
 </ul>
+</section>
+<section id="l045s020">
+<span id="l045s020-name-the-motors"></span><h3>L045S020: name the motors<a class="headerlink" href="#l045s020" title="Link to this heading">¶</a></h3>
+<p>The code finds each motor by its name. These are the names it asks for, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder’s
+robot files:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="na">frontLeftName</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"Front Left"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="na">frontRightName</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"Front Right"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="na">backLeftName</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"Back Left"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="na">backRightName</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"Back Right"</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Configure.</strong> On the Driver Station, touch the three dots in the upper right corner, and then
+<strong>Configure Robot</strong>. Touch <strong>New</strong>. Touch the Control Hub’s portal, and then the Control Hub.
+Touch <strong>Motors</strong>.</p>
+<p>For each port, pick the type of motor on the robot. Then type the name of the wheel on that port,
+from your table: <code class="docutils literal notranslate"><span class="pre">Front</span> <span class="pre">Left</span></code>, <code class="docutils literal notranslate"><span class="pre">Front</span> <span class="pre">Right</span></code>, <code class="docutils literal notranslate"><span class="pre">Back</span> <span class="pre">Left</span></code> or <code class="docutils literal notranslate"><span class="pre">Back</span> <span class="pre">Right</span></code>. Spell each one exactly
+that way, with its capital letters and its space. Touch <strong>Done</strong>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Each of ports 0 to 3 has a motor type and one of the four names, and no name is used twice.</p></li>
+</ul>
+</section>
+<section id="l045s030">
+<span id="l045s030-name-the-imu-and-the-pinpoint"></span><h3>L045S030: name the IMU and the Pinpoint<a class="headerlink" href="#l045s030" title="Link to this heading">¶</a></h3>
+<p>The Control Hub has an IMU inside it. It tells the code which way the robot faces. The code asks
+for it by the name <code class="docutils literal notranslate"><span class="pre">imu</span></code>.</p>
+<p>L115 mounts a Pinpoint on I2C port 1. The code asks for it at INIT by the name <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, so it
+is named now. Until it is plugged in, the Driver Station shows a warning about it at INIT.</p>
+<p><strong>Configure.</strong> Touch <strong>I2C Bus 0</strong>. The IMU should be there. If its name is not <code class="docutils literal notranslate"><span class="pre">imu</span></code>, change it to
+<code class="docutils literal notranslate"><span class="pre">imu</span></code>. Touch <strong>Done</strong>.</p>
+<p>Touch <strong>I2C Bus 1</strong>, and add a device. Pick the goBILDA Pinpoint, and name it <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, spelled
+exactly that way. Touch <strong>Done</strong>.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>I2C Bus 0 has <code class="docutils literal notranslate"><span class="pre">imu</span></code>, and I2C Bus 1 has <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>.</p></li>
+</ul>
+</section>
+<section id="l045s040">
+<span id="l045s040-save-it-and-make-it-the-one-in-use"></span><h3>L045S040: save it and make it the one in use<a class="headerlink" href="#l045s040" title="Link to this heading">¶</a></h3>
+<p><strong>Configure.</strong> Touch <strong>Done</strong> until you are back at the top of the configuration. Touch <strong>Save</strong>.
+Type a name for the file, such as the team number, and touch <strong>OK</strong>. Touch the back arrow to go
+back to the main screen.</p>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>The main screen of the Driver Station shows your file’s name as the configuration in use.</p></li>
+</ul>
+<p><strong>If it didn’t</strong>, and the Control Hub’s portal is not on the list after <strong>New</strong>, the Driver
+Station is not connected to the Control Hub. Pair them again, then touch <strong>New</strong> again.</p>
+<p>These steps follow FTC’s own pages on creating a configuration, a DC motor, and saving it:
+<a class="reference external" href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/getting_started/getting-started.html">Getting-Started</a>,
+<a class="reference external" href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/configuring_dc_motor/configuring-dc-motor.html">Configuring-a-DC-Motor</a>,
+<a class="reference external" href="https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/saving_config/saving-config.html">Saving-the-Configuration</a>.</p>
+<p><strong>What you just did.</strong> The code never says “port 0”. It says <code class="docutils literal notranslate"><span class="pre">&quot;Front</span> <span class="pre">Left&quot;</span></code>, and the
+configuration says which port that is. A robot wired another way needs only a new configuration,
+not new code.</p>
+<p><strong>Where next.</strong> <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a> sends the code to the robot and checks that each wheel turns the
+right way.</p>
+</section>
 </section>
 </section>
 
@@ -504,23 +477,23 @@ laptop before you take it to the field.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="l110.html">
+          <a class="next-page" href="l050.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">110 lesson: hand the wheels to the path follower</div>
+                <div class="title">050 lesson: drive the robot on blocks</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="h093.html">
+          <a class="prev-page" href="e041.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">093 how-to: watch the numbers while it drives</div>
+                <div class="title">041 what’s happening: calling a method</div>
                 
               </div>
             </a>
@@ -554,17 +527,14 @@ laptop before you take it to the field.</p></li>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">095 how-to: check your work without a robot</a><ul>
-<li><a class="reference internal" href="#what-you-will-have-when-this-is-done">what you will have when this is done</a></li>
-<li><a class="reference internal" href="#before-you-start">before you start</a></li>
+<li><a class="reference internal" href="#">045 lesson: set up the robot’s configuration</a><ul>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
-<li><a class="reference internal" href="#step-1-run-the-tests-and-read-the-report">step 1: run the tests and read the report</a></li>
-<li><a class="reference internal" href="#step-2-watch-one-lesson-move">step 2: watch one lesson move</a></li>
-<li><a class="reference internal" href="#step-3-open-the-log-a-failing-test-left">step 3: open the log a failing test left</a></li>
+<li><a class="reference internal" href="#l045s010-wire-it">L045S010: wire it</a></li>
+<li><a class="reference internal" href="#l045s020-name-the-motors">L045S020: name the motors</a></li>
+<li><a class="reference internal" href="#l045s030-name-the-imu-and-the-pinpoint">L045S030: name the IMU and the Pinpoint</a></li>
+<li><a class="reference internal" href="#l045s040-save-it-and-make-it-the-one-in-use">L045S040: save it and make it the one in use</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#what-you-just-did">what you just did</a></li>
-<li><a class="reference internal" href="#where-next">where next</a></li>
 </ul>
 </li>
 </ul>

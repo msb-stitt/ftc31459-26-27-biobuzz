@@ -131,5 +131,6 @@ speeds, and hands each speed to the two motors on its side. That is tank drive. 
 every motor turns its wheel forward for a positive speed. On the robot, a motor mounted the other
 way around turns its wheel backward, and L050 is where that is found and fixed.
 
-**Where next.** [L050](l050.md) runs this on the robot, on blocks.
+**Where next.** [L045](l045.md) sets up the robot's configuration, and then [L050](l050.md) runs
+this on the robot, on blocks.
 ::::

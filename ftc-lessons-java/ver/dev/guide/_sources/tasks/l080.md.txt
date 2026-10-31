@@ -40,36 +40,31 @@ click **Add**.
 - Under the step's comment, the next line reads
   `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
 
-### L080S030: shape a speed in one call
+### L080S030: bring in your StickShaper
 
-The starter has the sticks, the buttons, `deadband` and `signedSquared` from the lessons before. It
-does not drive the wheels yet.
+The starter has the sticks and the buttons from the lessons before. It does not drive the wheels
+yet.
 
-Each stick in this lesson, and in the lessons after it, gets L060's two steps: `deadband`, then
-`signedSquared`. One method can do both, so each stick needs one call.
+Each stick in this lesson, and in the lessons after it, is shaped by the `StickShaper` you wrote in
+L065. Yours is in the package `mytry.l065`, and this OpMode is in `mytry`. A class in another
+package needs an **`import`** line, which names its package.
 
-**Change.** Find the comment that names this step, under `signedSquared`. Under it, type:
+**Change.** Find the comment that names this step among the `import` lines. Under it, type:
 
-```{code-block} java
-:emphasize-lines: 4-8
-
-    // When on L080S030, see
-    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-    // for what to do here.
-    double speedShaped(double value, double band) {
-        double deadbanded = deadband(value, band);
-        double shapedSpeed = signedSquared(deadbanded);
-        return shapedSpeed;
-    }
+```java
+import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
 ```
 
-`speedShaped` hands `value` and `band` to `deadband`, and squares what comes back. Each step's
-answer gets a name for what it is, and `return` gives back the last one.
+Then find the comment that names this step near the top of the class. Under it, type:
+
+```java
+    StickShaper stickShaper = new StickShaper(0.05);
+```
 
 **Check.**
 
-- The method has no red underline.
-- `speedShaped` is gray, with *no usages* above it. Nothing uses it yet.
+- `StickShaper` is not red.
+- `stickShaper` is gray, with *no usages* above it. Nothing uses it yet.
 
 ### L080S040: forward and turn
 
@@ -79,17 +74,16 @@ and turn instead, which is how a driver already thinks. The code works out the t
 **Change.** In `driveFromTheSticks()`, find the comment that names this step. Under it, type:
 
 ```{code-block} java
-:emphasize-lines: 4-10
+:emphasize-lines: 4-9
 
         // When on L080S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
         // for what to do here.
-        double bandToSetToZero = 0.05;
         double forwardXSpeed = -leftStickY;
-        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);
+        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
         double turnCcwSpeed = -rightStickX;
-        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);
+        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
 ```
 
@@ -98,7 +92,7 @@ sideways. Both get a minus sign. For `forwardXSpeed`, that makes pushing away fr
 in L030. For `turnCcwSpeed`, it makes a turn to the left positive. That is the way robots measure
 turning: left, or counter-clockwise, is positive. `Ccw` is short for counter-clockwise.
 
-`speedShaped` shapes each one and puts the answer back in the same name, as L060S060 did.
+`stickShaper.shaped` shapes each one and puts the answer back in the same name, as L060S060 did.
 
 **Why X and Y.** Pedro Pathing, the code that drives the robot from L110 on, measures the robot
 along its own axes. +x points forward, out the robot's nose. +y points to the robot's left. A

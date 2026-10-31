@@ -196,11 +196,16 @@
 <li class="toctree-l1"><a class="reference internal" href="L040.html">L040</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L050.html">L050</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L060.html">L060</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L065.html">L065</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L070.html">L070</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L080.html">L080</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L090.html">L090</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L093.html">L093</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L095.html">L095</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L110.html">L110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L113.html">L113</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L120.html">L120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L122.html">L122</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L125.html">L125</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L130.html">L130</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L135.html">L135</a></li>
@@ -266,7 +271,7 @@
 <p>Delete 5 lines, write 14 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -85,11 +85,20 @@</span>
+<span class="gu">@@ -87,11 +87,20 @@</span>
 <span class="w"> </span>        // When on L150S030, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l150.html#l150s030
 <span class="w"> </span>        // for what to do here.
@@ -279,9 +284,9 @@
 <span class="gi">+        Tracker.publish("drivetrain/robotRelative", robotRelative);</span>
 <span class="gi">+        if (robotRelative) {</span>
 <span class="gi">+            robotForwardXSpeed = -leftStickY;</span>
-<span class="gi">+            robotForwardXSpeed = speedShaped(robotForwardXSpeed, bandToSetToZero);</span>
+<span class="gi">+            robotForwardXSpeed = stickShaper.shaped(robotForwardXSpeed);</span>
 <span class="gi">+            robotStrafeYSpeed = -leftStickX;</span>
-<span class="gi">+            robotStrafeYSpeed = speedShaped(robotStrafeYSpeed, bandToSetToZero);</span>
+<span class="gi">+            robotStrafeYSpeed = stickShaper.shaped(robotStrafeYSpeed);</span>
 <span class="gi">+        } else {</span>
 <span class="gi">+            double heading_rad = follower.pose().heading();</span>
 <span class="gi">+            double sinHeading = Math.sin(heading_rad);</span>

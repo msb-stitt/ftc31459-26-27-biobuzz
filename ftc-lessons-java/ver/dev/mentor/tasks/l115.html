@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="117 lesson: let AutoTune tune the robot" href="l117.html"><link rel="prev" title="110 lesson: hand the wheels to the path follower" href="l110.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="117 lesson: let AutoTune tune the robot" href="l117.html"><link rel="prev" title="113 lesson: work out where the robot is from the drive wheels" href="l113.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>115 lesson: mount the Pinpoint and plug it in - Corbels FTC Programming Lessons in Java</title>
@@ -214,26 +214,34 @@
 <li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l045.html">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="h093.html">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="h095.html">095 how-to: check your work without a robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h096.html">096 how-to: watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h097.html">097 how-to: check your work without a robot</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +277,32 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -375,22 +390,21 @@ the Pinpoint’s <strong>x</strong> socket and the strafe pod into its <strong>y
 </ul>
 </section>
 <section id="l115s020">
-<span id="l115s020-plug-it-into-an-i2c-port-that-is-not-port-0"></span><h3>L115S020: plug it into an I2C port that is not port 0<a class="headerlink" href="#l115s020" title="Link to this heading">¶</a></h3>
+<span id="l115s020-plug-it-into-i2c-port-1"></span><h3>L115S020: plug it into I2C port 1<a class="headerlink" href="#l115s020" title="Link to this heading">¶</a></h3>
 <p>The Pinpoint talks to the Control Hub over I2C. Port 0 already has the Control Hub’s own IMU on it,
-so the Pinpoint goes on another port.</p>
-<p><strong>Mount.</strong> Bolt the Pinpoint on with its sticker side, the side the ports are on, facing <strong>up</strong>.
-Plug its cable into I2C port 1, 2 or 3 on the Control Hub.</p>
-<p><strong>Configure.</strong> On the Driver Station, open the robot’s configuration. Add the Pinpoint on that
-port, and name it <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, spelled exactly that way. That is the name the code asks for:</p>
+so the Pinpoint goes on port 1. In L045S030 you named the device on port 1 <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>. That is the
+name the code asks for:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"pinpoint"</span><span class="p">);</span>
 </pre></div>
 </div>
+<p><strong>Mount.</strong> Bolt the Pinpoint on with its sticker side, the side the ports are on, facing <strong>up</strong>.
+Plug its cable into I2C port 1 on the Control Hub.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Pick <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group and press INIT.</p></li>
-<li><p>INIT finishes with no error.</p></li>
+<li><p>INIT finishes with no warning about the Pinpoint.</p></li>
 </ul>
-<p>INIT looks for the Pinpoint by its name, so if INIT finishes, it was found.</p>
+<p>Until now, INIT warned that the Pinpoint was missing. With no warning, it was found.</p>
 </section>
 <section id="l115s030">
 <span id="l115s030-hold-the-robot-still-while-it-inits"></span><h3>L115S030: hold the robot still while it inits<a class="headerlink" href="#l115s030" title="Link to this heading">¶</a></h3>
@@ -424,8 +438,8 @@ around it.</p>
 the SDK. The reset at INIT is <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code>’s default <code class="docutils literal notranslate"><span class="pre">resetMode</span></code>, which <code class="docutils literal notranslate"><span class="pre">PinpointLocalizer</span></code>’s
 constructor acts on. The still robot and the quarter second are from the goBILDA driver’s own
 javadoc.</p>
-<p><strong>What you just did.</strong> Every lesson from L120 on believes the Pinpoint. L120 puts a second way of
-tracking the robot beside it and shows the drive encoders drifting away from it over a run. L195
+<p><strong>What you just did.</strong> Every lesson from L117 on believes the Pinpoint. L122 puts your L113
+localizer beside it and shows the drive encoders drifting away from it over a run. L195
 measures the robot against it. A pod in the wrong socket makes all of that quietly wrong instead of
 loudly broken.</p>
 <p>The Pinpoint needs nothing from the drive motors to know where the robot is. Its two wheels are not
@@ -449,14 +463,14 @@ driven, so a mecanum roller cannot scrub them sideways and a slipping wheel cann
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="l110.html">
+          <a class="prev-page" href="l113.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">110 lesson: hand the wheels to the path follower</div>
+                <div class="title">113 lesson: work out where the robot is from the drive wheels</div>
                 
               </div>
             </a>
@@ -493,7 +507,7 @@ driven, so a mecanum roller cannot scrub them sideways and a slipping wheel cann
 <li><a class="reference internal" href="#">115 lesson: mount the Pinpoint and plug it in</a><ul>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
 <li><a class="reference internal" href="#l115s010-put-one-pod-along-the-robot-and-one-across-it">L115S010: put one pod along the robot and one across it</a></li>
-<li><a class="reference internal" href="#l115s020-plug-it-into-an-i2c-port-that-is-not-port-0">L115S020: plug it into an I2C port that is not port 0</a></li>
+<li><a class="reference internal" href="#l115s020-plug-it-into-i2c-port-1">L115S020: plug it into I2C port 1</a></li>
 <li><a class="reference internal" href="#l115s030-hold-the-robot-still-while-it-inits">L115S030: hold the robot still while it inits</a></li>
 </ul>
 </li>

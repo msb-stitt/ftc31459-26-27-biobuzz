@@ -63,9 +63,9 @@ Delete 0 lines, write 2 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -8,6 +8,8 @@
- 
+@@ -9,6 +9,8 @@
  import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.StickShaper;
  import org.firstinspires.ftc.teamcode.base.Tracker;
 +import org.firstinspires.ftc.teamcode.base.WheelTargets;
 +import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -81,7 +81,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -46,6 +46,7 @@
+@@ -49,6 +49,7 @@
      // When on L190S030, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
      // for what to do here.
@@ -98,7 +98,7 @@ Delete 0 lines, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -56,6 +56,7 @@
+@@ -60,6 +60,7 @@
          // When on L190S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
          // for what to do here.
@@ -115,7 +115,7 @@ Delete 1 line, write 1 line.
 ```diff
 --- before this change
 +++ after it
-@@ -58,7 +58,7 @@
+@@ -62,7 +62,7 @@
          // for what to do here.
          drivetrain = new L190SpeedDriveTrain(hardware);
  
@@ -133,13 +133,13 @@ Delete 1 line, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -90,7 +90,9 @@
+@@ -93,7 +93,9 @@
          // When on L190S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
          // for what to do here.
 -        double forwardX_ips = 0.0;
 +        double forwardXSpeed = -leftStickY;
-+        forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
++        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
 +        double forwardX_ips = forwardXSpeed * MAX_IPS;
          Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
          double strafeY_ips = 0.0;
@@ -153,13 +153,13 @@ Delete 1 line, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -94,7 +94,9 @@
-         forwardXSpeed = deadband(forwardXSpeed, bandToSetToZero);
+@@ -97,7 +97,9 @@
+         forwardXSpeed = stickShaper.shaped(forwardXSpeed);
          double forwardX_ips = forwardXSpeed * MAX_IPS;
          Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
 -        double strafeY_ips = 0.0;
 +        double strafeYSpeed = -leftStickX;
-+        strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
++        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
 +        double strafeY_ips = strafeYSpeed * MAX_IPS;
          Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
          double turn_radps = 0.0;
@@ -173,13 +173,13 @@ Delete 1 line, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -98,7 +98,9 @@
-         strafeYSpeed = deadband(strafeYSpeed, bandToSetToZero);
+@@ -101,7 +101,9 @@
+         strafeYSpeed = stickShaper.shaped(strafeYSpeed);
          double strafeY_ips = strafeYSpeed * MAX_IPS;
          Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
 -        double turn_radps = 0.0;
 +        double turnCcwSpeed = -rightStickX;
-+        turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
++        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
 +        double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
          Tracker.publish("drivetrain/turn_radps", turn_radps);
      }
@@ -193,8 +193,8 @@ Delete 0 lines, write 5 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -102,6 +102,11 @@
-         turnCcwSpeed = deadband(turnCcwSpeed, bandToSetToZero);
+@@ -105,6 +105,11 @@
+         turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
          double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
          Tracker.publish("drivetrain/turn_radps", turn_radps);
 +

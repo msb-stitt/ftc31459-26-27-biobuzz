@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="095 how-to: check your work without a robot" href="h095.html"><link rel="prev" title="090 lesson: slide it sideways" href="l090.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="113 lesson: work out where the robot is from the drive wheels" href="l113.html"><link rel="prev" title="110 lesson: connect the drivetrain to the follower, with no path yet" href="l110.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>093 how-to: watch the numbers while it drives - Corbels FTC Programming Lessons in Java</title>
+        <title>111 what’s happening: the classes your OpMode builds on - Corbels FTC Programming Lessons in Java</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Corbels FTC Programming Lessons in Java</div></a>
+      <a href="../student_index.html"><div class="brand">Corbels FTC Programming Lessons in Java</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -184,7 +184,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
   <span class="sidebar-brand-text">Corbels FTC Programming Lessons in Java</span>
   
@@ -214,26 +214,29 @@
 <li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l045.html">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="h095.html">095 how-to: check your work without a robot</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +272,32 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -321,7 +331,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/tasks/h093.md.txt" title="View this page">
+  <a class="muted-link" href="../_sources/tasks/e111.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -339,104 +349,143 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="how-to-watch-the-numbers-while-it-drives">
-<h1>093 how-to: watch the numbers while it drives<a class="headerlink" href="#how-to-watch-the-numbers-while-it-drives" title="Link to this heading">¶</a></h1>
-<section id="what-you-will-have-when-this-is-done">
-<h2>what you will have when this is done<a class="headerlink" href="#what-you-will-have-when-this-is-done" title="Link to this heading">¶</a></h2>
-<p>The robot’s own numbers on a screen while somebody drives it. You get a table of every value the
-lesson sends, a graph of any two of them, and a picture of where the robot thinks it is. After this,
-“it went crooked” is a graph you can point at. It stops being an argument.</p>
-</section>
-<section id="before-you-start">
-<h2>before you start<a class="headerlink" href="#before-you-start" title="Link to this heading">¶</a></h2>
+          <section id="what-s-happening-the-classes-your-opmode-builds-on">
+<h1>111 what’s happening: the classes your OpMode builds on<a class="headerlink" href="#what-s-happening-the-classes-your-opmode-builds-on" title="Link to this heading">¶</a></h1>
+<p>When the computer runs your program, it reads one line of code at a time. It moves words and
+numbers around in its memory. It is like moving sticky notes around on your desk.</p>
+<p>In <a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a> you wrote two classes, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code>. Each
+one builds on classes you did not write. This page draws them as UML, as <a class="reference internal" href="e067.html"><span class="std std-doc">E067</span></a> and
+<a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a> did, a little at a time.</p>
+<section id="who-wrote-what">
+<h2>who wrote what<a class="headerlink" href="#who-wrote-what" title="Link to this heading">¶</a></h2>
+<p>Your code is given a lot that you did not write. The diagrams put each class in a grey box that
+says who wrote it:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="l060.html"><span class="std std-doc">L060</span></a> is finished, because step 3 graphs the two numbers L060’s squaring makes.</p></li>
-<li><p>A robot with its battery in, running a lesson.</p></li>
-<li><p>A laptop or a phone that can join the robot’s Wi-Fi.</p></li>
+<li><p><strong>FTC Platform</strong> is the FTC software that runs on the robot. It runs your OpMode.</p></li>
+<li><p><strong>Pedro Pathing</strong> is the path follower’s code.</p></li>
+<li><p><strong>Our base classes</strong> are in <code class="docutils literal notranslate"><span class="pre">base/</span></code>. Our team wrote them for these lessons.</p></li>
 </ul>
+<p>Your classes are outside the boxes.</p>
 </section>
-<section id="the-steps">
-<h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
-<section id="step-1-open-panels">
-<h3>step 1: open Panels<a class="headerlink" href="#step-1-open-panels" title="Link to this heading">¶</a></h3>
-<p>Join the robot’s Wi-Fi, then open <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:8001</span></code>.</p>
-<p>Panels is a web page the Robot Controller app serves. Nothing in the lesson starts it and nothing
-turns it on.</p>
-<p><strong>You’ll know it worked when</strong> the page loads and shows its panels, even before an OpMode runs.</p>
-<p><strong>If it didn’t</strong>, and the page never loads, the laptop is on the wrong Wi-Fi. Check which network it
-joined.</p>
-<p><strong>If it didn’t</strong>, and you get a different page full of tuning buttons, that is AutoTune on port
-10158. It is a second server in the same app, and it is not this.</p>
-</section>
-<section id="step-2-find-the-numbers-your-lesson-sends">
-<h3>step 2: find the numbers your lesson sends<a class="headerlink" href="#step-2-find-the-numbers-your-lesson-sends" title="Link to this heading">¶</a></h3>
-<p>Run <code class="docutils literal notranslate"><span class="pre">L060</span> <span class="pre">Shaping</span></code>, the copy finished in L060, and press PLAY. The Telemetry panel fills with one
-line per value, each shaped <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">number</span></code>.</p>
-<p>The Graph panel has a list to pick from, and a name only joins that list <strong>after it has been sent
-once</strong>. So start the OpMode first, then go looking. The list is flat, in the order the names first
-arrived.</p>
-<p><strong>You’ll know it worked when</strong> <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> are both in
-the list, and both numbers move when you move the left stick. The <a class="reference internal" href="r930.html"><span class="std std-doc">cheat sheet</span></a> lists every
-name each lesson sends.</p>
-<p><strong>If it didn’t</strong>, and a name you expected is missing, nothing sent it. Either that lesson does not
-publish it, or the line that publishes it is not typed yet.</p>
-</section>
-<section id="step-3-graph-the-two-against-each-other">
-<h3>step 3: graph the two against each other<a class="headerlink" href="#step-3-graph-the-two-against-each-other" title="Link to this heading">¶</a></h3>
-<p>Pick <code class="docutils literal notranslate"><span class="pre">drivetrain/leftSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">drivetrain/leftShapedSpeed</span></code> and push the stick slowly from nothing
-up to full.</p>
-<p><strong>You’ll know it worked when</strong> the two lines leave zero together and the shaped one stays under the
-raw one the whole way up, until they meet at full stick. That is L060 drawn: squaring a number below
-1 makes it smaller.</p>
-<p><strong>If it didn’t</strong>, and the two lines lie exactly on top of each other, nothing is being shaped. That
-is L060S060 not typed yet.</p>
-<p><strong>If it didn’t</strong>, and both lines look like a staircase rather than a curve, that is the sampling and
-it is normal. The robot sends to Panels every 75 ms and drops the loops in between, so with a loop
-of about 5 ms, roughly one loop in 15 reaches the graph. For the same reason one slow loop will not
-show in <code class="docutils literal notranslate"><span class="pre">loop/period_ms</span></code>. Graph <code class="docutils literal notranslate"><span class="pre">loop/maxPeriod_ms</span></code> instead: it only ever steps up, and a step
-means some loop blocked.</p>
-<figure class="file-named align-default" id="fig-panels-graph">
-<img alt="../../media/fig-panels-graph_526119dde860.png" src="../../media/fig-panels-graph_526119dde860.png" />
+<section id="is-a">
+<h2>is a<a class="headerlink" href="#is-a" title="Link to this heading">¶</a></h2>
+<figure class="file-named align-default" id="fig-e111-is-a">
+<img alt="../../media/fig-e111-is-a_5e16df8f357d.png" src="../../media/fig-e111-is-a_5e16df8f357d.png" />
 <figcaption>
-<p><span class="caption-text">fig-panels-graph.png</span><a class="headerlink" href="#fig-panels-graph" title="Link to this image">¶</a></p>
+<p><span class="caption-text">fig-e111-is-a.png</span><a class="headerlink" href="#fig-e111-is-a" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-</section>
-<section id="step-4-look-at-where-it-thinks-it-is">
-<h3>step 4: look at where it thinks it is<a class="headerlink" href="#step-4-look-at-where-it-thinks-it-is" title="Link to this heading">¶</a></h3>
-<p>Open the Field panel. There is nothing to set up: the lesson sends the field’s coordinates with
-every frame.</p>
-<p>A blue square 18 in by 18 in is the robot, and the line out of it is the way the robot faces. A gray
-line behind it is where it has been since the OpMode started. In a lesson that follows a path you
-also get an orange line for the piece of path being followed, and a green square for the nearest
-point on that path at the heading the path wants there.</p>
-<p><strong>You’ll know it worked when</strong> the blue square moves as the robot moves. Turn the robot, and the
-line out of the square swings around with it.</p>
-<p><strong>If it didn’t</strong>, and the robot draws in a corner with most of the square off the field, nothing is
-wrong. Pedro puts (0, 0) in a corner and the field runs 0 in to 144 in, so a lesson that never sets
-a pose starts there.</p>
-<p><strong>If it didn’t</strong>, and there is no green square or orange line, you are in a teleop lesson. There is
-no path to draw. You get the robot and its trail.</p>
-</section>
-</section>
-<section id="what-you-just-did">
-<h2>what you just did<a class="headerlink" href="#what-you-just-did" title="Link to this heading">¶</a></h2>
-<p>Panels has no separate graph call. It reads the telemetry text, and any line shaped <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">number</span></code>
-becomes a table row and a graph series at once. That is why one <code class="docutils literal notranslate"><span class="pre">Tracker.publish</span></code> call gets you
-both, and why a name may hold anything except a colon.</p>
-<p>The same call also writes the number into the flight log on the robot. Panels is the live view and
-the log is the recording, and they carry the same names, so a graph you found while driving is a
-graph you can find again afterwards.</p>
-<p>The gap between the blue square and the green one is worth knowing. The green square is the nearest
-point on the path, not where the robot should have got to by now. So the gap says how far off the
-line the robot is and how crooked it is sitting. It does not say whether the robot is running late.</p>
-</section>
-<section id="where-next">
-<h2>where next<a class="headerlink" href="#where-next" title="Link to this heading">¶</a></h2>
+<p>An arrow with a hollow triangle means “is a kind of”. The triangle points at the class built on.
+It is the word <code class="docutils literal notranslate"><span class="pre">extends</span></code>. <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span> <span class="pre">extends</span> <span class="pre">CorbelsTeleOp</span></code>, so an <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>
+is a <code class="docutils literal notranslate"><span class="pre">CorbelsTeleOp</span></code>, which is a <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>, which is an <code class="docutils literal notranslate"><span class="pre">OpMode</span></code>.</p>
+<p>A class gets everything the classes above it have. That is why <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> and <code class="docutils literal notranslate"><span class="pre">hardware</span></code> work in
+your OpMode, though you never made them. <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> comes from <code class="docutils literal notranslate"><span class="pre">OpMode</span></code>, and <code class="docutils literal notranslate"><span class="pre">hardware</span></code> from
+<code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>. Each lesson’s OpMode since L020 has started with <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CorbelsTeleOp</span></code>.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="h095.html"><span class="std std-doc">H095</span></a> is the other half of this. It runs the same lessons on a laptop, with no
-robot at all.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">«interface»</span></code> on <code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code> marks a list of methods with no code in them. A dashed line with a
+hollow triangle means “is a kind of”, for an interface. It is the word <code class="docutils literal notranslate"><span class="pre">implements</span></code>.
+<code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span> <span class="pre">implements</span> <span class="pre">Drivetrain</span></code>, so it has to write each of those methods.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">«abstract»</span></code> on <code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span></code> marks a class that leaves a method for the class below it.
+It leaves <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>, and you wrote it in L110S030.</p></li>
 </ul>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;Override</span></code> sits above a method that a class above already names. <code class="docutils literal notranslate"><span class="pre">OpMode</span></code> names <code class="docutils literal notranslate"><span class="pre">init()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">loop()</span></code> with no code, so each OpMode has to write them. <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code> already has a <code class="docutils literal notranslate"><span class="pre">start()</span></code>
+and a <code class="docutils literal notranslate"><span class="pre">stop()</span></code>, and yours replace them.</p>
+<p>Your <code class="docutils literal notranslate"><span class="pre">init()</span></code> calls <code class="docutils literal notranslate"><span class="pre">initBefore()</span></code> and <code class="docutils literal notranslate"><span class="pre">initAfter()</span></code>. Those are <code class="docutils literal notranslate"><span class="pre">final</span></code> in <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>: a class
+below can call them, but it cannot replace them.</p>
+</section>
+<section id="has-a">
+<h2>has a<a class="headerlink" href="#has-a" title="Link to this heading">¶</a></h2>
+<figure class="file-named align-default" id="fig-e111-has-a">
+<img alt="../../media/fig-e111-has-a_89c98ca26038.png" src="../../media/fig-e111-has-a_89c98ca26038.png" />
+<figcaption>
+<p><span class="caption-text">fig-e111-has-a.png</span><a class="headerlink" href="#fig-e111-has-a" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>An arrow with a diamond means “holds”, as in E067. On an arrow from your OpMode, the word is the
+name of the field.</p>
+<ul class="simple">
+<li><p>Your OpMode holds <code class="docutils literal notranslate"><span class="pre">hardware</span></code> and <code class="docutils literal notranslate"><span class="pre">follower</span></code>. <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code> declares them, and your OpMode gets
+them.</p></li>
+<li><p>You typed <code class="docutils literal notranslate"><span class="pre">drivetrain</span></code> and <code class="docutils literal notranslate"><span class="pre">stickShaper</span></code>.</p></li>
+<li><p>The follower holds your drivetrain too, from <code class="docutils literal notranslate"><span class="pre">initAfter(drivetrain)</span></code>. It holds it as a
+<code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>. It does not know your class, only that it is a kind of <code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>. So it can
+drive any drivetrain that is.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RobotHardware</span></code> holds the robot’s motors. In the simulator, the same <code class="docutils literal notranslate"><span class="pre">hardware</span></code> holds simulated
+motors, so your code runs on both without a change.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Platform</span></code> is not a class in the code. It stands for the FTC code that runs your OpMode.</p>
+</section>
+<section id="what-the-platform-calls">
+<h2>what the platform calls<a class="headerlink" href="#what-the-platform-calls" title="Link to this heading">¶</a></h2>
+<figure class="file-named align-default" id="fig-e111-run">
+<img alt="../../media/fig-e111-run_d221fb565a58.png" src="../../media/fig-e111-run_d221fb565a58.png" />
+<figcaption>
+<p><span class="caption-text">fig-e111-run.png</span><a class="headerlink" href="#fig-e111-run" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This sequence diagram starts with a stick figure: the driver. When the driver presses INIT, the
+platform calls <code class="docutils literal notranslate"><span class="pre">init()</span></code> once. Then it calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> over and over, until PLAY. A box marked
+<code class="docutils literal notranslate"><span class="pre">loop</span></code> holds calls that happen again and again.</p>
+<p>Your code never calls <code class="docutils literal notranslate"><span class="pre">init()</span></code> or <code class="docutils literal notranslate"><span class="pre">loop()</span></code>. The platform does, when the Driver Station’s buttons
+are pressed. Each note names the diagram that shows what the call does.</p>
+<section id="init">
+<h3>INIT<a class="headerlink" href="#init" title="Link to this heading">¶</a></h3>
+<figure class="file-named align-default" id="fig-e111-init">
+<img alt="../../media/fig-e111-init_1f866e411f72.png" src="../../media/fig-e111-init_1f866e411f72.png" />
+<figcaption>
+<p><span class="caption-text">fig-e111-init.png</span><a class="headerlink" href="#fig-e111-init" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">initBefore()</span></code> finds the robot’s motors, and sets <code class="docutils literal notranslate"><span class="pre">hardware</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new</span></code> makes your drivetrain, handed <code class="docutils literal notranslate"><span class="pre">hardware</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initAfter(drivetrain)</span></code> makes the follower, holding your drivetrain.</p></li>
+<li><p>Until PLAY, each <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> asks the follower where the robot is. Your OpMode has no
+<code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> of its own; it gets the one in <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>.</p></li>
+</ul>
+</section>
+<section id="play">
+<h3>PLAY<a class="headerlink" href="#play" title="Link to this heading">¶</a></h3>
+<figure class="file-named align-default" id="fig-e111-play">
+<img alt="../../media/fig-e111-play_2717103c6bad.png" src="../../media/fig-e111-play_2717103c6bad.png" />
+<figcaption>
+<p><span class="caption-text">fig-e111-play.png</span><a class="headerlink" href="#fig-e111-play" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start()</span></code> hands <code class="docutils literal notranslate"><span class="pre">driveFromTheSticks</span></code> to the scheduler, once.</p></li>
+<li><p>Each <code class="docutils literal notranslate"><span class="pre">loop()</span></code> ends with <code class="docutils literal notranslate"><span class="pre">loopAfter()</span></code>. That runs the scheduler, which calls your
+<code class="docutils literal notranslate"><span class="pre">driveFromTheSticks()</span></code>. Each stick goes through <code class="docutils literal notranslate"><span class="pre">shaped()</span></code>, and <code class="docutils literal notranslate"><span class="pre">sticks(...)</span></code> saves the wheel
+speeds.</p></li>
+<li><p>Then <code class="docutils literal notranslate"><span class="pre">loopAfter()</span></code> updates the follower, and the follower calls your drivetrain’s <code class="docutils literal notranslate"><span class="pre">drive</span></code>. The
+wheels’ powers go to the motors.</p></li>
+</ul>
+</section>
+<section id="stop">
+<h3>STOP<a class="headerlink" href="#stop" title="Link to this heading">¶</a></h3>
+<figure class="file-named align-default" id="fig-e111-stop">
+<img alt="../../media/fig-e111-stop_5f01a30c725f.png" src="../../media/fig-e111-stop_5f01a30c725f.png" />
+<figcaption>
+<p><span class="caption-text">fig-e111-stop.png</span><a class="headerlink" href="#fig-e111-stop" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">stopAfter()</span></code> tells the follower to stop, and then the drivetrain sends zero to each motor.</p>
+</section>
+</section>
+<section id="all-of-it-at-once">
+<h2>all of it at once<a class="headerlink" href="#all-of-it-at-once" title="Link to this heading">¶</a></h2>
+<figure class="file-named align-default" id="fig-e111-classes">
+<img alt="../../media/fig-e111-classes_844f487c66dc.png" src="../../media/fig-e111-classes_844f487c66dc.png" />
+<figcaption>
+<p><span class="caption-text">fig-e111-classes.png</span><a class="headerlink" href="#fig-e111-classes" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This diagram puts the “is a” and “holds” arrows together. A dashed arrow with an open head means
+“uses”, as in L093. Your OpMode calls <code class="docutils literal notranslate"><span class="pre">Tracker</span></code> and the <code class="docutils literal notranslate"><span class="pre">Scheduler</span></code>. Your drivetrain is made from
+<code class="docutils literal notranslate"><span class="pre">RobotHardware</span></code>.</p>
+<p>No box here lists fields or methods. Each diagram on this page shows what it is about and leaves
+out the rest. A drawing of the whole program, with everything in it, would be too big to follow.</p>
 </section>
 </section>
 
@@ -445,23 +494,23 @@ robot at all.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="h095.html">
+          <a class="next-page" href="l113.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">095 how-to: check your work without a robot</div>
+                <div class="title">113 lesson: work out where the robot is from the drive wheels</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="l090.html">
+          <a class="prev-page" href="l110.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">090 lesson: slide it sideways</div>
+                <div class="title">110 lesson: connect the drivetrain to the follower, with no path yet</div>
                 
               </div>
             </a>
@@ -495,18 +544,17 @@ robot at all.</p></li>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">093 how-to: watch the numbers while it drives</a><ul>
-<li><a class="reference internal" href="#what-you-will-have-when-this-is-done">what you will have when this is done</a></li>
-<li><a class="reference internal" href="#before-you-start">before you start</a></li>
-<li><a class="reference internal" href="#the-steps">the steps</a><ul>
-<li><a class="reference internal" href="#step-1-open-panels">step 1: open Panels</a></li>
-<li><a class="reference internal" href="#step-2-find-the-numbers-your-lesson-sends">step 2: find the numbers your lesson sends</a></li>
-<li><a class="reference internal" href="#step-3-graph-the-two-against-each-other">step 3: graph the two against each other</a></li>
-<li><a class="reference internal" href="#step-4-look-at-where-it-thinks-it-is">step 4: look at where it thinks it is</a></li>
+<li><a class="reference internal" href="#">111 what’s happening: the classes your OpMode builds on</a><ul>
+<li><a class="reference internal" href="#who-wrote-what">who wrote what</a></li>
+<li><a class="reference internal" href="#is-a">is a</a></li>
+<li><a class="reference internal" href="#has-a">has a</a></li>
+<li><a class="reference internal" href="#what-the-platform-calls">what the platform calls</a><ul>
+<li><a class="reference internal" href="#init">INIT</a></li>
+<li><a class="reference internal" href="#play">PLAY</a></li>
+<li><a class="reference internal" href="#stop">STOP</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#what-you-just-did">what you just did</a></li>
-<li><a class="reference internal" href="#where-next">where next</a></li>
+<li><a class="reference internal" href="#all-of-it-at-once">all of it at once</a></li>
 </ul>
 </li>
 </ul>

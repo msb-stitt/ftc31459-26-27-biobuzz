@@ -1,32 +1,15 @@
 # L120
 
-2 file(s) copied, then 4 change(s) in 2 file(s), 22 line(s) of code to write.
+2 file(s) copied, then 6 change(s) in 2 file(s), 37 line(s) of code to write.
 
 ## Copies
 
-- `lessons/L120CompareLocalizersOpMode.java` to `mytry/L120CompareLocalizersOpMode.java`
-- `lessons/L120EncoderLocalizer.java` to `mytry/L120EncoderLocalizer.java`
+- `lessons/L120PinpointOpMode.java` to `mytry/L120PinpointOpMode.java`
+- `lessons/L120PinpointLocalizer.java` to `mytry/L120PinpointLocalizer.java`
 
-## L120CompareLocalizersOpMode
+## L120PinpointOpMode
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120CompareLocalizersOpMode.java`
-
-### A change
-
-Delete 0 lines, write 1 line.
-
-```diff
---- before this change
-+++ after it
-@@ -9,6 +9,7 @@
- import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
- import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
- import org.firstinspires.ftc.teamcode.base.Tracker;
-+import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
- 
- /**
-  * L120: drive around while two localizers disagree. Your localizer reads the
-```
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointOpMode.java`
 
 ### A change
 
@@ -35,49 +18,113 @@ Delete 0 lines, write 3 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -92,6 +92,9 @@
+@@ -10,6 +10,9 @@
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.StickShaper;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwarePinpointSource;
++import org.firstinspires.ftc.teamcode.base.odometry.PinpointSource;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L120: drive around with your own Pinpoint localizer running beside the robot's. Yours
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -95,6 +95,10 @@
          // When on L120S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
          // for what to do here.
-+        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-+        L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
-+        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
++        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
++        L120PinpointLocalizer pinpointPods =
++                new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
++        shadowLocalizers.add("pinpointPods", pinpointPods);
      }
  
      // 'public' to match the parent class. 'public' allows access from any code.
 ```
 
-## L120EncoderLocalizer
+## L120PinpointLocalizer
 
-`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120EncoderLocalizer.java`
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L120PinpointLocalizer.java`
 
 ### A change
 
-Delete 0 lines, write 13 lines.
+Delete 0 lines, write 9 lines.
 
 ```diff
 --- before this change
 +++ after it
-@@ -53,6 +53,19 @@
+@@ -61,6 +61,15 @@
          // When on L120S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
          // for what to do here.
-+        if (lastWheels_in == null) {
-+            lastWheels_in = wheels_in.clone();
++        ticksPerInch = PinpointSource.ticksPerMm(config.podType.get()) * 25.4;
++        if (config.xPodDirection.get() == GoBildaPinpointDriver.EncoderDirection.REVERSED) {
++            xSign = -1.0;
++        }
++        if (config.yPodDirection.get() == GoBildaPinpointDriver.EncoderDirection.REVERSED) {
++            ySign = -1.0;
++        }
++        xPodOffset_in = config.xPodOffset.get();
++        yPodOffset_in = config.yPodOffset.get();
+     }
+ 
+     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
+```
+
+### A change
+
+Delete 0 lines, write 14 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -83,6 +83,20 @@
+         // When on L120S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
+         // for what to do here.
++        forwardPod_in = xSign * source.getEncoderX() / ticksPerInch;
++        strafePod_in = ySign * source.getEncoderY() / ticksPerInch;
++
++        if (firstLoop) {
++            firstLoop = false;
++            lastForwardPod_in = forwardPod_in;
++            lastStrafePod_in = strafePod_in;
 +            lastRawHeading_rad = rawHeading_rad;
 +            return;
 +        }
 +
-+        double[] delta_in = new double[wheels_in.length];
-+        for (int i = 0; i < wheels_in.length; i++) {
-+            delta_in[i] = wheels_in[i] - lastWheels_in[i]; // Your math operation here
-+        }
-+
-+        double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;
-+        double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++        double forwardPodStep_in = forwardPod_in - lastForwardPod_in;
++        double strafePodStep_in = strafePod_in - lastStrafePod_in;
++        double turn_rad = rawHeading_rad - lastRawHeading_rad;
  
          // When on L120S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -101,6 +101,8 @@
+         // When on L120S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+         // for what to do here.
++        double forward_in = forwardPodStep_in + xPodOffset_in * turn_rad;
++        double strafe_in = strafePodStep_in - yPodOffset_in * turn_rad;
+ 
+         // When on L120S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s060
 ```
 
 ### A change
@@ -87,9 +134,9 @@ Delete 0 lines, write 5 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -70,6 +70,11 @@
-         // When on L120S050, see
-         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+@@ -107,6 +107,11 @@
+         // When on L120S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s060
          // for what to do here.
 +        double heading_rad = rawHeading_rad + headingOffset_rad;
 +        double sinHeading = Math.sin(heading_rad);
@@ -97,6 +144,6 @@ Delete 0 lines, write 5 lines.
 +        x_in += forward_in * cosHeading - strafe_in * sinHeading;
 +        y_in += forward_in * sinHeading + strafe_in * cosHeading;
  
-         lastWheels_in = wheels_in.clone();
-         lastRawHeading_rad = rawHeading_rad;
+         lastForwardPod_in = forwardPod_in;
+         lastStrafePod_in = strafePod_in;
 ```

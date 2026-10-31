@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="125 lesson: the first autonomous" href="l125.html"><link rel="prev" title="117 lesson: let AutoTune tune the robot" href="l117.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="122 lesson: compare your localizers with the Pinpoint’s" href="l122.html"><link rel="prev" title="117 lesson: let AutoTune tune the robot" href="l117.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>120 lesson: work out where the robot is from the drive wheels - Corbels FTC Programming Lessons in Java</title>
+        <title>120 lesson: work out where the robot is from the Pinpoint’s pods - Corbels FTC Programming Lessons in Java</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -214,26 +214,34 @@
 <li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l045.html">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="h093.html">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="h095.html">095 how-to: check your work without a robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h096.html">096 how-to: watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h097.html">097 how-to: check your work without a robot</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +277,32 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -339,46 +354,43 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="lesson-work-out-where-the-robot-is-from-the-drive-wheels">
-<h1>120 lesson: work out where the robot is from the drive wheels<a class="headerlink" href="#lesson-work-out-where-the-robot-is-from-the-drive-wheels" title="Link to this heading">¶</a></h1>
-<figure class="file-named align-default" id="fig-l120-shadow-still">
-<img alt="../../media/fig-l120-shadow-still_7eca34744b0f.png" src="../../media/fig-l120-shadow-still_7eca34744b0f.png" />
+          <section id="lesson-work-out-where-the-robot-is-from-the-pinpoint-s-pods">
+<h1>120 lesson: work out where the robot is from the Pinpoint’s pods<a class="headerlink" href="#lesson-work-out-where-the-robot-is-from-the-pinpoint-s-pods" title="Link to this heading">¶</a></h1>
+<figure class="file-named align-default" id="fig-l120-pods-follow">
+<img alt="../../media/fig-l120-pods-follow_1e2bcc2e4a0a.png" src="../../media/fig-l120-pods-follow_1e2bcc2e4a0a.png" />
 <figcaption>
-<p><span class="caption-text">fig-l120-shadow-still.png</span><a class="headerlink" href="#fig-l120-shadow-still" title="Link to this image">¶</a></p>
+<p><span class="caption-text">fig-l120-pods-follow.png</span><a class="headerlink" href="#fig-l120-pods-follow" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>Your own localizer runs beside the robot’s own, and both are published so they can be graphed
-against each other. Yours counts how far the four drive wheels roll. The robot’s own counts the
-Pinpoint’s two pods. Neither is the truth. A tape measure is.</p>
+<p>The Pinpoint works out where the robot is on its own chip. Here you do the same math yourself,
+from the counts of its two pods. Yours runs beside the robot’s own, and both are published so they
+can be graphed against each other.</p>
 <p><strong>Before you start.</strong></p>
 <ul class="simple">
-<li><p>L110 is done, so the follower holds a real drivetrain, and L115 is done, so the Pinpoint is on the
-robot.</p></li>
+<li><p>L113 is done, and L117 is done, so the Pinpoint is on the robot and the robot’s own file in the
+<code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder holds its <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code>.</p></li>
 <li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
-<li><p>The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
-for the last step.</p></li>
+<li><p>The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.</p></li>
 </ul>
-<p>The simulator turns each wheel’s encoder by how far the wheel rolls, at <code class="docutils literal notranslate"><span class="pre">Constants.ticksPerInch</span></code>,
-and turns the IMU with the robot. It has no slip, so a finished localizer follows the Pinpoint
-there more closely than it will on the robot. The tests check the arithmetic step by step.</p>
+<p>In the simulator, a simulated Pinpoint counts the simulated robot’s travel, with its pods where
+the robot’s <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> says. It has no slip, so a finished localizer follows the
+simulator’s own localizer there. The tests check the arithmetic step by step.</p>
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l120s010">
 <span id="l120s010-copy-the-two-starters-into-mytry"></span><h3>L120S010: copy the two starters into mytry<a class="headerlink" href="#l120s010" title="Link to this heading">¶</a></h3>
-<p>This lesson has two files. One is the OpMode. The other is the <strong>localizer</strong>: the code that works
-out where the robot is.</p>
-<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and
-paste. In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to
-Git, click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>.</p>
+<p><strong>Copy.</strong> In <code class="docutils literal notranslate"><span class="pre">lessons</span></code>, click <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code> once and copy it. Click <code class="docutils literal notranslate"><span class="pre">mytry</span></code> once and paste.
+In the <strong>Copy Class</strong> box, click <strong>OK</strong>. If Android Studio asks whether to add the file to Git,
+click <strong>Add</strong>. Do the same for <code class="docutils literal notranslate"><span class="pre">L120PinpointLocalizer</span></code>.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L120PinpointLocalizer</span></code>.</p></li>
 </ul>
 </section>
 <section id="l120s020">
 <span id="l120s020-switch-your-copy-on"></span><h3>L120S020: switch your copy on<a class="headerlink" href="#l120s020" title="Link to this heading">¶</a></h3>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that
-names this step.</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names this
+step.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Under the step’s comment, the next line reads
@@ -387,111 +399,139 @@ names this step.</p>
 </section>
 <section id="l120s030">
 <span id="l120s030-run-your-localizer-beside-the-robot-s-own"></span><h3>L120S030: run your localizer beside the robot’s own<a class="headerlink" href="#l120s030" title="Link to this heading">¶</a></h3>
-<p>The robot’s own localizer reads the Pinpoint. A <strong>shadow</strong> localizer runs beside it. It is updated
-and published every loop, but it never steers the robot.</p>
-<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L120CompareLocalizersOpMode</span></code>, find <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code> and the comment that names
-this step. Under it, type:</p>
+<p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L120PinpointOpMode</span></code>, find <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code> and the comment that names this
+step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">mytry/L120PinpointOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S030, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="n">HardwareWheelSource</span><span class="w"> </span><span class="n">wheelSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HardwareWheelSource</span><span class="p">(</span><span class="n">hardware</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">L120EncoderLocalizer</span><span class="w"> </span><span class="n">driveWheelEncoders</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">L120EncoderLocalizer</span><span class="p">(</span><span class="n">wheelSource</span><span class="p">);</span>
-</span><span class="hll"><span class="w">        </span><span class="n">shadowLocalizers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"driveWheelEncoders"</span><span class="p">,</span><span class="w"> </span><span class="n">driveWheelEncoders</span><span class="p">);</span>
+<span class="hll"><span class="w">        </span><span class="n">PinpointSource</span><span class="w"> </span><span class="n">pinpointSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HardwarePinpointSource</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">hardwareMap</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">L120PinpointLocalizer</span><span class="w"> </span><span class="n">pinpointPods</span><span class="w"> </span><span class="o">=</span>
+</span><span class="hll"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">L120PinpointLocalizer</span><span class="p">(</span><span class="n">pinpointSource</span><span class="p">,</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">localizerConfig</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">shadowLocalizers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">"pinpointPods"</span><span class="p">,</span><span class="w"> </span><span class="n">pinpointPods</span><span class="p">);</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code> turns red, because this file does not know where it lives yet.</p>
-<ul class="steps simple">
-<li><p>Click <code class="docutils literal notranslate"><span class="pre">HardwareWheelSource</span></code>.</p></li>
-<li><p>Press Option+Enter on a Mac, Alt+Enter on Windows, and pick <strong>Import class…</strong>.</p></li>
-<li><p>Android Studio adds an <code class="docutils literal notranslate"><span class="pre">import</span></code> line at the top of the file, and the red goes away.</p></li>
-</ul>
-<figure class="file-named align-default" id="fig-l120-import">
-<img alt="../../media/fig-l120-import_a86a735cc3e6.png" src="../../media/fig-l120-import_a86a735cc3e6.png" />
-<figcaption>
-<p><span class="caption-text">fig-l120-import.png</span><a class="headerlink" href="#fig-l120-import" title="Link to this image">¶</a></p>
-</figcaption>
-</figure>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">find</span></code> gives back the robot’s Pinpoint, or the simulated one in the simulator. <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code>
+is what L117 measured: where the pods sit, and which way they count.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PinpointSource</span></code>, <code class="docutils literal notranslate"><span class="pre">HardwarePinpointSource</span></code> and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> turn red. Click each one, press
+Option+Enter on a Mac or Alt+Enter on Windows, and pick <strong>Import class…</strong>, as in L113S030.</p>
 <p><strong>Simulator.</strong> In the Terminal, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L120CompareLocalizersOpMode --pad"</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">simRun</span> <span class="o">--</span><span class="n">args</span><span class="o">=</span><span class="s2">"mytry.L120PinpointOpMode --pad"</span>
 </pre></div>
 </div>
 <p><strong>AdvantageScope.</strong> Connect to the simulator as in L020. Open the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder, then
-<code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> inside it.</p>
+<code class="docutils literal notranslate"><span class="pre">pinpointPods</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> inside it.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Both start at <code class="docutils literal notranslate"><span class="pre">x_in</span></code> 72, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> 10.5 and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> 90.</p></li>
-<li><p>Push the left stick forward. <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> climbs, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> stays where it
-started. Yours does not count anything yet.</p></li>
+<li><p>Push the left stick forward. <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code> climbs, and <code class="docutils literal notranslate"><span class="pre">pinpointPods</span></code> stays where it started.</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">x_in</span></code> is how many inches the robot is from the left edge of the 2D Field, and <code class="docutils literal notranslate"><span class="pre">y_in</span></code> how many from
-its bottom edge. <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> is the way the robot’s nose points, and 90 is straight up the field.
-Since L040, the <strong>Poses</strong> list has called that same direction 180°. Both mean up the field.</p>
 </section>
 <section id="l120s040">
-<span id="l120s040-add-up-how-far-the-wheels-rolled"></span><h3>L120S040: add up how far the wheels rolled<a class="headerlink" href="#l120s040" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">update</span></code> runs once a loop. Each time, it can only see how far each wheel has rolled in total, so it
-remembers last loop’s numbers and takes them away.</p>
-<p>The first loop has nothing to take away from, so it only remembers.</p>
-<p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Open <code class="docutils literal notranslate"><span class="pre">L120EncoderLocalizer</span></code>. In
-<code class="docutils literal notranslate"><span class="pre">update</span></code>, find the comment that names this step. Under it, type:</p>
+<span id="l120s040-read-the-pods-in-inches"></span><h3>L120S040: read the pods in inches<a class="headerlink" href="#l120s040" title="Link to this heading">¶</a></h3>
+<p>Each pod counts <strong>ticks</strong> as it rolls. The Pinpoint’s raw count does not know which way a pod was
+mounted, or how many ticks make an inch. L117 measured both into <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code>.</p>
+<p><strong>Change.</strong> Press Ctrl+C in the Terminal to stop the simulator. Open <code class="docutils literal notranslate"><span class="pre">L120PinpointLocalizer</span></code>. In
+the constructor, find the comment that names this step. Under it, type:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mytry/L120PinpointLocalizer.java</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S040, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
-<span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lastWheels_in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="n">lastWheels_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wheels_in</span><span class="p">.</span><span class="na">clone</span><span class="p">();</span>
+<span class="hll"><span class="w">        </span><span class="n">ticksPerInch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PinpointSource</span><span class="p">.</span><span class="na">ticksPerMm</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">podType</span><span class="p">.</span><span class="na">get</span><span class="p">())</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">25.4</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">xPodDirection</span><span class="p">.</span><span class="na">get</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GoBildaPinpointDriver</span><span class="p">.</span><span class="na">EncoderDirection</span><span class="p">.</span><span class="na">REVERSED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">xSign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">yPodDirection</span><span class="p">.</span><span class="na">get</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">GoBildaPinpointDriver</span><span class="p">.</span><span class="na">EncoderDirection</span><span class="p">.</span><span class="na">REVERSED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">ySign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="n">xPodOffset_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="na">xPodOffset</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="n">yPodOffset_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="na">yPodOffset</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+</span></pre></div>
+</div>
+</div>
+<p>There are 25.4 mm in an inch. A pod set <code class="docutils literal notranslate"><span class="pre">REVERSED</span></code> counts down as the robot moves its way, so its
+sign is -1.0.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">update</span></code>, find the next comment that names this step. Under it, type:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S040, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="n">forwardPod_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xSign</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="na">getEncoderX</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ticksPerInch</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strafePod_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ySign</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="na">getEncoderY</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ticksPerInch</span><span class="p">;</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">firstLoop</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">firstLoop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="n">lastForwardPod_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardPod_in</span><span class="p">;</span>
+</span><span class="hll"><span class="w">            </span><span class="n">lastStrafePod_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strafePod_in</span><span class="p">;</span>
 </span><span class="hll"><span class="w">            </span><span class="n">lastRawHeading_rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rawHeading_rad</span><span class="p">;</span>
 </span><span class="hll"><span class="w">            </span><span class="k">return</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="o">[]</span><span class="w"> </span><span class="n">delta_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">double</span><span class="o">[</span><span class="n">wheels_in</span><span class="p">.</span><span class="na">length</span><span class="o">]</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">wheels_in</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span class="hll"><span class="w">            </span><span class="n">delta_in</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wheels_in</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastWheels_in</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// Your math operation here</span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forwardPodStep_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardPod_in</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastForwardPod_in</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafePodStep_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strafePod_in</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastStrafePod_in</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">turn_rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rawHeading_rad</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lastRawHeading_rad</span><span class="p">;</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forward_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">delta_in</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
-</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">delta_in</span><span class="o">[</span><span class="n">FL</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">FR</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">BL</span><span class="o">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">delta_in</span><span class="o">[</span><span class="n">BR</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">4.0</span><span class="p">;</span>
-</span><span class="hll">
-</span><span class="hll"><span class="w">        </span><span class="n">x_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward_in</span><span class="p">;</span>
-</span><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strafe_in</span><span class="p">;</span>
-</pre></div>
+</span><span class="hll"><span class="w">        </span><span class="n">x_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forwardPodStep_in</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strafePodStep_in</span><span class="p">;</span>
+</span></pre></div>
 </div>
-<p>Android Studio types the <code class="docutils literal notranslate"><span class="pre">}</span></code> for you when you press Enter after the <code class="docutils literal notranslate"><span class="pre">{</span></code>. Type the rest below it.</p>
-<p><code class="docutils literal notranslate"><span class="pre">null</span></code> means “nothing yet”. <code class="docutils literal notranslate"><span class="pre">.clone()</span></code> makes a copy, so next loop’s numbers do not change it.
-<code class="docutils literal notranslate"><span class="pre">return</span></code> leaves <code class="docutils literal notranslate"><span class="pre">update</span></code> early, until next loop. The end of a name says its unit: <code class="docutils literal notranslate"><span class="pre">_in</span></code> is inches,
-and <code class="docutils literal notranslate"><span class="pre">_rad</span></code> is radians.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">for</span></code> line runs the line inside it once for each wheel, with <code class="docutils literal notranslate"><span class="pre">i</span></code> at 0, 1, 2 and then 3, so
-<code class="docutils literal notranslate"><span class="pre">delta_in</span></code> holds how far each wheel rolled since last loop. <code class="docutils literal notranslate"><span class="pre">FL</span></code>, <code class="docutils literal notranslate"><span class="pre">FR</span></code>, <code class="docutils literal notranslate"><span class="pre">BL</span></code> and <code class="docutils literal notranslate"><span class="pre">BR</span></code> are 0, 1, 2
-and 3, the front left, front right, back left and back right wheels’ places in it.</p>
-<p>The two long lines are L090’s table read backwards. There, three numbers made four wheel speeds.
-Here, four wheel moves make <code class="docutils literal notranslate"><span class="pre">forward_in</span></code> and <code class="docutils literal notranslate"><span class="pre">strafe_in</span></code> again.</p>
+<p>This is L113S040 with two pods in place of four wheels. Each pod’s step is how far it rolled since
+last loop. <code class="docutils literal notranslate"><span class="pre">turn_rad</span></code> is how far the robot turned.</p>
 <p><strong>Check.</strong></p>
 <ul>
-<li><p>In the Terminal, run this. It prints <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">tests</span> <span class="pre">completed,</span> <span class="pre">2</span> <span class="pre">failed</span></code>, then <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">FAILED</span></code> and more
-red lines. That is what failing tests look like here, and two are meant to fail now.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testDebugUnitTest</span> <span class="o">--</span><span class="n">tests</span> <span class="s1">'*L120EncoderLocalizerTest*'</span>
+<li><p>In the Terminal, run this. It prints <code class="docutils literal notranslate"><span class="pre">7</span> <span class="pre">tests</span> <span class="pre">completed,</span> <span class="pre">3</span> <span class="pre">failed</span></code>. The three that fail pass by
+the end of L120S060.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="p">:</span><span class="n">TeamCode</span><span class="p">:</span><span class="n">testDebugUnitTest</span> <span class="o">--</span><span class="n">tests</span> <span class="s1">'*L120PinpointLocalizerTest*'</span>
 </pre></div>
 </div>
 </li>
 </ul>
-<p>The two that fail are
-<code class="docutils literal notranslate"><span class="pre">appliesTheHeadingSoSidewaysIsRelativeToTheRobot</span></code> and
-<code class="docutils literal notranslate"><span class="pre">setPoseMovesTheEstimateWithoutMovingTheRobot</span></code>. Both are about which way the robot faces. That is
-the next step.</p>
+<p><code class="docutils literal notranslate"><span class="pre">turningOnTheSpotDoesNotMoveIt</span></code> is one that fails. That is the next step.</p>
 </section>
 <section id="l120s050">
-<span id="l120s050-turn-the-step-to-face-the-way-the-robot-faces"></span><h3>L120S050: turn the step to face the way the robot faces<a class="headerlink" href="#l120s050" title="Link to this heading">¶</a></h3>
-<figure class="file-named align-default" id="fig-odometry-step">
-<img alt="../../media/fig-odometry-step_4d3452b4bec9.png" src="../../media/fig-odometry-step_4d3452b4bec9.png" />
+<span id="l120s050-take-out-what-turning-rolled"></span><h3>L120S050: take out what turning rolled<a class="headerlink" href="#l120s050" title="Link to this heading">¶</a></h3>
+<figure class="file-named align-default" id="fig-l120-pod-turn">
+<img alt="../../media/fig-l120-pod-turn_a661054f2c99.png" src="../../media/fig-l120-pod-turn_a661054f2c99.png" />
 <figcaption>
-<p><span class="caption-text">fig-odometry-step.png</span><a class="headerlink" href="#fig-odometry-step" title="Link to this image">¶</a></p>
+<p><span class="caption-text">fig-l120-pod-turn.png</span><a class="headerlink" href="#fig-l120-pod-turn" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p><code class="docutils literal notranslate"><span class="pre">forward_in</span></code> is forward for the robot, not for the field. The robot starts facing along the
-field’s y, so its forward is the field’s y. L120S040 added it to x.</p>
-<p><strong>Change.</strong> Delete the two lines <code class="docutils literal notranslate"><span class="pre">x_in</span> <span class="pre">+=</span> <span class="pre">forward_in;</span></code> and <code class="docutils literal notranslate"><span class="pre">y_in</span> <span class="pre">+=</span> <span class="pre">strafe_in;</span></code>. Find the comment
-that names this step. Under it, type:</p>
+<p>The pods do not sit at the robot’s middle. When the robot turns on the spot, each pod rolls along a
+circle around the middle, and counts it. The forward pod sits <code class="docutils literal notranslate"><span class="pre">xPodOffset_in</span></code> to the left of the
+middle. Turning left rolls it backward by that offset times the turn. The strafe pod sits
+<code class="docutils literal notranslate"><span class="pre">yPodOffset_in</span></code> ahead of the middle, and the same turn rolls it to the left.</p>
+<p>The four drive wheels in L113 sit in pairs on each side, so a turn rolled them by equal and
+opposite amounts that cancelled. The pods do not cancel, so you take the turn out.</p>
+<p><strong>Change.</strong> Delete the two lines <code class="docutils literal notranslate"><span class="pre">x_in</span> <span class="pre">+=</span> <span class="pre">forwardPodStep_in;</span></code> and <code class="docutils literal notranslate"><span class="pre">y_in</span> <span class="pre">+=</span> <span class="pre">strafePodStep_in;</span></code>. Find
+the comment that names this step. Under it, type:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S050, see</span>
 <span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050</span>
+<span class="w">        </span><span class="c1">// for what to do here.</span>
+<span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">forward_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">forwardPodStep_in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xPodOffset_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">turn_rad</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">strafe_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strafePodStep_in</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">yPodOffset_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">turn_rad</span><span class="p">;</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">        </span><span class="n">x_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward_in</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strafe_in</span><span class="p">;</span>
+</span></pre></div>
+</div>
+<p><strong>Check.</strong></p>
+<ul class="simple">
+<li><p>Run the same test command again. It prints <code class="docutils literal notranslate"><span class="pre">7</span> <span class="pre">tests</span> <span class="pre">completed,</span> <span class="pre">2</span> <span class="pre">failed</span></code>.</p></li>
+</ul>
+<p>The two that fail are <code class="docutils literal notranslate"><span class="pre">appliesTheHeadingSoForwardIsTheRobots</span></code> and
+<code class="docutils literal notranslate"><span class="pre">setPoseMovesTheEstimateWithoutMovingTheRobot</span></code>, as in L113S040. Both are about which way the robot
+faces.</p>
+</section>
+<section id="l120s060">
+<span id="l120s060-turn-the-step-to-face-the-way-the-robot-faces"></span><h3>L120S060: turn the step to face the way the robot faces<a class="headerlink" href="#l120s060" title="Link to this heading">¶</a></h3>
+<p><strong>Change.</strong> Delete the two lines <code class="docutils literal notranslate"><span class="pre">x_in</span> <span class="pre">+=</span> <span class="pre">forward_in;</span></code> and <code class="docutils literal notranslate"><span class="pre">y_in</span> <span class="pre">+=</span> <span class="pre">strafe_in;</span></code>. Find the comment
+that names this step. Under it, type the same lines as in L113S050:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">mytry/L120PinpointLocalizer.java</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c1">// When on L120S060, see</span>
+<span class="w">        </span><span class="c1">// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s060</span>
 <span class="w">        </span><span class="c1">// for what to do here.</span>
 <span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">heading_rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rawHeading_rad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">headingOffset_rad</span><span class="p">;</span>
 </span><span class="hll"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">sinHeading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sin</span><span class="p">(</span><span class="n">heading_rad</span><span class="p">);</span>
@@ -500,65 +540,37 @@ that names this step. Under it, type:</p>
 </span><span class="hll"><span class="w">        </span><span class="n">y_in</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">forward_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sinHeading</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strafe_in</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosHeading</span><span class="p">;</span>
 </span></pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> share the step out between x and y. Facing along x, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 1.0 and <code class="docutils literal notranslate"><span class="pre">sin</span></code>
-is 0.0, so forward all goes on x. Facing along y, <code class="docutils literal notranslate"><span class="pre">cos</span></code> is 0.0 and <code class="docutils literal notranslate"><span class="pre">sin</span></code> is 1.0, so forward all goes
-on y. In between, each gets a part.</p>
-<p><code class="docutils literal notranslate"><span class="pre">heading_rad</span></code> counts in <strong>radians</strong>, not degrees. One whole turn is about 6.28 radians. <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code>
-and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> use radians.</p>
+</div>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Run the same test command again. It ends with <code class="docutils literal notranslate"><span class="pre">BUILD</span> <span class="pre">SUCCESSFUL</span></code>.</p></li>
 </ul>
-<figure class="file-named align-default" id="fig-l120-encoders-follow">
-<img alt="../../media/fig-l120-encoders-follow_17ee96a78410.png" src="../../media/fig-l120-encoders-follow_17ee96a78410.png" />
-<figcaption>
-<p><span class="caption-text">fig-l120-encoders-follow.png</span><a class="headerlink" href="#fig-l120-encoders-follow" title="Link to this image">¶</a></p>
-</figcaption>
-</figure>
 <p><strong>Simulator.</strong> Run the command from L120S030 again, and connect AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Push the left stick forward. This time <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders/y_in</span></code> climbs with <code class="docutils literal notranslate"><span class="pre">pinPoint/y_in</span></code>, and
-the two stay within a tenth of an inch.</p></li>
+<li><p>Drive around the field, turning as you go. <code class="docutils literal notranslate"><span class="pre">pinpointPods</span></code> follows <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code>: <code class="docutils literal notranslate"><span class="pre">x_in</span></code>, <code class="docutils literal notranslate"><span class="pre">y_in</span></code>
+and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> each stay within half an inch or half a degree.</p></li>
 </ul>
-<p>The simulator turns each wheel’s encoder by how far it rolls, so your localizer has something to
-count.</p>
 </section>
-<section id="l120s060">
-<span id="l120s060-drive-it-then-measure-it"></span><h3>L120S060: drive it, then measure it<a class="headerlink" href="#l120s060" title="Link to this heading">¶</a></h3>
-<p><strong>Robot.</strong> Stop the simulator. Send the code, run <code class="docutils literal notranslate"><span class="pre">L120</span> <span class="pre">Compare</span> <span class="pre">Localizers</span></code> from the Driver
-Station, and watch it in AdvantageScope.</p>
+<section id="l120s070">
+<span id="l120s070-drive-it-on-the-robot"></span><h3>L120S070: drive it on the robot<a class="headerlink" href="#l120s070" title="Link to this heading">¶</a></h3>
+<p><strong>Robot.</strong> Stop the simulator. Send the code, run <code class="docutils literal notranslate"><span class="pre">L120</span> <span class="pre">Pinpoint</span></code> from the Driver Station, and
+watch it in AdvantageScope.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>Drive about 80 in straight ahead and stop. Both <code class="docutils literal notranslate"><span class="pre">y_in</span></code> numbers moved, and they do not quite agree.</p></li>
-<li><p>Measure how far the robot really went with the tape measure.</p></li>
+<li><p>Drive around and stop. <code class="docutils literal notranslate"><span class="pre">pinpointPods</span></code> and <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> read the same two pods, so they stay close.</p></li>
 </ul>
-<p>Then put the robot on the blocks and push the left stick forward. The wheels spin, and the robot
-does not go anywhere. <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> walks off across the field. <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> stays put,
-because its pods are off the floor too.</p>
-<p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L120CompareLocalizersOpMode</span> <span class="pre">--left_stick_y=-0.5&quot;</span></code> drives forward
-for the picture at the top, and for L120S050’s.</p>
-<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">driveWheelEncoders</span></code> is missing from the <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder in L120S030, the
-three lines are not in <code class="docutils literal notranslate"><span class="pre">shadowLocalizers()</span></code>.
-<code class="docutils literal notranslate"><span class="pre">LessonsTest.l120_theEncoderLocalizerRunsAlongsideAndIsLogged</span></code> fails with
-<code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">shadow</span> <span class="pre">localizer</span> <span class="pre">is</span> <span class="pre">logged:</span></code> and the list of names that were published.</p>
-<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">countsStrafingLeft</span></code> fails with <code class="docutils literal notranslate"><span class="pre">left</span> <span class="pre">is</span> <span class="pre">+y</span> <span class="pre">when</span> <span class="pre">facing</span> <span class="pre">+x</span></code>, a sign in the
-<code class="docutils literal notranslate"><span class="pre">strafe_in</span></code> line is wrong. With the sign in front of <code class="docutils literal notranslate"><span class="pre">delta_in[FR]</span></code> flipped, it reads
-<code class="docutils literal notranslate"><span class="pre">expected:&lt;12.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;6.0&gt;</span></code>, and three other tests fail with it.</p>
-<p><strong>If it didn’t</strong>, and all 8 tests fail with
-<code class="docutils literal notranslate"><span class="pre">Cannot</span> <span class="pre">load</span> <span class="pre">from</span> <span class="pre">double</span> <span class="pre">array</span> <span class="pre">because</span> <span class="pre">&quot;this.lastWheels_in&quot;</span> <span class="pre">is</span> <span class="pre">null</span></code>, the first-loop <code class="docutils literal notranslate"><span class="pre">if</span></code> is
-missing.</p>
-<p><strong>What you just did.</strong> That is <strong>dead reckoning</strong>: believe the wheels, and add up every step. It
-has no other source, so a wheel that spins without carrying the robot moves the estimate. The test
-<code class="docutils literal notranslate"><span class="pre">aWheelThatSlipsIsSimplyBelieved</span></code> shows it on a laptop: one wheel rolling 24 in on its own moves
-the estimate 6 in. The Pinpoint’s pods only measure and never push, so they slip less. That is the
-case for having them.</p>
-<p>The heading here is the one at the end of each step. While driving and turning at once, the middle
-of the step would be closer. Taking the end needs no subtraction of two
-headings, so a turn through the back of the circle needs no care.</p>
-<p>The localizer reports a speed of zero. Only <code class="docutils literal notranslate"><span class="pre">x_in</span></code>, <code class="docutils literal notranslate"><span class="pre">y_in</span></code> and <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> are published for a
-shadow, so nothing reads its speed.</p>
-<p><strong>Where next.</strong> <a class="reference internal" href="l125.html"><span class="std std-doc">L125</span></a> drives 24 inches on its own.</p>
+<p><strong>Our tests.</strong> <code class="docutils literal notranslate"><span class="pre">LessonsTest.l120_thePinpointLocalizerFollowsTheRobot</span></code> drives the simulated robot
+forward, left and turning for 100 loops, and checks yours against the simulator’s own localizer.</p>
+<p><strong>If it didn’t</strong>, and the robot’s estimate drifts sideways as it turns, a sign in L120S050 is
+wrong. With the <code class="docutils literal notranslate"><span class="pre">+</span></code> in the <code class="docutils literal notranslate"><span class="pre">forward_in</span></code> line made a <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">turningOnTheSpotDoesNotMoveIt</span></code> fails with
+<code class="docutils literal notranslate"><span class="pre">both</span> <span class="pre">pods</span> <span class="pre">rolled,</span> <span class="pre">but</span> <span class="pre">only</span> <span class="pre">from</span> <span class="pre">turning:</span> <span class="pre">y</span> <span class="pre">expected:&lt;0.0&gt;</span> <span class="pre">but</span> <span class="pre">was:&lt;-6.284174784625778&gt;</span></code>.</p>
+<p><strong>If it didn’t</strong>, and <code class="docutils literal notranslate"><span class="pre">pinpointPods</span></code> goes backward while the robot goes forward on the robot but not
+in the simulator, the Pinpoint’s raw count may already apply the <code class="docutils literal notranslate"><span class="pre">REVERSED</span></code> setting. The simulator
+takes it that it does not.</p>
+<p><strong>What you just did.</strong> The Pinpoint’s chip does this same math, and more often than your loop
+runs. L122 graphs your two localizers and the Pinpoint’s against each other.</p>
+<p><strong>Where next.</strong> <a class="reference internal" href="l122.html"><span class="std std-doc">L122</span></a> compares the localizers.</p>
 </section>
 </section>
 </section>
@@ -568,12 +580,12 @@ shadow, so nothing reads its speed.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="l125.html">
+          <a class="next-page" href="l122.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">125 lesson: the first autonomous</div>
+                <div class="title">122 lesson: compare your localizers with the Pinpoint’s</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -618,14 +630,15 @@ shadow, so nothing reads its speed.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">120 lesson: work out where the robot is from the drive wheels</a><ul>
+<li><a class="reference internal" href="#">120 lesson: work out where the robot is from the Pinpoint’s pods</a><ul>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
 <li><a class="reference internal" href="#l120s010-copy-the-two-starters-into-mytry">L120S010: copy the two starters into mytry</a></li>
 <li><a class="reference internal" href="#l120s020-switch-your-copy-on">L120S020: switch your copy on</a></li>
 <li><a class="reference internal" href="#l120s030-run-your-localizer-beside-the-robot-s-own">L120S030: run your localizer beside the robot’s own</a></li>
-<li><a class="reference internal" href="#l120s040-add-up-how-far-the-wheels-rolled">L120S040: add up how far the wheels rolled</a></li>
-<li><a class="reference internal" href="#l120s050-turn-the-step-to-face-the-way-the-robot-faces">L120S050: turn the step to face the way the robot faces</a></li>
-<li><a class="reference internal" href="#l120s060-drive-it-then-measure-it">L120S060: drive it, then measure it</a></li>
+<li><a class="reference internal" href="#l120s040-read-the-pods-in-inches">L120S040: read the pods in inches</a></li>
+<li><a class="reference internal" href="#l120s050-take-out-what-turning-rolled">L120S050: take out what turning rolled</a></li>
+<li><a class="reference internal" href="#l120s060-turn-the-step-to-face-the-way-the-robot-faces">L120S060: turn the step to face the way the robot faces</a></li>
+<li><a class="reference internal" href="#l120s070-drive-it-on-the-robot">L120S070: drive it on the robot</a></li>
 </ul>
 </li>
 </ul>

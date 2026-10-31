@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="115 lesson: mount the Pinpoint and plug it in" href="l115.html"><link rel="prev" title="095 how-to: check your work without a robot" href="h095.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="111 what’s happening: the classes your OpMode builds on" href="e111.html"><link rel="prev" title="097 how-to: check your work without a robot" href="h097.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>110 lesson: hand the wheels to the path follower - Corbels FTC Programming Lessons in Java</title>
+        <title>110 lesson: connect the drivetrain to the follower, with no path yet - Corbels FTC Programming Lessons in Java</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -214,26 +214,34 @@
 <li class="toctree-l1"><a class="reference internal" href="e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l045.html">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="h093.html">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="h095.html">095 how-to: check your work without a robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h096.html">096 how-to: watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="h097.html">097 how-to: check your work without a robot</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +277,32 @@
 <li class="toctree-l2"><a class="reference internal" href="../r950/L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../r950/AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../r950/L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -339,8 +354,8 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="lesson-hand-the-wheels-to-the-path-follower">
-<h1>110 lesson: hand the wheels to the path follower<a class="headerlink" href="#lesson-hand-the-wheels-to-the-path-follower" title="Link to this heading">¶</a></h1>
+          <section id="lesson-connect-the-drivetrain-to-the-follower-with-no-path-yet">
+<h1>110 lesson: connect the drivetrain to the follower, with no path yet<a class="headerlink" href="#lesson-connect-the-drivetrain-to-the-follower-with-no-path-yet" title="Link to this heading">¶</a></h1>
 <figure class="file-named align-default" id="fig-l110-slide">
 <img alt="../../media/fig-l110-slide_0d801b6cc793.png" src="../../media/fig-l110-slide_0d801b6cc793.png" />
 <figcaption>
@@ -358,7 +373,7 @@ the robot along a path; from L125 on, it drives the robot itself.</p>
 </ul>
 <p>A follower holding the drivetrain knows where the robot is. It can hold a heading, and it can drive
 a path. Up to L090 the follower was handed a stand-in that ignored it, so the lesson had the
-motors to itself. L120 onwards need the follower to hold the real one.</p>
+motors to itself. L113 onwards need the follower to hold the real one.</p>
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l110s010">
@@ -377,10 +392,17 @@ Git, click <strong>Add</strong>. Do the same for <code class="docutils literal n
 <span id="l110s020-switch-your-copy-on"></span><h3>L110S020: switch your copy on<a class="headerlink" href="#l110s020" title="Link to this heading">¶</a></h3>
 <p><strong>Change.</strong> In <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code>, delete the line <code class="docutils literal notranslate"><span class="pre">&#64;Disabled</span></code>, under the comment that names
 this step.</p>
+<p><code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code> uses the <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code> you wrote in L065. Yours is in <code class="docutils literal notranslate"><span class="pre">mytry.l065</span></code>, not in
+<code class="docutils literal notranslate"><span class="pre">lessons</span></code>. So the starter turns the lines that use it into comments. Find each other comment that
+names this step, the first one among the <code class="docutils literal notranslate"><span class="pre">import</span></code> lines. Under it, delete the <code class="docutils literal notranslate"><span class="pre">//</span></code> at the start of
+each line.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>Under the step’s comment, the next line reads
 <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">'public'</span> <span class="pre">so</span> <span class="pre">the</span> <span class="pre">robot</span> <span class="pre">can</span> <span class="pre">run</span> <span class="pre">this</span> <span class="pre">OpMode.</span> <span class="pre">'public'</span> <span class="pre">allows</span> <span class="pre">access</span> <span class="pre">from</span> <span class="pre">any</span> <span class="pre">code.</span></code></p></li>
+<li><p>Near the top of the class, the line under the comment reads
+<code class="docutils literal notranslate"><span class="pre">StickShaper</span> <span class="pre">stickShaper</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">StickShaper(0.05);</span></code>.</p></li>
+<li><p>No name in the file is red.</p></li>
 </ul>
 </section>
 <section id="l110s030">
@@ -483,6 +505,8 @@ with its nose pointing the same way.</p></li>
 <ul class="simple">
 <li><p>It drives the way L090 did: forward, sideways, turning, and the diagonals.</p></li>
 </ul>
+<p><strong>What’s happening.</strong> <a class="reference internal" href="e111.html"><span class="std std-doc">E111</span></a> draws the classes your OpMode and drivetrain build on, and
+what the platform calls.</p>
 <p><strong>No gamepad.</strong> <code class="docutils literal notranslate"><span class="pre">--args=&quot;mytry.L110FollowerOpMode</span> <span class="pre">--left_stick_x=-0.5&quot;</span></code> slides it left for the
 picture at the top. The simulator has no walls, so a robot left running slides off the field.</p>
 <p><strong>If it didn’t</strong>, and the robot does not move at all, <code class="docutils literal notranslate"><span class="pre">initAfter</span></code> is still <code class="docutils literal notranslate"><span class="pre">initAfter()</span></code>. The
@@ -496,11 +520,10 @@ the lesson commanded the wheels? If so, it uses what the lesson commanded. If no
 the follower asked for. Either way the arcade command goes through the same
 <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>, so the sticks and the follower agree about which wheel does what.</p>
 <p>That door is ours, not Pedro’s. Pedro’s own mecanum drivetrain does only what the follower says.
-Ours lets the driver reach past it to the wheels, which the teleop lessons after L120 need. The
+Ours lets the driver reach past it to the wheels, which the teleop lessons after L113 need. The
 rest of <code class="docutils literal notranslate"><span class="pre">CorbelsDriveTrain</span></code>, which answers everything else Pedro’s follower asks a drivetrain, is
 written out with a comment above each method.</p>
-<p><strong>Where next.</strong> <a class="reference internal" href="l115.html"><span class="std std-doc">L115</span></a> mounts the Pinpoint, which the follower uses to know where the
-robot is.</p>
+<p><strong>Where next.</strong> <a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a> works out where the robot is from the drive wheels.</p>
 </section>
 </section>
 </section>
@@ -510,23 +533,23 @@ robot is.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="l115.html">
+          <a class="next-page" href="e111.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">115 lesson: mount the Pinpoint and plug it in</div>
+                <div class="title">111 what’s happening: the classes your OpMode builds on</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="h095.html">
+          <a class="prev-page" href="h097.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">095 how-to: check your work without a robot</div>
+                <div class="title">097 how-to: check your work without a robot</div>
                 
               </div>
             </a>
@@ -560,7 +583,7 @@ robot is.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">110 lesson: hand the wheels to the path follower</a><ul>
+<li><a class="reference internal" href="#">110 lesson: connect the drivetrain to the follower, with no path yet</a><ul>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
 <li><a class="reference internal" href="#l110s010-copy-the-two-starters-into-mytry">L110S010: copy the two starters into mytry</a></li>
 <li><a class="reference internal" href="#l110s020-switch-your-copy-on">L110S020: switch your copy on</a></li>

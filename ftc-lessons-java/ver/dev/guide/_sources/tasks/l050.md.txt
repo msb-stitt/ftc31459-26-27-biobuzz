@@ -14,6 +14,7 @@ that every wheel turns the way its stick says.
 **Before you start.**
 
 - L040 is done, so `mytry` holds `L040TankOpMode`.
+- L045 is done, so the robot's configuration has the names the code asks for.
 - A robot, a Driver Station with a gamepad, and a USB cable from the laptop to the Control Hub.
 - Two blocks to rest the robot on, so no wheel touches the ground, and about 2 m of clear floor
   for the last step.
@@ -171,8 +172,8 @@ file in the `pedro` folder, such as `Bot37523`. Find its line, such as
 `REVERSE` for `FORWARD`.
 
 **Turns for the other stick.** A wheel that turns for the other side's stick is plugged into a
-port the Robot Configuration gives a different name. Ask a mentor to check the names on the Driver
-Station.
+port the Robot Configuration gives a different name. Check each port's name against your table
+from L045S010, and fix it as in L045S020.
 
 **Send.** Send the code again, as in L050S050, and repeat L050S060.
 

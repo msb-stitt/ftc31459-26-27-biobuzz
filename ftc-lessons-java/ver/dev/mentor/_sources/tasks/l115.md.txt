@@ -40,27 +40,25 @@ the Pinpoint's **x** socket and the strafe pod into its **y** socket.
 - Push the robot forward by hand. The forward pod's wheel turns.
 - The strafe pod's wheel drags sideways.
 
-### L115S020: plug it into an I2C port that is not port 0
+### L115S020: plug it into I2C port 1
 
 The Pinpoint talks to the Control Hub over I2C. Port 0 already has the Control Hub's own IMU on it,
-so the Pinpoint goes on another port.
-
-**Mount.** Bolt the Pinpoint on with its sticker side, the side the ports are on, facing **up**.
-Plug its cable into I2C port 1, 2 or 3 on the Control Hub.
-
-**Configure.** On the Driver Station, open the robot's configuration. Add the Pinpoint on that
-port, and name it `pinpoint`, spelled exactly that way. That is the name the code asks for:
+so the Pinpoint goes on port 1. In L045S030 you named the device on port 1 `pinpoint`. That is the
+name the code asks for:
 
 ```java
 c.name.set("pinpoint");
 ```
 
+**Mount.** Bolt the Pinpoint on with its sticker side, the side the ports are on, facing **up**.
+Plug its cable into I2C port 1 on the Control Hub.
+
 **Check.**
 
 - Pick `L110 Follower` from the `Lessons` group and press INIT.
-- INIT finishes with no error.
+- INIT finishes with no warning about the Pinpoint.
 
-INIT looks for the Pinpoint by its name, so if INIT finishes, it was found.
+Until now, INIT warned that the Pinpoint was missing. With no warning, it was found.
 
 ### L115S030: hold the robot still while it inits
 
@@ -105,8 +103,8 @@ the SDK. The reset at INIT is `PinpointConfig`'s default `resetMode`, which `Pin
 constructor acts on. The still robot and the quarter second are from the goBILDA driver's own
 javadoc.
 
-**What you just did.** Every lesson from L120 on believes the Pinpoint. L120 puts a second way of
-tracking the robot beside it and shows the drive encoders drifting away from it over a run. L195
+**What you just did.** Every lesson from L117 on believes the Pinpoint. L122 puts your L113
+localizer beside it and shows the drive encoders drifting away from it over a run. L195
 measures the robot against it. A pod in the wrong socket makes all of that quietly wrong instead of
 loudly broken.
 

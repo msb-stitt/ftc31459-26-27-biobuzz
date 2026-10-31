@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L080ArcadeOpMode" href="L080ArcadeOpMode.html"><link rel="prev" title="L060ShapingOpMode" href="L060ShapingOpMode.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L080ArcadeOpMode" href="L080ArcadeOpMode.html"><link rel="prev" title="L065ShaperOpMode" href="L065ShaperOpMode.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>L070ButtonsOpMode - Corbels FTC Programming Lessons in Java</title>
@@ -214,26 +214,34 @@
 <li class="toctree-l1"><a class="reference internal" href="../tasks/e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l045.html">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/h093.html">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/h095.html">095 how-to: check your work without a robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/h096.html">096 how-to: watch the numbers while it drives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/h097.html">097 how-to: check your work without a robot</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/l110.html">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +277,32 @@
 <li class="toctree-l2"><a class="reference internal" href="L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L120EncoderLocalizer.html">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L113LocalizerOpMode.html">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -342,52 +357,91 @@
           <section id="l070buttonsopmode">
 <h1>L070ButtonsOpMode<a class="headerlink" href="#l070buttonsopmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from applying
-<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.3</span></code>. A line marked + is new, and a line marked - is
-gone; each number is the line’s place in the file after the lesson.</p>
+<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-e111.1</span></code>. A line marked + is new, and a line marked - is gone; each number
+is the line’s place in the file after the lesson.</p>
 <section id="l070">
 <h2>L070<a class="headerlink" href="#l070" title="Link to this heading">¶</a></h2>
 <div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L070ButtonsOpMode.java  (before L070)</span>
 <span class="gi">+++ mytry/L070ButtonsOpMode.java  (after L070)</span>
-<span class="gu">@@ lines 35 to 41 @@</span>
-<span class="w"> </span>  35     // When on L070S040, see
-<span class="w"> </span>  36     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s040
-<span class="w"> </span>  37     // for what to do here.
-<span class="gi">+  38     boolean previousButtonA;</span>
-<span class="w"> </span>  39
-<span class="w"> </span>  40     // 'public' to match the parent class. 'public' allows access from any code.
-<span class="w"> </span>  41     @Override
-<span class="gu">@@ lines 76 to 85 @@</span>
-<span class="w"> </span>  76         // When on L070S060, see
-<span class="w"> </span>  77         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
-<span class="w"> </span>  78         // for what to do here.
-<span class="gi">+  79         double leftStickX = gamepad1.left_stick_x;</span>
-<span class="gi">+  80         Tracker.publish("gamepad1/leftStickX", leftStickX);</span>
-<span class="gi">+  81         double rightStickX = gamepad1.right_stick_x;</span>
-<span class="gi">+  82         Tracker.publish("gamepad1/rightStickX", rightStickX);</span>
-<span class="w"> </span>  83
-<span class="w"> </span>  84         double leftSpeed = -leftStickY;
-<span class="w"> </span>  85         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
-<span class="gu">@@ lines 103 to 122 @@</span>
-<span class="w"> </span> 103         // When on L070S030, see
-<span class="w"> </span> 104         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
-<span class="w"> </span> 105         // for what to do here.
-<span class="gi">+ 106         boolean buttonA = gamepad1.a;</span>
-<span class="gi">+ 107         Tracker.publish("gamepad1/buttonA", buttonA);</span>
-<span class="w"> </span> 108
-<span class="w"> </span> 109         // When on L070S050, see
-<span class="w"> </span> 110         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
-<span class="w"> </span> 111         // for what to do here.
-<span class="gi">+ 112         if (buttonA != previousButtonA) {</span>
-<span class="gi">+ 113             if (buttonA) {</span>
-<span class="gi">+ 114                 Tracker.publish("gamepad1/buttonAEvent", "A pressed");</span>
-<span class="gi">+ 115             } else {</span>
-<span class="gi">+ 116                 Tracker.publish("gamepad1/buttonAEvent", "A released");</span>
-<span class="gi">+ 117             }</span>
-<span class="gi">+ 118         }</span>
-<span class="gi">+ 119         previousButtonA = buttonA;</span>
-<span class="w"> </span> 120     }
-<span class="w"> </span> 121
-<span class="w"> </span> 122     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="gu">@@ lines 11 to 17 @@</span>
+<span class="w"> </span>  11 // When on L070S020, see
+<span class="w"> </span>  12 // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
+<span class="w"> </span>  13 // for what to do here.
+<span class="gd">-     //import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;</span>
+<span class="gi">+  14 import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;</span>
+<span class="w"> </span>  15
+<span class="w"> </span>  16 /**
+<span class="w"> </span>  17  * L070: the A button, the moment it changes, and both sticks sideways, all
+<span class="gu">@@ lines 39 to 50 @@</span>
+<span class="w"> </span>  39     // When on L070S020, see
+<span class="w"> </span>  40     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
+<span class="w"> </span>  41     // for what to do here.
+<span class="gd">-     //    StickShaper stickShaper = new StickShaper(0.05);</span>
+<span class="gi">+  42     StickShaper stickShaper = new StickShaper(0.05);</span>
+<span class="w"> </span>  43
+<span class="w"> </span>  44     // When on L070S040, see
+<span class="w"> </span>  45     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s040
+<span class="w"> </span>  46     // for what to do here.
+<span class="gi">+  47     boolean previousButtonA;</span>
+<span class="w"> </span>  48
+<span class="w"> </span>  49     // 'public' to match the parent class. 'public' allows access from any code.
+<span class="w"> </span>  50     @Override
+<span class="gu">@@ lines 85 to 94 @@</span>
+<span class="w"> </span>  85         // When on L070S060, see
+<span class="w"> </span>  86         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s060
+<span class="w"> </span>  87         // for what to do here.
+<span class="gi">+  88         double leftStickX = gamepad1.left_stick_x;</span>
+<span class="gi">+  89         Tracker.publish("gamepad1/leftStickX", leftStickX);</span>
+<span class="gi">+  90         double rightStickX = gamepad1.right_stick_x;</span>
+<span class="gi">+  91         Tracker.publish("gamepad1/rightStickX", rightStickX);</span>
+<span class="w"> </span>  92
+<span class="w"> </span>  93         double leftSpeed = -leftStickY;
+<span class="w"> </span>  94         Tracker.publish("drivetrain/leftSpeed", leftSpeed);
+<span class="gu">@@ lines 98 to 131 @@</span>
+<span class="w"> </span>  98         // When on L070S020, see
+<span class="w"> </span>  99         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s020
+<span class="w"> </span> 100         // for what to do here.
+<span class="gd">-     //        double leftShapedSpeed = stickShaper.shaped(leftSpeed);</span>
+<span class="gd">-     //        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);</span>
+<span class="gd">-     //        double rightShapedSpeed = stickShaper.shaped(rightSpeed);</span>
+<span class="gd">-     //        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);</span>
+<span class="gd">-     //</span>
+<span class="gd">-     //        hardware.frontLeft.setPower(leftShapedSpeed);</span>
+<span class="gd">-     //        hardware.backLeft.setPower(leftShapedSpeed);</span>
+<span class="gd">-     //</span>
+<span class="gd">-     //        hardware.frontRight.setPower(rightShapedSpeed);</span>
+<span class="gd">-     //        hardware.backRight.setPower(rightShapedSpeed);</span>
+<span class="gi">+ 101         double leftShapedSpeed = stickShaper.shaped(leftSpeed);</span>
+<span class="gi">+ 102         Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);</span>
+<span class="gi">+ 103         double rightShapedSpeed = stickShaper.shaped(rightSpeed);</span>
+<span class="gi">+ 104         Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);</span>
+<span class="gi">+ 105</span>
+<span class="gi">+ 106         hardware.frontLeft.setPower(leftShapedSpeed);</span>
+<span class="gi">+ 107         hardware.backLeft.setPower(leftShapedSpeed);</span>
+<span class="gi">+ 108</span>
+<span class="gi">+ 109         hardware.frontRight.setPower(rightShapedSpeed);</span>
+<span class="gi">+ 110         hardware.backRight.setPower(rightShapedSpeed);</span>
+<span class="w"> </span> 111
+<span class="w"> </span> 112         // When on L070S030, see
+<span class="w"> </span> 113         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s030
+<span class="w"> </span> 114         // for what to do here.
+<span class="gi">+ 115         boolean buttonA = gamepad1.a;</span>
+<span class="gi">+ 116         Tracker.publish("gamepad1/buttonA", buttonA);</span>
+<span class="w"> </span> 117
+<span class="w"> </span> 118         // When on L070S050, see
+<span class="w"> </span> 119         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l070.html#l070s050
+<span class="w"> </span> 120         // for what to do here.
+<span class="gi">+ 121         if (buttonA != previousButtonA) {</span>
+<span class="gi">+ 122             if (buttonA) {</span>
+<span class="gi">+ 123                 Tracker.publish("gamepad1/buttonAEvent", "A pressed");</span>
+<span class="gi">+ 124             } else {</span>
+<span class="gi">+ 125                 Tracker.publish("gamepad1/buttonAEvent", "A released");</span>
+<span class="gi">+ 126             }</span>
+<span class="gi">+ 127         }</span>
+<span class="gi">+ 128         previousButtonA = buttonA;</span>
+<span class="w"> </span> 129     }
+<span class="w"> </span> 130
+<span class="w"> </span> 131     // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>
@@ -407,14 +461,14 @@ gone; each number is the line’s place in the file after the lesson.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="L060ShapingOpMode.html">
+          <a class="prev-page" href="L065ShaperOpMode.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">L060ShapingOpMode</div>
+                <div class="title">L065ShaperOpMode</div>
                 
               </div>
             </a>

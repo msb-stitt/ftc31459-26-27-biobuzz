@@ -1,4 +1,4 @@
-# 093 how-to: watch the numbers while it drives
+# 096 how-to: watch the numbers while it drives
 
 ## what you will have when this is done
 
@@ -106,5 +106,5 @@ line the robot is and how crooked it is sitting. It does not say whether the rob
 
 ## where next
 
-- [H095](h095.md) is the other half of this. It runs the same lessons on a laptop, with no
+- [H097](h097.md) is the other half of this. It runs the same lessons on a laptop, with no
   robot at all.

@@ -196,11 +196,16 @@
 <li class="toctree-l1"><a class="reference internal" href="L040.html">L040</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L050.html">L050</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L060.html">L060</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L065.html">L065</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L070.html">L070</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">L080</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L090.html">L090</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L093.html">L093</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L095.html">L095</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L110.html">L110</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L113.html">L113</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L120.html">L120</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L122.html">L122</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L125.html">L125</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L130.html">L130</a></li>
 <li class="toctree-l1"><a class="reference internal" href="L135.html">L135</a></li>
@@ -251,7 +256,7 @@
         <article role="main" id="furo-main-content">
           <section id="l080">
 <h1>L080<a class="headerlink" href="#l080" title="Link to this heading">¶</a></h1>
-<p>1 file(s) copied, then 3 change(s) in 1 file(s), 27 line(s) of code to write.</p>
+<p>1 file(s) copied, then 4 change(s) in 1 file(s), 23 line(s) of code to write.</p>
 <section id="copies">
 <h2>Copies<a class="headerlink" href="#copies" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -263,19 +268,50 @@
 <p><code class="docutils literal notranslate"><span class="pre">TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L080ArcadeOpMode.java</span></code></p>
 <section id="a-change">
 <h3>A change<a class="headerlink" href="#a-change" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 7 lines.</p>
+<p>Delete 0 lines, write 1 line.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -79,6 +79,13 @@</span>
+<span class="gu">@@ -11,6 +11,7 @@</span>
+<span class="w"> </span>// When on L080S030, see
+<span class="w"> </span>// https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+<span class="w"> </span>// for what to do here.
+<span class="gi">+import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;</span>
+<span class="w"> </span>
+<span class="w"> </span>/**
+<span class="w"> </span> * L080: arcade drive. The left stick drives forward and back, the right stick
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 1 line.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -40,6 +40,7 @@</span>
+<span class="w"> </span>    // When on L080S030, see
+<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
+<span class="w"> </span>    // for what to do here.
+<span class="gi">+    StickShaper stickShaper = new StickShaper(0.05);</span>
+<span class="w"> </span>
+<span class="w"> </span>    boolean previousButtonA;
+<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Delete 0 lines, write 6 lines.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
+<span class="gi">+++ after it</span>
+<span class="gu">@@ -88,6 +88,12 @@</span>
 <span class="w"> </span>        // When on L080S040, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s040
 <span class="w"> </span>        // for what to do here.
-<span class="gi">+        double bandToSetToZero = 0.05;</span>
 <span class="gi">+        double forwardXSpeed = -leftStickY;</span>
-<span class="gi">+        forwardXSpeed = speedShaped(forwardXSpeed, bandToSetToZero);</span>
+<span class="gi">+        forwardXSpeed = stickShaper.shaped(forwardXSpeed);</span>
 <span class="gi">+        Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);</span>
 <span class="gi">+        double turnCcwSpeed = -rightStickX;</span>
-<span class="gi">+        turnCcwSpeed = speedShaped(turnCcwSpeed, bandToSetToZero);</span>
+<span class="gi">+        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);</span>
 <span class="gi">+        Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);</span>
 <span class="w"> </span>
 <span class="w"> </span>        // When on L080S050, see
@@ -283,12 +319,12 @@
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h3>A change<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<section id="id3">
+<h3>A change<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <p>Delete 0 lines, write 15 lines.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
 <span class="gi">+++ after it</span>
-<span class="gu">@@ -90,6 +90,21 @@</span>
+<span class="gu">@@ -98,6 +98,21 @@</span>
 <span class="w"> </span>        // When on L080S050, see
 <span class="w"> </span>        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s050
 <span class="w"> </span>        // for what to do here.
@@ -310,24 +346,6 @@
 <span class="w"> </span>
 <span class="w"> </span>        boolean buttonA = gamepad1.a;
 <span class="w"> </span>        Tracker.publish("gamepad1/buttonA", buttonA);
-</pre></div>
-</div>
-</section>
-<section id="id2">
-<h3>A change<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p>Delete 0 lines, write 5 lines.</p>
-<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- before this change</span>
-<span class="gi">+++ after it</span>
-<span class="gu">@@ -143,4 +143,9 @@</span>
-<span class="w"> </span>    // When on L080S030, see
-<span class="w"> </span>    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l080.html#l080s030
-<span class="w"> </span>    // for what to do here.
-<span class="gi">+    double speedShaped(double value, double band) {</span>
-<span class="gi">+        double deadbanded = deadband(value, band);</span>
-<span class="gi">+        double shapedSpeed = signedSquared(deadbanded);</span>
-<span class="gi">+        return shapedSpeed;</span>
-<span class="gi">+    }</span>
-<span class="w"> </span>}
 </pre></div>
 </div>
 </section>
@@ -395,6 +413,7 @@
 <li><a class="reference internal" href="#a-change">A change</a></li>
 <li><a class="reference internal" href="#id1">A change</a></li>
 <li><a class="reference internal" href="#id2">A change</a></li>
+<li><a class="reference internal" href="#id3">A change</a></li>
 </ul>
 </li>
 </ul>

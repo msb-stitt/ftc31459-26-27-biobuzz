@@ -1,49 +1,45 @@
-# 120 lesson: work out where the robot is from the drive wheels
+# 120 lesson: work out where the robot is from the Pinpoint's pods
 
-:::{figure} ../_figures/fig-l120-shadow-still.png
-:name: fig-l120-shadow-still
+:::{figure} ../_figures/fig-l120-pods-follow.png
+:name: fig-l120-pods-follow
 :figclass: file-named
 
-fig-l120-shadow-still.png
+fig-l120-pods-follow.png
 :::
 
-Your own localizer runs beside the robot's own, and both are published so they can be graphed
-against each other. Yours counts how far the four drive wheels roll. The robot's own counts the
-Pinpoint's two pods. Neither is the truth. A tape measure is.
+The Pinpoint works out where the robot is on its own chip. Here you do the same math yourself,
+from the counts of its two pods. Yours runs beside the robot's own, and both are published so they
+can be graphed against each other.
 
 ::::{only} mentor
 **Before you start.**
 
-- L110 is done, so the follower holds a real drivetrain, and L115 is done, so the Pinpoint is on the
-  robot.
+- L113 is done, and L117 is done, so the Pinpoint is on the robot and the robot's own file in the
+  `pedro` folder holds its `localizerConfig`.
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
-- The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
-  for the last step.
+- The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
 
-The simulator turns each wheel's encoder by how far the wheel rolls, at `Constants.ticksPerInch`,
-and turns the IMU with the robot. It has no slip, so a finished localizer follows the Pinpoint
-there more closely than it will on the robot. The tests check the arithmetic step by step.
+In the simulator, a simulated Pinpoint counts the simulated robot's travel, with its pods where
+the robot's `localizerConfig` says. It has no slip, so a finished localizer follows the
+simulator's own localizer there. The tests check the arithmetic step by step.
 ::::
 
 ## the steps
 
 ### L120S010: copy the two starters into mytry
 
-This lesson has two files. One is the OpMode. The other is the **localizer**: the code that works
-out where the robot is.
-
-**Copy.** In `lessons`, click `L120CompareLocalizersOpMode` once and copy it. Click `mytry` once and
-paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
-Git, click **Add**. Do the same for `L120EncoderLocalizer`.
+**Copy.** In `lessons`, click `L120PinpointOpMode` once and copy it. Click `mytry` once and paste.
+In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to Git,
+click **Add**. Do the same for `L120PinpointLocalizer`.
 
 **Check.**
 
-- `mytry` holds `L120CompareLocalizersOpMode` and `L120EncoderLocalizer`.
+- `mytry` holds `L120PinpointOpMode` and `L120PinpointLocalizer`.
 
 ### L120S020: switch your copy on
 
-**Change.** In `L120CompareLocalizersOpMode`, delete the line `@Disabled`, under the comment that
-names this step.
+**Change.** In `L120PinpointOpMode`, delete the line `@Disabled`, under the comment that names this
+step.
 
 **Check.**
 
@@ -52,139 +48,164 @@ names this step.
 
 ### L120S030: run your localizer beside the robot's own
 
-The robot's own localizer reads the Pinpoint. A **shadow** localizer runs beside it. It is updated
-and published every loop, but it never steers the robot.
-
-**Change.** In `L120CompareLocalizersOpMode`, find `shadowLocalizers()` and the comment that names
-this step. Under it, type:
+**Change.** In `L120PinpointOpMode`, find `shadowLocalizers()` and the comment that names this
+step. Under it, type:
 
 ```{code-block} java
-:emphasize-lines: 4-6
+:caption: mytry/L120PinpointOpMode.java
+:emphasize-lines: 4-7
 
         // When on L120S030, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s030
         // for what to do here.
-        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-        L120EncoderLocalizer driveWheelEncoders = new L120EncoderLocalizer(wheelSource);
-        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
+        L120PinpointLocalizer pinpointPods =
+                new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
+        shadowLocalizers.add("pinpointPods", pinpointPods);
 ```
 
-`HardwareWheelSource` turns red, because this file does not know where it lives yet.
+`find` gives back the robot's Pinpoint, or the simulated one in the simulator. `localizerConfig`
+is what L117 measured: where the pods sit, and which way they count.
 
-{.steps}
-- Click `HardwareWheelSource`.
-
-- Press Option+Enter on a Mac, Alt+Enter on Windows, and pick **Import class...**.
-
-- Android Studio adds an `import` line at the top of the file, and the red goes away.
-
-:::{figure} ../_figures/fig-l120-import.png
-:name: fig-l120-import
-:figclass: file-named
-
-fig-l120-import.png
-:::
+`PinpointSource`, `HardwarePinpointSource` and `Constants` turn red. Click each one, press
+Option+Enter on a Mac or Alt+Enter on Windows, and pick **Import class...**, as in L113S030.
 
 **Simulator.** In the Terminal, run:
 
 ```
-./gradlew :TeamCode:simRun --args="mytry.L120CompareLocalizersOpMode --pad"
+./gradlew :TeamCode:simRun --args="mytry.L120PinpointOpMode --pad"
 ```
 
 **AdvantageScope.** Connect to the simulator as in L020. Open the `Localizer` folder, then
-`driveWheelEncoders` and `pinPoint` inside it.
+`pinpointPods` and `pinPoint` inside it.
 
 **Check.**
 
 - Both start at `x_in` 72, `y_in` 10.5 and `heading_deg` 90.
-- Push the left stick forward. `pinPoint/y_in` climbs, and `driveWheelEncoders` stays where it
-  started. Yours does not count anything yet.
+- Push the left stick forward. `pinPoint/y_in` climbs, and `pinpointPods` stays where it started.
 
-`x_in` is how many inches the robot is from the left edge of the 2D Field, and `y_in` how many from
-its bottom edge. `heading_deg` is the way the robot's nose points, and 90 is straight up the field.
-Since L040, the **Poses** list has called that same direction 180°. Both mean up the field.
+### L120S040: read the pods in inches
 
-### L120S040: add up how far the wheels rolled
+Each pod counts **ticks** as it rolls. The Pinpoint's raw count does not know which way a pod was
+mounted, or how many ticks make an inch. L117 measured both into `localizerConfig`.
 
-`update` runs once a loop. Each time, it can only see how far each wheel has rolled in total, so it
-remembers last loop's numbers and takes them away.
-
-The first loop has nothing to take away from, so it only remembers.
-
-**Change.** Press Ctrl+C in the Terminal to stop the simulator. Open `L120EncoderLocalizer`. In
-`update`, find the comment that names this step. Under it, type:
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. Open `L120PinpointLocalizer`. In
+the constructor, find the comment that names this step. Under it, type:
 
 ```{code-block} java
-:emphasize-lines: 4-18
+:caption: mytry/L120PinpointLocalizer.java
+:emphasize-lines: 4-12
 
         // When on L120S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
         // for what to do here.
-        if (lastWheels_in == null) {
-            lastWheels_in = wheels_in.clone();
+        ticksPerInch = PinpointSource.ticksPerMm(config.podType.get()) * 25.4;
+        if (config.xPodDirection.get() == GoBildaPinpointDriver.EncoderDirection.REVERSED) {
+            xSign = -1.0;
+        }
+        if (config.yPodDirection.get() == GoBildaPinpointDriver.EncoderDirection.REVERSED) {
+            ySign = -1.0;
+        }
+        xPodOffset_in = config.xPodOffset.get();
+        yPodOffset_in = config.yPodOffset.get();
+```
+
+There are 25.4 mm in an inch. A pod set `REVERSED` counts down as the robot moves its way, so its
+sign is -1.0.
+
+In `update`, find the next comment that names this step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4-20
+
+        // When on L120S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
+        // for what to do here.
+        forwardPod_in = xSign * source.getEncoderX() / ticksPerInch;
+        strafePod_in = ySign * source.getEncoderY() / ticksPerInch;
+
+        if (firstLoop) {
+            firstLoop = false;
+            lastForwardPod_in = forwardPod_in;
+            lastStrafePod_in = strafePod_in;
             lastRawHeading_rad = rawHeading_rad;
             return;
         }
 
-        double[] delta_in = new double[wheels_in.length];
-        for (int i = 0; i < wheels_in.length; i++) {
-            delta_in[i] = wheels_in[i] - lastWheels_in[i]; // Your math operation here
-        }
+        double forwardPodStep_in = forwardPod_in - lastForwardPod_in;
+        double strafePodStep_in = strafePod_in - lastStrafePod_in;
+        double turn_rad = rawHeading_rad - lastRawHeading_rad;
 
-        double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;
-        double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
-
-        x_in += forward_in;
-        y_in += strafe_in;
+        x_in += forwardPodStep_in;
+        y_in += strafePodStep_in;
 ```
 
-Android Studio types the `}` for you when you press Enter after the `{`. Type the rest below it.
-
-`null` means "nothing yet". `.clone()` makes a copy, so next loop's numbers do not change it.
-`return` leaves `update` early, until next loop. The end of a name says its unit: `_in` is inches,
-and `_rad` is radians.
-
-The `for` line runs the line inside it once for each wheel, with `i` at 0, 1, 2 and then 3, so
-`delta_in` holds how far each wheel rolled since last loop. `FL`, `FR`, `BL` and `BR` are 0, 1, 2
-and 3, the front left, front right, back left and back right wheels' places in it.
-
-The two long lines are L090's table read backwards. There, three numbers made four wheel speeds.
-Here, four wheel moves make `forward_in` and `strafe_in` again.
+This is L113S040 with two pods in place of four wheels. Each pod's step is how far it rolled since
+last loop. `turn_rad` is how far the robot turned.
 
 **Check.**
 
-- In the Terminal, run this. It prints `8 tests completed, 2 failed`, then `BUILD FAILED` and more
-  red lines. That is what failing tests look like here, and two are meant to fail now.
+- In the Terminal, run this. It prints `7 tests completed, 3 failed`. The three that fail pass by
+  the end of L120S060.
 
   ```
-  ./gradlew :TeamCode:testDebugUnitTest --tests '*L120EncoderLocalizerTest*'
+  ./gradlew :TeamCode:testDebugUnitTest --tests '*L120PinpointLocalizerTest*'
   ```
 
-The two that fail are
-`appliesTheHeadingSoSidewaysIsRelativeToTheRobot` and
-`setPoseMovesTheEstimateWithoutMovingTheRobot`. Both are about which way the robot faces. That is
-the next step.
+`turningOnTheSpotDoesNotMoveIt` is one that fails. That is the next step.
 
-### L120S050: turn the step to face the way the robot faces
+### L120S050: take out what turning rolled
 
-:::{figure} ../_figures/fig-odometry-step.png
-:name: fig-odometry-step
+:::{figure} ../_figures/fig-l120-pod-turn.png
+:name: fig-l120-pod-turn
 :figclass: file-named
 
-fig-odometry-step.png
+fig-l120-pod-turn.png
 :::
 
-`forward_in` is forward for the robot, not for the field. The robot starts facing along the
-field's y, so its forward is the field's y. L120S040 added it to x.
+The pods do not sit at the robot's middle. When the robot turns on the spot, each pod rolls along a
+circle around the middle, and counts it. The forward pod sits `xPodOffset_in` to the left of the
+middle. Turning left rolls it backward by that offset times the turn. The strafe pod sits
+`yPodOffset_in` ahead of the middle, and the same turn rolls it to the left.
 
-**Change.** Delete the two lines `x_in += forward_in;` and `y_in += strafe_in;`. Find the comment
-that names this step. Under it, type:
+The four drive wheels in L113 sit in pairs on each side, so a turn rolled them by equal and
+opposite amounts that cancelled. The pods do not cancel, so you take the turn out.
+
+**Change.** Delete the two lines `x_in += forwardPodStep_in;` and `y_in += strafePodStep_in;`. Find
+the comment that names this step. Under it, type:
 
 ```{code-block} java
 :emphasize-lines: 4-8
 
         // When on L120S050, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
+        // for what to do here.
+        double forward_in = forwardPodStep_in + xPodOffset_in * turn_rad;
+        double strafe_in = strafePodStep_in - yPodOffset_in * turn_rad;
+
+        x_in += forward_in;
+        y_in += strafe_in;
+```
+
+**Check.**
+
+- Run the same test command again. It prints `7 tests completed, 2 failed`.
+
+The two that fail are `appliesTheHeadingSoForwardIsTheRobots` and
+`setPoseMovesTheEstimateWithoutMovingTheRobot`, as in L113S040. Both are about which way the robot
+faces.
+
+### L120S060: turn the step to face the way the robot faces
+
+**Change.** Delete the two lines `x_in += forward_in;` and `y_in += strafe_in;`. Find the comment
+that names this step. Under it, type the same lines as in L113S050:
+
+```{code-block} java
+:caption: mytry/L120PinpointLocalizer.java
+:emphasize-lines: 4-8
+
+        // When on L120S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s060
         // for what to do here.
         double heading_rad = rawHeading_rad + headingOffset_rad;
         double sinHeading = Math.sin(heading_rad);
@@ -193,77 +214,40 @@ that names this step. Under it, type:
         y_in += forward_in * sinHeading + strafe_in * cosHeading;
 ```
 
-`Math.cos` and `Math.sin` share the step out between x and y. Facing along x, `cos` is 1.0 and `sin`
-is 0.0, so forward all goes on x. Facing along y, `cos` is 0.0 and `sin` is 1.0, so forward all goes
-on y. In between, each gets a part.
-
-`heading_rad` counts in **radians**, not degrees. One whole turn is about 6.28 radians. `Math.cos`
-and `Math.sin` use radians.
-
 **Check.**
 
 - Run the same test command again. It ends with `BUILD SUCCESSFUL`.
-
-:::{figure} ../_figures/fig-l120-encoders-follow.png
-:name: fig-l120-encoders-follow
-:figclass: file-named
-
-fig-l120-encoders-follow.png
-:::
 
 **Simulator.** Run the command from L120S030 again, and connect AdvantageScope.
 
 **Check.**
 
-- Push the left stick forward. This time `driveWheelEncoders/y_in` climbs with `pinPoint/y_in`, and
-  the two stay within a tenth of an inch.
+- Drive around the field, turning as you go. `pinpointPods` follows `pinPoint`: `x_in`, `y_in`
+  and `heading_deg` each stay within half an inch or half a degree.
 
-The simulator turns each wheel's encoder by how far it rolls, so your localizer has something to
-count.
+### L120S070: drive it on the robot
 
-### L120S060: drive it, then measure it
-
-**Robot.** Stop the simulator. Send the code, run `L120 Compare Localizers` from the Driver
-Station, and watch it in AdvantageScope.
+**Robot.** Stop the simulator. Send the code, run `L120 Pinpoint` from the Driver Station, and
+watch it in AdvantageScope.
 
 **Check.**
 
-- Drive about 80 in straight ahead and stop. Both `y_in` numbers moved, and they do not quite agree.
-- Measure how far the robot really went with the tape measure.
-
-Then put the robot on the blocks and push the left stick forward. The wheels spin, and the robot
-does not go anywhere. `driveWheelEncoders` walks off across the field. `pinPoint` stays put,
-because its pods are off the floor too.
+- Drive around and stop. `pinpointPods` and `pinPoint` read the same two pods, so they stay close.
 
 ::::{only} mentor
-**No gamepad.** `--args="mytry.L120CompareLocalizersOpMode --left_stick_y=-0.5"` drives forward
-for the picture at the top, and for L120S050's.
+**Our tests.** `LessonsTest.l120_thePinpointLocalizerFollowsTheRobot` drives the simulated robot
+forward, left and turning for 100 loops, and checks yours against the simulator's own localizer.
 
-**If it didn't**, and `driveWheelEncoders` is missing from the `Localizer` folder in L120S030, the
-three lines are not in `shadowLocalizers()`.
-`LessonsTest.l120_theEncoderLocalizerRunsAlongsideAndIsLogged` fails with
-`the shadow localizer is logged:` and the list of names that were published.
+**If it didn't**, and the robot's estimate drifts sideways as it turns, a sign in L120S050 is
+wrong. With the `+` in the `forward_in` line made a `-`, `turningOnTheSpotDoesNotMoveIt` fails with
+`both pods rolled, but only from turning: y expected:<0.0> but was:<-6.284174784625778>`.
 
-**If it didn't**, and `countsStrafingLeft` fails with `left is +y when facing +x`, a sign in the
-`strafe_in` line is wrong. With the sign in front of `delta_in[FR]` flipped, it reads
-`expected:<12.0> but was:<6.0>`, and three other tests fail with it.
+**If it didn't**, and `pinpointPods` goes backward while the robot goes forward on the robot but not
+in the simulator, the Pinpoint's raw count may already apply the `REVERSED` setting. The simulator
+takes it that it does not.
 
-**If it didn't**, and all 8 tests fail with
-`Cannot load from double array because "this.lastWheels_in" is null`, the first-loop `if` is
-missing.
+**What you just did.** The Pinpoint's chip does this same math, and more often than your loop
+runs. L122 graphs your two localizers and the Pinpoint's against each other.
 
-**What you just did.** That is **dead reckoning**: believe the wheels, and add up every step. It
-has no other source, so a wheel that spins without carrying the robot moves the estimate. The test
-`aWheelThatSlipsIsSimplyBelieved` shows it on a laptop: one wheel rolling 24 in on its own moves
-the estimate 6 in. The Pinpoint's pods only measure and never push, so they slip less. That is the
-case for having them.
-
-The heading here is the one at the end of each step. While driving and turning at once, the middle
-of the step would be closer. Taking the end needs no subtraction of two
-headings, so a turn through the back of the circle needs no care.
-
-The localizer reports a speed of zero. Only `x_in`, `y_in` and `heading_deg` are published for a
-shadow, so nothing reads its speed.
-
-**Where next.** [L125](l125.md) drives 24 inches on its own.
+**Where next.** [L122](l122.md) compares the localizers.
 ::::

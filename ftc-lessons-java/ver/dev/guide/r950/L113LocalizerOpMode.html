@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L125Drive24OpMode" href="L125Drive24OpMode.html"><link rel="prev" title="L120CompareLocalizersOpMode" href="L120CompareLocalizersOpMode.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="L113EncoderLocalizer" href="L113EncoderLocalizer.html"><link rel="prev" title="L110FollowerOpMode" href="L110FollowerOpMode.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>L120EncoderLocalizer - Corbels FTC Programming Lessons in Java</title>
+        <title>L113LocalizerOpMode - Corbels FTC Programming Lessons in Java</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Corbels FTC Programming Lessons in Java</div></a>
+      <a href="../student_index.html"><div class="brand">Corbels FTC Programming Lessons in Java</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -184,7 +184,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../student_index.html">
   
   <span class="sidebar-brand-text">Corbels FTC Programming Lessons in Java</span>
   
@@ -214,26 +214,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../tasks/e035.html">035 what’s happening: sticks into speeds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l040.html">040 lesson: drive like a tank</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/e041.html">041 what’s happening: calling a method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l045.html">045 lesson: set up the robot’s configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l050.html">050 lesson: drive the robot on blocks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l060.html">060 lesson: shape the sticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l065.html">065 lesson: put the shaping in a class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e067.html">067 what’s happening: drawing a class and its calls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l070.html">070 lesson: read the buttons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l080.html">080 lesson: drive like an arcade game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l090.html">090 lesson: slide it sideways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l093.html">093 lesson: write a menu, test first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l095.html">095 lesson: choose the shaping from a menu</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">see what it is doing</span></p>
+<p class="caption" role="heading"><span class="caption-text">connect the drivetrain to the follower</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/h093.html">093 how-to: watch the numbers while it drives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/h095.html">095 how-to: check your work without a robot</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">hand the wheels to the follower</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/l110.html">110 lesson: hand the wheels to the path follower</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l110.html">110 lesson: connect the drivetrain to the follower, with no path yet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/e111.html">111 what’s happening: the classes your OpMode builds on</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">know where it is</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l113.html">113 lesson: work out where the robot is from the drive wheels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l115.html">115 lesson: mount the Pinpoint and plug it in</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tasks/l117.html">117 lesson: let AutoTune tune the robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tasks/l120.html">120 lesson: work out where the robot is from the drive wheels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l120.html">120 lesson: work out where the robot is from the Pinpoint’s pods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tasks/l122.html">122 lesson: compare your localizers with the Pinpoint’s</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">drive it without a driver</span></p>
 <ul>
@@ -269,25 +272,32 @@
 <li class="toctree-l2"><a class="reference internal" href="L040TankOpMode.html">L040TankOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L050BlocksOpMode.html">L050BlocksOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L060ShapingOpMode.html">L060ShapingOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StickShaper.html">StickShaper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L065ShaperOpMode.html">L065ShaperOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L070ButtonsOpMode.html">L070ButtonsOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L080ArcadeOpMode.html">L080ArcadeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L090MecanumOpMode.html">L090MecanumOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L110FollowerOpMode.html">L110FollowerOpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L120CompareLocalizersOpMode.html">L120CompareLocalizersOpMode</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">L120EncoderLocalizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L125Drive24OpMode.html">L125Drive24OpMode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="OptionMenu.html">OptionMenu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuItem.html">MenuItem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuRow.html">MenuRow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuButtons.html">MenuButtons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="DriverStationMenu.html">DriverStationMenu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L093MenuOpMode.html">L093MenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuItemTest.html">MenuItemTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuRowTest.html">MenuRowTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="OptionMenuTest.html">OptionMenuTest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MenuButtonsTest.html">MenuButtonsTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L095ShapingMenuOpMode.html">L095ShapingMenuOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L110FollowerDriveTrain.html">L110FollowerDriveTrain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L110FollowerOpMode.html">L110FollowerOpMode</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">L113LocalizerOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L113EncoderLocalizer.html">L113EncoderLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L120PinpointOpMode.html">L120PinpointOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L120PinpointLocalizer.html">L120PinpointLocalizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L122CompareLocalizersOpMode.html">L122CompareLocalizersOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L125Drive24OpMode.html">L125Drive24OpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="L130ForwardThenStrafeOpMode.html">L130ForwardThenStrafeOpMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AutoWithMenuOpMode.html">AutoWithMenuOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140FieldRelativeOpMode.html">L140FieldRelativeOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L140AutoOpMode.html">L140AutoOpMode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="L150RobotRelativeButtonOpMode.html">L150RobotRelativeButtonOpMode</a></li>
@@ -321,7 +331,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/r950/L120EncoderLocalizer.md.txt" title="View this page">
+  <a class="muted-link" href="../_sources/r950/L113LocalizerOpMode.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -339,44 +349,33 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="l120encoderlocalizer">
-<h1>L120EncoderLocalizer<a class="headerlink" href="#l120encoderlocalizer" title="Link to this heading">¶</a></h1>
+          <section id="l113localizeropmode">
+<h1>L113LocalizerOpMode<a class="headerlink" href="#l113localizeropmode" title="Link to this heading">¶</a></h1>
 <p>What each lesson’s patch does to this file, in the order the lessons come, from applying
-<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-l135-menu-classes.3</span></code>. A line marked + is new, and a line marked - is
-gone; each number is the line’s place in the file after the lesson.</p>
-<section id="l120">
-<h2>L120<a class="headerlink" href="#l120" title="Link to this heading">¶</a></h2>
-<div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L120EncoderLocalizer.java  (before L120)</span>
-<span class="gi">+++ mytry/L120EncoderLocalizer.java  (after L120)</span>
-<span class="gu">@@ lines 53 to 80 @@</span>
-<span class="w"> </span>  53         // When on L120S040, see
-<span class="w"> </span>  54         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
-<span class="w"> </span>  55         // for what to do here.
-<span class="gi">+  56         if (lastWheels_in == null) {</span>
-<span class="gi">+  57             lastWheels_in = wheels_in.clone();</span>
-<span class="gi">+  58             lastRawHeading_rad = rawHeading_rad;</span>
-<span class="gi">+  59             return;</span>
-<span class="gi">+  60         }</span>
-<span class="gi">+  61</span>
-<span class="gi">+  62         double[] delta_in = new double[wheels_in.length];</span>
-<span class="gi">+  63         for (int i = 0; i &lt; wheels_in.length; i++) {</span>
-<span class="gi">+  64             delta_in[i] = wheels_in[i] - lastWheels_in[i]; // Your math operation here</span>
-<span class="gi">+  65         }</span>
-<span class="gi">+  66</span>
-<span class="gi">+  67         double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;</span>
-<span class="gi">+  68         double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;</span>
-<span class="w"> </span>  69
-<span class="w"> </span>  70         // When on L120S050, see
-<span class="w"> </span>  71         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s050
-<span class="w"> </span>  72         // for what to do here.
-<span class="gi">+  73         double heading_rad = rawHeading_rad + headingOffset_rad;</span>
-<span class="gi">+  74         double sinHeading = Math.sin(heading_rad);</span>
-<span class="gi">+  75         double cosHeading = Math.cos(heading_rad);</span>
-<span class="gi">+  76         x_in += forward_in * cosHeading - strafe_in * sinHeading;</span>
-<span class="gi">+  77         y_in += forward_in * sinHeading + strafe_in * cosHeading;</span>
-<span class="w"> </span>  78
-<span class="w"> </span>  79         lastWheels_in = wheels_in.clone();
-<span class="w"> </span>  80         lastRawHeading_rad = rawHeading_rad;
+<code class="docutils literal notranslate"><span class="pre">solutions/</span></code> on <code class="docutils literal notranslate"><span class="pre">solutions-e111.1</span></code>. A line marked + is new, and a line marked - is gone; each number
+is the line’s place in the file after the lesson.</p>
+<section id="l113">
+<h2>L113<a class="headerlink" href="#l113" title="Link to this heading">¶</a></h2>
+<div class="answer-diff highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- mytry/L113LocalizerOpMode.java  (before L113)</span>
+<span class="gi">+++ mytry/L113LocalizerOpMode.java  (after L113)</span>
+<span class="gu">@@ lines 10 to 16 @@</span>
+<span class="w"> </span>  10 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+<span class="w"> </span>  11 import org.firstinspires.ftc.teamcode.base.StickShaper;
+<span class="w"> </span>  12 import org.firstinspires.ftc.teamcode.base.Tracker;
+<span class="gi">+  13 import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;</span>
+<span class="w"> </span>  14
+<span class="w"> </span>  15 /**
+<span class="w"> </span>  16  * L113: drive around with your own localizer running beside the robot's. Yours
+<span class="gu">@@ lines 93 to 101 @@</span>
+<span class="w"> </span>  93         // When on L113S030, see
+<span class="w"> </span>  94         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s030
+<span class="w"> </span>  95         // for what to do here.
+<span class="gi">+  96         HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);</span>
+<span class="gi">+  97         L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);</span>
+<span class="gi">+  98         shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);</span>
+<span class="w"> </span>  99     }
+<span class="w"> </span> 100
+<span class="w"> </span> 101     // 'public' to match the parent class. 'public' allows access from any code.
 </pre></div>
 </div>
 </section>
@@ -387,23 +386,23 @@ gone; each number is the line’s place in the file after the lesson.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="L125Drive24OpMode.html">
+          <a class="next-page" href="L113EncoderLocalizer.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">L125Drive24OpMode</div>
+                <div class="title">L113EncoderLocalizer</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="L120CompareLocalizersOpMode.html">
+          <a class="prev-page" href="L110FollowerOpMode.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">L120CompareLocalizersOpMode</div>
+                <div class="title">L110FollowerOpMode</div>
                 
               </div>
             </a>
@@ -437,8 +436,8 @@ gone; each number is the line’s place in the file after the lesson.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">L120EncoderLocalizer</a><ul>
-<li><a class="reference internal" href="#l120">L120</a></li>
+<li><a class="reference internal" href="#">L113LocalizerOpMode</a><ul>
+<li><a class="reference internal" href="#l113">L113</a></li>
 </ul>
 </li>
 </ul>

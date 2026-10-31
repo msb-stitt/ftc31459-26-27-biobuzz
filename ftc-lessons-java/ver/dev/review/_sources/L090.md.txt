@@ -1,6 +1,6 @@
 # L090
 
-1 file(s) copied, then 2 change(s) in 1 file(s), 28 line(s) of code to write.
+1 file(s) copied, then 6 change(s) in 1 file(s), 35 line(s) of code to write.
 
 ## Copies
 
@@ -12,17 +12,92 @@
 
 ### A change
 
-Delete 0 lines, write 3 lines.
+Delete 1 line, write 1 line.
 
 ```diff
 --- before this change
 +++ after it
-@@ -81,6 +81,9 @@
+@@ -11,7 +11,7 @@
+ // When on L090S020, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+ // for what to do here.
+-//import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
++import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
+ 
+ /**
+  * L090: mecanum drive. The left stick drives and slides, the right stick
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -39,7 +39,7 @@
+     // When on L090S020, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+     // for what to do here.
+-//    StickShaper stickShaper = new StickShaper(0.05);
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -83,7 +83,7 @@
+         // When on L090S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+         // for what to do here.
+-//        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
++        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
+         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+         double turnCcwSpeed = -rightStickX;
+         // When on L090S020, see
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -89,7 +89,7 @@
+         // When on L090S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
+         // for what to do here.
+-//        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
++        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
+         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+ 
+         // When on L090S030, see
+```
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -95,6 +95,12 @@
          // When on L090S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
          // for what to do here.
 +        double strafeYSpeed = -leftStickX;
-+        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
++        // When on L090S020, see
++        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s020
++        // for what to do here.
++        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
 +        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
  
          // When on L090S040, see
@@ -36,7 +111,7 @@ Delete 0 lines, write 25 lines.
 ```diff
 --- before this change
 +++ after it
-@@ -88,6 +88,31 @@
+@@ -105,6 +105,31 @@
          // When on L090S040, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
          // for what to do here.
