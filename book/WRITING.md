@@ -279,6 +279,14 @@ so write it only in the row. A figure no page shows any more is marked `unused` 
 deleted. `tools/check_figures.py` checks both directions. The build captions each figure it puts
 in place with its file's name, such as `fig-l135-press-01.png`, small at the right.
 
+## Show the field the student's own driving makes
+
+A step checked on AdvantageScope's 2D Field has the student drive the robot around the field with
+the gamepad, and its picture shows the field that driving makes: the robot partway around, on the
+field, its trail behind it. A picture of the robot driven by sticks held still, heading off the
+field, shows the student a field their driving never makes. [`FIGURES.md`](FIGURES.md) says how
+the picture is taken.
+
 ## Draw in the marker-sketch style
 
 A drawing, as against a screenshot or a plot, is drawn by `tools/draw.py` in the look of
