@@ -24,6 +24,7 @@ public final class SimPinpoint implements PinpointSource {
     private int encoderX;
     private int encoderY;
     private double heading;
+    private double readTime_s;
 
     public SimPinpoint(SimRobot.SimLocalizer robot, PinpointConfig config) {
         this.robot = robot;
@@ -41,6 +42,7 @@ public final class SimPinpoint implements PinpointSource {
         encoderX = (int) Math.round(sign(config.xPodDirection.get()) * forwardPod_in * ticksPerInch);
         encoderY = (int) Math.round(sign(config.yPodDirection.get()) * strafePod_in * ticksPerInch);
         heading = turned_rad;
+        readTime_s = robot.seconds();
     }
 
     private static int sign(GoBildaPinpointDriver.EncoderDirection direction) {
@@ -60,5 +62,10 @@ public final class SimPinpoint implements PinpointSource {
     @Override
     public double getHeadingRadians() {
         return heading;
+    }
+
+    @Override
+    public double getReadTimeSeconds() {
+        return readTime_s;
     }
 }

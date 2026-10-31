@@ -231,6 +231,11 @@ public final class SimRobot {
             return turned;
         }
 
+        /** The simulated clock, in seconds. */
+        double seconds() {
+            return clock.getAsLong() / 1e9;
+        }
+
         /**
          * How fast each wheel's rim is moving, front left, front right, back
          * left, back right, in inches per second: the robot's motion put back
