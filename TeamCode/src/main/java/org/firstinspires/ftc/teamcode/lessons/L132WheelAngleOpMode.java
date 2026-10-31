@@ -145,7 +145,7 @@ public class L132WheelAngleOpMode extends CorbelsAuto {
         double[] wheels_in = wheelSource.wheelInches();
         Pose pose = follower.pose();
 
-        if (fitting != null) {
+        if (fitting != null && lastWheels_in != null) {
             double[] wheelSteps_in = new double[wheels_in.length];
             for (int i = 0; i < wheels_in.length; i++) {
                 wheelSteps_in[i] = wheels_in[i] - lastWheels_in[i];
