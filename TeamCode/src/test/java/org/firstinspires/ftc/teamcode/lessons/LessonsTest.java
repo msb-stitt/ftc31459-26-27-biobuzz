@@ -730,6 +730,37 @@ public class LessonsTest {
     }
 
     @Test
+    public void l153_theRunsFindTheSimulatorsKsAndKv() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L153FeedforwardOpMode"));
+        h.init();
+        h.start();
+        long deadline = h.clock.nanos() + 120_000_000_000L;
+        while (!Tracker.values().containsKey("Fit/strafe/kS_V") && h.clock.nanos() < deadline) {
+            h.loop();
+            OpModeHarness.sleep(5);
+        }
+        h.stop();
+
+        // The simulator's battery is 12 V. Below kS the robot does not move; above
+        // it the speed climbs to the axis's maximum at full power.
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the fits are logged once the runs end: " + values.keySet(),
+                values.containsKey("Fit/strafe/kS_V"));
+        assertEquals("each forward run was steady", 4.0, number(values, "Fit/forward/runs"), EPS);
+        assertEquals("each strafe run was steady", 4.0, number(values, "Fit/strafe/runs"), EPS);
+        assertEquals("each turning run was steady", 4.0, number(values, "Fit/turn/runs"), EPS);
+        assertEquals("forward kS", SimRobot.KS_FORWARD * 12, number(values, "Fit/forward/kS_V"), 0.05);
+        assertEquals("forward kV", (1 - SimRobot.KS_FORWARD) * 12 / SimRobot.MAX_FORWARD_IPS,
+                number(values, "Fit/forward/kV_Vs_per_in"), 0.005);
+        assertEquals("strafe kS", SimRobot.KS_STRAFE * 12, number(values, "Fit/strafe/kS_V"), 0.05);
+        assertEquals("strafe kV", (1 - SimRobot.KS_STRAFE) * 12 / SimRobot.MAX_STRAFE_IPS,
+                number(values, "Fit/strafe/kV_Vs_per_in"), 0.005);
+        assertEquals("turn kS", SimRobot.KS_TURN * 12, number(values, "Fit/turn/kS_V"), 0.05);
+        assertEquals("turn kV", (1 - SimRobot.KS_TURN) * 12 / SimRobot.MAX_TURN_RADPS,
+                number(values, "Fit/turn/kV_Vs_per_rad"), 0.05);
+    }
+
+    @Test
     public void l125_autoDrives24InchesForwardAndStops() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L125Drive24OpMode"));
         Follower follower = h.robot.follower;

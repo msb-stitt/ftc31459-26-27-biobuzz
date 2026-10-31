@@ -55,6 +55,12 @@ public class ConstantsTest {
         assertSame(Bot37523.foresightConfig, Constants.foresightConfig);
         assertEquals(Bot37523.ticksPerInch, Constants.ticksPerInch, 0);
         assertEquals(Bot37523.turnRadiusInches, Constants.turnRadiusInches, 0);
+        assertEquals(Bot37523.kSForwardVolts, Constants.kSForwardVolts, 0);
+        assertEquals(Bot37523.kVForwardVoltSecondsPerInch, Constants.kVForwardVoltSecondsPerInch, 0);
+        assertEquals(Bot37523.kSStrafeVolts, Constants.kSStrafeVolts, 0);
+        assertEquals(Bot37523.kVStrafeVoltSecondsPerInch, Constants.kVStrafeVoltSecondsPerInch, 0);
+        assertEquals(Bot37523.kSTurnVolts, Constants.kSTurnVolts, 0);
+        assertEquals(Bot37523.kVTurnVoltSecondsPerRadian, Constants.kVTurnVoltSecondsPerRadian, 0);
         assertEquals(Bot37523.launcherTargetTicksPerSecond, Constants.launcherTargetTicksPerSecond, 0);
         assertEquals(Bot37523.launcherFeedAboveTicksPerSecond,
                 Constants.launcherFeedAboveTicksPerSecond, 0);
