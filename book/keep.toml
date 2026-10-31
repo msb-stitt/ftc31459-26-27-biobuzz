@@ -119,8 +119,9 @@ words = 1500
 
 [[page]]
 path = "source/tasks/e067.md"
-# Measured off the first draft, 452 words, and rounded up.
-words = 500
+# Measured off the first draft, 452 words, and rounded up. With uml.examples, 556 words,
+# 2026-10-31.
+words = 650
 
 [[page]]
 path = "source/tasks/l070.md"
@@ -170,16 +171,20 @@ path = "source/tasks/l120.md"
 words = 1400
 
 [[page]]
-path = "source/tasks/l122.md"
-words = 1200
-
-[[page]]
 path = "source/tasks/l125.md"
 words = 1300
 
 [[page]]
 path = "source/tasks/l130.md"
 words = 1300
+
+[[page]]
+path = "source/tasks/l131.md"
+words = 1700
+
+[[page]]
+path = "source/tasks/l132.md"
+words = 2100
 
 [[page]]
 path = "source/tasks/l135.md"
@@ -216,6 +221,16 @@ path = "source/tasks/l150.md"
 words = 1700
 
 [[page]]
+path = "source/tasks/l153.md"
+# Measured off the first draft, 1041 words, and rounded up, 2026-10-31.
+words = 1200
+
+[[page]]
+path = "source/tasks/l157.md"
+# Measured off the first draft and rounded up, 2026-10-31.
+words = 1200
+
+[[page]]
 path = "source/tasks/l160.md"
 words = 1700
 
@@ -229,10 +244,6 @@ words = 1700
 
 [[page]]
 path = "source/tasks/l190.md"
-words = 1700
-
-[[page]]
-path = "source/tasks/l195.md"
 words = 1700
 
 [[page]]
@@ -259,6 +270,10 @@ path = "source/tasks/r910.md"
 words = 400
 
 [[page]]
+path = "source/tasks/r915.md"
+words = 600
+
+[[page]]
 path = "source/tasks/r920.md"
 words = 200
 
@@ -281,7 +296,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-e111.1"
+solutions = "solutions-e111.2"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -292,4 +307,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-e111"
-commit = "b092af9f41890cb474e27c666105d62cfd151cb9"
+commit = "bd9e311143cd985d856dae74468c00fe939d86d0"

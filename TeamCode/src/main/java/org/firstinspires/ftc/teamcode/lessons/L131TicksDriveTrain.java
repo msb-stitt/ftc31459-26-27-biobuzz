@@ -4,17 +4,17 @@ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.RobotHardware;
 
 /**
- * L195: the drivetrain that says what each wheel's encoder has counted.
+ * L131: the drivetrain that says what each wheel's encoder has counted.
  *
  * <p>{@link CorbelsMecanum} already sends speeds to the four motors. This adds
  * the door the other way: four numbers back from the encoders, so a
  * measurement can compare what the wheels counted with what the Pinpoint saw.
  *
- * <p>Passes when: LessonsTest.l195_theTicksDoorReportsWhatEachEncoderCounted
+ * <p>Passes when: LessonsTest.l131_theTicksDoorReportsWhatEachEncoderCounted
  */
-class L195TicksDriveTrain extends CorbelsMecanum {
+class L131TicksDriveTrain extends CorbelsMecanum {
 
-    L195TicksDriveTrain(RobotHardware hardware) {
+    L131TicksDriveTrain(RobotHardware hardware) {
         super(hardware);
     }
 
@@ -27,8 +27,8 @@ class L195TicksDriveTrain extends CorbelsMecanum {
     @Override
     public int[] wheelTicks() {
         int[] ticks = new int[4];
-        // When on L195S030, see
-        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l195.html#l195s030
+        // When on L131S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l131.html#l131s030
         // for what to do here.
         return ticks;
     }

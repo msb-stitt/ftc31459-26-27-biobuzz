@@ -1,4 +1,8 @@
 classDiagram
+    class L093MenuOpMode {
+        DriverStationMenu menu
+        +init_loop()
+    }
     class DriverStationMenu {
         -OptionMenu optionMenu
         -MenuButtons menuButtons
@@ -28,6 +32,7 @@ classDiagram
         +publish(key, value)$
         +printToDs(line)$
     }
+    L093MenuOpMode o-- DriverStationMenu
     DriverStationMenu o-- OptionMenu
     DriverStationMenu o-- MenuButtons
     DriverStationMenu ..> Tracker

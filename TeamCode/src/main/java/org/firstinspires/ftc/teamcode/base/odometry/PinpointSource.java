@@ -23,6 +23,9 @@ public interface PinpointSource {
     /** Which way the robot faces, in radians, counterclockwise positive, not wrapped at a turn. */
     double getHeadingRadians();
 
+    /** When {@link #update} last read the Pinpoint, in seconds, from a clock that only goes forward. */
+    double getReadTimeSeconds();
+
     /**
      * Ticks per millimetre of a goBILDA pod: the SDK's own numbers, which its
      * driver keeps private. Hardware 12.0.0's {@code GoBildaPinpointDriver}.

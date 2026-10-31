@@ -64,7 +64,6 @@ tasks/l113
 tasks/l115
 tasks/l117
 tasks/l120
-tasks/l122
 ```
 
 ```{toctree}
@@ -73,6 +72,8 @@ tasks/l122
 
 tasks/l125
 tasks/l130
+tasks/l131
+tasks/l132
 tasks/l135
 ```
 
@@ -85,6 +86,8 @@ tasks/e141
 tasks/e142
 tasks/e143
 tasks/l150
+tasks/l153
+tasks/l157
 tasks/l160
 tasks/l170
 tasks/l180
@@ -93,17 +96,11 @@ tasks/l190
 
 ```{toctree}
 :maxdepth: 1
-:caption: measure the robot
-
-tasks/l195
-```
-
-```{toctree}
-:maxdepth: 1
 :caption: the back of the book
 
 tasks/r900
 tasks/r910
+tasks/r915
 tasks/r920
 tasks/r930
 r950/index

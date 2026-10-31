@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsOpMode;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.RobotHardware;
+import org.firstinspires.ftc.teamcode.base.SimRobot;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
@@ -572,7 +573,7 @@ public class LessonsTest {
     @Test
     public void everyLessonTurnsClockwiseWhenTheRightStickGoesRight() {
         List<String> wrongWay = new ArrayList<>();
-        for (OpMode lesson : new OpMode[]{MyTry.opMode("L122CompareLocalizersOpMode"),
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L132CompareLocalizersOpMode"),
                 MyTry.opMode("L140FieldRelativeOpMode"),
                 MyTry.opMode("L150RobotRelativeButtonOpMode"),
                 MyTry.opMode("L170DriveToPoseOpMode")}) {
@@ -649,8 +650,8 @@ public class LessonsTest {
     }
 
     @Test
-    public void l122_yourLocalizersAreLogged() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L122CompareLocalizersOpMode"));
+    public void l132_yourLocalizersAreLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L132CompareLocalizersOpMode"));
         Follower follower = h.robot.follower;
         h.init();
         h.start();
@@ -671,6 +672,92 @@ public class LessonsTest {
         assertEquals("the robot's own localizer, to compare against",
                 follower.pose().x(), number(values, "Localizer/pinPoint/x_in"), EPS);
         assertEquals(follower.pose().y(), number(values, "Localizer/pinPoint/y_in"), EPS);
+    }
+
+    @Test
+    public void l132_theErrorAndSpeedAreLogged() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L132CompareLocalizersOpMode"));
+        h.init();
+        h.start();
+        h.loop();
+        // 45 inches of wheel travel on every wheel = 45 inches forward
+        h.setWheelTicks(2025, 2025, 2025, 2025);
+        h.loop();
+        // The comparison runs before the localizers update, so it sees the move one loop later.
+        h.loop();
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the wheels' error is logged: " + values.keySet(),
+                values.containsKey("Error/driveWheelEncoders/x_in"));
+        assertEquals("yours less the robot's own, in x",
+                number(values, "Localizer/driveWheelEncoders/x_in")
+                        - number(values, "Localizer/pinPoint/x_in"),
+                number(values, "Error/driveWheelEncoders/x_in"), EPS);
+        assertEquals("yours less the robot's own, in y",
+                number(values, "Localizer/driveWheelEncoders/y_in")
+                        - number(values, "Localizer/pinPoint/y_in"),
+                number(values, "Error/driveWheelEncoders/y_in"), EPS);
+        assertTrue("the pods' error is logged: " + values.keySet(),
+                values.containsKey("Error/pinpointPods/heading_deg"));
+        assertTrue("L120's speed is logged: " + values.keySet(),
+                values.containsKey("Speed/pinpointPods/forward_ips"));
+        assertTrue("the robot's own speed is logged: " + values.keySet(),
+                values.containsKey("Speed/pinPoint/forward_ips"));
+    }
+
+    @Test
+    public void l132_theRunsFindTheWheelAngleAndTurnRadius() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L132WheelAngleOpMode"));
+        h.init();
+        h.start();
+        long deadline = h.clock.nanos() + 7_000_000_000L;
+        while (h.clock.nanos() < deadline) {
+            h.loop();
+            OpModeHarness.sleep(5);
+        }
+        h.stop();
+
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the strafe run's cot α is logged: " + values.keySet(),
+                values.containsKey("Fit/strafeRun/cotAlpha"));
+        assertEquals("the strafe run finds the simulator's wheel angle",
+                SimRobot.COT_WHEEL_ANGLE, number(values, "Fit/strafeRun/cotAlpha"), 0.01);
+        assertEquals("so does the mixed run",
+                SimRobot.COT_WHEEL_ANGLE, number(values, "Fit/mixedRun/cotAlpha"), 0.02);
+        assertEquals("and the turn radius, from the robot's own file",
+                Constants.turnRadiusInches, number(values, "Fit/mixedRun/turnRadius_in"), 0.1);
+    }
+
+    @Test
+    public void l153_theRunsFindTheSimulatorsKsAndKv() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L153FeedforwardOpMode"));
+        h.init();
+        h.start();
+        long deadline = h.clock.nanos() + 120_000_000_000L;
+        while (!Tracker.values().containsKey("Fit/strafe/kS_V") && h.clock.nanos() < deadline) {
+            h.loop();
+            OpModeHarness.sleep(5);
+        }
+        h.stop();
+
+        // The simulator's battery is 12 V. Below kS the robot does not move; above
+        // it the speed climbs to the axis's maximum at full power.
+        Map<String, Object> values = Tracker.values();
+        assertTrue("the fits are logged once the runs end: " + values.keySet(),
+                values.containsKey("Fit/strafe/kS_V"));
+        assertEquals("each forward run was steady", 4.0, number(values, "Fit/forward/runs"), EPS);
+        assertEquals("each strafe run was steady", 4.0, number(values, "Fit/strafe/runs"), EPS);
+        assertEquals("each turning run was steady", 4.0, number(values, "Fit/turn/runs"), EPS);
+        assertEquals("forward kS", SimRobot.KS_FORWARD * 12, number(values, "Fit/forward/kS_V"), 0.05);
+        assertEquals("forward kV", (1 - SimRobot.KS_FORWARD) * 12 / SimRobot.MAX_FORWARD_IPS,
+                number(values, "Fit/forward/kV_Vs_per_in"), 0.005);
+        assertEquals("strafe kS", SimRobot.KS_STRAFE * 12, number(values, "Fit/strafe/kS_V"), 0.05);
+        assertEquals("strafe kV", (1 - SimRobot.KS_STRAFE) * 12 / SimRobot.MAX_STRAFE_IPS,
+                number(values, "Fit/strafe/kV_Vs_per_in"), 0.005);
+        assertEquals("turn kS", SimRobot.KS_TURN * 12, number(values, "Fit/turn/kS_V"), 0.05);
+        assertEquals("turn kV", (1 - SimRobot.KS_TURN) * 12 / SimRobot.MAX_TURN_RADPS,
+                number(values, "Fit/turn/kV_Vs_per_rad"), 0.05);
     }
 
     @Test
@@ -922,6 +1009,125 @@ public class LessonsTest {
     }
 
     @Test
+    public void l157_theRespreadStartsFromZeroJustPastTheBand() {
+        Object shaper = MyTry.make("l157.StickShaper", Object.class, 0.05);
+        assertEquals("without the re-spread, squared: 0.525 times 0.525",
+                0.275625, (double) MyTry.call(shaper, "shaped", 0.525), EPS);
+
+        MyTry.call(shaper, "setRespread", true);
+        assertEquals("inside the band", 0.0, (double) MyTry.call(shaper, "shaped", 0.04), EPS);
+        assertEquals("just past the band, nearly 0", 0.0,
+                (double) MyTry.call(shaper, "shaped", 0.0501), 1e-6);
+        assertEquals("halfway from the band to 1 is 0.5, squared", 0.25,
+                (double) MyTry.call(shaper, "shaped", 0.525), EPS);
+        assertEquals("and backwards", -0.25, (double) MyTry.call(shaper, "shaped", -0.525), EPS);
+        assertEquals("all the way is still 1", 1.0, (double) MyTry.call(shaper, "shaped", 1.0), EPS);
+    }
+
+    /** L157's drivetrain on fake motors and a 12 V battery, for the three tests below. */
+    private static final class FeedforwardWheels {
+        final OpModeHarness.FakeMotor fl = new OpModeHarness.FakeMotor();
+        final OpModeHarness.FakeMotor fr = new OpModeHarness.FakeMotor();
+        final OpModeHarness.FakeMotor bl = new OpModeHarness.FakeMotor();
+        final OpModeHarness.FakeMotor br = new OpModeHarness.FakeMotor();
+        final Drivetrain drivetrain = MyTry.make("L157FeedforwardDriveTrain", Drivetrain.class,
+                new RobotHardware(fl.motor, fr.motor, bl.motor, br.motor,
+                        new OpModeHarness.FakeImu().imu, OpModeHarness.freshConfig()));
+
+        /** Asks for the speeds, and lets the drivetrain write the wheels as the follower would. */
+        void speeds(double forward_ips, double strafe_ips, double turn_radps) {
+            MyTry.call(drivetrain, "speeds", forward_ips, strafe_ips, turn_radps);
+            drivetrain.drive(DrivePowers.zero(), true);
+        }
+
+        /** What each wheel was last told, before a motor's write cache can hold a small change back. */
+        double[] wheels() {
+            return (double[]) MyTry.call(drivetrain, "wheelSpeeds");
+        }
+    }
+
+    @Test
+    public void l157_theVoltsAreKsPlusKvTimesTheSpeed() {
+        FeedforwardWheels w = new FeedforwardWheels();
+        w.speeds(30, 0, 0);
+        double forward = (Constants.kSForwardVolts + Constants.kVForwardVoltSecondsPerInch * 30) / 12;
+        assertEquals("forward: front left", forward, w.wheels()[0], EPS);
+        assertEquals("forward: back right", forward, w.wheels()[3], EPS);
+
+        w.speeds(0, 30, 0);
+        double strafe = (Constants.kSStrafeVolts + Constants.kVStrafeVoltSecondsPerInch * 30) / 12;
+        assertEquals("strafe left: front left", -strafe, w.wheels()[0], EPS);
+        assertEquals("strafe left: front right", strafe, w.wheels()[1], EPS);
+
+        w.speeds(0, 0, 2);
+        double turn = (Constants.kSTurnVolts + Constants.kVTurnVoltSecondsPerRadian * 2) / 12;
+        assertEquals("turn left: front left", -turn, w.wheels()[0], EPS);
+        assertEquals("turn left: front right", turn, w.wheels()[1], EPS);
+
+        // Forward and left at once: the front right gets both, and both ways' kS, each
+        // counted by its share of the wheel's volts.
+        w.speeds(20, 20, 0);
+        double forwardVolts = Constants.kVForwardVoltSecondsPerInch * 20;
+        double strafeVolts = Constants.kVStrafeVoltSecondsPerInch * 20;
+        double blendedKs = (forwardVolts * Constants.kSForwardVolts
+                + strafeVolts * Constants.kSStrafeVolts) / (forwardVolts + strafeVolts);
+        assertEquals("forward and left: front right",
+                (forwardVolts + strafeVolts + blendedKs) / 12, w.wheels()[1], EPS);
+    }
+
+    @Test
+    public void l157_kSWaitsForTheWheelToBeAskedToMove() {
+        FeedforwardWheels w = new FeedforwardWheels();
+        double kS = Constants.kSForwardVolts;
+        double kV = Constants.kVForwardVoltSecondsPerInch;
+        // Speeds whose kV volts are 3%, 6%, 3% and 1.5% of kS: off, on, still on, off.
+        double[] percents = {3, 6, 3, 1.5};
+        boolean[] kSOn = {false, true, true, false};
+        for (int i = 0; i < percents.length; i++) {
+            double speed = percents[i] / 100 * kS / kV;
+            w.speeds(speed, 0, 0);
+            double expected = (kV * speed + (kSOn[i] ? kS : 0.0)) / 12;
+            assertEquals("kV volts at " + percents[i] + "% of kS", expected, w.wheels()[0], EPS);
+        }
+    }
+
+    @Test
+    public void l157_aRequestTooBigIsCutToFit() {
+        FeedforwardWheels w = new FeedforwardWheels();
+        double strafe_ips = 100;
+        w.speeds(0, strafe_ips, 0);
+        double fits = (12 - Constants.kSStrafeVolts) / (Constants.kVStrafeVoltSecondsPerInch * strafe_ips);
+        assertEquals("the strafe is cut to what 12 V can give", fits,
+                number(Tracker.values(), "feedforward/scale"), EPS);
+        assertEquals("so each wheel is at full power: front left", -1.0, w.wheels()[0], EPS);
+        assertEquals("front right", 1.0, w.wheels()[1], EPS);
+    }
+
+    @Test
+    public void l157_theRobotGoesTheSpeedTheStickAsksFor() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L157FeedforwardOpMode"));
+        h.init();
+        h.start();
+        h.gamepad1.right_bumper = true;
+        h.gamepad1.left_stick_y = -0.5f;
+        long deadline = h.clock.nanos() + 2_000_000_000L;
+        while (h.clock.nanos() < deadline) {
+            h.loop();
+            OpModeHarness.sleep(5);
+        }
+        Map<String, Object> values = Tracker.values();
+        h.stop();
+
+        double asked = number(values, "feedforward/askedForward_ips");
+        assertEquals("half a stick, re-spread and squared, of the top speed",
+                Math.pow((0.5 - 0.05) / 0.95, 2)
+                        * (12 - Constants.kSForwardVolts) / Constants.kVForwardVoltSecondsPerInch,
+                asked, 1e-3);
+        assertEquals("and the robot goes it", asked,
+                number(values, "feedforward/actualForward_ips"), 0.02 * asked);
+    }
+
+    @Test
     public void l160_theRobotHoldsItsHeadingWhenTheStickIsReleased() {
         OpModeHarness h = new OpModeHarness(MyTry.opMode("L160HeadingHoldOpMode"));
         Follower follower = h.robot.follower;
@@ -1057,8 +1263,10 @@ public class LessonsTest {
         assertEquals("the wheels are not moving yet, so the error is the whole target",
                 40.0, (Double) Tracker.values().get("wheel/frontLeft/error_ips"), 1e-6);
 
-        // the measured feedforward for 40 in/s, plus the feedback on a 40 in/s error
-        assertEquals(Constants.powerPerInchPerSecond * 40 + 0.008 * 40,
+        // L153's feedforward for 40 in/s on the harness's 12 V battery, plus the feedback on a
+        // 40 in/s error
+        double feedforwardVolts = Constants.kSForwardVolts + Constants.kVForwardVoltSecondsPerInch * 40;
+        assertEquals(feedforwardVolts / 12.0 + 0.008 * 40,
                 (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
     }
 
@@ -1078,8 +1286,15 @@ public class LessonsTest {
                 (Double) Tracker.values().get("wheel/frontLeft/actual_ips"), 1e-6);
         assertEquals("so no correction is needed", 0.0,
                 (Double) Tracker.values().get("wheel/frontLeft/error_ips"), 1e-6);
-        assertEquals("and the speed is the feedforward alone",
-                Constants.powerPerInchPerSecond * 40,
+        double feedforwardVolts = Constants.kSForwardVolts + Constants.kVForwardVoltSecondsPerInch * 40;
+        assertEquals("and the speed is the feedforward alone, kS and kV's volts over 12 V",
+                feedforwardVolts / 12.0,
+                (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
+
+        h.batteryVolts = 13.0;
+        h.loop();
+        assertEquals("on a 13 V battery, the same volts are a smaller share of it",
+                feedforwardVolts / 13.0,
                 (Double) Tracker.values().get("wheel/frontLeft/speed"), 1e-6);
     }
 
@@ -1095,11 +1310,14 @@ public class LessonsTest {
         double right = (Double) Tracker.values().get("wheel/frontRight/target_ips");
         assertEquals("opposite", -left, right, 1e-6);
         assertTrue("turning counter-clockwise drives the left side backwards", left < 0);
+        double leftSpeed = (Double) Tracker.values().get("wheel/frontLeft/speed");
+        double rightSpeed = (Double) Tracker.values().get("wheel/frontRight/speed");
+        assertEquals("and kS pushes each side the way it turns", -leftSpeed, rightSpeed, 1e-6);
     }
 
     @Test
-    public void l195_theTicksDoorReportsWhatEachEncoderCounted() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L195MeasureTicksPerInchOpMode"));
+    public void l131_theTicksDoorReportsWhatEachEncoderCounted() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L131MeasureTicksPerInchOpMode"));
         h.init();
         h.setWheelTicks(10, 20, 30, 40);
         assertArrayEquals("front left, front right, back left, back right",
@@ -1108,9 +1326,9 @@ public class LessonsTest {
     }
 
     @Test
-    public void l195_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards() {
-        for (OpMode lesson : new OpMode[]{MyTry.opMode("L195MeasureTicksPerInchOpMode"),
-                MyTry.opMode("L195MeasureTurnRadiusOpMode")}) {
+    public void l131_theWheelsRollThroughoutAMeasurementAndBrakeAgainAfterwards() {
+        for (OpMode lesson : new OpMode[]{MyTry.opMode("L131MeasureTicksPerInchOpMode"),
+                MyTry.opMode("L131MeasureTurnRadiusOpMode")}) {
             String name = lesson.getClass().getSimpleName();
             OpModeHarness h = new OpModeHarness(lesson);
             h.init();
@@ -1129,8 +1347,8 @@ public class LessonsTest {
     }
 
     @Test
-    public void l195_stoppingBeforeASingleLoopStillPutsBrakingBack() {
-        OpModeHarness h = new OpModeHarness(MyTry.opMode("L195MeasureTicksPerInchOpMode"));
+    public void l131_stoppingBeforeASingleLoopStillPutsBrakingBack() {
+        OpModeHarness h = new OpModeHarness(MyTry.opMode("L131MeasureTicksPerInchOpMode"));
         h.init();
         h.start();
         h.stop();                                  // STOP pressed straight away

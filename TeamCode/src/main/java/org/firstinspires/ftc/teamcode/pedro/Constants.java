@@ -77,11 +77,27 @@ public class Constants {
     public static PinpointConfig localizerConfig;
     public static ForesightConfig foresightConfig;
 
-    /** Ticks per inch of wheel travel. L195 measures it. */
+    /** Ticks per inch of wheel travel. L113 works it out from the parts, and L131 measures it. */
     public static double ticksPerInch;
 
-    /** How far a wheel sits from the middle, inches. L195 measures it. */
+    /**
+     * How far a wheel's rim rolls for each radian the robot turns, inches: A + B
+     * for 45-degree mecanum wheels. L113 works it out from where the wheels sit,
+     * and L131 measures it.
+     */
     public static double turnRadiusInches;
+
+    /**
+     * The drivetrain's feedforward, in SysId's units: kS in volts, and kV in
+     * volts per inch per second, or per radian per second turning, for driving
+     * forward, strafing and turning. L153 measures them.
+     */
+    public static double kSForwardVolts;
+    public static double kVForwardVoltSecondsPerInch;
+    public static double kSStrafeVolts;
+    public static double kVStrafeVoltSecondsPerInch;
+    public static double kSTurnVolts;
+    public static double kVTurnVoltSecondsPerRadian;
 
     /**
      * The fastest the robot goes, inches per second, and the power it takes to
@@ -92,6 +108,12 @@ public class Constants {
      */
     public static double maxForwardInchesPerSecond;
     public static double maxStrafeInchesPerSecond;
+    /**
+     * @deprecated Use L153's {@link #kSForwardVolts} and
+     * {@link #kVForwardVoltSecondsPerInch}, divided by the battery's volts, as
+     * L190 does. Kept until no student code on the team uses it.
+     */
+    @Deprecated
     public static double powerPerInchPerSecond;
 
     /** The launcher's target speed, and the speed above which the windmill feeds it, ticks/s. */
@@ -161,6 +183,12 @@ public class Constants {
         foresightConfig = Bot88888.foresightConfig;
         ticksPerInch = Bot88888.ticksPerInch;
         turnRadiusInches = Bot88888.turnRadiusInches;
+        kSForwardVolts = Bot88888.kSForwardVolts;
+        kVForwardVoltSecondsPerInch = Bot88888.kVForwardVoltSecondsPerInch;
+        kSStrafeVolts = Bot88888.kSStrafeVolts;
+        kVStrafeVoltSecondsPerInch = Bot88888.kVStrafeVoltSecondsPerInch;
+        kSTurnVolts = Bot88888.kSTurnVolts;
+        kVTurnVoltSecondsPerRadian = Bot88888.kVTurnVoltSecondsPerRadian;
         launcherTargetTicksPerSecond = Bot88888.launcherTargetTicksPerSecond;
         launcherFeedAboveTicksPerSecond = Bot88888.launcherFeedAboveTicksPerSecond;
         launcherVelocityP = Bot88888.launcherVelocityP;
@@ -176,6 +204,12 @@ public class Constants {
         foresightConfig = Bot37523.foresightConfig;
         ticksPerInch = Bot37523.ticksPerInch;
         turnRadiusInches = Bot37523.turnRadiusInches;
+        kSForwardVolts = Bot37523.kSForwardVolts;
+        kVForwardVoltSecondsPerInch = Bot37523.kVForwardVoltSecondsPerInch;
+        kSStrafeVolts = Bot37523.kSStrafeVolts;
+        kVStrafeVoltSecondsPerInch = Bot37523.kVStrafeVoltSecondsPerInch;
+        kSTurnVolts = Bot37523.kSTurnVolts;
+        kVTurnVoltSecondsPerRadian = Bot37523.kVTurnVoltSecondsPerRadian;
         launcherTargetTicksPerSecond = Bot37523.launcherTargetTicksPerSecond;
         launcherFeedAboveTicksPerSecond = Bot37523.launcherFeedAboveTicksPerSecond;
         launcherVelocityP = Bot37523.launcherVelocityP;
@@ -191,6 +225,12 @@ public class Constants {
         foresightConfig = Bot31459.foresightConfig;
         ticksPerInch = Bot31459.ticksPerInch;
         turnRadiusInches = Bot31459.turnRadiusInches;
+        kSForwardVolts = Bot31459.kSForwardVolts;
+        kVForwardVoltSecondsPerInch = Bot31459.kVForwardVoltSecondsPerInch;
+        kSStrafeVolts = Bot31459.kSStrafeVolts;
+        kVStrafeVoltSecondsPerInch = Bot31459.kVStrafeVoltSecondsPerInch;
+        kSTurnVolts = Bot31459.kSTurnVolts;
+        kVTurnVoltSecondsPerRadian = Bot31459.kVTurnVoltSecondsPerRadian;
         launcherTargetTicksPerSecond = Bot31459.launcherTargetTicksPerSecond;
         launcherFeedAboveTicksPerSecond = Bot31459.launcherFeedAboveTicksPerSecond;
         launcherVelocityP = Bot31459.launcherVelocityP;

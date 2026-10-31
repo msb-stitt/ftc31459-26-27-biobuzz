@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.base.RobotFactory;
 public class HardwarePinpointSource implements PinpointSource {
 
     private final GoBildaPinpointDriver pinpoint;
+    private double readTime_s;
 
     /** The robot's Pinpoint, or the simulated one in the simulator and the tests. */
     public static PinpointSource find(HardwareMap map) {
@@ -26,6 +27,7 @@ public class HardwarePinpointSource implements PinpointSource {
     @Override
     public void update() {
         pinpoint.update();
+        readTime_s = System.nanoTime() / 1e9;
     }
 
     @Override
@@ -41,5 +43,10 @@ public class HardwarePinpointSource implements PinpointSource {
     @Override
     public double getHeadingRadians() {
         return pinpoint.getHeading(UnnormalizedAngleUnit.RADIANS);
+    }
+
+    @Override
+    public double getReadTimeSeconds() {
+        return readTime_s;
     }
 }

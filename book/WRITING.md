@@ -72,6 +72,10 @@ to one how-to per computer, H011 to H013.
 
 Each part is one or two imperative sentences. A part leads with its name in bold, not a heading.
 
+**A student's simulator check drives with the gamepad.** The **Simulator** part runs `simRun` with
+`--pad`, and the check says what to do with the sticks and buttons. A run with typed flags, such as
+`--left_stick_y=-0.5`, is for a mentor with no gamepad, in a **No gamepad.** block.
+
 H017, *navigate Android Studio's panes*, comes before L020. It changes no code, so it has no step
 names, and its parts are named for what the student does: **Click**, **Drag**, **Theme**, **View**,
 **Find**, **Sync**, **Target** and **Build**.
@@ -122,6 +126,14 @@ The code a student copies carries a comment where each step changes it, linking 
 // for what to do here.
 ```
 
+**A Java block names its file.** It is a `{code-block} java` whose `:caption:` is the file's path
+under `teamcode/`, with `(test) ` in front for a test, such as
+`(test) mytry/l093/MenuItemTest.java`, or `pedro/Bot*.java` for the robot's own file. `labels.css`
+draws it as a grey tab on the block's top edge. A code example that is in no file, such as E021's
+`double leftStickY`, has `:class: example` in place of a caption. `tools/check_labels.py` fails a
+Java block with neither, and a line that is not in its file as the page leaves it. A line a later
+step on the page deletes or changes is read at its own step.
+
 ## A lesson can have the student write whole classes
 
 L065 is the first, with one class and no test of its own; its diagrams are on E067, the page
@@ -142,10 +154,6 @@ after it. L093 is the first with each part below. Their pages and starters are w
 - **A class's starter is a header**: its class Javadoc and step pointer only. The student types
   the `package` line, the imports and the class. The OpMode's starter is like other lessons', with
   step pointers where the student types.
-- **A Java block names its file.** Its `:caption:` is the file's path under `teamcode/`, with
-  `(test) ` in front for a test, such as `(test) mytry/l093/MenuItemTest.java`; `labels.css` draws
-  it as a grey tab on the block's top edge. `tools/check_labels.py` fails a block whose lines are
-  not in that file as the lesson leaves it, and a Java block in L065, L093 or L135 with no caption.
 - **Each test is written before the code it tests.** Test starters are in `src/test/.../lessons/`,
   and are copied into the `mytry` folder under `test`. A step types a test, runs it and watches it
   fail, then types the code until it passes.
@@ -153,6 +161,13 @@ after it. L093 is the first with each part below. Their pages and starters are w
   `./gradlew :TeamCode:compileDebugJavaWithJavac` and
   `./gradlew :TeamCode:testDebugUnitTest --tests '*mytry.lnnn*'`, with the lesson's own number;
   the check is `BUILD SUCCESSFUL`.
+
+## A challenge exercise follows the steps, under its own heading
+
+A lesson's challenge exercise is a `## challenge exercise: ...` section after its last step, and an
+extra challenge exercise a `## extra challenge exercise: ...` section after that. Each opens by
+saying it is a challenge and, for the first, that no later lesson needs it. Its steps keep counting
+from the lesson's last, and the mentor blocks stay at the end of the page. L132 has the first.
 
 ## The old pages have five parts
 
@@ -223,9 +238,10 @@ These simplifications are made everywhere, and are not marked:
   Android Studio's *Redundant local variable* flags such a variable. The project turns that off
   for one returned at once, with *Ignore immediately returned or thrown variables* in
   `.idea/inspectionProfiles/Project_Default.xml`.
-- **A method's name fits what it does.** A method that takes an action starts with a verb naming
-  it: `driveFromTheSticks`. A method that converts names what it works out, `signedSquared`, or
-  what goes in and what comes out where that reads more clearly: `mixArcadeToWheelSpeeds`.
+- **A method's name fits what it does.** A getter starts with `get`, as `getSelected`, and a setter
+  with `set`, as `setBand`. A method that takes an action starts with a verb naming it:
+  `driveFromTheSticks`, `goRight`. A method that converts names what it works out, `signedSquared`,
+  or what goes in and what comes out where that reads more clearly: `mixArcadeToWheelSpeeds`.
 - **A name says what kind of value it holds, and in which frame.** `forwardXSpeed`, not `forward`;
   `wheelSpeeds`, not `wheels`.
 - **A set of things may share a short abbreviation when names get long.** `fl`, `fr`, `bl` and
@@ -237,6 +253,9 @@ These simplifications are made everywhere, and are not marked:
   `Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed)`, not `"arcade/forward"`. A system
   is split by the parts of its algorithm only when it holds too much to read otherwise.
 - **A blank line separates the steps of a method.**
+- **A loop that reads each item of one list is a for-each loop**, `for (MenuRow row : rows)`,
+  with no index to count. A loop that pairs arrays by index keeps its `i`, as L113's and L190's
+  do.
 - **`Math.max` takes two numbers**, so the largest of four is a chain of calls, each on its own
   line.
 - **A whole-number `float` or `double` is written with `.0` in code**, and where a page names
@@ -255,6 +274,8 @@ These simplifications are made everywhere, and are not marked:
 - **Package-private by default.** A modifier is written only where the code will not work without
   it, and then it is `public`. From L093, which teaches it, a field of a lesson's own class is
   `private`. No lesson teaches `protected`.
+- **A starter line that cannot compile yet is commented out**, and the step that makes it compile
+  has the student delete the `//`, as L070S020 does for the student's `StickShaper`.
 - **Every modifier has a comment on the line before it**, saying what forced it and what it allows.
   The phrases are in `ftc-claude`'s `.docs/modifiers-explanation.md`.
 - **The code we give the students has Javadoc**, and no lesson asks a student to write any.
@@ -315,6 +336,9 @@ around them.
 
 A diagram draws each class and object in full. Mermaid's `..>`, "uses", is drawn dashed with an
 open head.
+
+**A class diagram shows each class the sequence diagrams beside it show.** A class from outside
+the lesson, such as `Gamepad` or `Tracker`, shows only the methods the lesson's classes call.
 
 **Draw a variable as a sticky note**, the picture Ned Batchelder's
 [*Facts and myths about Python names and values*](https://nedbatchelder.com/text/names.html) uses

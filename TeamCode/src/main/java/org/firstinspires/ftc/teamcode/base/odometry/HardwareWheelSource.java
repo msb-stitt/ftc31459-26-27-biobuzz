@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.base.RobotHardware;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 /**
  * Reads the four drive motors' encoders and the Control Hub's IMU.
@@ -12,13 +13,10 @@ import org.firstinspires.ftc.teamcode.base.RobotHardware;
  * can be tested on a laptop. It looks nothing up: the devices come from
  * {@link RobotHardware}, resolved once at init.
  *
- * <p>TICKS_PER_INCH comes from measuring: push the robot a known distance and
- * divide.
+ * <p>Ticks become inches at {@link Constants#ticksPerInch}, the number in the
+ * robot's own file: worked out in L113, and measured in L131.
  */
 public class HardwareWheelSource implements WheelSource {
-
-    /** Measure this: drive a known distance, divide ticks by inches. */
-    public static double TICKS_PER_INCH = 45.0;
 
     private final DcMotorEx frontLeft;
     private final DcMotorEx frontRight;
@@ -49,10 +47,10 @@ public class HardwareWheelSource implements WheelSource {
     @Override
     public double[] wheelInches() {
         return new double[]{
-                frontLeft.getCurrentPosition() / TICKS_PER_INCH,
-                frontRight.getCurrentPosition() / TICKS_PER_INCH,
-                backLeft.getCurrentPosition() / TICKS_PER_INCH,
-                backRight.getCurrentPosition() / TICKS_PER_INCH};
+                frontLeft.getCurrentPosition() / Constants.ticksPerInch,
+                frontRight.getCurrentPosition() / Constants.ticksPerInch,
+                backLeft.getCurrentPosition() / Constants.ticksPerInch,
+                backRight.getCurrentPosition() / Constants.ticksPerInch};
     }
 
     @Override

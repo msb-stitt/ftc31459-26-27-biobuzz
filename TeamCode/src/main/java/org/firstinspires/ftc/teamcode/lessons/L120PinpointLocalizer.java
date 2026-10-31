@@ -17,7 +17,8 @@ import org.firstinspires.ftc.teamcode.base.odometry.PinpointSource;
  * does the same maths itself, from the pods' raw counts, the way L113's does
  * from the drive wheels: every loop it asks how far each pod rolled since last
  * time, takes out what turning rolled them, turns what is left to point the way
- * the robot faces, and adds it to where it thought it was.
+ * the robot faces, and adds it to where it thought it was. Dividing each step
+ * by the time since last loop gives how fast the robot is going.
  *
  * <p>The forward pod is the Pinpoint's x pod, and the strafe pod its y pod.
  * L117 measured where they sit and which way they count, in the robot's own
@@ -47,12 +48,18 @@ class L120PinpointLocalizer implements Localizer {
     /** Added to the Pinpoint's heading, so that setPose can say which way the robot faces. */
     double headingOffset_rad;
 
+    /** How fast the robot is going, forward, to its left and turning, per second. */
+    double forwardSpeed_ips;
+    double strafeSpeed_ips;
+    double turnSpeed_radps;
+
     /** True until the first loop has been remembered. */
     boolean firstLoop = true;
     /** What the pods and the heading read last loop. */
     double lastForwardPod_in;
     double lastStrafePod_in;
     double lastRawHeading_rad;
+    double lastReadTime_s;
 
     L120PinpointLocalizer(PinpointSource source, PinpointConfig config) {
         this.source = source;
@@ -70,6 +77,7 @@ class L120PinpointLocalizer implements Localizer {
         double forwardPod_in = 0.0;
         double strafePod_in = 0.0;
         double rawHeading_rad = source.getHeadingRadians();
+        double readTime_s = source.getReadTimeSeconds();
 
         // When on L120S040, see
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s040
@@ -83,22 +91,26 @@ class L120PinpointLocalizer implements Localizer {
         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s060
         // for what to do here.
 
+        // When on L120S070, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l120.html#l120s070
+        // for what to do here.
+
         lastForwardPod_in = forwardPod_in;
         lastStrafePod_in = strafePod_in;
         lastRawHeading_rad = rawHeading_rad;
+        lastReadTime_s = readTime_s;
     }
 
     /**
-     * Where the robot thinks it is. It only runs beside the robot's own
-     * localizer, which logs where it is and never how fast, so the speed it
-     * reports is zero.
+     * Where the robot thinks it is, and how fast it is going: forward, to its
+     * own left and turning, as Pedro's {@code Twist} holds them.
      */
     // 'public' to match Pedro's Localizer interface. 'public' allows access from any code.
     @Override
     public MotionState state() {
         Pose where = poses.of(x_in, y_in, lastRawHeading_rad + headingOffset_rad);
-        Twist standingStill = new Twist(0.0, 0.0, 0.0);
-        MotionState state = MotionState.ofTwist(where, standingStill);
+        Twist speed = new Twist(forwardSpeed_ips, strafeSpeed_ips, turnSpeed_radps);
+        MotionState state = MotionState.ofTwist(where, speed);
         return state;
     }
 

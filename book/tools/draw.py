@@ -12,8 +12,8 @@ drawing the book uses. The diagrams among them are written in Mermaid, as tools/
 mermaid-cli lays each out, and this draws it again.
 
 Every number in a figure is the code's: the 0.05 deadband and the sign-keeping square of L060, the
-four mixing sums of L090, the field rotation of L140, and L190's 40 in/s, its feedforward of
-Constants.powerPerInchPerSecond and its correction of 0.008 per in/s.
+four mixing sums of L090, the field rotation of L140, and L190's 40 in/s, its feedforward from
+L153's kS and kV, and its correction of 0.008 per in/s.
 
 The marker-sketch style, as the lesson outline sets it:
 
@@ -73,7 +73,8 @@ GREY = "#888888"
 LIGHT = "#eeeeee"
 
 DEADBAND = 0.05                        # L060
-POWER_PER_IPS = 0.016695978563625216   # pedro/Constants.powerPerInchPerSecond
+KS_FORWARD_VOLTS = 0.6                 # pedro/Bot37523.kSForwardVolts, L153
+KV_FORWARD = 0.177                     # pedro/Bot37523.kVForwardVoltSecondsPerInch, L153
 VELOCITY_KP = 0.008                    # LessonsDriveTrain.VELOCITY_KP
 MAX_IPS = 40                           # L190VelocityDriveOpMode.MAX_IPS
 
@@ -140,9 +141,9 @@ def stick_shaping():
 
 def speed_loop():
     fig, ax = plt.subplots(figsize=(12, 5))
-    ff = POWER_PER_IPS * MAX_IPS
+    ff = (KS_FORWARD_VOLTS + KV_FORWARD * MAX_IPS) / 12
     box(ax, (1.2, 3.2), 2.0, 1.0, f"stick full forward\nwanted {MAX_IPS} in/s", "#fde2d2")
-    box(ax, (4.4, 4.2), 2.6, 0.9, f"feedforward\n{POWER_PER_IPS:.4f} x {MAX_IPS} = {ff:.3f}",
+    box(ax, (4.4, 4.2), 3.0, 1.1, f"feedforward\n{KS_FORWARD_VOLTS} V + {KV_FORWARD} V·s/in x {MAX_IPS} in/s\n= {ff * 12:.2f} V; over 12 V, {ff:.2f}",
         "#dbe8f7", fontsize=10)
     box(ax, (4.4, 2.0), 2.6, 0.9, f"error x {VELOCITY_KP}\n(wanted - measured)", "#e3f1e3",
         fontsize=10)
@@ -150,9 +151,9 @@ def speed_loop():
     ax.text(7.0, 3.2, "+", ha="center", va="center", fontsize=18)
     box(ax, (9.0, 3.2), 1.8, 1.0, "speed\nto the motor", "#eeeeee")
     box(ax, (9.0, 0.8), 1.8, 0.9, "encoder:\nmeasured in/s", "#eeeeee", fontsize=10)
-    arrow(ax, (2.2, 3.4), (3.1, 4.1))
+    arrow(ax, (2.2, 3.4), (2.85, 3.9))
     arrow(ax, (2.2, 3.0), (3.1, 2.1))
-    arrow(ax, (5.7, 4.1), (6.75, 3.4))
+    arrow(ax, (5.95, 3.85), (6.75, 3.4))
     arrow(ax, (5.7, 2.1), (6.75, 3.0))
     arrow(ax, (7.32, 3.2), (8.1, 3.2))
     arrow(ax, (9.0, 2.7), (9.0, 1.25))
@@ -3292,6 +3293,9 @@ MERMAID_COLORS = {
     "Follower": ("#2DD4BF", "#0F766E"),
     "Scheduler": ("#E879F9", "#A21CAF"),
     "RobotHardware": ("#FACC15", "#A16207"),
+    "A": ("#60A5FA", "#1D4ED8"),
+    "B": ("#4ADE80", "#15803D"),
+    "Mode": ("#FB923C", "#C2410C"),
 }
 CENTRAL = 0.35             # a Menlo line's middle above its baseline, in sizes
 MENLO_ADVANCE = 0.602      # each Menlo character's width, in sizes
@@ -3519,6 +3523,30 @@ def color_of(name):
     return MERMAID_COLORS[cls]
 
 
+def fit_to_menlo(boxes, dividers, words, pad=8):
+    """Mermaid sizes a class's lines in another font than Menlo: each box widened, both ways from
+    its middle, to hold its longest line, and its dividers with it."""
+    fitted, moved = [], []
+    for box in boxes:
+        xs = [x for x, _ in box]
+        mid, right = (min(xs) + max(xs)) / 2, max(xs)
+        grow = 0.0
+        for xy, text, anchor in words:
+            if not inside(xy, box):
+                continue
+            width = len(text) * MENLO_ADVANCE * MERMAID_SIZE
+            end = mid + width / 2 if anchor == "middle" else xy[0] + width
+            grow = max(grow, end + pad - right)
+        fitted.append([(x - grow if x < mid else x + grow, y) for x, y in box])
+        moved.append((box, mid, grow))
+    widened = []
+    for a, b in dividers:
+        centre = ((a[0] + b[0]) / 2, a[1])
+        box, mid, grow = next((m for m in moved if inside(centre, m[0])), (None, 0.0, 0.0))
+        widened.append(tuple((x - grow if x < mid else x + grow, y) for x, y in (a, b)))
+    return fitted, widened
+
+
 def mermaid(name):
     w, h, boxes, dividers, words, lifelines, arrows, extras = mermaid_read(mermaid_svg(name))
     clusters, notes, frames, figures = extras
@@ -3530,6 +3558,7 @@ def mermaid(name):
     margin = (MERMAID_COLUMN - w) / 2
     s.ax.set_xlim(-margin, w + margin)
     names = [name_of(box, words) for box in boxes]
+    boxes, dividers = fit_to_menlo(boxes, dividers, words)
     for box in clusters:
         # Mermaid sizes a namespace's label in another font than Menlo: widen the box to hold it.
         xs, ys = [x for x, _ in box], [y for _, y in box]
@@ -3656,6 +3685,52 @@ def l065_shapes():
     save(fig, "fig-l065-shapes")
 
 
+def l153_fit():
+    # L153's fits in the simulator, read from its flight log on 2026-10-31: each steady run's
+    # speed against its volts, 0.2 to 0.8 power of a 12 V battery, and the line through them.
+    runs = [("forward", "speed (in/s)", [10.168, 23.726, 37.284, 50.833], 0.599, 0.17705),
+            ("strafe", "speed (in/s)", [7.048, 18.796, 30.543, 42.289], 0.960, 0.20431),
+            ("turn", "speed (rad/s)", [0.596, 1.447, 2.298, 3.149], 0.720, 2.8200)]
+    volts = [2.4, 4.8, 7.2, 9.6]
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+    for ax, (name, unit, speeds, ks, kv) in zip(axes, runs):
+        top = speeds[-1] * 1.1
+        line = np.linspace(0, top, 50)
+        ax.plot(line, ks + kv * line, color=BLUE, linewidth=2.5)
+        ax.plot(speeds, volts, "o", color=RED, markersize=8)
+        ax.plot([0], [ks], "o", color=BLUE, markersize=6)
+        ax.annotate(f"kS {ks:.2f} V", (0, ks), (top * 0.4, ks + 0.2), fontsize=11, va="center",
+                    arrowprops=dict(arrowstyle="-", color=GREY))
+        ax.set_xlim(0, top)
+        ax.set_ylim(0, 11)
+        ax.set_title(name, fontsize=13)
+        ax.set_xlabel(unit)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("volts (V)")
+    save(fig, "fig-l153-fit")
+
+
+def l157_respread():
+    # L157's re-spread near the band: what is past the band spread from 0 to 1 again, against
+    # L065's, which jumps from 0 to the band. Only 0 to 0.3 of the stick, where the jump shows.
+    x = np.linspace(0, 0.3, 601)
+    outside = x > DEADBAND
+    respread = np.where(outside, (x - DEADBAND) / (1 - DEADBAND), 0.0)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.5))
+    for ax, shape, title in [(axes[0], lambda v: v, "LINEAR"), (axes[1], squared, "SQUARED")]:
+        ax.plot(x, shape(deadband(x)), color=GREY, linewidth=2, label="L065")
+        ax.plot(x, shape(respread), color=BLUE, linewidth=2.5, label="re-spread")
+        ax.axvspan(0, DEADBAND, color=RED, alpha=0.15)
+        ax.set_xlim(0, 0.3)
+        ax.set_ylim(0, None)
+        ax.set_title(title, fontsize=13)
+        ax.set_xlabel("stick, 0.0 to 0.3")
+        ax.legend(loc="upper left", fontsize=11)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("shaped speed")
+    save(fig, "fig-l157-respread")
+
+
 def l045_wiring():
     # L045's wiring, from above with the nose up: each wheel's motor to its motor port, its
     # encoder to the encoder port with the same number; the IMU inside the hub, on I2C Bus 0;
@@ -3748,7 +3823,153 @@ def l120_pod_turn():
     s.save("fig-l120-pod-turn")
 
 
-PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes]
+def l113_wheel_vectors():
+    # L113S050: each wheel pushes 40 degrees from forward, not 45, so its forward part is longer
+    # than its sideways part. Driving forward, the forward parts add and the sideways parts cancel;
+    # sliding left, the reverse, and the sum is shorter. Up the page is forward.
+    a = math.radians(40)
+    pushes = {"front left": (1, -1), "front right": (-1, -1), "back left": (-1, -1),
+              "back right": (1, -1)}
+    motions = [("driving forward", {"front left": 1, "front right": 1, "back left": 1,
+                                    "back right": 1}),
+               ("sliding left", {"front left": -1, "front right": 1, "back left": 1,
+                                 "back right": -1})]
+    s = Sketch(1400, 900, 113)
+    side, n = 420, 100
+    for i, (title, spin) in enumerate(motions):
+        cx, cy = 360 + 680 * i, 450
+        s.text((cx, 80), title, 36)
+        centers = robot_inside(s, cx, cy, side)
+        sx = sy = 0.0
+        for name, (wx, wy) in centers.items():
+            ux, uy = (pushes[name][0] * math.sin(a) * spin[name],
+                      pushes[name][1] * math.cos(a) * spin[name])
+            sx, sy = sx + ux, sy + uy
+            s.marker_arrow((wx, wy), (wx + n * ux, wy + n * uy), MARKER_RED, nib=7)
+            s.marker_arrow((wx, wy), (wx, wy + n * uy), MARKER_ORANGE, nib=5)
+            s.marker_arrow((wx, wy + n * uy), (wx + n * ux, wy + n * uy), MARKER_BLUE, nib=5)
+        s.marker_arrow((cx, cy), (cx + n / 2 * sx, cy + n / 2 * sy), MARKER_GREEN, nib=10)
+    s.lines((700, 790), ["red: which way each wheel pushes, 40 degrees from forward",
+                         "orange: its forward part      blue: its sideways part",
+                         "green: what the four pushes add up to"], 26)
+    s.save("fig-l113-wheel-vectors")
+
+
+def l113_robot(s, cx, cy, a, b, mecanum=True):
+    """L113S070's robot from above, nose up: a wheel centre at each corner of a rectangle 2b wide
+    and 2a long, the frame around it. Mecanum wheels face forward; an X-drive's omni wheels sit
+    along the circle through the centres. Gives back each wheel's centre."""
+    frame_top(s, cx - b - 70, cy - a - 90, 2 * b + 140, 2 * a + 180)
+    centers = [(cx - b, cy - a), (cx + b, cy - a), (cx - b, cy + a), (cx + b, cy + a)]
+    for wx, wy in centers:
+        if not mecanum:
+            s.turn = (wx, wy, math.degrees(math.atan2(wy - cy, wx - cx)))
+        wheel_top(s, wx, wy, 44, 104)
+        s.turn = (0.0, 0.0, 0.0)
+        s.dot((wx, wy), 6)
+    return centers
+
+
+def l113_rectangle_lines(s, cx, cy, a, b, diagonals=True):
+    """The rectangle through the wheel centres, A and B marked from the middle, and its
+    diagonals crossing at the middle."""
+    corners = [(cx - b, cy - a), (cx + b, cy - a), (cx + b, cy + a), (cx - b, cy + a)]
+    for i in range(4):
+        s.construct(corners[i], corners[(i + 1) % 4])
+    if diagonals:
+        s.construct(corners[0], corners[2])
+        s.construct(corners[1], corners[3])
+    s.dot((cx, cy), 9)
+    s.construct((cx + b, cy - a), (cx + b + 110, cy - a))
+    s.construct((cx + b, cy + a), (cx + b, cy + a + 130))
+    s.ink_line((cx + b + 100, cy), (cx + b + 100, cy - a), width=1.6, over=0, passes=1)
+    s.text((cx + b + 114, cy - a / 2 + 10), "A", 34, anchor="start")
+    s.ink_line((cx, cy + a + 120), (cx + b, cy + a + 120), width=1.6, over=0, passes=1)
+    s.text((cx + b / 2, cy + a + 160), "B", 34)
+
+
+def l113_rectangle():
+    # L113S070: the robot from above, a wheel centre at each corner of a rectangle. A is half its
+    # length and B half its width; its diagonals cross at the middle, where the robot turns.
+    s = Sketch(900, 1000, 1131)
+    cx, cy, a, b = 420, 460, 195, 210
+    l113_robot(s, cx, cy, a, b)
+    l113_rectangle_lines(s, cx, cy, a, b)
+    s.text((cx, cy + 44), "middle", 24)
+    s.lines((450, 900), ["A: half the length, front to back", "B: half the width, side to side"],
+            24)
+    s.save("fig-l113-rectangle")
+
+
+def l113_circle():
+    # L113S070: turning on the spot, each wheel centre goes round the circle through all four,
+    # radius the square root of A squared plus B squared, by Pythagoras.
+    s = Sketch(900, 1000, 1132)
+    cx, cy, a, b = 420, 460, 195, 210
+    r = math.hypot(a, b)
+    l113_robot(s, cx, cy, a, b)
+    l113_rectangle_lines(s, cx, cy, a, b, diagonals=False)
+    s.line(arc((cx, cy), r, 0, 360, 120), MARKER_RED, 3, 0.8)
+    s.ink_line((cx, cy), (cx + b, cy - a), width=2.2, over=0, passes=1)
+    s.text((cx + b / 2 - 70, cy - a / 2 - 10), "\u221a(A\u00b2 + B\u00b2)", 26)
+    for wx, wy in [(cx - b, cy - a), (cx + b, cy - a), (cx - b, cy + a), (cx + b, cy + a)]:
+        ux, uy = (wy - cy) / r, -(wx - cx) / r        # turning left, nose up
+        s.marker_arrow((wx, wy), (wx + 90 * ux, wy + 90 * uy), MARKER_RED, nib=7)
+    s.lines((450, 920), ["turning left, each wheel centre goes round the red circle"], 24)
+    s.save("fig-l113-circle")
+
+
+def l113_x_drive():
+    # L113S070's contrast: an X-drive's omni wheels sit along the circle, so each rolls the whole
+    # of its centre's motion, and its turn radius is the hypotenuse.
+    s = Sketch(900, 900, 1133)
+    cx, cy, a, b = 450, 430, 195, 210
+    r = math.hypot(a, b)
+    l113_robot(s, cx, cy, a, b, mecanum=False)
+    s.line(arc((cx, cy), r, 0, 360, 120), MARKER_RED, 3, 0.8)
+    s.dot((cx, cy), 9)
+    s.ink_line((cx, cy), (cx + b, cy - a), width=2.2, over=0, passes=1)
+    s.text((cx + b / 2 - 70, cy - a / 2 - 10), "\u221a(A\u00b2 + B\u00b2)", 26)
+    for wx, wy in [(cx - b, cy - a), (cx + b, cy - a), (cx - b, cy + a), (cx + b, cy + a)]:
+        ux, uy = (wy - cy) / r, -(wx - cx) / r
+        s.marker_arrow((wx, wy), (wx + 90 * ux, wy + 90 * uy), MARKER_RED, nib=7)
+    s.lines((cx, 800), ["an X-drive: each omni wheel rolls along the circle,",
+                        "so its turn radius is \u221a(A\u00b2 + B\u00b2)"], 24)
+    s.save("fig-l113-x-drive")
+
+
+def l113_mecanum_turn():
+    # L113S070: one mecanum wheel, the front right, as the robot turns left. Its centre's motion
+    # along the circle splits into a forward part, B for each radian, and a sideways part, A. The
+    # rim rolls the forward part as in driving forward and the sideways part as in sliding, so it
+    # rolls A + B.
+    s = Sketch(900, 900, 1134)
+    cx, cy, a, b = 330, 520, 195, 210
+    r = math.hypot(a, b)
+    s.line(arc((cx, cy), r, -90, 0, 40), MARKER_RED, 3, 0.6)
+    s.construct((cx - b, cy - a), (cx + b, cy - a))
+    s.construct((cx + b, cy - a), (cx + b, cy + 100))
+    s.dot((cx, cy), 9)
+    s.text((cx, cy + 44), "middle", 24)
+    s.ink_line((cx + b + 60, cy), (cx + b + 60, cy - a), width=1.6, over=0, passes=1)
+    s.text((cx + b + 74, cy - a / 2 + 10), "A", 34, anchor="start")
+    s.ink_line((cx, cy + 80), (cx + b, cy + 80), width=1.6, over=0, passes=1)
+    s.text((cx + b / 2, cy + 120), "B", 34)
+    wx, wy = cx + b, cy - a
+    wheel_top(s, wx, wy, 44, 104)
+    s.dot((wx, wy), 6)
+    k = 0.75                                           # page pixels per inch of A or B
+    s.marker_arrow((wx, wy), (wx - k * a, wy - k * b), MARKER_RED, nib=8)
+    s.marker_arrow((wx, wy), (wx, wy - k * b), MARKER_ORANGE, nib=6)
+    s.marker_arrow((wx, wy - k * b), (wx - k * a, wy - k * b), MARKER_BLUE, nib=6)
+    s.lines((500, 760), ["red: the wheel centre's move",
+                         "orange: its forward part, B",
+                         "blue: its sideways part, A",
+                         "the rim rolls B + A"], 24, anchor="start")
+    s.save("fig-l113-mecanum-turn")
+
+
+PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes, l153_fit, l157_respread]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
@@ -3761,7 +3982,8 @@ PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_push
             e142_same_triangle, e142_robot_axes, e142_triangle_turn, e142_triangle_turned, e142_stick_field, e142_stick_red_3d,
             e142_forward_split, e142_strafe_split, e142_regroup, e142_regroup_formula,
             e142_regrouped, e142_regrouped_formula, e142_add, e142_add_formula, loops,
-            menu_presses, l045_wiring, l120_pod_turn]
+            menu_presses, l045_wiring, l120_pod_turn, l113_wheel_vectors, l113_rectangle,
+            l113_circle, l113_x_drive, l113_mecanum_turn]
 
 if __name__ == "__main__":
     if OUT is None:

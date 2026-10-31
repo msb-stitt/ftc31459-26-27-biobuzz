@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.localization.Localizer;
 import com.pedropathing.math.Pose;
+import com.pedropathing.math.Twist;
 import com.pedropathing.revhub.localizers.PinpointConfig;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 
@@ -17,6 +18,8 @@ public class L120PinpointLocalizerTest {
 
     private static final PoseFactory POSES = PoseFactory.degrees();
     private static final double EPS = 0.01;
+    /** A pod's count is a whole tick, so a speed over one 10 ms loop is good to about 0.1 in/s. */
+    private static final double SPEED_EPS = 0.2;
     private static final double TICKS_PER_INCH = 19.89436789 * 25.4;
     /** The forward pod 2 in left of the middle, counting backward; the strafe pod 7 in behind. */
     private static final double X_POD_OFFSET_IN = 2.0;
@@ -39,6 +42,9 @@ public class L120PinpointLocalizerTest {
         double forwardPod_in;
         double strafePod_in;
         double heading;
+        /** How long each loop takes, in seconds. */
+        double period_s = 0.01;
+        double readTime_s;
 
         /** Rolls the pods as if the robot moved forward and left, then turned counterclockwise. */
         void move(double forward, double left, double turn_rad) {
@@ -49,6 +55,7 @@ public class L120PinpointLocalizerTest {
 
         @Override
         public void update() {
+            readTime_s += period_s;
         }
 
         @Override
@@ -64,6 +71,11 @@ public class L120PinpointLocalizerTest {
         @Override
         public double getHeadingRadians() {
             return heading;
+        }
+
+        @Override
+        public double getReadTimeSeconds() {
+            return readTime_s;
         }
     }
 
@@ -142,5 +154,26 @@ public class L120PinpointLocalizerTest {
         pinpoint.move(10, 0, 0);
         step();
         assertEquals(72 + 10 * Math.cos(Math.toRadians(45)), localizer.pose().x(), EPS);
+    }
+
+    @Test
+    public void reportsHowFastTheRobotGoesTheRobotsWay() {
+        pinpoint.heading = Math.toRadians(90);   // robot faces +y
+        step();
+        pinpoint.move(0.6, 0.3, 0.02);           // in one 10 ms loop
+        step();
+        Twist speed = localizer.state().twist();
+        assertEquals("forward, for the robot", 60.0, speed.vx, SPEED_EPS);
+        assertEquals("to the robot's left", 30.0, speed.vy, SPEED_EPS);
+        assertEquals("turning, radians per second", 2.0, speed.omega, SPEED_EPS);
+    }
+
+    @Test
+    public void dividesByEachLoopsOwnTime() {
+        step();
+        pinpoint.period_s = 0.02;                // a slow loop
+        pinpoint.move(1.2, 0, 0);
+        step();
+        assertEquals(60.0, localizer.state().twist().vx, SPEED_EPS);
     }
 }

@@ -1,5 +1,5 @@
 sequenceDiagram
-    participant OpMode as AutoWith<br/>MenuOpMode
+    participant OpMode as opMode:<br/>L093<br/>MenuOpMode
     participant DS as menu:<br/>Driver<br/>StationMenu
     participant Buttons as menuButtons:<br/>MenuButtons
     participant Menu as optionMenu:<br/>OptionMenu
@@ -7,7 +7,7 @@ sequenceDiagram
     OpMode->>DS: loop(gamepad1)
     DS->>Buttons: loop(gamepad1)
     DS->>Menu: getSummary()
-    Menu-->>DS: "R-N"
+    Menu-->>DS: "ON-S-R"
     DS->>Tracker: publish("menu/summary",<br/>summary)
     DS->>Menu: getLines()
     Menu-->>DS: lines

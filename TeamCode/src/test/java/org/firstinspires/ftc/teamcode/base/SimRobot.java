@@ -29,7 +29,8 @@ import java.util.function.Supplier;
  * A real Pedro {@link Follower} driving a simulated robot, for tests.
  *
  * <p>The localizer turns forward, strafe and turn into motion (speed x max
- * speed, with a short lag standing in for inertia) and integrates a pose.
+ * speed, less static friction, with a short lag standing in for inertia) and
+ * integrates a pose.
  * Crude physics, but enough for the follower to finish a path the way it does
  * on the robot.
  *
@@ -42,9 +43,30 @@ import java.util.function.Supplier;
 public final class SimRobot {
 
     public static final double MAX_FORWARD_IPS = 64.4;
-    public static final double MAX_STRAFE_IPS = 43.6;
+
+    /**
+     * The angle between the forward direction and the way a wheel's rollers
+     * push the robot, in degrees. 45 by design; the robot strafes as if it
+     * were 40, so the same rim speed moves it less sideways than forward.
+     */
+    public static final double WHEEL_ANGLE_DEG = 40.0;
+
+    /** A wheel's rim speed for each inch per second of strafe is cot of the angle. */
+    public static final double COT_WHEEL_ANGLE = 1 / Math.tan(Math.toRadians(WHEEL_ANGLE_DEG));
+
+    /** Full power strafing turns each rim at full speed, which moves the robot tan of the angle of that. */
+    public static final double MAX_STRAFE_IPS = MAX_FORWARD_IPS / COT_WHEEL_ANGLE;
     public static final double MAX_TURN_RADPS = 4.0;
     public static final double LAG_S = 0.15;
+
+    /**
+     * Static friction on each axis, forward, strafe and turn, as the power it
+     * takes before the robot moves at all. Guesses, so L153's fit has a kS to
+     * find; see {@link #overFriction}.
+     */
+    public static final double KS_FORWARD = 0.05;
+    public static final double KS_STRAFE = 0.08;
+    public static final double KS_TURN = 0.06;
 
     public final SimDrive drive = new SimDrive();
     public final SimLocalizer localizer;
@@ -81,6 +103,16 @@ public final class SimRobot {
                 (frontLeft + frontRight + backLeft + backRight) / 4,
                 (-frontLeft + frontRight + backLeft - backRight) / 4,
                 (-frontLeft + frontRight - backLeft + backRight) / 4};
+    }
+
+    /**
+     * What is left of a power once static friction {@code kS} has taken its
+     * share: nothing up to {@code kS}, and above it (power - kS) / (1 - kS), so
+     * full power still gives full speed. The sign stays the power's.
+     */
+    public static double overFriction(double power, double kS) {
+        double over = Math.max(0, Math.abs(power) - kS) / (1 - kS);
+        return Math.copySign(over, power);
     }
 
     public static final PoseFactory POSES = PoseFactory.degrees();
@@ -199,14 +231,22 @@ public final class SimRobot {
             return turned;
         }
 
+        /** The simulated clock, in seconds. */
+        double seconds() {
+            return clock.getAsLong() / 1e9;
+        }
+
         /**
          * How fast each wheel's rim is moving, front left, front right, back
          * left, back right, in inches per second: the robot's motion put back
-         * through {@link WheelTargets#forMecanum}, so the wheels agree with the
-         * geometry the robot code uses.
+         * through {@link WheelTargets#forMecanum}, with the strafe times
+         * {@link #COT_WHEEL_ANGLE}. A localizer that takes the wheels to be at
+         * 45 degrees reads more strafe than the robot made.
+         * {@code Constants.turnRadiusInches} is taken as the radius the turn
+         * really has, so turning on the spot reads true.
          */
         public double[] wheelSpeeds() {
-            return WheelTargets.forMecanum(vx, vy, omega, Constants.turnRadiusInches);
+            return WheelTargets.forMecanum(vx, vy * COT_WHEEL_ANGLE, omega, Constants.turnRadiusInches);
         }
 
         /** How far each wheel has rolled since the robot was made, in inches, in the same order. */
@@ -254,9 +294,9 @@ public final class SimRobot {
             lastNs = now;
             double k = Math.min(1, dt / LAG_S);
             double[] c = chassisVelocitySupplier.get();
-            vx += (c[0] * MAX_FORWARD_IPS - vx) * k;
-            vy += (c[1] * MAX_STRAFE_IPS - vy) * k;
-            omega += (c[2] * MAX_TURN_RADPS - omega) * k;
+            vx += (overFriction(c[0], KS_FORWARD) * MAX_FORWARD_IPS - vx) * k;
+            vy += (overFriction(c[1], KS_STRAFE) * MAX_STRAFE_IPS - vy) * k;
+            omega += (overFriction(c[2], KS_TURN) * MAX_TURN_RADPS - omega) * k;
             x += (vx * Math.cos(heading) - vy * Math.sin(heading)) * dt;
             y += (vx * Math.sin(heading) + vy * Math.cos(heading)) * dt;
             heading += omega * dt;
