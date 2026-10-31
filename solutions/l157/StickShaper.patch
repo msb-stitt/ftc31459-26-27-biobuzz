@@ -1,0 +1,43 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l157/StickShaper.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l157/StickShaper.java
+index 475ed0b..59d9293 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l157/StickShaper.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l157/StickShaper.java
+@@ -22,6 +22,7 @@ public class StickShaper {
+ 
+     double band;
+     Shape shape = Shape.SQUARED;
++    boolean respread;
+ 
+     // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
+     public StickShaper(double bandToSetToZero) {
+@@ -38,9 +39,17 @@ public class StickShaper {
+         shape = newShape;
+     }
+ 
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void setRespread(boolean respreadPastTheBand) {
++        respread = respreadPastTheBand;
++    }
++
+     // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
+     public double shaped(double value) {
+         double outsideTheBand = deadband(value, band);
++        if (respread) {
++            outsideTheBand = respreadPastTheBand(outsideTheBand, band);
++        }
+         double shapedValue = outsideTheBand;
+         switch (shape) {
+             case LINEAR:
+@@ -64,6 +73,12 @@ public class StickShaper {
+         return value;
+     }
+ 
++    double respreadPastTheBand(double value, double band) {
++        double pastTheBand = Math.abs(value) - band;
++        double spreadFromZeroToOne = pastTheBand / (1.0 - band);
++        return Math.signum(value) * spreadFromZeroToOne;
++    }
++
+     double signedSquared(double value) {
+         double alwaysPositiveValue = Math.abs(value);
+         double valueSquaredKeepingTheSign = value * alwaysPositiveValue;

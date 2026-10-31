@@ -1,0 +1,43 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardOpMode.java
+index 367679c..fa48798 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardOpMode.java
+@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
+ // When on L157S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s030
+ // for what to do here.
+-//import org.firstinspires.ftc.teamcode.mytry.l157.StickShaper;
++import org.firstinspires.ftc.teamcode.mytry.l157.StickShaper;
+ 
+ /**
+  * L157: the sticks ask for a speed, and the drivetrain sends the volts it
+@@ -40,7 +40,7 @@ public class L157FeedforwardOpMode extends CorbelsTeleOp {
+     // When on L157S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s030
+     // for what to do here.
+-//    StickShaper stickShaper = new StickShaper(0.05);
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     L157FeedforwardDriveTrain drivetrain;
+ 
+@@ -61,6 +61,7 @@ public class L157FeedforwardOpMode extends CorbelsTeleOp {
+         // When on L157S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s040
+         // for what to do here.
++        stickShaper.setRespread(true);
+ 
+         initAfter(drivetrain);
+     }
+@@ -89,9 +90,9 @@ public class L157FeedforwardOpMode extends CorbelsTeleOp {
+         // When on L157S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s030
+         // for what to do here.
+-//        forwardFraction = stickShaper.shaped(forwardFraction);
+-//        leftFraction = stickShaper.shaped(leftFraction);
+-//        turnFraction = stickShaper.shaped(turnFraction);
++        forwardFraction = stickShaper.shaped(forwardFraction);
++        leftFraction = stickShaper.shaped(leftFraction);
++        turnFraction = stickShaper.shaped(turnFraction);
+ 
+         double turnCcw_radps = turnFraction * maxTurn_radps;
+         double forwardX_ips;

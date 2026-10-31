@@ -1,0 +1,45 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardDriveTrain.java
+index 9f5d33a..b079d9e 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardDriveTrain.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardDriveTrain.java
+@@ -60,6 +60,9 @@ class L157FeedforwardDriveTrain extends CorbelsMecanum {
+             // When on L157S060, see
+             // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s060
+             // for what to do here.
++            double kVVolts = turnVolts[i] + scale * (forwardVolts[i] + strafeVolts[i]);
++            double volts = kVVolts + steppedKs(i, kVVolts, kS[i]);
++            powers[i] = volts / batteryVolts;
+         }
+ 
+         double[] wheels = normalized(powers);
+@@ -73,6 +76,14 @@ class L157FeedforwardDriveTrain extends CorbelsMecanum {
+         // When on L157S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s060
+         // for what to do here.
++        double forwardShare = Math.abs(forwardVolts);
++        double strafeShare = Math.abs(strafeVolts);
++        double turnShare = Math.abs(turnVolts);
++        double allShares = forwardShare + strafeShare + turnShare;
++        if (allShares > 0.0) {
++            kS = (forwardShare * Constants.kSForwardVolts + strafeShare * Constants.kSStrafeVolts
++                    + turnShare * Constants.kSTurnVolts) / allShares;
++        }
+         return kS;
+     }
+ 
+@@ -82,6 +93,15 @@ class L157FeedforwardDriveTrain extends CorbelsMecanum {
+         // When on L157S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s070
+         // for what to do here.
++        double kVSize = Math.abs(kVVolts);
++        if (kSOn[wheel] && kVSize < KS_OFF_SHARE * kS) {
++            kSOn[wheel] = false;
++        } else if (!kSOn[wheel] && kVSize > KS_ON_SHARE * kS) {
++            kSOn[wheel] = true;
++        }
++        if (!kSOn[wheel]) {
++            stepped = 0.0;
++        }
+         return stepped;
+     }
+ 

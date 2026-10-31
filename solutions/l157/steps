@@ -1,0 +1,8 @@
+# L157: the OpMode and the drivetrain, and the student's own StickShaper from L065, re-spread.
+copy lessons/L157FeedforwardOpMode.java mytry/L157FeedforwardOpMode.java
+copy lessons/L157FeedforwardDriveTrain.java mytry/L157FeedforwardDriveTrain.java
+copy mytry/l065/StickShaper.java mytry/l157/StickShaper.java
+patch L157FeedforwardOpMode.patch
+patch StickShaper.patch
+patch L157FeedforwardDriveTrain.patch
+test *LessonsTest.l157*
