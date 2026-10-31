@@ -1,0 +1,625 @@
+# 132 lesson: compare your localizers with the Pinpoint's
+
+Your localizers from L113 and L120 run beside the robot's own. Yours from L113 reads the drive
+wheels. Yours from L120 reads the Pinpoint's pods once a loop. The robot's own reads the answer
+the Pinpoint worked out on its own chip. All three are published so they can be graphed against
+each other. Each loop, your code works out how far each of yours is from the robot's own, and how
+fast your localizer from L120 says the robot goes. None of them is the truth. A tape measure is.
+
+::::{only} mentor
+**Before you start.**
+
+- L113 and L120 are done, so `mytry` holds `L113EncoderLocalizer` and `L120PinpointLocalizer`,
+  and L117 is done, so the Pinpoint is on the robot and tuned.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
+  for the last step.
+::::
+
+## the steps
+
+### L132S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click `L132CompareLocalizersOpMode` once and copy it. Click `mytry` once
+and paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file
+to Git, click **Add**.
+
+**Check.**
+
+- `mytry` holds `L132CompareLocalizersOpMode`, beside your `L113EncoderLocalizer` and
+  `L120PinpointLocalizer`.
+
+### L132S020: switch your copy on
+
+**Change.** In `L132CompareLocalizersOpMode`, delete the line `@Disabled`, under the comment that
+names this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L132S030: run your localizers beside the Pinpoint's
+
+**Change.** In `L132CompareLocalizersOpMode`, find `shadowLocalizers()` and the comment that names
+this step. Under it, type nearly the same lines as in L113S030 and L120S030:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4-10
+
+        // When on L132S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
+        // for what to do here.
+        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
+        driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
+        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+
+        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
+        pinpointPods = new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
+        shadowLocalizers.add("pinpointPods", pinpointPods);
+```
+
+This time, `driveWheelEncoders` and `pinpointPods` are fields, near the top of the class, so the
+lines have no type in front of those names. L132S050 reads them again every loop.
+
+`HardwareWheelSource`, `PinpointSource`, `HardwarePinpointSource` and `Constants` turn red. Click
+each one and press Option+Enter, as in L113. `L113EncoderLocalizer` and `L120PinpointLocalizer` do
+not turn red. They are your own, and they sit in `mytry` too.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L132CompareLocalizersOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020. Open the `Localizer` folder, then
+`driveWheelEncoders`, `pinpointPods` and `pinPoint` inside it.
+
+**Check.**
+
+- Push the left stick forward. `driveWheelEncoders/y_in` and `pinpointPods/y_in` climb with
+  `pinPoint/y_in`, and the three stay within a tenth of an inch.
+
+### L132S040: see how often the loop runs
+
+Your localizers work out where the robot is once each time `loop()` runs. The Pinpoint's chip
+works it out on its own, about 1500 times a second. Between two of your loops, the robot moves a
+little, and your localizer takes that move as one step.
+
+**AdvantageScope.** Leave the simulator running. Open the `loop` folder and graph `period_ms`. It
+is how long the last loop took. It is measured as the OpMode runs.
+
+**Check.**
+
+- `period_ms` is a few milliseconds or more, and it is not the same from one loop to the next.
+
+The Pinpoint's chip takes about 0.7 ms a step. Write down what `period_ms` reads in the simulator,
+to compare with the robot in the next step.
+
+### L132S050: work out how far off each localizer is
+
+The robot's own localizer is the one to compare against. Each loop, take each of your localizers'
+x, y and heading, and subtract the robot's own. What is left is the **error**.
+
+**Change.** In `start()`, find the comment that names this step. Under it, type:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4-5
+
+        // When on L132S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+        // for what to do here.
+        Command compareWithPedrosEveryLoop = Commands.infinite(this::compareWithPedros);
+        Scheduler.schedule(compareWithPedrosEveryLoop);
+```
+
+The scheduler runs `compareWithPedros()` before the localizers update. So it compares where each
+one said the robot was last loop, all at the same moment.
+
+**Change.** Find the comment for this step just above `shadowLocalizers()`. Under it, type a new
+method:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4-12
+
+    // When on L132S050, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+    // for what to do here.
+    /** How far one of your localizers is from the robot's own, in x, y and heading. */
+    void publishError(String name, Pose yours, Pose pedros) {
+        double xError_in = yours.x() - pedros.x();
+        double yError_in = yours.y() - pedros.y();
+        double headingError_rad = Angle.normalizeSigned(yours.heading() - pedros.heading());
+        Tracker.publish("Error/" + name + "/x_in", xError_in);
+        Tracker.publish("Error/" + name + "/y_in", yError_in);
+        Tracker.publish("Error/" + name + "/heading_deg", Math.toDegrees(headingError_rad));
+    }
+```
+
+A heading of 359° and one of 1° are only 2° apart. `Angle.normalizeSigned` turns a difference into
+one between -180° and 180°, so the error is 2°, not 358°.
+
+**Change.** In `compareWithPedros()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4-6
+
+        // When on L132S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+        // for what to do here.
+        Pose pedros = follower.pose();
+        publishError("driveWheelEncoders", driveWheelEncoders.pose(), pedros);
+        publishError("pinpointPods", pinpointPods.pose(), pedros);
+```
+
+`Pose` and `Angle` turn red. Click each one and press Option+Enter, as in L113.
+
+**Simulator.** Run the simulator as in L132S030, and open the `Error` folder in AdvantageScope.
+
+**Check.**
+
+- Drive forward and turn. Each error stays within about half an inch, and the headings agree.
+- Slide sideways. `driveWheelEncoders`' error grows in x or y, whichever way the robot slides.
+  `pinpointPods`' error stays within a few tenths of an inch.
+
+Your localizer from L113 thinks each wheel pushes at 45°. The wheels in the simulator push more
+forward than that, as L113 showed, so it says the robot slid farther than it did.
+
+### L132S060: put the speeds side by side
+
+Your localizer from L120 says how fast the robot goes, from L120S070. So does the robot's own.
+
+**Change.** In `compareWithPedros()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4-11
+
+        // When on L132S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
+        // for what to do here.
+        Twist podsSpeed = pinpointPods.twist();
+        Twist pedrosSpeed = follower.localizer.twist();
+        Tracker.publish("Speed/pinpointPods/forward_ips", podsSpeed.vx);
+        Tracker.publish("Speed/pinPoint/forward_ips", pedrosSpeed.vx);
+        Tracker.publish("Speed/pinpointPods/strafe_ips", podsSpeed.vy);
+        Tracker.publish("Speed/pinPoint/strafe_ips", pedrosSpeed.vy);
+        Tracker.publish("Speed/pinpointPods/turn_degps", Math.toDegrees(podsSpeed.omega));
+        Tracker.publish("Speed/pinPoint/turn_degps", Math.toDegrees(pedrosSpeed.omega));
+```
+
+`Twist` turns red. Click it and press Option+Enter.
+
+**Simulator.** Run the simulator again, and open the `Speed` folder in AdvantageScope.
+
+**Check.**
+
+- Graph `pinpointPods/forward_ips` with `pinPoint/forward_ips`, and drive forward. Once the speed
+  is steady, the two lines are within about 0.3 in/s.
+- Do the same for `strafe_ips` while sliding, and `turn_degps` while turning.
+
+### L132S070: drive it, then measure it
+
+**Robot.** Stop the simulator. Send the code, run `L132 Compare Localizers` from the Driver
+Station, and watch it in AdvantageScope.
+
+**Check.**
+
+- Drive about 80 in straight ahead and stop. The three `y_in` numbers moved, and they do not quite
+  agree.
+- Measure how far the robot really went with the tape measure.
+- Read `loop/period_ms` on the robot, and compare it with what you wrote down in L132S040.
+- Read the `Error` folder. On the robot, the error from the Pinpoint's own answer is real.
+
+Then put the robot on the blocks and push the left stick forward. The wheels spin, and the robot
+does not go anywhere. `driveWheelEncoders` walks off across the field. `pinpointPods` and
+`pinPoint` stay put, because the pods are off the floor too.
+
+## challenge exercise: measure the wheels' angle
+
+This part is a challenge. No later lesson needs it.
+
+Your localizer from L113 counts too much slide, as L132S050 showed. Here you measure how far off it
+is, then fix it.
+
+Look again at the picture of the four pushes in L113S050. Each wheel pushes the robot at an angle
+from forward, called **α**, the Greek letter alpha. Draw the push as an arrow. Its forward part is
+as long as the arrow times cos α. Its sideways part is as long as the arrow times sin α. At 45°, the
+two parts are the same length.
+
+When the robot slides, each wheel's sideways part carries it. A wheel rolls farther than the robot
+slides: for each inch of slide, the wheel rolls cos α ÷ sin α inches. That number is called
+**cot α**, said "cotangent alpha". At 45° it is 1. At 40° it is about 1.19, so the wheels roll
+1.19 in for each inch the robot slides. Your localizer from L113 divides by 1, so it counts 1.19 in
+of slide.
+
+The fix is to measure cot α. Slide the robot, add up how far the wheels rolled sideways, and add up
+how far the Pinpoint saw the robot slide. One divided by the other is cot α.
+
+### L132S080: copy the wheel fit and its auto into mytry
+
+**Copy.** Copy `L132WheelFit` and `L132WheelAngleOpMode` from `lessons` into `mytry`, as in
+L132S010.
+
+**Change.** In `mytry`'s `L132WheelAngleOpMode`, delete the line `@Disabled`.
+
+**Check.**
+
+- `mytry` holds `L132WheelFit` and `L132WheelAngleOpMode`.
+
+### L132S090: add up the slide
+
+`L132WheelFit` keeps four sums for one run. `addWheels` gets how far each wheel rolled in one loop.
+`addRobot` gets how far the Pinpoint saw the robot slide and turn in the same loop.
+
+**Change.** In `addWheels`, under the first comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132WheelFit.java
+:emphasize-lines: 4-6
+
+        // When on L132S090, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+        // for what to do here.
+        double wheelStrafeStep_in = (-wheelSteps_in[FL] + wheelSteps_in[FR]
+                + wheelSteps_in[BL] - wheelSteps_in[BR]) / 4.0;
+        wheelStrafe_in += wheelStrafeStep_in;
+```
+
+This is the same mix as your localizer's `strafe_in` in L113. `+=` adds to what the sum already
+holds.
+
+**Change.** In `addRobot`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132WheelFit.java
+:emphasize-lines: 4
+
+        // When on L132S090, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+        // for what to do here.
+        robotStrafe_in += strafe_in;
+```
+
+**Change.** In `cotAlpha()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132WheelFit.java
+:emphasize-lines: 4
+
+        // When on L132S090, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+        // for what to do here.
+        cotAlpha = wheelStrafe_in / robotStrafe_in;
+```
+
+**Check.**
+
+- In the Terminal, run this. It prints `5 tests completed, 2 failed`. The two that fail are about
+  turning, which is L132S120.
+
+  ```
+  ./gradlew :TeamCode:testDebugUnitTest --tests '*L132WheelFitTest*'
+  ```
+
+Driving forward turns each wheel the same way, so it cancels out of the slide mix. Only sliding
+counts.
+
+### L132S100: slide the robot and measure cot α
+
+**Change.** In `L132WheelAngleOpMode`, find `theRuns()` and the comment that names this step.
+Under it, type:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 4-6
+
+        // When on L132S100, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+        // for what to do here.
+        Command strafeRun = sequential(
+                instant(this::startTheStrafeRun), waitUntil(this::slidTwoFeet),
+                instant(this::stopTheRun), waitUntil(this::standingStill));
+```
+
+The run starts sliding, waits until the robot has slid 24 in, stops it, and waits until it stands
+still.
+
+**Change.** In `theRuns()`, change `return Command.NOOP;` to:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 1-2
+
+        Command runs = sequential(strafeRun, instant(this::publishTheFits));
+        return runs;
+```
+
+**Change.** Under the comment for this step below `theRuns()`, type two methods:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 4-13
+
+    // When on L132S100, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+    // for what to do here.
+    /** Slide left at 0.4 power, adding to the strafe run's sums. */
+    void startTheStrafeRun() {
+        fitting = strafeFit;
+        follower.manual(0.0, 0.4, 0.0);
+    }
+
+    /** True once the Pinpoint has seen the robot slide 24 inches. */
+    boolean slidTwoFeet() {
+        return strafeFit.robotStrafe_in >= 24.0;
+    }
+```
+
+`follower.manual` sets the power for forward, slide and turn, with no path. `fitting` is the run
+`measure()` adds to, every loop.
+
+**Change.** In `publishTheFits()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 4
+
+        // When on L132S100, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+        // for what to do here.
+        Tracker.publish("Fit/strafeRun/cotAlpha", strafeFit.cotAlpha());
+```
+
+`sequential`, `instant` and `waitUntil` turn red. Click each one and press Option+Enter, and pick
+the one from `com.pedropathing.ivy`.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L132WheelAngleOpMode"
+```
+
+**AdvantageScope.** Connect, click **2D Field**, and open the `Fit` folder.
+
+**Check.**
+
+- The robot slides left about 2 ft, then stops.
+- `Fit/strafeRun/cotAlpha` reads about 1.19, cot 40°.
+
+**Robot.** Stop the simulator. Put the robot on the floor in the middle of the field. Send the
+code, and run `L132 Wheel Angle` from the Driver Station.
+
+**Check.**
+
+- The robot slides left about 2 ft, then stops.
+- In AdvantageScope, connected to the robot, `Fit/strafeRun/cotAlpha` has a number. Write it down.
+
+Run it three times. Three answers close together are a measurement.
+
+### L132S110: put cot α into your localizer from L113
+
+**Change.** In `mytry`'s `L113EncoderLocalizer`, add a field under `lastRawHeading_rad`:
+
+```{code-block} java
+:caption: mytry/L113EncoderLocalizer.java
+
+    /** How far the wheels roll for each inch the robot slides: L132 measures it. */
+    double cotAlpha = 1.0;
+```
+
+Then change the line that works out `strafe_in` to these two:
+
+```{code-block} java
+:caption: mytry/L113EncoderLocalizer.java
+
+        double wheelStrafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
+        double strafe_in = wheelStrafe_in / cotAlpha;
+```
+
+At 1.0, nothing changes, so L113's tests still pass.
+
+**Change.** In `L132CompareLocalizersOpMode`, run a third localizer, one with your cot α. Under
+the comment that names this step near the top of the class, type:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4
+
+    // When on L132S110, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+    // for what to do here.
+    L113EncoderLocalizer measuredWheels;
+```
+
+In `shadowLocalizers()`, under the comment that names this step, type the lines below. Put your
+own number from L132S100 in place of 1.19.
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4-6
+
+        // When on L132S110, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+        // for what to do here.
+        measuredWheels = new L113EncoderLocalizer(wheelSource);
+        measuredWheels.cotAlpha = 1.19;
+        shadowLocalizers.add("measuredWheels", measuredWheels);
+```
+
+In `compareWithPedros()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/L132CompareLocalizersOpMode.java
+:emphasize-lines: 4
+
+        // When on L132S110, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+        // for what to do here.
+        publishError("measuredWheels", measuredWheels.pose(), pedros);
+```
+
+**Simulator.** Run `L132CompareLocalizersOpMode` as in L132S030, and open the `Error` folder.
+
+**Check.**
+
+- Slide sideways. `driveWheelEncoders`' error grows as in L132S050. `measuredWheels`' error stays
+  within a few tenths of an inch.
+
+**Robot.** Send the code, run `L132 Compare Localizers`, and slide the robot.
+
+**Check.**
+
+- `measuredWheels`' error is smaller than `driveWheelEncoders`'.
+
+## extra challenge exercise: measure the turn radius too
+
+This part is harder still. It measures cot α and the turn radius, R, from one run that drives,
+slides and turns at the same time.
+
+Turning one radian rolls each wheel R inches, as in L131. With A half the robot's length and B
+half its width, between the wheel centres, L113 worked out R = A + B. Turning, each wheel's centre
+moves forward ω × B and sideways ω × A, where ω is how fast the robot turns. The forward part rolls
+the wheel ω × B. The sideways part rolls it ω × A × cot α, as sliding does. So:
+
+R = B + A × cot α
+
+At 45°, cot α is 1 and R is A + B, as in L113. The wheels can measure cot α and R, but not A and B
+on their own. A tape measure gives A and B, to check them.
+
+Each loop, the wheels' turn mix and slide mix each pick out one part of the motion. The other
+parts cancel. So one run can measure both.
+
+### L132S120: drive, slide and turn at once
+
+**Change.** In `L132WheelFit`, add the turn half. In `addWheels`, under the comment that names this
+step, type:
+
+```{code-block} java
+:caption: mytry/L132WheelFit.java
+:emphasize-lines: 4-6
+
+        // When on L132S120, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+        // for what to do here.
+        double wheelTurnStep_in = (-wheelSteps_in[FL] + wheelSteps_in[FR]
+                - wheelSteps_in[BL] + wheelSteps_in[BR]) / 4.0;
+        wheelTurn_in += wheelTurnStep_in;
+```
+
+In `addRobot`, type `robotTurn_rad += turn_rad;` under this step's comment. In `turnRadius_in()`,
+type `turnRadius_in = wheelTurn_in / robotTurn_rad;` under it.
+
+```{code-block} java
+:caption: mytry/L132WheelFit.java
+
+        robotTurn_rad += turn_rad;
+```
+
+```{code-block} java
+:caption: mytry/L132WheelFit.java
+
+        turnRadius_in = wheelTurn_in / robotTurn_rad;
+```
+
+**Check.**
+
+- Run the test command from L132S090 again. It ends with `BUILD SUCCESSFUL`.
+
+**Change.** In `L132WheelAngleOpMode`, under this step's comment in `theRuns()`, type the mixed run,
+and add it to `runs`:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 4-9
+
+        // When on L132S120, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+        // for what to do here.
+        Command mixedRun = sequential(
+                instant(this::startTheMixedRun), waitUntil(this::turnedHalfway),
+                instant(this::stopTheRun), waitUntil(this::standingStill));
+
+        Command runs = sequential(strafeRun, mixedRun, instant(this::publishTheFits));
+        return runs;
+```
+
+Under this step's comment below `theRuns()`, type:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 4-13
+
+    // When on L132S120, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+    // for what to do here.
+    /** Drive forward, slide left and turn at once, adding to the mixed run's sums. */
+    void startTheMixedRun() {
+        fitting = mixedFit;
+        follower.manual(0.3, 0.3, 0.3);
+    }
+
+    /** True once the Pinpoint has seen the robot turn half a circle. */
+    boolean turnedHalfway() {
+        return mixedFit.robotTurn_rad >= Math.PI;
+    }
+```
+
+In `publishTheFits()`, under this step's comment, type:
+
+```{code-block} java
+:caption: mytry/L132WheelAngleOpMode.java
+:emphasize-lines: 4-5
+
+        // When on L132S120, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+        // for what to do here.
+        Tracker.publish("Fit/mixedRun/cotAlpha", mixedFit.cotAlpha());
+        Tracker.publish("Fit/mixedRun/turnRadius_in", mixedFit.turnRadius_in());
+```
+
+**Simulator.** Run `L132WheelAngleOpMode` as in L132S100.
+
+**Check.**
+
+- After the slide, the robot drives in a curve while it turns half a circle, then stops.
+- `Fit/mixedRun/cotAlpha` reads about 1.2, close to the strafe run's.
+- `Fit/mixedRun/turnRadius_in` reads about 8.0, the simulator's `turnRadiusInches`.
+
+**Robot.** Run `L132 Wheel Angle` on the robot, with room for it to curve.
+
+**Check.**
+
+- `Fit/mixedRun/turnRadius_in` is close to what L131S050 measured.
+- With a tape measure, measure A and B. B + A × cot α is close to the turn radius.
+
+::::{only} mentor
+**No gamepad.** `--args="mytry.L132CompareLocalizersOpMode --left_stick_y=-0.5"` drives forward.
+
+**If it didn't**, and `driveWheelEncoders` or `pinpointPods` is missing from the `Localizer` folder
+in L132S030, its three lines are not in `shadowLocalizers()`.
+`LessonsTest.l132_yourLocalizersAreLogged` fails with `the shadow localizer is logged:` for
+`driveWheelEncoders`, or `L120's localizer is logged:` for `pinpointPods`, and the list of names
+that were published.
+
+**If it didn't**, and `LessonsTest.l132_theErrorAndSpeedAreLogged` fails, each of these was planted
+and run:
+
+- `the wheels' error is logged:`: the lines of L132S050 are not typed, or the scheduler line is
+  missing from `start()`.
+- `yours less the robot's own, in y expected:<45.0> but was:<-45.0>`: the subtraction is the wrong
+  way round, `pedros.y() - yours.y()`.
+
+**What you just did.** Your localizer from L113 believes the drive wheels, and a wheel that spins
+without carrying the robot moves its estimate. The Pinpoint's pods only measure and never push, so
+they slip less. That is the case for having them. Your localizer from L120 and the Pinpoint's read
+the same pods. They differ in how often they do the math: once a loop, or about 1500 times a
+second.
+
+**Where next.** [L135](l135.md) lets the drive team choose an auto from L125 and L130, and the
+alliance, during INIT.
+::::

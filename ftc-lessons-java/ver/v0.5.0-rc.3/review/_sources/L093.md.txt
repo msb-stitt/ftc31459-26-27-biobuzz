@@ -1,0 +1,898 @@
+# L093
+
+10 file(s) copied, then 22 change(s) in 10 file(s), 544 line(s) of code to write.
+
+## Copies
+
+- `lessons/l093/OptionMenu.java` to `mytry/l093/OptionMenu.java`
+- `lessons/l093/MenuItem.java` to `mytry/l093/MenuItem.java`
+- `lessons/l093/MenuRow.java` to `mytry/l093/MenuRow.java`
+- `lessons/l093/MenuButtons.java` to `mytry/l093/MenuButtons.java`
+- `lessons/l093/DriverStationMenu.java` to `mytry/l093/DriverStationMenu.java`
+- `lessons/l093/L093MenuOpMode.java` to `mytry/l093/L093MenuOpMode.java`
+- `lessons/l093/MenuItemTest.java` to `mytry/l093/MenuItemTest.java`, under `test`
+- `lessons/l093/MenuRowTest.java` to `mytry/l093/MenuRowTest.java`, under `test`
+- `lessons/l093/OptionMenuTest.java` to `mytry/l093/OptionMenuTest.java`, under `test`
+- `lessons/l093/MenuButtonsTest.java` to `mytry/l093/MenuButtonsTest.java`, under `test`
+
+## OptionMenu
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/OptionMenu.java`
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,7 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import java.util.ArrayList;
++
+ /**
+  * The rows of a menu, and which row the pointer is on. Up and down move the
+  * pointer, wrap at the ends, and clear the offer in the row it leaves. Left,
+```
+
+### A change
+
+Delete 0 lines, write 78 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -12,3 +12,81 @@
+ // When on L093S070, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s070
+ // for what to write in this file.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++public class OptionMenu {
++
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private ArrayList<MenuRow> rows = new ArrayList<>();
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private int pointedIndex = 0;
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void add(MenuRow row) {
++        rows.add(row);
++    }
++
++    void goUp() {
++        goBack();
++        pointedIndex = pointedIndex - 1;
++        if (pointedIndex < 0) {
++            pointedIndex = rows.size() - 1;
++        }
++    }
++
++    void goDown() {
++        goBack();
++        pointedIndex = pointedIndex + 1;
++        if (pointedIndex == rows.size()) {
++            pointedIndex = 0;
++        }
++    }
++
++    void goRight() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.goRight();
++    }
++
++    void goLeft() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.goLeft();
++    }
++
++    void select() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.select();
++    }
++
++    void goBack() {
++        MenuRow pointedRow = rows.get(pointedIndex);
++        pointedRow.goBack();
++    }
++
++    String getSummary() {
++        String summary = "";
++        String between = "";
++        for (MenuRow row : rows) {
++            MenuItem selectedItem = row.getSelected();
++            String shortName = selectedItem.getShortName();
++            summary = summary + between + shortName;
++            between = "-";
++        }
++        return summary;
++    }
++
++    ArrayList<String> getLines() {
++        ArrayList<String> lines = new ArrayList<>();
++        String summary = getSummary();
++        lines.add(summary);
++        MenuRow pointedRow = rows.get(pointedIndex);
++        for (MenuRow row : rows) {
++            String pointer = "  ";
++            if (row == pointedRow) {
++                pointer = "> ";
++            }
++            String rowLine = row.getLine();
++            String pointedLine = pointer + rowLine;
++            lines.add(pointedLine);
++        }
++        return lines;
++    }
++}
+```
+
+## MenuItem
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuItem.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,5 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
+ /**
+  * One choice in a {@link MenuRow}: its short name, such as F24, for the
+  * menu's summary line, and its full name, such as Forward 24, for its row's
+```
+
+### A change
+
+Delete 0 lines, write 23 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -10,3 +10,26 @@
+ // When on L093S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s030
+ // for what to write in this file.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++public class MenuItem {
++
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private String shortName;
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private String fullName;
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public MenuItem(String shortName, String fullName) {
++        this.shortName = shortName;
++        this.fullName = fullName;
++    }
++
++    String getShortName() {
++        return shortName;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public String getFullName() {
++        return fullName;
++    }
++}
+```
+
+## MenuRow
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuRow.java`
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,7 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import java.util.ArrayList;
++
+ /**
+  * One row of an {@link OptionMenu}: its name and the choices added to it.
+  * Left and right offer the choice before or after, and wrap at the ends. A
+```
+
+### A change
+
+Delete 0 lines, write 63 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -13,3 +13,66 @@
+ // When on L093S040, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s040
+ // for what to write in this file.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++public class MenuRow {
++
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private String name;
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private ArrayList<MenuItem> items = new ArrayList<>();
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private int selectedIndex = 0;
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private int offeredIndex = 0;
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public MenuRow(String name) {
++        this.name = name;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void add(MenuItem item) {
++        items.add(item);
++    }
++
++    void goRight() {
++        int lastIndex = items.size() - 1;
++        offeredIndex = offeredIndex + 1;
++        if (offeredIndex > lastIndex) {
++            offeredIndex = 0;
++        }
++    }
++
++    void goLeft() {
++        int lastIndex = items.size() - 1;
++        offeredIndex = offeredIndex - 1;
++        if (offeredIndex < 0) {
++            offeredIndex = lastIndex;
++        }
++    }
++
++    void select() {
++        selectedIndex = offeredIndex;
++    }
++
++    void goBack() {
++        offeredIndex = selectedIndex;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public MenuItem getSelected() {
++        MenuItem selectedItem = items.get(selectedIndex);
++        return selectedItem;
++    }
++
++    String getLine() {
++        MenuItem offeredItem = items.get(offeredIndex);
++        String fullName = offeredItem.getFullName();
++        String choiceShown = "<" + fullName + ">";
++        if (offeredIndex != selectedIndex) {
++            choiceShown = fullName + "? A:OK B:Back";
++        }
++        String rowLine = name + ": " + choiceShown;
++        return rowLine;
++    }
++}
+```
+
+## MenuButtons
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuButtons.java`
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,7 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
+ /**
+  * The OpMode loop's work of checking the gamepad's buttons, and telling an
+  * {@link OptionMenu} what to do for each press.
+```
+
+### A change
+
+Delete 0 lines, write 30 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -11,3 +11,33 @@
+ // When on L093S090, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s090
+ // for what to write in this file.
++class MenuButtons {
++
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private OptionMenu optionMenu;
++
++    MenuButtons(OptionMenu optionMenu) {
++        this.optionMenu = optionMenu;
++    }
++
++    void loop(Gamepad gamepad) {
++        if (gamepad.dpadUpWasPressed()) {
++            optionMenu.goUp();
++        }
++        if (gamepad.dpadDownWasPressed()) {
++            optionMenu.goDown();
++        }
++        if (gamepad.dpadLeftWasPressed()) {
++            optionMenu.goLeft();
++        }
++        if (gamepad.dpadRightWasPressed()) {
++            optionMenu.goRight();
++        }
++        if (gamepad.aWasPressed()) {
++            optionMenu.select();
++        }
++        if (gamepad.bWasPressed()) {
++            optionMenu.goBack();
++        }
++    }
++}
+```
+
+## DriverStationMenu
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/DriverStationMenu.java`
+
+### A change
+
+Delete 0 lines, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,11 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
++import org.firstinspires.ftc.teamcode.base.Tracker;
++
++import java.util.ArrayList;
++
+ /**
+  * A menu on the Driver Station, worked with a gamepad between INIT and PLAY,
+  * for an OpMode to make as a field and call from init_loop(). The menu and its
+```
+
+### A change
+
+Delete 0 lines, write 31 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -18,3 +18,34 @@
+ // When on L093S100, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s100
+ // for what to write in this file.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++public class DriverStationMenu {
++
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private OptionMenu optionMenu;
++    // 'private' so only this class can use it. 'private' allows access from this class only.
++    private MenuButtons menuButtons;
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public DriverStationMenu(OptionMenu optionMenu) {
++        this.optionMenu = optionMenu;
++        menuButtons = new MenuButtons(optionMenu);
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void loop(Gamepad gamepad) {
++        menuButtons.loop(gamepad);
++        String summary = optionMenu.getSummary();
++        Tracker.publish("menu/summary", summary);
++        ArrayList<String> lines = optionMenu.getLines();
++        for (String line : lines) {
++            Tracker.printToDs(line);
++        }
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public String getSummary() {
++        String summary = optionMenu.getSummary();
++        return summary;
++    }
++}
+```
+
+## L093MenuOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l093/L093MenuOpMode.java`
+
+### A change
+
+Delete 0 lines, write 13 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -24,6 +24,19 @@
+     // When on L093S110, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+     // for what to do here.
++    MenuItem on = new MenuItem("ON", "On");
++    MenuItem off = new MenuItem("OFF", "Off");
++    MenuRow lightRow = new MenuRow("Light");
++    MenuItem slow = new MenuItem("S", "Slow");
++    MenuItem medium = new MenuItem("M", "Medium");
++    MenuItem fast = new MenuItem("F", "Fast");
++    MenuRow speedRow = new MenuRow("Speed");
++    MenuItem red = new MenuItem("R", "Red");
++    MenuItem green = new MenuItem("G", "Green");
++    MenuItem blue = new MenuItem("B", "Blue");
++    MenuRow colorRow = new MenuRow("Color");
++    OptionMenu optionMenu = new OptionMenu();
++    DriverStationMenu menu = new DriverStationMenu(optionMenu);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 11 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -44,6 +44,17 @@
+         // When on L093S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+         // for what to do here.
++        lightRow.add(on);
++        lightRow.add(off);
++        speedRow.add(slow);
++        speedRow.add(medium);
++        speedRow.add(fast);
++        colorRow.add(red);
++        colorRow.add(green);
++        colorRow.add(blue);
++        optionMenu.add(lightRow);
++        optionMenu.add(speedRow);
++        optionMenu.add(colorRow);
+         initBefore();
+         initAfter();
+     }
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -66,6 +66,7 @@
+         // When on L093S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -84,6 +84,8 @@
+         // When on L093S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s110
+         // for what to do here.
++        String summary = menu.getSummary();
++        Tracker.printToDs(summary);
+         loopAfter();
+     }
+ 
+```
+
+## MenuItemTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuItemTest.java`
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,9 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Test;
++
+ /**
+  * Tests for {@link MenuItem}: an item gives back the short name and the full
+  * name it was made with.
+```
+
+### A change
+
+Delete 0 lines, write 13 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -11,3 +11,16 @@
+ // When on L093S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s030
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class MenuItemTest {
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void anItemHasAShortNameAndAFullName() {
++        MenuItem forward24 = new MenuItem("F24", "Forward 24");
++        String shortName = forward24.getShortName();
++        assertEquals("F24", shortName);
++        String fullName = forward24.getFullName();
++        assertEquals("Forward 24", fullName);
++    }
++}
+```
+
+## MenuRowTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuRowTest.java`
+
+### A change
+
+Delete 0 lines, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,10 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Before;
++import org.junit.Test;
++
+ /**
+  * Tests for {@link MenuRow}: a row starts at the first choice added,
+  * selected; left and right offer a choice and wrap at the ends; A selects
+```
+
+### A change
+
+Delete 0 lines, write 73 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -14,3 +14,76 @@
+ // When on L093S040, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s040
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class MenuRowTest {
++
++    MenuItem nothing = new MenuItem("N", "Nothing");
++    MenuItem forward24 = new MenuItem("F24", "Forward 24");
++    MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
++    MenuRow autoRow = new MenuRow("Auto");
++
++    @Before
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void addTheItems() {
++        autoRow.add(nothing);
++        autoRow.add(forward24);
++        autoRow.add(forwardThenStrafe);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void aRowStartsAtItsFirstChoiceSelected() {
++        String line = autoRow.getLine();
++        assertEquals("Auto: <Nothing>", line);
++        MenuItem selected = autoRow.getSelected();
++        assertEquals(nothing, selected);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightOffersTheNextChoice() {
++        autoRow.goRight();
++        String line = autoRow.getLine();
++        assertEquals("Auto: Forward 24? A:OK B:Back", line);
++        MenuItem selected = autoRow.getSelected();
++        assertEquals(nothing, selected);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void leftWrapsFromTheFirstChoiceToTheLast() {
++        autoRow.goLeft();
++        String line = autoRow.getLine();
++        assertEquals("Auto: Forward Then Strafe? A:OK B:Back", line);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightWrapsFromTheLastChoiceToTheFirst() {
++        autoRow.goRight();
++        autoRow.goRight();
++        autoRow.goRight();
++        String line = autoRow.getLine();
++        assertEquals("Auto: <Nothing>", line);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void selectSelectsTheChoiceOffered() {
++        autoRow.goRight();
++        autoRow.select();
++        String line = autoRow.getLine();
++        assertEquals("Auto: <Forward 24>", line);
++        MenuItem selected = autoRow.getSelected();
++        assertEquals(forward24, selected);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void backClearsTheOffer() {
++        autoRow.goRight();
++        autoRow.goBack();
++        String line = autoRow.getLine();
++        assertEquals("Auto: <Nothing>", line);
++    }
++}
+```
+
+## OptionMenuTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/OptionMenuTest.java`
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,12 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import static org.junit.Assert.assertEquals;
++
++import org.junit.Before;
++import org.junit.Test;
++
++import java.util.ArrayList;
++
+ /**
+  * Tests for {@link OptionMenu}: the summary first, then each row's line with
+  * a pointer; up and down move the pointer, wrap at the ends and clear an
+```
+
+### A change
+
+Delete 0 lines, write 87 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -15,3 +15,90 @@
+ // When on L093S070, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s070
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class OptionMenuTest {
++
++    MenuItem red = new MenuItem("R", "Red");
++    MenuItem blue = new MenuItem("B", "Blue");
++    MenuRow allianceRow = new MenuRow("Alliance");
++    MenuItem nothing = new MenuItem("N", "Nothing");
++    MenuItem forward24 = new MenuItem("F24", "Forward 24");
++    MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
++    MenuRow autoRow = new MenuRow("Auto");
++    OptionMenu optionMenu = new OptionMenu();
++
++    @Before
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void addTheRows() {
++        allianceRow.add(red);
++        allianceRow.add(blue);
++        autoRow.add(nothing);
++        autoRow.add(forward24);
++        autoRow.add(forwardThenStrafe);
++        optionMenu.add(allianceRow);
++        optionMenu.add(autoRow);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void theMenuStartsWithThePointerOnTheFirstRow() {
++        assertLines("R-N", "> Alliance: <Red>", "  Auto: <Nothing>");
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void selectChangesTheSummary() {
++        allianceRow.goRight();
++        allianceRow.select();
++        String summary = optionMenu.getSummary();
++        assertEquals("B-N", summary);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void rightOffersInTheRowThePointerIsOn() {
++        optionMenu.goRight();
++        assertLines("R-N", "> Alliance: Blue? A:OK B:Back", "  Auto: <Nothing>");
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void downMovesThePointerAndClearsTheOffer() {
++        optionMenu.goRight();
++        optionMenu.goDown();
++        assertLines("R-N", "  Alliance: <Red>", "> Auto: <Nothing>");
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void downWrapsFromTheLastRowToTheFirst() {
++        optionMenu.goDown();
++        optionMenu.goDown();
++        assertLines("R-N", "> Alliance: <Red>", "  Auto: <Nothing>");
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void upWrapsFromTheFirstRowToTheLast() {
++        optionMenu.goUp();
++        assertLines("R-N", "  Alliance: <Red>", "> Auto: <Nothing>");
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void leftAndSelectWorkInTheRowThePointerIsOn() {
++        optionMenu.goDown();
++        optionMenu.goLeft();
++        optionMenu.select();
++        assertLines("R-FS", "  Alliance: <Red>", "> Auto: <Forward Then Strafe>");
++    }
++
++    void assertLines(String summaryLine, String allianceLine, String autoLine) {
++        ArrayList<String> expected = new ArrayList<>();
++        expected.add(summaryLine);
++        expected.add(allianceLine);
++        expected.add(autoLine);
++        ArrayList<String> lines = optionMenu.getLines();
++        assertEquals(expected, lines);
++    }
++}
+```
+
+## MenuButtonsTest
+
+`TeamCode/src/test/java/org/firstinspires/ftc/teamcode/mytry/l093/MenuButtonsTest.java`
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,12 @@
++package org.firstinspires.ftc.teamcode.mytry.l093;
++
++import static org.junit.Assert.assertEquals;
++
++import com.qualcomm.robotcore.hardware.Gamepad;
++
++import org.junit.Before;
++import org.junit.Test;
++
+ /**
+  * Tests for {@link MenuButtons}: a press of the D-pad, A or B on a gamepad
+  * moves the menu once.
+```
+
+### A change
+
+Delete 0 lines, write 66 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -14,3 +14,69 @@
+ // When on L093S090, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l093.html#l093s090
+ // for what to write in this file.
++// 'public' so JUnit can run it. 'public' allows access from any code.
++public class MenuButtonsTest {
++
++    MenuItem red = new MenuItem("R", "Red");
++    MenuItem blue = new MenuItem("B", "Blue");
++    MenuRow allianceRow = new MenuRow("Alliance");
++    MenuItem nothing = new MenuItem("N", "Nothing");
++    MenuItem forward24 = new MenuItem("F24", "Forward 24");
++    MenuRow autoRow = new MenuRow("Auto");
++    OptionMenu optionMenu = new OptionMenu();
++    MenuButtons menuButtons = new MenuButtons(optionMenu);
++    Gamepad gamepad = new Gamepad();
++
++    @Before
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void addTheRows() {
++        allianceRow.add(red);
++        allianceRow.add(blue);
++        autoRow.add(nothing);
++        autoRow.add(forward24);
++        optionMenu.add(allianceRow);
++        optionMenu.add(autoRow);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void theDpadAndAWorkTheMenu() {
++        Gamepad rightHeld = new Gamepad();
++        rightHeld.dpad_right = true;
++        press(rightHeld);
++        Gamepad aHeld = new Gamepad();
++        aHeld.a = true;
++        press(aHeld);
++        Gamepad downHeld = new Gamepad();
++        downHeld.dpad_down = true;
++        press(downHeld);
++        press(rightHeld);
++        press(aHeld);
++        String summary = optionMenu.getSummary();
++        assertEquals("B-F24", summary);
++    }
++
++    @Test
++    // 'public' so JUnit can run it. 'public' allows access from any code.
++    public void bClearsTheOffer() {
++        Gamepad rightHeld = new Gamepad();
++        rightHeld.dpad_right = true;
++        press(rightHeld);
++        Gamepad bHeld = new Gamepad();
++        bHeld.b = true;
++        press(bHeld);
++        Gamepad aHeld = new Gamepad();
++        aHeld.a = true;
++        press(aHeld);
++        String summary = optionMenu.getSummary();
++        assertEquals("R-N", summary);
++    }
++
++    void press(Gamepad held) {
++        gamepad.copy(held);
++        menuButtons.loop(gamepad);
++        Gamepad letGo = new Gamepad();
++        gamepad.copy(letGo);
++        menuButtons.loop(gamepad);
++    }
++}
+```

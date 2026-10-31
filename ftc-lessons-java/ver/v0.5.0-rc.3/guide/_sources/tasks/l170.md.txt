@@ -1,0 +1,169 @@
+# 170 lesson: press Y and the robot drives itself there
+
+:::{figure} ../_figures/fig-l170-drove-there.png
+:name: fig-l170-drove-there
+:figclass: file-named
+
+fig-l170-drove-there.png
+:::
+
+Press Y and the robot drives itself to a spot on the field. Push any stick and the driver has it
+back at once.
+
+::::{only} mentor
+**Before you start.**
+
+- L160 is done.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot, the Driver Station, a gamepad, and about 2 m by 2 m of clear floor for the last step.
+::::
+
+## the steps
+
+### L170S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click `L170DriveToPoseOpMode` once and copy it. Click `mytry` once and
+paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
+Git, click **Add**.
+
+**Check.**
+
+- `mytry` holds `L170DriveToPoseOpMode`, and the new file is open.
+
+### L170S020: switch your copy on
+
+**Change.** Delete the line `@Disabled`, under the comment that names this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L170S030: Y schedules the drive
+
+:::{figure} ../_figures/fig-l170-stands-still.png
+:name: fig-l170-stands-still
+:figclass: file-named
+
+fig-l170-stands-still.png
+:::
+
+The starter is L160's finished OpMode, moved around a little. Near the top are two new fields.
+`target` is the pose, at x 120 in, y 72 in and heading 90°. `driveToTheTarget` is a second
+**command**, besides the one that drives from the sticks.
+
+`start()` builds both. The sticks' command now says `.requiring(drivetrain)`: it needs the
+drivetrain. `driveToTheTarget` needs it too. Only one command can have the drivetrain at a time, so
+the new one sets the sticks' command aside. `SUSPEND` means the sticks' command comes back when the
+new one ends.
+
+`driveToTheTarget` is made of four methods near the bottom of the file. One runs when it starts,
+one every loop, one says when it is done, and one runs when it ends. It is done when
+`driverWantsControl()` says a stick is pushed.
+
+**Change.** In `loop()`, find the comment that names this step. Under it, type:
+
+```{code-block} java
+:caption: mytry/L170DriveToPoseOpMode.java
+:emphasize-lines: 4-9
+
+        // When on L170S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s030
+        // for what to do here.
+        boolean buttonY = gamepad1.y;
+        boolean buttonYJustPressed = buttonY && !previousButtonY;
+        if (buttonYJustPressed) {
+            Scheduler.schedule(driveToTheTarget);
+        }
+        previousButtonY = buttonY;
+```
+
+This is L070's way of finding the loop a button goes down, for Y. `&&` means "and", and `!` means
+"not", so `buttonYJustPressed` is true only on the loop Y goes down. Then `Scheduler.schedule`
+starts `driveToTheTarget`. Holding Y does not start it again.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L170DriveToPoseOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
+`Localizer` folder, then `pinPoint`. Open the `drivetrain` folder too.
+
+**Check.**
+
+- Press Y once and let go.
+- `mode` reads AUTO.
+- The robot does not move: `x_in` stays at 72 and `y_in` at 10.5.
+
+The drive to the target has the drivetrain, but nothing has told the follower where to go yet.
+
+### L170S040: tell the follower where to go
+
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. In `startDrivingToTheTarget()`, find
+the comment that names this step. Under it, type:
+
+```{code-block} java
+:caption: mytry/L170DriveToPoseOpMode.java
+:emphasize-lines: 4-5
+
+        // When on L170S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l170.html#l170s040
+        // for what to do here.
+        follower.hold(target);
+        drivetrain.releaseCommandedWheels();
+```
+
+`follower.hold` tells the follower to drive to `target` and stay there. Since L110 the sticks set
+the wheels. While they do, the follower is ignored. `releaseCommandedWheels()` lets go of the
+wheels, so the follower drives them.
+
+When a stick is pushed, `driveToTheTarget` is done. `giveTheDriverTheWheels()` stops the follower,
+and the sticks' command comes back. It drives from the next loop on.
+
+**Simulator.** Run the same command again, and connect AdvantageScope.
+
+**Check.**
+
+- Press Y once and let go.
+- `mode` reads AUTO.
+- The robot drives right and up the field and stops at `x_in` 120 and `y_in` 72, its nose still
+  pointing up the field. It may show 119.999 and 71.999.
+
+### L170S050: send it and then take it back
+
+**Robot.** Stop the simulator. Send the code, and run `L170 Drive To Pose` from the Driver Station.
+
+**Check.**
+
+- Press Y once and let go. The robot drives itself toward the middle of the field, right of where it
+  started.
+- Press Y again and push the left stick while it is on its way. It stops going there, and drives the
+  way the stick says.
+
+::::{only} mentor
+**No gamepad.** This holds Y from the first loop, for both runs above:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L170DriveToPoseOpMode --y=true"
+```
+
+**If it didn't**, and `LessonsTest.l170_pressingYDrivesToAPoseAndTheDriverCanTakeOver` fails with
+`the command is driving, not the sticks expected:<HOLD> but was:<MANUAL>`, the follower was never
+told to hold. Either `follower.hold(target);` is missing, or the drive was never scheduled: the
+press check is missing, or reads `previousButtonY` without the `!`.
+
+**If it didn't**, and the test passes but Y does nothing once the driver has driven, the
+`releaseCommandedWheels()` line is missing. The sticks' last wheel speeds stay on the wheels, and
+the follower is ignored. The `--y=true` run still drives there, because Y goes down in the first
+loop, before the sticks have set the wheels.
+
+**What you just did.** The robot has two drivers now, the person and the follower, and each is a
+command that needs the drivetrain. The scheduler gives the drivetrain to one at a time. The
+follower drives only when asked, and only until the person touches a stick. That is the same rule
+as L160, a step bigger: the person on the gamepad wins.
+
+**Where next.** [L180](l180.md) puts every piece so far into one OpMode a driver could take to a
+match.
+::::

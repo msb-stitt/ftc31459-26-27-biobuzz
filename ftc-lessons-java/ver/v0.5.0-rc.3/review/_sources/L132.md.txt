@@ -1,0 +1,523 @@
+# L132
+
+3 file(s) copied, then 25 change(s) in 5 file(s), 92 line(s) of code to write.
+
+## Copies
+
+- `lessons/L132CompareLocalizersOpMode.java` to `mytry/L132CompareLocalizersOpMode.java`
+- `lessons/L132WheelFit.java` to `mytry/L132WheelFit.java`
+- `lessons/L132WheelAngleOpMode.java` to `mytry/L132WheelAngleOpMode.java`
+
+## L132CompareLocalizersOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -4,6 +4,9 @@
+ import com.pedropathing.ivy.Scheduler;
+ import com.pedropathing.ivy.commands.Commands;
+ import com.pedropathing.localization.Localizer;
++import com.pedropathing.math.Pose;
++import com.pedropathing.math.Twist;
++import com.pedropathing.utils.Angle;
+ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+ 
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -14,6 +14,10 @@
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.StickShaper;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwarePinpointSource;
++import org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource;
++import org.firstinspires.ftc.teamcode.base.odometry.PinpointSource;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L132: drive around while three localizers disagree. Your localizer from L113
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -77,6 +77,8 @@
+         // When on L132S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+         // for what to do here.
++        Command compareWithPedrosEveryLoop = Commands.infinite(this::compareWithPedros);
++        Scheduler.schedule(compareWithPedrosEveryLoop);
+ 
+         startAfter();
+     }
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -121,6 +121,9 @@
+         // When on L132S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+         // for what to do here.
++        Pose pedros = follower.pose();
++        publishError("driveWheelEncoders", driveWheelEncoders.pose(), pedros);
++        publishError("pinpointPods", pinpointPods.pose(), pedros);
+ 
+         // When on L132S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
+```
+
+### A change
+
+Delete 0 lines, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -128,6 +128,14 @@
+         // When on L132S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
+         // for what to do here.
++        Twist podsSpeed = pinpointPods.twist();
++        Twist pedrosSpeed = follower.localizer.twist();
++        Tracker.publish("Speed/pinpointPods/forward_ips", podsSpeed.vx);
++        Tracker.publish("Speed/pinPoint/forward_ips", pedrosSpeed.vx);
++        Tracker.publish("Speed/pinpointPods/strafe_ips", podsSpeed.vy);
++        Tracker.publish("Speed/pinPoint/strafe_ips", pedrosSpeed.vy);
++        Tracker.publish("Speed/pinpointPods/turn_degps", Math.toDegrees(podsSpeed.omega));
++        Tracker.publish("Speed/pinPoint/turn_degps", Math.toDegrees(pedrosSpeed.omega));
+ 
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+```
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -145,6 +145,15 @@
+     // When on L132S050, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+     // for what to do here.
++    /** How far one of your localizers is from the robot's own, in x, y and heading. */
++    void publishError(String name, Pose yours, Pose pedros) {
++        double xError_in = yours.x() - pedros.x();
++        double yError_in = yours.y() - pedros.y();
++        double headingError_rad = Angle.normalizeSigned(yours.heading() - pedros.heading());
++        Tracker.publish("Error/" + name + "/x_in", xError_in);
++        Tracker.publish("Error/" + name + "/y_in", yError_in);
++        Tracker.publish("Error/" + name + "/heading_deg", Math.toDegrees(headingError_rad));
++    }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 7 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -161,6 +161,13 @@
+         // When on L132S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
+         // for what to do here.
++        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
++        driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
++        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
++
++        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
++        pinpointPods = new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
++        shadowLocalizers.add("pinpointPods", pinpointPods);
+ 
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+```
+
+## L132WheelFit
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelFit.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -30,6 +30,9 @@
+         // When on L132S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+         // for what to do here.
++        double wheelStrafeStep_in = (-wheelSteps_in[FL] + wheelSteps_in[FR]
++                + wheelSteps_in[BL] - wheelSteps_in[BR]) / 4.0;
++        wheelStrafe_in += wheelStrafeStep_in;
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -37,6 +37,9 @@
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        double wheelTurnStep_in = (-wheelSteps_in[FL] + wheelSteps_in[FR]
++                - wheelSteps_in[BL] + wheelSteps_in[BR]) / 4.0;
++        wheelTurn_in += wheelTurnStep_in;
+     }
+ 
+     /** One loop's move of the robot, the robot's way, as the Pinpoint saw it. */
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -47,6 +47,7 @@
+         // When on L132S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+         // for what to do here.
++        robotStrafe_in += strafe_in;
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -52,6 +52,7 @@
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        robotTurn_rad += turn_rad;
+     }
+ 
+     /** How far the wheels rolled for each inch the robot slid. */
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -61,6 +61,7 @@
+         // When on L132S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+         // for what to do here.
++        cotAlpha = wheelStrafe_in / robotStrafe_in;
+         return cotAlpha;
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -71,6 +71,7 @@
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        turnRadius_in = wheelTurn_in / robotTurn_rad;
+         return turnRadius_in;
+     }
+ }
+```
+
+## L132WheelAngleOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelAngleOpMode.java`
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,6 +1,10 @@
+ package org.firstinspires.ftc.teamcode.mytry;
+ 
+ import com.pedropathing.api.PoseFactory;
++import static com.pedropathing.ivy.commands.Commands.instant;
++import static com.pedropathing.ivy.commands.Commands.waitUntil;
++import static com.pedropathing.ivy.groups.Groups.sequential;
++
+ import com.pedropathing.ivy.Command;
+ import com.pedropathing.ivy.Scheduler;
+ import com.pedropathing.ivy.commands.Commands;
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -98,6 +98,9 @@
+         // When on L132S100, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+         // for what to do here.
++        Command strafeRun = sequential(
++                instant(this::startTheStrafeRun), waitUntil(this::slidTwoFeet),
++                instant(this::stopTheRun), waitUntil(this::standingStill));
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+```
+
+### A change
+
+Delete 1 line, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -105,7 +105,12 @@
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
+-        return Command.NOOP;
++        Command mixedRun = sequential(
++                instant(this::startTheMixedRun), waitUntil(this::turnedHalfway),
++                instant(this::stopTheRun), waitUntil(this::standingStill));
++
++        Command runs = sequential(strafeRun, mixedRun, instant(this::publishTheFits));
++        return runs;
+     }
+ 
+     // When on L132S100, see
+```
+
+### A change
+
+Delete 0 lines, write 10 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -116,6 +116,16 @@
+     // When on L132S100, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+     // for what to do here.
++    /** Slide left at 0.4 power, adding to the strafe run's sums. */
++    void startTheStrafeRun() {
++        fitting = strafeFit;
++        follower.manual(0.0, 0.4, 0.0);
++    }
++
++    /** True once the Pinpoint has seen the robot slide 24 inches. */
++    boolean slidTwoFeet() {
++        return strafeFit.robotStrafe_in >= 24.0;
++    }
+ 
+     // When on L132S120, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+```
+
+### A change
+
+Delete 0 lines, write 10 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -130,6 +130,16 @@
+     // When on L132S120, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+     // for what to do here.
++    /** Drive forward, slide left and turn at once, adding to the mixed run's sums. */
++    void startTheMixedRun() {
++        fitting = mixedFit;
++        follower.manual(0.3, 0.3, 0.3);
++    }
++
++    /** True once the Pinpoint has seen the robot turn half a circle. */
++    boolean turnedHalfway() {
++        return mixedFit.robotTurn_rad >= Math.PI;
++    }
+ 
+     /** All four wheels to zero, so the robot stops. */
+     void stopTheRun() {
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -159,6 +159,7 @@
+         // When on L132S100, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+         // for what to do here.
++        Tracker.publish("Fit/strafeRun/cotAlpha", strafeFit.cotAlpha());
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -164,6 +164,8 @@
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        Tracker.publish("Fit/mixedRun/cotAlpha", mixedFit.cotAlpha());
++        Tracker.publish("Fit/mixedRun/turnRadius_in", mixedFit.turnRadius_in());
+     }
+ 
+     /**
+```
+
+## L113EncoderLocalizer
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113EncoderLocalizer.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -39,6 +39,9 @@
+     /** What the wheels and the IMU read last loop. */
+     double[] lastWheels_in;
+     double lastRawHeading_rad;
++
++    /** How far the wheels roll for each inch the robot slides: L132 measures it. */
++    double cotAlpha = 1.0;
+ 
+     L113EncoderLocalizer(WheelSource source) {
+         this.source = source;
+```
+
+### A change
+
+Delete 1 line, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -68,7 +68,8 @@
+         }
+ 
+         double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;
+-        double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++        double wheelStrafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++        double strafe_in = wheelStrafe_in / cotAlpha;
+ 
+         // When on L113S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s050
+```
+
+## L132CompareLocalizersOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -56,6 +56,7 @@
+     // When on L132S110, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+     // for what to do here.
++    L113EncoderLocalizer measuredWheels;
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -141,6 +141,7 @@
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+         // for what to do here.
++        publishError("measuredWheels", measuredWheels.pose(), pedros);
+     }
+ 
+     // When on L132S050, see
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -174,6 +174,9 @@
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+         // for what to do here.
++        measuredWheels = new L113EncoderLocalizer(wheelSource);
++        measuredWheels.cotAlpha = 1.19;
++        shadowLocalizers.add("measuredWheels", measuredWheels);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```

@@ -1,0 +1,118 @@
+# 045 lesson: set up the robot's configuration
+
+:::{figure} ../_figures/fig-l045-wiring.png
+:name: fig-l045-wiring
+:figclass: file-named
+
+fig-l045-wiring.png
+:::
+
+Wire the robot's four wheel motors to the Control Hub. Then give each one the name the code asks
+for, in the Robot Configuration on the Driver Station.
+
+::::{only} mentor
+**Before you start.**
+
+- A robot with 4 mecanum wheels, each with its own motor, and a REV Control Hub.
+- A charged battery, and a Driver Station paired with the Control Hub.
+- No code is needed, and no laptop.
+
+The Pinpoint is named here, before L115 mounts it, because the code asks for it at INIT from L050
+on.
+::::
+
+## the steps
+
+### L045S010: wire it
+
+The picture at the top shows the wiring. Each motor has two cables. Its power cable goes into a
+**motor** port on the Control Hub, numbered 0 to 3. Its encoder cable counts how far the wheel
+turns, and goes into the **encoder** port with the same number.
+
+**Wire.** With the robot switched off, plug each wheel's motor into its own motor port, and its
+encoder into the encoder port with the same number. Plug the battery into the switch, and the
+switch into the Control Hub.
+
+Write down which wheel is on which port:
+
+| Wheel | Port |
+| --- | --- |
+| front left | |
+| front right | |
+| back left | |
+| back right | |
+
+**Check.**
+
+- Each motor port, 0 to 3, has one motor.
+- Each encoder port has the encoder cable from the motor with the same number.
+
+### L045S020: name the motors
+
+The code finds each motor by its name. These are the names it asks for, in the `pedro` folder's
+robot files:
+
+```{code-block} java
+:caption: pedro/Bot*.java
+        c.frontLeftName.set("Front Left");
+        c.frontRightName.set("Front Right");
+        c.backLeftName.set("Back Left");
+        c.backRightName.set("Back Right");
+```
+
+**Configure.** On the Driver Station, touch the three dots in the upper right corner, and then
+**Configure Robot**. Touch **New**. Touch the Control Hub's portal, and then the Control Hub.
+Touch **Motors**.
+
+For each port, pick the type of motor on the robot. Then type the name of the wheel on that port,
+from your table: `Front Left`, `Front Right`, `Back Left` or `Back Right`. Spell each one exactly
+that way, with its capital letters and its space. Touch **Done**.
+
+**Check.**
+
+- Each of ports 0 to 3 has a motor type and one of the four names, and no name is used twice.
+
+### L045S030: name the IMU and the Pinpoint
+
+The Control Hub has an IMU inside it. It tells the code which way the robot faces. The code asks
+for it by the name `imu`.
+
+L115 mounts a Pinpoint on I2C port 1. The code asks for it at INIT by the name `pinpoint`, so it
+is named now. Until it is plugged in, the Driver Station shows a warning about it at INIT.
+
+**Configure.** Touch **I2C Bus 0**. The IMU should be there. If its name is not `imu`, change it to
+`imu`. Touch **Done**.
+
+Touch **I2C Bus 1**, and add a device. Pick the goBILDA Pinpoint, and name it `pinpoint`, spelled
+exactly that way. Touch **Done**.
+
+**Check.**
+
+- I2C Bus 0 has `imu`, and I2C Bus 1 has `pinpoint`.
+
+### L045S040: save it and make it the one in use
+
+**Configure.** Touch **Done** until you are back at the top of the configuration. Touch **Save**.
+Type a name for the file, such as the team number, and touch **OK**. Touch the back arrow to go
+back to the main screen.
+
+**Check.**
+
+- The main screen of the Driver Station shows your file's name as the configuration in use.
+
+::::{only} mentor
+**If it didn't**, and the Control Hub's portal is not on the list after **New**, the Driver
+Station is not connected to the Control Hub. Pair them again, then touch **New** again.
+
+These steps follow FTC's own pages on creating a configuration, a DC motor, and saving it:
+[Getting-Started](https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/getting_started/getting-started.html),
+[Configuring-a-DC-Motor](https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/configuring_dc_motor/configuring-dc-motor.html),
+[Saving-the-Configuration](https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/saving_config/saving-config.html).
+
+**What you just did.** The code never says "port 0". It says `"Front Left"`, and the
+configuration says which port that is. A robot wired another way needs only a new configuration,
+not new code.
+
+**Where next.** [L050](l050.md) sends the code to the robot and checks that each wheel turns the
+right way.
+::::
