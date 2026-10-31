@@ -1,8 +1,18 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
-index 84bbfbf..4a1d12e 100644
+index 17a1c3a..580cd26 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
-@@ -10,6 +10,10 @@ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+@@ -4,6 +4,9 @@ import com.pedropathing.ivy.Command;
+ import com.pedropathing.ivy.Scheduler;
+ import com.pedropathing.ivy.commands.Commands;
+ import com.pedropathing.localization.Localizer;
++import com.pedropathing.math.Pose;
++import com.pedropathing.math.Twist;
++import com.pedropathing.utils.Angle;
+ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+ 
+@@ -11,6 +14,10 @@ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
  import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
  import org.firstinspires.ftc.teamcode.base.StickShaper;
  import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -13,17 +23,61 @@ index 84bbfbf..4a1d12e 100644
  
  /**
   * L132: drive around while three localizers disagree. Your localizer from L113
-@@ -94,6 +98,14 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+@@ -66,6 +73,8 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+         // When on L132S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+         // for what to do here.
++        Command compareWithPedrosEveryLoop = Commands.infinite(this::compareWithPedros);
++        Scheduler.schedule(compareWithPedrosEveryLoop);
+ 
+         startAfter();
+     }
+@@ -108,15 +117,35 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+         // When on L132S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+         // for what to do here.
++        Pose pedros = follower.pose();
++        publishError("driveWheelEncoders", driveWheelEncoders.pose(), pedros);
++        publishError("pinpointPods", pinpointPods.pose(), pedros);
+ 
+         // When on L132S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s060
+         // for what to do here.
++        Twist podsSpeed = pinpointPods.twist();
++        Twist pedrosSpeed = follower.localizer.twist();
++        Tracker.publish("Speed/pinpointPods/forward_ips", podsSpeed.vx);
++        Tracker.publish("Speed/pinPoint/forward_ips", pedrosSpeed.vx);
++        Tracker.publish("Speed/pinpointPods/strafe_ips", podsSpeed.vy);
++        Tracker.publish("Speed/pinPoint/strafe_ips", pedrosSpeed.vy);
++        Tracker.publish("Speed/pinpointPods/turn_degps", Math.toDegrees(podsSpeed.omega));
++        Tracker.publish("Speed/pinPoint/turn_degps", Math.toDegrees(pedrosSpeed.omega));
+     }
+ 
+     // When on L132S050, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
+     // for what to do here.
++    /** How far one of your localizers is from the robot's own, in x, y and heading. */
++    void publishError(String name, Pose yours, Pose pedros) {
++        double xError_in = yours.x() - pedros.x();
++        double yError_in = yours.y() - pedros.y();
++        double headingError_rad = Angle.normalizeSigned(yours.heading() - pedros.heading());
++        Tracker.publish("Error/" + name + "/x_in", xError_in);
++        Tracker.publish("Error/" + name + "/y_in", yError_in);
++        Tracker.publish("Error/" + name + "/heading_deg", Math.toDegrees(headingError_rad));
++    }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+@@ -124,6 +153,13 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
          // When on L132S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
          // for what to do here.
 +        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
-+        L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
++        driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
 +        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
 +
 +        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
-+        L120PinpointLocalizer pinpointPods =
-+                new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
++        pinpointPods = new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
 +        shadowLocalizers.add("pinpointPods", pinpointPods);
      }
  
