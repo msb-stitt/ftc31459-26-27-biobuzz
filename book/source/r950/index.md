@@ -11,7 +11,7 @@ L030SpeedsOpMode
 L040TankOpMode
 L050BlocksOpMode
 L060ShapingOpMode
-StickShaper
+l065-StickShaper
 L065ShaperOpMode
 L070ButtonsOpMode
 L080ArcadeOpMode
@@ -45,6 +45,9 @@ L140AutoOpMode
 L150RobotRelativeButtonOpMode
 L153FeedforwardFit
 L153FeedforwardOpMode
+L157FeedforwardOpMode
+l157-StickShaper
+L157FeedforwardDriveTrain
 L160HeadingHoldOpMode
 L170DriveToPoseOpMode
 L180CombinedOpMode
