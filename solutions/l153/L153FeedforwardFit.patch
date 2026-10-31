@@ -1,0 +1,34 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L153FeedforwardFit.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L153FeedforwardFit.java
+index 8608951..0760cfb 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L153FeedforwardFit.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L153FeedforwardFit.java
+@@ -25,6 +25,11 @@ class L153FeedforwardFit {
+         // When on L153S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s030
+         // for what to do here.
++        count += 1;
++        sumSpeed += speed;
++        sumVolts += volts;
++        sumSpeedSquared += speed * speed;
++        sumSpeedTimesVolts += speed * volts;
+     }
+ 
+     /** How many more volts each unit of speed takes: the line's slope. */
+@@ -33,6 +38,9 @@ class L153FeedforwardFit {
+         // When on L153S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s030
+         // for what to do here.
++        double top = count * sumSpeedTimesVolts - sumSpeed * sumVolts;
++        double bottom = count * sumSpeedSquared - sumSpeed * sumSpeed;
++        kV = top / bottom;
+         return kV;
+     }
+ 
+@@ -42,6 +50,7 @@ class L153FeedforwardFit {
+         // When on L153S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l153.html#l153s040
+         // for what to do here.
++        kS = (sumVolts - kV() * sumSpeed) / count;
+         return kS;
+     }
+ }

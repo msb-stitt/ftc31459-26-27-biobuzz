@@ -1,0 +1,7 @@
+# L153: the fit and the auto that drives the runs, copied into mytry and filled in.
+copy lessons/L153FeedforwardFit.java mytry/L153FeedforwardFit.java
+copy lessons/L153FeedforwardOpMode.java mytry/L153FeedforwardOpMode.java
+patch L153FeedforwardFit.patch
+patch L153FeedforwardOpMode.patch
+test *LessonsTest.l153*
+test *L153FeedforwardFitTest*
