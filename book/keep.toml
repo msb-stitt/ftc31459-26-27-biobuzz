@@ -296,7 +296,7 @@ words = 400
 [answers]
 lessons = "HEAD"
 lessons_commit = ""
-solutions = "solutions-e111"
+solutions = "solutions-e111.2"
 solutions_commit = ""
 
 # The corbels-lfs-lessons branch the figures and videos are read from, named like this
@@ -307,4 +307,4 @@ solutions_commit = ""
 [media]
 repo = "https://github.com/msb-stitt/corbels-lfs-lessons.git"
 ref = "lessons-e111"
-commit = ""
+commit = "bd9e311143cd985d856dae74468c00fe939d86d0"
