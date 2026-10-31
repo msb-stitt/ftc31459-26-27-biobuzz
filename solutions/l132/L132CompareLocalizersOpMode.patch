@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
-index 17a1c3a..580cd26 100644
+index db3150a..e145620 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
 @@ -4,6 +4,9 @@ import com.pedropathing.ivy.Command;
@@ -23,7 +23,7 @@ index 17a1c3a..580cd26 100644
  
  /**
   * L132: drive around while three localizers disagree. Your localizer from L113
-@@ -66,6 +73,8 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+@@ -70,6 +77,8 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
          // When on L132S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
          // for what to do here.
@@ -32,7 +32,7 @@ index 17a1c3a..580cd26 100644
  
          startAfter();
      }
-@@ -108,15 +117,35 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+@@ -112,10 +121,21 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
          // When on L132S050, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
          // for what to do here.
@@ -51,8 +51,10 @@ index 17a1c3a..580cd26 100644
 +        Tracker.publish("Speed/pinPoint/strafe_ips", pedrosSpeed.vy);
 +        Tracker.publish("Speed/pinpointPods/turn_degps", Math.toDegrees(podsSpeed.omega));
 +        Tracker.publish("Speed/pinPoint/turn_degps", Math.toDegrees(pedrosSpeed.omega));
-     }
  
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+@@ -125,6 +145,15 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
      // When on L132S050, see
      // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s050
      // for what to do here.
@@ -68,7 +70,7 @@ index 17a1c3a..580cd26 100644
  
      // 'public' to match the parent class. 'public' allows access from any code.
      @Override
-@@ -124,6 +153,13 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+@@ -132,6 +161,13 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
          // When on L132S030, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s030
          // for what to do here.
@@ -79,6 +81,6 @@ index 17a1c3a..580cd26 100644
 +        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
 +        pinpointPods = new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
 +        shadowLocalizers.add("pinpointPods", pinpointPods);
-     }
  
-     // 'public' to match the parent class. 'public' allows access from any code.
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110

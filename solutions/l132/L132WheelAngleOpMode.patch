@@ -1,0 +1,79 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelAngleOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelAngleOpMode.java
+index 5721be3..8ed3c36 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelAngleOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelAngleOpMode.java
+@@ -1,6 +1,10 @@
+ package org.firstinspires.ftc.teamcode.mytry;
+ 
+ import com.pedropathing.api.PoseFactory;
++import static com.pedropathing.ivy.commands.Commands.instant;
++import static com.pedropathing.ivy.commands.Commands.waitUntil;
++import static com.pedropathing.ivy.groups.Groups.sequential;
++
+ import com.pedropathing.ivy.Command;
+ import com.pedropathing.ivy.Scheduler;
+ import com.pedropathing.ivy.commands.Commands;
+@@ -94,20 +98,48 @@ public class L132WheelAngleOpMode extends CorbelsAuto {
+         // When on L132S100, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+         // for what to do here.
++        Command strafeRun = sequential(
++                instant(this::startTheStrafeRun), waitUntil(this::slidTwoFeet),
++                instant(this::stopTheRun), waitUntil(this::standingStill));
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
+-        return Command.NOOP;
++        Command mixedRun = sequential(
++                instant(this::startTheMixedRun), waitUntil(this::turnedHalfway),
++                instant(this::stopTheRun), waitUntil(this::standingStill));
++
++        Command runs = sequential(strafeRun, mixedRun, instant(this::publishTheFits));
++        return runs;
+     }
+ 
+     // When on L132S100, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+     // for what to do here.
++    /** Slide left at 0.4 power, adding to the strafe run's sums. */
++    void startTheStrafeRun() {
++        fitting = strafeFit;
++        follower.manual(0.0, 0.4, 0.0);
++    }
++
++    /** True once the Pinpoint has seen the robot slide 24 inches. */
++    boolean slidTwoFeet() {
++        return strafeFit.robotStrafe_in >= 24.0;
++    }
+ 
+     // When on L132S120, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+     // for what to do here.
++    /** Drive forward, slide left and turn at once, adding to the mixed run's sums. */
++    void startTheMixedRun() {
++        fitting = mixedFit;
++        follower.manual(0.3, 0.3, 0.3);
++    }
++
++    /** True once the Pinpoint has seen the robot turn half a circle. */
++    boolean turnedHalfway() {
++        return mixedFit.robotTurn_rad >= Math.PI;
++    }
+ 
+     /** All four wheels to zero, so the robot stops. */
+     void stopTheRun() {
+@@ -127,10 +159,13 @@ public class L132WheelAngleOpMode extends CorbelsAuto {
+         // When on L132S100, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s100
+         // for what to do here.
++        Tracker.publish("Fit/strafeRun/cotAlpha", strafeFit.cotAlpha());
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        Tracker.publish("Fit/mixedRun/cotAlpha", mixedFit.cotAlpha());
++        Tracker.publish("Fit/mixedRun/turnRadius_in", mixedFit.turnRadius_in());
+     }
+ 
+     /**

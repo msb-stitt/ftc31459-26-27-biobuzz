@@ -1,0 +1,24 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113EncoderLocalizer.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113EncoderLocalizer.java
+index 5fb99e9..cb13ac7 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113EncoderLocalizer.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L113EncoderLocalizer.java
+@@ -40,6 +40,9 @@ class L113EncoderLocalizer implements Localizer {
+     double[] lastWheels_in;
+     double lastRawHeading_rad;
+ 
++    /** How far the wheels roll for each inch the robot slides: L132 measures it. */
++    double cotAlpha = 1.0;
++
+     L113EncoderLocalizer(WheelSource source) {
+         this.source = source;
+     }
+@@ -65,7 +68,8 @@ class L113EncoderLocalizer implements Localizer {
+         }
+ 
+         double forward_in = (delta_in[FL] + delta_in[FR] + delta_in[BL] + delta_in[BR]) / 4.0;
+-        double strafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++        double wheelStrafe_in = (-delta_in[FL] + delta_in[FR] + delta_in[BL] - delta_in[BR]) / 4.0;
++        double strafe_in = wheelStrafe_in / cotAlpha;
+ 
+         // When on L113S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l113.html#l113s050

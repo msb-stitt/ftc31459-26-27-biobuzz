@@ -1,0 +1,30 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
+index e145620..b017664 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132CompareLocalizersOpMode.java
+@@ -56,6 +56,7 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+     // When on L132S110, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+     // for what to do here.
++    L113EncoderLocalizer measuredWheels;
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+@@ -140,6 +141,7 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+         // for what to do here.
++        publishError("measuredWheels", measuredWheels.pose(), pedros);
+     }
+ 
+     // When on L132S050, see
+@@ -172,6 +174,9 @@ public class L132CompareLocalizersOpMode extends CorbelsTeleOp {
+         // When on L132S110, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s110
+         // for what to do here.
++        measuredWheels = new L113EncoderLocalizer(wheelSource);
++        measuredWheels.cotAlpha = 1.19;
++        shadowLocalizers.add("measuredWheels", measuredWheels);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.

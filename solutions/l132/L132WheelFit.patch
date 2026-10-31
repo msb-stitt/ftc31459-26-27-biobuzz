@@ -1,0 +1,50 @@
+diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelFit.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelFit.java
+index aeace66..041c9fc 100644
+--- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelFit.java
++++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L132WheelFit.java
+@@ -30,10 +30,16 @@ class L132WheelFit {
+         // When on L132S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+         // for what to do here.
++        double wheelStrafeStep_in = (-wheelSteps_in[FL] + wheelSteps_in[FR]
++                + wheelSteps_in[BL] - wheelSteps_in[BR]) / 4.0;
++        wheelStrafe_in += wheelStrafeStep_in;
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        double wheelTurnStep_in = (-wheelSteps_in[FL] + wheelSteps_in[FR]
++                - wheelSteps_in[BL] + wheelSteps_in[BR]) / 4.0;
++        wheelTurn_in += wheelTurnStep_in;
+     }
+ 
+     /** One loop's move of the robot, the robot's way, as the Pinpoint saw it. */
+@@ -41,10 +47,12 @@ class L132WheelFit {
+         // When on L132S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+         // for what to do here.
++        robotStrafe_in += strafe_in;
+ 
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        robotTurn_rad += turn_rad;
+     }
+ 
+     /** How far the wheels rolled for each inch the robot slid. */
+@@ -53,6 +61,7 @@ class L132WheelFit {
+         // When on L132S090, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s090
+         // for what to do here.
++        cotAlpha = wheelStrafe_in / robotStrafe_in;
+         return cotAlpha;
+     }
+ 
+@@ -62,6 +71,7 @@ class L132WheelFit {
+         // When on L132S120, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l132.html#l132s120
+         // for what to do here.
++        turnRadius_in = wheelTurn_in / robotTurn_rad;
+         return turnRadius_in;
+     }
+ }

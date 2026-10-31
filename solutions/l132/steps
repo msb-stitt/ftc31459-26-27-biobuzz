@@ -1,11 +1,15 @@
 # L132: the starter, copied into mytry and filled in; it runs L113's localizer.
 copy lessons/L132CompareLocalizersOpMode.java mytry/L132CompareLocalizersOpMode.java
 patch L132CompareLocalizersOpMode.patch
-test *LessonsTest.l132*
-# The challenge exercises: the wheel fit and the auto that runs it, and cot α in L113's localizer.
+test *LessonsTest.l132_your* *LessonsTest.l132_theError*
+# The challenge exercise: the wheel fit and the auto that runs it.
 copy lessons/L132WheelFit.java mytry/L132WheelFit.java
 copy lessons/L132WheelAngleOpMode.java mytry/L132WheelAngleOpMode.java
 patch L132WheelFit.patch
-patch L132WheelAngleOpMode.patch
-patch L113EncoderLocalizer.patch
 test *L132WheelFitTest*
+patch L132WheelAngleOpMode.patch
+test *LessonsTest.l132_theRuns*
+# cot α in L113's localizer, run beside the others as measuredWheels.
+patch L113EncoderLocalizer.patch
+patch L132CompareLocalizersOpMode-measured.patch
+test *L113EncoderLocalizerTest* *LessonsTest.l113* *LessonsTest.l132*
