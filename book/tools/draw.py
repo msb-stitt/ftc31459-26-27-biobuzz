@@ -3656,6 +3656,31 @@ def l065_shapes():
     save(fig, "fig-l065-shapes")
 
 
+def l153_fit():
+    # L153's fits in the simulator, read from its flight log on 2026-10-31: each steady run's
+    # speed against its volts, 0.2 to 0.8 power of a 12 V battery, and the line through them.
+    runs = [("forward", "speed (in/s)", [10.168, 23.726, 37.284, 50.833], 0.599, 0.17705),
+            ("strafe", "speed (in/s)", [7.048, 18.796, 30.543, 42.289], 0.960, 0.20431),
+            ("turn", "speed (rad/s)", [0.596, 1.447, 2.298, 3.149], 0.720, 2.8200)]
+    volts = [2.4, 4.8, 7.2, 9.6]
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+    for ax, (name, unit, speeds, ks, kv) in zip(axes, runs):
+        top = speeds[-1] * 1.1
+        line = np.linspace(0, top, 50)
+        ax.plot(line, ks + kv * line, color=BLUE, linewidth=2.5)
+        ax.plot(speeds, volts, "o", color=RED, markersize=8)
+        ax.plot([0], [ks], "o", color=BLUE, markersize=6)
+        ax.annotate(f"kS {ks:.2f} V", (0, ks), (top * 0.4, ks + 0.2), fontsize=11, va="center",
+                    arrowprops=dict(arrowstyle="-", color=GREY))
+        ax.set_xlim(0, top)
+        ax.set_ylim(0, 11)
+        ax.set_title(name, fontsize=13)
+        ax.set_xlabel(unit)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("volts (V)")
+    save(fig, "fig-l153-fit")
+
+
 def l045_wiring():
     # L045's wiring, from above with the nose up: each wheel's motor to its motor port, its
     # encoder to the encoder port with the same number; the IMU inside the hub, on I2C Bus 0;
@@ -3894,7 +3919,7 @@ def l113_mecanum_turn():
     s.save("fig-l113-mecanum-turn")
 
 
-PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes]
+PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes, l153_fit]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
