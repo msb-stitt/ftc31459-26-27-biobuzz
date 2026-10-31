@@ -1066,9 +1066,9 @@ public class LessonsTest {
 
         // Forward and left at once: the front right gets both, and both ways' kS, each
         // counted by its share of the wheel's volts.
-        w.speeds(30, 30, 0);
-        double forwardVolts = Constants.kVForwardVoltSecondsPerInch * 30;
-        double strafeVolts = Constants.kVStrafeVoltSecondsPerInch * 30;
+        w.speeds(20, 20, 0);
+        double forwardVolts = Constants.kVForwardVoltSecondsPerInch * 20;
+        double strafeVolts = Constants.kVStrafeVoltSecondsPerInch * 20;
         double blendedKs = (forwardVolts * Constants.kSForwardVolts
                 + strafeVolts * Constants.kSStrafeVolts) / (forwardVolts + strafeVolts);
         assertEquals("forward and left: front right",
