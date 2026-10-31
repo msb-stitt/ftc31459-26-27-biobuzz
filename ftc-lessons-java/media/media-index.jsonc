@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "1bc99b5b60924a3218e6a054d87b792dab9a5f15",
+      "built_from_commit": "1931761ed3cebe6a0fd9f5da6a85806ac62f919a",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_0c687675e83c.png",
@@ -55,6 +55,10 @@
         "fig-e142-triangle-turned_c3cf48312d97.png",
         "fig-e142-unit-circle_189ea2c0459a.png",
         "fig-e142-unit-triangles_8c421148c32f.png",
+        "fig-e154-classes_4c820d14a9fc.png",
+        "fig-e154-loop_680de50ad9a7.png",
+        "fig-e154-start_c97677ed1ab1.png",
+        "fig-e154-wait-ends_d76dc0be3fbe.png",
         "fig-field-relative_3487ddf2e52e.png",
         "fig-gamepad-sticks_a484af7b6aeb.png",
         "fig-l011-advantagescope_ac1908de02ed.png",
@@ -4591,6 +4595,34 @@
         "v0.4.0-rc.9",
         "v0.5.0-rc.1",
         "v0.5.0-rc.2"
+      ]
+    },
+    "fig-e154-classes_4c820d14a9fc.png": {
+      "sha256": "4c820d14a9fc148de044eefc9e0537db2ed6d7b316b863a47ff3b44d2c8c6314",
+      "bytes": 448419,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-e154-loop_680de50ad9a7.png": {
+      "sha256": "680de50ad9a79e6b6f9c14617fceaad20c215c1fad8a83b6879fe1c5d6ee66de",
+      "bytes": 274053,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-e154-start_c97677ed1ab1.png": {
+      "sha256": "c97677ed1ab1ed156c5e9fda743edaf83f9c8c4ff4a65fcc698f19ae79b851be",
+      "bytes": 246184,
+      "used_by_versions": [
+        "dev"
+      ]
+    },
+    "fig-e154-wait-ends_d76dc0be3fbe.png": {
+      "sha256": "d76dc0be3fbe19a985b9dd096119f8bad4b336faae4bb9c19d511c845a132172",
+      "bytes": 231827,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-field-relative_199cd5d7d0ad.png": {
