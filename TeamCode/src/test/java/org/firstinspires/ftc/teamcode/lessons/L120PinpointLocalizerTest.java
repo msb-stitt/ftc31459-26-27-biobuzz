@@ -105,8 +105,8 @@ public class L120PinpointLocalizerTest {
         step();
         pinpoint.move(0, 0, Math.toRadians(90));
         step();
-        assertEquals("the forward pod rolled, but only from turning", 0.0, localizer.pose().x(), EPS);
-        assertEquals("the strafe pod rolled, but only from turning", 0.0, localizer.pose().y(), EPS);
+        assertEquals("both pods rolled, but only from turning: x", 0.0, localizer.pose().x(), EPS);
+        assertEquals("both pods rolled, but only from turning: y", 0.0, localizer.pose().y(), EPS);
         assertEquals(Math.toRadians(90), localizer.pose().heading(), EPS);
     }
 
