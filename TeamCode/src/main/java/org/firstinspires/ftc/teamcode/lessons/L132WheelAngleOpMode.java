@@ -5,6 +5,7 @@ import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
+import com.pedropathing.math.Twist;
 import com.pedropathing.utils.Angle;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -112,6 +113,14 @@ public class L132WheelAngleOpMode extends CorbelsAuto {
     /** All four wheels to zero, so the robot stops. */
     void stopTheRun() {
         follower.manual(0.0, 0.0, 0.0);
+    }
+
+    /** True once the robot has stopped sliding and turning, as the Pinpoint sees it. */
+    boolean standingStill() {
+        Twist speed = follower.localizer.twist();
+        boolean still = Math.abs(speed.vx) < 0.5 && Math.abs(speed.vy) < 0.5
+                && Math.abs(speed.omega) < 0.01;
+        return still;
     }
 
     /** What each run found, for AdvantageScope. */
