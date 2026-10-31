@@ -159,8 +159,7 @@ def label(lesson: str) -> str:
     return "L" + lesson[1:]
 
 
-def page(path: str, patches: list[Patched], solutions: str) -> str:
-    name = Path(path).stem
+def page(path: str, patches: list[Patched], solutions: str, name: str) -> str:
     out = [f"# {name}", ""]
     # Wrapped, since the solutions' name grows when it is pinned to a tag.
     out += textwrap.wrap(
@@ -207,11 +206,16 @@ def generate(solutions: str | None = None) -> dict[str, str]:
     by_file: dict[str, list[Patched]] = {}
     for patch in patched:
         by_file.setdefault(patch.path, []).append(patch)
+    # A file's page is named by the file, or, where two lessons' folders hold a file of the same
+    # name, such as L065's and L157's StickShaper, by its folder and the file.
+    stems = [Path(path).stem for path in by_file]
+    names = {path: Path(path).stem if stems.count(Path(path).stem) == 1
+             else f"{Path(path).parent.name}-{Path(path).stem}" for path in by_file}
     pages = {}
     for path, patches in by_file.items():
-        pages[Path(path).stem + ".md"] = page(path, patches, solutions)
+        pages[names[path] + ".md"] = page(path, patches, solutions, names[path])
     # In the order a student first meets each file, which is the order they patch it in.
-    pages["index.md"] = index([Path(path).stem for path in by_file])
+    pages["index.md"] = index([names[path] for path in by_file])
     return pages
 
 

@@ -3681,6 +3681,27 @@ def l153_fit():
     save(fig, "fig-l153-fit")
 
 
+def l157_respread():
+    # L157's re-spread near the band: what is past the band spread from 0 to 1 again, against
+    # L065's, which jumps from 0 to the band. Only 0 to 0.3 of the stick, where the jump shows.
+    x = np.linspace(0, 0.3, 601)
+    outside = x > DEADBAND
+    respread = np.where(outside, (x - DEADBAND) / (1 - DEADBAND), 0.0)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.5))
+    for ax, shape, title in [(axes[0], lambda v: v, "LINEAR"), (axes[1], squared, "SQUARED")]:
+        ax.plot(x, shape(deadband(x)), color=GREY, linewidth=2, label="L065")
+        ax.plot(x, shape(respread), color=BLUE, linewidth=2.5, label="re-spread")
+        ax.axvspan(0, DEADBAND, color=RED, alpha=0.15)
+        ax.set_xlim(0, 0.3)
+        ax.set_ylim(0, None)
+        ax.set_title(title, fontsize=13)
+        ax.set_xlabel("stick, 0.0 to 0.3")
+        ax.legend(loc="upper left", fontsize=11)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("shaped speed")
+    save(fig, "fig-l157-respread")
+
+
 def l045_wiring():
     # L045's wiring, from above with the nose up: each wheel's motor to its motor port, its
     # encoder to the encoder port with the same number; the IMU inside the hub, on I2C Bus 0;
@@ -3919,7 +3940,7 @@ def l113_mecanum_turn():
     s.save("fig-l113-mecanum-turn")
 
 
-PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes, l153_fit]
+PLOTS = [stick_shaping, speed_loop, panels_graph, l135_menu, l065_shapes, l153_fit, l157_respread]
 PICTURES = [mecanum_x, wheel_handover, odometry_step, field_relative, wheel_pushes, robot_front,
             gamepad_sticks, wheel_names, wheel_forward, pinpoint_mounting, l020_platform,
             l020_variable, l020_sticky, l020_tracker_note, l020_publish, l040_sticky,
