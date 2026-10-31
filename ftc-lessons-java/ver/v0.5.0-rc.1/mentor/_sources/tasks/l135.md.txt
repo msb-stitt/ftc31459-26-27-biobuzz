@@ -1,0 +1,399 @@
+# 135 lesson: choose the alliance and the auto
+
+:::{figure} ../_figures/fig-l135-menu.png
+:name: fig-l135-menu
+:figclass: file-named
+
+fig-l135-menu.png
+:::
+
+After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125's auto
+or L130's, with the gamepad's D-pad, before pressing PLAY.
+
+::::{only} mentor
+**Before you start.**
+
+- L130 is done, and L093, so `mytry` holds `l093` with the menu.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot, the Driver Station, a gamepad, and about 1 m by 2 m of clear floor for the last step.
+::::
+
+## the menu, press by press
+
+The menu has two rows. `Alliance` is Red or Blue, and `Auto` is Nothing, Forward 24 or Forward
+Then Strafe.
+
+The top line is the **status line**. It holds the short name of the choice selected in each row,
+joined by `-`. `R-N` is Red and Nothing. It changes only when A selects a choice.
+
+- The `>` marks the row the D-pad is on.
+- Right and left offer the next or the last choice in that row, as `Blue? A:OK B:Back`. Past the
+  end of the row, they go round to the other end.
+- A selects the choice offered.
+- B, up or down clears the offer.
+- Down and up move the `>`. Past the last row, it goes round to the first.
+- At PLAY, the auto runs the choices selected.
+
+Each picture is one press, and the screen it leaves.
+
+:::{figure} ../_figures/fig-l135-press-01.png
+:name: fig-l135-press-01
+:figclass: file-named
+
+fig-l135-press-01.png
+:::
+
+At INIT, each row starts at its first choice, selected, and the `>` is on `Alliance`.
+
+:::{figure} ../_figures/fig-l135-press-02.png
+:name: fig-l135-press-02
+:figclass: file-named
+
+fig-l135-press-02.png
+:::
+
+Right offers Blue. The status line still reads `R-N`: nothing is selected yet.
+
+:::{figure} ../_figures/fig-l135-press-03.png
+:name: fig-l135-press-03
+:figclass: file-named
+
+fig-l135-press-03.png
+:::
+
+B clears the offer. Red is still selected.
+
+:::{figure} ../_figures/fig-l135-press-04.png
+:name: fig-l135-press-04
+:figclass: file-named
+
+fig-l135-press-04.png
+:::
+
+Right offers Blue again.
+
+:::{figure} ../_figures/fig-l135-press-05.png
+:name: fig-l135-press-05
+:figclass: file-named
+
+fig-l135-press-05.png
+:::
+
+A selects Blue. Now the status line reads `B-N`.
+
+:::{figure} ../_figures/fig-l135-press-06.png
+:name: fig-l135-press-06
+:figclass: file-named
+
+fig-l135-press-06.png
+:::
+
+Right goes past Blue, the end of the row, round to Red.
+
+:::{figure} ../_figures/fig-l135-press-07.png
+:name: fig-l135-press-07
+:figclass: file-named
+
+fig-l135-press-07.png
+:::
+
+Down moves the `>` to `Auto`, and clears the offer of Red. Blue stays selected.
+
+:::{figure} ../_figures/fig-l135-press-08.png
+:name: fig-l135-press-08
+:figclass: file-named
+
+fig-l135-press-08.png
+:::
+
+Left goes back past Nothing, the start of the row, round to Forward Then Strafe.
+
+:::{figure} ../_figures/fig-l135-press-09.png
+:name: fig-l135-press-09
+:figclass: file-named
+
+fig-l135-press-09.png
+:::
+
+A selects it. The status line reads `B-FS`.
+
+:::{figure} ../_figures/fig-l135-press-10.png
+:name: fig-l135-press-10
+:figclass: file-named
+
+fig-l135-press-10.png
+:::
+
+Down goes past the last row, round to the first.
+
+:::{figure} ../_figures/fig-l135-press-11.png
+:name: fig-l135-press-11
+:figclass: file-named
+
+fig-l135-press-11.png
+:::
+
+Up goes past the first row, round to the last.
+
+:::{figure} ../_figures/fig-l135-press-12.png
+:name: fig-l135-press-12
+:figclass: file-named
+
+fig-l135-press-12.png
+:::
+
+Up moves the `>` back to `Alliance`. Press PLAY now, and the robot runs Forward Then Strafe for the
+blue alliance.
+
+## the menu from L093
+
+The menu is the one you wrote in [L093](l093.md), in `mytry.l093`. This lesson's OpMode is in
+`mytry.l135`, another package. So it imports each class it uses, and it can use only their `public`
+methods.
+
+### L135S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click the `l135` folder once and copy it. Click `mytry` once and paste. If
+Android Studio asks whether to add the files to Git, click **Add**.
+
+**Check.**
+
+- `mytry` holds `l135`, with `AutoWithMenuOpMode`.
+- The first line of `AutoWithMenuOpMode` reads
+  `package org.firstinspires.ftc.teamcode.mytry.l135;`.
+
+### L135S020: switch your copy on
+
+**Change.** In `AutoWithMenuOpMode`, delete the line `@Disabled`, under the comment that names
+this step. Near the top of the file, under the other comment that names this step, delete the `//`
+at the start of each `import` line.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+- The imports name `mytry.l093`, and no name in the file is red.
+
+### L135S030: put the menu on the Driver Station
+
+The OpMode makes each item, row and menu as a field, and adds them in `init()`.
+`OpModeStorage.isRed` is `true` unless an auto run before it chose blue. L140's auto sets it. When
+it is `false`, Blue is added first, so Blue is the choice the menu starts at.
+
+**Change.** In `AutoWithMenuOpMode`, near the top of the class, under the comment that names this
+step, type:
+
+```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
+:emphasize-lines: 4-12
+
+    // When on L135S030, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+    // for what to do here.
+    MenuItem red = new MenuItem("R", "Red");
+    MenuItem blue = new MenuItem("B", "Blue");
+    MenuRow allianceRow = new MenuRow("Alliance");
+    MenuItem nothing = new MenuItem("N", "Nothing");
+    MenuItem forward24 = new MenuItem("F24", "Forward 24");
+    MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
+    MenuRow autoRow = new MenuRow("Auto");
+    OptionMenu optionMenu = new OptionMenu();
+    DriverStationMenu menu = new DriverStationMenu(optionMenu);
+```
+
+In `init()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
+:emphasize-lines: 4-15
+
+        // When on L135S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+        // for what to do here.
+        if (OpModeStorage.isRed) {
+            allianceRow.add(red);
+            allianceRow.add(blue);
+        } else {
+            allianceRow.add(blue);
+            allianceRow.add(red);
+        }
+        autoRow.add(nothing);
+        autoRow.add(forward24);
+        autoRow.add(forwardThenStrafe);
+        optionMenu.add(allianceRow);
+        optionMenu.add(autoRow);
+```
+
+Between INIT and PLAY, the robot calls `init_loop()` again and again. In `init_loop()`, under the
+comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
+:emphasize-lines: 4
+
+        // When on L135S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s030
+        // for what to do here.
+        menu.loop(gamepad1);
+```
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.l135.AutoWithMenuOpMode --init --pad"
+```
+
+`--init` keeps the simulator in INIT. The Terminal shows the Driver Station's lines each time they
+change. Press Enter in the Terminal for PLAY.
+
+**Check.**
+
+- Press the gamepad's buttons in the order of the pictures at the top of this page. After each,
+  the Terminal shows what its picture shows.
+
+## all of it together
+
+Each class, and which one holds which:
+
+:::{figure} ../_figures/fig-l135-classes.png
+:name: fig-l135-classes
+:figclass: file-named
+
+fig-l135-classes.png
+:::
+
+One press of the D-pad's right, down the classes and back:
+
+:::{figure} ../_figures/fig-l135-calls.png
+:name: fig-l135-calls
+:figclass: file-named
+
+fig-l135-calls.png
+:::
+
+
+### L135S040: run the auto that was selected
+
+At PLAY, `start()` asks each row which item was selected, and logs both full names. `auto ==
+forward24` is `true` when the item selected is the very `forward24` the OpMode made.
+`Command.NOOP` is a command that does nothing. It is what runs for Nothing.
+
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. In `start()`, under the comment
+that names this step, type:
+
+```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
+:emphasize-lines: 4-18
+
+        // When on L135S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+        // for what to do here.
+        MenuItem alliance = allianceRow.getSelected();
+        String allianceName = alliance.getFullName();
+        Tracker.publish("menu/alliance", allianceName);
+
+        MenuItem auto = autoRow.getSelected();
+        String autoName = auto.getFullName();
+        Tracker.publish("menu/auto", autoName);
+        Command chosenAuto = Command.NOOP;
+        if (auto == forward24) {
+            chosenAuto = driveForward24();
+        }
+        if (auto == forwardThenStrafe) {
+            chosenAuto = driveForwardThenStrafe();
+        }
+        Scheduler.schedule(chosenAuto);
+```
+
+`getFullName()` is `public` in your `MenuItem`, so the OpMode, in another package, can call it.
+
+In `loop()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
+:emphasize-lines: 4-5
+
+        // When on L135S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s040
+        // for what to do here.
+        String summary = menu.getSummary();
+        Tracker.printToDs(summary);
+```
+
+This keeps the status line on the Driver Station after PLAY.
+
+**Simulator.** Run the same command again.
+
+**AdvantageScope.** Connect to the simulator, click **2D Field**, and open `Localizer`, then
+`pinPoint`. Open `menu` too.
+
+**Check.**
+
+- `menu/summary` reads `R-N`. Press the D-pad's down, then left, then A. It reads `R-FS`.
+- Press Enter in the Terminal. `menu/alliance` reads `Red` and `menu/auto` reads
+  `Forward Then Strafe`.
+- The robot drives forward, then slides to its right, as in L130. `x_in` reads 96 and `y_in` 72.
+
+### L135S050: turn the field for the blue alliance
+
+Each blue place is a red place turned a half-turn about the middle of the field, (72, 72).
+`PoseFactory` makes poses. `rotateAround` gives a `PoseFactory` that turns each pose it makes. So
+the autos stay written for red.
+
+**Change.** Stop the simulator. In `poses()`, under the comment that names this step, type:
+
+```{code-block} java
+:caption: mytry/l135/AutoWithMenuOpMode.java
+:emphasize-lines: 4-7
+
+        // When on L135S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l135.html#l135s050
+        // for what to do here.
+        MenuItem alliance = allianceRow.getSelected();
+        if (alliance == blue) {
+            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
+        }
+```
+
+**Simulator.** Run the same command again.
+
+**Check.**
+
+- Press the D-pad's right, then A, then down, then right, then A. The status line reads `B-F24`.
+- Press Enter. The robot jumps to the top of the field, at `x_in` 72 and `y_in` 133.5, facing down,
+  `heading_deg` 270.
+- It drives 24 inches down the field and stops at `y_in` 109.5.
+
+### L135S060: work the menu on the robot
+
+**Send.** Stop the simulator. Send the code, pick `L135 Auto With Menu` from the autonomous list,
+and press INIT. Press Start and A on the gamepad, so it is gamepad 1.
+
+**Robot.** Put the robot on the floor with a piece of tape at its front edge.
+
+**Check.**
+
+- The Driver Station shows the menu, with `R-N` first.
+- The D-pad's down and left, then A, change the first line to `R-FS`.
+- Press PLAY. The robot drives forward, then slides to its right.
+- The Driver Station still shows `R-FS` while it drives.
+
+The robot drives the same on the floor for either alliance. Only the numbers on the Driver Station
+change, because the field is turned, not the robot.
+
+::::{only} mentor
+**No gamepad.** Control options stand in for the presses during INIT, held from the first pass:
+`--args="mytry.l135.AutoWithMenuOpMode --init --dpad_right=true"` offers Blue,
+`--dpad_right=true --a=true` selects it, and `--dpad_down=true --dpad_left=true --a=true` gives
+`R-FS`. Enter is still PLAY.
+
+**Our tests.** `LessonsTest`'s L135 tests run the OpMode during INIT with a gamepad, and check where
+each auto ends: `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l135*'`.
+
+**What you just did.** The menu is L093's, unchanged. The OpMode only makes the menu, calls its
+`loop` and asks each row what was selected. A new route is a new item in the `Auto` row and a new
+`if`. The routes are written once, for red, and the field is turned for blue.
+
+**Where next.** [L140](l140.md) uses the same menu to tell the teleop which end of the field the
+driver stands at.
+::::

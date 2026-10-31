@@ -1,0 +1,128 @@
+# 122 lesson: compare your localizers with the Pinpoint's
+
+Your localizers from L113 and L120 run beside the robot's own. Yours from L113 reads the drive
+wheels. Yours from L120 reads the Pinpoint's pods once a loop. The robot's own reads the answer
+the Pinpoint worked out on its own chip. All three are published so they can be graphed against
+each other. None of them is the truth. A tape measure is.
+
+::::{only} mentor
+**Before you start.**
+
+- L113 and L120 are done, so `mytry` holds `L113EncoderLocalizer` and `L120PinpointLocalizer`,
+  and L117 is done, so the Pinpoint is on the robot and tuned.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
+  for the last step.
+::::
+
+## the steps
+
+### L122S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click `L122CompareLocalizersOpMode` once and copy it. Click `mytry` once
+and paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file
+to Git, click **Add**.
+
+**Check.**
+
+- `mytry` holds `L122CompareLocalizersOpMode`, beside your `L113EncoderLocalizer` and
+  `L120PinpointLocalizer`.
+
+### L122S020: switch your copy on
+
+**Change.** In `L122CompareLocalizersOpMode`, delete the line `@Disabled`, under the comment that
+names this step.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+
+### L122S030: run your localizers beside the Pinpoint's
+
+**Change.** In `L122CompareLocalizersOpMode`, find `shadowLocalizers()` and the comment that names
+this step. Under it, type the same three lines as in L113S030, and then the ones from L120S030:
+
+```{code-block} java
+:emphasize-lines: 4-11
+
+        // When on L122S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l122.html#l122s030
+        // for what to do here.
+        HardwareWheelSource wheelSource = new HardwareWheelSource(hardware);
+        L113EncoderLocalizer driveWheelEncoders = new L113EncoderLocalizer(wheelSource);
+        shadowLocalizers.add("driveWheelEncoders", driveWheelEncoders);
+
+        PinpointSource pinpointSource = HardwarePinpointSource.find(hardwareMap);
+        L120PinpointLocalizer pinpointPods =
+                new L120PinpointLocalizer(pinpointSource, Constants.localizerConfig);
+        shadowLocalizers.add("pinpointPods", pinpointPods);
+```
+
+`HardwareWheelSource`, `PinpointSource`, `HardwarePinpointSource` and `Constants` turn red. Click
+each one and press Option+Enter, as in L113. `L113EncoderLocalizer` and `L120PinpointLocalizer` do
+not turn red. They are your own, and they sit in `mytry` too.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L122CompareLocalizersOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020. Open the `Localizer` folder, then
+`driveWheelEncoders`, `pinpointPods` and `pinPoint` inside it.
+
+**Check.**
+
+- Push the left stick forward. `driveWheelEncoders/y_in` and `pinpointPods/y_in` climb with
+  `pinPoint/y_in`, and the three stay within a tenth of an inch.
+
+### L122S040: see how often the loop runs
+
+Your localizers work out where the robot is once each time `loop()` runs. The Pinpoint's chip
+works it out on its own, about 1500 times a second. Between two of your loops, the robot moves a
+little, and your localizer takes that move as one step.
+
+**AdvantageScope.** Leave the simulator running. Open the `loop` folder and graph `period_ms`. It
+is how long the last loop took. It is measured as the OpMode runs.
+
+**Check.**
+
+- `period_ms` is a few milliseconds or more, and it is not the same from one loop to the next.
+
+The Pinpoint's chip takes about 0.7 ms a step. Write down what `period_ms` reads in the simulator,
+to compare with the robot in the next step.
+
+### L122S050: drive it, then measure it
+
+**Robot.** Stop the simulator. Send the code, run `L122 Compare Localizers` from the Driver
+Station, and watch it in AdvantageScope.
+
+**Check.**
+
+- Drive about 80 in straight ahead and stop. The three `y_in` numbers moved, and they do not quite
+  agree.
+- Measure how far the robot really went with the tape measure.
+- Read `loop/period_ms` on the robot, and compare it with what you wrote down in L122S040.
+
+Then put the robot on the blocks and push the left stick forward. The wheels spin, and the robot
+does not go anywhere. `driveWheelEncoders` walks off across the field. `pinpointPods` and
+`pinPoint` stay put, because the pods are off the floor too.
+
+::::{only} mentor
+**No gamepad.** `--args="mytry.L122CompareLocalizersOpMode --left_stick_y=-0.5"` drives forward.
+
+**If it didn't**, and `driveWheelEncoders` or `pinpointPods` is missing from the `Localizer` folder
+in L122S030, its three lines are not in `shadowLocalizers()`.
+`LessonsTest.l122_yourLocalizersAreLogged` fails with `the shadow localizer is logged:` for
+`driveWheelEncoders`, or `L120's localizer is logged:` for `pinpointPods`, and the list of names
+that were published.
+
+**What you just did.** Your localizer from L113 believes the drive wheels, and a wheel that spins
+without carrying the robot moves its estimate. The Pinpoint's pods only measure and never push, so
+they slip less. That is the case for having them. Your localizer from L120 and the Pinpoint's read
+the same pods. They differ in how often they do the math: once a loop, or about 1500 times a
+second.
+
+**Where next.** [L125](l125.md) drives 24 inches on its own.
+::::

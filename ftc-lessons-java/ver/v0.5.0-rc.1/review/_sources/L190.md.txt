@@ -1,0 +1,208 @@
+# L190
+
+2 file(s) copied, then 10 change(s) in 2 file(s), 29 line(s) of code to write.
+
+## Copies
+
+- `lessons/L190SpeedDriveTrain.java` to `mytry/L190SpeedDriveTrain.java`
+- `lessons/L190VelocityDriveOpMode.java` to `mytry/L190VelocityDriveOpMode.java`
+
+## L190SpeedDriveTrain
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -2,6 +2,7 @@
+ 
+ import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
+ import org.firstinspires.ftc.teamcode.base.RobotHardware;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ /**
+  * L190: the drivetrain that asks the wheels for a speed.
+```
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -39,5 +39,14 @@
+         // When on L190S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
+         // for what to do here.
++        double[] measured_ips = measuredSpeeds.all();
++        double[] wheelSpeeds = new double[4];
++        for (int i = 0; i < 4; i++) {
++            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];
++            double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);
++            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
++        }
++        setCommandedWheels(wheelSpeeds[FL], wheelSpeeds[FR], wheelSpeeds[BL], wheelSpeeds[BR]);
++        publishWheelSpeeds(wanted_ips, measured_ips);
+     }
+ }
+```
+
+## L190VelocityDriveOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190VelocityDriveOpMode.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -9,6 +9,8 @@
+ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+ import org.firstinspires.ftc.teamcode.base.StickShaper;
+ import org.firstinspires.ftc.teamcode.base.Tracker;
++import org.firstinspires.ftc.teamcode.base.WheelTargets;
++import org.firstinspires.ftc.teamcode.pedro.Constants;
+ 
+ import static org.firstinspires.ftc.teamcode.base.CorbelsDriveTrain.*;
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -49,6 +49,7 @@
+     // When on L190S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s030
+     // for what to do here.
++    L190SpeedDriveTrain drivetrain;
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -60,6 +60,7 @@
+         // When on L190S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s040
+         // for what to do here.
++        drivetrain = new L190SpeedDriveTrain(hardware);
+ 
+         initAfter();
+     }
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -62,7 +62,7 @@
+         // for what to do here.
+         drivetrain = new L190SpeedDriveTrain(hardware);
+ 
+-        initAfter();
++        initAfter(drivetrain);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```
+
+### A change
+
+Delete 1 line, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -93,7 +93,9 @@
+         // When on L190S050, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s050
+         // for what to do here.
+-        double forwardX_ips = 0.0;
++        double forwardXSpeed = -leftStickY;
++        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
++        double forwardX_ips = forwardXSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+         double strafeY_ips = 0.0;
+         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+```
+
+### A change
+
+Delete 1 line, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -97,7 +97,9 @@
+         forwardXSpeed = stickShaper.shaped(forwardXSpeed);
+         double forwardX_ips = forwardXSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/forwardX_ips", forwardX_ips);
+-        double strafeY_ips = 0.0;
++        double strafeYSpeed = -leftStickX;
++        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
++        double strafeY_ips = strafeYSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+         double turn_radps = 0.0;
+         Tracker.publish("drivetrain/turn_radps", turn_radps);
+```
+
+### A change
+
+Delete 1 line, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -101,7 +101,9 @@
+         strafeYSpeed = stickShaper.shaped(strafeYSpeed);
+         double strafeY_ips = strafeYSpeed * MAX_IPS;
+         Tracker.publish("drivetrain/strafeY_ips", strafeY_ips);
+-        double turn_radps = 0.0;
++        double turnCcwSpeed = -rightStickX;
++        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
++        double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
+         Tracker.publish("drivetrain/turn_radps", turn_radps);
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -105,6 +105,11 @@
+         turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
+         double turn_radps = turnCcwSpeed * MAX_TURN_RADPS;
+         Tracker.publish("drivetrain/turn_radps", turn_radps);
++
++        double[] wheel_ips = WheelTargets.forMecanum(forwardX_ips, strafeY_ips, turn_radps,
++                Constants.turnRadiusInches);
++        drivetrain.setCommandedWheelSpeeds(wheel_ips[FL], wheel_ips[FR], wheel_ips[BL],
++                wheel_ips[BR]);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```

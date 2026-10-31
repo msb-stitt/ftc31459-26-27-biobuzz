@@ -3053,6 +3053,212 @@
         "route-linear_da84b53b7f66.svg",
         "route-through_e6cc8a6e02df.svg"
       ]
+    },
+    "v0.5.0-rc.1": {
+      "pages": "ftc-lessons-java/ver/v0.5.0-rc.1/",
+      "built_from_commit": "642e7000bad1216a8c7a656fd845f3d97b600a95",
+      "media_used": [
+        "fig-advantagescope-sim_681635010d9e.png",
+        "fig-control-loops_0c687675e83c.png",
+        "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
+        "fig-e035-numberline-3d_a1504154d867.png",
+        "fig-e035-numberline_c8208c13327c.png",
+        "fig-e035-robot-3d_032b26748416.png",
+        "fig-e035-robot-frame-3d_6d65d0307746.png",
+        "fig-e035-speeds-3d_c6ee55501da0.png",
+        "fig-e035-stick_b6d2e5c7270e.png",
+        "fig-e035-switch-3d_cfeab5d0ee2f.png",
+        "fig-e035-switch_7f1981dfd636.png",
+        "fig-e035-xy-3d_e04b556528a6.png",
+        "fig-e035-xy_d5325e0ddee2.png",
+        "fig-e035-xyz_5ffe1a3d4bd3.png",
+        "fig-e067-calls_544a24fb8734.png",
+        "fig-e067-class_113723a121ba.png",
+        "fig-e111-classes_844f487c66dc.png",
+        "fig-e111-has-a_89c98ca26038.png",
+        "fig-e111-init_1f866e411f72.png",
+        "fig-e111-is-a_5e16df8f357d.png",
+        "fig-e111-play_2717103c6bad.png",
+        "fig-e111-run_d221fb565a58.png",
+        "fig-e111-stop_5f01a30c725f.png",
+        "fig-e141-add_64cc0dba6efa.png",
+        "fig-e141-notation_367f915c70d3.png",
+        "fig-e141-offset_31ba7445dfb4.png",
+        "fig-e141-scale-offset_d3b6a87e2d22.png",
+        "fig-e141-scale_0be400dafeea.png",
+        "fig-e142-add-formula_82bef7ca0412.png",
+        "fig-e142-add_e3168c45ab13.png",
+        "fig-e142-forward-split_a7c0fb36704a.png",
+        "fig-e142-quadrants_a7ab13c71370.png",
+        "fig-e142-radian_dbc12abb88cc.png",
+        "fig-e142-regroup-formula_99d4c521618f.png",
+        "fig-e142-regroup_9de157805e0a.png",
+        "fig-e142-regrouped-formula_b035845ed47c.png",
+        "fig-e142-regrouped_510939cc3e8c.png",
+        "fig-e142-robot-axes_20c1e234de28.png",
+        "fig-e142-same-triangle_69648c87f7da.png",
+        "fig-e142-similar_685ec662e828.png",
+        "fig-e142-stick-field_a9d2a23f100f.png",
+        "fig-e142-stick-red-3d_fc01635a5d4d.png",
+        "fig-e142-strafe-split_07ffd6817e82.png",
+        "fig-e142-triangle-turn_9461729d7438.png",
+        "fig-e142-triangle-turned_c3cf48312d97.png",
+        "fig-e142-unit-circle_189ea2c0459a.png",
+        "fig-e142-unit-triangles_8c421148c32f.png",
+        "fig-field-relative_3487ddf2e52e.png",
+        "fig-gamepad-sticks_a484af7b6aeb.png",
+        "fig-l011-advantagescope_ac1908de02ed.png",
+        "fig-l011-agp-more_ebda5cbbf3aa.png",
+        "fig-l011-archive_cc0d51832b15.png",
+        "fig-l011-build-menu_df1dda3b4389.png",
+        "fig-l011-built_1edf8a09a00a.png",
+        "fig-l011-git_73efc58f7f42.png",
+        "fig-l011-gradle-jvm_d3ca85bb654f.png",
+        "fig-l011-offers_d1d13581b4d6.png",
+        "fig-l011-setup_0dc19f60a602.png",
+        "fig-l011-smartscreen_39525aad50d6.png",
+        "fig-l011-trust_19443416b95a.png",
+        "fig-l011-wizard-standard_16599ff3f281.png",
+        "fig-l012-advantagescope_5956e0eb21d5.png",
+        "fig-l012-agp-more_070272bfb056.png",
+        "fig-l012-applications_4b04cd309596.png",
+        "fig-l012-archive_35d702368a29.png",
+        "fig-l012-build-menu_26783f2cbc11.png",
+        "fig-l012-built_466c9b4744a6.png",
+        "fig-l012-gradle-jvm_a10e16db6749.png",
+        "fig-l012-offers_423ab8908bad.png",
+        "fig-l012-tools_c313dde8986d.png",
+        "fig-l012-trust_6af16aa43d07.png",
+        "fig-l012-wizard-standard_c50c3ab73551.png",
+        "fig-l013-advantagescope_3d85caad660f.png",
+        "fig-l013-agp-more_be688c46b080.png",
+        "fig-l013-apt_13e77973c3b4.png",
+        "fig-l013-archive_5a1388926596.png",
+        "fig-l013-build-menu_0c28de9b490d.png",
+        "fig-l013-built_e752ecbd8c00.png",
+        "fig-l013-git_9ff5f96bc55c.png",
+        "fig-l013-gradle-jvm_53f0191d49b0.png",
+        "fig-l013-trust_65dc9c76febb.png",
+        "fig-l013-wizard-standard_97e3a02f3d74.png",
+        "fig-l020-complete_a7bfef7a5401.png",
+        "fig-l020-copied_ba826710cf6e.png",
+        "fig-l020-copy-class_d05eb5aad2f1.png",
+        "fig-l020-hover_c990a79d44ce.png",
+        "fig-l020-live_73d5ef72c5ed.png",
+        "fig-l020-log_bb7a5db81af7.png",
+        "fig-l020-platform_8b3cd980ac07.png",
+        "fig-l020-publish_c02b723322ff.png",
+        "fig-l020-sticky_a051629b4d17.png",
+        "fig-l020-tracker-note_9e0600fc648e.png",
+        "fig-l020-tracker_0e1b30439d3c.png",
+        "fig-l020-variable_0d0285e5c348.png",
+        "fig-l020-window_c51af20cec34.png",
+        "fig-l030-complete_9d6d554c01ff.png",
+        "fig-l030-live_c75dec2509b9.png",
+        "fig-l040-field_120293bc280c.png",
+        "fig-l040-hardware_25d94e20b03c.png",
+        "fig-l040-setpower_392e1a190c45.png",
+        "fig-l040-sticky_6caf2b0f3b43.png",
+        "fig-l045-wiring_8c1fc2a12337.png",
+        "fig-l050-direction_aa0cfd6446ca.png",
+        "fig-l060-deadband_6327d1a7d564.png",
+        "fig-l060-squared_97e3be716d34.png",
+        "fig-l065-shapes_b201c7832e06.png",
+        "fig-l070-button_e82d4c2f6703.png",
+        "fig-l070-pressed_a1f24208ba0f.png",
+        "fig-l070-sideways_4eeff79fdbcf.png",
+        "fig-l080-forward-turn_1a2cc39da619.png",
+        "fig-l080-scaled_a49c08e7a5d3.png",
+        "fig-l080-too-much_cf8e7438c86d.png",
+        "fig-l090-corner_c39b004c45f5.png",
+        "fig-l090-slide_3e499752b971.png",
+        "fig-l090-wheel-pushes_37409d515f56.png",
+        "fig-l093-buttons-idle_08c1c0fcf91d.png",
+        "fig-l093-buttons-press_680e9d10cb8b.png",
+        "fig-l093-buttons_a329f2e57b8d.png",
+        "fig-l093-calls_722979d72d04.png",
+        "fig-l093-classes_b4276945ca3c.png",
+        "fig-l093-ds-loop_a2bb3538af49.png",
+        "fig-l093-ds-menu_26b4ff15f49f.png",
+        "fig-l093-item_6480ed94f491.png",
+        "fig-l093-menu-down_65a32120ef67.png",
+        "fig-l093-menu-lines_b37f135cb2d8.png",
+        "fig-l093-menu-right_9a33eace099e.png",
+        "fig-l093-option-menu_4caee965488b.png",
+        "fig-l093-press-01_ed12d8e7561a.png",
+        "fig-l093-press-02_3c4ee271d2df.png",
+        "fig-l093-press-03_32274a7383ea.png",
+        "fig-l093-press-04_e1694360a8bf.png",
+        "fig-l093-press-05_f9669ea7398c.png",
+        "fig-l093-press-06_e740e6f654cb.png",
+        "fig-l093-press-07_6ec15eb608d4.png",
+        "fig-l093-press-08_dba75094e9bb.png",
+        "fig-l093-press-09_bce8f0b94eff.png",
+        "fig-l093-press-10_b0c9ec106444.png",
+        "fig-l093-press-11_f9390306fba7.png",
+        "fig-l093-press-12_729e12d44d41.png",
+        "fig-l093-row-calls_f85af6edcc11.png",
+        "fig-l093-row_a0ab012bffec.png",
+        "fig-l095-press-01_6c14fee11476.png",
+        "fig-l095-press-02_5db6606ec2c3.png",
+        "fig-l110-slide_0d801b6cc793.png",
+        "fig-l113-encoders-follow_17ee96a78410.png",
+        "fig-l113-import_618c7648d441.png",
+        "fig-l113-shadow-still_7eca34744b0f.png",
+        "fig-l120-pod-turn_a661054f2c99.png",
+        "fig-l120-pods-follow_1e2bcc2e4a0a.png",
+        "fig-l125-drive24_daad530b722c.png",
+        "fig-l125-import-static_3e57c231ae64.png",
+        "fig-l130-two-legs_51953ca87286.png",
+        "fig-l135-calls_45f5fb9d3c1f.png",
+        "fig-l135-classes_5f539e1665d9.png",
+        "fig-l135-menu_766fd9eaa1e1.png",
+        "fig-l135-press-01_aab0aa5534ce.png",
+        "fig-l135-press-02_c6e79c5d6330.png",
+        "fig-l135-press-03_b1ea0ee4a3ab.png",
+        "fig-l135-press-04_0aba78177d95.png",
+        "fig-l135-press-05_a48f4301704e.png",
+        "fig-l135-press-06_121bfe5a09f6.png",
+        "fig-l135-press-07_ce1de048bfea.png",
+        "fig-l135-press-08_dd23451eb8a9.png",
+        "fig-l135-press-09_849e87a99e28.png",
+        "fig-l135-press-10_f816d54c2779.png",
+        "fig-l135-press-11_bad3cafc948b.png",
+        "fig-l135-press-12_dc29ce0a4c95.png",
+        "fig-l140-field-blue_3b384562de3b.png",
+        "fig-l140-field-red_27fd021cf649.png",
+        "fig-l140-field-top_a914a13d7b0a.png",
+        "fig-l140-spin-and-slide_4a3409de23d8.png",
+        "fig-l150-bumper-held_f783c8ac1b90.png",
+        "fig-l160-creep_6385ea236e2a.png",
+        "fig-l160-held_e29992a5e74d.png",
+        "fig-l170-drove-there_83f144e4565b.png",
+        "fig-l170-stands-still_c36e5a46902e.png",
+        "fig-l180-aiming_d6ff9bb58285.png",
+        "fig-l190-asks-standing-still_911602ecc989.png",
+        "fig-l190-wheel-numbers_1572e143bd65.png",
+        "fig-l195-nothing-pushed_b78bc5855097.png",
+        "fig-mecanum-x_1487c470aae6.png",
+        "fig-odometry-step_4d3452b4bec9.png",
+        "fig-panels-graph_526119dde860.png",
+        "fig-pedro-field_7a6692094c84.png",
+        "fig-pinpoint-mounting_8567a84553c8.png",
+        "fig-robot-front_f3c5afc69f89.png",
+        "fig-speed-loop_28bb48f28f6f.png",
+        "fig-stick-shaping_753bd87c5806.png",
+        "fig-stick-to-robot_e966fdf8651c.png",
+        "fig-wheel-forward_cc740ffaf4d7.png",
+        "fig-wheel-handover_d6160d25008c.png",
+        "fig-wheel-names_c5e72d252f39.png",
+        "h017_c04cb17aa6c1.mp4",
+        "l020_70047773414f.mp4",
+        "route-compound_fb6d157d50ff.svg",
+        "route-curve_7ece100f954f.svg",
+        "route-facingpoint_3972b5e77521.svg",
+        "route-line_7fb94edcf266.svg",
+        "route-linear_da84b53b7f66.svg",
+        "route-through_e6cc8a6e02df.svg"
+      ]
     }
   },
   "media": {
@@ -3076,7 +3282,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-advantagescope-sim_e48f8bbfd585.png": {
@@ -3107,7 +3314,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-motor-wheel-gear-box_c350139b64e8.png": {
@@ -3132,7 +3340,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-numberline-3d_a1504154d867.png": {
@@ -3157,7 +3366,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-numberline_c8208c13327c.png": {
@@ -3182,7 +3392,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-robot-3d_032b26748416.png": {
@@ -3207,7 +3418,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-robot-frame-3d_6d65d0307746.png": {
@@ -3232,7 +3444,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-speeds-3d_c6ee55501da0.png": {
@@ -3257,7 +3470,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-stick_b6d2e5c7270e.png": {
@@ -3282,7 +3496,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-switch-3d_cfeab5d0ee2f.png": {
@@ -3307,7 +3522,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-switch_7f1981dfd636.png": {
@@ -3332,7 +3548,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-xy-3d_e04b556528a6.png": {
@@ -3357,7 +3574,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-xy_d5325e0ddee2.png": {
@@ -3382,7 +3600,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e035-xyz_5ffe1a3d4bd3.png": {
@@ -3407,70 +3626,80 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e067-calls_544a24fb8734.png": {
       "sha256": "544a24fb87344c5b7729fc30cfffa5ead603a106f5922be860e9946f13d43910",
       "bytes": 114522,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e067-class_113723a121ba.png": {
       "sha256": "113723a121ba0302b1adfdb5abd83d88e03ec8f644508cda6c1e9cc5ffd6d600",
       "bytes": 479807,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-classes_844f487c66dc.png": {
       "sha256": "844f487c66dce861429f036ac98c81f3d35c7bb1e6fa29e5fbc2ffe40a610679",
       "bytes": 539775,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-has-a_89c98ca26038.png": {
       "sha256": "89c98ca2603885c3378047c40104d389134bc4a4297d6cef486a7c10aad5395f",
       "bytes": 299801,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-init_1f866e411f72.png": {
       "sha256": "1f866e411f723ff460f1e8f596ee5a08bc79cf80465ec0ab07d16159d4b7e695",
       "bytes": 250702,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-is-a_5e16df8f357d.png": {
       "sha256": "5e16df8f357d84495cb1e45277987ba9438660346d2fd104787e4e726cda9094",
       "bytes": 324111,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-play_2717103c6bad.png": {
       "sha256": "2717103c6bad6e4d1caf7e569f02bbecfc9c0ac6ce57155b6a876bf67ff3dcc9",
       "bytes": 344159,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-run_d221fb565a58.png": {
       "sha256": "d221fb565a58be273c5269d981e6198df94c7d9f550a9f60acfec0a62e42c845",
       "bytes": 306507,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e111-stop_5f01a30c725f.png": {
       "sha256": "5f01a30c725f0c837bd12f46b20693cc5f16a98233f9ed130f271530a605ae0f",
       "bytes": 222462,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e141-add_64cc0dba6efa.png": {
@@ -3493,7 +3722,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e141-notation_367f915c70d3.png": {
@@ -3516,7 +3746,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e141-offset_31ba7445dfb4.png": {
@@ -3539,7 +3770,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e141-scale-offset_d3b6a87e2d22.png": {
@@ -3562,7 +3794,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e141-scale_0be400dafeea.png": {
@@ -3585,7 +3818,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-add-formula_82bef7ca0412.png": {
@@ -3608,7 +3842,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-add_e3168c45ab13.png": {
@@ -3631,7 +3866,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-forward-split_a7c0fb36704a.png": {
@@ -3654,7 +3890,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-quadrants_a7ab13c71370.png": {
@@ -3677,7 +3914,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-radian_dbc12abb88cc.png": {
@@ -3700,7 +3938,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-regroup-formula_99d4c521618f.png": {
@@ -3723,7 +3962,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-regroup_9de157805e0a.png": {
@@ -3746,7 +3986,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-regrouped-formula_b035845ed47c.png": {
@@ -3769,7 +4010,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-regrouped_510939cc3e8c.png": {
@@ -3792,7 +4034,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-robot-axes_20c1e234de28.png": {
@@ -3815,7 +4058,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-same-triangle_69648c87f7da.png": {
@@ -3838,7 +4082,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-similar_685ec662e828.png": {
@@ -3861,7 +4106,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-stick-field_a9d2a23f100f.png": {
@@ -3884,7 +4130,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-stick-red-3d_fc01635a5d4d.png": {
@@ -3907,7 +4154,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-strafe-split_07ffd6817e82.png": {
@@ -3930,7 +4178,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-triangle-turn_9461729d7438.png": {
@@ -3953,7 +4202,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-triangle-turned_c3cf48312d97.png": {
@@ -3976,7 +4226,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-unit-circle_189ea2c0459a.png": {
@@ -3999,7 +4250,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-e142-unit-triangles_8c421148c32f.png": {
@@ -4022,7 +4274,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-field-relative_199cd5d7d0ad.png": {
@@ -4053,7 +4306,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-gamepad-sticks_a484af7b6aeb.png": {
@@ -4078,7 +4332,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-advantagescope_ac1908de02ed.png": {
@@ -4103,7 +4358,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-agp-more_ebda5cbbf3aa.png": {
@@ -4128,7 +4384,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-archive_cc0d51832b15.png": {
@@ -4153,7 +4410,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-build-menu_df1dda3b4389.png": {
@@ -4178,7 +4436,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-built_1edf8a09a00a.png": {
@@ -4203,7 +4462,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-git_73efc58f7f42.png": {
@@ -4228,7 +4488,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-gradle-jvm_d3ca85bb654f.png": {
@@ -4253,7 +4514,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-offers_d1d13581b4d6.png": {
@@ -4278,7 +4540,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-setup_0dc19f60a602.png": {
@@ -4303,7 +4566,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-smartscreen_39525aad50d6.png": {
@@ -4328,7 +4592,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-trust_19443416b95a.png": {
@@ -4353,7 +4618,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l011-wizard-standard_16599ff3f281.png": {
@@ -4378,7 +4644,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-advantagescope_5956e0eb21d5.png": {
@@ -4403,7 +4670,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-agp-more_070272bfb056.png": {
@@ -4428,7 +4696,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-applications_4b04cd309596.png": {
@@ -4453,7 +4722,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-archive_35d702368a29.png": {
@@ -4478,7 +4748,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-build-menu_26783f2cbc11.png": {
@@ -4503,7 +4774,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-built_466c9b4744a6.png": {
@@ -4528,7 +4800,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-gradle-jvm_a10e16db6749.png": {
@@ -4553,7 +4826,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-offers_423ab8908bad.png": {
@@ -4578,7 +4852,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-tools_c313dde8986d.png": {
@@ -4603,7 +4878,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-trust_6af16aa43d07.png": {
@@ -4628,7 +4904,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l012-wizard-standard_c50c3ab73551.png": {
@@ -4653,7 +4930,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-advantagescope_3d85caad660f.png": {
@@ -4678,7 +4956,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-agp-more_be688c46b080.png": {
@@ -4703,7 +4982,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-apt_13e77973c3b4.png": {
@@ -4728,7 +5008,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-archive_5a1388926596.png": {
@@ -4753,7 +5034,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-build-menu_0c28de9b490d.png": {
@@ -4778,7 +5060,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-built_e752ecbd8c00.png": {
@@ -4803,7 +5086,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-git_9ff5f96bc55c.png": {
@@ -4828,7 +5112,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-gradle-jvm_53f0191d49b0.png": {
@@ -4853,7 +5138,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-trust_65dc9c76febb.png": {
@@ -4878,7 +5164,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l013-wizard-standard_97e3a02f3d74.png": {
@@ -4903,7 +5190,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-complete_a7bfef7a5401.png": {
@@ -4928,7 +5216,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-complete_fd0fe4482243.png": {
@@ -4963,7 +5252,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-copy-class_d05eb5aad2f1.png": {
@@ -4988,7 +5278,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-hover_768ca23118fe.png": {
@@ -5018,7 +5309,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-live_15f707fb6e2d.png": {
@@ -5049,7 +5341,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-log_aa74c5c847f8.png": {
@@ -5080,7 +5373,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-platform_8b3cd980ac07.png": {
@@ -5105,7 +5399,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-publish_3bb3da107df5.png": {
@@ -5136,7 +5431,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-sticky_a051629b4d17.png": {
@@ -5161,7 +5457,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-tracker-note_9e0600fc648e.png": {
@@ -5186,7 +5483,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-tracker_0e1b30439d3c.png": {
@@ -5211,7 +5509,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-tracker_13bbd4907a20.png": {
@@ -5241,7 +5540,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-window_c51af20cec34.png": {
@@ -5266,7 +5566,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l020-window_cb6209f40e9d.png": {
@@ -5301,7 +5602,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l030-live_084b2fcffea0.png": {
@@ -5332,7 +5634,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l040-field_120293bc280c.png": {
@@ -5355,7 +5658,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l040-field_86942b3a00b2.png": {
@@ -5388,7 +5692,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l040-hardware_570e94d0d289.png": {
@@ -5418,7 +5723,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l040-setpower_8c1b3ef285a2.png": {
@@ -5448,14 +5754,16 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l045-wiring_8c1fc2a12337.png": {
       "sha256": "8c1fc2a123373c9e9befbe82b7980ea98b25fd563fa42485cb563b6fdfaaa514",
       "bytes": 555150,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l050-direction_aa0cfd6446ca.png": {
@@ -5480,7 +5788,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l060-deadband_6327d1a7d564.png": {
@@ -5503,7 +5812,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l060-deadband_d3ae6bebec9a.png": {
@@ -5542,14 +5852,16 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l065-shapes_b201c7832e06.png": {
       "sha256": "b201c7832e06cd99f1ac850846767db2f3a73d2c756a71f4b0804480cbbc1b71",
       "bytes": 101389,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l070-button_0e3700f4e357.png": {
@@ -5579,7 +5891,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l070-pressed_88c1aea37fa5.png": {
@@ -5610,7 +5923,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l070-sideways_26c23688eb11.png": {
@@ -5641,7 +5955,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l080-forward-turn_1a2cc39da619.png": {
@@ -5664,7 +5979,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l080-forward-turn_830bbf7fa6ba.png": {
@@ -5695,7 +6011,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l080-scaled_b68f1e132510.png": {
@@ -5734,7 +6051,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l090-corner_4043480a4451.png": {
@@ -5765,7 +6083,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l090-slide_3e499752b971.png": {
@@ -5788,7 +6107,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l090-slide_4cb7cf5a1403.png": {
@@ -5821,203 +6141,232 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-buttons-idle_08c1c0fcf91d.png": {
       "sha256": "08c1c0fcf91d74ee9ea4169b7f10a394e007e177ae1d0a6c7400ba73bbc80f33",
       "bytes": 219689,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-buttons-press_680e9d10cb8b.png": {
       "sha256": "680e9d10cb8b563aea75d650b08dcbd99fb59d794bf17c902e3acba293a7609e",
       "bytes": 259789,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-buttons_a329f2e57b8d.png": {
       "sha256": "a329f2e57b8d6d4c766c8c97bb2668acada000022118757b263ac9e22c65079a",
       "bytes": 1136300,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-calls_722979d72d04.png": {
       "sha256": "722979d72d04f76fa536d7162a861733f017b029ef244bc0cf27da712c9a78dc",
       "bytes": 226790,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-classes_b4276945ca3c.png": {
       "sha256": "b4276945ca3c09f076ab3e84bfcc7afdde3ce815bc5aa0b5e5eab5bc19a4c76e",
       "bytes": 943870,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-ds-loop_a2bb3538af49.png": {
       "sha256": "a2bb3538af4995b18e4610d581401c024c20b73b359592410762e7dacc5fd9b0",
       "bytes": 216465,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-ds-menu_26b4ff15f49f.png": {
       "sha256": "26b4ff15f49fec795837788e997036e2f00e48ebd8fea6de2894f6b560620adb",
       "bytes": 725975,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-item_6480ed94f491.png": {
       "sha256": "6480ed94f491b0c5e6f22e955094ee1ebe00525e069f445be935cb5446e882ef",
       "bytes": 153562,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-menu-down_65a32120ef67.png": {
       "sha256": "65a32120ef67960698d8eb45869ff624a194f535a794c62b629029a712e59fa8",
       "bytes": 175833,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-menu-lines_b37f135cb2d8.png": {
       "sha256": "b37f135cb2d87fdc6b326e7cdac4cfec5a7d4896e8a085b866edef86d3cbc577",
       "bytes": 246991,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-menu-right_9a33eace099e.png": {
       "sha256": "9a33eace099e7ddb2c5b9fc96860e91e6b89889938a39623569070b227b5e9bd",
       "bytes": 155429,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-option-menu_4caee965488b.png": {
       "sha256": "4caee965488b191136f3cd2bed3d4632c7f7f26757409b5522eab939c6b6718d",
       "bytes": 608420,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-01_ed12d8e7561a.png": {
       "sha256": "ed12d8e7561ac7703b8d8f71b2921ef3a117f3f5f5484124a8e224f6f419da69",
       "bytes": 219961,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-02_3c4ee271d2df.png": {
       "sha256": "3c4ee271d2dff3a11762436d695c62df28f2f66b05c82de0230d2f0710a2c1c9",
       "bytes": 220064,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-03_32274a7383ea.png": {
       "sha256": "32274a7383eab0b2f0b3e34d929cff8f8b3390fdb3afab41ed02eee6dcb9dfbe",
       "bytes": 216083,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-04_e1694360a8bf.png": {
       "sha256": "e1694360a8bf306a3df0564590542d93be000f9a250c3cda626f44a61b2e48a9",
       "bytes": 219096,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-05_f9669ea7398c.png": {
       "sha256": "f9669ea7398c656bb5a01fca5a01989a78ee985ba8a0b2ec63b1f73191703564",
       "bytes": 213159,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-06_e740e6f654cb.png": {
       "sha256": "e740e6f654cbffb351cd945976d3d1e5df1b57521fb35bd389953a7176f4458c",
       "bytes": 214708,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-07_6ec15eb608d4.png": {
       "sha256": "6ec15eb608d44b4e0d10b93b929268167fa870ea430fdb7334adae5d2b7365f2",
       "bytes": 215378,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-08_dba75094e9bb.png": {
       "sha256": "dba75094e9bbd86ab2752327137256182cbb6d46bf1dd97f20d080684e7ed736",
       "bytes": 208614,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-09_bce8f0b94eff.png": {
       "sha256": "bce8f0b94eff1dd6f83e14a307e885380ea791111db5b00fd415428531c40a22",
       "bytes": 210785,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-10_b0c9ec106444.png": {
       "sha256": "b0c9ec106444e7f62d25999c054e6dd839231c81058fa8a2a1063d027e0bfb35",
       "bytes": 210344,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-11_f9390306fba7.png": {
       "sha256": "f9390306fba7b96c9f5672b1bafbf5e393c74b3a87abf238a322368530583b3b",
       "bytes": 215812,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-press-12_729e12d44d41.png": {
       "sha256": "729e12d44d41c0d40c0a90d30d06ee054ba6db4eff199f41f7441f55cccf1425",
       "bytes": 215626,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-row-calls_f85af6edcc11.png": {
       "sha256": "f85af6edcc1149a271ac4fe337bc38b38fdecd82db23a2d260e0753be27ea0c7",
       "bytes": 217478,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l093-row_a0ab012bffec.png": {
       "sha256": "a0ab012bffec0139c6375349e762aabd75f6dfdd12d2d2de2aa1d0b3d9edea1f",
       "bytes": 453702,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l095-press-01_6c14fee11476.png": {
       "sha256": "6c14fee1147687c2ba5c5cbeba1860ca7a730ba7b4b094ad26504bdcfe8dcdb0",
       "bytes": 207778,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l095-press-02_5db6606ec2c3.png": {
       "sha256": "5db6606ec2c39f75016c0b39ce4dc4332421205646812c5b2a309d6ccd3f695f",
       "bytes": 204040,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l110-slide_0d801b6cc793.png": {
@@ -6040,7 +6389,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l110-slide_df82c1df0003.png": {
@@ -6055,21 +6405,24 @@
       "sha256": "17ee96a784108c716a8bc79329ddc2dff93263ad4e8e559b2b9fc4d757ad6951",
       "bytes": 243224,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l113-import_618c7648d441.png": {
       "sha256": "618c7648d44160865f043b08eb12b9b4cebd3fc1103c9077f64ce328e4731f2c",
       "bytes": 235139,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l113-shadow-still_7eca34744b0f.png": {
       "sha256": "7eca34744b0f099436efeb04795f1b50e22df5ffcd2bfe4b62088dac58083bfb",
       "bytes": 233549,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l120-encoders-follow_17ee96a78410.png": {
@@ -6135,14 +6488,16 @@
       "sha256": "a661054f2c993e7b5420d9297d21d4d017631640793b1d4b18180622a349d18d",
       "bytes": 379389,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l120-pods-follow_1e2bcc2e4a0a.png": {
       "sha256": "1e2bcc2e4a0a45729e867512959bb8a9ac14b69a71fbc7c798c16cbafcc05008",
       "bytes": 299150,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l120-shadow-still_7eca34744b0f.png": {
@@ -6191,7 +6546,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l125-import-static_3e57c231ae64.png": {
@@ -6214,7 +6570,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l125-import-static_7d79bca47fcb.png": {
@@ -6252,7 +6609,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-buttons-idle_19297fae893e.png": {
@@ -6337,7 +6695,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-calls_47df6e40d9c0.png": {
@@ -6384,7 +6743,8 @@
       "sha256": "5f539e1665d9abab1ea613b5a891c0d56805a7f08894a104b1bfd082c80bae58",
       "bytes": 954661,
       "used_by_versions": [
-        "dev"
+        "dev",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-classes_656fc55b29b4.png": {
@@ -6517,7 +6877,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-option-menu_4105d6d98b99.png": {
@@ -6550,7 +6911,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-02_c6e79c5d6330.png": {
@@ -6564,7 +6926,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-03_b1ea0ee4a3ab.png": {
@@ -6578,7 +6941,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-04_0aba78177d95.png": {
@@ -6592,7 +6956,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-05_a48f4301704e.png": {
@@ -6606,7 +6971,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-06_121bfe5a09f6.png": {
@@ -6620,7 +6986,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-07_ce1de048bfea.png": {
@@ -6634,7 +7001,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-08_dd23451eb8a9.png": {
@@ -6648,7 +7016,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-09_849e87a99e28.png": {
@@ -6662,7 +7031,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-10_f816d54c2779.png": {
@@ -6676,7 +7046,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-11_bad3cafc948b.png": {
@@ -6690,7 +7061,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-press-12_dc29ce0a4c95.png": {
@@ -6704,7 +7076,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l135-row-calls_fd3da7a459dc.png": {
@@ -6753,7 +7126,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l140-field-red_27fd021cf649.png": {
@@ -6776,7 +7150,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l140-field-top_a914a13d7b0a.png": {
@@ -6799,7 +7174,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l140-spin-and-slide_4a3409de23d8.png": {
@@ -6822,7 +7198,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l140-spin-and-slide_d4e732a3e9c4.png": {
@@ -6861,7 +7238,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l160-creep_6385ea236e2a.png": {
@@ -6884,7 +7262,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l160-creep_7656b702c820.png": {
@@ -6923,7 +7302,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l170-drove-there_83f144e4565b.png": {
@@ -6946,7 +7326,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l170-drove-there_c7f48b744721.png": {
@@ -6979,7 +7360,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l180-aiming_1980463d97b3.png": {
@@ -7016,7 +7398,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l190-asks-standing-still_61ff2df771a9.png": {
@@ -7045,7 +7428,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l190-asks-standing-still_a8ec63ebac78.png": {
@@ -7090,7 +7474,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-l195-nothing-pushed_b78bc5855097.png": {
@@ -7115,7 +7500,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-mecanum-x_1487c470aae6.png": {
@@ -7140,7 +7526,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-odometry-step_4d3452b4bec9.png": {
@@ -7165,7 +7552,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-panels-graph_2e38a782b132.png": {
@@ -7196,7 +7584,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-pedro-field_4267365f403c.png": {
@@ -7227,7 +7616,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-pinpoint-mounting_8567a84553c8.png": {
@@ -7252,7 +7642,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-robot-front_f3c5afc69f89.png": {
@@ -7277,7 +7668,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-speed-loop_28bb48f28f6f.png": {
@@ -7300,7 +7692,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-speed-loop_d3d279442e38.png": {
@@ -7339,7 +7732,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-stick-to-robot_b606195b4067.png": {
@@ -7370,7 +7764,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-wheel-forward_cc740ffaf4d7.png": {
@@ -7395,7 +7790,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-wheel-handover_d6160d25008c.png": {
@@ -7420,7 +7816,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "fig-wheel-names_c5e72d252f39.png": {
@@ -7445,7 +7842,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "h017_c04cb17aa6c1.mp4": {
@@ -7470,7 +7868,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "l020_22f234f03597.mp4": {
@@ -7499,7 +7898,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "l020_a227022a8a0f.mp4": {
@@ -7547,7 +7947,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "route-curve_7ece100f954f.svg": {
@@ -7572,7 +7973,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "route-facingpoint_3972b5e77521.svg": {
@@ -7597,7 +7999,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "route-line_7fb94edcf266.svg": {
@@ -7622,7 +8025,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "route-linear_da84b53b7f66.svg": {
@@ -7647,7 +8051,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     },
     "route-through_e6cc8a6e02df.svg": {
@@ -7672,7 +8077,8 @@
         "v0.4.0-rc.6",
         "v0.4.0-rc.7",
         "v0.4.0-rc.8",
-        "v0.4.0-rc.9"
+        "v0.4.0-rc.9",
+        "v0.5.0-rc.1"
       ]
     }
   },

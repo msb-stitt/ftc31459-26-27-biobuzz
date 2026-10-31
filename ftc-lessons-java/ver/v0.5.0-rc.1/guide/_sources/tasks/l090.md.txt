@@ -1,0 +1,267 @@
+# 090 lesson: slide it sideways
+
+:::{figure} ../_figures/fig-l090-slide.png
+:name: fig-l090-slide
+:figclass: file-named
+
+fig-l090-slide.png
+:::
+
+Drive a mecanum robot: the left stick drives and slides, the right stick turns, and all three can
+happen at once. Each wheel gets its own speed.
+
+::::{only} mentor
+**Before you start.**
+
+- L080 is done, so `mytry` holds `L080ArcadeOpMode`.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot on blocks, as in L050, the Driver Station, and about 2 m by 2 m of clear floor for the
+  last step.
+::::
+
+## the steps
+
+### L090S010: copy the starter into mytry
+
+**Copy.** In `lessons`, click `L090MecanumOpMode` once and copy it. Click `mytry` once and paste.
+In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to Git,
+click **Add**.
+
+**Check.**
+
+- `mytry` holds `L090MecanumOpMode`, and the new file is open.
+
+### L090S020: switch your copy on
+
+**Change.** Delete the line `@Disabled`, under the comment that names this step.
+
+`L090MecanumOpMode` uses the `StickShaper` you wrote in L065. Yours is in `mytry.l065`, not in
+`lessons`. So the starter turns the lines that use it into comments. Find each other comment that
+names this step, the first one among the `import` lines. Under it, delete the `//` at the start of
+each line.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+- Near the top of the class, the line under the comment reads
+  `StickShaper stickShaper = new StickShaper(0.05);`.
+- No name in the file is red.
+
+### L090S030: read the slide
+
+A mecanum wheel has small rollers around it, set at 45 degrees. Spinning the wheel pushes the robot
+along and sideways at the same time. With four of them, the robot can drive, slide and turn.
+
+:::{figure} ../_figures/fig-mecanum-x.png
+:name: fig-mecanum-x
+:figclass: file-named
+
+fig-mecanum-x.png
+:::
+
+Seen from above, the top rollers make an X. Game Manual 0 shows it on
+[this page](https://gm0.org/en/latest/docs/common-mechanisms/drivetrains/holonomic.html).
+A mecanum wheel is a left wheel or a right wheel, and the two are mirror images. goBILDA's page
+shows both:
+<https://www.gobilda.com/96mm-mecanum-wheel-set-70a-durometer-bearing-supported-rollers/>
+
+The starter has `forwardXSpeed` and `turnCcwSpeed` from L080. The slide is the third number, and it
+comes from the left stick, sideways.
+
+**Change.** In `driveFromTheSticks()`, find the comment that names this step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4-6
+
+        // When on L090S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
+        // for what to do here.
+        double strafeYSpeed = -leftStickX;
+        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
+        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
+```
+
+**Strafe** is the robot word for sliding sideways. The stick reads above 0.0 to the right, and the
+minus sign makes a slide to the left positive, the same way a turn to the left is.
+
+**Check.**
+
+- Neither line has a red underline.
+
+### L090S040: give each wheel its speed
+
+Each wheel adds up the three numbers its own way:
+
+| Wheel | forward | strafe | turn |
+| --- | --- | --- | --- |
+| front left | + | - | - |
+| front right | + | + | + |
+| back left | + | + | - |
+| back right | + | - | + |
+
+**Change.** Find the comment that names this step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4-16
+
+        // When on L090S040, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
+        // for what to do here.
+        double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+        double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
+        double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
+        double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
+        Tracker.publish("drivetrain/fl_mixedSpeed", fl_mixedSpeed);
+        Tracker.publish("drivetrain/fr_mixedSpeed", fr_mixedSpeed);
+        Tracker.publish("drivetrain/bl_mixedSpeed", bl_mixedSpeed);
+        Tracker.publish("drivetrain/br_mixedSpeed", br_mixedSpeed);
+
+        hardware.frontLeft.setPower(fl_mixedSpeed);
+        hardware.frontRight.setPower(fr_mixedSpeed);
+        hardware.backLeft.setPower(bl_mixedSpeed);
+        hardware.backRight.setPower(br_mixedSpeed);
+```
+
+`fl`, `fr`, `bl` and `br` are short for front left, front right, back left and back right.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L090MecanumOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020, and click **2D Field**. Open the
+`drivetrain` folder.
+
+**Check.**
+
+- Push the left stick halfway left. `strafeYSpeed` reads 0.25.
+- The front right and back left wheels read 0.25, and the other two read -0.25.
+- The robot slides to its own left, and its nose keeps pointing the same way!
+- Forward and turning work as they did in L080.
+
+### L090S050: scale all four
+
+Push the left stick into a corner, all the way forward and all the way left. `forwardXSpeed` and
+`strafeYSpeed` are both 1.0, so the front right and back left wheels ask for 2.0. That is twice what
+a motor has.
+
+**Change.** Press Ctrl+C in the Terminal to stop the simulator. Go back to the lines that make
+the wheel speeds. Under them, type the scaling. Then change the `Tracker.publish` and `setPower`
+lines to use the scaled speeds:
+
+```{code-block} java
+:emphasize-lines: 5-25
+
+        double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+        double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
+        double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
+        double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
+        double fl_size = Math.abs(fl_mixedSpeed);
+        double fr_size = Math.abs(fr_mixedSpeed);
+        double bl_size = Math.abs(bl_mixedSpeed);
+        double br_size = Math.abs(br_mixedSpeed);
+        double biggest = Math.max(fl_size, fr_size);
+        biggest = Math.max(biggest, bl_size);
+        biggest = Math.max(biggest, br_size);
+        double biggestOrOne = Math.max(1.0, biggest);
+        double fl_speed = fl_mixedSpeed / biggestOrOne;
+        double fr_speed = fr_mixedSpeed / biggestOrOne;
+        double bl_speed = bl_mixedSpeed / biggestOrOne;
+        double br_speed = br_mixedSpeed / biggestOrOne;
+        Tracker.publish("drivetrain/fl_speed", fl_speed);
+        Tracker.publish("drivetrain/fr_speed", fr_speed);
+        Tracker.publish("drivetrain/bl_speed", bl_speed);
+        Tracker.publish("drivetrain/br_speed", br_speed);
+
+        hardware.frontLeft.setPower(fl_speed);
+        hardware.frontRight.setPower(fr_speed);
+        hardware.backLeft.setPower(bl_speed);
+        hardware.backRight.setPower(br_speed);
+```
+
+This is L080's scaling, for four wheels. `Math.max` takes two numbers, so finding the biggest of
+four sizes takes three calls: the first compares the two front wheels, and each of the next two
+brings in one more wheel. The last `Math.max` makes `biggestOrOne`, which never goes below 1.0, as
+in L080.
+
+The two lines that bring in one more wheel change `biggest`, as L060's squaring line changed
+`leftShapedSpeed`, so it is always the biggest size so far.
+
+**Simulator.** Run the same command again, and connect AdvantageScope.
+
+**Check.**
+
+- Push the left stick into the forward-left corner. The front right and back left wheels read 1.0,
+  and the other two read 0.0.
+- The robot drives diagonally, forward and to its left, with its nose still pointing forward.
+
+:::{figure} ../_figures/fig-l090-corner.png
+:name: fig-l090-corner
+:figclass: file-named
+
+fig-l090-corner.png
+:::
+
+### L090S060: check every wheel on blocks
+
+A mecanum wheel spinning forward pushes the robot forward and sideways at once. The front left and
+back right wheels push forward and to the right. The front right and back left wheels push forward
+and to the left. Spinning backward, each pushes the opposite way. The robot moves the way the four
+pushes add up.
+
+:::{figure} ../_figures/fig-l090-wheel-pushes.png
+:name: fig-l090-wheel-pushes
+:figclass: file-named
+
+fig-l090-wheel-pushes.png
+:::
+
+**Robot.** Stop the simulator. Rest the robot on the blocks, so all four wheels are off the ground.
+Send the code, and run `L090 Mecanum` from the Driver Station.
+
+**Check.**
+
+- Push each way gently and watch the top of each tire:
+
+| Push | front left | front right | back left | back right |
+| --- | --- | --- | --- | --- |
+| left stick forward | forward | forward | forward | forward |
+| left stick left | backward | forward | forward | backward |
+| right stick left | backward | forward | backward | forward |
+
+Left stick forward: all four push forward, and their sideways pushes cancel. Left stick left: the
+forward and backward pushes cancel, and all four push left. Right stick left: the left side pushes
+backward and the right side forward, so the robot turns left.
+
+Write down any wheel that turns the other way. A wheel that turns backward for every push needs its
+direction swapped, as in L050S070. A wheel that is right for forward but backward for a slide is on
+the other corner. Check the X from above.
+
+### L090S070: drive it on the floor
+
+**Drive.** Press STOP. Lift the robot off the blocks and put it on the floor. Press INIT, then PLAY.
+
+**Check.**
+
+- Push the left stick left, and the robot slides to its own left with its nose still pointing the
+  same way.
+- Push it into a corner, and the robot drives diagonally.
+- Push the right stick while sliding, and it turns as it slides.
+
+::::{only} mentor
+**If it didn't**, and the robot slides right when the stick goes left, the minus sign is missing
+from `-leftStickX`, or the strafe signs are swapped in the four lines.
+
+**If it didn't**, and the robot turns or grinds instead of sliding, on the floor, a wheel is on the
+wrong corner. Forward still works with a wheel in the wrong place, because all four still push
+forward. It is the sideways pushes that stop canceling. This is what the arithmetic says. No robot
+here has been driven with a wheel on the wrong corner.
+
+**What you just did.** The arcade command, forward, strafe and turn, mixed into each wheel's speed,
+one line a wheel. Those lines are the whole of mecanum drive, and the path follower in later
+lessons uses the same ones. The scaling is L080's, for each wheel instead of each side.
+
+**Where next.** [L093](l093.md) writes a menu for the Driver Station, test first.
+::::

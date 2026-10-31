@@ -1,0 +1,209 @@
+# 110 lesson: connect the drivetrain to the follower, with no path yet
+
+:::{figure} ../_figures/fig-l110-slide.png
+:name: fig-l110-slide
+:figclass: file-named
+
+fig-l110-slide.png
+:::
+
+The robot drives on the sticks as it did in L090, and the path follower is holding the drivetrain.
+The sticks still decide where the robot goes. The path follower is Pedro Pathing's code that drives
+the robot along a path; from L125 on, it drives the robot itself.
+
+::::{only} mentor
+**Before you start.**
+
+- L090 is done, so `mytry` holds `L090MecanumOpMode`.
+- AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
+- The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
+
+A follower holding the drivetrain knows where the robot is. It can hold a heading, and it can drive
+a path. Up to L090 the follower was handed a stand-in that ignored it, so the lesson had the
+motors to itself. L113 onwards need the follower to hold the real one.
+::::
+
+## the steps
+
+### L110S010: copy the two starters into mytry
+
+This lesson has two files. One is the OpMode. The other is the drivetrain: the code that turns
+the **arcade command**, forward, strafe and turn as in L090, into wheel speeds.
+
+**Copy.** In `lessons`, click `L110FollowerDriveTrain` once and copy it. Click `mytry` once and
+paste. In the **Copy Class** box, click **OK**. If Android Studio asks whether to add the file to
+Git, click **Add**. Do the same for `L110FollowerOpMode`.
+
+**Check.**
+
+- `mytry` holds `L110FollowerDriveTrain` and `L110FollowerOpMode`.
+
+### L110S020: switch your copy on
+
+**Change.** In `L110FollowerOpMode`, delete the line `@Disabled`, under the comment that names
+this step.
+
+`L110FollowerOpMode` uses the `StickShaper` you wrote in L065. Yours is in `mytry.l065`, not in
+`lessons`. So the starter turns the lines that use it into comments. Find each other comment that
+names this step, the first one among the `import` lines. Under it, delete the `//` at the start of
+each line.
+
+**Check.**
+
+- Under the step's comment, the next line reads
+  `// 'public' so the robot can run this OpMode. 'public' allows access from any code.`
+- Near the top of the class, the line under the comment reads
+  `StickShaper stickShaper = new StickShaper(0.05);`.
+- No name in the file is red.
+
+### L110S030: write the mix
+
+Open `L110FollowerDriveTrain`. It `extends CorbelsDriveTrain`, which means it gets everything
+`CorbelsDriveTrain` already has. That class sets each motor's direction, scales the speeds as L090
+did, and sends them to the motors. The one part it leaves to you is `mixArcadeToWheelSpeeds`.
+
+`wheelSpeeds` is an **array**: numbers in a row, in one variable. `wheelSpeeds[FL]` is the front
+left wheel's slot, and `FR`, `BL` and `BR` name the others.
+
+**Change.** In `mixArcadeToWheelSpeeds`, find the comment that names this step. Under it, type
+L090's mixing lines, each wheel into its own slot:
+
+```{code-block} java
+:emphasize-lines: 4-7
+
+        // When on L110S030, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s030
+        // for what to do here.
+        wheelSpeeds[FL] = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+        wheelSpeeds[FR] = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
+        wheelSpeeds[BL] = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
+        wheelSpeeds[BR] = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
+```
+
+**Check.**
+
+- No line has a red underline, and `FL`, `FR`, `BL` and `BR` turn purple.
+
+### L110S040: make room for the drivetrain
+
+**Change.** Open `L110FollowerOpMode`. Near the top of the class, find the comment that names this
+step. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4
+
+    // When on L110S040, see
+    // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s040
+    // for what to do here.
+    L110FollowerDriveTrain drivetrain;
+```
+
+This is a field, like `previousButtonA` in L070. It holds the drivetrain from `init` until the
+OpMode stops.
+
+**Check.**
+
+- The line has no red underline.
+
+### L110S050: hand the drivetrain to the follower
+
+:::{figure} ../_figures/fig-wheel-handover.png
+:name: fig-wheel-handover
+:figclass: file-named
+
+fig-wheel-handover.png
+:::
+
+**Change.** In `init()`, find the comment that names this step. Under it, type the first line
+below. Then change `initAfter();` to `initAfter(drivetrain);`:
+
+```{code-block} java
+:emphasize-lines: 4,6
+
+        // When on L110S050, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s050
+        // for what to do here.
+        drivetrain = new L110FollowerDriveTrain(hardware);
+
+        initAfter(drivetrain);
+```
+
+`new` makes the drivetrain. `initAfter` makes the path follower, and the follower holds what it is
+handed. Up to L090, `initAfter()` was handed nothing, because the lesson drove its own wheels.
+
+The four `setDirection` lines from L050 are gone from `init`. The drivetrain sets each motor's
+direction itself, from the same config.
+
+**Check.**
+
+- Neither line has a red underline.
+
+### L110S060: drive with the sticks
+
+**Change.** In `driveFromTheSticks()`, find the comment that names this step, under the
+`strafeYSpeed` lines. Under it, type:
+
+```{code-block} java
+:emphasize-lines: 4
+
+        // When on L110S060, see
+        // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l110.html#l110s060
+        // for what to do here.
+        drivetrain.sticks(forwardXSpeed, strafeYSpeed, turnCcwSpeed);
+```
+
+`sticks` sends the arcade command through your `mixArcadeToWheelSpeeds`. Then it scales the wheel
+speeds and saves them. At the end of the loop, `loopAfter()` updates the follower, and the
+follower drives the wheels.
+
+**Simulator.** In the Terminal, run:
+
+```
+./gradlew :TeamCode:simRun --args="mytry.L110FollowerOpMode --pad"
+```
+
+**AdvantageScope.** Connect to the simulator as in L020, click **2D Field**, and open the
+`drivetrain` folder.
+
+**Check.**
+
+- Push the left stick halfway left. `strafeYSpeed` reads 0.25, and the robot slides to its own left
+  with its nose pointing the same way.
+- Forward, turning and the corners all work as they did in L090.
+
+### L110S070: drive it on the robot
+
+**Robot.** Stop the simulator. Send the code, and run `L110 Follower` from the Driver Station.
+
+**Check.**
+
+- It drives the way L090 did: forward, sideways, turning, and the diagonals.
+
+**What's happening.** [E111](e111.md) draws the classes your OpMode and drivetrain build on, and
+what the platform calls.
+
+::::{only} mentor
+**No gamepad.** `--args="mytry.L110FollowerOpMode --left_stick_x=-0.5"` slides it left for the
+picture at the top. The simulator has no walls, so a robot left running slides off the field.
+
+**If it didn't**, and the robot does not move at all, `initAfter` is still `initAfter()`. The
+sticks command the drivetrain, but nothing drives it, because the follower is holding a stand-in.
+`LessonsTest.l110_theFollowerDrivesTheSticks` fails with `the follower slides it left: front left
+expected:<-0.25> but was:<0.0>`.
+
+**If it didn't**, and it slides the wrong way or turns when it should slide, a sign in
+`mixArcadeToWheelSpeeds` is wrong. `LessonsTest.l110_mixGivesEachWheelItsOwnSum` names the wheel
+and the move, such as `strafe left: back left`.
+
+**What you just did.** The drivetrain asks one question every time the follower updates it: has
+the lesson commanded the wheels? If so, it uses what the lesson commanded. If not, it mixes what
+the follower asked for. Either way the arcade command goes through the same
+`mixArcadeToWheelSpeeds`, so the sticks and the follower agree about which wheel does what.
+
+That door is ours, not Pedro's. Pedro's own mecanum drivetrain does only what the follower says.
+Ours lets the driver reach past it to the wheels, which the teleop lessons after L113 need. The
+rest of `CorbelsDriveTrain`, which answers everything else Pedro's follower asks a drivetrain, is
+written out with a comment above each method.
+
+**Where next.** [L113](l113.md) works out where the robot is from the drive wheels.
+::::

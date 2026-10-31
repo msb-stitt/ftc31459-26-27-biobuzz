@@ -1,0 +1,186 @@
+# L065
+
+2 file(s) copied, then 6 change(s) in 2 file(s), 76 line(s) of code to write.
+
+## Copies
+
+- `lessons/l065/StickShaper.java` to `mytry/l065/StickShaper.java`
+- `lessons/l065/L065ShaperOpMode.java` to `mytry/l065/L065ShaperOpMode.java`
+
+## StickShaper
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l065/StickShaper.java`
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -1,3 +1,5 @@
++package org.firstinspires.ftc.teamcode.mytry.l065;
++
+ /**
+  * Shapes one stick's reading: a deadband, then linear, squared or cubed.
+  * The object holds the band and the shape, so the code that asks for a shaped
+```
+
+### A change
+
+Delete 0 lines, write 65 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -10,3 +10,68 @@
+ // When on L065S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l065.html#l065s030
+ // for what to write in this file.
++// 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++public class StickShaper {
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public enum Shape {
++        LINEAR,
++        SQUARED,
++        CUBED
++    }
++
++    double band;
++    Shape shape = Shape.SQUARED;
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public StickShaper(double bandToSetToZero) {
++        band = bandToSetToZero;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void setBand(double bandToSetToZero) {
++        band = bandToSetToZero;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void setShape(Shape newShape) {
++        shape = newShape;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public double shaped(double value) {
++        double outsideTheBand = deadband(value, band);
++        double shapedValue = outsideTheBand;
++        switch (shape) {
++            case LINEAR:
++                break;
++            case SQUARED:
++                shapedValue = signedSquared(outsideTheBand);
++                break;
++            case CUBED:
++                shapedValue = cubed(outsideTheBand);
++                break;
++        }
++        return shapedValue;
++    }
++
++    double deadband(double value, double band) {
++        double alwaysPositiveMagnitude = Math.abs(value);
++        boolean isCloseToZero = alwaysPositiveMagnitude < band;
++        if (isCloseToZero) {
++            return 0.0;
++        }
++        return value;
++    }
++
++    double signedSquared(double value) {
++        double alwaysPositiveValue = Math.abs(value);
++        double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
++        return valueSquaredKeepingTheSign;
++    }
++
++    double cubed(double value) {
++        double valueCubed = value * value * value;
++        return valueCubed;
++    }
++}
+```
+
+## L065ShaperOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l065/L065ShaperOpMode.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -35,6 +35,7 @@
+     // When on L065S060, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l065.html#l065s060
+     // for what to do here.
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 4 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -85,6 +85,10 @@
+         // When on L065S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l065.html#l065s070
+         // for what to do here.
++        double leftShapedSpeed = stickShaper.shaped(leftSpeed);
++        Tracker.publish("drivetrain/leftShapedSpeed", leftShapedSpeed);
++        double rightShapedSpeed = stickShaper.shaped(rightSpeed);
++        Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
+ 
+         hardware.frontLeft.setPower(leftSpeed);
+         hardware.backLeft.setPower(leftSpeed);
+```
+
+### A change
+
+Delete 2 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -90,8 +90,8 @@
+         double rightShapedSpeed = stickShaper.shaped(rightSpeed);
+         Tracker.publish("drivetrain/rightShapedSpeed", rightShapedSpeed);
+ 
+-        hardware.frontLeft.setPower(leftSpeed);
+-        hardware.backLeft.setPower(leftSpeed);
++        hardware.frontLeft.setPower(leftShapedSpeed);
++        hardware.backLeft.setPower(leftShapedSpeed);
+ 
+         hardware.frontRight.setPower(rightSpeed);
+         hardware.backRight.setPower(rightSpeed);
+```
+
+### A change
+
+Delete 2 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -93,8 +93,8 @@
+         hardware.frontLeft.setPower(leftShapedSpeed);
+         hardware.backLeft.setPower(leftShapedSpeed);
+ 
+-        hardware.frontRight.setPower(rightSpeed);
+-        hardware.backRight.setPower(rightSpeed);
++        hardware.frontRight.setPower(rightShapedSpeed);
++        hardware.backRight.setPower(rightShapedSpeed);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```

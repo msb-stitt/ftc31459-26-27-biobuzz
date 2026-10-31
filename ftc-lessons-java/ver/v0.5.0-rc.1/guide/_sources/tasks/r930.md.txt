@@ -1,0 +1,87 @@
+# 930 reference: cheat sheet
+
+Every table here is read straight out of the lesson code, so it says what the code says.
+
+## what to run
+
+One OpMode name for the Driver Station, one command for the laptop. Each command runs only
+that lesson's own tests, which is what makes a red one easy to read. A dash means no test
+names that lesson: its check is on the floor.
+
+| Lesson | On the robot | On the laptop |
+| --- | --- | --- |
+| L020 | `L020 Sticks` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l020*'` |
+| L030 | `L030 Speeds` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l030*'` |
+| L040 | `L040 Tank` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l040*'` |
+| L050 | `L050 Blocks` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l050*'` |
+| L060 | `L060 Shaping` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l060*'` |
+| L065 | `L065 Shaper` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l065*'` |
+| L070 | `L070 Buttons` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l070*'` |
+| L080 | `L080 Arcade` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l080*'` |
+| L090 | `L090 Mecanum` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l090*'` |
+| L093 | `L093 Menu` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l093*'` |
+| L095 | `L095 Shaping Menu` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l095*'` |
+| L110 | `L110 Follower` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l110*'` |
+| L113 | `L113 Localizer` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*L113EncoderLocalizerTest*' --tests '*LessonsTest.l113_theEncoderLocalizerRunsAlongsideAndIsLogged'` |
+| L120 | `L120 Pinpoint` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*L120PinpointLocalizerTest*' --tests '*LessonsTest.l120_thePinpointLocalizerFollowsTheRobot'` |
+| L122 | `L122 Compare Localizers` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l122*'` |
+| L125 | `L125 Drive 24` (Autonomous) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l125*'` |
+| L130 | `L130 Forward Then Strafe` (Autonomous) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l130*'` |
+| L135 | `L135 Auto With Menu` (Autonomous) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l135*'` |
+| L140 | `L140 Auto` (Autonomous) `L140 Field Relative` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l140*'` |
+| L150 | `L150 Robot Relative Button` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l150*'` |
+| L160 | `L160 Heading Hold` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l160*'` |
+| L170 | `L170 Drive To Pose` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l170*'` |
+| L180 | `L180 Combined` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l180*'` |
+| L190 | `L190 Velocity Drive` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l190*'` |
+| L195 | `L195 Measure ticks per inch` (TeleOp) `L195 Measure turn radius` (TeleOp) | `./gradlew :TeamCode:testDebugUnitTest --tests '*LessonsTest.l195*'` |
+
+## what shows up in AdvantageScope
+
+A key ending in `...` has a name added to the end of it, one per wheel or per localizer.
+
+| Log key | Published by |
+| --- | --- |
+| `Localizer/driveWheelEncoders/...` | `L113LocalizerOpMode`, `L122CompareLocalizersOpMode`, `L180CombinedOpMode` |
+| `Localizer/pinpointPods/...` | `L120PinpointOpMode`, `L122CompareLocalizersOpMode` |
+| `drivetrain/bl_speed` | `L090MecanumOpMode`, `L095ShapingMenuOpMode` |
+| `drivetrain/br_speed` | `L090MecanumOpMode`, `L095ShapingMenuOpMode` |
+| `drivetrain/driveMode` | `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/fieldXSpeed` | `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/fieldYSpeed` | `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/fl_speed` | `L090MecanumOpMode`, `L095ShapingMenuOpMode` |
+| `drivetrain/forwardXSpeed` | `L080ArcadeOpMode`, `L090MecanumOpMode`, `L095ShapingMenuOpMode`, `L110FollowerOpMode`, `L113LocalizerOpMode`, `L120PinpointOpMode`, `L122CompareLocalizersOpMode` |
+| `drivetrain/forwardX_ips` | `L190VelocityDriveOpMode` |
+| `drivetrain/fr_speed` | `L090MecanumOpMode`, `L095ShapingMenuOpMode` |
+| `drivetrain/holdingHeading` | `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/leftShapedSpeed` | `L060ShapingOpMode`, `L070ButtonsOpMode`, `L065ShaperOpMode` |
+| `drivetrain/leftSpeed` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L065ShaperOpMode` |
+| `drivetrain/rightShapedSpeed` | `L060ShapingOpMode`, `L070ButtonsOpMode`, `L065ShaperOpMode` |
+| `drivetrain/rightSpeed` | `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L065ShaperOpMode` |
+| `drivetrain/robotForwardXSpeed` | `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/robotRelative` | `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/robotStrafeYSpeed` | `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/strafeYSpeed` | `L090MecanumOpMode`, `L095ShapingMenuOpMode`, `L110FollowerOpMode`, `L113LocalizerOpMode`, `L120PinpointOpMode`, `L122CompareLocalizersOpMode` |
+| `drivetrain/strafeY_ips` | `L190VelocityDriveOpMode` |
+| `drivetrain/targetHeading_deg` | `L180CombinedOpMode` |
+| `drivetrain/turnCcwSpeed` | `L080ArcadeOpMode`, `L090MecanumOpMode`, `L095ShapingMenuOpMode`, `L110FollowerOpMode`, `L113LocalizerOpMode`, `L120PinpointOpMode`, `L122CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode` |
+| `drivetrain/turn_radps` | `L190VelocityDriveOpMode` |
+| `gamepad1/buttonA` | `L070ButtonsOpMode`, `L080ArcadeOpMode` |
+| `gamepad1/buttonAEvent` | `L070ButtonsOpMode`, `L080ArcadeOpMode` |
+| `gamepad1/leftStickX` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L095ShapingMenuOpMode`, `L110FollowerOpMode`, `L113LocalizerOpMode`, `L120PinpointOpMode`, `L122CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode` |
+| `gamepad1/leftStickY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L095ShapingMenuOpMode`, `L110FollowerOpMode`, `L113LocalizerOpMode`, `L120PinpointOpMode`, `L122CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode`, `L065ShaperOpMode` |
+| `gamepad1/rightStickX` | `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L090MecanumOpMode`, `L095ShapingMenuOpMode`, `L110FollowerOpMode`, `L113LocalizerOpMode`, `L120PinpointOpMode`, `L122CompareLocalizersOpMode`, `L140FieldRelativeOpMode`, `L150RobotRelativeButtonOpMode`, `L160HeadingHoldOpMode`, `L170DriveToPoseOpMode`, `L180CombinedOpMode`, `L190VelocityDriveOpMode` |
+| `gamepad1/rightStickY` | `L020SticksOpMode`, `L030SpeedsOpMode`, `L040TankOpMode`, `L050BlocksOpMode`, `L060ShapingOpMode`, `L070ButtonsOpMode`, `L080ArcadeOpMode`, `L065ShaperOpMode` |
+| `measure/measuredTicksPerInch` | `L195MeasureTicksPerInchOpMode` |
+| `measure/measuredTurnRadius_in` | `L195MeasureTurnRadiusOpMode` |
+| `measure/pushed_in` | `L195MeasureTicksPerInchOpMode` |
+| `measure/ticks` | `L195MeasureTicksPerInchOpMode` |
+| `measure/turned_rad` | `L195MeasureTurnRadiusOpMode` |
+| `measure/wheel_in` | `L195MeasureTurnRadiusOpMode` |
+| `menu/alliance` | `AutoWithMenuOpMode` |
+| `menu/auto` | `AutoWithMenuOpMode` |
+| `menu/band` | `L095ShapingMenuOpMode` |
+| `menu/shape` | `L095ShapingMenuOpMode` |
+| `menu/summary` | `DriverStationMenu` |
+
+Generated by applying `solutions/` on `solutions-e111.1`, every lesson in order.
