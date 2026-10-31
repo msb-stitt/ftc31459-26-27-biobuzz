@@ -162,6 +162,13 @@ after it. L093 is the first with each part below. Their pages and starters are w
   `./gradlew :TeamCode:testDebugUnitTest --tests '*mytry.lnnn*'`, with the lesson's own number;
   the check is `BUILD SUCCESSFUL`.
 
+## A challenge exercise follows the steps, under its own heading
+
+A lesson's challenge exercise is a `## challenge exercise: ...` section after its last step, and an
+extra challenge exercise a `## extra challenge exercise: ...` section after that. Each opens by
+saying it is a challenge and, for the first, that no later lesson needs it. Its steps keep counting
+from the lesson's last, and the mentor blocks stay at the end of the page. L132 has the first.
+
 ## The old pages have five parts
 
 - **What you will have when this is done.** One or two sentences, about the robot and not about the
