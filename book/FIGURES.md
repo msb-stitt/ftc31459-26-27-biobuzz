@@ -28,6 +28,15 @@ is open and none is underlined in red. It moves whatever `mytry` held to `scratc
 first. The copies are not added to git, so the project pane shows their names in git's color for a
 new file.
 
+How to take a screenshot of the robot driven on AdvantageScope's 2D Field: start the robot where
+the OpMode puts it, drive it to a spot from which it can go around the field in a triangle,
+square, pentagon, hexagon or circle, and take the picture partway around, with the robot on the
+field and its trail behind it. Never take it with the sticks held still by typed options, such as
+`--left_stick_y=-0.5`, which send the robot off the field in a way no driver drives.
+`ftc-claude`'s `tools/video/follow.py` drives the lap on a virtual gamepad, as its README says:
+`follow.py robot --shape circle --size 54`, with `simRun` run with `--pad` and
+`SIMRUN_VIRTUAL_PADS=5812`. A 54 in circle stays clear of the structure at the field's centre.
+
 ```
 :::{admonition} fig-robot-front
 :class: pencil
@@ -145,8 +154,8 @@ Stand-in for `fig-robot-front`, made by `book/tools/draw.py`.
 | `fig-e111-classes` | Each class of the other E111 diagrams in its grey box, with no members: the is-a arrows, the holds arrows `hardware`, `follower`, `drives` and `stickShaper`, `Platform` running the chosen OpMode, and dashed uses arrows from `L110FollowerOpMode` to `Tracker` and `Scheduler` and from `L110FollowerDriveTrain` to `RobotHardware` | A drawing by `draw.py` of the Mermaid class diagram `tools/mermaid/fig-e111-classes.mmd` | pencilled |
 | `fig-l113-shadow-still` | AdvantageScope's 2D Field and list with the `Localizer` folder open: `pinPoint/y_in` at 83.078 while the robot drives forward, and `driveWheelEncoders` still at x 72, y 10.5 and heading 90, where it started | Screenshot, taken 2026-10-05 with the stick set by `--left_stick_y=-0.5` | pencilled |
 | `fig-l113-encoders-follow` | AdvantageScope's 2D Field with the robot at the top of the field, its arrow pointing up, and the list with the `Localizer` folder open: `driveWheelEncoders` and `pinPoint` both at x 72 and heading 90, and `y_in` at 142.367 and 142.360 | Screenshot, taken 2026-10-05 with the stick set by `--left_stick_y=-0.5`, after L113S050 | pencilled |
-| `fig-l113-import` | Android Studio with `L113LocalizerOpMode.java` the one tab open, the step's three lines typed, the first `HardwareWheelSource` underlined in red and the popup offering **Import class... org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource?** with ⌥↩ | Screenshot, taken 2026-10-26 from `tools/figures/prep.sh`'s start state | pencilled |
-| `fig-l120-pods-follow` | AdvantageScope's 2D Field and list with the `Localizer` folder open, after L120S060: the robot driven forward, left and turning, and `pinpointPods` and `pinPoint` at the same `x_in`, `y_in` and `heading_deg` | Screenshot, with the sticks set by `--left_stick_y=-0.5 --left_stick_x=-0.3 --right_stick_x=-0.3` | pencilled |
+| `fig-l113-import` | Android Studio with `L113LocalizerOpMode.java` the one tab open, the step's three lines typed, the first `HardwareWheelSource` underlined in red and the popup offering **Import class... org.firstinspires.ftc.teamcode.base.odometry.HardwareWheelSource?** with ⌥↩ | Screenshot, taken 2026-10-30 in a worktree made by `solutions/apply.py l113 --copies-only --keep`, the step's lines typed, and cropped to the editor | pencilled |
+| `fig-l120-pods-follow` | AdvantageScope's 2D Field and list with the `Localizer` folder open, after L120S060: the robot driven partway around the field, turning as it goes, and `pinpointPods` and `pinPoint` within half an inch and half a degree of each other in `x_in`, `y_in` and `heading_deg`, with the robot on the field | Screenshot, taken 2026-10-30 with AdvantageScope paused 14.2 s into `follow.py robot --shape circle --size 54`, on the answers `solutions/apply.py l120 --keep` leaves | pencilled |
 | `fig-l120-pod-turn` | The robot from above turning left on the spot about its middle: the forward pod `xPodOffset_in` left of the middle rolling backward along its circle, and the strafe pod `yPodOffset_in` ahead of the middle rolling left along its circle | A drawing by `draw.py` | pencilled |
 | `fig-l125-drive24` | AdvantageScope's 2D Field with the robot stopped 24 inches up the field from where it started, its arrow pointing up the field, and the list showing `pinPoint/y_in` at 34.499, `x_in` at 72 and `heading_deg` at 90 | Screenshot, taken 2026-10-05 | pencilled |
 | `fig-l125-import-static` | Android Studio with `L125Drive24OpMode.java` the one tab open, `sequential`, `follow` and `line` in red in `Command forward24 = …` above `return forward24;`, and the popup offering **Import static method... com.pedropathing.api.Paths.line()?** with ⌥↩ | Screenshot, taken 2026-10-26 from `tools/figures/prep.sh`'s start state | pencilled |
