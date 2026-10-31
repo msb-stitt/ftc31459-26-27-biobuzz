@@ -1,5 +1,5 @@
 diff --git a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
-index f50f41b..846fdde 100644
+index 8a5ad9b..3bdcb26 100644
 --- a/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
 +++ b/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L190SpeedDriveTrain.java
 @@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.mytry;
@@ -10,14 +10,17 @@ index f50f41b..846fdde 100644
  
  /**
   * L190: the drivetrain that asks the wheels for a speed.
-@@ -38,5 +39,14 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
+@@ -38,5 +39,17 @@ class L190SpeedDriveTrain extends CorbelsMecanum {
          // When on L190S060, see
          // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l190.html#l190s060
          // for what to do here.
 +        double[] measured_ips = measuredSpeeds.all();
++        double batteryVolts = hardware.batteryVolts();
 +        double[] wheelSpeeds = new double[4];
 +        for (int i = 0; i < 4; i++) {
-+            double feedforward = Constants.powerPerInchPerSecond * wanted_ips[i];
++            double feedforwardVolts = Math.signum(wanted_ips[i]) * Constants.kSForwardVolts
++                    + Constants.kVForwardVoltSecondsPerInch * wanted_ips[i];
++            double feedforward = feedforwardVolts / batteryVolts;
 +            double feedback = VELOCITY_KP * (wanted_ips[i] - measured_ips[i]);
 +            wheelSpeeds[i] = clampToFullSpeed(feedforward + feedback);
 +        }
