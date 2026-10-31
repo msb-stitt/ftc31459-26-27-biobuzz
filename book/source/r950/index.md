@@ -33,9 +33,10 @@ L113LocalizerOpMode
 L113EncoderLocalizer
 L120PinpointOpMode
 L120PinpointLocalizer
-L132CompareLocalizersOpMode
 L125Drive24OpMode
 L130ForwardThenStrafeOpMode
+L131TicksDriveTrain
+L132CompareLocalizersOpMode
 AutoWithMenuOpMode
 L140FieldRelativeOpMode
 L140AutoOpMode
@@ -45,5 +46,4 @@ L170DriveToPoseOpMode
 L180CombinedOpMode
 L190SpeedDriveTrain
 L190VelocityDriveOpMode
-L131TicksDriveTrain
 ```
