@@ -43,7 +43,19 @@ import java.util.function.Supplier;
 public final class SimRobot {
 
     public static final double MAX_FORWARD_IPS = 64.4;
-    public static final double MAX_STRAFE_IPS = 43.6;
+
+    /**
+     * The angle between the forward direction and the way a wheel's rollers
+     * push the robot, in degrees. 45 by design; the robot strafes as if it
+     * were 40, so the same rim speed moves it less sideways than forward.
+     */
+    public static final double WHEEL_ANGLE_DEG = 40.0;
+
+    /** A wheel's rim speed for each inch per second of strafe is cot of the angle. */
+    public static final double COT_WHEEL_ANGLE = 1 / Math.tan(Math.toRadians(WHEEL_ANGLE_DEG));
+
+    /** Full power strafing turns each rim at full speed, which moves the robot tan of the angle of that. */
+    public static final double MAX_STRAFE_IPS = MAX_FORWARD_IPS / COT_WHEEL_ANGLE;
     public static final double MAX_TURN_RADPS = 4.0;
     public static final double LAG_S = 0.15;
 
@@ -222,11 +234,14 @@ public final class SimRobot {
         /**
          * How fast each wheel's rim is moving, front left, front right, back
          * left, back right, in inches per second: the robot's motion put back
-         * through {@link WheelTargets#forMecanum}, so the wheels agree with the
-         * geometry the robot code uses.
+         * through {@link WheelTargets#forMecanum}, with the strafe times
+         * {@link #COT_WHEEL_ANGLE}. A localizer that takes the wheels to be at
+         * 45 degrees reads more strafe than the robot made.
+         * {@code Constants.turnRadiusInches} is taken as the radius the turn
+         * really has, so turning on the spot reads true.
          */
         public double[] wheelSpeeds() {
-            return WheelTargets.forMecanum(vx, vy, omega, Constants.turnRadiusInches);
+            return WheelTargets.forMecanum(vx, vy * COT_WHEEL_ANGLE, omega, Constants.turnRadiusInches);
         }
 
         /** How far each wheel has rolled since the robot was made, in inches, in the same order. */
