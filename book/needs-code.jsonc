@@ -1,0 +1,35 @@
+// Written by book/tools/needs.py check on 2026-11-01, from tools/crosscheck.py solutions-l135-menu-classes.3 solutions-l135-menu-classes.3 --one-way.
+// solutions, commit: the solutions ref crosscheck ran on, and its commit.
+// lessons: each lesson, in the solutions' order, and the earlier lessons its code needs,
+//   directly or through another, as crosscheck found them from build, test and patch
+//   errors. Needs that are not code are in needs.toml.
+{
+  "solutions": "solutions-l135-menu-classes.3",
+  "commit": "4acdf708cd2f732e7ca91250e85915d4c16186d5",
+  "lessons": {
+    "l020": [],
+    "l030": [],
+    "l040": [],
+    "l050": [],
+    "l060": [],
+    "l070": [],
+    "l080": [],
+    "l090": [],
+    "l110": [],
+    "l120": [],
+    "l125": [],
+    "l130": [],
+    "l135": [],
+    "l140": [
+      "l135"
+    ],
+    "l150": [],
+    "l160": [],
+    "l170": [],
+    "l180": [
+      "l120"
+    ],
+    "l190": [],
+    "l195": []
+  }
+}

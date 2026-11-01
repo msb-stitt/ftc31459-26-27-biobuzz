@@ -6,8 +6,9 @@ on a `lessons-X` branch, with its answers on a `solutions-X` branch beside it. L
 solutions; solutions never merge into lessons.
 
 A finished round merges into `dev`, and every push to `dev` publishes the books at
-<https://coding.stitt.cc/ftc-lessons-java/ver/dev/>. A release fast-forwards `main` to a commit
-of `dev` and tags it there. A push to `main` publishes nothing.
+<https://coding.stitt.cc/ftc-lessons-java/ver/dev/>. A release is tagged on a release line: `dev`,
+`main`, or a branch `release-X.Y` for fixes to an older release, as
+[Making a release](#making-a-release) says. A push to `main` publishes nothing.
 
 `keep.toml` is changed with `tools/pin.py`, not by hand. While a lesson is worked on it names the
 solutions branch, so the tools read its tip, and its `[media]` follows the corbels-lfs-lessons
@@ -23,6 +24,8 @@ pages stay those of one commit of each.
   and fails when it is not on `origin`.
 - Work, merging lessons into solutions as often as needed. On every push CI checks the answer
   pages, the cheat sheet and the review against what `keep.toml` names.
+- Before the pin, when the round changed the answers or the order, refresh each lesson's list of
+  the pages it needs, as [A lesson's needs](#a-lessons-needs) says.
 - End it, as the last commit before the merge to `dev`, with `ninja pin` in `book/`. It tags the
   branch's tip `solutions-X.N` with the next number, or names the tag that already holds the same
   `solutions/`, and pins the media to the tip of its branch on corbels-lfs-lessons' `origin`, so
@@ -33,6 +36,69 @@ pages stay those of one commit of each.
   tip without changing `solutions/`, so it does not make a pin stale.
 - Merge to `dev`. CI fails on `dev` and `main` when `keep.toml` names anything but a solutions tag
   and a media commit. Look at `ver/dev/` on the site after the push.
+
+## Applying and crosschecking the answers
+
+The answers live on the solutions line in `solutions/`: `order` lists the lesson folders in the
+order a student meets them, and each folder's `steps` file says what that lesson copies, patches
+and tests, with its patches beside it. The tools that apply them live here, in `tools/`, and read
+`solutions/` from the ref they are given, so they run from `dev` or a lessons branch.
+
+`tools/apply.py` applies `order` up to a named lesson in a fresh worktree of the solutions ref
+`book/keep.toml` names, or of `--ref`, and runs that lesson's tests. `--every` runs every lesson's
+tests so far after each lesson; `--unpatched` leaves the last lesson's patches out, to see its
+tests fail. Its opening comment says what a step line holds.
+
+```
+python3 tools/apply.py l190 --every --ref solutions-e111
+```
+
+A patch is made in a kept worktree: `tools/apply.py LESSON --copies-only` stops after the lesson's
+copies and prints where it left the worktree. Write the lesson's solution there, run `git diff`
+from its root, and save what it prints as `solutions/LESSON/NAME.patch` on the solutions branch.
+
+`tools/crosscheck.py` tries one release's answers on another release's code, a lesson at a time,
+both ways, and lists each lesson as passing or failing and which earlier lessons it needed. It
+takes any ref or commit hash, and writes `report.md` and a `.jsonc` of each lesson's chain for each
+direction. Its opening comment says how a lesson is tried, how the earlier lessons are found, and
+where the files go.
+
+```
+python3 tools/crosscheck.py v0.4.0 v0.5.0-rc.3
+```
+
+A release run against itself, one way, lists the earlier lessons each lesson needs:
+
+```
+python3 tools/crosscheck.py v0.5.0-rc.3 v0.5.0-rc.3 --one-way
+```
+
+## A lesson's needs
+
+Each lesson's *Before you start* opens with the pages it needs finished, the whole chain, written by
+`book/tools/needs.py` between its markers. Two files make it, both committed in `book/`:
+
+- `needs-code.jsonc`: the earlier lessons each lesson's code needs, as `tools/crosscheck.py` finds
+  them running the release's answers on its own code. `needs.py check` writes it.
+- `needs.toml`: the needs crosscheck cannot find, kept by hand. Its opening comment says how an
+  entry is written.
+
+In `book/`:
+
+```
+python tools/run.py needs check
+python tools/run.py needs apply
+```
+
+`check` runs crosscheck on the solutions `keep.toml` names, in a minute or two, writes
+`needs-code.jsonc`, and prints each lesson whose list would change; it fails, and writes nothing,
+when a lesson fails on its own code. Run it when a round changes the answers or the order. `apply`
+writes the lists from the two files, in seconds; run it after `check` or after a change to
+`needs.toml`, and commit what it writes. `ninja book` runs `tools/check_needs.py`, which fails a
+list that is not what `apply` would write, so a publish never runs crosscheck.
+
+Each release line keeps its own `needs.toml`, since a lesson's number can mean another lesson on
+another line.
 
 ## Building what a release publishes
 
@@ -64,16 +130,34 @@ cd ../corbels-lfs-lessons && git lfs install --local && git checkout <the [media
 - Take any new screenshots into corbels-lfs-lessons' `figures/` first, and run
   [`ninja publish-check`](#building-what-a-release-publishes), which fails on a figure still
   missing.
-- Try it as a pre-release: tag a commit of `dev` `vX.Y.Z-rc.N` and push the tag. It gets its own
-  folder on the site, `ver/vX.Y.Z-rc.N/`, and a GitHub pre-release. The run
-  stops if the tag is not on `dev`, or if `keep.toml` names a solutions branch.
-- Release it: fast-forward `main` to that commit, push `main`, then tag `main`'s head `vX.Y.Z` and
-  push the tag. The run stops unless the tag is at `main`'s head and on `dev`.
+- Try it as a pre-release: tag a commit of a release line `vX.Y.Z-rc.N` and push the tag. It gets
+  its own folder on the site, `ver/vX.Y.Z-rc.N/`, and a GitHub pre-release. The run stops if the
+  tag is on no release line, or if `keep.toml` names a solutions branch.
+- Release it from `dev`: fast-forward `main` to that commit, push `main`, then tag `main`'s head
+  `vX.Y.Z` and push the tag. The run stops unless the tag is at the head of `main` or of
+  `release-X.Y`.
 
   ```
   git switch main && git merge --ff-only <the commit> && git push origin main
   git tag -a vX.Y.Z -m "<what is new>" && git push origin vX.Y.Z
   ```
+
+- Release a fix to what `main` holds without `dev`: commit it on `main`, try it as `vX.Y.Z-rc.N`,
+  and tag `main`'s head `vX.Y.Z`. Then merge `main` into `dev`, so `main` fast-forwards to `dev`
+  at the next release.
+- Release a fix to an older release `vX.Y.0` from a branch `release-X.Y`, cut at its tag the first
+  time and pushed: commit the fix there, try it as `vX.Y.Z-rc.N`, and tag the branch's head
+  `vX.Y.Z`. `main` and `dev` stay where they are; a fix `dev` also wants is made there too.
+
+  ```
+  git switch -c release-0.4 v0.4.0 && git push origin release-0.4
+  ```
+
+- A release older than the newest `vX.Y.Z` is not GitHub's Latest. The site's own front page
+  leads to the highest version whatever order they are made in.
+- `tools/release.py` makes these checks for `release.yml`, and runs here too, on a tag made but
+  not yet pushed: `python3 tools/release.py tag vX.Y.Z --branches refs/remotes/origin` prints what
+  the run would publish or why it would stop. `python3 tools/test_release.py` tries each rule.
 
 - [`release.yml`](.github/workflows/release.yml) publishes each version on coding.stitt.cc at
   `/ftc-lessons-java/ver/<version>/`, through the branch `site`, which holds every version's pages

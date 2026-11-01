@@ -157,7 +157,7 @@ jobs:
         working-directory: book
         run: >
           ninja check-sphinx check-wrap check-reading check-keep check-words
-          check-figures
+          check-figures check-needs
 
       # The pin first: a solutions tag and a media commit on dev and main, and on a
       # lessons branch a solutions tag, if one is pinned, that is not stale. Then

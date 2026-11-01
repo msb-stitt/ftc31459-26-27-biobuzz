@@ -19,13 +19,25 @@ from register import PATH, pages
 # on how much code a lesson may have, or how many log keys it may publish.
 GENERATED = ("source/r950/", "source/tasks/r930.md")
 
+# A lesson's list of what it needs first is written by tools/needs.py between these markers, and
+# is not counted, for the same reason.
+NEEDS_START = "<!-- needs:"
+NEEDS_END = "<!-- /needs -->"
+
 
 def words(path) -> int:
-    """Words of prose: fenced code, MyST directives and list markers do not count."""
+    """Words of prose: fenced code, MyST directives, list markers and a lesson's generated list
+    of needs do not count."""
     total = 0
     in_fence = False
+    in_needs = False
     for line in open(path, encoding="utf-8"):
         stripped = line.strip()
+        if stripped.startswith(NEEDS_START):
+            in_needs = True
+        if in_needs:
+            in_needs = stripped != NEEDS_END
+            continue
         if stripped.startswith("```") or stripped.startswith(":::"):
             in_fence = not in_fence
             continue

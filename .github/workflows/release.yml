@@ -1,14 +1,15 @@
 # Publishes the books on coding.stitt.cc, and makes a release.
 #
-# Lesson work merges into dev; a release fast-forwards main to a commit of dev
-# and tags it there.
+# Lesson work merges into dev. A release line is dev, main or a branch
+# release-X.Y; RELEASING.md says how a release is made from each.
 #
 # - A push to dev: the books built from it and from the solutions and media its
 #   book/keep.toml pins, at /ftc-lessons-java/ver/dev/.
-# - A tag such as v0.1.4-rc.1, on a commit of dev: the same, as a pre-release,
+# - A tag such as v0.1.4-rc.1, on a release line: the same, as a pre-release,
 #   at /ftc-lessons-java/ver/<tag>/, and a GitHub pre-release.
-# - A tag vX.Y.Z, at main's head and on dev: the same, as a release, and a
-#   GitHub Release.
+# - A tag vX.Y.Z, at the head of main or of release-X.Y: the same, as a
+#   release, and a GitHub Release, which is GitHub's Latest unless a higher
+#   vX.Y.Z exists.
 # - A push to main publishes nothing. A run by hand builds, keeps the books as
 #   an artifact, and publishes nothing.
 #
@@ -57,41 +58,15 @@ jobs:
           git fetch --update-head-ok origin '+refs/heads/*:refs/heads/*'
           git fetch --force origin '+refs/tags/*:refs/tags/*'
 
+      # tools/release.py says what is published, or why not; its opening comment
+      # gives the rules, and tools/test_release.py tries each.
       - name: What this run publishes, and from which solutions
         id: what
         run: |
-          # keep.toml names the solutions the answer pages and cheat sheet were
-          # generated from; a release pins them to a tag, so it can be rebuilt.
-          solutions=$(python3 -c 'import tomllib; a = tomllib.load(open("book/keep.toml", "rb"))["answers"]; print(a["solutions_commit"] or a["solutions"])')
-          if [ "$GITHUB_REF_TYPE" = tag ]; then
-            version="$GITHUB_REF_NAME"
-            if ! git rev-parse --verify --quiet "refs/tags/$solutions" >/dev/null; then
-              echo "keep.toml names $solutions, which is not a tag. Run tools/pin.py, commit what it writes, and tag again."
-              exit 1
-            fi
-            commit=$(git rev-parse "$version^{commit}")
-            if ! git merge-base --is-ancestor "$commit" dev; then
-              echo "$version is on $(git rev-parse --short "$commit"), which is not on dev. Tag a commit of dev."
-              exit 1
-            fi
-            case "$version" in
-              *-*) kind=pre ;;
-              *)   kind=release
-                   if [ "$commit" != "$(git rev-parse main)" ]; then
-                     echo "$version is on $(git rev-parse --short "$commit"), and main is at $(git rev-parse --short main). Fast-forward main to the commit, then tag main's head."
-                     exit 1
-                   fi ;;
-            esac
-          elif [ "$GITHUB_REF" = refs/heads/dev ]; then
-            version=dev kind=dev
-          else
-            version= kind=
-          fi
-          media=$(python3 -c 'import tomllib; m = tomllib.load(open("book/keep.toml", "rb"))["media"]; print(m["commit"] or m["ref"])')
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "solutions=$solutions" >> "$GITHUB_OUTPUT"
-          echo "media=$media" >> "$GITHUB_OUTPUT"
-          echo "kind=$kind" >> "$GITHUB_OUTPUT"
+          python3 tools/test_release.py
+          python3 tools/release.py "$GITHUB_REF_TYPE" "$GITHUB_REF_NAME" > "$RUNNER_TEMP/what.txt"
+          cat "$RUNNER_TEMP/what.txt" >> "$GITHUB_OUTPUT"
+          . "$RUNNER_TEMP/what.txt"
           echo "Publishing '${version:-nothing}', with the solutions at $solutions."
 
       - name: The figures' repository, without its LFS files
@@ -148,7 +123,7 @@ jobs:
         env:
           PYTHONPATH: tools
         run: |
-          ninja check-sphinx check-wrap check-reading check-keep check-words check-figures
+          ninja check-sphinx check-wrap check-reading check-keep check-words check-figures check-needs
           python tools/answers.py --check
           python tools/cheatsheet.py --check
 
@@ -217,6 +192,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.what.outputs.version }}
+          LATEST: ${{ steps.what.outputs.latest }}
           SOLUTIONS: ${{ steps.what.outputs.solutions }}
         run: |
           # The pages link their figures and videos in media/, beside them.
@@ -232,7 +208,7 @@ jobs:
           } > notes.md
           case "$VERSION" in
             *-*) pre=--prerelease ;;
-            *)   pre= ;;
+            *)   pre=--latest=$LATEST ;;
           esac
           gh release create "$VERSION" "$zipped" \
             --title "$VERSION" $pre --notes-file notes.md

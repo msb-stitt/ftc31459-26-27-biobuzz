@@ -72,6 +72,11 @@ rule cheatsheet
   description = the cheat sheet matches the applied patches
   pool = console
 
+rule needs
+  command = $run check_needs
+  description = each lesson's list of what it needs first is what needs.py apply writes
+  pool = console
+
 build check-sphinx-student: sphinx | source/conf.py
   book = student
   tags =
@@ -89,11 +94,12 @@ build check-figures: figures | tools/check_figures.py tools/bookpaths.py FIGURES
 build check-order: order | tools/check_order.py tools/bookpaths.py
 build check-answers: answers | tools/answers.py tools/applied.py tools/register.py keep.toml
 build check-labels: labels | tools/check_labels.py tools/answers.py tools/applied.py keep.toml
+build check-needs: needs | tools/check_needs.py tools/needs.py needs.toml needs-code.jsonc
 build check-cheatsheet: cheatsheet | tools/cheatsheet.py tools/answers.py tools/applied.py $
     tools/register.py keep.toml
 
 build book: phony check-sphinx check-wrap check-reading check-keep check-words check-figures $
-    check-order check-answers check-labels check-cheatsheet review
+    check-order check-answers check-labels check-cheatsheet check-needs review
 
 default book
 
