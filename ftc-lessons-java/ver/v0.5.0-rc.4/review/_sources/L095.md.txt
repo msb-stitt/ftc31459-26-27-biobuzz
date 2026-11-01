@@ -1,0 +1,244 @@
+# L095
+
+1 file(s) copied, then 10 change(s) in 1 file(s), 64 line(s) of code to write.
+
+## Copies
+
+- `lessons/L095ShapingMenuOpMode.java` to `mytry/L095ShapingMenuOpMode.java`
+
+## L095ShapingMenuOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L095ShapingMenuOpMode.java`
+
+### A change
+
+Delete 5 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -11,11 +11,11 @@
+ // When on L095S020, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s020
+ // for what to do here.
+-//import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
+-//import org.firstinspires.ftc.teamcode.mytry.l093.DriverStationMenu;
+-//import org.firstinspires.ftc.teamcode.mytry.l093.MenuItem;
+-//import org.firstinspires.ftc.teamcode.mytry.l093.MenuRow;
+-//import org.firstinspires.ftc.teamcode.mytry.l093.OptionMenu;
++import org.firstinspires.ftc.teamcode.mytry.l065.StickShaper;
++import org.firstinspires.ftc.teamcode.mytry.l093.DriverStationMenu;
++import org.firstinspires.ftc.teamcode.mytry.l093.MenuItem;
++import org.firstinspires.ftc.teamcode.mytry.l093.MenuRow;
++import org.firstinspires.ftc.teamcode.mytry.l093.OptionMenu;
+ 
+ /**
+  * L095: L090's mecanum drive, with L093's menu choosing the deadband and the
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -34,7 +34,7 @@
+     // When on L095S020, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s020
+     // for what to do here.
+-//    StickShaper stickShaper = new StickShaper(0.05);
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     // When on L095S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s030
+```
+
+### A change
+
+Delete 0 lines, write 12 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -39,6 +39,18 @@
+     // When on L095S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s030
+     // for what to do here.
++    MenuItem band005 = new MenuItem("0.05", "0.05");
++    MenuItem band000 = new MenuItem("0.00", "0.00");
++    MenuItem band0025 = new MenuItem("0.025", "0.025");
++    MenuItem band0075 = new MenuItem("0.075", "0.075");
++    MenuItem band010 = new MenuItem("0.10", "0.10");
++    MenuRow bandRow = new MenuRow("Band");
++    MenuItem squared = new MenuItem("S", "Squared");
++    MenuItem linear = new MenuItem("L", "Linear");
++    MenuItem cubed = new MenuItem("C", "Cubed");
++    MenuRow shapeRow = new MenuRow("Shape");
++    OptionMenu optionMenu = new OptionMenu();
++    DriverStationMenu menu = new DriverStationMenu(optionMenu);
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+     @Override
+```
+
+### A change
+
+Delete 0 lines, write 10 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -65,6 +65,16 @@
+         // When on L095S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s030
+         // for what to do here.
++        bandRow.add(band005);
++        bandRow.add(band000);
++        bandRow.add(band0025);
++        bandRow.add(band0075);
++        bandRow.add(band010);
++        shapeRow.add(squared);
++        shapeRow.add(linear);
++        shapeRow.add(cubed);
++        optionMenu.add(bandRow);
++        optionMenu.add(shapeRow);
+         initAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -85,6 +85,7 @@
+         // When on L095S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s030
+         // for what to do here.
++        menu.loop(gamepad1);
+         initLoopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 30 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -96,6 +96,36 @@
+         // When on L095S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s040
+         // for what to do here.
++        MenuItem band = bandRow.getSelected();
++        Tracker.publish("menu/band", band.getFullName());
++        if (band == band000) {
++            stickShaper.setBand(0.00);
++        }
++        if (band == band0025) {
++            stickShaper.setBand(0.025);
++        }
++        if (band == band005) {
++            stickShaper.setBand(0.05);
++        }
++        if (band == band0075) {
++            stickShaper.setBand(0.075);
++        }
++        if (band == band010) {
++            stickShaper.setBand(0.10);
++        }
++
++        MenuItem shape = shapeRow.getSelected();
++        Tracker.publish("menu/shape", shape.getFullName());
++        if (shape == linear) {
++            stickShaper.setShape(StickShaper.Shape.LINEAR);
++        }
++        if (shape == squared) {
++            stickShaper.setShape(StickShaper.Shape.SQUARED);
++        }
++        if (shape == cubed) {
++            stickShaper.setShape(StickShaper.Shape.CUBED);
++        }
++
+         Command driveFromTheSticksEveryLoop = Commands.infinite(this::driveFromTheSticks);
+         Scheduler.schedule(driveFromTheSticksEveryLoop);
+         startAfter();
+```
+
+### A change
+
+Delete 0 lines, write 2 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -138,6 +138,8 @@
+         // When on L095S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s030
+         // for what to do here.
++        String summary = menu.getSummary();
++        Tracker.printToDs(summary);
+         loopAfter();
+     }
+ 
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -156,7 +156,7 @@
+         // When on L095S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s020
+         // for what to do here.
+-//        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
++        forwardXSpeed = stickShaper.shaped(forwardXSpeed);
+         Tracker.publish("drivetrain/forwardXSpeed", forwardXSpeed);
+         double turnCcwSpeed = -rightStickX;
+         // When on L095S020, see
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -162,7 +162,7 @@
+         // When on L095S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s020
+         // for what to do here.
+-//        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
++        turnCcwSpeed = stickShaper.shaped(turnCcwSpeed);
+         Tracker.publish("drivetrain/turnCcwSpeed", turnCcwSpeed);
+         double strafeYSpeed = -leftStickX;
+         // When on L095S020, see
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -168,7 +168,7 @@
+         // When on L095S020, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l095.html#l095s020
+         // for what to do here.
+-//        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
++        strafeYSpeed = stickShaper.shaped(strafeYSpeed);
+         Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
+ 
+         double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
+```
