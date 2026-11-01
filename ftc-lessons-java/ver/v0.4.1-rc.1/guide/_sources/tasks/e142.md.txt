@@ -1,0 +1,224 @@
+# 142 what's happening: turning the stick into the robot's frame
+
+Here you learn how `cos` and `sin` find the sides of a triangle from one angle. Then you use them
+to turn the stick's arrow on the field into the robot's own forward and strafe. In L140,
+`Math.cos(heading)` and `Math.sin(heading)` do this. That is how the robot drives where the stick
+points, whichever way it faces.
+
+This page takes the three lines you typed in [L140](l140.md) one at a time. It uses the arrows of
+[E141](e141.md). We follow one example all the way: the robot faces 60°, and the stick asks for
+0.64 along the field's x and 0.16 along its y.
+
+```java
+double heading = follower.pose().heading();
+```
+
+Pedro keeps the robot's heading in radians. Draw a circle with a radius of 1. A radian is a
+distance of 1 around its edge. 60° is 1.05 radians, so `heading` holds 1.05.
+
+:::{figure} ../_figures/fig-e142-radian.png
+:name: fig-e142-radian
+:figclass: file-named
+
+fig-e142-radian.png
+:::
+
+Each point on that circle has an x and a y. At 60°, x is cos 60°, which is 0.50, and y is
+sin 60°, which is 0.87. `Math.cos` and `Math.sin` turn an angle into those two numbers.
+
+:::{figure} ../_figures/fig-e142-unit-circle.png
+:name: fig-e142-unit-circle
+:figclass: file-named
+
+fig-e142-unit-circle.png
+:::
+
+The angle can be any size. Past 90°, the point is left of the middle, so its cos is below 0.
+Below the x axis, its sin is below 0. A negative angle turns the other way, clockwise.
+
+:::{figure} ../_figures/fig-e142-quadrants.png
+:name: fig-e142-quadrants
+:figclass: file-named
+
+fig-e142-quadrants.png
+:::
+
+`Math.cos` and `Math.sin` take an angle in radians. People mostly talk in degrees, as this
+page does. Before you hand an angle to `Math.cos`, check which unit it is in. Pedro's heading is
+already in radians.
+
+The same idea finds the sides of any triangle with a square corner. Label the angle you use.
+When the long side is 1, the side next to that angle is its cos, and the side across from it is
+its sin.
+
+:::{figure} ../_figures/fig-e142-unit-triangles.png
+:name: fig-e142-unit-triangles
+:figclass: file-named
+
+fig-e142-unit-triangles.png
+:::
+
+Make the long side k times as long, and every side grows k times. The angle stays the same.
+Triangles with the same angles at different sizes are called **similar triangles**. So the side
+next to the angle is k × cos θ, and the side across from it is k × sin θ. The k only scales the
+length. The cos and the sin come from the angle.
+
+:::{figure} ../_figures/fig-e142-similar.png
+:name: fig-e142-similar
+:figclass: file-named
+
+fig-e142-similar.png
+:::
+
+Turning or flipping a triangle does not change its sides. Find the angle you know. The side next
+to it is k × cos θ, and the side across from it is k × sin θ, whichever way the triangle points.
+
+:::{figure} ../_figures/fig-e142-same-triangle.png
+:name: fig-e142-same-triangle
+:figclass: file-named
+
+fig-e142-same-triangle.png
+:::
+
+The robot's forward points the way its nose does. At heading 60°, that is the arrow
+(cos 60°, sin 60°) on the field. Its left is a quarter turn more, (-sin 60°, cos 60°). Each is
+1 long. The grid is the field's x and y, moved to the robot's center.
+
+:::{figure} ../_figures/fig-e142-robot-axes.png
+:name: fig-e142-robot-axes
+:figclass: file-named
+
+fig-e142-robot-axes.png
+:::
+
+Why is left's angle 60° at field y? Forward's triangle has its 60° at field x.
+
+:::{figure} ../_figures/fig-e142-triangle-turn.png
+:name: fig-e142-triangle-turn
+:figclass: file-named
+
+fig-e142-triangle-turn.png
+:::
+
+Left's triangle is forward's, turned a quarter turn left. Turning keeps every angle and every
+side, so the 60° lands at field y. The side along field y is cos 60°, and the side along
+field x is sin 60°, going the negative way.
+
+:::{figure} ../_figures/fig-e142-triangle-turned.png
+:name: fig-e142-triangle-turned
+:figclass: file-named
+
+fig-e142-triangle-turned.png
+:::
+
+The stick says where to go on the field. After L060's squaring, `fieldXSpeed` is 0.64 and
+`fieldYSpeed` is 0.16, so the stick asks for the arrow (0.64, 0.16) on the field's grid.
+
+:::{figure} ../_figures/fig-e142-stick-field.png
+:name: fig-e142-stick-field
+:figclass: file-named
+
+fig-e142-stick-field.png
+:::
+
+From the Red Alliance Area, that arrow points 0.64 away and 0.16 to the left.
+
+:::{figure} ../_figures/fig-e142-stick-red-3d.png
+:name: fig-e142-stick-red-3d
+:figclass: file-named
+
+fig-e142-stick-red-3d.png
+:::
+
+```java
+double robotForwardXSpeed = fieldXSpeed * Math.cos(heading) + fieldYSpeed * Math.sin(heading);
+double robotStrafeYSpeed = -fieldXSpeed * Math.sin(heading) + fieldYSpeed * Math.cos(heading);
+```
+
+The robot can't drive along the field's x. It drives along its own forward and its own left. So
+we break the field's (0.64, 0) into a piece along each. It is forward's 60° triangle with
+k = 0.64: 0.64 × cos 60° = 0.32 forward, and -0.64 × sin 60° = -0.55 left. End to end, they
+reach the same tip. Now the grid is the robot's.
+
+:::{figure} ../_figures/fig-e142-forward-split.png
+:name: fig-e142-forward-split
+:figclass: file-named
+
+fig-e142-forward-split.png
+:::
+
+We do the same for (0, 0.16). It is left's triangle, its 60° at field y, with k = 0.16:
+0.16 × sin 60° = 0.14 forward, and 0.16 × cos 60° = 0.08 left.
+This picture is drawn 3 times as large, grid and all, so the pieces show.
+
+:::{figure} ../_figures/fig-e142-strafe-split.png
+:name: fig-e142-strafe-split
+:figclass: file-named
+
+fig-e142-strafe-split.png
+:::
+
+Now there are four pieces. End to end, they reach the stick's tip. Arrows add in any order, so
+we swap the middle two.
+
+:::{figure} ../_figures/fig-e142-regroup.png
+:name: fig-e142-regroup
+:figclass: file-named
+
+fig-e142-regroup.png
+:::
+
+Each number came from `fieldXSpeed` or `fieldYSpeed` and the heading. 0.32 is `fieldXSpeed` × cos θ,
+where θ is the heading.
+
+:::{figure} ../_figures/fig-e142-regroup-formula.png
+:name: fig-e142-regroup-formula
+:figclass: file-named
+
+fig-e142-regroup-formula.png
+:::
+
+Both forward pieces come first now, then both left pieces. They still reach the same tip.
+
+:::{figure} ../_figures/fig-e142-regrouped.png
+:name: fig-e142-regrouped
+:figclass: file-named
+
+fig-e142-regrouped.png
+:::
+
+The same four pieces, each with what makes it:
+
+:::{figure} ../_figures/fig-e142-regrouped-formula.png
+:name: fig-e142-regrouped-formula
+:figclass: file-named
+
+fig-e142-regrouped-formula.png
+:::
+
+Add the forward pieces: 0.32 + 0.14 = 0.46. That is `robotForwardXSpeed`. Add the left
+pieces: -0.55 + 0.08 = -0.47. That is `robotStrafeYSpeed`. The robot drives (0.46, -0.47) in its own
+frame, and goes where the stick points on the field.
+
+:::{figure} ../_figures/fig-e142-add.png
+:name: fig-e142-add
+:figclass: file-named
+
+fig-e142-add.png
+:::
+
+Write each sum with what makes it, in place of its numbers, and you have the two lines.
+
+:::{figure} ../_figures/fig-e142-add-formula.png
+:name: fig-e142-add-formula
+:figclass: file-named
+
+fig-e142-add-formula.png
+:::
+
+```java
+drivetrain.sticks(robotForwardXSpeed, robotStrafeYSpeed, turnCcwSpeed);
+```
+
+The drivetrain gets the robot's own forward and strafe, and drives them.
+[E143](e143.md) shows where the field's x and y are from each Alliance Area.

@@ -1,0 +1,40 @@
+/* The file a Java block goes in, as its caption, in a grey tab on the block's top edge; and a
+   figure's file name, as its caption, small at the right. book/WRITING.md holds the rules. */
+.literal-block-wrapper {
+    margin: 1em 0;
+}
+.literal-block-wrapper .code-block-caption {
+    display: block;
+    width: fit-content;
+    margin: 0;
+    padding: 0.15em 0.7em;
+    font: 600 0.78em/1.6 var(--font-stack--monospace);
+    text-align: left;
+    background: #d5d9de;
+    color: #2b3036;
+    border-radius: 0.35em 0.35em 0 0;
+}
+.literal-block-wrapper .code-block-caption + div[class^="highlight"],
+.literal-block-wrapper .code-block-caption + div[class^="highlight"] pre {
+    margin-top: 0;
+    border-top-left-radius: 0;
+}
+body[data-theme="dark"] .literal-block-wrapper .code-block-caption {
+    background: #3b4148;
+    color: #e3e6e9;
+}
+@media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) .literal-block-wrapper .code-block-caption {
+        background: #3b4148;
+        color: #e3e6e9;
+    }
+}
+figure.file-named figcaption {
+    margin-top: 0.25em;
+    text-align: right;
+    font: 0.72em var(--font-stack--monospace);
+    color: var(--color-foreground-muted);
+}
+figure.file-named figcaption p {
+    margin: 0;
+}

@@ -1,0 +1,71 @@
+# L090
+
+1 file(s) copied, then 2 change(s) in 1 file(s), 28 line(s) of code to write.
+
+## Copies
+
+- `lessons/L090MecanumOpMode.java` to `mytry/L090MecanumOpMode.java`
+
+## L090MecanumOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L090MecanumOpMode.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -81,6 +81,9 @@
+         // When on L090S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s030
+         // for what to do here.
++        double strafeYSpeed = -leftStickX;
++        strafeYSpeed = speedShaped(strafeYSpeed, bandToSetToZero);
++        Tracker.publish("drivetrain/strafeYSpeed", strafeYSpeed);
+ 
+         // When on L090S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
+```
+
+### A change
+
+Delete 0 lines, write 25 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -88,6 +88,31 @@
+         // When on L090S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l090.html#l090s040
+         // for what to do here.
++        double fl_mixedSpeed = forwardXSpeed - strafeYSpeed - turnCcwSpeed;
++        double fr_mixedSpeed = forwardXSpeed + strafeYSpeed + turnCcwSpeed;
++        double bl_mixedSpeed = forwardXSpeed + strafeYSpeed - turnCcwSpeed;
++        double br_mixedSpeed = forwardXSpeed - strafeYSpeed + turnCcwSpeed;
++        double fl_size = Math.abs(fl_mixedSpeed);
++        double fr_size = Math.abs(fr_mixedSpeed);
++        double bl_size = Math.abs(bl_mixedSpeed);
++        double br_size = Math.abs(br_mixedSpeed);
++        double biggest = Math.max(fl_size, fr_size);
++        biggest = Math.max(biggest, bl_size);
++        biggest = Math.max(biggest, br_size);
++        double biggestOrOne = Math.max(1.0, biggest);
++        double fl_speed = fl_mixedSpeed / biggestOrOne;
++        double fr_speed = fr_mixedSpeed / biggestOrOne;
++        double bl_speed = bl_mixedSpeed / biggestOrOne;
++        double br_speed = br_mixedSpeed / biggestOrOne;
++        Tracker.publish("drivetrain/fl_speed", fl_speed);
++        Tracker.publish("drivetrain/fr_speed", fr_speed);
++        Tracker.publish("drivetrain/bl_speed", bl_speed);
++        Tracker.publish("drivetrain/br_speed", br_speed);
++
++        hardware.frontLeft.setPower(fl_speed);
++        hardware.frontRight.setPower(fr_speed);
++        hardware.backLeft.setPower(bl_speed);
++        hardware.backRight.setPower(br_speed);
+     }
+ 
+     // 'public' to match the parent class. 'public' allows access from any code.
+```
