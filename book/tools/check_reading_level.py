@@ -23,6 +23,11 @@ MIN_WORDS = 20
 # Scoring code for reading level measures nothing.
 GENERATED = "source/r950/"
 
+# A lesson's list of what it needs first is page titles, written by tools/needs.py between these
+# markers; each title is scored on its own page.
+NEEDS_START = "<!-- needs:"
+NEEDS_END = "<!-- /needs -->"
+
 # Code, emphasis, link targets, and MyST substitutions such as {{ lessons }}, which conf.py fills.
 MARKUP = re.compile(r"(``?[^`]*``?|\*\*?|__?|\[|\]\([^)]*\)|\{\{[^}]*\}\})")
 DIRECTIVE = re.compile(r"^\s*(:{3,}|`{3,}|:[a-z_]+:|\{[a-z]+\}|#|\||-{3,})")
@@ -34,7 +39,13 @@ def paragraphs(path):
     buf: list[str] = []
     start = 1
     in_fence = False
+    in_needs = False
     for n, line in enumerate(lines, start=1):
+        if line.strip().startswith(NEEDS_START):
+            in_needs = True
+        if in_needs:
+            in_needs = line.strip() != NEEDS_END
+            continue
         if line.lstrip().startswith("```") or line.lstrip().startswith(":::"):
             in_fence = not in_fence
             continue

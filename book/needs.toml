@@ -1,0 +1,117 @@
+# The needs crosscheck cannot find, because no build, test or patch shows them, kept by hand.
+#
+# A table per lesson; a key per page that lesson needs finished; its value says why, starting
+# with its kind:
+#   setup: the laptop or project the lesson works in.
+#   skill: a step does a thing "as in" an earlier lesson, which teaches it.
+#   robot: the robot is in a state an earlier lesson leaves it in.
+# Teaching order is not a need, nor a back-reference to an idea. tools/needs.py adds
+# needs-code.jsonc's code needs, takes the whole chain, and writes each lesson's list; run
+# `python tools/run.py needs apply` after a change here. Read from v0.5.0's pages, 2026-11-01.
+
+[l020]
+b010 = "setup: Android Studio has the project open."
+h017 = "setup: the student can open, close and resize Android Studio's panes."
+
+# Each lesson with code copies a starter into mytry, runs the simulator and connects AdvantageScope,
+# which L020 teaches.
+[l030]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+[l040]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+
+[l050]
+l020 = "skill: copy a starter into mytry."
+l045 = "robot: the robot's configuration has the names the code asks for."
+
+# From L060 on, a last step drives the robot, whose motor directions L050S070 sets.
+[l060]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+[l065]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+[l070]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+[l080]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+[l090]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l050 = "robot: the robot on blocks, as in L050, with its motor directions set."
+[l093]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+[l095]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+[l110]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+
+[l113]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l050 = "robot: the robot on blocks, as in L050, with its motor directions set."
+l110 = "robot: L110 hands the follower the real drivetrain, which L113 onwards need (l110.md)."
+
+[l115]
+l110 = "robot: L115's steps run `L110 Follower` on the robot (l115.md)."
+
+[l117]
+l115 = "robot: the Pinpoint and its two pods are mounted and plugged in."
+l050 = "robot: L050S070 sets each motor's direction."
+
+[l120]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l113 = "skill: import a class with Option+Enter, as in L113S030 (l120.md)."
+l117 = "robot: the robot's own file in the `pedro` folder holds its `localizerConfig`."
+
+# The autos follow paths with Pedro's tuning, which L117 measures.
+[l125]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: Pedro tuned, so the auto drives straight."
+[l130]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: Pedro tuned, so the auto follows its path."
+l125 = "skill: import a class with Option+Enter, as in L125 (l130.md)."
+
+[l131]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l113 = "robot: the robot's own file holds the ticks per inch and turn radius from its parts."
+l117 = "robot: the Pinpoint is mounted and its offsets set, and this measurement believes it."
+
+[l132]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: the Pinpoint is on the robot and tuned."
+
+[l135]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: Pedro tuned, so the chosen auto follows its path."
+
+[l140]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l115 = "robot: field-relative driving turns the sticks by the Pinpoint's heading."
+l135 = "skill: run the simulator with `--init`, as in L135 (l140.md)."
+[l150]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l140 = "skill: L150 adds a bumper to L140's field-relative driving, \"the way L140 left them\" (l150.md)."
+
+[l153]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: Pedro tuned and the Pinpoint on the robot."
+[l157]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l153 = "robot: the robot's own file holds its kS and kV."
+
+[l160]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l113 = "skill: import a class with Option+Enter, as in L113 (l160.md)."
+l117 = "robot: `HeadingHold` takes the follower's tuned `headingFeedback` (l160.md)."
+[l170]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: `follower.hold` drives to the target with Pedro's tuning."
+[l180]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l117 = "robot: the follower holds and turns with Pedro's tuning."
+[l190]
+l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+l131 = "robot: the robot's own file holds its ticks per inch and turn radius."
+l153 = "robot: the robot's own file holds its kS and kV."

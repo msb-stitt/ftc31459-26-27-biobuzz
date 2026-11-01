@@ -52,6 +52,12 @@ to one how-to per computer, H011 to H013.
 `.docs/2026-10-03-two-books.md`:
 
 - **A picture of what you will have**, first, with one sentence about the robot, not the code.
+- **Before you start**, after it: the pages this one needs finished, then what the lesson needs at
+  hand, such as a gamepad, the robot or clear floor, as bullets written by hand. The list of pages
+  is written by `tools/needs.py` between its markers, from what the code needs and from
+  `needs.toml`; edit `needs.toml` and run `python tools/run.py needs apply`, never the list.
+  `RELEASING.md`'s *A lesson's needs* says how. What an earlier lesson leaves, such as the class
+  `mytry` holds, is mentor-only, under **What the lessons before leave.**
 - **The steps**, each a `### L020S010: read the left stick` heading, counting by 10s. A step is one
   change to the code, then tried everywhere it runs, in this order, leaving out a part the step
   does not need:
@@ -110,8 +116,6 @@ The PDF does not show the space. Every other list stays close. The sources:
 
 **What only the mentor book shows**, each in a `{only} mentor` block that leads with bold text:
 
-- **Before you start**: the lessons this one needs finished, and the state the robot has to be in.
-  A mentor reads it to bring back a student who missed a session.
 - **If it didn't**: under a check, only where a failure was seen, written as *Write the check
   from a failure somebody saw* says.
 - **What you just did**: one paragraph of theory.

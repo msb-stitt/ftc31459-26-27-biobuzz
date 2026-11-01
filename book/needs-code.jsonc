@@ -1,0 +1,62 @@
+// Written by book/tools/needs.py check on 2026-11-01, from tools/crosscheck.py solutions-e111.2 solutions-e111.2 --one-way.
+// solutions, commit: the solutions ref crosscheck ran on, and its commit.
+// lessons: each lesson, in the solutions' order, and the earlier lessons its code needs,
+//   directly or through another, as crosscheck found them from build, test and patch
+//   errors. Needs that are not code are in needs.toml.
+{
+  "solutions": "solutions-e111.2",
+  "commit": "20f94293ccd7368a78713d094582d009d363af3e",
+  "lessons": {
+    "l020": [],
+    "l030": [],
+    "l040": [],
+    "l050": [],
+    "l060": [],
+    "l065": [],
+    "l070": [
+      "l065"
+    ],
+    "l080": [
+      "l065"
+    ],
+    "l090": [
+      "l065"
+    ],
+    "l093": [],
+    "l095": [
+      "l065",
+      "l093"
+    ],
+    "l110": [
+      "l065"
+    ],
+    "l113": [],
+    "l120": [],
+    "l125": [],
+    "l130": [],
+    "l131": [],
+    "l132": [
+      "l113",
+      "l120"
+    ],
+    "l135": [
+      "l093"
+    ],
+    "l140": [
+      "l093"
+    ],
+    "l150": [],
+    "l153": [],
+    "l157": [
+      "l065"
+    ],
+    "l160": [],
+    "l170": [],
+    "l180": [
+      "l113",
+      "l120",
+      "l132"
+    ],
+    "l190": []
+  }
+}

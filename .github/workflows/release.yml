@@ -123,7 +123,7 @@ jobs:
         env:
           PYTHONPATH: tools
         run: |
-          ninja check-sphinx check-wrap check-reading check-keep check-words check-figures
+          ninja check-sphinx check-wrap check-reading check-keep check-words check-figures check-needs
           python tools/answers.py --check
           python tools/cheatsheet.py --check
 
