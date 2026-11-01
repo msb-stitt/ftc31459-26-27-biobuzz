@@ -6,8 +6,9 @@ on a `lessons-X` branch, with its answers on a `solutions-X` branch beside it. L
 solutions; solutions never merge into lessons.
 
 A finished round merges into `dev`, and every push to `dev` publishes the books at
-<https://coding.stitt.cc/ftc-lessons-java/ver/dev/>. A release fast-forwards `main` to a commit
-of `dev` and tags it there. A push to `main` publishes nothing.
+<https://coding.stitt.cc/ftc-lessons-java/ver/dev/>. A release is tagged on a release line: `dev`,
+`main`, or a branch `release-X.Y` for fixes to an older release, as
+[Making a release](#making-a-release) says. A push to `main` publishes nothing.
 
 `keep.toml` is changed with `tools/pin.py`, not by hand. While a lesson is worked on it names the
 solutions branch, so the tools read its tip, and its `[media]` follows the corbels-lfs-lessons
@@ -100,16 +101,34 @@ cd ../corbels-lfs-lessons && git lfs install --local && git checkout <the [media
 - Take any new screenshots into corbels-lfs-lessons' `figures/` first, and run
   [`ninja publish-check`](#building-what-a-release-publishes), which fails on a figure still
   missing.
-- Try it as a pre-release: tag a commit of `dev` `vX.Y.Z-rc.N` and push the tag. It gets its own
-  folder on the site, `ver/vX.Y.Z-rc.N/`, and a GitHub pre-release. The run
-  stops if the tag is not on `dev`, or if `keep.toml` names a solutions branch.
-- Release it: fast-forward `main` to that commit, push `main`, then tag `main`'s head `vX.Y.Z` and
-  push the tag. The run stops unless the tag is at `main`'s head and on `dev`.
+- Try it as a pre-release: tag a commit of a release line `vX.Y.Z-rc.N` and push the tag. It gets
+  its own folder on the site, `ver/vX.Y.Z-rc.N/`, and a GitHub pre-release. The run stops if the
+  tag is on no release line, or if `keep.toml` names a solutions branch.
+- Release it from `dev`: fast-forward `main` to that commit, push `main`, then tag `main`'s head
+  `vX.Y.Z` and push the tag. The run stops unless the tag is at the head of `main` or of
+  `release-X.Y`.
 
   ```
   git switch main && git merge --ff-only <the commit> && git push origin main
   git tag -a vX.Y.Z -m "<what is new>" && git push origin vX.Y.Z
   ```
+
+- Release a fix to what `main` holds without `dev`: commit it on `main`, try it as `vX.Y.Z-rc.N`,
+  and tag `main`'s head `vX.Y.Z`. Then merge `main` into `dev`, so `main` fast-forwards to `dev`
+  at the next release.
+- Release a fix to an older release `vX.Y.0` from a branch `release-X.Y`, cut at its tag the first
+  time and pushed: commit the fix there, try it as `vX.Y.Z-rc.N`, and tag the branch's head
+  `vX.Y.Z`. `main` and `dev` stay where they are; a fix `dev` also wants is made there too.
+
+  ```
+  git switch -c release-0.4 v0.4.0 && git push origin release-0.4
+  ```
+
+- A release older than the newest `vX.Y.Z` is not GitHub's Latest. The site's own front page
+  leads to the highest version whatever order they are made in.
+- `tools/release.py` makes these checks for `release.yml`, and runs here too, on a tag made but
+  not yet pushed: `python3 tools/release.py tag vX.Y.Z --branches refs/remotes/origin` prints what
+  the run would publish or why it would stop. `python3 tools/test_release.py` tries each rule.
 
 - [`release.yml`](.github/workflows/release.yml) publishes each version on coding.stitt.cc at
   `/ftc-lessons-java/ver/<version>/`, through the branch `site`, which holds every version's pages
