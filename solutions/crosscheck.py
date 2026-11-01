@@ -4,8 +4,17 @@ Try one release's lesson answers on another release's code, a lesson at a time, 
 
     python3 solutions/crosscheck.py v0.4.0 v0.5.0-rc.3
     python3 solutions/crosscheck.py v0.4.0 v0.5.0-rc.3 --only l120
+    python3 solutions/crosscheck.py v0.5.0-rc.3 v0.5.0-rc.3 --one-way
 
-Each argument is a release tag, whose book/keep.toml names its solutions tag, or a solutions ref.
+Each argument is any ref or commit hash. One that holds solutions/order is used as it is; one that
+does not, such as a release tag or a commit on dev, is followed to the solutions ref its
+book/keep.toml names. --one-way runs only the first's answers on the second's code. A release run
+against itself with --one-way lists the earlier lessons each lesson needs.
+
+The lists are printed, and written under --out, by default crosscheck-<first>-<second>/: report.md,
+and for each direction run <source>-on-<base>.jsonc, whose opening comments say what each field
+holds.
+
 For each direction, the answers' release is the source and the other is the base. A worktree of the
 base's solutions ref is the base code, with none of its own answers applied. Each source lesson is
 tried by itself: its copies and patches, then the base's tests for that lesson, as the base's
@@ -22,6 +31,8 @@ so nothing is discarded. The worktree is removed at the end unless --keep is giv
 """
 
 import argparse
+import datetime
+import json
 import re
 import shutil
 import subprocess
@@ -34,7 +45,10 @@ from apply import PACKAGE, RESULTS, TEAMCODE, TESTCODE, Stop, copy, run, steps
 
 
 def solutions_ref(home: Path, name: str) -> str:
-    """The solutions ref a release tag's keep.toml names, or the name itself."""
+    """The name itself when it holds solutions/order, or else the solutions ref its keep.toml
+    names."""
+    if run(home, "git", "cat-file", "-e", f"{name}:solutions/order").returncode == 0:
+        return name
     keep = run(home, "git", "show", f"{name}:book/keep.toml")
     found = re.search(r'^solutions = "([^"]+)"', keep.stdout, re.M) if keep.returncode == 0 else None
     return found.group(1) if found else name
@@ -180,7 +194,8 @@ def try_lesson(source: Path, tree: Path, base: str, lesson: str, needed: list[st
     return True, [f"{len(cases)} test(s)"], ""
 
 
-def direction(home: Path, src_ref: str, base_ref: str, only: list[str], keep: bool) -> list[str]:
+def direction(home: Path, src_ref: str, base_ref: str, only: list[str], keep: bool) -> list[dict]:
+    """Each source lesson tried on the base code: lesson, result, needs, tests, reason, details."""
     work = Path(tempfile.mkdtemp(prefix="crosscheck-"))
     source = work / "source"
     source.mkdir()
@@ -194,65 +209,154 @@ def direction(home: Path, src_ref: str, base_ref: str, only: list[str], keep: bo
         shutil.copy(home / "local.properties", tree / "local.properties")
     base = run(tree, "git", "rev-parse", "HEAD").stdout.strip()
     base_order = (tree / "solutions" / "order").read_text().split()
-    lines, passed, tried = [], 0, 0
+    results: list[dict] = []
     known: dict[str, list[str]] = {}
     try:
         for i, lesson in enumerate(order):
             if only and lesson not in only:
                 continue
-            tried += 1
             if lesson not in base_order:
-                lines.append(f"  FAIL  {lesson}: not in the other order")
-                print(lines[-1], flush=True)
-                continue
-            needed: list[str] = []
-            while True:
-                ok, detail, text = try_lesson(source, tree, base, lesson, needed)
-                if ok:
-                    break
-                more = explaining(text, [e for e in order[:i] if e not in needed], files)
-                if more is None:
-                    break
-                adding = {more, *known.get(more, [])}
-                needed = [e for e in order[:i] if e in needed or e in adding]
-            need = f", needing {', '.join(needed)}" if needed else ""
-            if ok:
-                known[lesson] = needed
-                passed += 1
-                out = [f"  pass  {lesson}{need}: {detail[0]}"]
+                result = {"lesson": lesson, "result": "fail", "needs": [], "tests": 0,
+                          "reason": "not in the other order", "details": []}
             else:
-                out = [f"  FAIL  {lesson}{need}: {detail[0]}"]
-                out += [f"          {d}" for d in detail[1:]]
-            lines += out
-            print("\n".join(out), flush=True)
+                needed: list[str] = []
+                while True:
+                    ok, detail, text = try_lesson(source, tree, base, lesson, needed)
+                    if ok:
+                        break
+                    more = explaining(text, [e for e in order[:i] if e not in needed], files)
+                    if more is None:
+                        break
+                    adding = {more, *known.get(more, [])}
+                    needed = [e for e in order[:i] if e in needed or e in adding]
+                if ok:
+                    known[lesson] = needed
+                    result = {"lesson": lesson, "result": "pass", "needs": needed,
+                              "tests": int(detail[0].split()[0]), "reason": None, "details": []}
+                else:
+                    result = {"lesson": lesson, "result": "fail", "needs": needed, "tests": 0,
+                              "reason": detail[0].splitlines()[0],
+                              "details": detail[0].splitlines()[1:] + detail[1:]}
+            results.append(result)
+            print("\n".join(printed(result)), flush=True)
     finally:
         if keep:
             print(f"worktree left at {tree}")
         else:
             run(home, "git", "worktree", "remove", "--force", str(tree))
             shutil.rmtree(work, ignore_errors=True)
-    lines.append(f"{passed} of {tried} pass")
-    print(lines[-1], flush=True)
-    return lines
+    print(count(results), flush=True)
+    return results
+
+
+def printed(r: dict) -> list[str]:
+    need = f", needing {', '.join(r['needs'])}" if r["needs"] else ""
+    if r["result"] == "pass":
+        return [f"  pass  {r['lesson']}{need}: {r['tests']} test(s)"]
+    return [f"  FAIL  {r['lesson']}{need}: {r['reason']}"] + [f"          {d}" for d in r["details"]]
+
+
+def count(results: list[dict]) -> str:
+    return f"{sum(r['result'] == 'pass' for r in results)} of {len(results)} pass"
+
+
+def cell(text: str) -> str:
+    return text.replace("|", "\\|").replace("\n", " ")
+
+
+def report(runs: list[dict], command: str) -> str:
+    out = ["# Crosscheck", "", f"`{command}`, run {runs[0]['date']}.", ""]
+    for d in runs:
+        s, b = d["source"], d["base"]
+        out += [f"## {s['name']}'s answers on {b['name']}'s code", "",
+                f"`{s['solutions']}` at `{s['commit'][:8]}` on `{b['solutions']}` at "
+                f"`{b['commit'][:8]}`: {count(d['results'])}.", "",
+                "| Lesson | Result | Needs | Reason |", "| --- | --- | --- | --- |"]
+        for r in d["results"]:
+            reason = r["reason"] or ""
+            if reason.endswith(":") and r["details"]:
+                reason += " " + r["details"][0]
+            out.append(f"| {r['lesson']} | {r['result']} | {', '.join(r['needs'])} | "
+                       f"{cell(reason)} |")
+        out.append("")
+    return "\n".join(out)
+
+
+def chains(d: dict, command: str) -> str:
+    head = f"""// Made by solutions/crosscheck.py on {d['date']}: {command}
+// {d['source']['name']}'s lesson answers, each tried by itself on {d['base']['name']}'s code with
+// that code's own tests for the lesson.
+//
+// source, base: each release's name as given, the solutions ref used, and its commit.
+// lessons: one entry a lesson, in the source's order.
+//   result: "pass" or "fail".
+//   needs: the earlier source lessons this one needed, directly or through another, in lesson
+//     order. It holds only what a build error, a test failure or a patch that did not apply
+//     named, by file, class or package; a dependency that is not code is not here.
+//   tests: how many of the base's test cases ran and passed; 0 for a failure.
+//   reason: for a failure, its first line; null for a pass.
+//   details: for a failure, the test cases that failed, or the build or patch errors.
+"""
+    body = {"source": d["source"], "base": d["base"],
+            "lessons": {r["lesson"]: {k: r[k] for k in ("result", "needs", "tests", "reason",
+                                                        "details")}
+                        for r in d["results"]}}
+    return head + json.dumps(body, indent=2) + "\n"
+
+
+def safe(name: str) -> str:
+    return re.sub(r"[^\w.-]", "_", name)
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[1])
-    ap.add_argument("older", help="a release tag or solutions ref")
-    ap.add_argument("newer", help="a release tag or solutions ref")
+    ap.add_argument("first", help="a ref or commit hash")
+    ap.add_argument("second", help="a ref or commit hash")
+    ap.add_argument("--one-way", action="store_true",
+                    help="run only the first's answers on the second's code")
     ap.add_argument("--only", action="append", default=[],
                     help="try only this lesson, as order names it; may be given again")
+    ap.add_argument("--out", type=Path,
+                    help="where report.md and the .jsonc files go; crosscheck-<first>-<second>/")
     ap.add_argument("--keep", action="store_true", help="leave each worktree in place")
     args = ap.parse_args()
     home = Path(run(Path.cwd(), "git", "rev-parse", "--show-toplevel").stdout.strip())
-    refs = {name: solutions_ref(home, name) for name in (args.older, args.newer)}
+    out = args.out or Path(f"crosscheck-{safe(args.first)}-{safe(args.second)}")
+    # --out is left out of the command written to the files, since its path can name the computer's
+    # user.
+    shown = [a for a in (args.first, args.second) if a]
+    shown += ["--one-way"] if args.one_way else []
+    shown += [f"--only {lesson}" for lesson in args.only]
+    command = "python3 solutions/crosscheck.py " + " ".join(shown)
+    date = datetime.date.today().isoformat()
+    pairs = [(args.first, args.second)]
+    if not args.one_way:
+        pairs.append((args.second, args.first))
+    runs = []
     try:
-        for src, base in ((args.older, args.newer), (args.newer, args.older)):
-            print(f"{src}'s answers on {base}'s code ({refs[src]} on {refs[base]}):", flush=True)
-            direction(home, refs[src], refs[base], args.only, args.keep)
+        side = {}
+        for name in (args.first, args.second):
+            ref = solutions_ref(home, name)
+            commit = run(home, "git", "rev-parse", f"{ref}^{{commit}}").stdout.strip()
+            if not commit:
+                raise Stop(f"no commit for {ref}")
+            side[name] = {"name": name, "solutions": ref, "commit": commit}
+        for src, base in pairs:
+            print(f"{src}'s answers on {base}'s code ({side[src]['solutions']} on "
+                  f"{side[base]['solutions']}):", flush=True)
+            results = direction(home, side[src]["commit"], side[base]["commit"], args.only,
+                                args.keep)
+            runs.append({"source": side[src], "base": side[base], "date": date,
+                         "results": results})
     except Stop as e:
         print(f"stopped: {e}")
         return 1
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "report.md").write_text(report(runs, command))
+    for d in runs:
+        name = f"{safe(d['source']['name'])}-on-{safe(d['base']['name'])}.jsonc"
+        (out / name).write_text(chains(d, command))
+    print(f"wrote {out}/")
     return 0
 
 
