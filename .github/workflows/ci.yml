@@ -88,7 +88,7 @@ jobs:
           python - <<'EOF'
           import importlib.util
           from pathlib import Path
-          spec = importlib.util.spec_from_file_location("apply", "solutions/apply.py")
+          spec = importlib.util.spec_from_file_location("apply", "tools/apply.py")
           apply = importlib.util.module_from_spec(spec)
           spec.loader.exec_module(apply)
           tree = Path.cwd()

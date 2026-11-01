@@ -1,8 +1,8 @@
 """What applying solutions/ does to mytry, lesson by lesson.
 
 The patches, and the order a student meets them in, live on the solutions line
-in solutions/. This checks that line out into a throwaway worktree, runs that
-line's own solutions/apply.py there one step at a time, and keeps each patched
+in solutions/. This checks that line out into a throwaway worktree, runs this
+checkout's tools/apply.py there one step at a time, and keeps each patched
 file as it was just before and just after each patch. The answer pages and the
 cheat sheet are built from that, so they say what applying the patches does, in
 order, and cannot disagree with the tool that tests the patches.
@@ -58,8 +58,8 @@ def apply_all(ref: str) -> tuple[list[Patched], dict[str, list[str]], list[Copie
     tree = Path(tempfile.mkdtemp(prefix="applied-"))
     _git("worktree", "add", "--detach", str(tree), ref)
     try:
-        spec = importlib.util.spec_from_file_location("solutions_apply",
-                                                      tree / "solutions" / "apply.py")
+        spec = importlib.util.spec_from_file_location("apply",
+                                                      book_root().parent / "tools" / "apply.py")
         apply = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(apply)
         patched = []

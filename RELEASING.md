@@ -34,6 +34,42 @@ pages stay those of one commit of each.
 - Merge to `dev`. CI fails on `dev` and `main` when `keep.toml` names anything but a solutions tag
   and a media commit. Look at `ver/dev/` on the site after the push.
 
+## Applying and crosschecking the answers
+
+The answers live on the solutions line in `solutions/`: `order` lists the lesson folders in the
+order a student meets them, and each folder's `steps` file says what that lesson copies, patches
+and tests, with its patches beside it. The tools that apply them live here, in `tools/`, and read
+`solutions/` from the ref they are given, so they run from `dev` or a lessons branch.
+
+`tools/apply.py` applies `order` up to a named lesson in a fresh worktree of the solutions ref
+`book/keep.toml` names, or of `--ref`, and runs that lesson's tests. `--every` runs every lesson's
+tests so far after each lesson; `--unpatched` leaves the last lesson's patches out, to see its
+tests fail. Its opening comment says what a step line holds.
+
+```
+python3 tools/apply.py l190 --every --ref solutions-e111
+```
+
+A patch is made in a kept worktree: `tools/apply.py LESSON --copies-only` stops after the lesson's
+copies and prints where it left the worktree. Write the lesson's solution there, run `git diff`
+from its root, and save what it prints as `solutions/LESSON/NAME.patch` on the solutions branch.
+
+`tools/crosscheck.py` tries one release's answers on another release's code, a lesson at a time,
+both ways, and lists each lesson as passing or failing and which earlier lessons it needed. It
+takes any ref or commit hash, and writes `report.md` and a `.jsonc` of each lesson's chain for each
+direction. Its opening comment says how a lesson is tried, how the earlier lessons are found, and
+where the files go.
+
+```
+python3 tools/crosscheck.py v0.4.0 v0.5.0-rc.3
+```
+
+A release run against itself, one way, lists the earlier lessons each lesson needs:
+
+```
+python3 tools/crosscheck.py v0.5.0-rc.3 v0.5.0-rc.3 --one-way
+```
+
 ## Building what a release publishes
 
 ```
