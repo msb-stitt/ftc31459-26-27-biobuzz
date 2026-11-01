@@ -10,14 +10,24 @@ fig-wheel-forward.png
 Tell each motor which way it is mounted. Then run tank drive on the robot, up on blocks, and check
 that every wheel turns the way its stick says.
 
-::::{only} mentor
 **Before you start.**
 
-- L040 is done, so `mytry` holds `L040TankOpMode`.
-- L045 is done, so the robot's configuration has the names the code asks for.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+<!-- /needs -->
+
 - A robot, a Driver Station with a gamepad, and a USB cable from the laptop to the Control Hub.
 - Two blocks to rest the robot on, so no wheel touches the ground, and about 2 m of clear floor
   for the last step.
+
+::::{only} mentor
+**What the lessons before leave.** `mytry` holds `L040TankOpMode`, and the robot's configuration has
+the names the code asks for.
 ::::
 
 ## the steps

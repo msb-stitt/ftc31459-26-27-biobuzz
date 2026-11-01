@@ -12,16 +12,32 @@ an inch, and the turn radius. Now the robot measures the same two numbers while 
 spin it by hand. Where a measured number differs from the worked-out one, the measured one goes in
 the robot's own file.
 
-::::{only} mentor
 **Before you start.**
 
-- L130 is done, and L113, so the robot's own file holds the ticks per inch and the turn radius
-  worked out from its parts.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+- [L110](l110.md), connect the drivetrain to the follower, with no path yet
+- [L113](l113.md), work out where the robot is from the drive wheels
+- [L115](l115.md), mount the Pinpoint and plug it in
+- [L117](l117.md), let AutoTune tune the robot
+<!-- /needs -->
+
 - The Pinpoint is mounted, as in L115, and its offsets set, as in L117, because this measurement
   believes it.
 - AdvantageScope is installed on the same laptop.
 - The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
   the robot on the spot.
+
+::::{only} mentor
+**What the lessons before leave.** The robot's own file holds the ticks per inch and the turn radius
+worked out from its parts.
 ::::
 
 ## the steps

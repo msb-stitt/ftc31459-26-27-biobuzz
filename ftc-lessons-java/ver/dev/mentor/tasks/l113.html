@@ -373,12 +373,24 @@
 <p>Your own localizer runs beside the robot’s own, and both are published so they can be graphed
 against each other. Yours counts how far the four drive wheels roll. A tape measure checks it.</p>
 <p><strong>Before you start.</strong></p>
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+<p>Finish these first:</p>
 <ul class="simple">
-<li><p>L110 is done, so the follower holds a real drivetrain.</p></li>
+<li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
+<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
+<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
+<li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
+<li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
+<li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
+<li><p><a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a>, connect the drivetrain to the follower, with no path yet</p></li>
+</ul>
+<!-- /needs -->
+<ul class="simple">
 <li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
 <li><p>The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
 for the last step.</p></li>
 </ul>
+<p><strong>What the lessons before leave.</strong> The follower holds a real drivetrain.</p>
 <p>The simulator turns each wheel’s encoder by how far the wheel rolls, at <code class="docutils literal notranslate"><span class="pre">Constants.ticksPerInch</span></code>,
 and turns the IMU with the robot. It has no slip, so a finished localizer follows the simulator’s
 own localizer there more closely than it will on the robot. The tests check the arithmetic step by

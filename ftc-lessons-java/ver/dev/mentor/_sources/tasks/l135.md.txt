@@ -10,12 +10,28 @@ fig-l135-menu.png
 After INIT, the Driver Station shows a menu. The driver picks Red or Blue, and nothing, L125's auto
 or L130's, with the gamepad's D-pad, before pressing PLAY.
 
-::::{only} mentor
 **Before you start.**
 
-- L130 is done, and L093, so `mytry` holds `l093` with the menu.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+- [L093](l093.md), write a menu, test first
+- [L110](l110.md), connect the drivetrain to the follower, with no path yet
+- [L115](l115.md), mount the Pinpoint and plug it in
+- [L117](l117.md), let AutoTune tune the robot
+<!-- /needs -->
+
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot, the Driver Station, a gamepad, and about 1 m by 2 m of clear floor for the last step.
+
+::::{only} mentor
+**What the lessons before leave.** `mytry` holds `l093` with the menu.
 ::::
 
 ## the menu, press by press

@@ -9,12 +9,21 @@ fig-l040-field.png
 
 The two speeds drive the wheels, and the robot drives in the simulator: tank drive!
 
-::::{only} mentor
 **Before you start.**
 
-- L030 is done, so `mytry` holds `L030SpeedsOpMode`.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+<!-- /needs -->
+
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - No robot is needed. The robot drives in the simulator only; L050 puts it on blocks.
+
+::::{only} mentor
+**What the lessons before leave.** `mytry` holds `L030SpeedsOpMode`.
 ::::
 
 ## the steps

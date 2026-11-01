@@ -10,13 +10,25 @@ fig-l090-slide.png
 Drive a mecanum robot: the left stick drives and slides, the right stick turns, and all three can
 happen at once. Each wheel gets its own speed.
 
-::::{only} mentor
 **Before you start.**
 
-- L080 is done, so `mytry` holds `L080ArcadeOpMode`.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+<!-- /needs -->
+
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot on blocks, as in L050, the Driver Station, and about 2 m by 2 m of clear floor for the
   last step.
+
+::::{only} mentor
+**What the lessons before leave.** `mytry` holds `L080ArcadeOpMode`.
 ::::
 
 ## the steps

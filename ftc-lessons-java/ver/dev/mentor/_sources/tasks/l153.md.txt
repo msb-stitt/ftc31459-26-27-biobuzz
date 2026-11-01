@@ -11,13 +11,28 @@ The robot drives itself forward, sideways and around, each at four powers. For e
 it measures two numbers: the volts it takes to start moving, and the volts for each bit of speed
 after that. Later lessons use them to ask the motors for a speed and get it.
 
-::::{only} mentor
 **Before you start.**
 
-- L150 is done, and L117, so Pedro is tuned and the Pinpoint is on the robot.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+- [L110](l110.md), connect the drivetrain to the follower, with no path yet
+- [L115](l115.md), mount the Pinpoint and plug it in
+- [L117](l117.md), let AutoTune tune the robot
+<!-- /needs -->
+
 - AdvantageScope is installed on the same laptop.
 - The robot, the Driver Station, and clear floor 2 m long ahead of the robot and 2 m to its left,
   for the last step.
+
+::::{only} mentor
+**What the lessons before leave.** Pedro is tuned and the Pinpoint is on the robot.
 ::::
 
 ## the steps

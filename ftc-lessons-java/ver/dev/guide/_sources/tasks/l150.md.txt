@@ -10,13 +10,27 @@ fig-l150-bumper-held.png
 The sticks mean the field, the way L140 left them, until the right bumper is held. While it is held
 they mean the robot. Let go and they mean the field again.
 
-::::{only} mentor
 **Before you start.**
 
-- L140 is done.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+- [L093](l093.md), write a menu, test first
+- [L110](l110.md), connect the drivetrain to the follower, with no path yet
+- [L115](l115.md), mount the Pinpoint and plug it in
+- [L117](l117.md), let AutoTune tune the robot
+- [L135](l135.md), choose the alliance and the auto
+- [L140](l140.md), make the sticks mean the field
+<!-- /needs -->
+
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
-::::
 
 ## the steps
 

@@ -10,13 +10,17 @@ fig-l045-wiring.png
 Wire the robot's four wheel motors to the Control Hub. Then give each one the name the code asks
 for, in the Robot Configuration on the Driver Station.
 
-::::{only} mentor
 **Before you start.**
+
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Nothing needs finishing first.
+<!-- /needs -->
 
 - A robot with 4 mecanum wheels, each with its own motor, and a REV Control Hub.
 - A charged battery, and a Driver Station paired with the Control Hub.
 - No code is needed, and no laptop.
 
+::::{only} mentor
 The Pinpoint is named here, before L115 mounts it, because the code asks for it at INIT from L050
 on.
 ::::

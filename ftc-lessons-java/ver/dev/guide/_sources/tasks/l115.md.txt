@@ -11,13 +11,26 @@ The Pinpoint is bolted on, its two pods are in the right sockets, and the Contro
 you press INIT. The robot does not yet know how far the pods sit from its middle. L117 measures
 that.
 
-::::{only} mentor
 **Before you start.**
 
-- L113 is done, and L110 before it, so the follower holds the drivetrain. The follower is what
-  builds the Pinpoint.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+- [L110](l110.md), connect the drivetrain to the follower, with no path yet
+<!-- /needs -->
+
 - The robot, the two odometry pods, and whatever driver the robot's own screws take.
 - The I2C cable the Pinpoint came with, and the Driver Station.
+
+::::{only} mentor
+**What the lessons before leave.** The follower holds the drivetrain. The follower is what builds
+the Pinpoint.
 
 The three rules in L115S010 and L115S020 are Pedro's, from
 [its Pinpoint page](https://pedropathing.com/docs/pathing/tuning/localization/pinpoint).

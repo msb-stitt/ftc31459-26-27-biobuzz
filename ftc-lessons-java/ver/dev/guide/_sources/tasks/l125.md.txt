@@ -10,14 +10,25 @@ fig-l125-drive24.png
 The robot drives 24 inches forward on its own and stops there. Nobody touches a stick. The path
 follower does the driving, and you write one line to tell it where to go.
 
-::::{only} mentor
 **Before you start.**
 
-- L120 is done. Nothing here uses L120's code; the follower uses the robot's own localizer.
+<!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
+Finish these first:
+
+- [B010](b010.md), getting started
+- [H017](h017.md), navigate Android Studio's panes
+- [L020](l020.md), read the sticks
+- [L045](l045.md), set up the robot's configuration
+- [L050](l050.md), drive the robot on blocks
+- [L065](l065.md), put the shaping in a class
+- [L110](l110.md), connect the drivetrain to the follower, with no path yet
+- [L115](l115.md), mount the Pinpoint and plug it in
+- [L117](l117.md), let AutoTune tune the robot
+<!-- /needs -->
+
 - AdvantageScope is installed on the same laptop. No gamepad is needed.
 - The robot, the Driver Station, a piece of tape, a tape measure, and about 1 m of clear floor in
   front of the robot for the last step.
-::::
 
 ## the steps
 
