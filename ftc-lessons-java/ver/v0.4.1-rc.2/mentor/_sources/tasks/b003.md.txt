@@ -1,0 +1,45 @@
+# 003 welcome
+
+Welcome to Corbels FTC Programming Lessons in Java! It teaches you to program an FTC robot in Java,
+one page at a time.
+
+:::{figure} ../_figures/fig-robot-front.png
+:name: fig-robot-front
+:figclass: file-named
+
+fig-robot-front.png
+:::
+
+This guide explains how to program FTC robots, one lesson at a time. Each lesson page says
+what you will have when it is done, what has to be true before you start, and the steps to get
+there. Every step tells you what you will see when it worked.
+
+**How to use it.**
+
+- **It's best to start at the beginning.** But you don't have to, other than getting the wheel
+  directions right in lesson L050, Pinpoint installed in lesson L115, and Pedro Pathing tuned in
+  lesson L117. Most can be accomplished without doing
+  the previous lesson.
+- **Do the step, then read the check.** The check tells you whether to go on.
+- **The answers are in the back.** Use them when you have tried and need a hint.
+- **Before a competition, read [980](b980.md).** It lists what to check before you pack the
+  robot.
+- The code and the source to build these pages are at
+  <https://github.com/msb-stitt/ftc31459-26-27-biobuzz>.
+- Versions of this book are listed at <https://coding.stitt.cc/ftc-lessons-java/versions.html>.
+
+::::{only} mentor
+
+**What this book was made from.**
+
+- The lessons and the code: {{ lessons }}, in
+  [ftc31459-26-27-biobuzz](https://github.com/msb-stitt/ftc31459-26-27-biobuzz).
+- The screenshots, drawings and videos: {{ media }}, in
+  [corbels-lfs-lessons](https://github.com/msb-stitt/corbels-lfs-lessons).
+- The answers in the back: {{ solutions }}, in
+  [ftc31459-26-27-biobuzz](https://github.com/msb-stitt/ftc31459-26-27-biobuzz).
+
+A name like `v0.1.4` on its own is a release. More after it, like `-11-g24411ba`, means a copy made
+between releases, 11 changes after it. `-dirty` means it was made with changes that were not yet
+saved in git.
+::::
