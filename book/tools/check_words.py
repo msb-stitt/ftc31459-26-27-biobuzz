@@ -19,10 +19,10 @@ from register import PATH, pages
 # on how much code a lesson may have, or how many log keys it may publish.
 GENERATED = ("source/r950/", "source/tasks/r930.md")
 
-# A lesson's list of what it needs first is written by tools/needs.py between these markers, and
-# is not counted, for the same reason.
-NEEDS_START = "<!-- needs:"
-NEEDS_END = "<!-- /needs -->"
+# A lesson's list of what it needs first, and a page's lists of skills and concepts, are written by
+# tools/needs.py between these markers, and are not counted, for the same reason.
+NEEDS_START = ("<!-- needs:", "<!-- skills:")
+NEEDS_END = ("<!-- /needs -->", "<!-- /skills -->")
 
 
 def words(path) -> int:
@@ -36,7 +36,7 @@ def words(path) -> int:
         if stripped.startswith(NEEDS_START):
             in_needs = True
         if in_needs:
-            in_needs = stripped != NEEDS_END
+            in_needs = stripped not in NEEDS_END
             continue
         if stripped.startswith("```") or stripped.startswith(":::"):
             in_fence = not in_fence

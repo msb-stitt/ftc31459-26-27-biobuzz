@@ -120,6 +120,19 @@ The PDF does not show the space. Every other list stays close. The sources:
   from a failure somebody saw* says.
 - **What you just did**: one paragraph of theory.
 - **Where next**: the lessons this one unlocks.
+- **Skills needed**, **Skills learned** and **Concepts learned**: after *Before you start*'s mentor
+  blocks on a lesson, and after the title on a what's-happening page, written by `tools/needs.py`
+  between its `skills` markers; run `python tools/run.py needs apply`, never edit the lists. Each
+  time a lesson or what's-happening page is written or changed, update what makes them:
+  - **A skill a step uses from an earlier page** is a `skill:` entry in `needs.toml` on the lesson,
+    naming the page that teaches it. It lists under that lesson's *Skills needed* and that page's
+    *Skills learned*. Name a skill in the same words each time.
+  - **Each other skill the lesson teaches** goes in `learned.toml`'s `skills`.
+  - **The ideas that matter for programming and robot control** go in `learned.toml`'s
+    `concepts`, each opening with its area.
+
+  `tools/check_needs.py` fails a lesson that teaches no skill, a lesson or what's-happening page
+  that teaches no concept, and a list that is not what `apply` writes.
 
 The code a student copies carries a comment where each step changes it, linking to the step.
 `source/conf.py` gives each step heading its name as its anchor:
@@ -132,11 +145,11 @@ The code a student copies carries a comment where each step changes it, linking 
 
 **A Java block names its file.** It is a `{code-block} java` whose `:caption:` is the file's path
 under `teamcode/`, with `(test) ` in front for a test, such as
-`(test) mytry/l093/MenuItemTest.java`, or `pedro/Bot*.java` for the robot's own file. `labels.css`
-draws it as a grey tab on the block's top edge. A code example that is in no file, such as E021's
-`double leftStickY`, has `:class: example` in place of a caption. `tools/check_labels.py` fails a
-Java block with neither, and a line that is not in its file as the page leaves it. A line a later
-step on the page deletes or changes is read at its own step.
+`(test) mytry/l093/MenuItemTest.java`, or `pedro/Bot*.java` for the robot's constants file.
+`labels.css` draws it as a grey tab on the block's top edge. A code example that is in no file, such
+as E021's `double leftStickY`, has `:class: example` in place of a caption. `tools/check_labels.py`
+fails a Java block with neither, and a line that is not in its file as the page leaves it. A line a
+later step on the page deletes or changes is read at its own step.
 
 ## A lesson can have the student write whole classes
 

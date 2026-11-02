@@ -24,9 +24,10 @@ MIN_WORDS = 20
 GENERATED = "source/r950/"
 
 # A lesson's list of what it needs first is page titles, written by tools/needs.py between these
-# markers; each title is scored on its own page.
-NEEDS_START = "<!-- needs:"
-NEEDS_END = "<!-- /needs -->"
+# markers; each title is scored on its own page. A page's mentor-only lists of skills and concepts,
+# written by the same tool, are short lines, not prose.
+NEEDS_START = ("<!-- needs:", "<!-- skills:")
+NEEDS_END = ("<!-- /needs -->", "<!-- /skills -->")
 
 # Code, emphasis, link targets, and MyST substitutions such as {{ lessons }}, which conf.py fills.
 MARKUP = re.compile(r"(``?[^`]*``?|\*\*?|__?|\[|\]\([^)]*\)|\{\{[^}]*\}\})")
@@ -44,7 +45,7 @@ def paragraphs(path):
         if line.strip().startswith(NEEDS_START):
             in_needs = True
         if in_needs:
-            in_needs = line.strip() != NEEDS_END
+            in_needs = line.strip() not in NEEDS_END
             continue
         if line.lstrip().startswith("```") or line.lstrip().startswith(":::"):
             in_fence = not in_fence

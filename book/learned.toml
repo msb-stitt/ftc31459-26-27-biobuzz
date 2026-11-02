@@ -1,0 +1,492 @@
+# What each lesson and what's-happening page teaches, beyond the skills needs.toml names.
+#
+# `needs.py apply` lists them, mentor-only, in the page's *Skills learned* and *Concepts learned*.
+# A lesson has a skill here or a `skill:` entry naming it in needs.toml; a lesson or
+# what's-happening page has a concept here. A concept opens with its area, one of needs.py's
+# AREAS, then ": ". See WRITING.md.
+
+[l020]
+skills = [
+  "pick a name from Android Studio's code completion list with Tab",
+  "hold the pointer over a name to see what it is",
+  "open a flight log in AdvantageScope and graph its values",
+]
+concepts = [
+  "FTC programming: an OpMode is one program the robot can run; INIT runs its `init()` once, and PLAY runs its `start()` once",
+  "FTC programming: `start()` hands `readTheSticks()` to the scheduler, which runs it over and over until STOP",
+  "FTC programming: `@Disabled` hides an OpMode from the robot's list",
+  "this project: `mytry` is where a student writes, and `lessons` holds the starters",
+  "this project: the simulator is a robot that exists only in the laptop, and runs the OpMode as the real robot would",
+  "Java: `double` is a number with a decimal point; a `float` is a smaller one, and a `double` holds any `float`",
+  "Java: an `import` line, which Android Studio adds when a class is picked from the list",
+  "game controllers: `gamepad1.left_stick_y` and `right_stick_y` read from -1.0 to 1.0, and forward is -1.0",
+  "`CorbelsOpMode`: `Tracker.publish(name, value)` sends a value to AdvantageScope while the code runs, and writes it in the flight log",
+  "NetworkTables: AdvantageScope connected to the simulator shows published values live",
+  "log files: the flight log keeps the same names and values, to open in AdvantageScope after the run",
+]
+
+[l030]
+skills = [
+  "pick a local variable from the code completion list by typing the start of its name",
+]
+concepts = [
+  "Java: the minus sign in front of a variable turns its number around",
+  "programming: one name per idea: `leftStickY` is what the stick says, `leftSpeed` how fast the wheels should go",
+  "robot control: forward speeds are positive and backward speeds negative",
+  "tank drive: the left stick drives the left wheels and the right stick the right wheels",
+]
+
+[l040]
+skills = [
+  "type `.` after a motor to see what it can be told to do",
+  "show the robot on AdvantageScope's **2D Field** by dragging `sim/Pose` into **Poses**",
+]
+concepts = [
+  "FTC programming: `hardware` holds the robot's four drive motors, `frontLeft`, `frontRight`, `backLeft` and `backRight`",
+  "FTC programming: `setPower` takes a fraction of full speed, from -1.0 to 1.0: 1.0 is full forward, -1.0 full backward, and 0.0 stop",
+  "tank drive: each side's speed goes to both motors on that side",
+  "tank drive: both sticks forward drives forward, one forward and one back spins in place, and unequal sticks curve",
+]
+
+[l045]
+skills = [
+  "wire each wheel motor's power cable and encoder cable to the Control Hub",
+]
+concepts = [
+  "robot control: each motor has a power cable to a motor port, and an encoder cable, which counts how far the wheel turns, to an encoder port",
+  "FTC programming: the Robot Configuration names the device on each port; the code asks for a name such as `\"Front Left\"`, never a port",
+  "FTC programming: the Control Hub has an IMU inside it, which tells the code which way the robot faces",
+  "this project: the code asks for the motors by the names in the robot's constants file (`pedro/Bot*.java`), and for `imu` and `pinpoint` at INIT",
+]
+
+[l050]
+skills = [
+  "make a gamepad be gamepad 1 by holding Start and pressing A",
+  "pick the robot with `thisRobot` in `Constants`",
+  "swap a wheel's direction between `FORWARD` and `REVERSE` in the robot's constants file (`pedro/Bot*.java`)",
+]
+concepts = [
+  "robot control: which way a motor turns is set by how it is mounted; `setDirection` in `init` tells each motor, so a positive speed turns every wheel forward",
+  "robot control: a wheel drives forward when the top of its tire moves toward the front",
+  "this project: `thisRobot` in `Constants` picks the robot, and the four directions live in the robot's constants file (`pedro/Bot*.java`), read through `hardware.mecanumConfig`",
+  "FTC programming: the Control Hub is the robot's computer; the Driver Station picks an OpMode, has INIT, PLAY and STOP, and passes the gamepad to the robot",
+  "NetworkTables: on the robot, AdvantageScope connects to `192.168.43.1` and shows published values live; FTC rule R704 does not allow it at an event",
+]
+
+[l060]
+skills = [
+  "find a method nothing uses yet by its grey name and *no usages*",
+]
+concepts = [
+  "Java: a method has a name, takes numbers in as its parameters, and gives one back with `return`",
+  "Java: `<` compares two numbers, and a `boolean` holds its answer, `true` or `false`",
+  "Java: `if` runs the lines inside its `{ }` only when what is in its brackets is true",
+  "Java: `Math.abs` takes the minus sign off",
+  "Java: a line with no `double` in front changes a variable that already exists",
+  "programming: each line does one thing, and each result gets a name",
+  "robot control: a deadband counts a stick closer to the middle than the band as let go",
+  "robot control: `signedSquared` squares the size and keeps the sign, so half a push is a quarter of full speed",
+]
+
+[l065]
+skills = [
+  "copy a lesson's folder of starters into `mytry`",
+  "build the code from the Terminal and look for `BUILD SUCCESSFUL`",
+]
+concepts = [
+  "Java: a class is a kind of thing, and an object is one thing made from a class with `new`",
+  "Java: a field is a variable that belongs to an object, and keeps its value as long as the object lives",
+  "Java: a constructor runs when an object is made; it has the class's name and no return type",
+  "Java: an `enum` is a short list of names, and a variable of its kind holds one of them",
+  "Java: a `switch` runs the lines under the `case` that matches, and `break` ends it",
+  "Java: a package is a folder; classes in the same package use each other with no `import`, and `public` lets other packages use them",
+  "robot control: cubing a speed keeps its sign with no `Math.abs`",
+  "programming: the code that drives asks the `StickShaper` for a shaped speed, and does not know the band or the shape",
+]
+
+[e021]
+concepts = [
+  "programming: the computer runs a program one statement at a time, moving values around in its memory like sticky notes",
+  "programming: a variable is a name, a label with an arrow to a sticky note of its type",
+  "Java: `=` is an action, not a test: it copies a value onto a variable's note",
+  "FTC programming: the platform gives the program objects such as `gamepad1`, and writes the stick's reading on its field `left_stick_y` before each pass",
+  "Java: a method is a piece of code with a name; a call hands it what it needs, as `Tracker.publish(name, value)` does",
+]
+
+[e035]
+concepts = [
+  "robot control: a number line plots one quantity; a coordinate grid plots two, **+x** to the right and **+y** up the page or away from us; a third axis, **z**, has **+z** up",
+  "game controllers: a stick's **y** axis is backwards from what we expect: +1.0 is toward us, -1.0 away",
+  "game controllers: a stick sets a speed: let go reads zero and the robot stops, and further pushed is faster",
+  "robot control: a reference frame is a coordinate grid attached to an object, and it moves and turns with the object",
+  "Pedro Pathing: in Pedro Pathing's robot reference frame **+x** is forward, out the nose, and **+y** is to the left",
+  "robot control: the minus sign in `-leftStickY` switches from the stick's reference frame to the robot's",
+  "robot control: a speed of 1.0 is full speed forward, 0.0 is stopped, and -1.0 is full speed backward",
+  "robot control: a motor turns a gear box, which turns a wheel; each turns at a speed, in turns per second, revolutions per minute, or inches per second at the wheel's edge",
+]
+
+[e041]
+concepts = [
+  "Java: an object's field can point to another object: `hardware.frontLeft` is a motor, and `setPower` is its method",
+  "programming: the computer follows a line from name to field to method, and hands the method the value on `leftSpeed`'s note",
+]
+
+[e067]
+concepts = [
+  "programming: UML draws classes as pictures; a class diagram is a box for each class with its name, fields and methods",
+  "programming: in a class diagram, `+` marks a public name, no mark means the same folder only, and `: double` is what a method gives back",
+  "programming: a diamond arrow means has-a, made by a field, and «enumeration» marks an `enum`",
+  "programming: a sequence diagram shows calls in time order: a solid arrow is a call, a dashed arrow what comes back, and an arrow marked `new` makes an object",
+  "programming: a diagram shows what it is about and leaves out the rest",
+  "programming: code that calls only another class's public methods lets that class change how it works without changing the caller",
+]
+
+[l070]
+skills = [
+  "watch a `boolean` and a `String` in AdvantageScope's **Discrete Fields**",
+]
+concepts = [
+  "Java: a button is a `boolean`, `true` when it is down and `false` when it is up",
+  "Java: a field, a variable made outside the method, keeps its value from one loop to the next; a `boolean` field starts out `false`",
+  "Java: `!=` means \"is not the same as\", an `if` can sit inside an `if`, and `else` runs when the `if` is false",
+  "Java: a `String` is text in quotes",
+  "robot control: comparing this loop's button with last loop's finds the one loop it changed on",
+  "game controllers: `gamepad1.a`, and the sticks sideways, `left_stick_x` and `right_stick_x`, which read above 0.0 pushed right",
+]
+
+[l080]
+skills = [
+  "type an `import` line by hand for a class in another package, such as `StickShaper` in `mytry.l065`",
+]
+concepts = [
+  "robot control: arcade drive takes forward from the left stick and turn from the right; the left side is `forwardXSpeed - turnCcwSpeed`, the right `forwardXSpeed + turnCcwSpeed`",
+  "robot control: a turn to the left, counter-clockwise, is positive",
+  "Pedro Pathing: on the robot's own axes, +x points forward, out the nose, and +y to the robot's left",
+  "robot control: a `setPower` speed goes from -1.0 to +1.0, and the Control Hub cuts anything past it, which changes the curve",
+  "robot control: scale, don't cut: divide every speed by the biggest, never by less than 1.0",
+  "Java: `Math.max` gives back the bigger of two numbers",
+]
+
+[l090]
+skills = [
+  "check each mecanum wheel on blocks, watching the top of each tire for forward, slide left and turn left",
+]
+concepts = [
+  "mecanum drive: a mecanum wheel's rollers sit at 45 degrees, so it pushes forward and sideways at once; seen from above, the top rollers make an X",
+  "mecanum drive: strafe is sliding sideways, and a slide to the left is positive",
+  "mecanum drive: each wheel adds forward, strafe and turn its own way, one line a wheel",
+  "mecanum drive: the robot moves the way the four wheels' pushes add up",
+  "robot control: L080's scaling, for four wheels: divide each by the biggest, never by less than 1.0",
+  "Java: the biggest of four takes three `Math.max` calls, each changing `biggest`",
+]
+
+[l093]
+skills = [
+  "copy a lesson's test starters into the `mytry` folder under `test`",
+]
+concepts = [
+  "programming: a test runs your code and checks what it gives back; write the test first, watch it fail, then write the code until it passes",
+  "Java: JUnit's `@Test`, `@Before` and `assertEquals(expected, actual)`",
+  "programming: each class does one job, built from the bottom up, each tested before the next is built on it",
+  "Java: a package is a folder; classes in it use each other with no `import`, and what another package uses is `public`",
+  "Java: `private` keeps a field inside its class, and other classes ask for it with a method such as `getShortName()`",
+  "Java: an `ArrayList` holds a list of objects and grows as you add to it, with `add`, `get(i)` counting from 0, and `size()`",
+  "Java: a for-each loop, `for (MenuRow row : rows)`, runs once for each item; `==` on two objects asks whether they are the same object",
+  "FTC programming: between INIT and PLAY, the robot calls `init_loop()` again and again; `dpadRightWasPressed()` is `true` once for each press",
+]
+
+[l095]
+skills = [
+  "compare stick settings by driving in the simulator, and write down the one liked best",
+]
+concepts = [
+  "robot control: the deadband's size, and linear, squared or cubed, change how the sticks feel; squared and cubed make a small push smaller, so the robot creeps",
+  "this project: a menu row starts at its first choice, so each row's first choice is the setting the later lessons use, a band of 0.05 and Squared",
+  "FTC programming: the menu is read in `init_loop()`, and at PLAY `start()` hands the choices to the `StickShaper`",
+  "Java: `getSelected()` gives back the very `MenuItem` made, so `==` tells which one it is",
+  "programming: the code that drives only calls `shaped`, and does not know a menu exists",
+]
+
+[l110]
+skills = [
+  "copy two starters into `mytry`, one after the other",
+]
+concepts = [
+  "Java: `extends`: a class gets everything its parent class already has",
+  "Java: an array holds numbers in a row in one variable, and `wheelSpeeds[FL]` names one slot",
+  "Java: `new` makes an object, kept in a field from `init` until the OpMode stops",
+  "`CorbelsOpMode`: `initAfter(drivetrain)` makes the path follower and hands it the drivetrain; `initAfter()` hands it nothing",
+  "Pedro Pathing: the path follower holds the drivetrain, and `loopAfter()` updates it each loop; the sticks command it through `drivetrain.sticks`",
+  "robot control: the sticks and the follower both go through the same `mixArcadeToWheelSpeeds`, so they agree on which wheel does what",
+]
+
+[e111]
+concepts = [
+  "programming: UML's grey boxes group classes by who wrote them: the FTC Platform, Pedro Pathing, and our base classes",
+  "Java: is-a is `extends`: an `L110FollowerOpMode` is a `CorbelsTeleOp`, a `CorbelsOpMode` and an `OpMode`, and gets what each has, such as `gamepad1` and `hardware`",
+  "Java: an interface lists methods with no code, and `implements` makes a class write them; an abstract class leaves a method, such as `mixArcadeToWheelSpeeds`, to the class below",
+  "Java: `@Override` sits above a method a class above already names; a `final` method can be called from below but not replaced",
+  "Pedro Pathing: the follower holds your drivetrain as a `Drivetrain`, so it can drive any drivetrain that is one",
+  "FTC programming: the platform, not your code, calls `init()`, `init_loop()` and `loop()` when the Driver Station's buttons are pressed",
+  "`CorbelsOpMode`: `initBefore()` finds the motors, `initAfter(drivetrain)` makes the follower, and `loopAfter()` runs the scheduler, then updates the follower",
+]
+
+[l113]
+skills = [
+  "work out ticks per inch from the motor's encoder resolution and the wheel's diameter on goBILDA's pages",
+  "measure the rectangle the four wheel centers make, front to back and side to side",
+  "check how far the robot's log says it went against a tape measure",
+]
+concepts = [
+  "this project: a shadow localizer is updated and published beside the robot's own localizer every loop, and never steers the robot",
+  "robot control: dead reckoning adds up each loop's wheel travel, so a wheel that slips is simply believed",
+  "mecanum drive: four wheel moves give forward and strafe, L090's table read backwards",
+  "Java: `null` means \"nothing yet\", `return` leaves a method early, `+=` adds on, and a `for` loop runs with `i` at 0, 1, 2 and 3",
+  "robot control: `Math.cos` and `Math.sin` share the robot's step out between the field's x and y, with the heading in radians",
+  "robot control: ticks per inch is the encoder's ticks per turn over pi times the wheel's diameter",
+  "mecanum drive: a mecanum wheel's turn radius is A + B, half the length plus half the width, not the diagonal",
+  "this project: the end of a name says its unit: `_in` is inches, and `_rad` is radians",
+]
+
+[l115]
+skills = [
+  "mount the two odometry pods, the forward pod in the Pinpoint's **x** socket and the strafe pod in its **y** socket",
+  "mount the Pinpoint sticker side up and plug it into an I2C port on the Control Hub that is not 0",
+  "watch the Pinpoint's heading in AdvantageScope during INIT, turning the robot by hand",
+]
+concepts = [
+  "robot control: odometry pods are two wheels nothing drives, a forward pod and a strafe pod; both touch the floor the whole time, and a pod that skips loses count",
+  "FTC programming: the Pinpoint talks to the Control Hub over I2C, and port 0 already has the Control Hub's own IMU",
+  "FTC programming: the code asks for a device by the name the configuration gives it, `pinpoint`; when the two differ, INIT shows `Unable to find a hardware device`",
+  "robot control: the Pinpoint resets its gyro at INIT, and the robot has to sit still for it",
+  "robot control: the Pinpoint's pods are not driven, so a slipping drive wheel cannot spin them",
+]
+
+[l117]
+skills = [
+  "open AutoTune at `http://192.168.43.1:10158` from a laptop joined to the robot's Wi-Fi",
+  "run AutoTune's tuners and paste the Java each one shows into the robot's constants file (`pedro/Bot*.java`)",
+  "check the tuning with AutoTune's `Localization Test` and `Line Test`",
+]
+concepts = [
+  "Pedro Pathing: AutoTune is a web page the robot serves, and it starts its own OpMode, `Pedro Tuning`, when a step needs the robot to move",
+  "robot control: the robot measures itself: which way each motor turns, where the pods sit, how fast it can drive and how hard it can brake",
+  "Pedro Pathing: each tuner ends with Java for the robot's constants file, and `Constants` sets on top the lines AutoTune does not print",
+  "Pedro Pathing: the Pinpoint's x offset is how far left the forward pod sits from the point the robot turns about, and its y offset how far forward the strafe pod sits",
+]
+
+[l120]
+skills = [
+  "watch your localizer beside `pinPoint` in AdvantageScope's `Localizer` folder, and check they stay close as the robot drives",
+]
+concepts = [
+  "robot control: each pod counts ticks as it rolls; ticks per inch and the pod's direction, `REVERSED` or not, turn the count into inches",
+  "robot control: each loop's step is how far a pod rolled since last loop, and the first loop only remembers where it started",
+  "robot control: the pods do not sit at the robot's middle, so turning rolls them; take the pod's offset times the turn back out",
+  "robot control: `Math.sin` and `Math.cos` of the heading turn a step on the robot into a step on the field, as in L113",
+  "robot control: speed is how far divided by how long, and each loop divides by its own time, because loops are not all the same length",
+  "Pedro Pathing: a shadow localizer runs and is published beside the robot's own, and never steers",
+]
+
+[l125]
+skills = [
+  "run an OpMode from the Driver Station's autonomous list, with hands off the sticks",
+  "mark the robot's front edge with tape and measure how far it drove",
+]
+concepts = [
+  "robot control: an autonomous has no sticks to read; `start()` schedules a command, and the follower drives",
+  "Pedro Pathing: `line(start, end)` is a path, `.constant(start)` holds one heading the whole way, and `follow` drives it",
+  "Pedro Pathing: `sequential` makes a list of commands run in order; an autonomous routine is that list",
+  "Pedro Pathing: `.constant(90.0)` is radians, not degrees",
+  "Java: `import static` brings in a method, not a class",
+  "Pedro Pathing: the follower is a library: say where to go, and it works out the wheel speeds",
+]
+
+[l130]
+skills = [
+  "add an item to a list of arguments split over several lines, with a comma after each but the last",
+]
+concepts = [
+  "robot control: a pose is a place on the field and the way the robot faces there",
+  "mecanum drive: a mecanum robot can move one way while facing another; hold the same heading and it slides sideways",
+  "Pedro Pathing: `hold` keeps the robot at a pose once a path ends, pushing back if something bumps it",
+  "Pedro Pathing: an autonomous routine is a list: legs and a hold, run in order by `sequential`",
+  "Java: a list of arguments can run over several lines, a comma after each but the last",
+]
+
+[l131]
+skills = [
+  "copy several classes at once with Shift and click, so they keep pointing at each other",
+  "push the robot slowly and straight by hand, at least 36 in, to measure ticks per inch",
+  "spin the robot on the spot by hand to measure the turn radius",
+  "put a measured number in the robot's constants file (`pedro/Bot*.java`)",
+]
+concepts = [
+  "FTC programming: `getCurrentPosition()` is how many ticks a motor's encoder has counted since the robot started",
+  "robot control: a number is measured by two instruments that do not talk to each other: the Pinpoint's inches against the encoders' ticks",
+  "robot control: a wheel `r` inches from the middle travels `r` inches for each radian the robot turns",
+  "FTC programming: a motor given no power brakes or coasts, and a robot pushed by hand needs its wheels to coast",
+  "robot control: work a number out, then measure it before trusting it",
+  "Android Studio: classes copied together keep pointing at each other; copied one at a time, they point back at `lessons`",
+]
+
+[l132]
+skills = [
+  "graph two of AdvantageScope's values together to compare them",
+  "read `loop/period_ms` in AdvantageScope to see how long a loop takes, in the simulator and on the robot",
+  "measure how far the robot really went with a tape measure, and compare the localizers with it",
+  "pick the right package, such as `com.pedropathing.ivy`, in the Option+Enter list",
+]
+concepts = [
+  "robot control: no localizer is the truth; a tape measure is",
+  "robot control: a localizer's error is its x, y and heading less the robot's own",
+  "robot control: `Angle.normalizeSigned` keeps a heading difference between -180° and 180°, so 359° and 1° are 2° apart",
+  "robot control: your localizer works once a loop, a few milliseconds or more, and the Pinpoint's chip about 1500 times a second",
+  "robot control: a drive wheel that spins without carrying the robot moves its estimate; the Pinpoint's pods only measure and never push, so they slip less",
+  "`CorbelsOpMode`: `Commands.infinite` and `Scheduler.schedule` run a method every loop",
+  "mecanum drive: each wheel pushes at an angle α from forward; sliding rolls a wheel cot α inches for each inch the robot slides",
+]
+
+[l135]
+skills = [
+  "pick the alliance and the auto from a menu on the Driver Station during INIT, with the D-pad, A and B",
+]
+concepts = [
+  "FTC programming: between INIT and PLAY the robot calls `init_loop()` again and again; the menu runs there",
+  "Java: a class in another package is imported, and only its `public` methods can be used",
+  "Java: `==` on two objects is `true` when they are the very same object",
+  "programming: the menu's status line shows the short name of the choice selected in each row, and changes only when A selects",
+  "robot control: each blue place is a red place turned a half-turn about the field's middle, so the autos are written once, for red",
+  "Pedro Pathing: `Command.NOOP` is a command that does nothing",
+]
+
+[l140]
+skills = [
+  "run an auto until it stops on its own, so the Driver Station chooses the teleop",
+]
+concepts = [
+  "robot control: field relative: turn the stick backwards through the heading before the mix",
+  "Pedro Pathing: `follower.pose().heading()` is the robot's heading, in radians",
+  "robot control: a heading that drifts makes the sticks crooked by the same angle",
+  "robot control: from the Blue Alliance Area, away from the driver is the field's -x and left is -y, so the stick's signs flip",
+  "FTC programming: `OpModeStorage` holds values from one OpMode to the next, such as the alliance the auto chose",
+  "FTC programming: `preselectTeleOp` has the Driver Station choose the teleop when the auto ends on its own",
+]
+
+[e141]
+concepts = [
+  "robot control: an arrow has a length and a direction, written as two numbers (x, y)",
+  "robot control: an arrow's two numbers are its tip minus its tail, wherever it starts",
+  "robot control: multiplying both numbers changes an arrow's length and keeps its direction",
+  "robot control: add two arrows tip to tail, or add their numbers; both give the same arrow",
+]
+
+[e142]
+concepts = [
+  "robot control: a radian is a distance of 1 around a circle with a radius of 1, and Pedro keeps the heading in radians",
+  "Java: `Math.cos` and `Math.sin` take an angle in radians and give the x and y of that point on the circle",
+  "robot control: in a triangle with a square corner and a long side k, the side next to the angle is k × cos θ and the side across is k × sin θ",
+  "robot control: at heading θ, the robot's forward is (cos θ, sin θ) on the field and its left is (-sin θ, cos θ)",
+  "robot control: the stick's arrow on the field breaks into pieces along the robot's forward and left, and adding them gives `robotForwardXSpeed` and `robotStrafeYSpeed`",
+]
+
+[e143]
+concepts = [
+  "Pedro Pathing: (0, 0) is where the red wall meets the audience's wall; +x runs toward the blue wall, +y away from the audience, and the far corner is (144, 144) in inches",
+  "Pedro Pathing: a heading of 0 faces +x",
+  "robot control: from the Red Alliance Area, +x points away from the drivers and +y to their left; from the Blue, +x points toward them and +y to their right",
+]
+
+[l150]
+skills = [
+  "drive robot relative by holding the right bumper, and field relative again by letting go",
+  "move lines inside an `else` by selecting them, cutting with ⌘X and pasting",
+]
+concepts = [
+  "robot control: robot relative and field relative on one gamepad, chosen by a held button",
+  "Java: `if`/`else` picks one of two ways each loop",
+  "Java: `double robotForwardXSpeed;` makes the name with no number, so each side of the `if` can give it its own",
+  "robot control: a held button is read fresh every loop; a toggle has to be remembered",
+]
+
+[l153]
+skills = [
+  "measure kS and kV on the robot, and put them in the robot's constants file (`pedro/Bot*.java`)",
+]
+concepts = [
+  "robot control: kS is the volts it takes to start moving, and kV the volts for each bit of speed after that: `volts = kS + kV × speed`",
+  "programming: a least-squares fit finds the line that misses the points the least, from five sums",
+  "robot control: only a steady run gives a point; a run still speeding up says nothing about the speed those volts can hold",
+  "robot control: volts, not power, because the battery's volts change and the robot's need for volts does not",
+  "robot control: three answers close together are a measurement",
+]
+
+[e154]
+concepts = [
+  "Pedro Pathing: a `Command` is an object the scheduler works on; it calls `start()` once, `execute()` each loop, and `done()` after each `execute()`",
+  "programming: calling `theRuns()` drives nothing; it makes commands, and the scheduler runs them later, a little each loop",
+  "Java: `this::measure` hands over the method itself, to be called later; it does not call it now",
+  "Pedro Pathing: `sequential` holds a list of commands and works on one at a time, and a sequential can hold sequentials",
+  "Pedro Pathing: `instant` is done as soon as it starts, `waitUntil` is done when its method says `true`, and `Commands.infinite` is never done",
+  "`CorbelsOpMode`: `loopAfter()` calls the scheduler's `execute()`, which goes through its commands in the order they were scheduled",
+]
+
+[l157]
+skills = [
+  "make a new package in `mytry` with **New**, then **Package**, and copy a class into it",
+]
+concepts = [
+  "robot control: the sticks ask for a speed in inches per second, and the fastest is `(12 − kS) ÷ kV`",
+  "game controllers: the re-spread spreads what is past the deadband from 0 to 1 again, so nothing jumps and the robot can creep",
+  "Java: `Math.signum` is 1 above 0, −1 below, and 0 for 0",
+  "robot control: a power is a share of the battery, so the power is the volts over the battery's volts",
+  "mecanum drive: each wheel blends kS from each way by its share of the wheel's volts, and turning gets its volts first, with forward and strafe cut by the same `scale`",
+  "robot control: kS turns on past 5% and off below 2.5%, and the gap stops it flickering on and off at the edge",
+]
+
+[l160]
+skills = [
+  "check a heading hold on the floor by driving a diagonal and twisting the robot a little by hand",
+]
+concepts = [
+  "robot control: heading hold: when the turn stick is let go, the robot keeps the heading it was left at",
+  "robot control: the driver's stick beats the hold, and the hold beats doing nothing",
+  "Pedro Pathing: `Constants.foresightConfig.headingFeedback` is the follower's own heading steering, so tuning the follower tunes the hold",
+  "Java: a variable given a new value after it is made, which Android Studio underlines; it is not an error",
+]
+
+[l170]
+skills = [
+  "send the robot to a pose with Y, and take it back by pushing a stick",
+]
+concepts = [
+  "robot control: a button sends the robot to a pose, and the follower drives it there",
+  "robot control: the driver takes over by pushing any stick, and the follower stops",
+  "Java: `&&` means \"and\", and `!` means \"not\"",
+  "Pedro Pathing: `follower.hold(target)` drives to a pose and stays there, once `releaseCommandedWheels()` lets go of the wheels",
+  "`CorbelsOpMode`: a second command, started with `Scheduler.schedule` on the loop Y goes down",
+  "`CorbelsOpMode`: two commands `requiring` the drivetrain take turns: the new one sets the sticks' command aside, and `SUSPEND` brings it back when it ends",
+]
+
+[l180]
+skills = [
+  "read a combined OpMode and find the lesson each part came from",
+]
+concepts = [
+  "robot control: one teleop holding every way to drive, settled in a fixed order: the driver first",
+  "robot control: `hold.aimAt` aims at a heading the driver did not leave, while the driver still drives",
+  "robot control: `hold.release()` forgets the held heading, so taking the robot back from Y does not turn it back to an old one",
+]
+
+[l190]
+skills = [
+  "import a class by holding the mouse over a red name and clicking **Import class**",
+  "drive up a slope and watch `actual_ips` dip below `target_ips` and climb back in AdvantageScope",
+]
+concepts = [
+  "robot control: asking the wheels for a speed, not a power: a feedforward guess plus a feedback correction from the measured speed",
+  "mecanum drive: `WheelTargets.forMecanum` turns forward, sideways and turn speeds into four wheel speeds, using the turn radius",
+  "Java: a `for` loop runs the same lines once for each wheel, with `i` counting 0, 1, 2 and 3",
+  "programming: the end of a name says its unit: `_ips` is inches per second, and `_radps` radians per second",
+  "log files: a number in the log is what the code decided, not what the robot did",
+]

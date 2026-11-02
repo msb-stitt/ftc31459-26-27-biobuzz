@@ -76,12 +76,15 @@ python3 tools/crosscheck.py v0.5.0-rc.3 v0.5.0-rc.3 --one-way
 ## A lesson's needs
 
 Each lesson's *Before you start* opens with the pages it needs finished, the whole chain, written by
-`book/tools/needs.py` between its markers. Two files make it, both committed in `book/`:
+`book/tools/needs.py` between its markers. These files make it and the mentor-only skills lists,
+all committed in `book/`:
 
 - `needs-code.jsonc`: the earlier lessons each lesson's code needs, as `tools/crosscheck.py` finds
   them running the release's answers on its own code. `needs.py check` writes it.
 - `needs.toml`: the needs crosscheck cannot find, kept by hand. Its opening comment says how an
   entry is written.
+- `learned.toml`: the skills and concepts each page teaches beyond `needs.toml`'s `skill:`
+  entries, for the mentor-only lists `book/WRITING.md` describes.
 
 In `book/`:
 
@@ -93,9 +96,10 @@ python tools/run.py needs apply
 `check` runs crosscheck on the solutions `keep.toml` names, in a minute or two, writes
 `needs-code.jsonc`, and prints each lesson whose list would change; it fails, and writes nothing,
 when a lesson fails on its own code. Run it when a round changes the answers or the order. `apply`
-writes the lists from the two files, in seconds; run it after `check` or after a change to
-`needs.toml`, and commit what it writes. `ninja book` runs `tools/check_needs.py`, which fails a
-list that is not what `apply` would write, so a publish never runs crosscheck.
+writes the lists from those files, in seconds; run it after `check` or after a change to
+`needs.toml` or `learned.toml`, and commit what it writes. `ninja book` runs
+`tools/check_needs.py`, which fails a list that is not what `apply` would write, so a publish never
+runs crosscheck.
 
 Each release line keeps its own `needs.toml`, since a lesson's number can mean another lesson on
 another line.
