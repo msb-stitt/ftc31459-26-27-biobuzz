@@ -3744,7 +3744,7 @@ def l045_wiring():
     # across the way it rolls. Every cable is ink, dashed for an encoder; no two cables cross, but
     # the forward pod's, which hops over the motor cables. The wheels are outside the frame, and
     # nothing is shaded or highlighted, so no stripe reads as a mecanum roller.
-    s = Sketch(1100, 1000, 45)
+    s = Sketch(1100, 900, 45)
     cx, x0, y0, w, h = 550, 290, 130, 520, 700
     s.shadow(rect(x0 + 13, y0 + 18, w, h), sigma=13, alpha=0.25)
     s.line(rect(x0, y0, w, h), None, fill=GREY1, closed=True)
@@ -3806,7 +3806,7 @@ def l045_wiring():
     cable([(cx, 540), (cx, hub_bottom)])
     s.lines((cx + 8, 502), ["an I2C port", "that is not 0"], 14, anchor="start")
     fx, fy = x0 + w - 50, 465                          # the forward pod, rolls along the robot
-    sx, sy = cx, y0 + h - 40                           # the strafe pod, rolls across it
+    sx, sy = cx, y0 + h - 90                           # the strafe pod, rolls across it
     for pod in (rect(fx - 18, fy - 40, 36, 80), rect(sx - 40, sy - 18, 80, 36)):
         s.line(pod, None, fill=GREY3, closed=True)
         s.ink_poly(pod, width=2.0, over=4)
@@ -3820,8 +3820,7 @@ def l045_wiring():
     cable(path + [(cx + 50, run)], encoder=True)
     cable([(sx, sy - 18), (sx, 600)], encoder=True)
     s.lines((fx, fy - 74), ["forward pod,", "x socket"], 16)
-    s.text((sx, y0 + h + 36), "strafe pod, y socket", 16)
-    s.text((cx, 962), "dashed: an encoder cable    solid: any other cable", 22)
+    s.text((sx, sy + 56), "strafe pod, y socket", 16)
     s.save("fig-l045-wiring")
 
 
