@@ -29,7 +29,8 @@ The marker-sketch style, as the lesson outline sets it:
 - A method is a lavender box on its object's note, touching the note's left edge. What the FTC
   platform provides is drawn inside a grey box, labeled the FTC platform.
 - Handwriting is Marker Felt and code is Menlo, both in macOS, so the drawings are drawn on a Mac.
-  The script stops when either font is missing rather than draw in another.
+  A label with a word holding a letter and two digits in a row, such as L115, is in Chalkboard
+  instead. The script stops when a font is missing rather than draw in another.
 """
 
 import base64
@@ -62,7 +63,11 @@ OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else None  # set before drawing; se
 DPI = 200
 HAND_FONT = "/System/Library/Fonts/MarkerFelt.ttc"
 CODE_FONT = "/System/Library/Fonts/Menlo.ttc"
-for font in (HAND_FONT, CODE_FONT):
+NUMBER_FONT = "/System/Library/Fonts/Supplemental/Chalkboard.ttc"  # its first face, Regular
+# A label with a word holding a letter and two digits in a row, such as L115, is in Chalkboard:
+# Marker Felt's digits are all one width and it kerns L1 but not 11, so L115 reads as L1 15.
+NUMBERED = re.compile(r"(?=\w*[A-Za-z])\w*\d\d")
+for font in (HAND_FONT, CODE_FONT, NUMBER_FONT):
     if not Path(font).exists():
         raise SystemExit(f"{font} is missing: the drawings are drawn on a Mac")
 INK = "#222222"
@@ -305,6 +310,7 @@ class Sketch:
         self.ax.axis("off")
         self.hand = FontProperties(fname=HAND_FONT)
         self.code = FontProperties(fname=CODE_FONT)
+        self.numbered = FontProperties(fname=NUMBER_FONT)
         self.turn = (0.0, 0.0, 0.0)   # the center and degrees of the note being drawn
         self.z = 0
 
@@ -414,10 +420,13 @@ class Sketch:
     def highlight(self, p0, p1, width=5):
         self.ink_line(p0, p1, width=width, over=-12, passes=1, color="#ffffff", wobble=0.8)
 
-    def text(self, xy, s, size=26, color=PEN, anchor="middle", rot=0, code=False):
+    def text(self, xy, s, size=26, color=PEN, anchor="middle", rot=0, code=False, numbered=None):
         x, y = self.at(xy)
         self.z += 1
-        return self.ax.text(x, y, s, fontproperties=self.code if code else self.hand,
+        if numbered is None:
+            numbered = bool(NUMBERED.search(s))
+        hand = self.numbered if numbered else self.hand
+        return self.ax.text(x, y, s, fontproperties=self.code if code else hand,
                             fontsize=size * PX,
                             color=color,
                             ha={"middle": "center", "start": "left", "end": "right"}[anchor],
@@ -425,9 +434,10 @@ class Sketch:
                             rotation_mode="anchor", zorder=self.z)
 
     def lines(self, xy, rows, size=26, gap=1.25, **kw):
-        """Text a row at a time, each its own baseline, gap sizes apart."""
+        """Text a row at a time, each its own baseline, gap sizes apart, all in one hand."""
+        numbered = any(NUMBERED.search(row) for row in rows)
         for i, row in enumerate(rows):
-            self.text((xy[0], xy[1] + i * size * gap), row, size, **kw)
+            self.text((xy[0], xy[1] + i * size * gap), row, size, numbered=numbered, **kw)
 
     def marker_line(self, p0, p1, color, nib=9, bend=0.0):
         """A broad marker stroke with an ink line along it; gives back its curve."""
