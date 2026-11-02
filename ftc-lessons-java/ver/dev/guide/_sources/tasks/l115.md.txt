@@ -17,8 +17,6 @@ that.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 - [L065](l065.md), put the shaping in a class
@@ -35,6 +33,35 @@ the Pinpoint.
 The three rules in L115S010 and L115S020 are Pedro's, from
 [its Pinpoint page](https://pedropathing.com/docs/pathing/tuning/localization/pinpoint).
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- configure the robot on the Driver Station, from [L045](l045.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- connect AdvantageScope to the robot, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+
+**Skills learned.**
+
+- mount the two odometry pods, the forward pod in the Pinpoint's **x** socket and the strafe pod in
+  its **y** socket
+- mount the Pinpoint sticker side up and plug it into an I2C port on the Control Hub that is not 0
+- watch the Pinpoint's heading in AdvantageScope during INIT, turning the robot by hand
+
+**Concepts learned.**
+
+- robot control: odometry pods are two wheels nothing drives, a forward pod and a strafe pod; both
+  touch the floor the whole time, and a pod that skips loses count
+- FTC programming: the Pinpoint talks to the Control Hub over I2C, and port 0 already has the
+  Control Hub's own IMU
+- FTC programming: the code asks for a device by the name the configuration gives it, `pinpoint`;
+  when the two differ, INIT shows `Unable to find a hardware device`
+- robot control: the Pinpoint resets its gyro at INIT, and the robot has to sit still for it
+- robot control: the Pinpoint's pods are not driven, so a slipping drive wheel cannot spin them
+::::
+<!-- /skills -->
 
 ## the steps
 
@@ -54,11 +81,11 @@ the Pinpoint's **x** socket and the strafe pod into its **y** socket.
 - Push the robot forward by hand. The forward pod's wheel turns.
 - The strafe pod's wheel drags sideways.
 
-### L115S020: plug it into I2C port 1
+### L115S020: plug it into its I2C port
 
 The Pinpoint talks to the Control Hub over I2C. Port 0 already has the Control Hub's own IMU on it,
-so the Pinpoint goes on port 1. In L045S030 you named the device on port 1 `pinpoint`. That is the
-name the code asks for:
+so the Pinpoint goes on another port. In L045S030 you named a device `pinpoint` on one of the other
+I2C buses, and wrote down which. That is the name the code asks for:
 
 ```{code-block} java
 :caption: pedro/Bot*.java
@@ -66,7 +93,7 @@ c.name.set("pinpoint");
 ```
 
 **Mount.** Bolt the Pinpoint on with its sticker side, the side the ports are on, facing **up**.
-Plug its cable into I2C port 1 on the Control Hub.
+Plug its cable into the Control Hub's I2C port with that bus's number.
 
 **Robot.** Pick `L110 Follower` from the `Lessons` group and press INIT, but not PLAY. Connect
 AdvantageScope to the robot as in L050, and drag `heading_deg` from `Localizer/pinPoint` into

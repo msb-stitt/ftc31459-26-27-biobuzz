@@ -15,8 +15,6 @@ Make the robot sit still when the sticks are let go, and make a gentle push mean
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 <!-- /needs -->
@@ -28,6 +26,35 @@ Finish these first:
 **What the lessons before leave.** `mytry` holds `L050BlocksOpMode`, and the robot's wheels all turn
 the right way.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- connect AdvantageScope to the robot, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+
+**Skills learned.**
+
+- find a method nothing uses yet by its grey name and *no usages*
+
+**Concepts learned.**
+
+- Java: a method has a name, takes numbers in as its parameters, and gives one back with `return`
+- Java: `<` compares two numbers, and a `boolean` holds its answer, `true` or `false`
+- Java: `if` runs the lines inside its `{ }` only when what is in its brackets is true
+- Java: `Math.abs` takes the minus sign off
+- Java: a line with no `double` in front changes a variable that already exists
+- programming: each line does one thing, and each result gets a name
+- robot control: a deadband counts a stick closer to the middle than the band as let go
+- robot control: `signedSquared` squares the size and keeps the sign, so half a push is a quarter of
+  full speed
+::::
+<!-- /skills -->
 
 ## the steps
 

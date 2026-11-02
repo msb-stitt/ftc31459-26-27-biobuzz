@@ -374,8 +374,6 @@ fast your localizer from L120 says the robot goes. None of them is the truth. A 
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -393,6 +391,41 @@ for the last step.</p></li>
 </ul>
 <p><strong>What the lessons before leave.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L113EncoderLocalizer</span></code> and <code class="docutils literal notranslate"><span class="pre">L120PinpointLocalizer</span></code>,
 and the Pinpoint is on the robot and tuned.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>connect AdvantageScope to the robot, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>run a lesson’s tests in the Terminal, from <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a></p></li>
+<li><p>import a class with Option+Enter, from <a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>graph two of AdvantageScope’s values together to compare them</p></li>
+<li><p>read <code class="docutils literal notranslate"><span class="pre">loop/period_ms</span></code> in AdvantageScope to see how long a loop takes, in the simulator and on the
+robot</p></li>
+<li><p>measure how far the robot really went with a tape measure, and compare the localizers with it</p></li>
+<li><p>pick the right package, such as <code class="docutils literal notranslate"><span class="pre">com.pedropathing.ivy</span></code>, in the Option+Enter list</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: no localizer is the truth; a tape measure is</p></li>
+<li><p>robot control: a localizer’s error is its x, y and heading less the robot’s own</p></li>
+<li><p>robot control: <code class="docutils literal notranslate"><span class="pre">Angle.normalizeSigned</span></code> keeps a heading difference between -180° and 180°, so 359°
+and 1° are 2° apart</p></li>
+<li><p>robot control: your localizer works once a loop, a few milliseconds or more, and the Pinpoint’s
+chip about 1500 times a second</p></li>
+<li><p>robot control: a drive wheel that spins without carrying the robot moves its estimate; the
+Pinpoint’s pods only measure and never push, so they slip less</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>: <code class="docutils literal notranslate"><span class="pre">Commands.infinite</span></code> and <code class="docutils literal notranslate"><span class="pre">Scheduler.schedule</span></code> run a method every loop</p></li>
+<li><p>mecanum drive: each wheel pushes at an angle α from forward; sliding rolls a wheel cot α inches
+for each inch the robot slides</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l132s010">

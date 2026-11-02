@@ -1,5 +1,17 @@
 # 143 what's happening: the field from each alliance area
 
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Concepts learned.**
+
+- Pedro Pathing: (0, 0) is where the red wall meets the audience's wall; +x runs toward the blue
+  wall, +y away from the audience, and the far corner is (144, 144) in inches
+- Pedro Pathing: a heading of 0 faces +x
+- robot control: from the Red Alliance Area, +x points away from the drivers and +y to their left;
+  from the Blue, +x points toward them and +y to their right
+::::
+<!-- /skills -->
+
 Here you learn where Pedro's x and y lie on this season's field. You also see how they look from
 each Alliance Area. In L140, they are why pushing the stick away from you drives the robot away
 from you. That holds when you drive from the Red Alliance Area.

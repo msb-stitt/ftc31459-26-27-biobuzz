@@ -6,10 +6,10 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "cb906e25a0a082a31dc2ca412ca78da55bac49bd",
+      "built_from_commit": "e2b2b9838b59bb5d512da0d2f54ce0a62fa6620e",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
-        "fig-control-loops_0c687675e83c.png",
+        "fig-control-loops_23f8ab68c3c1.png",
         "fig-e035-motor-wheel-gear-box_c350139b64e8.png",
         "fig-e035-numberline-3d_a1504154d867.png",
         "fig-e035-numberline_c8208c13327c.png",
@@ -113,7 +113,7 @@
         "fig-l040-hardware_25d94e20b03c.png",
         "fig-l040-setpower_392e1a190c45.png",
         "fig-l040-sticky_6caf2b0f3b43.png",
-        "fig-l045-wiring_8c1fc2a12337.png",
+        "fig-l045-wiring_e60295bdf85e.png",
         "fig-l050-direction_aa0cfd6446ca.png",
         "fig-l060-deadband_6327d1a7d564.png",
         "fig-l060-squared_97e3be716d34.png",
@@ -4209,7 +4209,6 @@
       "sha256": "0c687675e83cda3915463e67e404a045ea902a87d6e250fbde563c21371c7ebf",
       "bytes": 5239242,
       "used_by_versions": [
-        "dev",
         "v0.3.0",
         "v0.3.0-rc.1",
         "v0.3.0-rc.2",
@@ -4231,6 +4230,13 @@
         "v0.5.0-rc.2",
         "v0.5.0-rc.3",
         "v0.5.0-rc.4"
+      ]
+    },
+    "fig-control-loops_23f8ab68c3c1.png": {
+      "sha256": "23f8ab68c3c1116b1381e28219449f867433df8c5b9a57fa970b992531974b43",
+      "bytes": 5239638,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-e035-motor-wheel-gear-box_c350139b64e8.png": {
@@ -7112,11 +7118,17 @@
       "sha256": "8c1fc2a123373c9e9befbe82b7980ea98b25fd563fa42485cb563b6fdfaaa514",
       "bytes": 555150,
       "used_by_versions": [
-        "dev",
         "v0.5.0-rc.1",
         "v0.5.0-rc.2",
         "v0.5.0-rc.3",
         "v0.5.0-rc.4"
+      ]
+    },
+    "fig-l045-wiring_e60295bdf85e.png": {
+      "sha256": "e60295bdf85e0c1b5e26caa1af936a0fbb38d2dac8a3e9386a68a7ffadba7042",
+      "bytes": 251946,
+      "used_by_versions": [
+        "dev"
       ]
     },
     "fig-l050-direction_aa0cfd6446ca.png": {

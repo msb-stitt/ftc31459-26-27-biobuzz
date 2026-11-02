@@ -16,19 +16,43 @@ the driver has it back at once.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 - [L065](l065.md), put the shaping in a class
 - [L110](l110.md), connect the drivetrain to the follower, with no path yet
-- [L113](l113.md), work out where the robot is from the drive wheels
 - [L115](l115.md), mount the Pinpoint and plug it in
 - [L117](l117.md), let AutoTune tune the robot
 <!-- /needs -->
 
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - The robot, the Driver Station, a gamepad, and about 2 m by 2 m of clear floor for the last step.
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+- import a class with Option+Enter, from [L113](l113.md)
+
+**Skills learned.**
+
+- check a heading hold on the floor by driving a diagonal and twisting the robot a little by hand
+
+**Concepts learned.**
+
+- robot control: heading hold: when the turn stick is let go, the robot keeps the heading it was
+  left at
+- robot control: the driver's stick beats the hold, and the hold beats doing nothing
+- Pedro Pathing: `Constants.foresightConfig.headingFeedback` is the follower's own heading steering,
+  so tuning the follower tunes the hold
+- Java: a variable given a new value after it is made, which Android Studio underlines; it is not an
+  error
+::::
+<!-- /skills -->
 
 ## the steps
 

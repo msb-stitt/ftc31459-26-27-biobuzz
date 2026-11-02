@@ -16,8 +16,6 @@ happen at once. Each wheel gets its own speed.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 - [L065](l065.md), put the shaping in a class
@@ -30,6 +28,33 @@ Finish these first:
 ::::{only} mentor
 **What the lessons before leave.** `mytry` holds `L080ArcadeOpMode`.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+
+**Skills learned.**
+
+- check each mecanum wheel on blocks, watching the top of each tire for forward, slide left and turn
+  left
+
+**Concepts learned.**
+
+- mecanum drive: a mecanum wheel's rollers sit at 45 degrees, so it pushes forward and sideways at
+  once; seen from above, the top rollers make an X
+- mecanum drive: strafe is sliding sideways, and a slide to the left is positive
+- mecanum drive: each wheel adds forward, strafe and turn its own way, one line a wheel
+- mecanum drive: the robot moves the way the four wheels' pushes add up
+- robot control: L080's scaling, for four wheels: divide each by the biggest, never by less than 1.0
+- Java: the biggest of four takes three `Math.max` calls, each changing `biggest`
+::::
+<!-- /skills -->
 
 ## the steps
 

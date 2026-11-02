@@ -377,16 +377,12 @@ happens to be facing, so a driver never has to think about which end of the robo
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
 <li><p><a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a>, write a menu, test first</p></li>
 <li><p><a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a>, connect the drivetrain to the follower, with no path yet</p></li>
 <li><p><a class="reference internal" href="l115.html"><span class="std std-doc">L115</span></a>, mount the Pinpoint and plug it in</p></li>
-<li><p><a class="reference internal" href="l117.html"><span class="std std-doc">L117</span></a>, let AutoTune tune the robot</p></li>
-<li><p><a class="reference internal" href="l135.html"><span class="std std-doc">L135</span></a>, choose the alliance and the auto</p></li>
 </ul>
 <!-- /needs -->
 <ul class="simple">
@@ -396,6 +392,36 @@ happens to be facing, so a driver never has to think about which end of the robo
 <p><strong>Where the driver stands.</strong> “Away from the driver” is the field’s +x from the Red Alliance Area,
 and -x from the Blue. From the Red Alliance Area, the robot starts at heading 90°, facing +y, so
 at the start a push away from the driver slides it to its right.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>connect AdvantageScope to the robot, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>run the simulator in INIT with <code class="docutils literal notranslate"><span class="pre">--init</span></code>, from <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a></p></li>
+<li><p>import a class with Option+Enter, from <a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>drive field-relative, standing off the robot’s left side, used in <a class="reference internal" href="l150.html"><span class="std std-doc">L150</span></a>, <a class="reference internal" href="l157.html"><span class="std std-doc">L157</span></a></p></li>
+<li><p>run an auto until it stops on its own, so the Driver Station chooses the teleop</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: field relative: turn the stick backwards through the heading before the mix</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">follower.pose().heading()</span></code> is the robot’s heading, in radians</p></li>
+<li><p>robot control: a heading that drifts makes the sticks crooked by the same angle</p></li>
+<li><p>robot control: from the Blue Alliance Area, away from the driver is the field’s -x and left is -y,
+so the stick’s signs flip</p></li>
+<li><p>FTC programming: <code class="docutils literal notranslate"><span class="pre">OpModeStorage</span></code> holds values from one OpMode to the next, such as the alliance
+the auto chose</p></li>
+<li><p>FTC programming: <code class="docutils literal notranslate"><span class="pre">preselectTeleOp</span></code> has the Driver Station choose the teleop when the auto ends on
+its own</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l140s010">

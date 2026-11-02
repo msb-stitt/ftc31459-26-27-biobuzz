@@ -377,8 +377,6 @@ happen at once. Each wheel gets its own speed.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -390,6 +388,31 @@ happen at once. Each wheel gets its own speed.</p>
 last step.</p></li>
 </ul>
 <p><strong>What the lessons before leave.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L080ArcadeOpMode</span></code>.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>check each mecanum wheel on blocks, watching the top of each tire for forward, slide left and turn
+left</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>mecanum drive: a mecanum wheel’s rollers sit at 45 degrees, so it pushes forward and sideways at
+once; seen from above, the top rollers make an X</p></li>
+<li><p>mecanum drive: strafe is sliding sideways, and a slide to the left is positive</p></li>
+<li><p>mecanum drive: each wheel adds forward, strafe and turn its own way, one line a wheel</p></li>
+<li><p>mecanum drive: the robot moves the way the four wheels’ pushes add up</p></li>
+<li><p>robot control: L080’s scaling, for four wheels: divide each by the biggest, never by less than 1.0</p></li>
+<li><p>Java: the biggest of four takes three <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> calls, each changing <code class="docutils literal notranslate"><span class="pre">biggest</span></code></p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l090s010">

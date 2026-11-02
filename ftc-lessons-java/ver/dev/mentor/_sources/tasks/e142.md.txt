@@ -1,5 +1,22 @@
 # 142 what's happening: turning the stick into the robot's frame
 
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Concepts learned.**
+
+- robot control: a radian is a distance of 1 around a circle with a radius of 1, and Pedro keeps the
+  heading in radians
+- Java: `Math.cos` and `Math.sin` take an angle in radians and give the x and y of that point on the
+  circle
+- robot control: in a triangle with a square corner and a long side k, the side next to the angle is
+  k × cos θ and the side across is k × sin θ
+- robot control: at heading θ, the robot's forward is (cos θ, sin θ) on the field and its left is
+  (-sin θ, cos θ)
+- robot control: the stick's arrow on the field breaks into pieces along the robot's forward and
+  left, and adding them gives `robotForwardXSpeed` and `robotStrafeYSpeed`
+::::
+<!-- /skills -->
+
 Here you learn how `cos` and `sin` find the sides of a triangle from one angle. Then you use them
 to turn the stick's arrow on the field into the robot's own forward and strafe. In L140,
 `Math.cos(heading)` and `Math.sin(heading)` do this. That is how the robot drives where the stick

@@ -377,14 +377,44 @@ D-pad and its A and B buttons, before pressing PLAY.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 </ul>
 <!-- /needs -->
 <ul class="simple">
 <li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
 <li><p>No robot is needed.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>run a lesson’s tests in the Terminal, used in <a class="reference internal" href="l095.html"><span class="std std-doc">L095</span></a>, <a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a>, <a class="reference internal" href="l120.html"><span class="std std-doc">L120</span></a>,
+<a class="reference internal" href="l132.html"><span class="std std-doc">L132</span></a>, <a class="reference internal" href="l135.html"><span class="std std-doc">L135</span></a>, <a class="reference internal" href="l153.html"><span class="std std-doc">L153</span></a>, <a class="reference internal" href="l157.html"><span class="std std-doc">L157</span></a></p></li>
+<li><p>run the simulator in INIT with <code class="docutils literal notranslate"><span class="pre">--init</span></code>, used in <a class="reference internal" href="l095.html"><span class="std std-doc">L095</span></a>, <a class="reference internal" href="l135.html"><span class="std std-doc">L135</span></a>, <a class="reference internal" href="l140.html"><span class="std std-doc">L140</span></a></p></li>
+<li><p>copy a lesson’s test starters into the <code class="docutils literal notranslate"><span class="pre">mytry</span></code> folder under <code class="docutils literal notranslate"><span class="pre">test</span></code></p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>programming: a test runs your code and checks what it gives back; write the test first, watch it
+fail, then write the code until it passes</p></li>
+<li><p>Java: JUnit’s <code class="docutils literal notranslate"><span class="pre">&#64;Test</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;Before</span></code> and <code class="docutils literal notranslate"><span class="pre">assertEquals(expected,</span> <span class="pre">actual)</span></code></p></li>
+<li><p>programming: each class does one job, built from the bottom up, each tested before the next is
+built on it</p></li>
+<li><p>Java: a package is a folder; classes in it use each other with no <code class="docutils literal notranslate"><span class="pre">import</span></code>, and what another
+package uses is <code class="docutils literal notranslate"><span class="pre">public</span></code></p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">private</span></code> keeps a field inside its class, and other classes ask for it with a method such as
+<code class="docutils literal notranslate"><span class="pre">getShortName()</span></code></p></li>
+<li><p>Java: an <code class="docutils literal notranslate"><span class="pre">ArrayList</span></code> holds a list of objects and grows as you add to it, with <code class="docutils literal notranslate"><span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">get(i)</span></code>
+counting from 0, and <code class="docutils literal notranslate"><span class="pre">size()</span></code></p></li>
+<li><p>Java: a for-each loop, <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(MenuRow</span> <span class="pre">row</span> <span class="pre">:</span> <span class="pre">rows)</span></code>, runs once for each item; <code class="docutils literal notranslate"><span class="pre">==</span></code> on two objects
+asks whether they are the same object</p></li>
+<li><p>FTC programming: between INIT and PLAY, the robot calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> again and again;
+<code class="docutils literal notranslate"><span class="pre">dpadRightWasPressed()</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> once for each press</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-menu-press-by-press">
 <h2>the menu, press by press<a class="headerlink" href="#the-menu-press-by-press" title="Link to this heading">¶</a></h2>
 <p>The menu you try here has three rows. <code class="docutils literal notranslate"><span class="pre">Light</span></code> is On or Off, <code class="docutils literal notranslate"><span class="pre">Speed</span></code> is Slow, Medium or Fast, and

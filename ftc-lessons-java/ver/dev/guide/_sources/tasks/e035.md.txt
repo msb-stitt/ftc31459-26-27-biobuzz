@@ -1,5 +1,28 @@
 # 035 what's happening: sticks into speeds
 
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Concepts learned.**
+
+- robot control: a number line plots one quantity; a coordinate grid plots two, **+x** to the right
+  and **+y** up the page or away from us; a third axis, **z**, has **+z** up
+- game controllers: a stick's **y** axis is backwards from what we expect: +1.0 is toward us, -1.0
+  away
+- game controllers: a stick sets a speed: let go reads zero and the robot stops, and further pushed
+  is faster
+- robot control: a reference frame is a coordinate grid attached to an object, and it moves and
+  turns with the object
+- Pedro Pathing: in Pedro Pathing's robot reference frame **+x** is forward, out the nose, and
+  **+y** is to the left
+- robot control: the minus sign in `-leftStickY` switches from the stick's reference frame to the
+  robot's
+- robot control: a speed of 1.0 is full speed forward, 0.0 is stopped, and -1.0 is full speed
+  backward
+- robot control: a motor turns a gear box, which turns a wheel; each turns at a speed, in turns per
+  second, revolutions per minute, or inches per second at the wheel's edge
+::::
+<!-- /skills -->
+
 This page is about one line you wrote in [L030](l030.md), and why it has a minus sign.
 
 ```{code-block} java

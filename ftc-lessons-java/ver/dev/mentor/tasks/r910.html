@@ -387,6 +387,10 @@ L130 are the two autonomous lessons. <a class="reference internal" href="l125.ht
 <dt><strong>Driver Station</strong></dt><dd><p>The phone or tablet that holds the gamepads and picks the OpMode. Lines printed with
 <code class="docutils literal notranslate"><span class="pre">Tracker.printToDs</span></code> show up there. <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p>
 </dd>
+<dt><strong>The robot’s constants file</strong></dt><dd><p>The file in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder that holds one robot’s numbers, such as <code class="docutils literal notranslate"><span class="pre">pedro/Bot37523.java</span></code>:
+which way each motor turns, its ticks per inch, and what AutoTune measured. It is not
+<code class="docutils literal notranslate"><span class="pre">pedro/Constants.java</span></code>, whose <code class="docutils literal notranslate"><span class="pre">thisRobot</span></code> picks which robot’s file the code uses. <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p>
+</dd>
 <dt><strong>Drivetrain</strong></dt><dd><p>The four motors and the code that decides what speed each one gets. L040 sets the four speeds
 itself. From L110 on, a lesson’s drivetrain is a class of its own. <a class="reference internal" href="l090.html"><span class="std std-doc">L090</span></a></p>
 </dd>

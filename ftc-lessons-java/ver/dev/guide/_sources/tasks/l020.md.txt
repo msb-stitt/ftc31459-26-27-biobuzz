@@ -19,7 +19,6 @@ A video shows every step of this lesson:
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
 <!-- /needs -->
 
 - AdvantageScope is installed on the same laptop.
@@ -31,6 +30,58 @@ The student writes in one folder, `mytry`, inside `TeamCode/java/org.firstinspir
 It holds no lesson until step L020S010 copies a starter into it. The `lessons` folder beside it
 holds the starting files.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- open, close and resize Android Studio's panes, from [H017](h017.md)
+
+**Skills learned.**
+
+- copy a starter into `mytry` and switch it on, used in [L030](l030.md), [L040](l040.md),
+  [L050](l050.md), [L060](l060.md), [L065](l065.md), [L070](l070.md), [L080](l080.md),
+  [L090](l090.md), [L093](l093.md), [L095](l095.md), [L110](l110.md), [L113](l113.md),
+  [L120](l120.md), [L125](l125.md), [L130](l130.md), [L131](l131.md), [L132](l132.md),
+  [L135](l135.md), [L140](l140.md), [L150](l150.md), [L153](l153.md), [L157](l157.md),
+  [L160](l160.md), [L170](l170.md), [L180](l180.md), [L190](l190.md)
+- run the simulator from the Terminal, used in [L030](l030.md), [L040](l040.md), [L060](l060.md),
+  [L065](l065.md), [L070](l070.md), [L080](l080.md), [L090](l090.md), [L093](l093.md),
+  [L095](l095.md), [L110](l110.md), [L113](l113.md), [L120](l120.md), [L125](l125.md),
+  [L130](l130.md), [L131](l131.md), [L132](l132.md), [L135](l135.md), [L140](l140.md),
+  [L150](l150.md), [L153](l153.md), [L157](l157.md), [L160](l160.md), [L170](l170.md),
+  [L180](l180.md), [L190](l190.md)
+- connect AdvantageScope to the simulator, used in [L030](l030.md), [L040](l040.md),
+  [L060](l060.md), [L065](l065.md), [L070](l070.md), [L080](l080.md), [L090](l090.md),
+  [L095](l095.md), [L110](l110.md), [L113](l113.md), [L120](l120.md), [L125](l125.md),
+  [L130](l130.md), [L131](l131.md), [L132](l132.md), [L135](l135.md), [L140](l140.md),
+  [L150](l150.md), [L153](l153.md), [L157](l157.md), [L160](l160.md), [L170](l170.md),
+  [L180](l180.md), [L190](l190.md)
+- pick a name from Android Studio's code completion list with Tab
+- hold the pointer over a name to see what it is
+- open a flight log in AdvantageScope and graph its values
+
+**Concepts learned.**
+
+- FTC programming: an OpMode is one program the robot can run; INIT runs its `init()` once, and PLAY
+  runs its `start()` once
+- FTC programming: `start()` hands `readTheSticks()` to the scheduler, which runs it over and over
+  until STOP
+- FTC programming: `@Disabled` hides an OpMode from the robot's list
+- this project: `mytry` is where a student writes, and `lessons` holds the starters
+- this project: the simulator is a robot that exists only in the laptop, and runs the OpMode as the
+  real robot would
+- Java: `double` is a number with a decimal point; a `float` is a smaller one, and a `double` holds
+  any `float`
+- Java: an `import` line, which Android Studio adds when a class is picked from the list
+- game controllers: `gamepad1.left_stick_y` and `right_stick_y` read from -1.0 to 1.0, and forward
+  is -1.0
+- `CorbelsOpMode`: `Tracker.publish(name, value)` sends a value to AdvantageScope while the code
+  runs, and writes it in the flight log
+- NetworkTables: AdvantageScope connected to the simulator shows published values live
+- log files: the flight log keeps the same names and values, to open in AdvantageScope after the run
+::::
+<!-- /skills -->
 
 ## the steps
 

@@ -1,5 +1,23 @@
 # 154 what's happening: the scheduler runs your runs
 
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Concepts learned.**
+
+- Pedro Pathing: a `Command` is an object the scheduler works on; it calls `start()` once,
+  `execute()` each loop, and `done()` after each `execute()`
+- programming: calling `theRuns()` drives nothing; it makes commands, and the scheduler runs them
+  later, a little each loop
+- Java: `this::measure` hands over the method itself, to be called later; it does not call it now
+- Pedro Pathing: `sequential` holds a list of commands and works on one at a time, and a sequential
+  can hold sequentials
+- Pedro Pathing: `instant` is done as soon as it starts, `waitUntil` is done when its method says
+  `true`, and `Commands.infinite` is never done
+- `CorbelsOpMode`: `loopAfter()` calls the scheduler's `execute()`, which goes through its commands
+  in the order they were scheduled
+::::
+<!-- /skills -->
+
 When the computer runs your program, it reads one line of code at a time. It moves words and
 numbers around in its memory. It is like moving sticky notes around on your desk.
 

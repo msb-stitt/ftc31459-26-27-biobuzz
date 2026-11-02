@@ -372,8 +372,6 @@ that every wheel turns the way its stick says.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 </ul>
 <!-- /needs -->
@@ -382,6 +380,8 @@ that every wheel turns the way its stick says.</p>
 <li><p>Two blocks to rest the robot on, so no wheel touches the ground, and about 2 m of clear floor
 for the last step.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l050s010">
@@ -422,7 +422,7 @@ and the right side RIGHT, as the robot sees them when it drives forward.</p>
 <span id="l050s040-tell-each-motor-which-way-it-is-mounted"></span><h3>L050S040: tell each motor which way it is mounted<a class="headerlink" href="#l050s040" title="Link to this heading">¶</a></h3>
 <p>The two sides of the robot face opposite ways. So the same speed turns the left motors one way and
 the right motors the other. In L040 the simulator did not care. A real robot does.</p>
-<p>The robot’s own file in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder already says which way each motor is mounted, and
+<p>The robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>) already says which way each motor is mounted, and
 <code class="docutils literal notranslate"><span class="pre">hardware.mecanumConfig</span></code> holds what it says.</p>
 <p><strong>Change.</strong> Scroll up to <code class="docutils literal notranslate"><span class="pre">init()</span></code> and find the comment that names this step. Type
 <code class="docutils literal notranslate"><span class="pre">hardware.frontLeft.setD</span></code>, and pick <code class="docutils literal notranslate"><span class="pre">setDirection</span></code>. Inside the brackets, type

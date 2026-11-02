@@ -377,8 +377,6 @@ back at once.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -391,6 +389,31 @@ back at once.</p>
 <li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
 <li><p>The robot, the Driver Station, a gamepad, and about 2 m by 2 m of clear floor for the last step.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>send the robot to a pose with Y, and take it back by pushing a stick</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: a button sends the robot to a pose, and the follower drives it there</p></li>
+<li><p>robot control: the driver takes over by pushing any stick, and the follower stops</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> means “and”, and <code class="docutils literal notranslate"><span class="pre">!</span></code> means “not”</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">follower.hold(target)</span></code> drives to a pose and stays there, once
+<code class="docutils literal notranslate"><span class="pre">releaseCommandedWheels()</span></code> lets go of the wheels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>: a second command, started with <code class="docutils literal notranslate"><span class="pre">Scheduler.schedule</span></code> on the loop Y goes down</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>: two commands <code class="docutils literal notranslate"><span class="pre">requiring</span></code> the drivetrain take turns: the new one sets the sticks’
+command aside, and <code class="docutils literal notranslate"><span class="pre">SUSPEND</span></code> brings it back when it ends</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l170s010">

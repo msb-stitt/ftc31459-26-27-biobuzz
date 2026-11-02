@@ -377,8 +377,6 @@ or L130’s, with the gamepad’s D-pad, before pressing PLAY.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -393,6 +391,35 @@ or L130’s, with the gamepad’s D-pad, before pressing PLAY.</p>
 <li><p>The robot, the Driver Station, a gamepad, and about 1 m by 2 m of clear floor for the last step.</p></li>
 </ul>
 <p><strong>What the lessons before leave.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">l093</span></code> with the menu.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>run a lesson’s tests in the Terminal, from <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a></p></li>
+<li><p>run the simulator in INIT with <code class="docutils literal notranslate"><span class="pre">--init</span></code>, from <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>pick the alliance and the auto from a menu on the Driver Station during INIT, with the D-pad, A
+and B</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>FTC programming: between INIT and PLAY the robot calls <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> again and again; the menu
+runs there</p></li>
+<li><p>Java: a class in another package is imported, and only its <code class="docutils literal notranslate"><span class="pre">public</span></code> methods can be used</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">==</span></code> on two objects is <code class="docutils literal notranslate"><span class="pre">true</span></code> when they are the very same object</p></li>
+<li><p>programming: the menu’s status line shows the short name of the choice selected in each row, and
+changes only when A selects</p></li>
+<li><p>robot control: each blue place is a red place turned a half-turn about the field’s middle, so the
+autos are written once, for red</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">Command.NOOP</span></code> is a command that does nothing</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-menu-press-by-press">
 <h2>the menu, press by press<a class="headerlink" href="#the-menu-press-by-press" title="Link to this heading">¶</a></h2>
 <p>The menu has two rows. <code class="docutils literal notranslate"><span class="pre">Alliance</span></code> is Red or Blue, and <code class="docutils literal notranslate"><span class="pre">Auto</span></code> is Nothing, Forward 24 or Forward

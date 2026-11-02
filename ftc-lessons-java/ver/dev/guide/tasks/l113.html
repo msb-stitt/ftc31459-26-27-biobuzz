@@ -372,12 +372,8 @@ against each other. Yours counts how far the four drive wheels roll. A tape meas
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
-<li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
-<li><p><a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a>, connect the drivetrain to the follower, with no path yet</p></li>
 </ul>
 <!-- /needs -->
 <ul class="simple">
@@ -385,6 +381,8 @@ against each other. Yours counts how far the four drive wheels roll. A tape meas
 <li><p>The robot on blocks, as in L050, the Driver Station, a tape measure, and about 3 m of clear floor
 for the last step.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l113s010">
@@ -578,8 +576,8 @@ be at 45 degrees, so it counts more slide than the robot made. L132 measures the
 </section>
 <section id="l113s060">
 <span id="l113s060-work-out-ticks-per-inch-from-the-parts"></span><h3>L113S060: work out ticks per inch from the parts<a class="headerlink" href="#l113s060" title="Link to this heading">¶</a></h3>
-<p>Your localizer turns ticks into inches with <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, a number in the robot’s own file. It is
-45.0 until you change it. Before you use a number, work it out.</p>
+<p>Your localizer turns ticks into inches with <code class="docutils literal notranslate"><span class="pre">ticksPerInch</span></code>, a number in the robot’s constants file
+(<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>). It is 45.0 until you change it. Before you use a number, work it out.</p>
 <p>The motor’s page on goBILDA’s site gives its <strong>encoder resolution</strong>: how many ticks it counts for
 one turn of its output shaft. The wheel’s page gives its diameter. On the Strafer chassis, these
 are the pages:</p>

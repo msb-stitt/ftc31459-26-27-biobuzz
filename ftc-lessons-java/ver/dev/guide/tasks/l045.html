@@ -360,7 +360,7 @@
           <section id="lesson-set-up-the-robot-s-configuration">
 <h1>045 lesson: set up the robot’s configuration<a class="headerlink" href="#lesson-set-up-the-robot-s-configuration" title="Link to this heading">¶</a></h1>
 <figure class="file-named align-default" id="fig-l045-wiring">
-<img alt="../../media/fig-l045-wiring_8c1fc2a12337.png" src="../../media/fig-l045-wiring_8c1fc2a12337.png" />
+<img alt="../../media/fig-l045-wiring_e60295bdf85e.png" src="../../media/fig-l045-wiring_e60295bdf85e.png" />
 <figcaption>
 <p><span class="caption-text">fig-l045-wiring.png</span><a class="headerlink" href="#fig-l045-wiring" title="Link to this image">¶</a></p>
 </figcaption>
@@ -369,13 +369,14 @@
 for, in the Robot Configuration on the Driver Station.</p>
 <p><strong>Before you start.</strong></p>
 <!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
-<p>Nothing needs finishing first.</p>
 <!-- /needs -->
 <ul class="simple">
 <li><p>A robot with 4 mecanum wheels, each with its own motor, and a REV Control Hub.</p></li>
 <li><p>A charged battery, and a Driver Station paired with the Control Hub.</p></li>
 <li><p>No code is needed, and no laptop.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l045s010">
@@ -444,15 +445,17 @@ that way, with its capital letters and its space. Touch <strong>Done</strong>.</
 <span id="l045s030-name-the-imu-and-the-pinpoint"></span><h3>L045S030: name the IMU and the Pinpoint<a class="headerlink" href="#l045s030" title="Link to this heading">¶</a></h3>
 <p>The Control Hub has an IMU inside it. It tells the code which way the robot faces. The code asks
 for it by the name <code class="docutils literal notranslate"><span class="pre">imu</span></code>.</p>
-<p>L115 mounts a Pinpoint on I2C port 1. The code asks for it at INIT by the name <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, so it
-is named now. Until it is plugged in, the Driver Station shows a warning about it at INIT.</p>
+<p>L115 mounts a Pinpoint on an I2C port that is not port 0. The code asks for it at INIT by the name
+<code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, so it is named now. Until it is plugged in, the Driver Station shows a warning about it
+at INIT.</p>
 <p><strong>Configure.</strong> Touch <strong>I2C Bus 0</strong>. The IMU should be there. If its name is not <code class="docutils literal notranslate"><span class="pre">imu</span></code>, change it to
 <code class="docutils literal notranslate"><span class="pre">imu</span></code>. Touch <strong>Done</strong>.</p>
-<p>Touch <strong>I2C Bus 1</strong>, and add a device. Pick the goBILDA Pinpoint, and name it <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, spelled
-exactly that way. Touch <strong>Done</strong>.</p>
+<p>Touch an I2C bus that is not <strong>I2C Bus 0</strong>, and add a device. Pick the goBILDA Pinpoint, and name
+it <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>, spelled exactly that way. Touch <strong>Done</strong>. Write down which bus it is on: L115 plugs
+the Pinpoint into that port.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>I2C Bus 0 has <code class="docutils literal notranslate"><span class="pre">imu</span></code>, and I2C Bus 1 has <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>.</p></li>
+<li><p>I2C Bus 0 has <code class="docutils literal notranslate"><span class="pre">imu</span></code>, and another I2C bus has <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>.</p></li>
 </ul>
 </section>
 <section id="l045s040">

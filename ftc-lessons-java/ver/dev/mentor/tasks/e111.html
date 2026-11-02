@@ -364,6 +364,25 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-happening-the-classes-your-opmode-builds-on">
 <h1>111 what’s happening: the classes your OpMode builds on<a class="headerlink" href="#what-s-happening-the-classes-your-opmode-builds-on" title="Link to this heading">¶</a></h1>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>programming: UML’s grey boxes group classes by who wrote them: the FTC Platform, Pedro Pathing,
+and our base classes</p></li>
+<li><p>Java: is-a is <code class="docutils literal notranslate"><span class="pre">extends</span></code>: an <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code> is a <code class="docutils literal notranslate"><span class="pre">CorbelsTeleOp</span></code>, a <code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code> and an
+<code class="docutils literal notranslate"><span class="pre">OpMode</span></code>, and gets what each has, such as <code class="docutils literal notranslate"><span class="pre">gamepad1</span></code> and <code class="docutils literal notranslate"><span class="pre">hardware</span></code></p></li>
+<li><p>Java: an interface lists methods with no code, and <code class="docutils literal notranslate"><span class="pre">implements</span></code> makes a class write them; an
+abstract class leaves a method, such as <code class="docutils literal notranslate"><span class="pre">mixArcadeToWheelSpeeds</span></code>, to the class below</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">&#64;Override</span></code> sits above a method a class above already names; a <code class="docutils literal notranslate"><span class="pre">final</span></code> method can be called
+from below but not replaced</p></li>
+<li><p>Pedro Pathing: the follower holds your drivetrain as a <code class="docutils literal notranslate"><span class="pre">Drivetrain</span></code>, so it can drive any
+drivetrain that is one</p></li>
+<li><p>FTC programming: the platform, not your code, calls <code class="docutils literal notranslate"><span class="pre">init()</span></code>, <code class="docutils literal notranslate"><span class="pre">init_loop()</span></code> and <code class="docutils literal notranslate"><span class="pre">loop()</span></code> when the
+Driver Station’s buttons are pressed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>: <code class="docutils literal notranslate"><span class="pre">initBefore()</span></code> finds the motors, <code class="docutils literal notranslate"><span class="pre">initAfter(drivetrain)</span></code> makes the follower, and
+<code class="docutils literal notranslate"><span class="pre">loopAfter()</span></code> runs the scheduler, then updates the follower</p></li>
+</ul>
+<!-- /skills -->
 <p>When the computer runs your program, it reads one line of code at a time. It moves words and
 numbers around in its memory. It is like moving sticky notes around on your desk.</p>
 <p>In <a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a> you wrote two classes, <code class="docutils literal notranslate"><span class="pre">L110FollowerOpMode</span></code> and <code class="docutils literal notranslate"><span class="pre">L110FollowerDriveTrain</span></code>. Each

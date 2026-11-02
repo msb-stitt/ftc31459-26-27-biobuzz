@@ -364,6 +364,21 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-happening-drawing-a-class-and-its-calls">
 <h1>067 what’s happening: drawing a class and its calls<a class="headerlink" href="#what-s-happening-drawing-a-class-and-its-calls" title="Link to this heading">¶</a></h1>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>programming: UML draws classes as pictures; a class diagram is a box for each class with its name,
+fields and methods</p></li>
+<li><p>programming: in a class diagram, <code class="docutils literal notranslate"><span class="pre">+</span></code> marks a public name, no mark means the same folder only, and
+<code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">double</span></code> is what a method gives back</p></li>
+<li><p>programming: a diamond arrow means has-a, made by a field, and «enumeration» marks an <code class="docutils literal notranslate"><span class="pre">enum</span></code></p></li>
+<li><p>programming: a sequence diagram shows calls in time order: a solid arrow is a call, a dashed arrow
+what comes back, and an arrow marked <code class="docutils literal notranslate"><span class="pre">new</span></code> makes an object</p></li>
+<li><p>programming: a diagram shows what it is about and leaves out the rest</p></li>
+<li><p>programming: code that calls only another class’s public methods lets that class change how it
+works without changing the caller</p></li>
+</ul>
+<!-- /skills -->
 <p>When the computer runs your program, it reads one line of code at a time. It moves words and
 numbers around in its memory. It is like moving sticky notes around on your desk.</p>
 <p>In <a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a> you wrote a class, <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code>, and an OpMode that uses it. Programmers draw

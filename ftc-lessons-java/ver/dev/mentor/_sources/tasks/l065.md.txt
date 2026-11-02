@@ -16,8 +16,6 @@ three ways.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 <!-- /needs -->
 
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
@@ -26,6 +24,35 @@ Finish these first:
 ::::{only} mentor
 **What the lessons before leave.** `mytry` holds `L060ShapingOpMode`.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+
+**Skills learned.**
+
+- copy a lesson's folder of starters into `mytry`
+- build the code from the Terminal and look for `BUILD SUCCESSFUL`
+
+**Concepts learned.**
+
+- Java: a class is a kind of thing, and an object is one thing made from a class with `new`
+- Java: a field is a variable that belongs to an object, and keeps its value as long as the object
+  lives
+- Java: a constructor runs when an object is made; it has the class's name and no return type
+- Java: an `enum` is a short list of names, and a variable of its kind holds one of them
+- Java: a `switch` runs the lines under the `case` that matches, and `break` ends it
+- Java: a package is a folder; classes in the same package use each other with no `import`, and
+  `public` lets other packages use them
+- robot control: cubing a speed keeps its sign with no `Math.abs`
+- programming: the code that drives asks the `StickShaper` for a shaped speed, and does not know the
+  band or the shape
+::::
+<!-- /skills -->
 
 ## the steps
 

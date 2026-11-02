@@ -372,15 +372,13 @@
 </figure>
 <p>L113 worked out two numbers from the robot’s parts and a tape measure: how many encoder ticks make
 an inch, and the turn radius. Now the robot measures the same two numbers while you push it and
-spin it by hand. Where a measured number differs from the worked-out one, the measured one goes in
-the robot’s own file.</p>
+spin it by hand. Where a measured number differs from the worked-out one, keep the measured one.
+It goes in the robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>).</p>
 <p><strong>Before you start.</strong></p>
 <!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -397,8 +395,39 @@ believes it.</p></li>
 <li><p>The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
 the robot on the spot.</p></li>
 </ul>
-<p><strong>What the lessons before leave.</strong> The robot’s own file holds the ticks per inch and the turn radius
-worked out from its parts.</p>
+<p><strong>What the lessons before leave.</strong> The robot’s constants file holds the ticks per inch and the turn
+radius worked out from its parts.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>copy several classes at once with Shift and click, so they keep pointing at each other</p></li>
+<li><p>push the robot slowly and straight by hand, at least 36 in, to measure ticks per inch</p></li>
+<li><p>spin the robot on the spot by hand to measure the turn radius</p></li>
+<li><p>put a measured number in the robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>)</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>FTC programming: <code class="docutils literal notranslate"><span class="pre">getCurrentPosition()</span></code> is how many ticks a motor’s encoder has counted since the
+robot started</p></li>
+<li><p>robot control: a number is measured by two instruments that do not talk to each other: the
+Pinpoint’s inches against the encoders’ ticks</p></li>
+<li><p>robot control: a wheel <code class="docutils literal notranslate"><span class="pre">r</span></code> inches from the middle travels <code class="docutils literal notranslate"><span class="pre">r</span></code> inches for each radian the robot
+turns</p></li>
+<li><p>FTC programming: a motor given no power brakes or coasts, and a robot pushed by hand needs its
+wheels to coast</p></li>
+<li><p>robot control: work a number out, then measure it before trusting it</p></li>
+<li><p>Android Studio: classes copied together keep pointing at each other; copied one at a time, they
+point back at <code class="docutils literal notranslate"><span class="pre">lessons</span></code></p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l131s010">
@@ -494,7 +523,8 @@ place.</p>
 <li><p>The Driver Station shows a turn radius.</p></li>
 <li><p>It is close to the turn radius L113S070 worked out, A + B.</p></li>
 </ul>
-<p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in the robot’s own file, in place of L113S070’s.</p>
+<p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in the robot’s constants file, in place of
+L113S070’s.</p>
 <p>A gap here can mean the rollers do not push at quite 45°. L132 looks into why.</p>
 <p><strong>No gamepad.</strong> None of the runs above needs one. Pushing a robot by hand is not something the
 simulator does, so L131S040 and L131S050 are robot steps only.</p>

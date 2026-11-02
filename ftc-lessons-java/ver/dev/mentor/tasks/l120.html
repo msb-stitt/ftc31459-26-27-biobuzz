@@ -378,13 +378,10 @@ can be graphed against each other.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
 <li><p><a class="reference internal" href="l110.html"><span class="std std-doc">L110</span></a>, connect the drivetrain to the follower, with no path yet</p></li>
-<li><p><a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a>, work out where the robot is from the drive wheels</p></li>
 <li><p><a class="reference internal" href="l115.html"><span class="std std-doc">L115</span></a>, mount the Pinpoint and plug it in</p></li>
 <li><p><a class="reference internal" href="l117.html"><span class="std std-doc">L117</span></a>, let AutoTune tune the robot</p></li>
 </ul>
@@ -393,11 +390,43 @@ can be graphed against each other.</p>
 <li><p>AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.</p></li>
 <li><p>The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.</p></li>
 </ul>
-<p><strong>What the lessons before leave.</strong> The Pinpoint is on the robot, and the robot’s own file in the
-<code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder holds its <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code>.</p>
+<p><strong>What the lessons before leave.</strong> The Pinpoint is on the robot, and the robot’s constants file
+(<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>) holds its <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code>.</p>
 <p>In the simulator, a simulated Pinpoint counts the simulated robot’s travel, with its pods where
 the robot’s <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> says. It has no slip, so a finished localizer follows the
 simulator’s own localizer there. The tests check the arithmetic step by step.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>connect AdvantageScope to the robot, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>run a lesson’s tests in the Terminal, from <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a></p></li>
+<li><p>import a class with Option+Enter, from <a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>watch your localizer beside <code class="docutils literal notranslate"><span class="pre">pinPoint</span></code> in AdvantageScope’s <code class="docutils literal notranslate"><span class="pre">Localizer</span></code> folder, and check they stay
+close as the robot drives</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: each pod counts ticks as it rolls; ticks per inch and the pod’s direction,
+<code class="docutils literal notranslate"><span class="pre">REVERSED</span></code> or not, turn the count into inches</p></li>
+<li><p>robot control: each loop’s step is how far a pod rolled since last loop, and the first loop only
+remembers where it started</p></li>
+<li><p>robot control: the pods do not sit at the robot’s middle, so turning rolls them; take the pod’s
+offset times the turn back out</p></li>
+<li><p>robot control: <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> of the heading turn a step on the robot into a step on
+the field, as in L113</p></li>
+<li><p>robot control: speed is how far divided by how long, and each loop divides by its own time,
+because loops are not all the same length</p></li>
+<li><p>Pedro Pathing: a shadow localizer runs and is published beside the robot’s own, and never steers</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l120s010">

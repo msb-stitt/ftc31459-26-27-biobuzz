@@ -13,7 +13,6 @@ for, in the Robot Configuration on the Driver Station.
 **Before you start.**
 
 <!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
-Nothing needs finishing first.
 <!-- /needs -->
 
 - A robot with 4 mecanum wheels, each with its own motor, and a REV Control Hub.
@@ -24,6 +23,26 @@ Nothing needs finishing first.
 The Pinpoint is named here, before L115 mounts it, because the code asks for it at INIT from L050
 on.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills learned.**
+
+- configure the robot on the Driver Station, used in [L115](l115.md)
+- wire each wheel motor's power cable and encoder cable to the Control Hub
+
+**Concepts learned.**
+
+- robot control: each motor has a power cable to a motor port, and an encoder cable, which counts
+  how far the wheel turns, to an encoder port
+- FTC programming: the Robot Configuration names the device on each port; the code asks for a name
+  such as `"Front Left"`, never a port
+- FTC programming: the Control Hub has an IMU inside it, which tells the code which way the robot
+  faces
+- this project: the code asks for the motors by the names in the robot's constants file
+  (`pedro/Bot*.java`), and for `imu` and `pinpoint` at INIT
+::::
+<!-- /skills -->
 
 ## the steps
 
@@ -81,18 +100,20 @@ that way, with its capital letters and its space. Touch **Done**.
 The Control Hub has an IMU inside it. It tells the code which way the robot faces. The code asks
 for it by the name `imu`.
 
-L115 mounts a Pinpoint on I2C port 1. The code asks for it at INIT by the name `pinpoint`, so it
-is named now. Until it is plugged in, the Driver Station shows a warning about it at INIT.
+L115 mounts a Pinpoint on an I2C port that is not port 0. The code asks for it at INIT by the name
+`pinpoint`, so it is named now. Until it is plugged in, the Driver Station shows a warning about it
+at INIT.
 
 **Configure.** Touch **I2C Bus 0**. The IMU should be there. If its name is not `imu`, change it to
 `imu`. Touch **Done**.
 
-Touch **I2C Bus 1**, and add a device. Pick the goBILDA Pinpoint, and name it `pinpoint`, spelled
-exactly that way. Touch **Done**.
+Touch an I2C bus that is not **I2C Bus 0**, and add a device. Pick the goBILDA Pinpoint, and name
+it `pinpoint`, spelled exactly that way. Touch **Done**. Write down which bus it is on: L115 plugs
+the Pinpoint into that port.
 
 **Check.**
 
-- I2C Bus 0 has `imu`, and I2C Bus 1 has `pinpoint`.
+- I2C Bus 0 has `imu`, and another I2C bus has `pinpoint`.
 
 ### L045S040: save it and make it the one in use
 

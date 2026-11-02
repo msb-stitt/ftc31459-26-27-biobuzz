@@ -1,5 +1,16 @@
 # 141 what's happening: arrows as two numbers
 
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Concepts learned.**
+
+- robot control: an arrow has a length and a direction, written as two numbers (x, y)
+- robot control: an arrow's two numbers are its tip minus its tail, wherever it starts
+- robot control: multiplying both numbers changes an arrow's length and keeps its direction
+- robot control: add two arrows tip to tail, or add their numbers; both give the same arrow
+::::
+<!-- /skills -->
+
 Here you learn to write an arrow as two numbers, wherever it starts, to make it longer or
 shorter, and to add two arrows. In L140, the stick's push and the robot's drive are arrows like
 these.

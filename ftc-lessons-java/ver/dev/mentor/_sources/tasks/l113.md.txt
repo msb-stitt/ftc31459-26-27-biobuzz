@@ -16,12 +16,8 @@ against each other. Yours counts how far the four drive wheels roll. A tape meas
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
-- [L065](l065.md), put the shaping in a class
-- [L110](l110.md), connect the drivetrain to the follower, with no path yet
 <!-- /needs -->
 
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
@@ -36,6 +32,45 @@ and turns the IMU with the robot. It has no slip, so a finished localizer follow
 own localizer there more closely than it will on the robot. The tests check the arithmetic step by
 step. The Pinpoint is not needed: L115 mounts it, and L132 compares the two.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- connect AdvantageScope to the robot, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+- run a lesson's tests in the Terminal, from [L093](l093.md)
+
+**Skills learned.**
+
+- import a class with Option+Enter, used in [L120](l120.md), [L125](l125.md), [L132](l132.md),
+  [L140](l140.md), [L160](l160.md), [L180](l180.md)
+- work out ticks per inch from the motor's encoder resolution and the wheel's diameter on goBILDA's
+  pages
+- measure the rectangle the four wheel centers make, front to back and side to side
+- check how far the robot's log says it went against a tape measure
+
+**Concepts learned.**
+
+- this project: a shadow localizer is updated and published beside the robot's own localizer every
+  loop, and never steers the robot
+- robot control: dead reckoning adds up each loop's wheel travel, so a wheel that slips is simply
+  believed
+- mecanum drive: four wheel moves give forward and strafe, L090's table read backwards
+- Java: `null` means "nothing yet", `return` leaves a method early, `+=` adds on, and a `for` loop
+  runs with `i` at 0, 1, 2 and 3
+- robot control: `Math.cos` and `Math.sin` share the robot's step out between the field's x and y,
+  with the heading in radians
+- robot control: ticks per inch is the encoder's ticks per turn over pi times the wheel's diameter
+- mecanum drive: a mecanum wheel's turn radius is A + B, half the length plus half the width, not
+  the diagonal
+- this project: the end of a name says its unit: `_in` is inches, and `_rad` is radians
+::::
+<!-- /skills -->
 
 ## the steps
 
@@ -261,8 +296,8 @@ be at 45 degrees, so it counts more slide than the robot made. L132 measures the
 
 ### L113S060: work out ticks per inch from the parts
 
-Your localizer turns ticks into inches with `ticksPerInch`, a number in the robot's own file. It is
-45.0 until you change it. Before you use a number, work it out.
+Your localizer turns ticks into inches with `ticksPerInch`, a number in the robot's constants file
+(`pedro/Bot*.java`). It is 45.0 until you change it. Before you use a number, work it out.
 
 The motor's page on goBILDA's site gives its **encoder resolution**: how many ticks it counts for
 one turn of its output shaft. The wheel's page gives its diameter. On the Strafer chassis, these

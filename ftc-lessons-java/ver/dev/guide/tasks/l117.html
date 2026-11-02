@@ -361,14 +361,12 @@
 <h1>117 lesson: let AutoTune tune the robot<a class="headerlink" href="#lesson-let-autotune-tune-the-robot" title="Link to this heading">¶</a></h1>
 <p>The robot measures itself. It finds which way each motor turns and where the pods sit. It finds
 how fast it can drive and how hard it can brake. Pedro Pathing’s AutoTune does the measuring. You
-paste what it finds into the robot’s own file.</p>
+paste what it finds into the robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>).</p>
 <p><strong>Before you start.</strong></p>
 <!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -382,6 +380,8 @@ robot’s wheels off the floor.</p></li>
 <li><p>Clear floor for L117S040: at least 48 in ahead of the robot, 48 in to its left and 36 in to its
 right, plus a tile of room all around.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l117s010">
@@ -426,8 +426,8 @@ three pushes it asks for, stopping each one when you are done:</p>
 <li><p>Push the robot to the left.</p></li>
 <li><p>Spin the robot half a turn on the spot, counterclockwise.</p></li>
 </ul>
-<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in the robot’s own file with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code> AutoTune
-shows.</p>
+<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in the robot’s constants file with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code>
+AutoTune shows.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Localization</span> <span class="pre">Test</span></code> and drive with the gamepad.</p></li>
@@ -440,13 +440,13 @@ shows.</p>
 <p><strong>Robot.</strong> Pick <code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>. Keep the distances and the speed it offers: 48 in, 30 in/s and
 36 in. It drives forward and left as fast as it can, coasts to a stop, turns back and forth, spins,
 brakes, and steps 12 in to 24 in each way.</p>
-<p><strong>Change.</strong> In the robot’s own file, replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code> AutoTune
-shows. AutoTune does not print five hold lines, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to
+<p><strong>Change.</strong> In the robot’s constants file, replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code>
+AutoTune shows. AutoTune does not print five hold lines, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to
 <code class="docutils literal notranslate"><span class="pre">holdPointHeadingScaling</span></code>. <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top. It also reads three of the new numbers for
 the lessons’ own drivetrain: the coast feedforward and the two top speeds.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The robot’s own file holds one <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>, and it ends with
+<li><p>The robot’s constants file holds one <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>, and it ends with
 <code class="docutils literal notranslate"><span class="pre">c.naturalStrafeDeceleration.set(...)</span></code>.</p></li>
 </ul>
 </section>

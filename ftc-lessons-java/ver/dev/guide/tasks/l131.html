@@ -367,15 +367,13 @@
 </figure>
 <p>L113 worked out two numbers from the robot’s parts and a tape measure: how many encoder ticks make
 an inch, and the turn radius. Now the robot measures the same two numbers while you push it and
-spin it by hand. Where a measured number differs from the worked-out one, the measured one goes in
-the robot’s own file.</p>
+spin it by hand. Where a measured number differs from the worked-out one, keep the measured one.
+It goes in the robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>).</p>
 <p><strong>Before you start.</strong></p>
 <!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -392,6 +390,8 @@ believes it.</p></li>
 <li><p>The robot, the Driver Station, about 1.5 m of clear straight floor for the push, and room to spin
 the robot on the spot.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l131s010">
@@ -487,7 +487,8 @@ place.</p>
 <li><p>The Driver Station shows a turn radius.</p></li>
 <li><p>It is close to the turn radius L113S070 worked out, A + B.</p></li>
 </ul>
-<p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in the robot’s own file, in place of L113S070’s.</p>
+<p><strong>Change.</strong> Put the number in <code class="docutils literal notranslate"><span class="pre">turnRadiusInches</span></code> in the robot’s constants file, in place of
+L113S070’s.</p>
 <p>A gap here can mean the rollers do not push at quite 45°. L132 looks into why.</p>
 </section>
 </section>

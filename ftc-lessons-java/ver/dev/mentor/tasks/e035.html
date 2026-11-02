@@ -364,6 +364,27 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-happening-sticks-into-speeds">
 <h1>035 what’s happening: sticks into speeds<a class="headerlink" href="#what-s-happening-sticks-into-speeds" title="Link to this heading">¶</a></h1>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: a number line plots one quantity; a coordinate grid plots two, <strong>+x</strong> to the right
+and <strong>+y</strong> up the page or away from us; a third axis, <strong>z</strong>, has <strong>+z</strong> up</p></li>
+<li><p>game controllers: a stick’s <strong>y</strong> axis is backwards from what we expect: +1.0 is toward us, -1.0
+away</p></li>
+<li><p>game controllers: a stick sets a speed: let go reads zero and the robot stops, and further pushed
+is faster</p></li>
+<li><p>robot control: a reference frame is a coordinate grid attached to an object, and it moves and
+turns with the object</p></li>
+<li><p>Pedro Pathing: in Pedro Pathing’s robot reference frame <strong>+x</strong> is forward, out the nose, and
+<strong>+y</strong> is to the left</p></li>
+<li><p>robot control: the minus sign in <code class="docutils literal notranslate"><span class="pre">-leftStickY</span></code> switches from the stick’s reference frame to the
+robot’s</p></li>
+<li><p>robot control: a speed of 1.0 is full speed forward, 0.0 is stopped, and -1.0 is full speed
+backward</p></li>
+<li><p>robot control: a motor turns a gear box, which turns a wheel; each turns at a speed, in turns per
+second, revolutions per minute, or inches per second at the wheel’s edge</p></li>
+</ul>
+<!-- /skills -->
 <p>This page is about one line you wrote in <a class="reference internal" href="l030.html"><span class="std std-doc">L030</span></a>, and why it has a minus sign.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">mytry/L030SpeedsOpMode.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>

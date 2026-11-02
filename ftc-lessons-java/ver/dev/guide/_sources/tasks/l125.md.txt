@@ -16,8 +16,6 @@ follower does the driving, and you write one line to tell it where to go.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 - [L065](l065.md), put the shaping in a class
@@ -29,6 +27,37 @@ Finish these first:
 - AdvantageScope is installed on the same laptop. No gamepad is needed.
 - The robot, the Driver Station, a piece of tape, a tape measure, and about 1 m of clear floor in
   front of the robot for the last step.
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+- import a class with Option+Enter, from [L113](l113.md)
+
+**Skills learned.**
+
+- import a static method with Option+Enter, used in [L130](l130.md)
+- run an OpMode from the Driver Station's autonomous list, with hands off the sticks
+- mark the robot's front edge with tape and measure how far it drove
+
+**Concepts learned.**
+
+- robot control: an autonomous has no sticks to read; `start()` schedules a command, and the
+  follower drives
+- Pedro Pathing: `line(start, end)` is a path, `.constant(start)` holds one heading the whole way,
+  and `follow` drives it
+- Pedro Pathing: `sequential` makes a list of commands run in order; an autonomous routine is that
+  list
+- Pedro Pathing: `.constant(90.0)` is radians, not degrees
+- Java: `import static` brings in a method, not a class
+- Pedro Pathing: the follower is a library: say where to go, and it works out the wheel speeds
+::::
+<!-- /skills -->
 
 ## the steps
 

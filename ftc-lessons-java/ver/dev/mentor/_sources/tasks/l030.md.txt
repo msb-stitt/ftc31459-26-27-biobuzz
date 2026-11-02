@@ -15,8 +15,6 @@ Turn each stick into a wheel speed, where forward is positive. Nothing on the ro
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 <!-- /needs -->
 
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
@@ -25,6 +23,28 @@ Finish these first:
 ::::{only} mentor
 **What the lessons before leave.** `mytry` holds `L020SticksOpMode`.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+
+**Skills learned.**
+
+- pick a local variable from the code completion list by typing the start of its name
+
+**Concepts learned.**
+
+- Java: the minus sign in front of a variable turns its number around
+- programming: one name per idea: `leftStickY` is what the stick says, `leftSpeed` how fast the
+  wheels should go
+- robot control: forward speeds are positive and backward speeds negative
+- tank drive: the left stick drives the left wheels and the right stick the right wheels
+::::
+<!-- /skills -->
 
 ## the steps
 

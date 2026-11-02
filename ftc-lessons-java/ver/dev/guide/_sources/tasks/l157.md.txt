@@ -16,8 +16,6 @@ deadband, the robot creeps, so the driver can line up slowly.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 - [L065](l065.md), put the shaping in a class
@@ -31,9 +29,42 @@ Finish these first:
 - The robot, the Driver Station, and about 2 m by 2 m of clear floor for the last step.
 
 ::::{only} mentor
-**What the lessons before leave.** The robot's own file holds its kS and kV, and `mytry` holds the
-student's `StickShaper` in `mytry/l065`.
+**What the lessons before leave.** The robot's constants file (`pedro/Bot*.java`) holds its kS and
+kV, and `mytry` holds the student's `StickShaper` in `mytry/l065`.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- connect AdvantageScope to the robot, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+- run a lesson's tests in the Terminal, from [L093](l093.md)
+- drive field-relative, standing off the robot's left side, from [L140](l140.md)
+
+**Skills learned.**
+
+- make a new package in `mytry` with **New**, then **Package**, and copy a class into it
+
+**Concepts learned.**
+
+- robot control: the sticks ask for a speed in inches per second, and the fastest is `(12 − kS) ÷
+  kV`
+- game controllers: the re-spread spreads what is past the deadband from 0 to 1 again, so nothing
+  jumps and the robot can creep
+- Java: `Math.signum` is 1 above 0, −1 below, and 0 for 0
+- robot control: a power is a share of the battery, so the power is the volts over the battery's
+  volts
+- mecanum drive: each wheel blends kS from each way by its share of the wheel's volts, and turning
+  gets its volts first, with forward and strafe cut by the same `scale`
+- robot control: kS turns on past 5% and off below 2.5%, and the gap stops it flickering on and off
+  at the edge
+::::
+<!-- /skills -->
 
 ## the steps
 

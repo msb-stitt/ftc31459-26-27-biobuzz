@@ -364,6 +364,21 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-happening-turning-the-stick-into-the-robot-s-frame">
 <h1>142 what’s happening: turning the stick into the robot’s frame<a class="headerlink" href="#what-s-happening-turning-the-stick-into-the-robot-s-frame" title="Link to this heading">¶</a></h1>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: a radian is a distance of 1 around a circle with a radius of 1, and Pedro keeps the
+heading in radians</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">Math.cos</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin</span></code> take an angle in radians and give the x and y of that point on the
+circle</p></li>
+<li><p>robot control: in a triangle with a square corner and a long side k, the side next to the angle is
+k × cos θ and the side across is k × sin θ</p></li>
+<li><p>robot control: at heading θ, the robot’s forward is (cos θ, sin θ) on the field and its left is
+(-sin θ, cos θ)</p></li>
+<li><p>robot control: the stick’s arrow on the field breaks into pieces along the robot’s forward and
+left, and adding them gives <code class="docutils literal notranslate"><span class="pre">robotForwardXSpeed</span></code> and <code class="docutils literal notranslate"><span class="pre">robotStrafeYSpeed</span></code></p></li>
+</ul>
+<!-- /skills -->
 <p>Here you learn how <code class="docutils literal notranslate"><span class="pre">cos</span></code> and <code class="docutils literal notranslate"><span class="pre">sin</span></code> find the sides of a triangle from one angle. Then you use them
 to turn the stick’s arrow on the field into the robot’s own forward and strafe. In L140,
 <code class="docutils literal notranslate"><span class="pre">Math.cos(heading)</span></code> and <code class="docutils literal notranslate"><span class="pre">Math.sin(heading)</span></code> do this. That is how the robot drives where the stick

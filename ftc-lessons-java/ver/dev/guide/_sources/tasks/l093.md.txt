@@ -16,12 +16,44 @@ D-pad and its A and B buttons, before pressing PLAY.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 <!-- /needs -->
 
 - AdvantageScope is installed on the same laptop, and a gamepad is plugged into the laptop.
 - No robot is needed.
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+
+**Skills learned.**
+
+- run a lesson's tests in the Terminal, used in [L095](l095.md), [L113](l113.md), [L120](l120.md),
+  [L132](l132.md), [L135](l135.md), [L153](l153.md), [L157](l157.md)
+- run the simulator in INIT with `--init`, used in [L095](l095.md), [L135](l135.md), [L140](l140.md)
+- copy a lesson's test starters into the `mytry` folder under `test`
+
+**Concepts learned.**
+
+- programming: a test runs your code and checks what it gives back; write the test first, watch it
+  fail, then write the code until it passes
+- Java: JUnit's `@Test`, `@Before` and `assertEquals(expected, actual)`
+- programming: each class does one job, built from the bottom up, each tested before the next is
+  built on it
+- Java: a package is a folder; classes in it use each other with no `import`, and what another
+  package uses is `public`
+- Java: `private` keeps a field inside its class, and other classes ask for it with a method such as
+  `getShortName()`
+- Java: an `ArrayList` holds a list of objects and grows as you add to it, with `add`, `get(i)`
+  counting from 0, and `size()`
+- Java: a for-each loop, `for (MenuRow row : rows)`, runs once for each item; `==` on two objects
+  asks whether they are the same object
+- FTC programming: between INIT and PLAY, the robot calls `init_loop()` again and again;
+  `dpadRightWasPressed()` is `true` once for each press
+::::
+<!-- /skills -->
 
 ## the menu, press by press
 

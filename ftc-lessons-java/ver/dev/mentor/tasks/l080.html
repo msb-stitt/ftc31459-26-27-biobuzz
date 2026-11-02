@@ -378,8 +378,6 @@ for.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -390,6 +388,33 @@ for.</p>
 <li><p>The robot, the Driver Station, and about 3 m of clear floor for the last step.</p></li>
 </ul>
 <p><strong>What the lessons before leave.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L070ButtonsOpMode</span></code>.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>type an <code class="docutils literal notranslate"><span class="pre">import</span></code> line by hand for a class in another package, such as <code class="docutils literal notranslate"><span class="pre">StickShaper</span></code> in
+<code class="docutils literal notranslate"><span class="pre">mytry.l065</span></code></p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: arcade drive takes forward from the left stick and turn from the right; the left
+side is <code class="docutils literal notranslate"><span class="pre">forwardXSpeed</span> <span class="pre">-</span> <span class="pre">turnCcwSpeed</span></code>, the right <code class="docutils literal notranslate"><span class="pre">forwardXSpeed</span> <span class="pre">+</span> <span class="pre">turnCcwSpeed</span></code></p></li>
+<li><p>robot control: a turn to the left, counter-clockwise, is positive</p></li>
+<li><p>Pedro Pathing: on the robot’s own axes, +x points forward, out the nose, and +y to the robot’s
+left</p></li>
+<li><p>robot control: a <code class="docutils literal notranslate"><span class="pre">setPower</span></code> speed goes from -1.0 to +1.0, and the Control Hub cuts anything past
+it, which changes the curve</p></li>
+<li><p>robot control: scale, don’t cut: divide every speed by the biggest, never by less than 1.0</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">Math.max</span></code> gives back the bigger of two numbers</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l080s010">

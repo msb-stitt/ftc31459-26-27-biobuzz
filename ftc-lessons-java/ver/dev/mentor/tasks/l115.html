@@ -378,8 +378,6 @@ that.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -394,6 +392,33 @@ that.</p>
 the Pinpoint.</p>
 <p>The three rules in L115S010 and L115S020 are Pedro’s, from
 <a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/localization/pinpoint">its Pinpoint page</a>.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>configure the robot on the Driver Station, from <a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>connect AdvantageScope to the robot, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>mount the two odometry pods, the forward pod in the Pinpoint’s <strong>x</strong> socket and the strafe pod in
+its <strong>y</strong> socket</p></li>
+<li><p>mount the Pinpoint sticker side up and plug it into an I2C port on the Control Hub that is not 0</p></li>
+<li><p>watch the Pinpoint’s heading in AdvantageScope during INIT, turning the robot by hand</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: odometry pods are two wheels nothing drives, a forward pod and a strafe pod; both
+touch the floor the whole time, and a pod that skips loses count</p></li>
+<li><p>FTC programming: the Pinpoint talks to the Control Hub over I2C, and port 0 already has the
+Control Hub’s own IMU</p></li>
+<li><p>FTC programming: the code asks for a device by the name the configuration gives it, <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>;
+when the two differ, INIT shows <code class="docutils literal notranslate"><span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">find</span> <span class="pre">a</span> <span class="pre">hardware</span> <span class="pre">device</span></code></p></li>
+<li><p>robot control: the Pinpoint resets its gyro at INIT, and the robot has to sit still for it</p></li>
+<li><p>robot control: the Pinpoint’s pods are not driven, so a slipping drive wheel cannot spin them</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l115s010">
@@ -411,10 +436,10 @@ the Pinpoint’s <strong>x</strong> socket and the strafe pod into its <strong>y
 </ul>
 </section>
 <section id="l115s020">
-<span id="l115s020-plug-it-into-i2c-port-1"></span><h3>L115S020: plug it into I2C port 1<a class="headerlink" href="#l115s020" title="Link to this heading">¶</a></h3>
+<span id="l115s020-plug-it-into-its-i2c-port"></span><h3>L115S020: plug it into its I2C port<a class="headerlink" href="#l115s020" title="Link to this heading">¶</a></h3>
 <p>The Pinpoint talks to the Control Hub over I2C. Port 0 already has the Control Hub’s own IMU on it,
-so the Pinpoint goes on port 1. In L045S030 you named the device on port 1 <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code>. That is the
-name the code asks for:</p>
+so the Pinpoint goes on another port. In L045S030 you named a device <code class="docutils literal notranslate"><span class="pre">pinpoint</span></code> on one of the other
+I2C buses, and wrote down which. That is the name the code asks for:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">pedro/Bot*.java</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">"pinpoint"</span><span class="p">);</span>
@@ -422,7 +447,7 @@ name the code asks for:</p>
 </div>
 </div>
 <p><strong>Mount.</strong> Bolt the Pinpoint on with its sticker side, the side the ports are on, facing <strong>up</strong>.
-Plug its cable into I2C port 1 on the Control Hub.</p>
+Plug its cable into the Control Hub’s I2C port with that bus’s number.</p>
 <p><strong>Robot.</strong> Pick <code class="docutils literal notranslate"><span class="pre">L110</span> <span class="pre">Follower</span></code> from the <code class="docutils literal notranslate"><span class="pre">Lessons</span></code> group and press INIT, but not PLAY. Connect
 AdvantageScope to the robot as in L050, and drag <code class="docutils literal notranslate"><span class="pre">heading_deg</span></code> from <code class="docutils literal notranslate"><span class="pre">Localizer/pinPoint</span></code> into
 <strong>Left Axis</strong>. Turn the robot a quarter turn by hand.</p>
@@ -534,7 +559,7 @@ driven, so a mecanum roller cannot scrub them sideways and a slipping wheel cann
 <li><a class="reference internal" href="#">115 lesson: mount the Pinpoint and plug it in</a><ul>
 <li><a class="reference internal" href="#the-steps">the steps</a><ul>
 <li><a class="reference internal" href="#l115s010-put-one-pod-along-the-robot-and-one-across-it">L115S010: put one pod along the robot and one across it</a></li>
-<li><a class="reference internal" href="#l115s020-plug-it-into-i2c-port-1">L115S020: plug it into I2C port 1</a></li>
+<li><a class="reference internal" href="#l115s020-plug-it-into-its-i2c-port">L115S020: plug it into its I2C port</a></li>
 <li><a class="reference internal" href="#l115s030-hold-the-robot-still-while-it-inits">L115S030: hold the robot still while it inits</a></li>
 </ul>
 </li>

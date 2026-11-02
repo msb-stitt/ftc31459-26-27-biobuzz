@@ -377,8 +377,6 @@ follower does the driving, and you write one line to tell it where to go.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -392,6 +390,35 @@ follower does the driving, and you write one line to tell it where to go.</p>
 <li><p>The robot, the Driver Station, a piece of tape, a tape measure, and about 1 m of clear floor in
 front of the robot for the last step.</p></li>
 </ul>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>import a class with Option+Enter, from <a class="reference internal" href="l113.html"><span class="std std-doc">L113</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>import a static method with Option+Enter, used in <a class="reference internal" href="l130.html"><span class="std std-doc">L130</span></a></p></li>
+<li><p>run an OpMode from the Driver Station’s autonomous list, with hands off the sticks</p></li>
+<li><p>mark the robot’s front edge with tape and measure how far it drove</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: an autonomous has no sticks to read; <code class="docutils literal notranslate"><span class="pre">start()</span></code> schedules a command, and the
+follower drives</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">line(start,</span> <span class="pre">end)</span></code> is a path, <code class="docutils literal notranslate"><span class="pre">.constant(start)</span></code> holds one heading the whole way,
+and <code class="docutils literal notranslate"><span class="pre">follow</span></code> drives it</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">sequential</span></code> makes a list of commands run in order; an autonomous routine is that
+list</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">.constant(90.0)</span></code> is radians, not degrees</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">static</span></code> brings in a method, not a class</p></li>
+<li><p>Pedro Pathing: the follower is a library: say where to go, and it works out the wheel speeds</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l125s010">

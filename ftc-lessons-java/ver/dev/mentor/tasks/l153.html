@@ -378,8 +378,6 @@ after that. Later lessons use them to ask the motors for a speed and get it.</p>
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -394,6 +392,32 @@ after that. Later lessons use them to ask the motors for a speed and get it.</p>
 for the last step.</p></li>
 </ul>
 <p><strong>What the lessons before leave.</strong> Pedro is tuned and the Pinpoint is on the robot.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>run a lesson’s tests in the Terminal, from <a class="reference internal" href="l093.html"><span class="std std-doc">L093</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>measure kS and kV on the robot, and put them in the robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>)</p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>robot control: kS is the volts it takes to start moving, and kV the volts for each bit of speed
+after that: <code class="docutils literal notranslate"><span class="pre">volts</span> <span class="pre">=</span> <span class="pre">kS</span> <span class="pre">+</span> <span class="pre">kV</span> <span class="pre">×</span> <span class="pre">speed</span></code></p></li>
+<li><p>programming: a least-squares fit finds the line that misses the points the least, from five sums</p></li>
+<li><p>robot control: only a steady run gives a point; a run still speeding up says nothing about the
+speed those volts can hold</p></li>
+<li><p>robot control: volts, not power, because the battery’s volts change and the robot’s need for volts
+does not</p></li>
+<li><p>robot control: three answers close together are a measurement</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l153s010">

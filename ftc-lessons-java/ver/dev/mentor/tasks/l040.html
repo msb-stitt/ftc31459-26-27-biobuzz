@@ -376,8 +376,6 @@
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 </ul>
 <!-- /needs -->
 <ul class="simple">
@@ -385,6 +383,29 @@
 <li><p>No robot is needed. The robot drives in the simulator only; L050 puts it on blocks.</p></li>
 </ul>
 <p><strong>What the lessons before leave.</strong> <code class="docutils literal notranslate"><span class="pre">mytry</span></code> holds <code class="docutils literal notranslate"><span class="pre">L030SpeedsOpMode</span></code>.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>copy a starter into <code class="docutils literal notranslate"><span class="pre">mytry</span></code> and switch it on, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>run the simulator from the Terminal, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+<li><p>connect AdvantageScope to the simulator, from <a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>type <code class="docutils literal notranslate"><span class="pre">.</span></code> after a motor to see what it can be told to do</p></li>
+<li><p>show the robot on AdvantageScope’s <strong>2D Field</strong> by dragging <code class="docutils literal notranslate"><span class="pre">sim/Pose</span></code> into <strong>Poses</strong></p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>FTC programming: <code class="docutils literal notranslate"><span class="pre">hardware</span></code> holds the robot’s four drive motors, <code class="docutils literal notranslate"><span class="pre">frontLeft</span></code>, <code class="docutils literal notranslate"><span class="pre">frontRight</span></code>,
+<code class="docutils literal notranslate"><span class="pre">backLeft</span></code> and <code class="docutils literal notranslate"><span class="pre">backRight</span></code></p></li>
+<li><p>FTC programming: <code class="docutils literal notranslate"><span class="pre">setPower</span></code> takes a fraction of full speed, from -1.0 to 1.0: 1.0 is full forward,
+-1.0 full backward, and 0.0 stop</p></li>
+<li><p>tank drive: each side’s speed goes to both motors on that side</p></li>
+<li><p>tank drive: both sticks forward drives forward, one forward and one back spins in place, and
+unequal sticks curve</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l040s010">

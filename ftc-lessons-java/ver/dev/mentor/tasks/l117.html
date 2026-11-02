@@ -366,14 +366,12 @@
 <h1>117 lesson: let AutoTune tune the robot<a class="headerlink" href="#lesson-let-autotune-tune-the-robot" title="Link to this heading">¶</a></h1>
 <p>The robot measures itself. It finds which way each motor turns and where the pods sit. It finds
 how fast it can drive and how hard it can brake. Pedro Pathing’s AutoTune does the measuring. You
-paste what it finds into the robot’s own file.</p>
+paste what it finds into the robot’s constants file (<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>).</p>
 <p><strong>Before you start.</strong></p>
 <!-- needs: written by book/tools/needs.py; edit book/needs.toml, then run needs.py apply -->
 <p>Finish these first:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="b010.html"><span class="std std-doc">B010</span></a>, getting started</p></li>
-<li><p><a class="reference internal" href="h017.html"><span class="std std-doc">H017</span></a>, navigate Android Studio’s panes</p></li>
-<li><p><a class="reference internal" href="l020.html"><span class="std std-doc">L020</span></a>, read the sticks</p></li>
 <li><p><a class="reference internal" href="l045.html"><span class="std std-doc">L045</span></a>, set up the robot’s configuration</p></li>
 <li><p><a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a>, drive the robot on blocks</p></li>
 <li><p><a class="reference internal" href="l065.html"><span class="std std-doc">L065</span></a>, put the shaping in a class</p></li>
@@ -392,6 +390,30 @@ L050’s motor directions are set.</p>
 <p>The step names and the messages quoted are from the tuner code in <code class="docutils literal notranslate"><span class="pre">pedro/procedures/</span></code>, and the
 address from Pedro’s
 <a class="reference external" href="https://pedropathing.com/docs/pathing/tuning/drivetrain/mecanum">Mecanum page</a>.</p>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Skills needed.</strong></p>
+<ul class="simple">
+<li><p>send the code to the robot and run an OpMode from the Driver Station, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+<li><p>put the robot on blocks, from <a class="reference internal" href="l050.html"><span class="std std-doc">L050</span></a></p></li>
+</ul>
+<p><strong>Skills learned.</strong></p>
+<ul class="simple">
+<li><p>open AutoTune at <code class="docutils literal notranslate"><span class="pre">http://192.168.43.1:10158</span></code> from a laptop joined to the robot’s Wi-Fi</p></li>
+<li><p>run AutoTune’s tuners and paste the Java each one shows into the robot’s constants file
+(<code class="docutils literal notranslate"><span class="pre">pedro/Bot*.java</span></code>)</p></li>
+<li><p>check the tuning with AutoTune’s <code class="docutils literal notranslate"><span class="pre">Localization</span> <span class="pre">Test</span></code> and <code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">Test</span></code></p></li>
+</ul>
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>Pedro Pathing: AutoTune is a web page the robot serves, and it starts its own OpMode, <code class="docutils literal notranslate"><span class="pre">Pedro</span> <span class="pre">Tuning</span></code>, when a step needs the robot to move</p></li>
+<li><p>robot control: the robot measures itself: which way each motor turns, where the pods sit, how fast
+it can drive and how hard it can brake</p></li>
+<li><p>Pedro Pathing: each tuner ends with Java for the robot’s constants file, and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets on
+top the lines AutoTune does not print</p></li>
+<li><p>Pedro Pathing: the Pinpoint’s x offset is how far left the forward pod sits from the point the
+robot turns about, and its y offset how far forward the strafe pod sits</p></li>
+</ul>
+<!-- /skills -->
 <section id="the-steps">
 <h2>the steps<a class="headerlink" href="#the-steps" title="Link to this heading">¶</a></h2>
 <section id="l117s010">
@@ -436,8 +458,8 @@ three pushes it asks for, stopping each one when you are done:</p>
 <li><p>Push the robot to the left.</p></li>
 <li><p>Spin the robot half a turn on the spot, counterclockwise.</p></li>
 </ul>
-<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in the robot’s own file with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code> AutoTune
-shows.</p>
+<p><strong>Change.</strong> Replace <code class="docutils literal notranslate"><span class="pre">localizerConfig</span></code> in the robot’s constants file with the <code class="docutils literal notranslate"><span class="pre">PinpointConfig</span></code>
+AutoTune shows.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>In <code class="docutils literal notranslate"><span class="pre">Tests</span></code>, pick <code class="docutils literal notranslate"><span class="pre">Localization</span> <span class="pre">Test</span></code> and drive with the gamepad.</p></li>
@@ -450,13 +472,13 @@ shows.</p>
 <p><strong>Robot.</strong> Pick <code class="docutils literal notranslate"><span class="pre">Foresight</span> <span class="pre">Tuner</span></code>. Keep the distances and the speed it offers: 48 in, 30 in/s and
 36 in. It drives forward and left as fast as it can, coasts to a stop, turns back and forth, spins,
 brakes, and steps 12 in to 24 in each way.</p>
-<p><strong>Change.</strong> In the robot’s own file, replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code> AutoTune
-shows. AutoTune does not print five hold lines, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to
+<p><strong>Change.</strong> In the robot’s constants file, replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code>
+AutoTune shows. AutoTune does not print five hold lines, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to
 <code class="docutils literal notranslate"><span class="pre">holdPointHeadingScaling</span></code>. <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top. It also reads three of the new numbers for
 the lessons’ own drivetrain: the coast feedforward and the two top speeds.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
-<li><p>The robot’s own file holds one <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>, and it ends with
+<li><p>The robot’s constants file holds one <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code>, and it ends with
 <code class="docutils literal notranslate"><span class="pre">c.naturalStrafeDeceleration.set(...)</span></code>.</p></li>
 </ul>
 </section>
@@ -481,7 +503,7 @@ one can.</p>
 sockets. L115S010 is where that gets fixed, and no tuning works around it.</p>
 <p><strong>If it didn’t</strong>, and the robot brakes late or never holds still after L117S040, check that the
 five hold lines are still in <code class="docutils literal notranslate"><span class="pre">setWhatEveryRobotShares</span></code> in <code class="docutils literal notranslate"><span class="pre">Constants</span></code>.</p>
-<p><strong>What you just did.</strong> Every number in the robot’s own file either came off this robot or is
+<p><strong>What you just did.</strong> Every number in the robot’s constants file either came off this robot or is
 waiting to. AutoTune measures the ones that need the robot driving itself. L131
 measures the two it does not: ticks per inch and the turn radius.</p>
 <p><strong>Where next.</strong> <a class="reference internal" href="l120.html"><span class="std std-doc">L120</span></a> works out where the robot is from the Pinpoint’s pods, with

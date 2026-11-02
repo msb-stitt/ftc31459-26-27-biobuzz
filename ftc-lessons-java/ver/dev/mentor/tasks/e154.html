@@ -364,6 +364,22 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-happening-the-scheduler-runs-your-runs">
 <h1>154 what’s happening: the scheduler runs your runs<a class="headerlink" href="#what-s-happening-the-scheduler-runs-your-runs" title="Link to this heading">¶</a></h1>
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+<p><strong>Concepts learned.</strong></p>
+<ul class="simple">
+<li><p>Pedro Pathing: a <code class="docutils literal notranslate"><span class="pre">Command</span></code> is an object the scheduler works on; it calls <code class="docutils literal notranslate"><span class="pre">start()</span></code> once,
+<code class="docutils literal notranslate"><span class="pre">execute()</span></code> each loop, and <code class="docutils literal notranslate"><span class="pre">done()</span></code> after each <code class="docutils literal notranslate"><span class="pre">execute()</span></code></p></li>
+<li><p>programming: calling <code class="docutils literal notranslate"><span class="pre">theRuns()</span></code> drives nothing; it makes commands, and the scheduler runs them
+later, a little each loop</p></li>
+<li><p>Java: <code class="docutils literal notranslate"><span class="pre">this::measure</span></code> hands over the method itself, to be called later; it does not call it now</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">sequential</span></code> holds a list of commands and works on one at a time, and a sequential
+can hold sequentials</p></li>
+<li><p>Pedro Pathing: <code class="docutils literal notranslate"><span class="pre">instant</span></code> is done as soon as it starts, <code class="docutils literal notranslate"><span class="pre">waitUntil</span></code> is done when its method says
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, and <code class="docutils literal notranslate"><span class="pre">Commands.infinite</span></code> is never done</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CorbelsOpMode</span></code>: <code class="docutils literal notranslate"><span class="pre">loopAfter()</span></code> calls the scheduler’s <code class="docutils literal notranslate"><span class="pre">execute()</span></code>, which goes through its commands
+in the order they were scheduled</p></li>
+</ul>
+<!-- /skills -->
 <p>When the computer runs your program, it reads one line of code at a time. It moves words and
 numbers around in its memory. It is like moving sticky notes around on your desk.</p>
 <p>In <a class="reference internal" href="l153.html"><span class="std std-doc">L153</span></a> you typed <code class="docutils literal notranslate"><span class="pre">theRuns()</span></code>. Calling it drives nothing. It makes <strong>commands</strong>, and the

@@ -17,8 +17,6 @@ slope.
 Finish these first:
 
 - [B010](b010.md), getting started
-- [H017](h017.md), navigate Android Studio's panes
-- [L020](l020.md), read the sticks
 - [L045](l045.md), set up the robot's configuration
 - [L050](l050.md), drive the robot on blocks
 - [L065](l065.md), put the shaping in a class
@@ -26,7 +24,6 @@ Finish these first:
 - [L113](l113.md), work out where the robot is from the drive wheels
 - [L115](l115.md), mount the Pinpoint and plug it in
 - [L117](l117.md), let AutoTune tune the robot
-- [L131](l131.md), check L113's numbers by measuring them
 - [L153](l153.md), measure the volts it takes to move
 <!-- /needs -->
 
@@ -35,9 +32,38 @@ Finish these first:
   something gentle to drive up, like a folded mat.
 
 ::::{only} mentor
-**What the lessons before leave.** The robot's own file holds its ticks per inch and turn radius,
-and its kS and kV.
+**What the lessons before leave.** The robot's constants file (`pedro/Bot*.java`) holds its ticks
+per inch and turn radius, and its kS and kV.
 ::::
+
+<!-- skills: written by book/tools/needs.py from book/needs.toml and book/learned.toml -->
+::::{only} mentor
+**Skills needed.**
+
+- copy a starter into `mytry` and switch it on, from [L020](l020.md)
+- run the simulator from the Terminal, from [L020](l020.md)
+- connect AdvantageScope to the simulator, from [L020](l020.md)
+- send the code to the robot and run an OpMode from the Driver Station, from [L050](l050.md)
+- connect AdvantageScope to the robot, from [L050](l050.md)
+- put the robot on blocks, from [L050](l050.md)
+
+**Skills learned.**
+
+- import a class by holding the mouse over a red name and clicking **Import class**
+- drive up a slope and watch `actual_ips` dip below `target_ips` and climb back in AdvantageScope
+
+**Concepts learned.**
+
+- robot control: asking the wheels for a speed, not a power: a feedforward guess plus a feedback
+  correction from the measured speed
+- mecanum drive: `WheelTargets.forMecanum` turns forward, sideways and turn speeds into four wheel
+  speeds, using the turn radius
+- Java: a `for` loop runs the same lines once for each wheel, with `i` counting 0, 1, 2 and 3
+- programming: the end of a name says its unit: `_ips` is inches per second, and `_radps` radians
+  per second
+- log files: a number in the log is what the code decided, not what the robot did
+::::
+<!-- /skills -->
 
 ## the steps
 
