@@ -102,9 +102,9 @@ def chain(lesson: str, needs: dict[str, set[str]]) -> list[str]:
 
 
 def section(pages_needed: list[str], titles: dict[str, str]) -> str:
-    """The lines between the markers."""
+    """The lines between the markers: none for a lesson that needs nothing."""
     if not pages_needed:
-        return "Nothing needs finishing first.\n"
+        return ""
     bullets = "".join(f"- [{p.upper()}]({p}.md), {titles[p]}\n" for p in pages_needed)
     return "Finish these first:\n\n" + bullets
 
