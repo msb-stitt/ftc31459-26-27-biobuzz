@@ -1,85 +1,236 @@
-# The needs crosscheck cannot find, because no build, test or patch shows them, kept by hand.
-# A table per lesson; a key per page that lesson needs finished; its value says why, starting
+# What crosscheck cannot find, because no build, test or patch shows it, kept by hand.
+#
+# A table per lesson; a key per page; its value says why, or is a list of whys, each starting
 # with its kind:
 #   setup: the laptop or project the lesson works in.
-#   skill: a step does a thing "as in" an earlier lesson, which teaches it.
-#   robot: the robot is in a state an earlier lesson leaves it in.
-# Teaching order is not a need, nor a back-reference to an idea. tools/needs.py adds
-# needs-code.jsonc's code needs, takes the whole chain, and writes each lesson's list; run
-# `python tools/run.py needs apply` after a change here. Read from v0.4.0's pages, 2026-11-01.
+#   robot: the robot is in a state an earlier lesson leaves it in, the numbers in the robot's
+#          constants file (pedro/Bot*.java) among them.
+#   skill: a step uses a skill the page teaches.
+# A setup: or robot: why is a need: the lesson will not work without that page. A skill, an idea
+# taught earlier, or teaching order is not a need: a skill goes in the lesson's Skills needed and
+# the teaching page's Skills learned. Name a skill in the same words each time, so it is one
+# skill. tools/needs.py adds needs-code.jsonc's code needs, takes the whole chain, and writes each
+# page's lists; run `python tools/run.py needs apply` after a change here. Read from v0.4.1's
+# pages, 2026-11-02.
 
 [l020]
 b010 = "setup: Android Studio has the project open."
-h017 = "setup: the student can open, close and resize Android Studio's panes."
+h017 = "skill: open, close and resize Android Studio's panes."
 
-# Each lesson with code copies a starter into mytry, runs the simulator and connects AdvantageScope,
-# which L020 teaches ("Connect to the simulator as in L020", in L130 and L195).
 [l030]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-[l040]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-[l050]
-l020 = "skill: copy a starter into mytry."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
 
-# From L060 on, a last step drives the robot, whose motor directions L050S070 sets.
+[l040]
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+
+[l050]
+b010 = "setup: Android Studio has the project open."
+l020 = "skill: copy a starter into `mytry` and switch it on."
+
 [l060]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "robot: L050S070 sets each motor's direction, so the wheels turn the right way.",
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+  "skill: connect AdvantageScope to the robot.",
+]
+
 [l070]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "robot: L050S070 sets each motor's direction, so the wheels turn the right way.",
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+]
+
 [l080]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
-[l090]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l050 = "robot: the robot on blocks, as in L050, with its motor directions set."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "robot: L050S070 sets each motor's direction, so the wheels turn the right way.",
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+]
+
 [l110]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the right way."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "robot: L050S070 sets each motor's direction, so the wheels turn the right way.",
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+]
+
+[l090]
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "robot: L050S070 sets each motor's direction, so the wheels turn the right way.",
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+  "skill: put the robot on blocks.",
+]
 
 [l115]
-l110 = "robot: L115S020 and L115S030 run `L110 Follower` on the robot."
+l110 = "robot: L115's steps run the student's `L110 Follower` on the robot."
 
 [l117]
+b010 = "setup: Android Studio has the project open."
+l050 = [
+  "robot: L050S070 sets each motor's direction, so the wheels turn the right way.",
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+  "skill: put the robot on blocks.",
+]
 l115 = "robot: the Pinpoint and its two pods are mounted and plugged in."
-l050 = "robot: L050S070 sets each motor's direction."
 
 [l120]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+  "skill: put the robot on blocks.",
+]
 l115 = "robot: the last step compares with the Pinpoint, which L115 mounts."
 
-# The autos follow paths with Pedro's tuning, which L117 measures.
 [l125]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: Pedro tuned, so the auto drives straight (l125.md)."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: Pedro tuned, so the follower drives with this robot's numbers."
+
 [l130]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: Pedro tuned, so the auto follows its path."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: Pedro tuned, so the follower drives with this robot's numbers."
+l125 = "skill: import a static method with Option+Enter."
+
 [l135]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: Pedro tuned, so the chosen auto follows its path."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: Pedro tuned, so the follower drives with this robot's numbers."
+l120 = "skill: run a lesson's tests in the Terminal."
 
 [l140]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = [
+  "skill: send the code to the robot and run an OpMode from the Driver Station.",
+  "skill: connect AdvantageScope to the robot.",
+]
 l115 = "robot: field-relative driving turns the sticks by the Pinpoint's heading."
+l120 = "skill: import a class with Option+Enter."
+l135 = "skill: run the simulator in INIT with `--init`."
+
 [l150]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l140 = "skill: L150 adds a bumper to L140's field-relative driving, \"the way L140 left them\" (l150.md)."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l115 = "robot: field-relative driving turns the sticks by the Pinpoint's heading."
+l140 = "skill: drive field-relative, standing off the robot's left side."
+
 [l160]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: `HeadingHold` takes the follower's tuned `headingFeedback` (l160.md)."
-l120 = "skill: import a class with Option+Enter, as in L120 (l160.md)."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: Pedro tuned, so the follower drives with this robot's numbers."
+l120 = "skill: import a class with Option+Enter."
+
 [l170]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: `follower.hold` drives to the target with Pedro's tuning."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: Pedro tuned, so the follower drives with this robot's numbers."
+
 [l180]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: the follower holds and turns with Pedro's tuning."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: Pedro tuned, so the follower drives with this robot's numbers."
+l120 = "skill: import a class with Option+Enter."
+
 [l190]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l117 = "robot: L117 measures `powerPerInchPerSecond`, which the feedforward uses (l190.md)."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
+l117 = "robot: L117 measures `powerPerInchPerSecond`, which the feedforward uses."
+
 [l195]
-l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
+b010 = "setup: Android Studio has the project open."
+l020 = [
+  "skill: copy a starter into `mytry` and switch it on.",
+  "skill: run the simulator from the Terminal.",
+  "skill: connect AdvantageScope to the simulator.",
+]
+l050 = "skill: send the code to the robot and run an OpMode from the Driver Station."
 l115 = "robot: the Pinpoint is mounted, and this measurement believes it."
 l117 = "robot: the Pinpoint's offsets are set."

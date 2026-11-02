@@ -116,6 +116,12 @@ The PDF does not show the space. Every other list stays close. The sources:
   from a failure somebody saw* says.
 - **What you just did**: one paragraph of theory.
 - **Where next**: the lessons this one unlocks.
+- **Skills needed** and **Skills learned**: after *Before you start*'s mentor blocks on a lesson,
+  written by `tools/needs.py` between its `skills` markers; run `python tools/run.py needs apply`,
+  never edit the lists. Each time a lesson is written or changed, a skill a step uses from an
+  earlier page is a `skill:` entry in `needs.toml` on the lesson, naming the page that teaches it.
+  It lists under that lesson's *Skills needed* and that page's *Skills learned*. Name a skill in
+  the same words each time. `tools/check_needs.py` fails a list that is not what `apply` writes.
 
 The code a student copies carries a comment where each step changes it, linking to the step.
 `source/conf.py` gives each step heading its name as its anchor:
