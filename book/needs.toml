@@ -50,7 +50,6 @@ l050 = "robot: L050S070 sets each motor's direction, so the wheels turn the righ
 [l113]
 l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
 l050 = "robot: the robot on blocks, as in L050, with its motor directions set."
-l110 = "robot: L110 hands the follower the real drivetrain, which L113 onwards need (l110.md)."
 
 [l115]
 l110 = "robot: L115's steps run `L110 Follower` on the robot (l115.md)."
