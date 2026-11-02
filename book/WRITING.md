@@ -54,8 +54,8 @@ to one how-to per computer, H011 to H013.
 - **A picture of what you will have**, first, with one sentence about the robot, not the code.
 - **Before you start**, after it: the pages this one needs finished, then what the lesson needs at
   hand, such as a gamepad, the robot or clear floor, as bullets written by hand. The list of pages
-  is written by `tools/needs.py` between its markers, from what the code needs and from
-  `needs.toml`; edit `needs.toml` and run `python tools/run.py needs apply`, never the list.
+  is written by `tools/needs.py` between its markers, which it adds, from what the code needs and
+  from `needs.toml`; edit `needs.toml` and run `python tools/run.py needs apply`, never the list.
   `RELEASING.md`'s *A lesson's needs* says how. What an earlier lesson leaves, such as the class
   `mytry` holds, is mentor-only, under **What the lessons before leave.**
 - **The steps**, each a `### L020S010: read the left stick` heading, counting by 10s. A step is one
@@ -122,8 +122,8 @@ The PDF does not show the space. Every other list stays close. The sources:
 - **Where next**: the lessons this one unlocks.
 - **Skills needed**, **Skills learned** and **Concepts learned**: after *Before you start*'s mentor
   blocks on a lesson, and after the title on a what's-happening page, written by `tools/needs.py`
-  between its `skills` markers; run `python tools/run.py needs apply`, never edit the lists. Each
-  time a lesson or what's-happening page is written or changed, update what makes them:
+  between its `skills` markers, which it adds; run `python tools/run.py needs apply`, never edit the
+  lists. Each time a lesson or what's-happening page is written or changed, update what makes them:
   - **A skill a step uses from an earlier page** is a `skill:` entry in `needs.toml` on the lesson,
     naming the page that teaches it. It lists under that lesson's *Skills needed* and that page's
     *Skills learned*. Name a skill in the same words each time.

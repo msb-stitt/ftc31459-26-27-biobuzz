@@ -18,8 +18,8 @@ between SKILLS_START and SKILLS_END. It runs no crosscheck, and takes seconds.
 needs.toml holds what crosscheck cannot find, kept by hand: a table per lesson, a key per page, and
 why, or a list of whys, each starting `setup:`, `robot:` or `skill:`. A `setup:` or `robot:` why
 is a need: the lesson will not work without that page. A list holds the whole chain: each page the
-lesson needs, directly or through another. Its bullets run B pages, then H, then E, then lessons, each in number order,
-each with its page's title, read from the page's heading.
+lesson needs, directly or through another. Its bullets run B pages, then H, then E, then lessons,
+each in number order, each with its page's title, read from the page's heading.
 
 A `skill:` entry names a skill a step uses and the page that teaches it. It is no need: it goes in
 the lesson's *Skills needed*, and in the teaching page's *Skills learned*, with the lessons that
@@ -29,8 +29,12 @@ learned.toml, where a release line has one, holds the rest of what a lesson or w
 page teaches: `skills` no later lesson's `skill:` entry names, and `concepts`, each `area: idea`.
 Where it is, each lesson has a skill learned, and each lesson and what's-happening page a concept.
 
-tools/check_needs.py, in `ninja book`, fails a list that is not what `apply` would write, and a
-page missing what learned.toml asks of it.
+`apply` adds a page's markers where it has none: a lesson's needs markers under its
+`**Before you start.**`, its skills markers before its first heading after them, and a
+what's-happening page's skills markers after its title.
+
+tools/check_needs.py, in `ninja book`, fails a list that is not what `apply` would write, a page
+without its markers, and a page missing what learned.toml asks of it.
 """
 
 import datetime
@@ -56,6 +60,7 @@ SECTION_END = "<!-- /needs -->"
 SKILLS_START = ("<!-- skills: written by book/tools/needs.py from book/needs.toml and "
                 "book/learned.toml -->")
 SKILLS_END = "<!-- /skills -->"
+BEFORE = "**Before you start.**\n\n"
 KINDS = ("setup:", "skill:", "robot:")
 SKILL = "skill: "
 TYPE_ORDER = "bherl"
@@ -205,8 +210,30 @@ def split(text: str, name: str, start: str = SECTION_START, end: str = SECTION_E
     return head + start + "\n", body, end + tail
 
 
+def marked(text: str, name: str) -> str:
+    """The page's text with any markers it lacks added. Wrong where there is no place for them."""
+    lesson = Path(name).stem.startswith("l")
+    if lesson and SECTION_START not in text:
+        if text.count(BEFORE) != 1:
+            raise Wrong(f"{name}: needs one {BEFORE.strip()} line, for its needs markers")
+        text = text.replace(BEFORE, BEFORE + SECTION_START + "\n" + SECTION_END + "\n\n")
+    if SKILLS_START not in text:
+        block = SKILLS_START + "\n" + SKILLS_END + "\n\n"
+        if lesson:
+            at = re.compile(r"^#{2,3} ", re.M).search(text, text.index(SECTION_END))
+            if at is None:
+                raise Wrong(f"{name}: has no heading after its needs markers, "
+                            "for its skills markers")
+            text = text[:at.start()] + block + text[at.start():]
+        else:
+            first, rest = text.split("\n\n", 1)
+            text = first + "\n\n" + block + rest
+    return text
+
+
 def wanted(root: Path) -> dict[tuple[str, str], tuple[Path, str, str]]:
-    """Each (page, which section): its path, the section as it is, and as apply writes it."""
+    """Each (page, which section): its path, the section as it is, or None where the page has
+    no markers for it, and as apply writes it."""
     titles = pages(root)
     needs, skills = direct(root, titles)
     table = learned(root, titles)
@@ -221,9 +248,12 @@ def wanted(root: Path) -> dict[tuple[str, str], tuple[Path, str, str]]:
         if page[0] not in "le":
             continue
         path = root / TASKS / f"{page}.md"
-        text = path.read_text(encoding="utf-8")
+        name = f"{TASKS}/{page}.md"
+        found = path.read_text(encoding="utf-8")
+        text = marked(found, name)
         if page.startswith("l"):
-            _, body, _ = split(text, f"{TASKS}/{page}.md")
+            _, body, _ = split(text, name)
+            body = body if SECTION_START in found else None
             out[(page, "needs")] = (path, body, section(chain(page, needs), titles))
         mine = (table or {}).get(page, {})
         for skill in mine.get("skills", []):
@@ -231,7 +261,8 @@ def wanted(root: Path) -> dict[tuple[str, str], tuple[Path, str, str]]:
                 raise Wrong(f"{LEARNED}: {page}: {skill!r} is in {HAND} already, as a skill "
                             f"{', '.join(taught[page][skill])} needs")
         lines = [*taught.get(page, {}).items(), *((s, []) for s in mine.get("skills", []))]
-        _, body, _ = split(text, f"{TASKS}/{page}.md", SKILLS_START, SKILLS_END)
+        _, body, _ = split(text, name, SKILLS_START, SKILLS_END)
+        body = body if SKILLS_START in found else None
         out[(page, "skills")] = (path, body, skills_section(skills.get(page, []), lines,
                                                             mine.get("concepts", [])))
     return out
@@ -261,7 +292,8 @@ def apply(root: Path) -> int:
         if body != new:
             start, end = (SECTION_START, SECTION_END) if which == "needs" else (SKILLS_START,
                                                                                   SKILLS_END)
-            head, _, tail = split(path.read_text(encoding="utf-8"), page, start, end)
+            text = marked(path.read_text(encoding="utf-8"), page)
+            head, _, tail = split(text, page, start, end)
             path.write_text(head + new + tail, encoding="utf-8")
             print(f"wrote {TASKS}/{page}.md, its {which}")
     return 0
