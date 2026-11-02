@@ -3737,9 +3737,10 @@ def l157_respread():
 
 
 def l045_wiring():
-    # L045's wiring, from above with the nose up: each wheel's motor to its motor port, its
-    # encoder to the encoder port with the same number; the IMU inside the hub, on I2C Bus 0;
-    # the Pinpoint dashed on I2C Bus 1, since L115 mounts it.
+    # L045's wiring, from above with the nose up: each wheel's motor to a motor port and its
+    # encoder to an encoder port, with no port numbers or names, since the configuration names
+    # whichever port each is in; the IMU inside the hub; the Pinpoint dashed on an I2C port that
+    # is not 0, since L115 mounts it.
     s = Sketch(1100, 1000, 45)
     cx, cy, side = 550, 470, 700
     centers = robot_inside(s, cx, cy, side, nose=True)
@@ -3747,13 +3748,10 @@ def l045_wiring():
     s.marker(hub, "#d9dee0", nib=14, opacity=0.95)
     s.ink_poly(hub, width=2.4, over=6)
     s.lines((cx, cy - 8), ["Control", "Hub"], 24)
-    s.lines((cx, cy + 86), ["imu inside,", "I2C Bus 0"], 14, gap=1.1, code=True)
-    ports = {"front left": 0, "front right": 1, "back left": 2, "back right": 3}
-    names = {"front left": "Front Left", "front right": "Front Right",
-             "back left": "Back Left", "back right": "Back Right"}
-    colors = {0: MARKER_RED, 1: MARKER_BLUE, 2: MARKER_GREEN, 3: MARKER_ORANGE}
+    s.lines((cx, cy + 86), ["IMU", "inside"], 14, gap=1.1)
+    colors = {"front left": MARKER_RED, "front right": MARKER_BLUE,
+              "back left": MARKER_GREEN, "back right": MARKER_ORANGE}
     for wheel, (wx, wy) in centers.items():
-        n = ports[wheel]
         left = wx < cx
         k = 1 if left else -1
         front = wy < cy
@@ -3762,24 +3760,20 @@ def l045_wiring():
         s.marker(motor, GREY2, nib=10, opacity=0.8)
         s.ink_poly(motor, width=2.0, over=4)
         s.text((mx, wy + (60 if front else -52)), "motor", 18)
-        s.text((wx, wy + (-158 if front else 176)), names[wheel], 22, code=True)
         edge = cx - 100 * k
         row = cy + (-80 if front else 30)
         power_x, enc_x = cx - 125 * k, cx - 113 * k
         s.line([(mx + 22 * k, wy - 12), (power_x, wy - 12), (power_x, row), (edge, row)],
-               colors[n], 3.2, 0.9)
+               colors[wheel], 3.2, 0.9)
         s.line([(mx + 22 * k, wy + 12), (enc_x, wy + 12), (enc_x, row + 22), (edge, row + 22)],
-               colors[n], 3.2, 0.9).set_linestyle((0, (5, 3)))
-        s.text((edge + 8 * k, row + 6), f"motor {n}", 14, anchor="start" if left else "end",
-               code=True)
-        s.text((edge + 8 * k, row + 28), f"encoder {n}", 14, anchor="start" if left else "end",
-               code=True)
+               colors[wheel], 3.2, 0.9).set_linestyle((0, (5, 3)))
+        s.text((edge + 8 * k, row + 6), "motor port", 14, anchor="start" if left else "end")
+        s.text((edge + 8 * k, row + 28), "encoder port", 14, anchor="start" if left else "end")
     pin = rect(cx - 55, 190, 110, 70)
     s.line(pin + pin[:1], GREY3, 2.4).set_linestyle((0, (6, 4)))
     s.lines((cx, 218), ["Pinpoint,", "from L115"], 16)
-    s.text((cx, 180), "pinpoint", 16, code=True)
     s.line([(cx, 260), (cx, cy - 110)], GREY3, 2.6).set_linestyle((0, (6, 4)))
-    s.text((cx + 8, 300), "I2C Bus 1", 14, anchor="start", code=True)
+    s.lines((cx + 8, 290), ["an I2C port", "that is not 0"], 14, anchor="start")
     batt = rect(cx - 90, 680, 110, 60)
     s.marker(batt, GREY1, nib=12, opacity=0.95)
     s.ink_poly(batt, width=2.2, over=4)
