@@ -1,0 +1,243 @@
+# L157
+
+3 file(s) copied, then 11 change(s) in 3 file(s), 41 line(s) of code to write.
+
+## Copies
+
+- `lessons/L157FeedforwardOpMode.java` to `mytry/L157FeedforwardOpMode.java`
+- `lessons/L157FeedforwardDriveTrain.java` to `mytry/L157FeedforwardDriveTrain.java`
+- `mytry/l065/StickShaper.java` to `mytry/l157/StickShaper.java`
+
+## L157FeedforwardOpMode
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardOpMode.java`
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -14,7 +14,7 @@
+ // When on L157S030, see
+ // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s030
+ // for what to do here.
+-//import org.firstinspires.ftc.teamcode.mytry.l157.StickShaper;
++import org.firstinspires.ftc.teamcode.mytry.l157.StickShaper;
+ 
+ /**
+  * L157: the sticks ask for a speed, and the drivetrain sends the volts it
+```
+
+### A change
+
+Delete 1 line, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -40,7 +40,7 @@
+     // When on L157S030, see
+     // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s030
+     // for what to do here.
+-//    StickShaper stickShaper = new StickShaper(0.05);
++    StickShaper stickShaper = new StickShaper(0.05);
+ 
+     L157FeedforwardDriveTrain drivetrain;
+ 
+```
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -61,6 +61,7 @@
+         // When on L157S040, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s040
+         // for what to do here.
++        stickShaper.setRespread(true);
+ 
+         initAfter(drivetrain);
+     }
+```
+
+### A change
+
+Delete 3 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -90,9 +90,9 @@
+         // When on L157S030, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s030
+         // for what to do here.
+-//        forwardFraction = stickShaper.shaped(forwardFraction);
+-//        leftFraction = stickShaper.shaped(leftFraction);
+-//        turnFraction = stickShaper.shaped(turnFraction);
++        forwardFraction = stickShaper.shaped(forwardFraction);
++        leftFraction = stickShaper.shaped(leftFraction);
++        turnFraction = stickShaper.shaped(turnFraction);
+ 
+         double turnCcw_radps = turnFraction * maxTurn_radps;
+         double forwardX_ips;
+```
+
+## StickShaper
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/l157/StickShaper.java`
+
+### A change
+
+Delete 0 lines, write 1 line.
+
+```diff
+--- before this change
++++ after it
+@@ -22,6 +22,7 @@
+ 
+     double band;
+     Shape shape = Shape.SQUARED;
++    boolean respread;
+ 
+     // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
+     public StickShaper(double bandToSetToZero) {
+```
+
+### A change
+
+Delete 0 lines, write 5 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -40,6 +40,11 @@
+     }
+ 
+     // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
++    public void setRespread(boolean respreadPastTheBand) {
++        respread = respreadPastTheBand;
++    }
++
++    // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
+     public double shaped(double value) {
+         double outsideTheBand = deadband(value, band);
+         double shapedValue = outsideTheBand;
+```
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -47,6 +47,9 @@
+     // 'public' so later lessons, in other packages, can use it. 'public' allows access from any code.
+     public double shaped(double value) {
+         double outsideTheBand = deadband(value, band);
++        if (respread) {
++            outsideTheBand = respreadPastTheBand(outsideTheBand, band);
++        }
+         double shapedValue = outsideTheBand;
+         switch (shape) {
+             case LINEAR:
+```
+
+### A change
+
+Delete 0 lines, write 6 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -73,6 +73,12 @@
+         return value;
+     }
+ 
++    double respreadPastTheBand(double value, double band) {
++        double pastTheBand = Math.abs(value) - band;
++        double spreadFromZeroToOne = pastTheBand / (1.0 - band);
++        return Math.signum(value) * spreadFromZeroToOne;
++    }
++
+     double signedSquared(double value) {
+         double alwaysPositiveValue = Math.abs(value);
+         double valueSquaredKeepingTheSign = value * alwaysPositiveValue;
+```
+
+## L157FeedforwardDriveTrain
+
+`TeamCode/src/main/java/org/firstinspires/ftc/teamcode/mytry/L157FeedforwardDriveTrain.java`
+
+### A change
+
+Delete 0 lines, write 3 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -60,6 +60,9 @@
+             // When on L157S060, see
+             // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s060
+             // for what to do here.
++            double kVVolts = turnVolts[i] + scale * (forwardVolts[i] + strafeVolts[i]);
++            double volts = kVVolts + steppedKs(i, kVVolts, kS[i]);
++            powers[i] = volts / batteryVolts;
+         }
+ 
+         double[] wheels = normalized(powers);
+```
+
+### A change
+
+Delete 0 lines, write 8 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -76,6 +76,14 @@
+         // When on L157S060, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s060
+         // for what to do here.
++        double forwardShare = Math.abs(forwardVolts);
++        double strafeShare = Math.abs(strafeVolts);
++        double turnShare = Math.abs(turnVolts);
++        double allShares = forwardShare + strafeShare + turnShare;
++        if (allShares > 0.0) {
++            kS = (forwardShare * Constants.kSForwardVolts + strafeShare * Constants.kSStrafeVolts
++                    + turnShare * Constants.kSTurnVolts) / allShares;
++        }
+         return kS;
+     }
+ 
+```
+
+### A change
+
+Delete 0 lines, write 9 lines.
+
+```diff
+--- before this change
++++ after it
+@@ -93,6 +93,15 @@
+         // When on L157S070, see
+         // https://coding.stitt.cc/ftc-lessons-java/guide/tasks/l157.html#l157s070
+         // for what to do here.
++        double kVSize = Math.abs(kVVolts);
++        if (kSOn[wheel] && kVSize < KS_OFF_SHARE * kS) {
++            kSOn[wheel] = false;
++        } else if (!kSOn[wheel] && kVSize > KS_ON_SHARE * kS) {
++            kSOn[wheel] = true;
++        }
++        if (!kSOn[wheel]) {
++            stepped = 0.0;
++        }
+         return stepped;
+     }
+ 
+```
