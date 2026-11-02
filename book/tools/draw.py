@@ -29,8 +29,8 @@ The marker-sketch style, as the lesson outline sets it:
 - A method is a lavender box on its object's note, touching the note's left edge. What the FTC
   platform provides is drawn inside a grey box, labeled the FTC platform.
 - Handwriting is Marker Felt and code is Menlo, both in macOS, so the drawings are drawn on a Mac.
-  A label with a word holding a letter and two digits in a row, such as L115, is in Chalkboard
-  instead. The script stops when a font is missing rather than draw in another.
+  A word holding a letter and two digits in a row, such as L115, is in Chalkboard instead, its
+  capitals as tall as Marker Felt's, and the rest of its label in Marker Felt. The script stops when a font is missing rather than draw in another.
 """
 
 import base64
@@ -55,7 +55,7 @@ from matplotlib.font_manager import FontProperties  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, PathPatch, Polygon  # noqa: E402,E501
 from matplotlib.path import Path as MplPath  # noqa: E402
-from matplotlib.textpath import TextPath  # noqa: E402
+from matplotlib.textpath import TextPath, TextToPath  # noqa: E402
 from matplotlib.transforms import Affine2D  # noqa: E402
 import numpy as np  # noqa: E402
 
@@ -64,9 +64,10 @@ DPI = 200
 HAND_FONT = "/System/Library/Fonts/MarkerFelt.ttc"
 CODE_FONT = "/System/Library/Fonts/Menlo.ttc"
 NUMBER_FONT = "/System/Library/Fonts/Supplemental/Chalkboard.ttc"  # its first face, Regular
-# A label with a word holding a letter and two digits in a row, such as L115, is in Chalkboard:
-# Marker Felt's digits are all one width and it kerns L1 but not 11, so L115 reads as L1 15.
-NUMBERED = re.compile(r"(?=\w*[A-Za-z])\w*\d\d")
+# A word holding a letter and two digits in a row, such as L115, is in Chalkboard: Marker Felt's
+# digits are all one width and it kerns L1 but not 11, so L115 reads as L1 15.
+NUMBERED = re.compile(r"\b(?=\w*[A-Za-z])(?=\w*\d\d)\w+")
+NUMBER_SCALE = 83 / 67  # Marker Felt's capital L over Chalkboard's, both at 100 pt
 for font in (HAND_FONT, CODE_FONT, NUMBER_FONT):
     if not Path(font).exists():
         raise SystemExit(f"{font} is missing: the drawings are drawn on a Mac")
@@ -420,24 +421,48 @@ class Sketch:
     def highlight(self, p0, p1, width=5):
         self.ink_line(p0, p1, width=width, over=-12, passes=1, color="#ffffff", wobble=0.8)
 
-    def text(self, xy, s, size=26, color=PEN, anchor="middle", rot=0, code=False, numbered=None):
+    def text(self, xy, s, size=26, color=PEN, anchor="middle", rot=0, code=False):
         x, y = self.at(xy)
         self.z += 1
-        if numbered is None:
-            numbered = bool(NUMBERED.search(s))
-        hand = self.numbered if numbered else self.hand
-        return self.ax.text(x, y, s, fontproperties=self.code if code else hand,
-                            fontsize=size * PX,
-                            color=color,
-                            ha={"middle": "center", "start": "left", "end": "right"}[anchor],
-                            va="baseline", rotation=-(rot + self.turn[2]),
-                            rotation_mode="anchor", zorder=self.z)
+        if code or not NUMBERED.search(s):
+            return self.ax.text(x, y, s, fontproperties=self.code if code else self.hand,
+                                fontsize=size * PX,
+                                color=color,
+                                ha={"middle": "center", "start": "left", "end": "right"}[anchor],
+                                va="baseline", rotation=-(rot + self.turn[2]),
+                                rotation_mode="anchor", zorder=self.z)
+        runs, at = [], 0
+        for word in NUMBERED.finditer(s):
+            runs += [(s[at:word.start()], self.hand, size),
+                     (word.group(), self.numbered, size * NUMBER_SCALE)]
+            at = word.end()
+        runs = [r for r in runs + [(s[at:], self.hand, size)] if r[0]]
+        # Each run is laid down after the one before it, by its advance, a bar's width taken off
+        # so a space at a run's end still counts.
+        widths = [self.advance(run, font, run_size) for run, font, run_size in runs]
+        turn = math.radians(rot + self.turn[2])
+        along = -{"middle": sum(widths) / 2, "start": 0, "end": sum(widths)}[anchor]
+        for (run, font, run_size), width in zip(runs, widths):
+            drawn = self.ax.text(x + along * math.cos(turn), y + along * math.sin(turn), run,
+                                 fontproperties=font, fontsize=run_size * PX, color=color,
+                                 ha="left", va="baseline", rotation=-(rot + self.turn[2]),
+                                 rotation_mode="anchor", zorder=self.z)
+            along += width
+        return drawn
+
+    @staticmethod
+    def advance(run, font, size):
+        """How far a run of text moves the pen, in drawing pixels."""
+        font = font.copy()
+        font.set_size(size * PX)
+        measure = TextToPath().get_text_width_height_descent
+        return (measure(run + "|", font, ismath=False)[0]
+                - measure("|", font, ismath=False)[0]) / PX
 
     def lines(self, xy, rows, size=26, gap=1.25, **kw):
-        """Text a row at a time, each its own baseline, gap sizes apart, all in one hand."""
-        numbered = any(NUMBERED.search(row) for row in rows)
+        """Text a row at a time, each its own baseline, gap sizes apart."""
         for i, row in enumerate(rows):
-            self.text((xy[0], xy[1] + i * size * gap), row, size, numbered=numbered, **kw)
+            self.text((xy[0], xy[1] + i * size * gap), row, size, **kw)
 
     def marker_line(self, p0, p1, color, nib=9, bend=0.0):
         """A broad marker stroke with an ink line along it; gives back its curve."""
