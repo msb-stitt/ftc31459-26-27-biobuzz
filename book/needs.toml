@@ -112,5 +112,5 @@ l020 = "skill: copy a starter into mytry, run the simulator and connect Advantag
 l117 = "robot: the follower holds and turns with Pedro's tuning."
 [l190]
 l020 = "skill: copy a starter into mytry, run the simulator and connect AdvantageScope."
-l131 = "robot: the robot's own file holds its ticks per inch and turn radius."
+l113 = "robot: the robot's own file holds ticks per inch and turn radius worked out for this robot."
 l153 = "robot: the robot's own file holds its kS and kV."
