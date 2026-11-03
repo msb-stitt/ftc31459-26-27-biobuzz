@@ -121,8 +121,7 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         OpModeStorage.isRed = allianceRow.getSelected() == red;
         Tracker.publish("Alliance", allianceRow.getSelected().getFullName());
         if (startRow.getSelected() == wall) {
-            PoseFactory poses = poses();
-            Pose wallPose = poses.of(72.0, botStartYIn, 90.0);
+            Pose wallPose = wallPose();
             follower.setPose(wallPose);
         }
         driveFromTheSticks = driveWhileTheSticksAreRead();
@@ -239,6 +238,13 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         }
         double intakeSpeedFraction = triggersSpeedFraction + boostWhileFeeding;
         return intakeSpeedFraction;
+    }
+
+    /** Against the wall, facing the audience, where Example Auto starts. */
+    Pose wallPose() {
+        PoseFactory poses = poses();
+        Pose wallPose = poses.of(72.0, botStartYIn, -90.0);
+        return wallPose;
     }
 
     /** The red alliance's poses as they are, or turned for the blue alliance. */

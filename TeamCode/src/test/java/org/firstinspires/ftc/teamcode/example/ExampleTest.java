@@ -123,6 +123,31 @@ public class ExampleTest {
     }
 
     @Test
+    public void theTeleOpsWallStartIsWhereTheAutoStartsOnEachAlliance() {
+        for (boolean red : new boolean[]{true, false}) {
+            ExampleAuto auto = new ExampleAuto();
+            OpModeHarness a = new OpModeHarness(auto);
+            a.init();
+            a.initLoop();
+            if (!red) {
+                pressDuringInit(a, pad -> pad.dpad_right = true);
+                pressDuringInit(a, pad -> pad.a = true);
+            }
+            Pose autoStart = auto.startPose();
+
+            OpModeStorage.isRed = red;
+            ExampleTeleOp teleOp = new ExampleTeleOp();
+            OpModeHarness t = new OpModeHarness(teleOp);
+            t.init();
+            Pose wallStart = teleOp.wallPose();
+
+            String alliance = red ? "red" : "blue";
+            assertAt(alliance, autoStart.x(), autoStart.y(), wallStart);
+            assertEquals(alliance + ": heading", autoStart.heading(), wallStart.heading(), 1e-9);
+        }
+    }
+
+    @Test
     public void theTeleOpDrivesTheFieldAndRunsTheIntakeAndLauncher() {
         OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
         Follower follower = h.robot.follower;
