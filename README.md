@@ -100,8 +100,8 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
   AutoTune procedures print, pasted whole, its ticks per inch and turn radius, and its launcher's
   speeds and gains. `Constants` takes the one `thisRobot` names, and sets on top what every robot
   shares and AutoTune does not print: the brake mode, the power threshold and the five hold lines.
-  `Bot31459` has its own `drivetrainConfig`, and uses `Bot37523`'s other values until its own are
-  measured. Each OpMode's flight log names the robot picked, from INIT, as `Constants/thisRobot`,
+  `Bot31459` has its own `drivetrainConfig`, and copies of 37523's other values, written in its
+  own file, until its own are measured. Each OpMode's flight log names the robot picked, from INIT, as `Constants/thisRobot`,
   and `Constants/pickedByRobotControllerName` is true when the Robot Controller name picked it.
 - Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.

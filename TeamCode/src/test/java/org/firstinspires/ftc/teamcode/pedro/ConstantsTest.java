@@ -80,6 +80,13 @@ public class ConstantsTest {
     }
 
     @Test
+    public void robot31459And37523EachHaveTheirOwnConfigs() {
+        assertNotSame(Bot37523.drivetrainConfig, Bot31459.drivetrainConfig);
+        assertNotSame(Bot37523.localizerConfig, Bot31459.localizerConfig);
+        assertNotSame(Bot37523.foresightConfig, Bot31459.foresightConfig);
+    }
+
+    @Test
     public void thisRobotPicksWhichFileTheValuesComeFrom() {
         try {
             Constants.thisRobot = Constants.Robot.BOT_88888;
@@ -90,7 +97,30 @@ public class ConstantsTest {
 
             Constants.thisRobot = Constants.Robot.BOT_31459;
             Constants.takeThisRobotsValues();
+            assertSame(Bot31459.drivetrainConfig, Constants.drivetrainConfig);
             assertSame(Bot31459.localizerConfig, Constants.localizerConfig);
+            assertSame(Bot31459.foresightConfig, Constants.foresightConfig);
+            assertEquals(Bot31459.ticksPerInch, Constants.ticksPerInch, 0);
+            assertEquals(Bot31459.turnRadiusInches, Constants.turnRadiusInches, 0);
+            assertEquals(Bot31459.kSForwardVolts, Constants.kSForwardVolts, 0);
+            assertEquals(Bot31459.kVForwardVoltSecondsPerInch,
+                    Constants.kVForwardVoltSecondsPerInch, 0);
+            assertEquals(Bot31459.kSStrafeVolts, Constants.kSStrafeVolts, 0);
+            assertEquals(Bot31459.kVStrafeVoltSecondsPerInch,
+                    Constants.kVStrafeVoltSecondsPerInch, 0);
+            assertEquals(Bot31459.kSTurnVolts, Constants.kSTurnVolts, 0);
+            assertEquals(Bot31459.kVTurnVoltSecondsPerRadian,
+                    Constants.kVTurnVoltSecondsPerRadian, 0);
+            assertEquals(Bot31459.launcherTargetTicksPerSecond,
+                    Constants.launcherTargetTicksPerSecond, 0);
+            assertEquals(Bot31459.launcherFeedAboveTicksPerSecond,
+                    Constants.launcherFeedAboveTicksPerSecond, 0);
+            assertEquals(Bot31459.launcherVelocityP, Constants.launcherVelocityP, 0);
+            assertEquals(Bot31459.launcherVelocityI, Constants.launcherVelocityI, 0);
+            assertEquals(Bot31459.launcherVelocityD, Constants.launcherVelocityD, 0);
+            assertEquals(Bot31459.launcherStaticPower, Constants.launcherStaticPower, 0);
+            assertEquals(Bot31459.launcherPowerPerTickPerSecond,
+                    Constants.launcherPowerPerTickPerSecond, 0);
         } finally {
             Constants.thisRobot = Constants.Robot.BOT_37523;
             Constants.takeThisRobotsValues();
