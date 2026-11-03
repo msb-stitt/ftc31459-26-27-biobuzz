@@ -106,15 +106,15 @@ class Bot31459 {
     static double launcherTargetTicksPerSecond = 1250;
     static double launcherFeedAboveTicksPerSecond = 1200;
 
-    /** The launcher motor's P, I and D, 37523's. MEASURE. */
-    static double launcher_P_ctrlUnitsPerTickPerS = 20;
+    /** The launcher motor's P, I and D. Measured on 2026-11-03 */
+    static double launcher_P_ctrlUnitsPerTickPerS = 10;
     static double launcher_I = 0;
     static double launcher_D = 0;
 
     /**
-     * The launcher's feedforward, as a fraction of full power: 37523's static
-     * part, and 10/16 of its part for each tick per second. MEASURE.
+     * The launcher's feedforward, as a fraction of full power.
+     * Tested on 2026-11-03.
      */
     static double launcher_kS_powerFraction = 0.05;
-    static double launcher_kV_powerFractionPerTickPerS =  0.00037963 * 1260.0/1600.0;
+    static double launcher_kV_powerFractionPerTickPerS =  0.00032636316;
 }
