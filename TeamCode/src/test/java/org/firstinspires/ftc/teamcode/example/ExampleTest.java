@@ -124,27 +124,57 @@ public class ExampleTest {
 
     @Test
     public void theTeleOpsWallStartIsWhereTheAutoStartsOnEachAlliance() {
-        for (boolean red : new boolean[]{true, false}) {
-            ExampleAuto auto = new ExampleAuto();
-            OpModeHarness a = new OpModeHarness(auto);
-            a.init();
-            a.initLoop();
-            if (!red) {
-                pressDuringInit(a, pad -> pad.dpad_right = true);
-                pressDuringInit(a, pad -> pad.a = true);
+        for (boolean handedRed : new boolean[]{true, false}) {
+            for (boolean chosenRed : new boolean[]{true, false}) {
+                String what = (handedRed ? "red" : "blue") + " handed over, "
+                        + (chosenRed ? "red" : "blue") + " chosen";
+                Pose autoStart = exampleAutoStart(chosenRed);
+
+                OpModeStorage.isRed = handedRed;
+                OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
+                Follower follower = h.robot.follower;
+                h.init();
+                h.initLoop();
+                if (chosenRed != handedRed) {
+                    pressDuringInit(h, pad -> pad.dpad_right = true);   // the other alliance
+                    pressDuringInit(h, pad -> pad.a = true);
+                }
+                pressDuringInit(h, pad -> pad.dpad_down = true);        // the Start row
+                pressDuringInit(h, pad -> pad.dpad_right = true);       // Wall
+                pressDuringInit(h, pad -> pad.a = true);
+                h.start();
+
+                Pose wallStart = follower.pose();
+                assertAt(what, autoStart.x(), autoStart.y(), wallStart);
+                assertEquals(what + ": heading", autoStart.heading(), wallStart.heading(), 1e-9);
+                assertEquals(what, chosenRed, OpModeStorage.isRed);
+
+                // Pushed away from the driver: +x for red, -x for blue.
+                h.gamepad1.left_stick_y = -1.0f;
+                h.loop();
+                double heading = follower.pose().heading();
+                double fieldXSpeed = h.wheelsForward() * Math.cos(heading)
+                        - h.wheelsStrafe() * Math.sin(heading);
+                double awayFromTheDriver = chosenRed ? 1.0 : -1.0;
+                assertEquals(what + ": away from the driver", awayFromTheDriver, fieldXSpeed, 1e-3);
+                h.stop();
+                Scheduler.reset();
             }
-            Pose autoStart = auto.startPose();
-
-            OpModeStorage.isRed = red;
-            ExampleTeleOp teleOp = new ExampleTeleOp();
-            OpModeHarness t = new OpModeHarness(teleOp);
-            t.init();
-            Pose wallStart = teleOp.wallPose();
-
-            String alliance = red ? "red" : "blue";
-            assertAt(alliance, autoStart.x(), autoStart.y(), wallStart);
-            assertEquals(alliance + ": heading", autoStart.heading(), wallStart.heading(), 1e-9);
         }
+    }
+
+    /** Where Example Auto starts on an alliance, chosen in its menu. */
+    private static Pose exampleAutoStart(boolean red) {
+        ExampleAuto auto = new ExampleAuto();
+        OpModeHarness a = new OpModeHarness(auto);
+        a.init();
+        a.initLoop();
+        if (!red) {
+            pressDuringInit(a, pad -> pad.dpad_right = true);
+            pressDuringInit(a, pad -> pad.a = true);
+        }
+        Pose autoStart = auto.startPose();
+        return autoStart;
     }
 
     @Test
