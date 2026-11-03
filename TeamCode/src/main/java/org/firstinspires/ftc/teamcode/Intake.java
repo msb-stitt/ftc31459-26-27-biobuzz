@@ -24,11 +24,11 @@ import java.util.function.DoubleSupplier;
 public class Intake {
 
     /** The intake still. */
-    static final double STOPPED_SPEED = 0;
+    static final double STOPPED_SPEED_FRACTION = 0;
     /** Full speed, out or in. */
-    static final double FULL_SPEED_OUT = -1;
+    static final double FULL_OUT_SPEED_FRACTION = -1;
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
-    public static final double FULL_SPEED_IN = 1;
+    public static final double FULL_IN_SPEED_FRACTION = 1;
 
     final DcMotor motor;
     final CRServo leftServo;
@@ -41,7 +41,7 @@ public class Intake {
         this.rightServo = rightServo;
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        setPower(STOPPED_SPEED);
+        setPower(STOPPED_SPEED_FRACTION);
     }
 
     /** The three devices, by the names in {@link Constants}. */
@@ -55,12 +55,13 @@ public class Intake {
     }
 
     /** One speed for all three, clipped to -1 to 1. */
-    void setPower(double speed) {
-        double clippedSpeed = Range.clip(speed, FULL_SPEED_OUT, FULL_SPEED_IN);
-        motor.setPower(clippedSpeed);
-        leftServo.setPower(clippedSpeed);
-        rightServo.setPower(clippedSpeed);
-        Tracker.publish("intake/speed", clippedSpeed);
+    void setPower(double speedFraction) {
+        double clippedSpeedFraction = Range.clip(speedFraction,
+                FULL_OUT_SPEED_FRACTION, FULL_IN_SPEED_FRACTION);
+        motor.setPower(clippedSpeedFraction);
+        leftServo.setPower(clippedSpeedFraction);
+        rightServo.setPower(clippedSpeedFraction);
+        Tracker.publish("intake/speed", clippedSpeedFraction);
     }
 
     /**
@@ -69,20 +70,20 @@ public class Intake {
      * and this one comes back when it ends.
      */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
-    public Command run(DoubleSupplier speed) {
-        Command runAtTheSpeedGiven = Command.build()
-                .setExecute(() -> runAtTheSpeedGivenThisLoop(speed))
+    public Command run(DoubleSupplier speedFraction) {
+        Command runAtSpeedFractionGiven = Command.build()
+                .setExecute(() -> runAtSpeedFractionGivenThisLoop(speedFraction))
                 .setDone(this::runsUntilCancelled)
-                .setEnd(this::stopWhenItEnds)
+                .setEnd(this::stopWhenEnded)
                 .requiring(this)
                 .setInterruptedBehavior(InterruptedBehavior.SUSPEND);
-        return runAtTheSpeedGiven;
+        return runAtSpeedFractionGiven;
     }
 
     /** One loop of {@link #run}: the speed read now, and set. */
-    void runAtTheSpeedGivenThisLoop(DoubleSupplier speed) {
-        double speedThisLoop = speed.getAsDouble();
-        setPower(speedThisLoop);
+    void runAtSpeedFractionGivenThisLoop(DoubleSupplier speedFraction) {
+        double speedFractionThisLoop = speedFraction.getAsDouble();
+        setPower(speedFractionThisLoop);
     }
 
     /** {@link #run} never finishes by itself. */
@@ -91,7 +92,7 @@ public class Intake {
     }
 
     /** How {@link #run} ends, or is set aside: the intake stopped. */
-    void stopWhenItEnds(EndCondition howItEnded) {
-        setPower(STOPPED_SPEED);
+    void stopWhenEnded(EndCondition howItEnded) {
+        setPower(STOPPED_SPEED_FRACTION);
     }
 }

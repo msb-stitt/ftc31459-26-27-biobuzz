@@ -235,7 +235,7 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         double triggersSpeed = pullInSpeed - pushOutSpeed;
         double boostWhileFeeding = 0;
         if (launcher.feeding()) {
-            boostWhileFeeding = Launcher.INTAKE_BOOST;
+            boostWhileFeeding = Launcher.INTAKE_BOOST_SPEED_FRACTION;
         }
         double intakeSpeed = triggersSpeed + boostWhileFeeding;
         return intakeSpeed;

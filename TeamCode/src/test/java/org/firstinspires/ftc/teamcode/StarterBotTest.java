@@ -29,7 +29,7 @@ public class StarterBotTest {
 
     /** A motor or servo that records what was written, and reports a velocity a test sets. */
     static final class Fake {
-        double speed;
+        double speedFraction;
         double targetVelocity;
         double velocity;
         DcMotorSimple.Direction direction;
@@ -40,7 +40,7 @@ public class StarterBotTest {
             return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[]{type},
                     (proxy, method, args) -> {
                         switch (method.getName()) {
-                            case "setPower": speed = (Double) args[0]; return null;
+                            case "setPower": speedFraction = (Double) args[0]; return null;
                             case "setVelocity": targetVelocity = (Double) args[0]; return null;
                             case "getVelocity": return velocity;
                             case "setDirection":
@@ -100,18 +100,18 @@ public class StarterBotTest {
         launcherMotor.velocity = 1100;
         Scheduler.execute();
         assertEquals(1250, launcherMotor.targetVelocity, 0);
-        assertEquals("too slow to feed", 0, windmill.speed, 0);
+        assertEquals("too slow to feed", 0, windmill.speedFraction, 0);
         assertFalse(launcher.feeding());
 
         launcherMotor.velocity = 1210;
         Scheduler.execute();
-        assertEquals("fast enough", 1, windmill.speed, 0);
+        assertEquals("fast enough", 1, windmill.speedFraction, 0);
         assertTrue(launcher.feeding());
 
         held[0] = false;
         Scheduler.execute();
         assertEquals("let go, the motor stops", 0, launcherMotor.targetVelocity, 0);
-        assertEquals(0, windmill.speed, 0);
+        assertEquals(0, windmill.speedFraction, 0);
         assertFalse(launcher.feeding());
         assertTrue("and the command keeps running", Scheduler.isRunning(fire));
     }
@@ -153,17 +153,17 @@ public class StarterBotTest {
         Command run = intake.run(() -> asked[0]);
         Scheduler.schedule(run);
         Scheduler.execute();
-        assertEquals(0.4, intakeMotor.speed, 1e-9);
-        assertEquals(0.4, leftServo.speed, 1e-9);
-        assertEquals(0.4, rightServo.speed, 1e-9);
+        assertEquals(0.4, intakeMotor.speedFraction, 1e-9);
+        assertEquals(0.4, leftServo.speedFraction, 1e-9);
+        assertEquals(0.4, rightServo.speedFraction, 1e-9);
 
         asked[0] = 1.5;
         Scheduler.execute();
-        assertEquals("clipped", 1, intakeMotor.speed, 0);
+        assertEquals("clipped", 1, intakeMotor.speedFraction, 0);
 
         Scheduler.cancel(run);
-        assertEquals(0, intakeMotor.speed, 0);
-        assertEquals(0, rightServo.speed, 0);
+        assertEquals(0, intakeMotor.speedFraction, 0);
+        assertEquals(0, rightServo.speedFraction, 0);
     }
 
     @Test
@@ -172,11 +172,11 @@ public class StarterBotTest {
         Command quickly = intake.run(() -> 0.75);
         Scheduler.schedule(slowly);
         Scheduler.execute();
-        assertEquals("the first command, built before the second", 0.25, intakeMotor.speed, 1e-9);
+        assertEquals("the first command, built before the second", 0.25, intakeMotor.speedFraction, 1e-9);
         Scheduler.cancel(slowly);
         Scheduler.schedule(quickly);
         Scheduler.execute();
-        assertEquals(0.75, intakeMotor.speed, 1e-9);
+        assertEquals(0.75, intakeMotor.speedFraction, 1e-9);
     }
 
     @Test
@@ -209,19 +209,19 @@ public class StarterBotTest {
         h.gamepad1.right_trigger = 0.75f;
         h.gamepad1.left_trigger = 0.25f;
         h.loop();
-        assertEquals("right less left", 0.5, intakeMotor.speed, 1e-6);
+        assertEquals("right less left", 0.5, intakeMotor.speedFraction, 1e-6);
 
         h.gamepad1.right_bumper = true;
         launcherMotor.velocity = 1210;
         h.loop();
         assertEquals(1250, launcherMotor.targetVelocity, 0);
         h.loop();
-        assertEquals("feeding adds 0.5", 1.0, intakeMotor.speed, 1e-6);
+        assertEquals("feeding adds 0.5", 1.0, intakeMotor.speedFraction, 1e-6);
 
         h.gamepad1.right_bumper = false;
         h.loop();
         assertEquals("let go, the launcher stops", 0, launcherMotor.targetVelocity, 0);
-        assertEquals(0, windmill.speed, 0);
+        assertEquals(0, windmill.speedFraction, 0);
 
         h.stop();
     }
@@ -348,7 +348,7 @@ public class StarterBotTest {
         launcherMotor.velocity = 1300;
         h.loop();
         assertEquals("a fifth of 1250", 250, launcherMotor.targetVelocity, 1e-9);
-        assertEquals("fast, and still not feeding", 0, windmill.speed, 0);
+        assertEquals("fast, and still not feeding", 0, windmill.speedFraction, 0);
         assertFalse(launcher.feeding());
         assertEquals(true, Tracker.values().get("button/rightBumper"));
 

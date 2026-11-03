@@ -46,14 +46,14 @@ public class Launcher {
     static final double FEED_ABOVE_TICKS_PER_SECOND = Constants.launcherFeedAboveTicksPerSecond;
     /** Added to the intake's speed while feeding, as goBILDA's example does. */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
-    public static final double INTAKE_BOOST = 0.5;
+    public static final double INTAKE_BOOST_SPEED_FRACTION = 0.5;
 
     /** The launcher motor stopped. */
     static final double STOPPED_TICKS_PER_SECOND = 0;
     /** The windmill turning to feed. */
-    static final double WINDMILL_FEEDING_SPEED = 1;
+    static final double WINDMILL_FEEDING_SPEED_FRACTION = 1;
     /** The windmill still. */
-    static final double WINDMILL_STOPPED_SPEED = 0;
+    static final double WINDMILL_STOPPED_SPEED_FRACTION = 0;
 
     /** Full power, in rev motor controller units. */
     static final double MOT_FULL_POWER_CTRL_UNITS = 32767;
@@ -158,12 +158,12 @@ public class Launcher {
     }
 
     void startTheWindmill() {
-        windmill.setPower(WINDMILL_FEEDING_SPEED);
+        windmill.setPower(WINDMILL_FEEDING_SPEED_FRACTION);
         feeding = true;
     }
 
     void stopTheWindmill() {
-        windmill.setPower(WINDMILL_STOPPED_SPEED);
+        windmill.setPower(WINDMILL_STOPPED_SPEED_FRACTION);
         feeding = false;
     }
 

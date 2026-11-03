@@ -170,7 +170,7 @@ public class ExampleTest {
         for (Sample s : between(run, shootingStarts, shootingEnds)) {
             assertAt("held while shooting, at " + s.seconds + " s", 72.0, 16.5, s.pose);
             assertEquals("fed, once fast enough", 1, s.windmill, 0);
-            assertEquals("the intake boosted while it feeds", Launcher.INTAKE_BOOST,
+            assertEquals("the intake boosted while it feeds", Launcher.INTAKE_BOOST_SPEED_FRACTION,
                     s.intakeSpeed, EPS);
         }
         assertEquals("the windmill stops with the launcher", 0, shootingEnds.windmill, 0);
@@ -189,7 +189,7 @@ public class ExampleTest {
         assertAt("strafed 24 in to the robot's left, -x", 48.0, 16.5, intakeStarts.pose);
         assertEquals("intakes for 3 s", 3.0, intakeEnds.seconds - intakeStarts.seconds, 0.05);
         for (Sample s : between(run, intakeStarts, intakeEnds)) {
-            assertEquals("full speed in", Intake.FULL_SPEED_IN, s.intakeSpeed, EPS);
+            assertEquals("full speed in", Intake.FULL_IN_SPEED_FRACTION, s.intakeSpeed, EPS);
             assertAt("held while intaking, at " + s.seconds + " s", 48.0, 16.5, s.pose);
             assertEquals("the launcher stays stopped", 0, s.launcherTarget, 0);
         }
@@ -205,7 +205,7 @@ public class ExampleTest {
         Sample shootingStarts = first(run, s -> s.launcherTarget > 0);
         assertAt("shoots from 6 in forward of blue's wall", 72.0, 127.5, shootingStarts.pose);
         Sample intakeStarts = firstAfter(run, shootingStarts,
-                s -> s.intakeSpeed == Intake.FULL_SPEED_IN);
+                s -> s.intakeSpeed == Intake.FULL_IN_SPEED_FRACTION);
         assertAt("strafed to the robot's left, +x", 96.0, 127.5, intakeStarts.pose);
         assertEquals("blue, handed to the teleop", false, OpModeStorage.isRed);
     }

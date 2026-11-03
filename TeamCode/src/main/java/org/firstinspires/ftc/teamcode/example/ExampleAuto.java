@@ -317,13 +317,13 @@ public class ExampleAuto extends CorbelsAuto {
     double intakeBoostWhileFeeding() {
         double boost = 0;
         if (launcher.feeding()) {
-            boost = Launcher.INTAKE_BOOST;
+            boost = Launcher.INTAKE_BOOST_SPEED_FRACTION;
         }
         return boost;
     }
 
     /** {@link #intakeFor} pulls in at full speed. */
     double fullSpeedIn() {
-        return Intake.FULL_SPEED_IN;
+        return Intake.FULL_IN_SPEED_FRACTION;
     }
 }

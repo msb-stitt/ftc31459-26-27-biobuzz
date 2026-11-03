@@ -65,7 +65,7 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
     public void start() {
         startBefore();
         driveFromTheSticks = driveWhileTheSticksAreRead();
-        runTheIntakeFromTheTriggers = intake.run(this::intakeSpeedThisLoop);
+        runTheIntakeFromTheTriggers = intake.run(this::intakeSpeedFractionThisLoop);
         fireTheLauncherFromTheBumper = launcher.fireWhile(this::rightBumperIsHeld);
         Scheduler.schedule(driveFromTheSticks);
         Scheduler.schedule(runTheIntakeFromTheTriggers);
@@ -128,17 +128,17 @@ public class StarterBotTeleOp extends CorbelsTeleOp {
      * The right trigger pulls in, the left pushes out, and while the launcher
      * feeds the intake gets goBILDA's boost.
      */
-    double intakeSpeedThisLoop() {
-        double pullInSpeed = gamepad1.right_trigger;
-        double pushOutSpeed = gamepad1.left_trigger;
-        Tracker.publish("trigger/right", pullInSpeed);
-        Tracker.publish("trigger/left", pushOutSpeed);
-        double triggersSpeed = pullInSpeed - pushOutSpeed;
+    double intakeSpeedFractionThisLoop() {
+        double pullInSpeedFraction = gamepad1.right_trigger;
+        double pushOutSpeedFraction = gamepad1.left_trigger;
+        Tracker.publish("trigger/right", pullInSpeedFraction);
+        Tracker.publish("trigger/left", pushOutSpeedFraction);
+        double triggersSpeedFraction = pullInSpeedFraction - pushOutSpeedFraction;
         double boostWhileFeeding = 0;
         if (launcher.feeding()) {
-            boostWhileFeeding = Launcher.INTAKE_BOOST;
+            boostWhileFeeding = Launcher.INTAKE_BOOST_SPEED_FRACTION;
         }
-        double intakeSpeed = triggersSpeed + boostWhileFeeding;
-        return intakeSpeed;
+        double intakeSpeedFraction = triggersSpeedFraction + boostWhileFeeding;
+        return intakeSpeedFraction;
     }
 }
