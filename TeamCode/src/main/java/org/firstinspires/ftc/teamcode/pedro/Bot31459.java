@@ -52,5 +52,5 @@ class Bot31459 {
     static double launcherVelocityI = Bot37523.launcherVelocityI;
     static double launcherVelocityD = Bot37523.launcherVelocityD;
     static double launcherStaticPower = Bot37523.launcherStaticPower;
-    static double launcherPowerPerTickPerSecond =  0.00037963 * 10000.0/1600.0;
+    static double launcherPowerPerTickPerSecond =  0.00037963 * 1000.0/1600.0;
 }
