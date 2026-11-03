@@ -280,11 +280,19 @@ These simplifications are made everywhere, and are not marked:
   tool shows, such as an AdvantageScope reading, is written as the tool shows it: `x_in` 72.
   Speech, such as the video's captions, says -1, 0 and +1. A command-line argument is not code,
   and is written the quick way a person types it: `--left_stick_y=-1`.
-- **Call a value "power" only when it is physical power.** A `setPower` argument is a fraction of
-  battery voltage, from -1.0 to 1.0. Battery voltage applied to a motor is closest to the motor's
-  speed, so we call it a speed, not a power. A stick or a speed is a fraction of full speed; name
-  each for what it is, as `leftShapedSpeed` does. Names that are not ours keep their spelling:
-  the SDK's `setPower` and `ZeroPowerBehavior`, and Pedro's `DrivePowers` and `headingPower`.
+- **Call a value "power" only when it is physical power, or what a PID or PIDF loop gives
+  `setPower`.** A `setPower` argument is a fraction of battery voltage, from -1.0 to 1.0. Battery
+  voltage applied to a motor is closest to the motor's speed, so we call it a speed fraction:
+  `SPEED_FRACTION` in a constant and `speedFraction` in a variable, as `Intake`'s
+  `STOPPED_SPEED_FRACTION` does. A gamepad stick is also a fraction from -1.0 to 1.0, in the
+  stick's own reference frame. Read it into a variable named for the stick, such as `leftStickY`,
+  and only then into a speed fraction in the robot's or the field's reference frame:
+  `double forwardXSpeedFraction = -leftStickY;`. Reading the stick straight into a speed fraction
+  is one line shorter, and hides the switch between reference frames that
+  [E035](source/tasks/e035.md) teaches. In PID or PIDF code a true speed, such as ticks per
+  second, goes into the loop, and what comes out for `setPower` is a power fraction, as
+  `launcher_kS_powerFraction` does. Names that are not ours keep their spelling: the SDK's
+  `setPower` and `ZeroPowerBehavior`, and Pedro's `DrivePowers` and `headingPower`.
 
 ## The code a student copies is plain Java
 
