@@ -55,10 +55,10 @@ public class Constants {
     public static String windmillServoName = "windmillServo";
 
     // ---- Each robot's own values come from its file, Bot88888 and so on: the
-    // ---- three configs its AutoTune procedures printed, pasted whole, and its
-    // ---- other numbers. A value marked MEASURE there is a starting point until
-    // ---- it is measured on that robot. The Pedro tuners are in Tuning, under
-    // ---- AutoTune. ---------------------------------------------------------
+    // ---- three configs its AutoTune procedures printed, pasted whole, its
+    // ---- choices AutoTune does not print, and its other numbers. A value
+    // ---- marked MEASURE there is a starting point until it is measured on
+    // ---- that robot. The Pedro tuners are in Tuning, under AutoTune. -------
 
     /**
      * The drivetrain: what its four motors are called, which way each one spins,
@@ -136,7 +136,6 @@ public class Constants {
         RobotControllerName.recordConstantsRunning();
         pickByTheRobotControllerName(RobotControllerName.nameWhenConstantsRan());
         takeThisRobotsValues();
-        setWhatEveryRobotShares();
         readTheDriveNumbersFromForesight();
     }
 
@@ -166,7 +165,10 @@ public class Constants {
         return named;
     }
 
-    /** The values in the file of the robot thisRobot names. */
+    /**
+     * The values in the file of the robot thisRobot names, and its choices the
+     * tuners do not print, set on top of its pasted configs.
+     */
     static void takeThisRobotsValues() {
         if (thisRobot == Robot.BOT_88888) {
             takeBot88888sValues();
@@ -196,6 +198,13 @@ public class Constants {
         launcherVelocityD = Bot88888.launcherVelocityD;
         launcherStaticPower = Bot88888.launcherStaticPower;
         launcherPowerPerTickPerSecond = Bot88888.launcherPowerPerTickPerSecond;
+        drivetrainConfig.manualBrakeMode.set(Bot88888.manualBrakeMode);
+        drivetrainConfig.powerThreshold.set(Bot88888.powerThreshold);
+        foresightConfig.translationalConstraint.set(Bot88888.translationalConstraint);
+        foresightConfig.headingConstraint.set(Bot88888.headingConstraint);
+        foresightConfig.velocityConstraint.set(Bot88888.velocityConstraint);
+        foresightConfig.holdPointTranslationalScaling.set(Bot88888.holdPointTranslationalScaling);
+        foresightConfig.holdPointHeadingScaling.set(Bot88888.holdPointHeadingScaling);
     }
 
     static void takeBot37523sValues() {
@@ -217,6 +226,13 @@ public class Constants {
         launcherVelocityD = Bot37523.launcherVelocityD;
         launcherStaticPower = Bot37523.launcherStaticPower;
         launcherPowerPerTickPerSecond = Bot37523.launcherPowerPerTickPerSecond;
+        drivetrainConfig.manualBrakeMode.set(Bot37523.manualBrakeMode);
+        drivetrainConfig.powerThreshold.set(Bot37523.powerThreshold);
+        foresightConfig.translationalConstraint.set(Bot37523.translationalConstraint);
+        foresightConfig.headingConstraint.set(Bot37523.headingConstraint);
+        foresightConfig.velocityConstraint.set(Bot37523.velocityConstraint);
+        foresightConfig.holdPointTranslationalScaling.set(Bot37523.holdPointTranslationalScaling);
+        foresightConfig.holdPointHeadingScaling.set(Bot37523.holdPointHeadingScaling);
     }
 
     static void takeBot31459sValues() {
@@ -238,26 +254,13 @@ public class Constants {
         launcherVelocityD = Bot31459.launcherVelocityD;
         launcherStaticPower = Bot31459.launcherStaticPower;
         launcherPowerPerTickPerSecond = Bot31459.launcherPowerPerTickPerSecond;
-    }
-
-    /**
-     * Choices rather than measurements, the same on every robot, and set on
-     * top of its pasted configs because the tuners do not print them.
-     */
-    static void setWhatEveryRobotShares() {
-        // Brake rather than coast when a driver releases the sticks.
-        drivetrainConfig.manualBrakeMode.set(true);
-
-        // Pedro's own default, left alone and named here because our drivetrains
-        // cache motor writes with it: a power that moves by less than this does
-        // not reach the hardware.
-        drivetrainConfig.powerThreshold.set(0.01);
-
-        foresightConfig.translationalConstraint.set(0.5);              // hold tolerance in inches
-        foresightConfig.headingConstraint.set(Math.toRadians(1));      // hold tolerance degrees
-        foresightConfig.velocityConstraint.set(0.1);                   // hold tolerance inches/sec
-        foresightConfig.holdPointTranslationalScaling.set(0.45);       // default=0.45
-        foresightConfig.holdPointHeadingScaling.set(0.35);             // default=0.35
+        drivetrainConfig.manualBrakeMode.set(Bot31459.manualBrakeMode);
+        drivetrainConfig.powerThreshold.set(Bot31459.powerThreshold);
+        foresightConfig.translationalConstraint.set(Bot31459.translationalConstraint);
+        foresightConfig.headingConstraint.set(Bot31459.headingConstraint);
+        foresightConfig.velocityConstraint.set(Bot31459.velocityConstraint);
+        foresightConfig.holdPointTranslationalScaling.set(Bot31459.holdPointTranslationalScaling);
+        foresightConfig.holdPointHeadingScaling.set(Bot31459.holdPointHeadingScaling);
     }
 
     /** The three drive numbers, read from the Foresight values rather than written twice. */

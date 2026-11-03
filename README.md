@@ -98,8 +98,9 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
   going onto, with 37523 the default. Each robot's values are in its own file in `pedro`,
   `Bot88888`, `Bot37523` or `Bot31459`: the `drivetrainConfig`, `localizerConfig` and `foresightConfig` its
   AutoTune procedures print, pasted whole, its ticks per inch and turn radius, and its launcher's
-  speeds and gains. `Constants` takes the one `thisRobot` names, and sets on top what every robot
-  shares and AutoTune does not print: the brake mode, the power threshold and the five hold lines.
+  speeds and gains, and what AutoTune does not print: the brake mode, the power threshold and the
+  five hold lines, each a line of its own. `Constants` takes the one `thisRobot` names, and sets
+  those last on top of its configs.
   `Bot31459` has its own `drivetrainConfig`, and copies of 37523's other values, written in its
   own file, until its own are measured. Each OpMode's flight log names the robot picked, from INIT, as `Constants/thisRobot`,
   and `Constants/pickedByRobotControllerName` is true when the Robot Controller name picked it.

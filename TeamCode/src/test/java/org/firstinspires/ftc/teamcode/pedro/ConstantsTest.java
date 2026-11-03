@@ -128,23 +128,46 @@ public class ConstantsTest {
     }
 
     @Test
-    public void theChoicesEveryRobotSharesAreSetOnTopOfItsPaste() {
-        MecanumConfig d37523 = Bot37523.drivetrainConfig;
-        ForesightConfig f37523 = Bot37523.foresightConfig;
+    public void eachRobotsChoicesAreSetOnTopOfItsPaste() {
         try {
             Constants.thisRobot = Constants.Robot.BOT_88888;
             Constants.takeThisRobotsValues();
-            Constants.setWhatEveryRobotShares();
             MecanumConfig d = Constants.drivetrainConfig;
             ForesightConfig f = Constants.foresightConfig;
-            assertEquals(d37523.manualBrakeMode.get(), d.manualBrakeMode.get());
-            assertEquals(d37523.powerThreshold.get(), d.powerThreshold.get(), 0);
-            assertEquals(f37523.translationalConstraint.get(), f.translationalConstraint.get(), 0);
-            assertEquals(f37523.headingConstraint.get(), f.headingConstraint.get(), 0);
-            assertEquals(f37523.velocityConstraint.get(), f.velocityConstraint.get(), 0);
-            assertEquals(f37523.holdPointTranslationalScaling.get(),
+            assertEquals(Bot88888.manualBrakeMode, d.manualBrakeMode.get());
+            assertEquals(Bot88888.powerThreshold, d.powerThreshold.get(), 0);
+            assertEquals(Bot88888.translationalConstraint, f.translationalConstraint.get(), 0);
+            assertEquals(Bot88888.headingConstraint, f.headingConstraint.get(), 0);
+            assertEquals(Bot88888.velocityConstraint, f.velocityConstraint.get(), 0);
+            assertEquals(Bot88888.holdPointTranslationalScaling,
                     f.holdPointTranslationalScaling.get(), 0);
-            assertEquals(f37523.holdPointHeadingScaling.get(), f.holdPointHeadingScaling.get(), 0);
+            assertEquals(Bot88888.holdPointHeadingScaling, f.holdPointHeadingScaling.get(), 0);
+
+            Constants.thisRobot = Constants.Robot.BOT_37523;
+            Constants.takeThisRobotsValues();
+            d = Constants.drivetrainConfig;
+            f = Constants.foresightConfig;
+            assertEquals(Bot37523.manualBrakeMode, d.manualBrakeMode.get());
+            assertEquals(Bot37523.powerThreshold, d.powerThreshold.get(), 0);
+            assertEquals(Bot37523.translationalConstraint, f.translationalConstraint.get(), 0);
+            assertEquals(Bot37523.headingConstraint, f.headingConstraint.get(), 0);
+            assertEquals(Bot37523.velocityConstraint, f.velocityConstraint.get(), 0);
+            assertEquals(Bot37523.holdPointTranslationalScaling,
+                    f.holdPointTranslationalScaling.get(), 0);
+            assertEquals(Bot37523.holdPointHeadingScaling, f.holdPointHeadingScaling.get(), 0);
+
+            Constants.thisRobot = Constants.Robot.BOT_31459;
+            Constants.takeThisRobotsValues();
+            d = Constants.drivetrainConfig;
+            f = Constants.foresightConfig;
+            assertEquals(Bot31459.manualBrakeMode, d.manualBrakeMode.get());
+            assertEquals(Bot31459.powerThreshold, d.powerThreshold.get(), 0);
+            assertEquals(Bot31459.translationalConstraint, f.translationalConstraint.get(), 0);
+            assertEquals(Bot31459.headingConstraint, f.headingConstraint.get(), 0);
+            assertEquals(Bot31459.velocityConstraint, f.velocityConstraint.get(), 0);
+            assertEquals(Bot31459.holdPointTranslationalScaling,
+                    f.holdPointTranslationalScaling.get(), 0);
+            assertEquals(Bot31459.holdPointHeadingScaling, f.holdPointHeadingScaling.get(), 0);
         } finally {
             Constants.thisRobot = Constants.Robot.BOT_37523;
             Constants.takeThisRobotsValues();

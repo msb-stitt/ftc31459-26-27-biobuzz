@@ -13,8 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Robot 37523's own values: a StarterBot. {@link Constants#thisRobot} picks
- * this file when it names {@code BOT_37523}, and {@link Constants} sets what
- * every robot shares on top.
+ * this file when it names {@code BOT_37523}, and {@link Constants} takes
+ * them.
  *
  * <p>Each of the three configs is pasted whole from the AutoTune procedure
  * named above it, in AutoTune, the page the robot serves at 192.168.43.1:10158.
@@ -71,6 +71,20 @@ class Bot37523 {
                 c.naturalStrafeDeceleration.set(61.213577857447575);
             }
     );
+
+    // Choices, not measurements. AutoTune does not print them, so each is a line
+    // of its own, and Constants sets it on the configs above; a new paste leaves
+    // them alone.
+    // Brake rather than coast when a driver releases the sticks.
+    static boolean manualBrakeMode = true;
+    // Pedro's own default, named here because our drivetrains cache motor writes
+    // with it: a power that moves by less than this does not reach the hardware.
+    static double powerThreshold = 0.01;
+    static double translationalConstraint = 0.5;                   // hold tolerance in inches
+    static double headingConstraint = Math.toRadians(1);           // hold tolerance degrees
+    static double velocityConstraint = 0.1;                        // hold tolerance inches/sec
+    static double holdPointTranslationalScaling = 0.45;            // default=0.45
+    static double holdPointHeadingScaling = 0.35;                  // default=0.35
 
 
     /**
