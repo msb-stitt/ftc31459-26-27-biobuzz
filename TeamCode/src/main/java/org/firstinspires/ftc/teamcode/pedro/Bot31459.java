@@ -107,7 +107,7 @@ class Bot31459 {
     static double launcherFeedAboveTicksPerSecond = 1200;
 
     /** The launcher motor's P, I and D, 37523's. MEASURE. */
-    static double launcher_P_ctrlUnitsPerTickPerS = 40;
+    static double launcher_P_ctrlUnitsPerTickPerS = 20;
     static double launcher_I = 0;
     static double launcher_D = 0;
 
@@ -116,5 +116,5 @@ class Bot31459 {
      * part, and 10/16 of its part for each tick per second. MEASURE.
      */
     static double launcher_kS_powerFraction = 0.05;
-    static double launcher_kV_powerFractionPerTickPerS =  0.00037963 * 1000.0/1600.0;
+    static double launcher_kV_powerFractionPerTickPerS =  0.00037963 * 1260.0/1600.0;
 }

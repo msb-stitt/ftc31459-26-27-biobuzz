@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.behaviors.InterruptedBehavior;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -31,6 +32,7 @@ import java.util.function.Function;
  * wheel's speed go to the flight log. Pedro's pose is already there, under
  * {@code Robot/Pose}, and the intake and launcher log their own.
  */
+@Disabled
 @TeleOp(name = "StarterBot TeleOp", group = "StarterBot")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class StarterBotTeleOp extends CorbelsTeleOp {
