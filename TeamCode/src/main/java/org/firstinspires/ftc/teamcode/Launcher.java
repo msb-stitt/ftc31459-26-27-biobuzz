@@ -21,9 +21,16 @@ import java.util.function.BooleanSupplier;
  * fast enough the windmill servo feeds it. Its speeds and gains are the
  * robot's own, read from {@link Constants}.
  *
- * <p>The hub holds the speed itself, and its feedforward is F × the target.
- * So that the feedforward is a static part plus a part per tick per second,
- * kS + kV × target, the hub is given a new F each time the target changes.
+ * <p>The motor controller in the hub holds the speed itself, and its
+ * feedforward is F × the target. So that the feedforward is a static part plus
+ * a part per tick per second, kS + kV × target, the motor controller is given
+ * a new F each time the target changes.
+ *
+ * <p>The motor controller's output is in rev motor controller units: full
+ * power is 32767 of them, by REV's
+ * <a href="https://docs.revrobotics.com/first-global/fgc-pid">PIDF Tuning Guide</a>,
+ * "F = 32767 ÷ maxV". So F and P are in rev motor controller units per tick
+ * per second.
  *
  * <p>Each time the motor is given a target, spinning or stopped, its target,
  * its measured speed, its current and whether the windmill is feeding go to
@@ -48,20 +55,20 @@ public class Launcher {
     /** The windmill still. */
     static final double WINDMILL_STOPPED_SPEED = 0;
 
-    /** Full power, in the hub's own units for the feedforward. */
-    static final double HUB_FULL_POWER = 32767;
+    /** Full power, in rev motor controller units. */
+    static final double MOT_FULL_POWER_CTRL_UNITS = 32767;
 
     final DcMotorEx motor;
     final CRServo windmill;
     boolean feeding;
-    /** The target the hub's F was last worked out for. */
-    double targetTheHubsFeedforwardIsFor;
+    /** The target the motor controller's F was last worked out for. */
+    double motCtrlFeedforwardTargetTicksPerSecond;
 
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public Launcher(DcMotorEx motor, CRServo windmill) {
         this.motor = motor;
         this.windmill = windmill;
-        useTheMotorsOwnVelocityControl();
+        useMotCtrlVelocityControl();
         windmill.setDirection(DcMotorSimple.Direction.REVERSE);
         stopTheWindmill();
     }
@@ -92,24 +99,24 @@ public class Launcher {
         Command fireWhileTheButtonIsHeld = Command.build()
                 .setExecute(() -> fireOrStopThisLoop(fireButton))
                 .setDone(this::runsUntilCancelled)
-                .setEnd(this::stopTheMotorAndTheWindmill)
+                .setEnd(this::stopMotorAndWindmill)
                 .requiring(this)
                 .setInterruptedBehavior(InterruptedBehavior.SUSPEND);
         return fireWhileTheButtonIsHeld;
     }
 
     /**
-     * The motor's target, a speed it then holds by itself. A new target to
-     * spin at gets its own F first.
+     * The motor's target, a speed the motor controller then holds. A new
+     * target to spin at gets its own F first.
      */
     void spinAt(double targetTicksPerSecond) {
-        boolean targetChanged = targetTicksPerSecond != targetTheHubsFeedforwardIsFor;
+        boolean targetChanged = targetTicksPerSecond != motCtrlFeedforwardTargetTicksPerSecond;
         boolean spinning = targetTicksPerSecond > STOPPED_TICKS_PER_SECOND;
         if (targetChanged && spinning) {
-            giveTheHubItsGainsFor(targetTicksPerSecond);
+            giveMotCtrlGainsFor(targetTicksPerSecond);
         }
         motor.setVelocity(targetTicksPerSecond);
-        publishTheMotor(targetTicksPerSecond);
+        publishMotorState(targetTicksPerSecond);
     }
 
     /** The motor and the windmill both stopped. */
@@ -146,7 +153,7 @@ public class Launcher {
     }
 
     /** How {@link #fireWhile} ends, or is set aside: everything stopped. */
-    void stopTheMotorAndTheWindmill(EndCondition howItEnded) {
+    void stopMotorAndWindmill(EndCondition howItEnded) {
         stop();
     }
 
@@ -161,37 +168,38 @@ public class Launcher {
     }
 
     /**
-     * The hub holds the target by itself, from the motor's encoder, with the
-     * robot's gains in place of the SDK's defaults.
+     * The motor controller holds the target by itself, from the motor's
+     * encoder, with the robot's gains in place of the SDK's defaults.
      */
-    void useTheMotorsOwnVelocityControl() {
+    void useMotCtrlVelocityControl() {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        giveTheHubItsGainsFor(TARGET_TICKS_PER_SECOND);
+        giveMotCtrlGainsFor(TARGET_TICKS_PER_SECOND);
     }
 
     /** The robot's P, I and D, and the F that makes the feedforward right at this target. */
-    void giveTheHubItsGainsFor(double targetTicksPerSecond) {
-        double hubF = hubFeedforwardAt(targetTicksPerSecond);
-        PIDFCoefficients gains = new PIDFCoefficients(Constants.launcherVelocityP,
-                Constants.launcherVelocityI, Constants.launcherVelocityD, hubF);
+    void giveMotCtrlGainsFor(double targetTicksPerSecond) {
+        double motFCtrlUnitsPerTickPerSecond = motFCtrlUnitsPerTickPerSecondAt(targetTicksPerSecond);
+        PIDFCoefficients gains = new PIDFCoefficients(Constants.launcher_P_ctrlUnitsPerTickPerS,
+                Constants.launcher_I, Constants.launcher_D, motFCtrlUnitsPerTickPerSecond);
         motor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, gains);
-        targetTheHubsFeedforwardIsFor = targetTicksPerSecond;
+        motCtrlFeedforwardTargetTicksPerSecond = targetTicksPerSecond;
     }
 
     /**
-     * The hub's F at a target: kS + kV × target, as a fraction of full power,
-     * in the hub's units, divided by the target the hub multiplies it by.
+     * The motor controller's F at a target: kS + kV × target, as a fraction of
+     * full power, in rev motor controller units, divided by the target the
+     * motor controller multiplies it by.
      */
-    static double hubFeedforwardAt(double targetTicksPerSecond) {
-        double powerForEachTick = Constants.launcherPowerPerTickPerSecond * targetTicksPerSecond;
-        double powerAtTarget = Constants.launcherStaticPower + powerForEachTick;
-        double hubUnitsAtTarget = powerAtTarget * HUB_FULL_POWER;
-        double hubF = hubUnitsAtTarget / targetTicksPerSecond;
-        return hubF;
+    static double motFCtrlUnitsPerTickPerSecondAt(double targetTicksPerSecond) {
+        double powerFractionForEachTick = Constants.launcher_kV_powerFractionPerTickPerS * targetTicksPerSecond;
+        double powerFractionAtTarget = Constants.launcher_kS_powerFraction + powerFractionForEachTick;
+        double ctrlUnitsAtTarget = powerFractionAtTarget * MOT_FULL_POWER_CTRL_UNITS;
+        double motFCtrlUnitsPerTickPerSecond = ctrlUnitsAtTarget / targetTicksPerSecond;
+        return motFCtrlUnitsPerTickPerSecond;
     }
 
     /** The target, the measured speed, the current and the windmill, for the flight log. */
-    void publishTheMotor(double targetTicksPerSecond) {
+    void publishMotorState(double targetTicksPerSecond) {
         double measuredTicksPerSecond = motor.getVelocity();
         double currentAmps = motor.getCurrent(CurrentUnit.AMPS);
         Tracker.publish("launcher/target_tps", targetTicksPerSecond);

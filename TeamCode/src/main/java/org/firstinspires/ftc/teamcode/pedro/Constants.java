@@ -120,17 +120,20 @@ public class Constants {
     public static double launcherTargetTicksPerSecond;
     public static double launcherFeedAboveTicksPerSecond;
 
-    /** The launcher motor's P, I and D, in the hub's own units. */
-    public static double launcherVelocityP;
-    public static double launcherVelocityI;
-    public static double launcherVelocityD;
+    /**
+     * The launcher motor's P, in rev motor controller units per tick per
+     * second, and its I and D.
+     */
+    public static double launcher_P_ctrlUnitsPerTickPerS;
+    public static double launcher_I;
+    public static double launcher_D;
 
     /**
      * The launcher's feedforward, as a fraction of full power: the static part,
      * and the part for each tick per second of its target.
      */
-    public static double launcherStaticPower;
-    public static double launcherPowerPerTickPerSecond;
+    public static double launcher_kS_powerFraction;
+    public static double launcher_kV_powerFractionPerTickPerS;
 
     static {
         RobotControllerName.recordConstantsRunning();
@@ -193,11 +196,11 @@ public class Constants {
         kVTurnVoltSecondsPerRadian = Bot88888.kVTurnVoltSecondsPerRadian;
         launcherTargetTicksPerSecond = Bot88888.launcherTargetTicksPerSecond;
         launcherFeedAboveTicksPerSecond = Bot88888.launcherFeedAboveTicksPerSecond;
-        launcherVelocityP = Bot88888.launcherVelocityP;
-        launcherVelocityI = Bot88888.launcherVelocityI;
-        launcherVelocityD = Bot88888.launcherVelocityD;
-        launcherStaticPower = Bot88888.launcherStaticPower;
-        launcherPowerPerTickPerSecond = Bot88888.launcherPowerPerTickPerSecond;
+        launcher_P_ctrlUnitsPerTickPerS = Bot88888.launcher_P_ctrlUnitsPerTickPerS;
+        launcher_I = Bot88888.launcher_I;
+        launcher_D = Bot88888.launcher_D;
+        launcher_kS_powerFraction = Bot88888.launcher_kS_powerFraction;
+        launcher_kV_powerFractionPerTickPerS = Bot88888.launcher_kV_powerFractionPerTickPerS;
         drivetrainConfig.manualBrakeMode.set(Bot88888.manualBrakeMode);
         drivetrainConfig.powerThreshold.set(Bot88888.powerThreshold);
         foresightConfig.translationalConstraint.set(Bot88888.translationalConstraint);
@@ -221,11 +224,11 @@ public class Constants {
         kVTurnVoltSecondsPerRadian = Bot37523.kVTurnVoltSecondsPerRadian;
         launcherTargetTicksPerSecond = Bot37523.launcherTargetTicksPerSecond;
         launcherFeedAboveTicksPerSecond = Bot37523.launcherFeedAboveTicksPerSecond;
-        launcherVelocityP = Bot37523.launcherVelocityP;
-        launcherVelocityI = Bot37523.launcherVelocityI;
-        launcherVelocityD = Bot37523.launcherVelocityD;
-        launcherStaticPower = Bot37523.launcherStaticPower;
-        launcherPowerPerTickPerSecond = Bot37523.launcherPowerPerTickPerSecond;
+        launcher_P_ctrlUnitsPerTickPerS = Bot37523.launcher_P_ctrlUnitsPerTickPerS;
+        launcher_I = Bot37523.launcher_I;
+        launcher_D = Bot37523.launcher_D;
+        launcher_kS_powerFraction = Bot37523.launcher_kS_powerFraction;
+        launcher_kV_powerFractionPerTickPerS = Bot37523.launcher_kV_powerFractionPerTickPerS;
         drivetrainConfig.manualBrakeMode.set(Bot37523.manualBrakeMode);
         drivetrainConfig.powerThreshold.set(Bot37523.powerThreshold);
         foresightConfig.translationalConstraint.set(Bot37523.translationalConstraint);
@@ -249,11 +252,11 @@ public class Constants {
         kVTurnVoltSecondsPerRadian = Bot31459.kVTurnVoltSecondsPerRadian;
         launcherTargetTicksPerSecond = Bot31459.launcherTargetTicksPerSecond;
         launcherFeedAboveTicksPerSecond = Bot31459.launcherFeedAboveTicksPerSecond;
-        launcherVelocityP = Bot31459.launcherVelocityP;
-        launcherVelocityI = Bot31459.launcherVelocityI;
-        launcherVelocityD = Bot31459.launcherVelocityD;
-        launcherStaticPower = Bot31459.launcherStaticPower;
-        launcherPowerPerTickPerSecond = Bot31459.launcherPowerPerTickPerSecond;
+        launcher_P_ctrlUnitsPerTickPerS = Bot31459.launcher_P_ctrlUnitsPerTickPerS;
+        launcher_I = Bot31459.launcher_I;
+        launcher_D = Bot31459.launcher_D;
+        launcher_kS_powerFraction = Bot31459.launcher_kS_powerFraction;
+        launcher_kV_powerFractionPerTickPerS = Bot31459.launcher_kV_powerFractionPerTickPerS;
         drivetrainConfig.manualBrakeMode.set(Bot31459.manualBrakeMode);
         drivetrainConfig.powerThreshold.set(Bot31459.powerThreshold);
         foresightConfig.translationalConstraint.set(Bot31459.translationalConstraint);

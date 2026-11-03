@@ -110,9 +110,9 @@ class Bot88888 {
     // same names on every robot; nothing on 88888 uses them.
     static double launcherTargetTicksPerSecond = 1250;
     static double launcherFeedAboveTicksPerSecond = 1200;
-    static double launcherVelocityP = 40;
-    static double launcherVelocityI = 0;
-    static double launcherVelocityD = 0;
-    static double launcherStaticPower = 0.05;
-    static double launcherPowerPerTickPerSecond = 0.00037963;
+    static double launcher_P_ctrlUnitsPerTickPerS = 40;
+    static double launcher_I = 0;
+    static double launcher_D = 0;
+    static double launcher_kS_powerFraction = 0.05;
+    static double launcher_kV_powerFractionPerTickPerS = 0.00037963;
 }

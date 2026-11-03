@@ -119,9 +119,9 @@ public class StarterBotTest {
     @Test
     public void theFeedforwardIsAStaticPartPlusAPartPerTickPerSecond() {
         // 37523's kS 0.05 and kV 0.00037963 give back its F of 13.75 at 1250 ticks/s.
-        assertEquals(13.75, Launcher.hubFeedforwardAt(1250), 1e-3);
+        assertEquals(13.75, Launcher.motFCtrlUnitsPerTickPerSecondAt(1250), 1e-3);
         // At 250 ticks/s: 32767 × (0.05 / 250 + 0.00037963) = 18.993.
-        assertEquals(18.993, Launcher.hubFeedforwardAt(250), 1e-3);
+        assertEquals(18.993, Launcher.motFCtrlUnitsPerTickPerSecondAt(250), 1e-3);
     }
 
     @Test

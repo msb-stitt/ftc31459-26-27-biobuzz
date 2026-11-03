@@ -135,11 +135,12 @@ If the launcher stutters rather than holding its speed, try these in order:
   belt does not slip.
 - Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
   fraction, to the wiring or the gains.
-- If the speed swings around the target, lower `launcherVelocityP` in the robot's own file; if it
-  never reaches it, raise `launcherPowerPerTickPerSecond`. The hub's feedforward is a static part,
-  `launcherStaticPower`, plus `launcherPowerPerTickPerSecond` for each tick per second of the
-  target, so the launcher is given a new F each time its target changes. 37523's are P 40, 0.05 and
-  0.00037963, which give its F of 13.75 at 1250 ticks per second; goBILDA's example used
+- If the speed swings around the target, lower `launcher_P_ctrlUnitsPerTickPerS` in the robot's
+  constants file (pedro/Bot*.java); if it never reaches it, raise
+  `launcher_kV_powerFractionPerTickPerS`. The motor controller's feedforward is a static part,
+  `launcher_kS_powerFraction`, plus `launcher_kV_powerFractionPerTickPerS` for each tick per second
+  of the target, so the launcher is given a new F each time its target changes. 37523's are P 40,
+  0.05 and 0.00037963, which give its F of 13.75 at 1250 ticks per second; goBILDA's example used
   `(40, 0, 0, 12.5)`, and its DECODE StarterBot `(300, 0, 0, 10)`.
 - Use a battery above 12.5 V.
 

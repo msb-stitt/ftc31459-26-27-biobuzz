@@ -113,9 +113,9 @@ class Bot37523 {
     static double launcherFeedAboveTicksPerSecond = 1200;
 
     /** The launcher motor's P, I and D, tuned on 37523 on 2026-10-21. goBILDA's are 40, 0, 0. */
-    static double launcherVelocityP = 40;
-    static double launcherVelocityI = 0;
-    static double launcherVelocityD = 0;
+    static double launcher_P_ctrlUnitsPerTickPerS = 40;
+    static double launcher_I = 0;
+    static double launcher_D = 0;
 
     /**
      * The launcher's feedforward, as a fraction of full power: a static part,
@@ -123,6 +123,6 @@ class Bot37523 {
      * give 0.5245 at 1250 ticks/s, the F of 13.75 tuned on 37523 on 2026-10-21.
      * MEASURE: the static part is twice the bare motor's 0.027, as a start.
      */
-    static double launcherStaticPower = 0.05;
-    static double launcherPowerPerTickPerSecond = 0.00037963;
+    static double launcher_kS_powerFraction = 0.05;
+    static double launcher_kV_powerFractionPerTickPerS = 0.00037963;
 }

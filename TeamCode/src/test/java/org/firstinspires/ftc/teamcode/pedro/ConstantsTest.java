@@ -64,12 +64,12 @@ public class ConstantsTest {
         assertEquals(Bot37523.launcherTargetTicksPerSecond, Constants.launcherTargetTicksPerSecond, 0);
         assertEquals(Bot37523.launcherFeedAboveTicksPerSecond,
                 Constants.launcherFeedAboveTicksPerSecond, 0);
-        assertEquals(Bot37523.launcherVelocityP, Constants.launcherVelocityP, 0);
-        assertEquals(Bot37523.launcherVelocityI, Constants.launcherVelocityI, 0);
-        assertEquals(Bot37523.launcherVelocityD, Constants.launcherVelocityD, 0);
-        assertEquals(Bot37523.launcherStaticPower, Constants.launcherStaticPower, 0);
-        assertEquals(Bot37523.launcherPowerPerTickPerSecond,
-                Constants.launcherPowerPerTickPerSecond, 0);
+        assertEquals(Bot37523.launcher_P_ctrlUnitsPerTickPerS, Constants.launcher_P_ctrlUnitsPerTickPerS, 0);
+        assertEquals(Bot37523.launcher_I, Constants.launcher_I, 0);
+        assertEquals(Bot37523.launcher_D, Constants.launcher_D, 0);
+        assertEquals(Bot37523.launcher_kS_powerFraction, Constants.launcher_kS_powerFraction, 0);
+        assertEquals(Bot37523.launcher_kV_powerFractionPerTickPerS,
+                Constants.launcher_kV_powerFractionPerTickPerS, 0);
     }
 
     @Test
@@ -115,12 +115,12 @@ public class ConstantsTest {
                     Constants.launcherTargetTicksPerSecond, 0);
             assertEquals(Bot31459.launcherFeedAboveTicksPerSecond,
                     Constants.launcherFeedAboveTicksPerSecond, 0);
-            assertEquals(Bot31459.launcherVelocityP, Constants.launcherVelocityP, 0);
-            assertEquals(Bot31459.launcherVelocityI, Constants.launcherVelocityI, 0);
-            assertEquals(Bot31459.launcherVelocityD, Constants.launcherVelocityD, 0);
-            assertEquals(Bot31459.launcherStaticPower, Constants.launcherStaticPower, 0);
-            assertEquals(Bot31459.launcherPowerPerTickPerSecond,
-                    Constants.launcherPowerPerTickPerSecond, 0);
+            assertEquals(Bot31459.launcher_P_ctrlUnitsPerTickPerS, Constants.launcher_P_ctrlUnitsPerTickPerS, 0);
+            assertEquals(Bot31459.launcher_I, Constants.launcher_I, 0);
+            assertEquals(Bot31459.launcher_D, Constants.launcher_D, 0);
+            assertEquals(Bot31459.launcher_kS_powerFraction, Constants.launcher_kS_powerFraction, 0);
+            assertEquals(Bot31459.launcher_kV_powerFractionPerTickPerS,
+                    Constants.launcher_kV_powerFractionPerTickPerS, 0);
         } finally {
             Constants.thisRobot = Constants.Robot.BOT_37523;
             Constants.takeThisRobotsValues();
