@@ -136,8 +136,7 @@ public class Constants {
     public static double launcher_kV_powerFractionPerTickPerS;
 
     static {
-        RobotControllerName.recordConstantsRunning();
-        pickByTheRobotControllerName(RobotControllerName.nameWhenConstantsRan());
+        pickByTheRobotControllerName(RobotControllerName.readNow());
         takeThisRobotsValues();
         readTheDriveNumbersFromForesight();
     }

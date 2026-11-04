@@ -80,7 +80,7 @@ teleop records its alliance as `Alliance`. **Example Auto** and **Example TeleOp
 them. The teleop adds StarterBot TeleOp's triggers and right bumper. The auto adds the route Shoot
 Then Intake: forward 6 inches, shoot for 10 seconds, wait 3 seconds, 24 inches left, as the
 audience sees red's route, then the intake in for 3 seconds. In the simulator, an OpMode's intake and launcher are stand-ins
-that keep what they are given, the launcher reporting the speed it was asked for. These six, Launcher Check, Robot Name Check and Live
+that keep what they are given, the launcher reporting the speed it was asked for. These six, Launcher Check and Live
 NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
 six and Launcher Check send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
@@ -108,13 +108,6 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot
   with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L131.
-
-**Robot Name Check** shows whether the Robot Controller name, such as 37523-RC, picked the robot in
-place of the `thisRobot` written in `Constants`. Nothing moves. Restart the Robot Controller app,
-then run it before any other OpMode; INIT shows whether `Constants` had already run, the calls that
-ran it, the Robot Controller name as it could be read then and as it can be read now, the robot
-picked, and whether the Robot Controller name or `Constants` picked it. Run it again after another
-OpMode, and it says `Constants` had already run.
 
 **Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
 nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
