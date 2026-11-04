@@ -50,6 +50,7 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 | [Sloth](https://github.com/Dairy-Foundation/Sloth) | hot reload, which pushes TeamCode alone in about a second |
 | [PANELS.md](./PANELS.md) | what those two need set up here, once |
 | [NETWORKTABLES.md](./NETWORKTABLES.md) | AdvantageScope live from the robot, and the robot test for it |
+| [launcher-troubleshooting.md](./launcher-troubleshooting.md) | what to try when the launcher stutters rather than holding its speed |
 | [FTC programming docs](https://ftc-docs.firstinspires.org/) | the SDK, Android Studio, the IMU, AprilTags |
 | [gm0](https://gm0.org/) | Game Manual 0, the community's how-to for everything else |
 | [Game and season materials](https://ftc.game/) | this season's manuals and field drawings |
@@ -62,52 +63,16 @@ is `lessons.L040TankOpMode` and not `L040TankOpMode`.
 
 ### goBILDA's StarterBot
 
+If an OpMode is not listed on the Driver Station, check whether its class is `@Disabled`.
+
 37523 and 31459 are goBILDA's
 [StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
 stock, with a Pinpoint. 88888 is a Pinpoint and a drivetrain, with no intake, launcher or windmill.
-**StarterBot TeleOp** drives one with the controls of goBILDA's example code, written in
-`StarterBotTeleOp`, `Intake` and `Launcher`. **StarterBot Auto** drives lesson L130's route: forward
-from the wall to (72, 72) inches, then 24 inches to the right, facing +y the whole way. **88888
-Auto** and **88888 TeleOp** drive 88888 as the solved L140 Auto and L140 Field Relative do, from
-`solutions-l140-alliances.2`. Between INIT and PLAY, gamepad 1's D-pad works a menu on each,
-`DriverStationMenu` in `base`: the alliance; the auto's route, which is Nothing until another is
-picked; and where the teleop starts, where the auto ended or against the wall. The auto hands its
-alliance to the teleop, which the Driver Station picks next. The teleop drives the field: the stick
-pushed away from the driver drives away from them, whichever way the robot faces. Holding the left
-bumper drives the robot instead: the stick pushed away drives the robot's front forward. At PLAY the
-teleop records its alliance as `Alliance`. **Example Auto** and **Example TeleOp**, in `example`, are
-88888's two with StarterBot's intake and launcher, for 37523, and stop at INIT on a robot without
-them. The teleop adds StarterBot TeleOp's triggers and right bumper. The auto adds the route Shoot
-Then Intake: forward 6 inches, shoot for 10 seconds, wait 3 seconds, 24 inches left, as the
-audience sees red's route, then the intake in for 3 seconds. In the simulator, an OpMode's intake and launcher are stand-ins
-that keep what they are given, the launcher reporting the speed it was asked for. If an OpMode is not listed on the
-Driver Station, check whether its class is `@Disabled`. StarterBot's, 88888's and Example's
-OpModes and Launcher Check send the flight log live to AdvantageScope as well, for practice;
-[NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
+**StarterBot TeleOp** and **StarterBot Auto** are similar to goBILDA's example code, written in
+`StarterBotTeleOp`, `StarterBotAuto`, `Intake` and `Launcher`. **88888 Auto** and **88888 TeleOp**
+drive robot 88888.
 
-StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
-one runs the intake from the triggers, one fires the launcher while the right bumper is held. A
-command that needs the drivetrain, the intake or the launcher sets aside the one using it, and
-that one comes back when it ends. Each stick, trigger and button read, the drive asked for,
-`intake/speed` and each wheel's `wheel/<wheel>/speed` go to the flight log; Pedro's pose is under
-`Robot/Pose`.
-
-- The Robot Controller name picks the robot: one starting 88888, 37523 or 31459, such as 88888-RC,
-  picks that robot. On a Robot Controller name that starts with none of them, and in the simulator
-  and the tests, `thisRobot` in `pedro/Constants.java` picks it; set it to the robot the code is
-  going onto, with 37523 the default. Each robot's values are in its own file in `pedro`,
-  `Bot88888`, `Bot37523` or `Bot31459`: the `drivetrainConfig`, `localizerConfig` and `foresightConfig` its
-  AutoTune procedures print, pasted whole, its ticks per inch and turn radius, and its launcher's
-  speeds and gains, and what AutoTune does not print: the brake mode, the power threshold and the
-  five hold lines, each a line of its own. `Constants` takes the one `thisRobot` names, and sets
-  those last on top of its configs.
-  `Bot31459` has its own configs and launcher P, kS and kV, and copies of 37523's other values,
-  written in its own file and marked MEASURE, until its own are measured. Each OpMode's flight log names the robot picked, from INIT, as `Constants/thisRobot`,
-  and `Constants/pickedByRobotControllerName` is true when the Robot Controller name picked it.
-- Configure each robot with the device names in `pedro/Constants.java`: the drive motors,
-  `imu`, `pinpoint`, and the five the mechanisms use.
-- Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot
-  with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L131.
+Main competition code is in **Example Auto** and **Example TeleOp**.
 
 **Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
 nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
@@ -116,26 +81,14 @@ loop, here and in StarterBot TeleOp, the flight log carries `launcher/target_tps
 `launcher/measured_tps`, `launcher/current_amps` and `launcher/feeding`, spinning or stopped;
 graph them together in AdvantageScope to see whether it holds its speed.
 
-If the launcher stutters rather than holding its speed, try these in order:
+The OpModes generally send the flight log live to AdvantageScope as well, for practice;
+[NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
-- Run it at 1250, the full target. At a fifth, 37523's feedforward asks for 0.145 of full speed,
-  where an F of 13.75 alone would ask for 0.105. Too little, and the wheels stick and surge.
-- At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
-  means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
-  motor.
-- In the Robot Configuration, `launcher` is a goBILDA 5203 series 6000 rpm motor.
-- With the robot off, the launcher wheels spin freely by hand, nothing rubs the frame, and the
-  belt does not slip.
-- Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
-  fraction, to the wiring or the gains.
-- If the speed swings around the target, lower `launcher_P_ctrlUnitsPerTickPerS` in the robot's
-  constants file (pedro/Bot*.java); if it never reaches it, raise
-  `launcher_kV_powerFractionPerTickPerS`. The motor controller's feedforward is a static part,
-  `launcher_kS_powerFraction`, plus `launcher_kV_powerFractionPerTickPerS` for each tick per second
-  of the target, so the launcher is given a new F each time its target changes. 37523's are P 40,
-  0.05 and 0.00037963, which give its F of 13.75 at 1250 ticks per second; goBILDA's example used
-  `(40, 0, 0, 12.5)`, and its DECODE StarterBot `(300, 0, 0, 10)`.
-- Use a battery above 12.5 V.
+The Robot Controller name picks the robot: one starting 88888, 37523 or 31459, such as 88888-RC,
+picks that robot. On a Robot Controller name that starts with none of them, and in the simulator
+and the tests, `thisRobot` in `pedro/Constants.java` picks it; set it to the robot the code is
+going onto, with 37523 the default. Each robot's values are in its own file in `pedro`,
+`Bot88888`, `Bot37523` or `Bot31459`.
 
 ### TODO 
 - [ ] Monitor the sloth plugin for updates to Gradle version [see](PANELS.md#one-time-setup) - 1. Gradle version
