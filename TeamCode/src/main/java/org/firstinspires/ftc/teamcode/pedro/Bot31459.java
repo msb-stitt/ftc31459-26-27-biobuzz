@@ -102,8 +102,8 @@ class Bot31459 {
     static double kVTurnVoltSecondsPerRadian = 2.82;
 
     /** goBILDA's launcher speeds: spin to the target, feed only above the second. */
-    static double launcherTargetTicksPerSecond = 1250;
-    static double launcherFeedAboveTicksPerSecond = 1200;
+    static double launcherTargetTicksPerSecond = 1800;
+    static double launcherFeedAboveTicksPerSecond = 1600;
 
     /** The launcher motor's P, I and D. Measured on 2026-11-03 */
     static double launcher_P_ctrlUnitsPerTickPerS = 10;
