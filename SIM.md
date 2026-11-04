@@ -148,8 +148,9 @@ drive through the perimeter. **When the simulator and the robot disagree, the ro
 
 An autonomous starts where its own `startPose()` says. A teleop starts where the last autonomous
 finished, which `OpModeStorage.autonomousEndPose` carries between them; with no autonomous before
-it, that is the middle of the near wall facing up the field. Nothing starts at Pedro's origin any
-more, which is a field corner and outside the perimeter frame.
+it, that is the middle of the near wall facing up the field. A teleop with a start menu, such as
+Example TeleOp, sets its own during INIT. Nothing starts at Pedro's origin any more, which is a
+field corner and outside the perimeter frame.
 
 Time is simulated in a test and measured in a run. `OpModeHarness.loop()` advances `step_ms` and
 reads no wall clock, so a test integrates the same motion every time. `simRun` calls `loop(long)`

@@ -40,7 +40,9 @@ import java.util.function.Function;
  * <p>Between INIT and PLAY, gamepad 1's D-pad works a menu on the Driver
  * Station: the alliance, which starts as the one Example Auto handed over, and
  * where the robot starts: where the auto ended, or against the wall, for a
- * teleop run with no auto first.
+ * teleop run with no auto first. Until an auto has run, where the auto ended
+ * is the wall too. The pose is set during INIT, each time the menu's choice
+ * changes, so the flight log shows it before PLAY.
  *
  * <p>Three commands start when PLAY is pressed and run until STOP: one drives
  * from the sticks, one runs the intake from the triggers, one fires the
@@ -67,6 +69,9 @@ public class ExampleTeleOp extends CorbelsTeleOp {
     MenuRow startRow = new MenuRow("Start");
     OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
+    /** The menu's choices when the pose was last set; none before the first pass. */
+    MenuItem allianceLastSet;
+    MenuItem startLastSet;
 
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
@@ -106,12 +111,36 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         initAfter(drivetrain);
     }
 
-    /** Again and again between INIT and PLAY: the menu. */
+    /** Again and again between INIT and PLAY: the menu, and the pose it chooses. */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init_loop() {
         menu.loop(gamepad1);
+        setThePoseWhenTheMenuChanges();
         initLoopAfter();
+    }
+
+    /** The pose set on the first pass, and again only when the alliance or start changes. */
+    void setThePoseWhenTheMenuChanges() {
+        MenuItem alliance = allianceRow.getSelected();
+        MenuItem start = startRow.getSelected();
+        boolean changed = alliance != allianceLastSet || start != startLastSet;
+        if (changed) {
+            Pose startPose = startPose();
+            follower.setPose(startPose);
+            allianceLastSet = alliance;
+            startLastSet = start;
+        }
+    }
+
+    /** Where the auto ended, once an auto has run; otherwise against the wall. */
+    Pose startPose() {
+        boolean fromTheAutosEnd = startRow.getSelected() == autoEnd && OpModeStorage.autoHasRun;
+        Pose startPose = wallPose();
+        if (fromTheAutosEnd) {
+            startPose = OpModeStorage.autonomousEndPose;
+        }
+        return startPose;
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -120,10 +149,6 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         startBefore();
         OpModeStorage.isRed = allianceRow.getSelected() == red;
         Tracker.publish("Alliance", allianceRow.getSelected().getFullName());
-        if (startRow.getSelected() == wall) {
-            Pose wallPose = wallPose();
-            follower.setPose(wallPose);
-        }
         driveFromTheSticks = driveWhileTheSticksAreRead();
         runTheIntakeFromTheTriggers = intake.run(this::intakeSpeedFractionThisLoop);
         fireTheLauncherFromTheBumper = launcher.fireWhile(this::rightBumperIsHeld);

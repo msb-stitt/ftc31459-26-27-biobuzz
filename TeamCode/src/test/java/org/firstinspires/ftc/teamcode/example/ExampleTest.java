@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Launcher;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
+import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,10 +92,15 @@ public class ExampleTest {
     private final Fake windmill = new Fake();
     private Intake intake;
     private Launcher launcher;
+    private Pose savedEndPose;
+    private boolean savedAutoHasRun;
 
     @Before
     public void setUp() {
         Scheduler.reset();
+        savedEndPose = OpModeStorage.autonomousEndPose;
+        savedAutoHasRun = OpModeStorage.autoHasRun;
+        OpModeStorage.autoHasRun = false;
         intake = new Intake(intakeMotor.as(DcMotor.class), leftServo.as(CRServo.class),
                 rightServo.as(CRServo.class));
         launcher = new Launcher(launcherMotor.as(DcMotorEx.class), windmill.as(CRServo.class));
@@ -112,6 +118,8 @@ public class ExampleTest {
         ExampleTeleOp.intakes = Intake::from;
         ExampleTeleOp.launchers = Launcher::from;
         OpModeStorage.isRed = true;
+        OpModeStorage.autonomousEndPose = savedEndPose;
+        OpModeStorage.autoHasRun = savedAutoHasRun;
         OpModeHarness.restoreFactories();
         Scheduler.reset();
     }
@@ -161,6 +169,76 @@ public class ExampleTest {
                 Scheduler.reset();
             }
         }
+    }
+
+    @Test
+    public void withNoAutoRunAutoEndIsWhereTheAutoStartsAndIsLoggedBeforePlay() {
+        for (boolean red : new boolean[]{true, false}) {
+            String what = red ? "red" : "blue";
+            Pose autoStart = exampleAutoStart(red);
+
+            OpModeStorage.isRed = red;
+            OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
+            Follower follower = h.robot.follower;
+            h.init();
+            h.initLoop();                                       // Auto End, chosen already
+
+            assertSamePose(what + ", before PLAY", autoStart, follower.pose());
+            assertEquals(what + ": logged x", autoStart.x(),
+                    (Double) Tracker.values().get("Localizer/pinPoint/x_in"), HELD_IN);
+            assertEquals(what + ": logged y", autoStart.y(),
+                    (Double) Tracker.values().get("Localizer/pinPoint/y_in"), HELD_IN);
+            double loggedHeading = Math.toRadians(
+                    (Double) Tracker.values().get("Localizer/pinPoint/heading_deg"));
+            assertEquals(what + ": logged heading", 0.0,
+                    angleBetween(autoStart.heading(), loggedHeading), 1e-6);
+            h.start();
+            assertSamePose(what + ", after PLAY", autoStart, follower.pose());
+            h.stop();
+            Scheduler.reset();
+        }
+    }
+
+    @Test
+    public void thePoseFollowsTheMenuAndAutoEndAfterAnAutoIsWhereItEnded() {
+        Pose redWall = exampleAutoStart(true);
+        Pose blueWall = exampleAutoStart(false);
+        Pose autoEnd = PoseFactory.degrees().of(30, 40, 0);
+        OpModeStorage.autonomousEndPose = autoEnd;
+        OpModeStorage.autoHasRun = true;
+        OpModeStorage.isRed = true;
+
+        OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        assertSamePose("Auto End, red", autoEnd, follower.pose());
+        pressDuringInit(h, pad -> pad.dpad_down = true);        // the Start row
+        pressDuringInit(h, pad -> pad.dpad_right = true);       // Wall
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("Wall, red", redWall, follower.pose());
+        pressDuringInit(h, pad -> pad.dpad_up = true);          // the Alliance row
+        pressDuringInit(h, pad -> pad.dpad_right = true);       // blue
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("Wall, blue", blueWall, follower.pose());
+        pressDuringInit(h, pad -> pad.dpad_down = true);        // the Start row
+        pressDuringInit(h, pad -> pad.dpad_left = true);        // Auto End
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("back to Auto End, blue", autoEnd, follower.pose());
+        h.stop();
+    }
+
+    @Test
+    public void aPassWithNoChangeInTheMenuLeavesThePose() {
+        OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        Pose movedTo = PoseFactory.degrees().of(50, 60, 30);
+        follower.setPose(movedTo);
+        h.initLoop();
+        assertSamePose("after a pass with no change", movedTo, follower.pose());
+        h.stop();
     }
 
     /** Where Example Auto starts on an alliance, chosen in its menu. */
@@ -318,6 +396,17 @@ public class ExampleTest {
     private static void assertAt(String what, double x, double y, Pose pose) {
         assertEquals(what + ": x", x, pose.x(), HELD_IN);
         assertEquals(what + ": y", y, pose.y(), HELD_IN);
+    }
+
+    private static void assertSamePose(String what, Pose expected, Pose pose) {
+        assertAt(what, expected.x(), expected.y(), pose);
+        assertEquals(what + ": heading", 0.0, angleBetween(expected.heading(), pose.heading()),
+                1e-6);
+    }
+
+    /** The turn from one heading to another, in radians, from -pi to pi. */
+    private static double angleBetween(double from, double to) {
+        return Math.atan2(Math.sin(to - from), Math.cos(to - from));
     }
 
     /** One press and release of gamepad 1's buttons between INIT and PLAY. */
