@@ -11,6 +11,7 @@ import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -136,6 +137,30 @@ public class SharedLifecycleTest {
 
         h.stop();
         assertEquals(0.0, h.forward(), 1e-9);
+    }
+
+    @Test
+    public void onlyAnAutoThatStopsSaysAnAutoHasRun() {
+        Pose theEndPose = OpModeStorage.autonomousEndPose;
+        boolean anAutoHadRun = OpModeStorage.autoHasRun;
+        try {
+            OpModeStorage.autoHasRun = false;
+            OpModeHarness teleop = new OpModeHarness(new SampleTeleOp());
+            teleop.init();
+            teleop.start();
+            teleop.stop();
+            assertFalse("a teleop does not", OpModeStorage.autoHasRun);
+
+            OpModeHarness auto = new OpModeHarness(new SampleAutoOpMode());
+            auto.init();
+            auto.start();
+            assertFalse("an auto still running does not", OpModeStorage.autoHasRun);
+            auto.stop();
+            assertTrue("an auto stopped does", OpModeStorage.autoHasRun);
+        } finally {
+            OpModeStorage.autonomousEndPose = theEndPose;
+            OpModeStorage.autoHasRun = anAutoHadRun;
+        }
     }
 
     @Test

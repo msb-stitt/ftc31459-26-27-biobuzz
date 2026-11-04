@@ -6,9 +6,10 @@ import com.pedropathing.math.Pose;
 /**
  * What one OpMode leaves behind for the next one.
  *
- * <p>An autonomous writes where it finished, in {@code CorbelsOpMode.stopAfter},
- * and a teleop starts from it, in {@code CorbelsOpMode.initAfter}. A lesson's
- * autonomous writes its alliance, from L140 on. Static
+ * <p>An autonomous writes where it finished, and that one has run, in
+ * {@code CorbelsOpMode.stopAfter}, and a teleop starts from it, in
+ * {@code CorbelsOpMode.initAfter}. A lesson's autonomous writes its alliance,
+ * from L140 on. Static
  * because the two are separate OpMode objects: the Driver Station builds a new
  * one each time PLAY is pressed, and only the class outlives that. It survives
  * Stop and Init, and does not survive restarting the Robot Controller app, so
@@ -51,6 +52,13 @@ public final class OpModeStorage {
      * teleop run with no autonomous before it.
      */
     public static Pose autonomousEndPose = POSES.of(72, botStartYIn, 90);
+
+    /**
+     * Whether an autonomous has finished since the Robot Controller app
+     * started, so {@link #autonomousEndPose} is where it ended rather than the
+     * default. A teleop that starts where its own auto starts reads it.
+     */
+    public static boolean autoHasRun = false;
 
     /**
      * Whether the last autonomous ran for the red alliance, so the next teleop

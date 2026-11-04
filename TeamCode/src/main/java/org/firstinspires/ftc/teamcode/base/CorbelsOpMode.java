@@ -211,6 +211,7 @@ public abstract class CorbelsOpMode extends OpMode {
         follower.update();
         if (isAuto()) {
             OpModeStorage.autonomousEndPose = follower.pose();
+            OpModeStorage.autoHasRun = true;
         }
         // The drivetrain, not the follower: a lesson that commanded the wheels
         // has them ignoring the follower, so the zero above never reaches a
