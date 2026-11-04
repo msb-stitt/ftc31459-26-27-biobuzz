@@ -40,9 +40,9 @@ class Bot31459 {
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        c.xPodOffset.set(2.7927852240134414);
-        c.yPodOffset.set(-6.942704568697712);
-        c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        c.xPodOffset.set(-3.002032182348056);
+        c.yPodOffset.set(-7.232765137679934);
+        c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
         c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
         c.globalDistanceUnit.set(DistanceUnit.INCH);
         c.offsetUnits.set(DistanceUnit.INCH);
@@ -52,30 +52,29 @@ class Bot31459 {
     // when 31459 is autotuned.
     public static ForesightConfig foresightConfig = new ForesightConfig(
             c -> {
-                Controller primaryTranslationalForward = Controller.proportional(0.19309146376508124);
-                Controller secondaryTranslationalForward = Controller.proportional(0.07134213636226185);
-                Controller primaryTranslationalLateral = Controller.proportional(0.2698163685547349);
-                Controller secondaryTranslationalLateral = Controller.proportional(0.09968993855482516);
+                Controller primaryTranslationalForward = Controller.proportional(0.19280496789139748);
+                Controller secondaryTranslationalForward = Controller.proportional(0.07123628379224645);
+                Controller primaryTranslationalLateral = Controller.proportional(0.22996010977612444);
+                Controller secondaryTranslationalLateral = Controller.proportional(0.08496411591497718);
 
                 c.forwardTranslational.set(Controller.piecewise(secondaryTranslationalForward).put(2.5, primaryTranslationalForward));
                 c.strafeTranslational.set(Controller.piecewise(secondaryTranslationalLateral).put(2.5, primaryTranslationalLateral));
 
-                c.coast.set(Controller.proportionalFeedforward(0.016302572392860027));
-                c.brake.set(Controller.proportionalFeedforward(0.013857186533931023));
+                c.coast.set(Controller.proportionalFeedforward(0.018184711100380703));
+                c.brake.set(Controller.proportionalFeedforward(0.015457004435323596));
 
-                c.headingFeedback.set(Controller.proportional(3.68805492162697));
-                c.headingBrakeCoefficients.set(Vector2D.cartesian(0.05047235349262692, 0.0037170236365034882));
+                c.headingFeedback.set(Controller.proportional(3.697458365309655));
+                c.headingBrakeCoefficients.set(Vector2D.cartesian(0.04749188247756955, 0.004654220237835112));
 
-                c.linearBrakeCoefficients.set(Matrix.diag(0.05374753488442498, 0.08038796880925157));
-                c.quadraticBrakeCoefficients.set(Matrix.diag(0.0014742548482148384, 6.671759553987834E-4));
+                c.linearBrakeCoefficients.set(Matrix.diag(0.06832967486923454, 0.05864048144358318));
+                c.quadraticBrakeCoefficients.set(Matrix.diag(0.0011877659183408091, 0.0012705511233557533));
 
-                c.maxAchievableForwardVelocity.set(61.530995739393326);
-                c.maxAchievableStrafeVelocity.set(50.713485841346866);
-                c.naturalForwardDeceleration.set(31.26271531515227);
-                c.naturalStrafeDeceleration.set(61.213577857447575);
+                c.maxAchievableForwardVelocity.set(60.04203560837476);
+                c.maxAchievableStrafeVelocity.set(48.96052241434506);
+                c.naturalForwardDeceleration.set(41.102346447557636);
+                c.naturalStrafeDeceleration.set(59.60529985123621);
             }
     );
-
     // Choices, not measurements. AutoTune does not print them, so each is a line
     // of its own, and Constants sets it on the configs above; a new paste leaves
     // them alone.
