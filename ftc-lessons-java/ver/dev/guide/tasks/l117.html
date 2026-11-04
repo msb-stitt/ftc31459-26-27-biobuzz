@@ -406,7 +406,8 @@ half speed, beside a picture of which wheel it is. Say whether it spun, and whet
 or reversed.</p>
 <p><strong>Change.</strong> At the end, AutoTune shows Java that starts <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">static</span> <span class="pre">MecanumConfig</span> <span class="pre">drivetrainConfig</span></code>. Open the file of the robot <code class="docutils literal notranslate"><span class="pre">thisRobot</span></code> names, in the <code class="docutils literal notranslate"><span class="pre">pedro</span></code> folder, such as
 <code class="docutils literal notranslate"><span class="pre">Bot37523</span></code>. Replace its <code class="docutils literal notranslate"><span class="pre">drivetrainConfig</span></code> with the one AutoTune shows. AutoTune does not print
-<code class="docutils literal notranslate"><span class="pre">manualBrakeMode</span></code> or <code class="docutils literal notranslate"><span class="pre">powerThreshold</span></code>, so <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top.</p>
+<code class="docutils literal notranslate"><span class="pre">manualBrakeMode</span></code> or <code class="docutils literal notranslate"><span class="pre">powerThreshold</span></code>, so they are lines of their own in the same file, and
+<code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">
 <li><p>The directions match what L050 found on blocks.</p></li>
@@ -442,7 +443,8 @@ AutoTune shows.</p>
 brakes, and steps 12 in to 24 in each way.</p>
 <p><strong>Change.</strong> In the robot’s constants file, replace <code class="docutils literal notranslate"><span class="pre">foresightConfig</span></code> with the <code class="docutils literal notranslate"><span class="pre">ForesightConfig</span></code>
 AutoTune shows. AutoTune does not print five hold lines, from <code class="docutils literal notranslate"><span class="pre">translationalConstraint</span></code> to
-<code class="docutils literal notranslate"><span class="pre">holdPointHeadingScaling</span></code>. <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them on top. It also reads three of the new numbers for
+<code class="docutils literal notranslate"><span class="pre">holdPointHeadingScaling</span></code>. They are lines of their own just below it, and <code class="docutils literal notranslate"><span class="pre">Constants</span></code> sets them
+on top. It also reads three of the new numbers for
 the lessons’ own drivetrain: the coast feedforward and the two top speeds.</p>
 <p><strong>Check.</strong></p>
 <ul class="simple">

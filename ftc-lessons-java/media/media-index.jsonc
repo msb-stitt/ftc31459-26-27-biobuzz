@@ -6,7 +6,7 @@
   "versions_supported": {
     "dev": {
       "pages": "ftc-lessons-java/ver/dev/",
-      "built_from_commit": "e2b2b9838b59bb5d512da0d2f54ce0a62fa6620e",
+      "built_from_commit": "88b768fcce9923a1201d643d5a75b31d6d6026cc",
       "media_used": [
         "fig-advantagescope-sim_681635010d9e.png",
         "fig-control-loops_23f8ab68c3c1.png",

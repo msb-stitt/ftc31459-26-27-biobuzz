@@ -87,7 +87,8 @@ or reversed.
 **Change.** At the end, AutoTune shows Java that starts `public static MecanumConfig
 drivetrainConfig`. Open the file of the robot `thisRobot` names, in the `pedro` folder, such as
 `Bot37523`. Replace its `drivetrainConfig` with the one AutoTune shows. AutoTune does not print
-`manualBrakeMode` or `powerThreshold`, so `Constants` sets them on top.
+`manualBrakeMode` or `powerThreshold`, so they are lines of their own in the same file, and
+`Constants` sets them on top.
 
 **Check.**
 
@@ -127,7 +128,8 @@ brakes, and steps 12 in to 24 in each way.
 
 **Change.** In the robot's constants file, replace `foresightConfig` with the `ForesightConfig`
 AutoTune shows. AutoTune does not print five hold lines, from `translationalConstraint` to
-`holdPointHeadingScaling`. `Constants` sets them on top. It also reads three of the new numbers for
+`holdPointHeadingScaling`. They are lines of their own just below it, and `Constants` sets them
+on top. It also reads three of the new numbers for
 the lessons' own drivetrain: the coast feedforward and the two top speeds.
 
 **Check.**
@@ -162,7 +164,7 @@ one can.
 sockets. L115S010 is where that gets fixed, and no tuning works around it.
 
 **If it didn't**, and the robot brakes late or never holds still after L117S040, check that the
-five hold lines are still in `setWhatEveryRobotShares` in `Constants`.
+five hold lines are still below `foresightConfig` in the robot's constants file.
 
 **What you just did.** Every number in the robot's constants file either came off this robot or is
 waiting to. AutoTune measures the ones that need the robot driving itself. L131
