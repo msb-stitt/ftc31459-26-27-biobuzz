@@ -30,16 +30,7 @@ import java.util.function.Function;
 import java.util.function.LongSupplier;
 
 /**
- * An example autonomous: 88888 Auto's menu and routes, and one more, Shoot
- * Then Intake, for a robot with goBILDA's StarterBot intake and launcher, such
- * as 37523. On a robot without them it stops at INIT, when it looks them up.
- *
- * <p>Shoot Then Intake drives forward 6 inches and holds there; shoots for 10
- * seconds, then stops shooting; waits 3 seconds; strafes 24 inches left and
- * holds there; then runs the intake in for 3 seconds.
- * Shooting is what Example TeleOp's held right bumper does: the launcher spins
- * up, the windmill feeds once it is fast enough, and the intake gets goBILDA's
- * boost while it feeds.
+ * An example autonomous.
  *
  * <p>Between INIT and PLAY, gamepad 1's D-pad works a menu on the Driver
  * Station: the alliance, and the auto, which is Nothing until another is

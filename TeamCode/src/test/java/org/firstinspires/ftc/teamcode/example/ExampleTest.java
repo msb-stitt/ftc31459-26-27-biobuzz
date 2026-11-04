@@ -31,8 +31,8 @@ import java.util.function.Predicate;
 
 /**
  * Example Auto and Example TeleOp, on fake mechanisms: the TeleOp drives the
- * field and runs the intake and launcher from gamepad 1, and Shoot Then Intake
- * does its steps in order, for as long as each is meant to take, on the
+ * field and runs the intake and launcher from gamepad 1, and Mov Shot Strafe
+ * In does its steps in order, for as long as each is meant to take, on the
  * simulator's clock.
  */
 public class ExampleTest {
@@ -344,7 +344,7 @@ public class ExampleTest {
     }
 
     /**
-     * Example Auto with Shoot Then Intake chosen, run on the simulator's clock
+     * Example Auto with Mov Shot Strafe In chosen, run on the simulator's clock
      * for 25 s, 10 ms a loop, the launcher fast enough to feed, and each loop
      * sampled.
      */
@@ -359,9 +359,9 @@ public class ExampleTest {
             pressDuringInit(h, pad -> pad.a = true);
         }
         pressDuringInit(h, pad -> pad.dpad_down = true);
-        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot Then Intake
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Mov Shot Strafe In
         pressDuringInit(h, pad -> pad.a = true);
-        String summary = (red ? "R" : "B") + "-SI";
+        String summary = (red ? "R" : "B") + "-MVSI";
         assertTrue(h.driverStation.text(), h.driverStation.shows(summary));
 
         launcherMotor.velocity = 1210;
