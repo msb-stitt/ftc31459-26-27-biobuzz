@@ -48,8 +48,7 @@ class Bot31459 {
         c.offsetUnits.set(DistanceUnit.INCH);
     });
 
-    // Foresight Tuner. 37523's, of 2026-10-28, pasted whole. MEASURE: paste over it
-    // when 31459 is autotuned.
+    // Foresight Tuner, 2026-11-03.
     public static ForesightConfig foresightConfig = new ForesightConfig(
             c -> {
                 Controller primaryTranslationalForward = Controller.proportional(0.19280496789139748);
