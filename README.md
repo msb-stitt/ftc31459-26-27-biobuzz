@@ -80,9 +80,9 @@ teleop records its alliance as `Alliance`. **Example Auto** and **Example TeleOp
 them. The teleop adds StarterBot TeleOp's triggers and right bumper. The auto adds the route Shoot
 Then Intake: forward 6 inches, shoot for 10 seconds, wait 3 seconds, 24 inches left, as the
 audience sees red's route, then the intake in for 3 seconds. In the simulator, an OpMode's intake and launcher are stand-ins
-that keep what they are given, the launcher reporting the speed it was asked for. These six, Launcher Check and Live
-NetworkTables on/off are the only OpModes on the Driver Station; every other is `@Disabled`. The
-six and Launcher Check send the flight log live to AdvantageScope as well, for practice;
+that keep what they are given, the launcher reporting the speed it was asked for. If an OpMode is not listed on the
+Driver Station, check whether its class is `@Disabled`. StarterBot's, 88888's and Example's
+OpModes and Launcher Check send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
 
 StarterBot TeleOp starts three commands at PLAY that run until STOP: one drives from the sticks,
