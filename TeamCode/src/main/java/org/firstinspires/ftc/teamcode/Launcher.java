@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 /**
  * goBILDA's StarterBot launcher: the launcher motor spins up, and once it is
@@ -90,14 +91,26 @@ public class Launcher {
 
     /**
      * For as long as the OpMode runs: while the fire button is held, spins up
-     * and feeds once fast enough; while it is not, the motor and the windmill
-     * stop. A command that also needs the launcher sets this one aside while it
-     * runs, and this one comes back when it ends.
+     * to the robot's target and feeds once fast enough; while it is not, the
+     * motor and the windmill stop. A command that also needs the launcher sets
+     * this one aside while it runs, and this one comes back when it ends.
      */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public Command fireWhile(BooleanSupplier fireButton) {
+        Command fireWhileTheButtonIsHeld = fireAtWhile(() -> TARGET_TICKS_PER_SECOND,
+                () -> FEED_ABOVE_TICKS_PER_SECOND, fireButton);
+        return fireWhileTheButtonIsHeld;
+    }
+
+    /**
+     * As {@link #fireWhile}, at the target given, feeding above the speed
+     * given; both are read each loop.
+     */
+    Command fireAtWhile(DoubleSupplier targetTicksPerSecond, DoubleSupplier feedAboveTicksPerSecond,
+                        BooleanSupplier fireButton) {
         Command fireWhileTheButtonIsHeld = Command.build()
-                .setExecute(() -> fireOrStopThisLoop(fireButton))
+                .setExecute(() -> fireOrStopThisLoop(targetTicksPerSecond, feedAboveTicksPerSecond,
+                        fireButton))
                 .setDone(this::runsUntilCancelled)
                 .setEnd(this::stopMotorAndWindmill)
                 .requiring(this)
@@ -125,34 +138,36 @@ public class Launcher {
         spinAt(STOPPED_TICKS_PER_SECOND);
     }
 
-    /** One loop of {@link #fireWhile}: the button read now. */
-    void fireOrStopThisLoop(BooleanSupplier fireButton) {
+    /** One loop of {@link #fireAtWhile}: the button, the target and the feed speed read now. */
+    void fireOrStopThisLoop(DoubleSupplier targetTicksPerSecond, DoubleSupplier feedAboveTicksPerSecond,
+                            BooleanSupplier fireButton) {
         boolean fireButtonHeldNow = fireButton.getAsBoolean();
         if (fireButtonHeldNow) {
-            spinUpAndFeedOnceFastEnough();
+            spinUpAndFeedOnceFastEnough(targetTicksPerSecond.getAsDouble(),
+                    feedAboveTicksPerSecond.getAsDouble());
         } else {
             stop();
         }
     }
 
     /** The motor's target, then the windmill by its speed. */
-    void spinUpAndFeedOnceFastEnough() {
+    void spinUpAndFeedOnceFastEnough(double targetTicksPerSecond, double feedAboveTicksPerSecond) {
         double measuredTicksPerSecond = motor.getVelocity();
-        boolean fastEnoughToFeed = measuredTicksPerSecond > FEED_ABOVE_TICKS_PER_SECOND;
+        boolean fastEnoughToFeed = measuredTicksPerSecond > feedAboveTicksPerSecond;
         if (fastEnoughToFeed) {
             startTheWindmill();
         } else {
             stopTheWindmill();
         }
-        spinAt(TARGET_TICKS_PER_SECOND);
+        spinAt(targetTicksPerSecond);
     }
 
-    /** {@link #fireWhile} never finishes by itself. */
+    /** {@link #fireAtWhile} never finishes by itself. */
     boolean runsUntilCancelled() {
         return false;
     }
 
-    /** How {@link #fireWhile} ends, or is set aside: everything stopped. */
+    /** How {@link #fireAtWhile} ends, or is set aside: everything stopped. */
     void stopMotorAndWindmill(EndCondition howItEnded) {
         stop();
     }

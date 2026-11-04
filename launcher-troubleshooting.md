@@ -3,16 +3,17 @@
 If the launcher stutters rather than holding its speed, run **Launcher Check**, which
 [README.md](./README.md) describes, and try these in order:
 
-- Run it at 1250, the full target. At a fifth, 37523's feedforward asks for 0.145 of full speed,
-  where an F of 13.75 alone would ask for 0.105. Too little, and the wheels stick and surge.
-- At 0.2, `launcher/measured_tps` is positive and near 250. Negative, or 0 while the wheel turns,
-  means the motor or its encoder is wired backwards, or the encoder is not in the port beside its
-  motor.
+- Run it at 1250 ticks/s, the robot's target. At 250 ticks/s, 37523's feedforward asks for 0.145
+  of full speed, where an F of 13.75 alone would ask for 0.105. Too little, and the wheels stick
+  and surge.
+- At 250 ticks/s, `launcher/measured_tps` is positive and near 250 ticks/s. Negative, or 0 while
+  the wheel turns, means the motor or its encoder is wired backwards, or the encoder is not in the
+  port beside its motor.
 - In the Robot Configuration, `launcher` is a goBILDA 5203 series 6000 rpm motor.
 - With the robot off, the launcher wheels spin freely by hand, nothing rubs the frame, and the
   belt does not slip.
-- Step from 0.2 to 1.0. A stutter only at low fractions points to the feedforward; at every
-  fraction, to the wiring or the gains.
+- Step from 250 ticks/s to 1250 ticks/s. A stutter only at low targets points to the
+  feedforward; at every target, to the wiring or the gains.
 - If the speed swings around the target, lower `launcher_P_ctrlUnitsPerTickPerS` in the robot's
   constants file (pedro/Bot*.java); if it never reaches it, raise
   `launcher_kV_powerFractionPerTickPerS`. The motor controller's feedforward is a static part,

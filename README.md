@@ -74,12 +74,12 @@ drive robot 88888.
 
 Main competition code is in **Example Auto** and **Example TeleOp**.
 
-**Launcher Check** spins the launcher alone, with the robot not driven and the windmill off, so
-nothing is launched. Hold the right bumper to spin it at a fraction of its target of 1250 ticks
-per second; D-pad up and down step the fraction by 0.1, from 0.1 to 1.0, starting at 0.2. Each
-loop, here and in StarterBot TeleOp, the flight log carries `launcher/target_tps`,
-`launcher/measured_tps`, `launcher/current_amps` and `launcher/feeding`, spinning or stopped;
-graph them together in AdvantageScope to see whether it holds its speed.
+**Launcher Check** runs the launcher alone, with the robot not driven. Hold the right bumper to
+fire at the target the Driver Station shows: the launcher spins up, and the windmill feeds once it
+is fast enough. The D-pad changes the target. Each loop, here and in StarterBot TeleOp, the flight
+log carries `launcher/target_tps`, `launcher/measured_tps`, `launcher/current_amps` and
+`launcher/feeding`, spinning or stopped; graph them together in AdvantageScope to see whether it
+holds its speed.
 
 The OpModes generally send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.

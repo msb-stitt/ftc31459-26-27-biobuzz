@@ -303,58 +303,117 @@ public class StarterBotTest {
     }
 
     @Test
-    public void theLauncherCheckStartsAtAFifthAndStepsByATenthFromATenthToAll() {
+    public void fireWhileSpinsAtTheRobotsTargetAndFeedsAboveTheRobotsFeedSpeed() {
+        Command fire = launcher.fireWhile(() -> true);
+        Scheduler.schedule(fire);
+
+        launcherMotor.velocity = Launcher.FEED_ABOVE_TICKS_PER_SECOND - 2;
+        Scheduler.execute();
+        assertEquals(Launcher.TARGET_TICKS_PER_SECOND, launcherMotor.targetVelocity, 0);
+        assertFalse("just below the robot's feed speed", launcher.feeding());
+
+        launcherMotor.velocity = Launcher.FEED_ABOVE_TICKS_PER_SECOND + 2;
+        Scheduler.execute();
+        assertTrue("just above it", launcher.feeding());
+    }
+
+    @Test
+    public void theLauncherCheckStartsAt1000AndStepsBy50And5From50To2500() {
         LauncherCheck.launchers = map -> launcher;
         LauncherCheck check = new LauncherCheck();
         OpModeHarness h = new OpModeHarness(check);
         h.init();
         h.start();
-        assertEquals(0.2, check.fractionOfTarget(), 1e-9);
+        assertEquals(1000, check.targetTicksPerSecond(), 0);
 
         h.gamepad1.dpad_up = true;
         h.loop();
         h.loop();
         h.gamepad1.dpad_up = false;
         h.loop();
-        assertEquals("one press, held for two loops, one step", 0.3, check.fractionOfTarget(), 1e-9);
+        assertEquals("one press, held for two loops, one step", 1050, check.targetTicksPerSecond(), 0);
 
-        for (int i = 0; i < 12; i++) {
+        h.gamepad1.dpad_right = true;
+        h.loop();
+        h.gamepad1.dpad_right = false;
+        h.loop();
+        assertEquals(1055, check.targetTicksPerSecond(), 0);
+        for (int i = 0; i < 2; i++) {
+            h.gamepad1.dpad_left = true;
+            h.loop();
+            h.gamepad1.dpad_left = false;
+            h.loop();
+        }
+        assertEquals(1045, check.targetTicksPerSecond(), 0);
+
+        for (int i = 0; i < 40; i++) {
             h.gamepad1.dpad_up = true;
             h.loop();
             h.gamepad1.dpad_up = false;
             h.loop();
         }
-        assertEquals("no further than all", 1.0, check.fractionOfTarget(), 1e-9);
+        assertEquals("no faster than 2500", 2500, check.targetTicksPerSecond(), 0);
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 60; i++) {
             h.gamepad1.dpad_down = true;
             h.loop();
             h.gamepad1.dpad_down = false;
             h.loop();
         }
-        assertEquals("no slower than a tenth", 0.1, check.fractionOfTarget(), 1e-9);
+        assertEquals("no slower than 50", 50, check.targetTicksPerSecond(), 0);
         assertEquals(false, Tracker.values().get("button/dpadDown"));
+        assertEquals(50.0, (Double) Tracker.values().get("launcher/check_target_tps"), 0);
         h.stop();
     }
 
     @Test
-    public void theLauncherCheckSpinsAtItsFractionAndNeverFeeds() {
+    public void theLauncherCheckFeedsAboveTheLowerOfTheScaledTargetAndTheTargetLess20() {
+        assertEquals("at 50 ticks/s, the gap", 30, LauncherCheck.feedAboveTicksPerSecondAt(50), 1e-9);
+        assertEquals("at the robot's target, the robot's feed speed",
+                Launcher.FEED_ABOVE_TICKS_PER_SECOND,
+                LauncherCheck.feedAboveTicksPerSecondAt(Launcher.TARGET_TICKS_PER_SECOND), 1e-9);
+
         LauncherCheck.launchers = map -> launcher;
-        OpModeHarness h = new OpModeHarness(new LauncherCheck());
+        LauncherCheck check = new LauncherCheck();
+        OpModeHarness h = new OpModeHarness(check);
         h.init();
         h.start();
-
         h.gamepad1.right_bumper = true;
-        launcherMotor.velocity = 1300;
+
+        // At 1000 ticks/s the scaling sets the feed speed, below the target less 20.
+        double scaled = 1000 * Launcher.FEED_ABOVE_TICKS_PER_SECOND / Launcher.TARGET_TICKS_PER_SECOND;
+        assertTrue(scaled + 2 < 1000 - 20);
+        launcherMotor.velocity = scaled - 2;
         h.loop();
-        assertEquals("a fifth of 1250", 250, launcherMotor.targetVelocity, 1e-9);
-        assertEquals("fast, and still not feeding", 0, windmill.speedFraction, 0);
-        assertFalse(launcher.feeding());
+        assertEquals(1000, launcherMotor.targetVelocity, 0);
+        assertFalse("just below the scaled target", launcher.feeding());
+        launcherMotor.velocity = scaled + 2;
+        h.loop();
+        assertTrue("just above it", launcher.feeding());
+        assertEquals(1, windmill.speedFraction, 0);
         assertEquals(true, Tracker.values().get("button/rightBumper"));
+
+        for (int i = 0; i < 14; i++) {
+            h.gamepad1.dpad_down = true;
+            h.loop();
+            h.gamepad1.dpad_down = false;
+            h.loop();
+        }
+        // At 300 ticks/s the target less 20 sets it, below the scaled target.
+        double gapped = 300 - 20;
+        assertTrue(gapped + 2 < 300 * Launcher.FEED_ABOVE_TICKS_PER_SECOND / Launcher.TARGET_TICKS_PER_SECOND);
+        launcherMotor.velocity = gapped - 2;
+        h.loop();
+        assertEquals(300, launcherMotor.targetVelocity, 0);
+        assertFalse("just below the target less 20", launcher.feeding());
+        launcherMotor.velocity = gapped + 2;
+        h.loop();
+        assertTrue("just above it", launcher.feeding());
 
         h.gamepad1.right_bumper = false;
         h.loop();
         assertEquals("let go, the motor stops", 0, launcherMotor.targetVelocity, 0);
+        assertEquals(0, windmill.speedFraction, 0);
         h.stop();
     }
 
