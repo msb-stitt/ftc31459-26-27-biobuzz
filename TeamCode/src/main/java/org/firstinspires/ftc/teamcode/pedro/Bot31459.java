@@ -111,7 +111,7 @@ class Bot31459 {
 
     /**
      * The launcher's feedforward, as a fraction of full power.
-     * Tested on 2026-11-03.
+     * Measured on 2026-11-03.
      */
     static double launcher_kS_powerFraction = 0.05;
     static double launcher_kV_powerFractionPerTickPerS =  0.00032636316;
