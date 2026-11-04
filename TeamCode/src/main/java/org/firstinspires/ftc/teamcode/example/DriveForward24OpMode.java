@@ -9,7 +9,6 @@ import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
@@ -29,7 +28,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * interpolation says what it means. Issues #176 and #181 report .linear()
  * interpolating heading backwards on line paths in Pedro 3.0.0; 3.0.1 fixes it.
  */
-@Disabled
 @Autonomous(name = "Auto: Drive 24in", group = "3 Old")
 public class DriveForward24OpMode extends CorbelsAuto {
 

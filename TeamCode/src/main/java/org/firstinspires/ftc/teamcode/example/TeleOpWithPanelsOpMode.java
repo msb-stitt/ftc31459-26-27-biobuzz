@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.example;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
@@ -20,7 +19,6 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
  * <p>While this runs, open http://192.168.43.1:8001 on a device joined to the
  * robot's Wi-Fi. Loop rate, pose and velocity all plot live.
  */
-@Disabled
 @TeleOp(name = "TeleOp + Panels", group = "3 Old")
 public class TeleOpWithPanelsOpMode extends CorbelsTeleOp {
 

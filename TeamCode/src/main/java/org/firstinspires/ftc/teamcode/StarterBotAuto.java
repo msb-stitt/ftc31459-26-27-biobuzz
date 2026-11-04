@@ -10,7 +10,6 @@ import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
@@ -26,7 +25,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * speed goes to the flight log; Pedro's pose is already there, under
  * {@code Robot/Pose}.
  */
-@Disabled
 @Autonomous(name = "StarterBot Auto", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class StarterBotAuto extends CorbelsAuto {

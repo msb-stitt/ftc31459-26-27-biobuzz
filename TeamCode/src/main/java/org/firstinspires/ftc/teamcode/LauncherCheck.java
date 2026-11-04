@@ -5,7 +5,6 @@ import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.behaviors.EndCondition;
 import com.pedropathing.ivy.behaviors.InterruptedBehavior;
 import com.pedropathing.ivy.commands.Commands;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
@@ -32,7 +31,6 @@ import java.util.function.Function;
  * launcher logs its own target, measured speed and current under
  * {@code launcher/}.
  */
-@Disabled
 @TeleOp(name = "Launcher Check", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class LauncherCheck extends CorbelsTeleOp {
