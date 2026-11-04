@@ -104,7 +104,7 @@ that one comes back when it ends. Each stick, trigger and button read, the drive
   `Bot31459` has its own configs and launcher P, kS and kV, and copies of 37523's other values,
   written in its own file and marked MEASURE, until its own are measured. Each OpMode's flight log names the robot picked, from INIT, as `Constants/thisRobot`,
   and `Constants/pickedByRobotControllerName` is true when the Robot Controller name picked it.
-- Configure each robot with the device names in `pedro/Constants.java`: the four drive motors,
+- Configure each robot with the device names in `pedro/Constants.java`: the drive motors,
   `imu`, `pinpoint`, and the five the mechanisms use.
 - Each value in a robot's file marked `MEASURE` is a starting point. Measure it on that robot
   with the tuner it names: the AutoTune tuners in `pedro/Tuning.java`, or lesson L131.
