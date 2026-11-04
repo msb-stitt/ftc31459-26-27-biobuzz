@@ -51,7 +51,7 @@ import java.util.function.Function;
  * flight log. Pedro's pose is already there, under {@code Robot/Pose}, and the
  * intake and launcher log their own.
  */
-@TeleOp(name = "Example TeleOp", group = "Example")
+@TeleOp(name = "Example TeleOp", group = "0 Competition")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class ExampleTeleOp extends CorbelsTeleOp {
 

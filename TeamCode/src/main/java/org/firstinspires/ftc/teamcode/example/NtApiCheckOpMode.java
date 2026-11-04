@@ -28,7 +28,7 @@ import java.util.function.Consumer;
  * against it running
  */
 @Disabled
-@TeleOp(name = "NetworkTables API check", group = "Corbels")
+@TeleOp(name = "NetworkTables API check", group = "6 Validation")
 public class NtApiCheckOpMode extends CorbelsTeleOp {
 
     /** One value the OpMode records and a client should read back. */

@@ -17,7 +17,7 @@ import java.io.File;
  * and the address of the download page.
  */
 @Disabled
-@TeleOp(name = "Log 6: where are the logs?", group = "LogCheck")
+@TeleOp(name = "Log 6: where are the logs?", group = "4 LogCheck")
 public class LogCheck6WhereOpMode extends LinearOpMode {
 
     @Override

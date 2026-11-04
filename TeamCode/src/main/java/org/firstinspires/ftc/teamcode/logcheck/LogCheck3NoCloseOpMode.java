@@ -17,7 +17,7 @@ import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
  * the "final value" event.
  */
 @Disabled
-@TeleOp(name = "Log 3: forgot to close", group = "LogCheck")
+@TeleOp(name = "Log 3: forgot to close", group = "4 LogCheck")
 public class LogCheck3NoCloseOpMode extends OpMode {
 
     private FlightLog log;

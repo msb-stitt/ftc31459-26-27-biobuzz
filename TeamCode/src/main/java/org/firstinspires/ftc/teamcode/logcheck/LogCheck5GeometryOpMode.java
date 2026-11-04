@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * Circle/Speeds and Circle/Wheels in a table.
  */
 @Disabled
-@TeleOp(name = "Log 5: geometry", group = "LogCheck")
+@TeleOp(name = "Log 5: geometry", group = "4 LogCheck")
 public class LogCheck5GeometryOpMode extends OpMode {
 
     private static final double METRE_IN_INCHES = 39.3700787401575;

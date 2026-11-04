@@ -19,7 +19,7 @@ import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
  * FAIL: the file is missing, empty, or unreadable.
  */
 @Disabled
-@TeleOp(name = "Log 2: crash mid-run", group = "LogCheck")
+@TeleOp(name = "Log 2: crash mid-run", group = "4 LogCheck")
 public class LogCheck2CrashOpMode extends OpMode {
 
     private static final double CRASH_AFTER_SECONDS = 3.0;

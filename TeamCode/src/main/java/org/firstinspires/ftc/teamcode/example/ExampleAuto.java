@@ -53,7 +53,7 @@ import java.util.function.LongSupplier;
  * Station picks when this auto ends, by itself or at the end of its 30
  * seconds. Pressing stop cancels that.
  */
-@Autonomous(name = "Example Auto", group = "Example", preselectTeleOp = "Example TeleOp")
+@Autonomous(name = "Example Auto", group = "0 Competition", preselectTeleOp = "Example TeleOp")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class ExampleAuto extends CorbelsAuto {
 

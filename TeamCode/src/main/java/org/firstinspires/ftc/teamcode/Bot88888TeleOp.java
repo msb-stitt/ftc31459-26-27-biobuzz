@@ -43,7 +43,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * <p>Every stick read and the drive asked for go to the flight log. Pedro's
  * pose is already there, under {@code Robot/Pose}.
  */
-@TeleOp(name = "88888 TeleOp", group = "88888")
+@TeleOp(name = "88888 TeleOp", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class Bot88888TeleOp extends CorbelsTeleOp {
 

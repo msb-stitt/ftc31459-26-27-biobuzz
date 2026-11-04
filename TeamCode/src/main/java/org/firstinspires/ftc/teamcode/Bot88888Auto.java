@@ -36,7 +36,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * picks when this auto ends, by itself or at the end of its 30 seconds.
  * Pressing stop cancels that.
  */
-@Autonomous(name = "88888 Auto", group = "88888", preselectTeleOp = "88888 TeleOp")
+@Autonomous(name = "88888 Auto", group = "1 Experiments", preselectTeleOp = "88888 TeleOp")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class Bot88888Auto extends CorbelsAuto {
 

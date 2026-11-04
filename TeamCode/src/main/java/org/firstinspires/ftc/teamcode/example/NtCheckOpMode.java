@@ -29,7 +29,7 @@ import java.io.IOException;
  * <p>Passes when: NtCheckOpModeTest
  */
 @Disabled
-@TeleOp(name = "NetworkTables check", group = "Corbels")
+@TeleOp(name = "NetworkTables check", group = "6 Validation")
 public class NtCheckOpMode extends CorbelsTeleOp {
 
     /** One sine wave every 4 s, so a live graph is easy to tell from a stuck one. */

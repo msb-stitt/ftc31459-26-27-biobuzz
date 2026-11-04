@@ -32,7 +32,7 @@ import java.util.function.Consumer;
  * at competitions, and this OpMode turns the server on.
  */
 @Disabled
-@TeleOp(name = "Log 9: NetworkTables API", group = "LogCheck")
+@TeleOp(name = "Log 9: NetworkTables API", group = "4 LogCheck")
 public class LogCheck9NtApiOpMode extends OpMode {
 
     /** One value the OpMode records and a client should read back. */

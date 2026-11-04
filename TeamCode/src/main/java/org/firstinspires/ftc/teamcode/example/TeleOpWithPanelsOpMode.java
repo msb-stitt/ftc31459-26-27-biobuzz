@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
  * robot's Wi-Fi. Loop rate, pose and velocity all plot live.
  */
 @Disabled
-@TeleOp(name = "TeleOp + Panels", group = "Corbels")
+@TeleOp(name = "TeleOp + Panels", group = "3 Old")
 public class TeleOpWithPanelsOpMode extends CorbelsTeleOp {
 
     private CorbelsMecanum drivetrain;

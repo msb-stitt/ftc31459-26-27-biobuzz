@@ -20,7 +20,7 @@ import java.io.File;
  * <p>Afterwards: open http://192.168.43.1:8080/corbelsflightlog and download it.
  */
 @Disabled
-@TeleOp(name = "Log 1: basics", group = "LogCheck")
+@TeleOp(name = "Log 1: basics", group = "4 LogCheck")
 public class LogCheck1BasicsOpMode extends OpMode {
 
     private FlightLog log;

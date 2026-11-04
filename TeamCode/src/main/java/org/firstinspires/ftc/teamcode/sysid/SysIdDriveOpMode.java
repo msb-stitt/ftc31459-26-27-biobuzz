@@ -34,7 +34,7 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
  * <b>Inches</b>.
  */
 @Disabled
-@TeleOp(name = "SysId: drivetrain", group = "SysId")
+@TeleOp(name = "SysId: drivetrain", group = "5 SysId")
 public class SysIdDriveOpMode extends CorbelsTeleOp {
 
     /** How fast the quasistatic test raises the voltage. Volts per second. */

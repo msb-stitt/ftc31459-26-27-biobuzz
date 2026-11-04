@@ -27,7 +27,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * {@code Robot/Pose}.
  */
 @Disabled
-@Autonomous(name = "StarterBot Auto", group = "StarterBot")
+@Autonomous(name = "StarterBot Auto", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class StarterBotAuto extends CorbelsAuto {
 

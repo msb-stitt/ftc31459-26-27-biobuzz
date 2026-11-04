@@ -33,7 +33,7 @@ import java.util.function.Function;
  * {@code launcher/}.
  */
 @Disabled
-@TeleOp(name = "Launcher Check", group = "StarterBot")
+@TeleOp(name = "Launcher Check", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class LauncherCheck extends CorbelsTeleOp {
 

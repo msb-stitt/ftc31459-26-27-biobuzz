@@ -41,7 +41,7 @@ import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
  * at 3 Hz with harmonics.
  */
 @Disabled
-@TeleOp(name = "Log 8: 3 Hz flush beat", group = "LogCheck")
+@TeleOp(name = "Log 8: 3 Hz flush beat", group = "4 LogCheck")
 public class LogCheck8FlushBeatOpMode extends OpMode {
 
     /** How many times a second the 64 KB buffer should fill. */

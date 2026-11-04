@@ -46,7 +46,7 @@ import org.firstinspires.ftc.teamcode.base.WheelVelocities;
  * </ul>
  */
 @Disabled
-@TeleOp(name = "SysId: voltage response", group = "SysId")
+@TeleOp(name = "SysId: voltage response", group = "5 SysId")
 public class VoltageResponseOpMode extends CorbelsTeleOp {
 
     /** The square wave frequencies, in hertz. Phase 0 is idle. */

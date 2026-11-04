@@ -21,7 +21,7 @@ import java.io.File;
  * a 1 MB cap.
  */
 @Disabled
-@TeleOp(name = "Log 4: disk budget", group = "LogCheck")
+@TeleOp(name = "Log 4: disk budget", group = "4 LogCheck")
 public class LogCheck4DiskBudgetOpMode extends OpMode {
 
     private static final long TEST_BUDGET_BYTES = 1_000_000;

@@ -33,7 +33,7 @@ import java.util.function.Function;
  * {@code Robot/Pose}, and the intake and launcher log their own.
  */
 @Disabled
-@TeleOp(name = "StarterBot TeleOp", group = "StarterBot")
+@TeleOp(name = "StarterBot TeleOp", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class StarterBotTeleOp extends CorbelsTeleOp {
 

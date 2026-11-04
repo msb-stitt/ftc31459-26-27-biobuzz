@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker.LiveSetting;
  * <p>Before a competition, run this until it says off: FTC rule R704 forbids
  * third-party telemetry over Wi-Fi there.
  */
-@TeleOp(name = "Live NetworkTables on/off", group = "Corbels")
+@TeleOp(name = "Live NetworkTables on/off", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
 public class LiveNetworkTablesSwitch extends CorbelsTeleOp {
 

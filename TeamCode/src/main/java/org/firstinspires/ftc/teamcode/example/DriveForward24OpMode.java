@@ -30,7 +30,7 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * interpolating heading backwards on line paths in Pedro 3.0.0; 3.0.1 fixes it.
  */
 @Disabled
-@Autonomous(name = "Auto: Drive 24in", group = "Corbels")
+@Autonomous(name = "Auto: Drive 24in", group = "3 Old")
 public class DriveForward24OpMode extends CorbelsAuto {
 
     /** How far to drive, in inches. */
