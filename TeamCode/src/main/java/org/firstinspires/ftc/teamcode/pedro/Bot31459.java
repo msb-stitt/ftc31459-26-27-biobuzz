@@ -16,10 +16,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * this file when it names {@code BOT_31459}, and {@link Constants} takes
  * them.
  *
- * <p>Each value but {@code drivetrainConfig} is a copy of 37523's, written
- * here, as a start, so a change to Bot37523 does not reach this robot. MEASURE
- * each: paste over a config below what the AutoTune procedure named above it
- * prints. AutoTune is the page the robot serves at 192.168.43.1:10158.
+ * <p>Each value marked MEASURE is a copy of 37523's, written here, as a start,
+ * so a change to Bot37523 does not reach this robot. Each config below is
+ * pasted whole from what the AutoTune procedure named above it prints.
+ * AutoTune is the page the robot serves at 192.168.43.1:10158.
  */
 class Bot31459 {
 
@@ -35,8 +35,7 @@ class Bot31459 {
         c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
     });
 
-    // Pinpoint Tuner. 37523's, of 2026-10-28, pasted whole. MEASURE: paste over it
-    // when 31459 is autotuned.
+    // Pinpoint Tuner, 2026-11-03.
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
@@ -74,6 +73,7 @@ class Bot31459 {
                 c.naturalStrafeDeceleration.set(59.60529985123621);
             }
     );
+
     // Choices, not measurements. AutoTune does not print them, so each is a line
     // of its own, and Constants sets it on the configs above; a new paste leaves
     // them alone.
