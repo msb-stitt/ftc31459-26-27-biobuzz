@@ -277,6 +277,16 @@ public class ExampleTeleOp extends CorbelsTeleOp {
     /** The deadband, then the signed square. */
     double speedShaped(double value, double band) {
         double deadbanded = deadband(value, band);
+
+        // LOOKHERE - change shapedSpeed to be
+        // deadbanded * deadbanded * deadbanded
+        // to have finer low speed control
+        // e.g.:
+        // double shapedSpeed = deadbanded * deadbanded * deadbanded;
+        // this is finer because
+        // 1/4 * 1/4 = 1/16
+        // while
+        // 1/4 * 1/4 * 1/4 = 1/64
         double shapedSpeed = signedSquared(deadbanded);
         return shapedSpeed;
     }

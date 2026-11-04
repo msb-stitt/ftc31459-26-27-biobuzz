@@ -69,7 +69,9 @@ public class ExampleAuto extends CorbelsAuto {
     MenuItem nothing = new MenuItem("N", "Nothing");
     MenuItem forward24 = new MenuItem("F24", "Forward 24");
     MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
-    MenuItem shootThenIntake = new MenuItem("SI", "Shoot Then Intake");
+    MenuItem movShotStrafeIn = new MenuItem("MVSI", "Mov Shot Strafe In");
+    // LOOKHERE - add new MenuItem for YOUR_NEW_AUTO_HERE here.
+    // e.g. MenuItem YOUR_NEW_AUTO_HERE = new MenuItem( "SF", "Shoot Then Forward");
     MenuRow autoRow = new MenuRow("Auto");
     OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
@@ -94,7 +96,10 @@ public class ExampleAuto extends CorbelsAuto {
         autoRow.add(nothing);
         autoRow.add(forward24);
         autoRow.add(forwardThenStrafe);
-        autoRow.add(shootThenIntake);
+        autoRow.add(movShotStrafeIn);
+        // LOOKHERE - add MenuItem for YOUR_NEW_AUTO_HERE to autoRow here
+        // e.g:
+        // autoRow.add(YOUR_NEW_AUTO_HERE);
         optionMenu.add(allianceRow);
         optionMenu.add(autoRow);
 
@@ -133,9 +138,15 @@ public class ExampleAuto extends CorbelsAuto {
         if (auto == forwardThenStrafe) {
             chosenAuto = driveForwardThenStrafe();
         }
-        if (auto == shootThenIntake) {
+        if (auto == movShotStrafeIn) {
             chosenAuto = shootThenIntake();
         }
+        // LOOKHERE - add if (auto == YOUR_NEW_AUTO_HERE)  to assign YOUR_NEW_COMMAND to chosenAuto
+        // here e.g.:
+        //         if (auto == YOUR_NEW_AUTO_HERE) {
+        //            chosenAuto = YOUR_NEW_COMMAND();
+        //         }
+
         Scheduler.schedule(chosenAuto);
         startAfter();
     }
@@ -274,6 +285,23 @@ public class ExampleAuto extends CorbelsAuto {
                 waitAfterShooting, strafeLeftToIntake, holdWhileIntaking, runTheIntake);
         return shootThenIntakeRoute;
     }
+
+    // LOOKHERE - for your new auto YOUR_NEW_AUTO_HERE define YOUR_NEW_COMMAND here:
+    // e.g.:
+    //Command YOUR_NEW_COMMAND() {
+    //    PoseFactory poses = poses();
+    //    Pose startPose = poses.of(72.0, botStartYIn, -90.0);
+    //    Pose stopPose = poses.of(72.0, botStartYIn + 6.0, -90.0);
+    //
+    //    Command holdWhileShooting = hold(follower, startPose);
+    //    Command shoot = shootFor(shootSeconds);
+    //    Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
+    //    Command driveForwardAfterShot = follow(follower, line(startPose, stopPose).constant(startPose));
+    //    Command shootThenMoveRoute = sequential(holdWhileShooting, shoot,
+    //            waitAfterShooting, driveForwardAfterShot);
+    //    return shootThenMoveRoute;
+    //}
+
 
     /**
      * The launcher spun up and fed once fast enough, and the intake boosted
