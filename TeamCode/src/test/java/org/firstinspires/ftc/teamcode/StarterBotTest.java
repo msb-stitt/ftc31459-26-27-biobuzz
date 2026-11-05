@@ -421,16 +421,22 @@ public class StarterBotTest {
     }
 
     @Test
-    public void theAutoDrivesForwardThenStrafesAsL130Does() {
+    public void theAutoStartsAtTheDefaultAndDrivesForward24InThenLeft24In() {
         OpModeHarness h = new OpModeHarness(new StarterBotAuto());
         Follower follower = h.robot.follower;
         h.init();
+        Pose start = OpModeStorage.defaultStartPose(true);
+        assertEquals("at the default start during INIT: x", start.x(), follower.pose().x(), 1e-6);
+        assertEquals("y", start.y(), follower.pose().y(), 1e-6);
+        double turnFromStart = follower.pose().heading() - start.heading();
+        assertEquals("heading", 0.0, Math.atan2(Math.sin(turnFromStart), Math.cos(turnFromStart)),
+                1e-6);
         h.start();
         double drift = 0;
         long deadline = h.clock.nanos() + 3_000_000_000L;
-        while (follower.pose().y() < 66 && h.clock.nanos() < deadline) {
+        while (follower.pose().y() < 33 && h.clock.nanos() < deadline) {
             h.loop();
-            drift = Math.max(drift, Math.abs(follower.pose().x() - 72));
+            drift = Math.max(drift, Math.abs(follower.pose().x() - 60));
             OpModeHarness.sleep(5);
         }
         // Between two legs the follower holds for one loop with no path, so the
@@ -457,8 +463,10 @@ public class StarterBotTest {
         h.stop();
         assertEquals("drove straight up to the corner first", 0.0, drift, 2.0);
         Pose end = follower.pose();
-        assertEquals("strafed 24 inches in x", 96.0, end.x(), 2.0);
-        assertEquals("and stayed on the line it drove up", 72.0, end.y(), 2.0);
-        assertEquals("never turned", 90.0, Math.toDegrees(end.heading()), 15.0);
+        assertEquals("strafed 24 inches left, to -x", 36.0, end.x(), 2.0);
+        assertEquals("and stayed on the line it drove up", 34.5, end.y(), 2.0);
+        double turned = end.heading() - start.heading();
+        assertEquals("never turned", 0.0,
+                Math.toDegrees(Math.atan2(Math.sin(turned), Math.cos(turned))), 15.0);
     }
 }

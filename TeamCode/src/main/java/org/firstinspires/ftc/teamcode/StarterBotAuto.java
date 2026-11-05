@@ -11,19 +11,21 @@ import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.base.AutoRoutine;
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
- * The StarterBot's autonomous: L130's drive. Forward from the wall to the
- * middle of the field, then sideways to the right without turning, and hold
- * there, facing away from the wall the whole way.
+ * The StarterBot's autonomous, on the red alliance: from the default start,
+ * forward 24 inches from the wall, then 24 inches left without turning, and
+ * hold there, facing the wall the whole way. Left and forward are as the
+ * audience sees them.
  *
- * <p>The drive is one command, built and scheduled in {@code start()} when PLAY
- * is pressed, the way StarterBot TeleOp schedules its three. Each wheel's
- * speed goes to the flight log; Pedro's pose is already there, under
- * {@code Robot/Pose}.
+ * <p>The drive is one {@link AutoRoutine}, built and selected in
+ * {@code init()}, and its command scheduled in {@code start()} when PLAY is
+ * pressed. Each wheel's speed goes to the flight log; Pedro's pose is already
+ * there, under {@code Robot/Pose}.
  */
 @Autonomous(name = "StarterBot Auto", group = "1 Experiments")
 // 'public' so the robot can run this OpMode. 'public' allows access from any code.
@@ -34,12 +36,11 @@ public class StarterBotAuto extends CorbelsAuto {
     double robotHalfLengthIn = 9.0;
     double fieldPerimeterWidthIn = 1.5;
     double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
-    Pose start = poses.of(72.0, botStartYIn, 90.0);
-    Pose corner = poses.of(72.0, 72.0, 90.0);
-    Pose end = poses.of(96.0, 72.0, 90.0);
+    Pose start = poses.of(60.0, botStartYIn, -90.0);
+    Pose corner = poses.of(60.0, botStartYIn + 24.0, -90.0);
+    Pose end = poses.of(36.0, botStartYIn + 24.0, -90.0);
 
     CorbelsMecanum drivetrain;
-    Command forwardThenStrafeThenHold;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -51,14 +52,16 @@ public class StarterBotAuto extends CorbelsAuto {
         Tracker.serveLive();
         drivetrain = new CorbelsMecanum(hardware);
         initAfter(drivetrain);
+        AutoRoutine forwardThenStrafeThenHold = driveForwardThenStrafeThenHold();
+        select(forwardThenStrafeThenHold);
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void start() {
         startBefore();
-        forwardThenStrafeThenHold = driveForwardThenStrafeThenHold();
-        Scheduler.schedule(forwardThenStrafeThenHold);
+        Command chosenAuto = selectedAuto.command();
+        Scheduler.schedule(chosenAuto);
         startAfter();
     }
 
@@ -77,18 +80,13 @@ public class StarterBotAuto extends CorbelsAuto {
         stopAfter();
     }
 
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public Pose startPose() {
-        return start;
-    }
-
     /** Forward to the corner, sideways to the end, then hold the end. */
-    Command driveForwardThenStrafeThenHold() {
+    AutoRoutine driveForwardThenStrafeThenHold() {
         Command driveForwardToTheCorner = follow(follower, line(start, corner).constant(start));
-        Command strafeRightToTheEnd = follow(follower, line(corner, end).constant(start));
+        Command strafeLeftToTheEnd = follow(follower, line(corner, end).constant(start));
         Command holdTheEnd = hold(follower, end);
-        Command forwardThenStrafe = sequential(driveForwardToTheCorner, strafeRightToTheEnd, holdTheEnd);
-        return forwardThenStrafe;
+        Command forwardThenStrafe = sequential(driveForwardToTheCorner, strafeLeftToTheEnd, holdTheEnd);
+        AutoRoutine forwardThenStrafeRoutine = new AutoRoutine(start, forwardThenStrafe);
+        return forwardThenStrafeRoutine;
     }
 }
