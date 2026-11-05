@@ -20,10 +20,6 @@ import org.firstinspires.ftc.teamcode.base.Tracker;
  * Minimal autonomous: drive 24 inches forward, holding heading. Built with Ivy so
  * adding a second step later is one more line in the sequential() block.
  *
- * <p>Pedro's coordinate frame: +x is to the right of the field and heading 0
- * faces +x. Starting at (0, 0, 0) and ending at (24, 0, 0) is therefore
- * "24 inches in whatever direction the robot is pointing at start".
- *
  * <p>NOTE ON HEADING: this uses {@code .constant()}, not the {@code .linear()}
  * the Pedro docs show. This path does not change heading at all, so constant
  * interpolation says what it means. Issues #176 and #181 report .linear()
@@ -72,7 +68,6 @@ public class DriveForward24OpMode extends CorbelsAuto {
         loopBefore();
 
         Tracker.printToDs("Mode  %s", follower.mode());
-        Tracker.printToDs("Remaining  %.1f in", DISTANCE_IN - follower.pose().x());
         Tracker.printPoseSpeedLoopToDs(follower);
 
         loopAfter();

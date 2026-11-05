@@ -169,12 +169,6 @@ private final Pose start = poses.of(72, 72, 0);
 private final Pose end   = poses.of(72 + DISTANCE_IN, 72, 0);
 ```
 
-and the "Remaining" line to:
-
-```java
-Tracker.printToDs("Remaining  %.1f in", end.x() - follower.pose().x());
-```
-
 The robot still physically drives 24 inches — only the reported numbers
 change. `pose/x_in` will then graph 72 → 96 instead of 0 → 24.
 
