@@ -60,9 +60,10 @@ public class ExampleAuto extends CorbelsAuto {
     MenuItem nothing = new MenuItem("N", "Nothing");
     MenuItem forward24 = new MenuItem("F24", "Forward 24");
     MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
-    MenuItem movShotStrafeIn = new MenuItem("MVSI", "Mov Shot Strafe In");
+    MenuItem movShotStrafeIn = new MenuItem("MVSI", "Move Shot Strafe In");
     // LOOKHERE - add new MenuItem for YOUR_NEW_AUTO_HERE here.
     // e.g. MenuItem YOUR_NEW_AUTO_HERE = new MenuItem( "SF", "Shoot Then Forward");
+    MenuItem SAP = new MenuItem("SAP","Shoot And Park");
     MenuRow autoRow = new MenuRow("Auto");
     OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
@@ -91,6 +92,7 @@ public class ExampleAuto extends CorbelsAuto {
         // LOOKHERE - add MenuItem for YOUR_NEW_AUTO_HERE to autoRow here
         // e.g:
         // autoRow.add(YOUR_NEW_AUTO_HERE);
+        autoRow.add(SAP);
         optionMenu.add(allianceRow);
         optionMenu.add(autoRow);
 
@@ -137,7 +139,9 @@ public class ExampleAuto extends CorbelsAuto {
         //         if (auto == YOUR_NEW_AUTO_HERE) {
         //            chosenAuto = YOUR_NEW_COMMAND();
         //         }
-
+        if (auto == SAP) {
+            chosenAuto = shootAndPark();
+        }
         Scheduler.schedule(chosenAuto);
         startAfter();
     }
@@ -173,7 +177,7 @@ public class ExampleAuto extends CorbelsAuto {
     @Override
     public Pose startPose() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, -90.0);
+        Pose start = poses.of(60.0, botStartYIn, -90.0);
         return start;
     }
 
@@ -261,8 +265,8 @@ public class ExampleAuto extends CorbelsAuto {
      */
     Command shootThenIntake() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, -90.0);
-        Pose shootFrom = poses.of(72.0, botStartYIn + 6.0, -90.0);
+        Pose start = startPose();
+        Pose shootFrom = poses.of(60.0, botStartYIn + 6.0, -90.0);
         Pose intakeAt = poses.of(48.0, botStartYIn + 6.0, -90.0);
 
         Command driveForwardToShoot = follow(follower, line(start, shootFrom).constant(start));
@@ -292,6 +296,20 @@ public class ExampleAuto extends CorbelsAuto {
     //            waitAfterShooting, driveForwardAfterShot);
     //    return shootThenMoveRoute;
     //}
+    Command shootAndPark() {
+        PoseFactory poses = poses();
+        Pose startPose = startPose();
+        Pose firststop= poses.of(24,51,-90.0);
+        Pose stopPose = poses.of(18,  96, -90.0);
+
+        Command shoot = shootFor(shootSeconds);
+        Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
+        Command drivetofirststop = follow(follower, line(startPose,firststop).constant(startPose));
+        Command driveToStop = follow(follower, line(firststop, stopPose).constant(startPose));
+        Command shootThenMoveRoute = sequential( shoot,
+                waitAfterShooting, drivetofirststop, driveToStop);
+        return shootThenMoveRoute;
+    }
 
 
     /**

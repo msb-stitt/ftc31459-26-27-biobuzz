@@ -110,9 +110,9 @@ class Bot37523 {
 
     /** goBILDA's launcher speeds: spin to the target, feed only above the second. */
     // LOOKHERE - change the launcher speed here:
-    static double launcherTargetTicksPerSecond = 1250;
+    static double launcherTargetTicksPerSecond = 1325;
     // LOOKHERE - change the speed the launch hits to start the windmill here:
-    static double launcherFeedAboveTicksPerSecond = 1200;
+    static double launcherFeedAboveTicksPerSecond = 1275;
 
     /** The launcher motor's P, I and D, tuned on 37523 on 2026-10-21. goBILDA's are 40, 0, 0. */
     static double launcher_P_ctrlUnitsPerTickPerS = 40;
