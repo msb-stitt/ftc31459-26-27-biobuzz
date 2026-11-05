@@ -13,6 +13,7 @@ import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.math.Pose;
 
 import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.firstinspires.ftc.teamcode.lessons.L040TankOpMode;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -134,6 +135,60 @@ public class SharedLifecycleTest {
         h.loop();
         assertTrue("the selected routine's command ran", ran[0]);
         h.stop();
+    }
+
+    @Test
+    public void aTeleOpOutsideTheLessonsStartsAtTheDefaultUntilAnAutoHasRun() {
+        Pose theEndPose = OpModeStorage.autonomousEndPose;
+        boolean anAutoHadRun = OpModeStorage.autoHasRun;
+        boolean wasRed = OpModeStorage.isRed;
+        try {
+            OpModeStorage.autoHasRun = false;
+            for (boolean red : new boolean[]{true, false}) {
+                OpModeStorage.isRed = red;
+                OpModeHarness h = new OpModeHarness(new SampleTeleOp());
+                h.init();
+                assertSamePose("no auto run, " + (red ? "red" : "blue"),
+                        OpModeStorage.defaultStartPose(red), h.robot.follower.pose());
+                h.stop();
+            }
+
+            Pose autoEnd = POSES.of(30, 40, 0);
+            OpModeStorage.autonomousEndPose = autoEnd;
+            OpModeStorage.autoHasRun = true;
+            OpModeHarness h = new OpModeHarness(new SampleTeleOp());
+            h.init();
+            assertSamePose("after an auto, where it ended", autoEnd, h.robot.follower.pose());
+            h.stop();
+        } finally {
+            OpModeStorage.autonomousEndPose = theEndPose;
+            OpModeStorage.autoHasRun = anAutoHadRun;
+            OpModeStorage.isRed = wasRed;
+        }
+    }
+
+    @Test
+    public void aLessonsTeleOpStartsAtTheLessonsDefaultWithNoAutoRun() {
+        Pose theEndPose = OpModeStorage.autonomousEndPose;
+        boolean anAutoHadRun = OpModeStorage.autoHasRun;
+        boolean wasRed = OpModeStorage.isRed;
+        try {
+            Pose lessonsDefault = POSES.of(20, 30, 45);
+            OpModeStorage.autonomousEndPose = lessonsDefault;
+            OpModeStorage.autoHasRun = false;
+            for (boolean red : new boolean[]{true, false}) {
+                OpModeStorage.isRed = red;
+                OpModeHarness h = new OpModeHarness(new L040TankOpMode());
+                h.init();
+                assertSamePose("no auto run, " + (red ? "red" : "blue"),
+                        lessonsDefault, h.robot.follower.pose());
+                h.stop();
+            }
+        } finally {
+            OpModeStorage.autonomousEndPose = theEndPose;
+            OpModeStorage.autoHasRun = anAutoHadRun;
+            OpModeStorage.isRed = wasRed;
+        }
     }
 
     private static void assertSamePose(String what, Pose expected, Pose pose) {

@@ -129,7 +129,12 @@ public abstract class CorbelsOpMode extends OpMode {
         this.heldDrivetrain = heldDrivetrain;
         follower = RobotFactory.follower.apply(hardwareMap, heldDrivetrain);
         if (!isAuto()) {
-            follower.setPose(OpModeStorage.autonomousEndPose);
+            Pose teleOpStart = OpModeStorage.autonomousEndPose;
+            boolean takesTheDefault = !OpModeStorage.autoHasRun && !isLesson();
+            if (takesTheDefault) {
+                teleOpStart = OpModeStorage.defaultStartPose(OpModeStorage.isRed);
+            }
+            follower.setPose(teleOpStart);
         }
         onInit();
         follower.update();
