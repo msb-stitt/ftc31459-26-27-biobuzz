@@ -8,6 +8,8 @@ import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static com.pedropathing.ivy.pedro.PedroCommands.hold;
 
+import android.view.Menu;
+
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
@@ -60,7 +62,8 @@ public class ExampleAuto extends CorbelsAuto {
     MenuItem nothing = new MenuItem("N", "Nothing");
     MenuItem forward24 = new MenuItem("F24", "Forward 24");
     MenuItem forwardThenStrafe = new MenuItem("FS", "Forward Then Strafe");
-    MenuItem movShotStrafeIn = new MenuItem("MVSI", "Mov Shot Strafe In");
+    MenuItem movShotStrafeIn = new MenuItem("MVSI", "Move Shot Strafe In");
+    MenuItem movShotStrafeInPlus = new MenuItem("MVSI+", "Move Shot Strafe In+");
     // LOOKHERE - add new MenuItem for YOUR_NEW_AUTO_HERE here.
     // e.g. MenuItem YOUR_NEW_AUTO_HERE = new MenuItem( "SF", "Shoot Then Forward");
     MenuRow autoRow = new MenuRow("Auto");
@@ -88,6 +91,7 @@ public class ExampleAuto extends CorbelsAuto {
         autoRow.add(forward24);
         autoRow.add(forwardThenStrafe);
         autoRow.add(movShotStrafeIn);
+        autoRow.add(movShotStrafeInPlus);
         // LOOKHERE - add MenuItem for YOUR_NEW_AUTO_HERE to autoRow here
         // e.g:
         // autoRow.add(YOUR_NEW_AUTO_HERE);
@@ -132,6 +136,9 @@ public class ExampleAuto extends CorbelsAuto {
         if (auto == movShotStrafeIn) {
             chosenAuto = shootThenIntake();
         }
+        if (auto == movShotStrafeInPlus) {
+            chosenAuto = shootDriveLoadDriveShootPark();
+        }
         // LOOKHERE - add if (auto == YOUR_NEW_AUTO_HERE)  to assign YOUR_NEW_COMMAND to chosenAuto
         // here e.g.:
         //         if (auto == YOUR_NEW_AUTO_HERE) {
@@ -173,7 +180,7 @@ public class ExampleAuto extends CorbelsAuto {
     @Override
     public Pose startPose() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, -90.0);
+        Pose start = poses.of(60.0, botStartYIn, -90.0);
         return start;
     }
 
@@ -279,19 +286,18 @@ public class ExampleAuto extends CorbelsAuto {
 
     // LOOKHERE - for your new auto YOUR_NEW_AUTO_HERE define YOUR_NEW_COMMAND here:
     // e.g.:
-    //Command YOUR_NEW_COMMAND() {
-    //    PoseFactory poses = poses();
-    //    Pose startPose = poses.of(72.0, botStartYIn, -90.0);
-    //    Pose stopPose = poses.of(72.0, botStartYIn + 6.0, -90.0);
-    //
+    Command shootDriveLoadDriveShootPark() {
+        PoseFactory poses = poses();
+        Pose startPose = startPose();
+        Pose stopPose = poses.of(60.0, botStartYIn + 6.0, -90.0);
+
     //    Command holdWhileShooting = hold(follower, startPose);
-    //    Command shoot = shootFor(shootSeconds);
-    //    Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
-    //    Command driveForwardAfterShot = follow(follower, line(startPose, stopPose).constant(startPose));
-    //    Command shootThenMoveRoute = sequential(holdWhileShooting, shoot,
-    //            waitAfterShooting, driveForwardAfterShot);
-    //    return shootThenMoveRoute;
-    //}
+        Command shoot = shootFor(shootSeconds);
+        Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
+        Command driveForwardAfterShot = follow(follower, line(startPose, stopPose).constant(startPose));
+        Command shootThenMoveRoute = sequential(shoot, waitAfterShooting, driveForwardAfterShot);
+        return shootThenMoveRoute;
+    }
 
 
     /**
