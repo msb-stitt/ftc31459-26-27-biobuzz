@@ -13,8 +13,9 @@ import com.pedropathing.math.Pose;
  * autonomous writes its alliance, from L140 on. Static
  * because the two are separate OpMode objects: the Driver Station builds a new
  * one each time PLAY is pressed, and only the class outlives that. It survives
- * Stop and Init, and does not survive restarting the Robot Controller app, so
- * the first teleop after a restart uses the default below.
+ * Stop and Init, and does not survive restarting the Robot Controller app or
+ * running Clear Auto Has Run, so the first teleop after either uses the
+ * default below.
  *
  * <h2>Where (0, 0) is</h2>
  *
@@ -52,7 +53,7 @@ public final class OpModeStorage {
      * The default is the middle of the near wall, facing up the field, for a
      * lesson's teleop run with no autonomous before it.
      */
-    public static Pose autonomousEndPose = POSES.of(72, botStartYIn, 90);
+    public static Pose autonomousEndPose;
 
     /**
      * Whether an autonomous has finished since the Robot Controller app
@@ -60,14 +61,28 @@ public final class OpModeStorage {
      * default. {@code CorbelsOpMode.initAfter} reads it, and so does a teleop
      * that starts where its own auto starts.
      */
-    public static boolean autoHasRun = false;
+    public static boolean autoHasRun;
 
     /**
      * Whether the last autonomous ran for the red alliance, so the next teleop
      * drives from that Alliance Area. True for a teleop run with no autonomous
      * before it.
      */
-    public static boolean isRed = true;
+    public static boolean isRed;
+
+    static {
+        clear();
+    }
+
+    /**
+     * Puts the fields above back as the Robot Controller app starts them, as
+     * if no autonomous had run.
+     */
+    public static void clear() {
+        autonomousEndPose = POSES.of(72, botStartYIn, 90);
+        autoHasRun = false;
+        isRed = true;
+    }
 
     /**
      * Where an OpMode outside the lessons starts when nothing else says: against
