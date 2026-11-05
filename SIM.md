@@ -146,10 +146,12 @@ So the simulator has no slip, no scrub, no battery sag, no floor, no field wall,
 backwards and no Pinpoint. It cannot tell you a path is too fast for the tyres, and it will happily
 drive through the perimeter. **When the simulator and the robot disagree, the robot is right.**
 
-An autonomous starts where its own `startPose()` says. A teleop starts where the last autonomous
-finished, which `OpModeStorage.autonomousEndPose` carries between them; with no autonomous before
-it, that is the middle of the near wall facing up the field. A teleop with a start menu, such as
-Example TeleOp, sets its own during INIT. Nothing starts at Pedro's origin any more, which is a
+An autonomous starts where its own `startPose()` says; a menu auto's is the start of the route
+chosen, set during INIT. A teleop starts where the last autonomous finished, which
+`OpModeStorage.autonomousEndPose` carries between them. With no autonomous before it, a lesson's
+teleop starts at the middle of the near wall facing up the field, and any other teleop at
+`OpModeStorage.defaultStartPose`, against its alliance's wall and facing it. A teleop with a start
+menu, such as Example TeleOp, sets its own during INIT. Nothing starts at Pedro's origin any more, which is a
 field corner and outside the perimeter frame.
 
 Time is simulated in a test and measured in a run. `OpModeHarness.loop()` advances `step_ms` and
