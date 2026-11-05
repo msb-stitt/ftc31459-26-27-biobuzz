@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.behaviors.InterruptedBehavior;
@@ -60,10 +59,6 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
     /** The menu's choices when the pose was last set; none before the first pass. */
     MenuItem allianceLastSet;
     MenuItem startLastSet;
-
-    double robotHalfLengthIn = 9.0;
-    double fieldPerimeterWidthIn = 1.5;
-    double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
 
     CorbelsMecanum drivetrain;
     Command driveFromTheSticks;
@@ -218,21 +213,11 @@ public class Bot88888TeleOp extends CorbelsTeleOp {
         return false;
     }
 
-    /** Against the wall, facing up the field, where 88888 Auto starts. */
+    /** Against the alliance's wall, facing it: the default start, where 88888 Auto starts. */
     Pose wallPose() {
-        PoseFactory poses = poses();
-        Pose wallPose = poses.of(72.0, botStartYIn, 90.0);
+        boolean isRed = allianceRow.getSelected() == red;
+        Pose wallPose = OpModeStorage.defaultStartPose(isRed);
         return wallPose;
-    }
-
-    /** The red alliance's poses as they are, or turned for the blue alliance. */
-    PoseFactory poses() {
-        PoseFactory redPoses = PoseFactory.degrees();
-        PoseFactory chosenPoses = redPoses;
-        if (allianceRow.getSelected() == blue) {
-            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
-        }
-        return chosenPoses;
     }
 
     /** A value close to zero, inside the band, is zero; any other is as it is. */

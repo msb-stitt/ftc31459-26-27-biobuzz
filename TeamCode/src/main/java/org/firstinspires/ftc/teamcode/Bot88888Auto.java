@@ -11,6 +11,7 @@ import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.base.AutoRoutine;
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.DriverStationMenu;
@@ -20,17 +21,19 @@ import org.firstinspires.ftc.teamcode.base.OptionMenu;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
- * Robot 88888's autonomous: L140 Auto, as solutions-l140-alliances.2 solves
- * it, on 88888's Pinpoint and drivetrain. A Robot Controller name starting
- * 88888, such as 88888-RC, picks 88888's values; on a Robot Controller named
- * otherwise, set {@code Constants.thisRobot} to {@code BOT_88888} before
- * running it.
+ * Robot 88888's autonomous, on 88888's Pinpoint and drivetrain. A Robot
+ * Controller name starting 88888, such as 88888-RC, picks 88888's values; on a
+ * Robot Controller named otherwise, set {@code Constants.thisRobot} to
+ * {@code BOT_88888} before running it.
  *
  * <p>Between INIT and PLAY, gamepad 1's D-pad works a menu on the Driver
  * Station: the alliance, and the auto, which is Nothing until another is
- * chosen. The poses are written for the red alliance. For the blue alliance,
- * {@code poses()} turns each one a half-turn about the field's middle, at
- * (72, 72).
+ * chosen. Each auto's route says where it starts. When a choice changes, the
+ * robot's pose is set to the chosen auto's start, so the flight log shows it
+ * before PLAY. The poses are written for the red alliance. For the blue
+ * alliance, {@code poses()} turns each one a half-turn about the field's
+ * middle, at (72, 72). Left, right, forward and backward are as the audience
+ * sees them, from below y = 0 looking toward +y.
  *
  * <p>At PLAY the alliance is handed to 88888 TeleOp, which the Driver Station
  * picks when this auto ends, by itself or at the end of its 30 seconds.
@@ -76,12 +79,31 @@ public class Bot88888Auto extends CorbelsAuto {
         initAfter(drivetrain);
     }
 
-    /** Again and again between INIT and PLAY: the menu. */
+    /** Again and again between INIT and PLAY: the menu, and the chosen auto when it changes. */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void init_loop() {
         menu.loop(gamepad1);
+        if (menu.choiceChanged()) {
+            MenuItem auto = autoRow.getSelected();
+            AutoRoutine chosen = autoRoutineFor(auto);
+            select(chosen);
+        }
         initLoopAfter();
+    }
+
+    /** The route for a menu item: Nothing, the default start doing nothing, unless another. */
+    AutoRoutine autoRoutineFor(MenuItem auto) {
+        boolean isRed = allianceRow.getSelected() == red;
+        Pose defaultStart = OpModeStorage.defaultStartPose(isRed);
+        AutoRoutine chosenAuto = new AutoRoutine(defaultStart, Command.NOOP);
+        if (auto == forward24) {
+            chosenAuto = driveForward24();
+        }
+        if (auto == forwardThenStrafe) {
+            chosenAuto = driveForwardThenStrafe();
+        }
+        return chosenAuto;
     }
 
     // 'public' to match the parent class. 'public' allows access from any code.
@@ -93,13 +115,7 @@ public class Bot88888Auto extends CorbelsAuto {
 
         MenuItem auto = autoRow.getSelected();
         Tracker.publish("menu/auto", auto.getFullName());
-        Command chosenAuto = Command.NOOP;
-        if (auto == forward24) {
-            chosenAuto = driveForward24();
-        }
-        if (auto == forwardThenStrafe) {
-            chosenAuto = driveForwardThenStrafe();
-        }
+        Command chosenAuto = selectedAuto.command();
         Scheduler.schedule(chosenAuto);
         startAfter();
     }
@@ -130,36 +146,29 @@ public class Bot88888Auto extends CorbelsAuto {
         return chosenPoses;
     }
 
-    /** Set at INIT, and again at PLAY, once the alliance is chosen. */
-    // 'public' to match the parent class. 'public' allows access from any code.
-    @Override
-    public Pose startPose() {
+    /** Forward 24 inches from the wall. */
+    AutoRoutine driveForward24() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
-        return start;
-    }
-
-    /** L125's auto: forward 24 inches from the wall. */
-    Command driveForward24() {
-        PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
-        Pose end = poses.of(72.0, botStartYIn + 24.0, 90.0);
+        Pose start = poses.of(60.0, botStartYIn, -90.0);
+        Pose end = poses.of(60.0, botStartYIn + 24.0, -90.0);
 
         Command forward24 = sequential(follow(follower, line(start, end).constant(start)));
-        return forward24;
+        AutoRoutine forward24Routine = new AutoRoutine(start, forward24);
+        return forward24Routine;
     }
 
-    /** L130's auto: forward to the middle, sideways to the right, then hold there. */
-    Command driveForwardThenStrafe() {
+    /** Forward 24 inches, left 24 inches, then hold there, on its own alliance's side. */
+    AutoRoutine driveForwardThenStrafe() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, 90.0);
-        Pose corner = poses.of(72.0, 72.0, 90.0);
-        Pose end = poses.of(96.0, 72.0, 90.0);
+        Pose start = poses.of(60.0, botStartYIn, -90.0);
+        Pose corner = poses.of(60.0, botStartYIn + 24.0, -90.0);
+        Pose end = poses.of(36.0, botStartYIn + 24.0, -90.0);
 
         Command driveForwardToTheCorner = follow(follower, line(start, corner).constant(start));
-        Command strafeRightToTheEnd = follow(follower, line(corner, end).constant(start));
+        Command strafeLeftToTheEnd = follow(follower, line(corner, end).constant(start));
         Command holdTheEnd = hold(follower, end);
-        Command forwardThenStrafeRoute = sequential(driveForwardToTheCorner, strafeRightToTheEnd, holdTheEnd);
-        return forwardThenStrafeRoute;
+        Command forwardThenStrafeRoute = sequential(driveForwardToTheCorner, strafeLeftToTheEnd, holdTheEnd);
+        AutoRoutine forwardThenStrafeRoutine = new AutoRoutine(start, forwardThenStrafeRoute);
+        return forwardThenStrafeRoutine;
     }
 }

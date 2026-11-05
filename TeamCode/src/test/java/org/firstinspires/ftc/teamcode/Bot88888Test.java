@@ -19,10 +19,7 @@ import org.junit.Test;
 
 import java.util.function.Consumer;
 
-/**
- * 88888's OpModes do what the solved L140 Auto and L140 Field Relative do, with
- * no mechanism.
- */
+/** 88888's OpModes, which drive and look up no mechanism. */
 public class Bot88888Test {
 
     private static final PoseFactory POSES = PoseFactory.degrees();
@@ -158,11 +155,8 @@ public class Bot88888Test {
         assertTrue(h.driverStation.text(), h.driverStation.shows("B-W"));
         h.start();
 
-        // Red's wall start, (72, 10.5, 90), turned a half-turn about (72, 72).
-        assertEquals("against blue's wall", 72.0, follower.pose().x(), EPS);
-        assertEquals(133.5, follower.pose().y(), EPS);
-        double heading_deg = Math.toDegrees(follower.pose().heading());
-        assertEquals("facing -y", 270.0, (heading_deg % 360.0 + 360.0) % 360.0, 1e-3);
+        assertSamePose("against blue's wall, facing it", OpModeStorage.defaultStartPose(false),
+                follower.pose());
         h.stop();
     }
 
@@ -283,10 +277,66 @@ public class Bot88888Test {
         runUntilDone(h, follower, 6.0);
         h.stop();
 
-        // Red's route ends at (96, 72); turned a half-turn about (72, 72), (48, 72).
+        // Red's route ends at (36, 34.5); turned a half-turn about (72, 72), (108, 109.5).
         Pose end = follower.pose();
-        assertEquals("forward then strafe, for blue", 48.0, end.x(), 2.0);
-        assertEquals(72.0, end.y(), 2.0);
+        assertEquals("forward then strafe, for blue", 108.0, end.x(), 2.0);
+        assertEquals(109.5, end.y(), 2.0);
+    }
+
+    @Test
+    public void eachAutosStartIsSetDuringInitAndFollowsAChangeOfAutoOrAlliance() {
+        Bot88888Auto auto = new Bot88888Auto();
+        OpModeHarness h = new OpModeHarness(auto);
+        Follower follower = h.robot.follower;
+        PoseFactory bluePoses = POSES.rotateAround(72.0, 72.0, 180.0);
+        h.init();
+        h.initLoop();
+        assertSamePose("Nothing, on red", OpModeStorage.defaultStartPose(true), follower.pose());
+
+        pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
+        String[] autos = {"Forward 24", "Forward Then Strafe"};
+        for (String name : autos) {
+            follower.setPose(POSES.of(50, 60, 30));
+            pressDuringInit(h, pad -> pad.dpad_right = true);
+            pressDuringInit(h, pad -> pad.a = true);
+            assertEquals(name, auto.autoRow.getSelected().getFullName());
+            assertSamePose(name + ", on red", POSES.of(60.0, 10.5, -90.0), follower.pose());
+        }
+
+        pressDuringInit(h, pad -> pad.dpad_up = true);              // the Alliance row
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // blue
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("Forward Then Strafe, on blue", bluePoses.of(60.0, 10.5, -90.0),
+                follower.pose());
+
+        pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // wraps to Nothing
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("Nothing, on blue", OpModeStorage.defaultStartPose(false),
+                follower.pose());
+
+        Pose movedTo = POSES.of(50, 60, 30);
+        follower.setPose(movedTo);
+        h.initLoop();
+        assertSamePose("a pass with no change leaves it", movedTo, follower.pose());
+        h.stop();
+    }
+
+    @Test
+    public void forwardTwentyFourGoesForward24InOnRed() {
+        OpModeHarness h = new OpModeHarness(new Bot88888Auto());
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // Forward 24
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue(h.driverStation.text(), h.driverStation.shows("R-F24"));
+        h.start();
+        runUntilDone(h, follower, 6.0);
+        h.stop();
+        assertEquals("forward 24 in", 60.0, follower.pose().x(), 2.0);
+        assertEquals(34.5, follower.pose().y(), 2.0);
     }
 
     @Test
