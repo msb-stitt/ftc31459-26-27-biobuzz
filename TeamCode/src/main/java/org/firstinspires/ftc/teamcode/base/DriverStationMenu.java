@@ -18,6 +18,8 @@ public class DriverStationMenu {
 
     private OptionMenu optionMenu;
     private MenuButtons menuButtons;
+    /** The summary when {@link #choiceChanged} was last asked; none before it is first asked. */
+    private String summaryLastAsked;
 
     // 'public' so OpModes outside base can make one. 'public' allows access from any code.
     public DriverStationMenu(OptionMenu optionMenu) {
@@ -42,5 +44,19 @@ public class DriverStationMenu {
     public String getSummary() {
         String summary = optionMenu.getSummary();
         return summary;
+    }
+
+    /**
+     * Whether a row's selected item is different from the last time this was
+     * asked; true the first time. Called from init_loop(), after
+     * {@link #loop}, once a pass. An item offered and not yet selected is no
+     * change.
+     */
+    // 'public' so OpModes outside base can call it. 'public' allows access from any code.
+    public boolean choiceChanged() {
+        String summary = optionMenu.getSummary();
+        boolean changed = !summary.equals(summaryLastAsked);
+        summaryLastAsked = summary;
+        return changed;
     }
 }
