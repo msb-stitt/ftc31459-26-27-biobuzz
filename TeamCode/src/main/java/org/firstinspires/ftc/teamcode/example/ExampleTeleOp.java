@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.example;
 
-import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.behaviors.InterruptedBehavior;
@@ -69,13 +68,6 @@ public class ExampleTeleOp extends CorbelsTeleOp {
     MenuRow startRow = new MenuRow("Start");
     OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
-    /** The menu's choices when the pose was last set; none before the first pass. */
-    MenuItem allianceLastSet;
-    MenuItem startLastSet;
-
-    double robotHalfLengthIn = 9.0;
-    double fieldPerimeterWidthIn = 1.5;
-    double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
 
     CorbelsMecanum drivetrain;
     Intake intake;
@@ -116,21 +108,11 @@ public class ExampleTeleOp extends CorbelsTeleOp {
     @Override
     public void init_loop() {
         menu.loop(gamepad1);
-        setThePoseWhenTheMenuChanges();
-        initLoopAfter();
-    }
-
-    /** The pose set on the first pass, and again only when the alliance or start changes. */
-    void setThePoseWhenTheMenuChanges() {
-        MenuItem alliance = allianceRow.getSelected();
-        MenuItem start = startRow.getSelected();
-        boolean changed = alliance != allianceLastSet || start != startLastSet;
-        if (changed) {
+        if (menu.choiceChanged()) {
             Pose startPose = startPose();
             follower.setPose(startPose);
-            allianceLastSet = alliance;
-            startLastSet = start;
         }
+        initLoopAfter();
     }
 
     /** Where the auto ended, once an auto has run; otherwise against the wall. */
@@ -265,21 +247,11 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         return intakeSpeedFraction;
     }
 
-    /** Against the wall, facing the audience, where Example Auto starts. */
+    /** Against the alliance's wall, facing it: the default start, where Example Auto starts. */
     Pose wallPose() {
-        PoseFactory poses = poses();
-        Pose wallPose = poses.of(60.0, botStartYIn, -90.0);
+        boolean isRed = allianceRow.getSelected() == red;
+        Pose wallPose = OpModeStorage.defaultStartPose(isRed);
         return wallPose;
-    }
-
-    /** The red alliance's poses as they are, or turned for the blue alliance. */
-    PoseFactory poses() {
-        PoseFactory redPoses = PoseFactory.degrees();
-        PoseFactory chosenPoses = redPoses;
-        if (allianceRow.getSelected() == blue) {
-            chosenPoses = redPoses.rotateAround(72.0, 72.0, 180.0);
-        }
-        return chosenPoses;
     }
 
     /** A value close to zero, inside the band, is zero; any other is as it is. */
