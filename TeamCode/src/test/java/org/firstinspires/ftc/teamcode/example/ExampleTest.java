@@ -257,6 +257,64 @@ public class ExampleTest {
     }
 
     @Test
+    public void eachAutosStartIsSetDuringInitAndFollowsAChangeOfAutoOrAlliance() {
+        ExampleAuto auto = new ExampleAuto();
+        OpModeHarness h = new OpModeHarness(auto);
+        Follower follower = h.robot.follower;
+        PoseFactory redPoses = PoseFactory.degrees();
+        PoseFactory bluePoses = redPoses.rotateAround(72.0, 72.0, 180.0);
+        h.init();
+        h.initLoop();
+        assertSamePose("Nothing, on red", OpModeStorage.defaultStartPose(true), follower.pose());
+
+        pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
+        String[] autos = {"Forward 24", "Forward Then Strafe", "Move Shot Strafe In",
+                "Shoot And Park"};
+        for (String name : autos) {
+            follower.setPose(redPoses.of(50, 60, 30));
+            pressDuringInit(h, pad -> pad.dpad_right = true);
+            pressDuringInit(h, pad -> pad.a = true);
+            assertEquals(name, auto.autoRow.getSelected().getFullName());
+            assertSamePose(name + ", on red", redPoses.of(60.0, 10.5, -90.0), follower.pose());
+        }
+
+        pressDuringInit(h, pad -> pad.dpad_up = true);              // the Alliance row
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // blue
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("Shoot And Park, on blue", bluePoses.of(60.0, 10.5, -90.0),
+                follower.pose());
+
+        pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // wraps to Nothing
+        pressDuringInit(h, pad -> pad.a = true);
+        assertSamePose("Nothing, on blue", OpModeStorage.defaultStartPose(false),
+                follower.pose());
+
+        Pose movedTo = redPoses.of(50, 60, 30);
+        follower.setPose(movedTo);
+        h.initLoop();
+        assertSamePose("a pass with no change leaves it", movedTo, follower.pose());
+        h.stop();
+    }
+
+    @Test
+    public void forwardThenStrafeGoesForward24InThenLeft24In() {
+        OpModeHarness h = new OpModeHarness(new ExampleAuto());
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // Forward 24
+        pressDuringInit(h, pad -> pad.dpad_right = true);           // Forward Then Strafe
+        pressDuringInit(h, pad -> pad.a = true);
+        assertTrue(h.driverStation.text(), h.driverStation.shows("R-FS"));
+        h.start();
+        h.loops(1000, 10);
+        assertAt("forward 24 in, then left 24 in, on red's side", 36.0, 34.5,
+                h.robot.follower.pose());
+        h.stop();
+    }
+
+    @Test
     public void theTeleOpDrivesTheFieldAndRunsTheIntakeAndLauncher() {
         OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
         Follower follower = h.robot.follower;
