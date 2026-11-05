@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.base;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.api.PoseFactory;
@@ -81,6 +82,65 @@ public class SharedLifecycleTest {
         @Override public void init() { initBefore(); initAfter(); }
 
         @Override public void loop() { loopBefore(); loopAfter(); }
+    }
+
+    /** An auto that runs whatever it was last given to select, as a menu auto does. */
+    public static class AutoThatSelects extends CorbelsAuto {
+        @Override public void init() { initBefore(); initAfter(); }
+
+        @Override public void start() {
+            startBefore();
+            Scheduler.schedule(selectedAuto.command());
+            startAfter();
+        }
+
+        @Override public void loop() { loopBefore(); loopAfter(); }
+    }
+
+    @Test
+    public void anAutoStartsAtTheDefaultDoingNothingUntilItSelectsARoutine() {
+        boolean wasRed = OpModeStorage.isRed;
+        try {
+            for (boolean red : new boolean[]{true, false}) {
+                OpModeStorage.isRed = red;
+                AutoThatSelects opMode = new AutoThatSelects();
+                OpModeHarness h = new OpModeHarness(opMode);
+                h.init();
+                assertSamePose("the default, before a routine is selected",
+                        OpModeStorage.defaultStartPose(red), h.robot.follower.pose());
+                assertSame(Command.NOOP, opMode.selectedAuto.command());
+                h.stop();
+                Scheduler.reset();
+            }
+        } finally {
+            OpModeStorage.isRed = wasRed;
+        }
+    }
+
+    @Test
+    public void selectingARoutineMovesTheRobotToItsStartAndPlayRunsItsCommand() {
+        AutoThatSelects opMode = new AutoThatSelects();
+        OpModeHarness h = new OpModeHarness(opMode);
+        h.init();
+        h.initLoop();
+        boolean[] ran = {false};
+        Pose start = POSES.of(30, 40, 0);
+        AutoRoutine routine = new AutoRoutine(start, Commands.instant(() -> ran[0] = true));
+        opMode.select(routine);
+        assertSamePose("moved during INIT", start, h.robot.follower.pose());
+
+        h.start();
+        assertSamePose("and still there at PLAY", start, h.robot.follower.pose());
+        h.loop();
+        assertTrue("the selected routine's command ran", ran[0]);
+        h.stop();
+    }
+
+    private static void assertSamePose(String what, Pose expected, Pose pose) {
+        assertEquals(what + ": x", expected.x(), pose.x(), 1e-6);
+        assertEquals(what + ": y", expected.y(), pose.y(), 1e-6);
+        double turn = pose.heading() - expected.heading();
+        assertEquals(what + ": heading", 0.0, Math.atan2(Math.sin(turn), Math.cos(turn)), 1e-6);
     }
 
     @Test
