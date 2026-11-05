@@ -6,7 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.example.TeleOpWithPanelsOpMode;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -20,6 +22,11 @@ import java.lang.reflect.Constructor;
  * out: this is {@link CorbelsOpMode}'s behaviour, not a lesson's.
  */
 public class InitLoopTest {
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
+    }
 
     @Test
     public void aLessonPublishesTheHeadingBeforePlay() throws Exception {

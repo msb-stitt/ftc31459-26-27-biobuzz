@@ -10,6 +10,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.ivy.commands.Commands;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +25,7 @@ public class BaseTest {
 
     @Before
     public void setUp() {
+        OpModeStorage.clear();
         robot = new SimRobot();
         follower = robot.follower;
         Scheduler.reset();

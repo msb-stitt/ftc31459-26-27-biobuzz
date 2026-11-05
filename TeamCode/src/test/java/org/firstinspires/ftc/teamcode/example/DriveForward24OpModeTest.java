@@ -17,6 +17,7 @@ public class DriveForward24OpModeTest {
 
     @Before
     public void setUp() {
+        OpModeStorage.clear();
         Scheduler.reset();
     }
 

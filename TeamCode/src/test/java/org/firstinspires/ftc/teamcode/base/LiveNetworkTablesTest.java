@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
 
 import org.firstinspires.ftc.teamcode.LiveNetworkTablesSwitch;
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.Tracker.LiveSetting;
 import org.junit.After;
 import org.junit.Before;
@@ -44,6 +45,7 @@ public class LiveNetworkTablesTest {
 
     @Before
     public void countTheServersAskedFor() {
+        OpModeStorage.clear();
         robotServers = Tracker.liveServers;
         Tracker.liveServers = () -> {
             serversAskedFor++;

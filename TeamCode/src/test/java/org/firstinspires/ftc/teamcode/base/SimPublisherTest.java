@@ -14,6 +14,8 @@ import edu.wpi.first.networktables.StringSubscriber;
 
 import io.github.mikestitt.corbelsflightlog.FlightLog;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -78,6 +80,11 @@ public class SimPublisherTest {
     private static double[] unpack(byte[] raw) {
         ByteBuffer b = ByteBuffer.wrap(raw).order(ByteOrder.LITTLE_ENDIAN);
         return new double[]{b.getDouble(), b.getDouble(), b.getDouble()};
+    }
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
     }
 
     @Test

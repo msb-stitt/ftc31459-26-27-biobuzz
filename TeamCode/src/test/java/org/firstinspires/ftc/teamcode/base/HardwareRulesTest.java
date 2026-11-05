@@ -6,8 +6,10 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.lessons.L180CombinedOpMode;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -25,6 +27,11 @@ import java.util.stream.Stream;
  * lookups happen at init -- not after the match has started.
  */
 public class HardwareRulesTest {
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
+    }
 
     @Test
     public void everyDeviceIsLookedUpDuringInitAndNotAfter() {

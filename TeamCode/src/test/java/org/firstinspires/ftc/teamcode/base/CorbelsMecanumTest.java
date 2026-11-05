@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.drivetrain.DrivePowers;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +35,7 @@ public class CorbelsMecanumTest {
 
     @Before
     public void setUp() {
+        OpModeStorage.clear();
         h = new OpModeHarness(new Idle());
         h.init();
         drivetrain = ((Idle) h.opMode()).drivetrain;

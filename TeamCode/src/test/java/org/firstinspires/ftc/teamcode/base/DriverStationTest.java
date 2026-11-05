@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Files;
@@ -65,6 +67,11 @@ public class DriverStationTest {
             loopBefore();
             loopAfter();
         }
+    }
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
     }
 
     @Test

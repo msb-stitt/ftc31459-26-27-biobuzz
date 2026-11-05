@@ -25,22 +25,14 @@ public class Bot88888Test {
     private static final PoseFactory POSES = PoseFactory.degrees();
     private static final double EPS = 1e-6;
 
-    private Pose theAutosEndPose;
-    private boolean anAutoHadRun;
-
     @Before
     public void setUp() {
+        OpModeStorage.clear();
         Scheduler.reset();
-        theAutosEndPose = OpModeStorage.autonomousEndPose;
-        anAutoHadRun = OpModeStorage.autoHasRun;
-        OpModeStorage.autoHasRun = false;
     }
 
     @After
     public void tearDown() {
-        OpModeStorage.autonomousEndPose = theAutosEndPose;
-        OpModeStorage.autoHasRun = anAutoHadRun;
-        OpModeStorage.isRed = true;
         OpModeHarness.restoreFactories();
         Scheduler.reset();
     }

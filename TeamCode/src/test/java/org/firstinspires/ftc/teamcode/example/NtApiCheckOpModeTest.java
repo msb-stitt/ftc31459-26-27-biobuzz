@@ -6,8 +6,10 @@ import static org.junit.Assert.assertTrue;
 import edu.wpi.first.util.datalog.DataLogReader;
 import edu.wpi.first.util.datalog.DataLogRecord;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.example.NtApiCheckOpMode.Entry;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -26,6 +28,11 @@ import java.util.Map;
  * port, 5810, so it fails if a {@code simRun} is running at the same time.
  */
 public class NtApiCheckOpModeTest {
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
+    }
 
     @Test
     public void itMovesNothingServesAndRecordsEveryValue() throws IOException {

@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -39,6 +41,11 @@ public class FlightLogTest {
         @Override public void loop() { loopBefore(); loopAfter(); }
 
         @Override public Pose startPose() { return POSES.of(12, 12, 0); }
+    }
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
     }
 
     @Test

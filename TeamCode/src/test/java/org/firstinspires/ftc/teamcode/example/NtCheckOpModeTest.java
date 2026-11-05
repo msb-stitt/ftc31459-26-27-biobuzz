@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.example;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -19,6 +21,11 @@ import java.nio.charset.StandardCharsets;
  * running at the same time.
  */
 public class NtCheckOpModeTest {
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
+    }
 
     @Test
     public void itTurnsTheServerOnAndShowsTheDriverWhatAdvantageScopeShouldRead() throws IOException {

@@ -9,7 +9,6 @@ import com.pedropathing.math.Pose;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,26 +30,14 @@ public class SimMotionTest {
     @Rule
     public final SimLogs logs = new SimLogs();
 
-    /**
-     * A teleop starts where the last OpMode stopped, and {@code stopAfter()}
-     * writes that back, so a test that runs one to the end changes where the
-     * next test's robot stands. Saved and restored so these stay independent.
-     */
-    private Pose savedStart;
-
     @Before
-    public void saveStart() {
-        savedStart = OpModeStorage.autonomousEndPose;
-    }
-
-    @After
-    public void restoreStart() {
-        OpModeStorage.autonomousEndPose = savedStart;
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
     }
 
     /** Where a teleop is put down, which is what these measure movement from. */
     private static Pose start() {
-        return OpModeStorage.autonomousEndPose;
+        return OpModeStorage.defaultStartPose(OpModeStorage.isRed);
     }
 
     /** How far the robot went along the way it was facing when it started. */
