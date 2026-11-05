@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.Launcher;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,8 +32,8 @@ import java.util.function.Predicate;
 
 /**
  * Example Auto and Example TeleOp, on fake mechanisms: the TeleOp drives the
- * field and runs the intake and launcher from gamepad 1, and Mov Shot Strafe
- * In does its steps in order, for as long as each is meant to take, on the
+ * field and runs the intake and launcher from gamepad 1, and Move Shot
+ * Strafe In does its steps in order, for as long as each is meant to take, on the
  * simulator's clock.
  */
 public class ExampleTest {
@@ -277,9 +278,9 @@ public class ExampleTest {
         assertEquals("right less left", 0.5, intakeMotor.speed, EPS);
 
         h.gamepad1.right_bumper = true;
-        launcherMotor.velocity = 1210;
+        launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
         h.loop();
-        assertEquals(1250, launcherMotor.targetVelocity, 0);
+        assertEquals(Constants.launcherTargetTicksPerSecond, launcherMotor.targetVelocity, 0);
         h.loop();
         assertEquals("fast enough, it feeds", 1, windmill.speed, 0);
         assertEquals("feeding adds 0.5", 1.0, intakeMotor.speed, EPS);
@@ -299,9 +300,9 @@ public class ExampleTest {
         Sample shootingStarts = first(run, s -> s.launcherTarget > 0);
         Sample shootingEnds = firstAfter(run, shootingStarts, s -> s.launcherTarget == 0);
         assertEquals("shoots for 10 s", 10.0, shootingEnds.seconds - shootingStarts.seconds, 0.05);
-        assertAt("shoots from 6 in forward", 72.0, 16.5, shootingStarts.pose);
+        assertAt("shoots from 6 in forward", 60.0, 16.5, shootingStarts.pose);
         for (Sample s : between(run, shootingStarts, shootingEnds)) {
-            assertAt("held while shooting, at " + s.seconds + " s", 72.0, 16.5, s.pose);
+            assertAt("held while shooting, at " + s.seconds + " s", 60.0, 16.5, s.pose);
             assertEquals("fed, once fast enough", 1, s.windmill, 0);
             assertEquals("the intake boosted while it feeds", Launcher.INTAKE_BOOST_SPEED_FRACTION,
                     s.intakeSpeed, EPS);
@@ -312,14 +313,14 @@ public class ExampleTest {
         Sample strafeStarts = firstAfter(run, shootingEnds, s -> s.following);
         assertEquals("waits 3 s", 3.0, strafeStarts.seconds - shootingEnds.seconds, 0.05);
         for (Sample s : between(run, shootingEnds, strafeStarts)) {
-            assertAt("held while waiting, at " + s.seconds + " s", 72.0, 16.5, s.pose);
+            assertAt("held while waiting, at " + s.seconds + " s", 60.0, 16.5, s.pose);
             assertEquals("nothing runs while it waits", 0, s.intakeSpeed, 0);
             assertEquals(0, s.launcherTarget, 0);
         }
 
         Sample intakeStarts = firstAfter(run, strafeStarts, s -> s.intakeSpeed > 0);
         Sample intakeEnds = firstAfter(run, intakeStarts, s -> s.intakeSpeed == 0);
-        assertAt("strafed 24 in to the robot's left, -x", 48.0, 16.5, intakeStarts.pose);
+        assertAt("strafed 12 in to the robot's left, -x", 48.0, 16.5, intakeStarts.pose);
         assertEquals("intakes for 3 s", 3.0, intakeEnds.seconds - intakeStarts.seconds, 0.05);
         for (Sample s : between(run, intakeStarts, intakeEnds)) {
             assertEquals("full speed in", Intake.FULL_IN_SPEED_FRACTION, s.intakeSpeed, EPS);
@@ -336,7 +337,7 @@ public class ExampleTest {
 
         // Red's (72, 16.5) and (48, 16.5), turned a half-turn about (72, 72).
         Sample shootingStarts = first(run, s -> s.launcherTarget > 0);
-        assertAt("shoots from 6 in forward of blue's wall", 72.0, 127.5, shootingStarts.pose);
+        assertAt("shoots from 6 in forward of blue's wall", 84.0, 127.5, shootingStarts.pose);
         Sample intakeStarts = firstAfter(run, shootingStarts,
                 s -> s.intakeSpeed == Intake.FULL_IN_SPEED_FRACTION);
         assertAt("strafed to the robot's left, +x", 96.0, 127.5, intakeStarts.pose);
@@ -344,7 +345,7 @@ public class ExampleTest {
     }
 
     /**
-     * Example Auto with Mov Shot Strafe In chosen, run on the simulator's clock
+     * Example Auto with Move Shot Strafe In chosen, run on the simulator's clock
      * for 25 s, 10 ms a loop, the launcher fast enough to feed, and each loop
      * sampled.
      */
@@ -359,12 +360,13 @@ public class ExampleTest {
             pressDuringInit(h, pad -> pad.a = true);
         }
         pressDuringInit(h, pad -> pad.dpad_down = true);
-        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Mov Shot Strafe In
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot And Park
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // Move Shot Strafe In
         pressDuringInit(h, pad -> pad.a = true);
         String summary = (red ? "R" : "B") + "-MVSI";
         assertTrue(h.driverStation.text(), h.driverStation.shows(summary));
 
-        launcherMotor.velocity = 1210;
+        launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
         h.start();
         List<Sample> run = new ArrayList<>();
         while (h.clock.nanos() < 25_000_000_000L) {

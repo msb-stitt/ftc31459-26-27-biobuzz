@@ -97,13 +97,13 @@ public class StarterBotTest {
         Command fire = launcher.fireWhile(() -> held[0]);
         Scheduler.schedule(fire);
 
-        launcherMotor.velocity = 1100;
+        launcherMotor.velocity = Launcher.FEED_ABOVE_TICKS_PER_SECOND - 100;
         Scheduler.execute();
-        assertEquals(1250, launcherMotor.targetVelocity, 0);
+        assertEquals(Launcher.TARGET_TICKS_PER_SECOND, launcherMotor.targetVelocity, 0);
         assertEquals("too slow to feed", 0, windmill.speedFraction, 0);
         assertFalse(launcher.feeding());
 
-        launcherMotor.velocity = 1210;
+        launcherMotor.velocity = Launcher.FEED_ABOVE_TICKS_PER_SECOND + 10;
         Scheduler.execute();
         assertEquals("fast enough", 1, windmill.speedFraction, 0);
         assertTrue(launcher.feeding());
@@ -126,12 +126,14 @@ public class StarterBotTest {
 
     @Test
     public void theHubGetsANewFOnlyWhenTheTargetChangesAndIsAboveZero() {
-        assertEquals("built with the F for the target", 13.75, launcherMotor.gains.f, 1e-3);
+        assertEquals("built with the F for the target",
+                Launcher.motFCtrlUnitsPerTickPerSecondAt(Launcher.TARGET_TICKS_PER_SECOND),
+                launcherMotor.gains.f, 1e-9);
         assertEquals(40, launcherMotor.gains.p, 0);
         assertEquals(1, launcherMotor.gainsGiven);
 
-        launcher.spinAt(1250);
-        launcher.spinAt(1250);
+        launcher.spinAt(Launcher.TARGET_TICKS_PER_SECOND);
+        launcher.spinAt(Launcher.TARGET_TICKS_PER_SECOND);
         assertEquals("the same target, no new F", 1, launcherMotor.gainsGiven);
 
         launcher.spinAt(250);
@@ -185,8 +187,8 @@ public class StarterBotTest {
         Command hold = launcher.fireWhile(() -> false);
         Scheduler.schedule(fire);
         Scheduler.execute();
-        assertEquals("the first command, built before the second", 1250,
-                launcherMotor.targetVelocity, 0);
+        assertEquals("the first command, built before the second",
+                Launcher.TARGET_TICKS_PER_SECOND, launcherMotor.targetVelocity, 0);
         Scheduler.cancel(fire);
         Scheduler.schedule(hold);
         Scheduler.execute();
@@ -212,9 +214,9 @@ public class StarterBotTest {
         assertEquals("right less left", 0.5, intakeMotor.speedFraction, 1e-6);
 
         h.gamepad1.right_bumper = true;
-        launcherMotor.velocity = 1210;
+        launcherMotor.velocity = Launcher.FEED_ABOVE_TICKS_PER_SECOND + 10;
         h.loop();
-        assertEquals(1250, launcherMotor.targetVelocity, 0);
+        assertEquals(Launcher.TARGET_TICKS_PER_SECOND, launcherMotor.targetVelocity, 0);
         h.loop();
         assertEquals("feeding adds 0.5", 1.0, intakeMotor.speedFraction, 1e-6);
 
@@ -287,7 +289,8 @@ public class StarterBotTest {
         assertEquals(-0.25, (Double) logged.get("drivetrain/strafeYSpeed"), 1e-6);
         assertEquals(-0.125, (Double) logged.get("drivetrain/turnCcwSpeed"), 1e-6);
         assertEquals(0.75, (Double) logged.get("intake/speed"), 1e-6);
-        assertEquals(1250.0, (Double) logged.get("launcher/target_tps"), 0);
+        assertEquals(Launcher.TARGET_TICKS_PER_SECOND, (Double) logged.get("launcher/target_tps"),
+                0);
         String[] wheels = {"frontLeft", "frontRight", "backLeft", "backRight"};
         String[] motors = {OpModeHarness.FRONT_LEFT, OpModeHarness.FRONT_RIGHT,
                 OpModeHarness.BACK_LEFT, OpModeHarness.BACK_RIGHT};

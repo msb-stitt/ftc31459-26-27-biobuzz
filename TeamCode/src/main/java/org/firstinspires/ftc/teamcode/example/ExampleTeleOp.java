@@ -268,7 +268,7 @@ public class ExampleTeleOp extends CorbelsTeleOp {
     /** Against the wall, facing the audience, where Example Auto starts. */
     Pose wallPose() {
         PoseFactory poses = poses();
-        Pose wallPose = poses.of(72.0, botStartYIn, -90.0);
+        Pose wallPose = poses.of(60.0, botStartYIn, -90.0);
         return wallPose;
     }
 

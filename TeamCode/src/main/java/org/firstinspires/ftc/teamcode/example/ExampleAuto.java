@@ -184,8 +184,8 @@ public class ExampleAuto extends CorbelsAuto {
     /** L125's auto: forward 24 inches from the wall. */
     Command driveForward24() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, -90.0);
-        Pose end = poses.of(72.0, botStartYIn + 24.0, -90.0);
+        Pose start = startPose();
+        Pose end = poses.of(60.0, botStartYIn + 24.0, -90.0);
 
         Command forward24 = sequential(follow(follower, line(start, end).constant(start)));
         return forward24;
@@ -194,9 +194,9 @@ public class ExampleAuto extends CorbelsAuto {
     /** L130's auto: forward to the middle, sideways to the right, then hold there. */
     Command driveForwardThenStrafe() {
         PoseFactory poses = poses();
-        Pose start = poses.of(72.0, botStartYIn, -90.0);
-        Pose corner = poses.of(72.0, 72.0, -90.0);
-        Pose end = poses.of(96.0, 72.0, -90.0);
+        Pose start = startPose();
+        Pose corner = poses.of(60.0, 72.0, -90.0);
+        Pose end = poses.of(84.0, 72.0, -90.0);
 
         Command driveForwardToTheCorner = follow(follower, line(start, corner).constant(start));
         Command strafeRightToTheEnd = follow(follower, line(corner, end).constant(start));
@@ -205,13 +205,13 @@ public class ExampleAuto extends CorbelsAuto {
         return forwardThenStrafeRoute;
     }
 
-    // Start: (72, 10.5), against the audience's wall, facing -y, toward the
+    // Start: (60, 10.5), against the audience's wall, facing -y, toward the
     // audience. v is the way the robot faces.
     //
     //        y (in)
     //        ^
     //   16.5 +
-    //   10.5 +                [v]
+    //   10.5 +             [v]
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
@@ -221,27 +221,27 @@ public class ExampleAuto extends CorbelsAuto {
     //
     //        y (in)
     //        ^
-    //   16.5 +                [v]
-    //   10.5 +                ( )
+    //   16.5 +             [v]
+    //   10.5 +             ( )
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
     //
-    // Shoot for 10 s at (72, 16.5), then wait 3 s, holding there.
+    // Shoot for 10 s at (60, 16.5), then wait 3 s, holding there.
     //
     //        y (in)
     //        ^
-    //   16.5 +                [v]
+    //   16.5 +             [v]
     //   10.5 +
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
     //
-    // Left 24 in, to -x, toward the red wall: the robot strafes to its own right.
+    // Left 12 in, to -x, toward the red wall: the robot strafes to its own right.
     //
     //        y (in)
     //        ^
-    //   16.5 +          [v]<<<( )
+    //   16.5 +          [v]( )
     //   10.5 +
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
@@ -259,7 +259,7 @@ public class ExampleAuto extends CorbelsAuto {
 
     /**
      * Forward 6 inches and hold; shoot for 10 seconds, then stop; wait 3
-     * seconds; strafe 24 inches left and hold; intake for 3 seconds. The robot
+     * seconds; strafe 12 inches left and hold; intake for 3 seconds. The robot
      * faces -y, toward the audience, so it drives backward and strafes to its
      * own right.
      */

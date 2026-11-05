@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Bot88888Auto;
 import org.firstinspires.ftc.teamcode.StarterBotTeleOp;
 import org.firstinspires.ftc.teamcode.example.ExampleAuto;
 import org.firstinspires.ftc.teamcode.example.ExampleTeleOp;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,8 +69,10 @@ public class SimMechanismsTest {
         h.gamepad1.right_bumper = true;
         h.loop();
         h.loop();
-        assertEquals(1250.0, (Double) Tracker.values().get("launcher/target_tps"), 0);
-        assertEquals("the stand-in reports the speed it was given", 1250.0,
+        assertEquals(Constants.launcherTargetTicksPerSecond,
+                (Double) Tracker.values().get("launcher/target_tps"), 0);
+        assertEquals("the stand-in reports the speed it was given",
+                Constants.launcherTargetTicksPerSecond,
                 (Double) Tracker.values().get("launcher/measured_tps"), 0);
         assertEquals("so the windmill feeds", true, Tracker.values().get("launcher/feeding"));
         // The intake's command runs before the launcher's, so it sees the feeding a loop later.
