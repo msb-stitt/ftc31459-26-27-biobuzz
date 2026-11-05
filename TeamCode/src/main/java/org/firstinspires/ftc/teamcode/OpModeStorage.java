@@ -49,7 +49,7 @@ public final class OpModeStorage {
     /**
      * Where the last autonomous finished, and so where the next teleop starts.
      * The default is the middle of the near wall, facing up the field, for a
-     * teleop run with no autonomous before it.
+     * lesson's teleop run with no autonomous before it.
      */
     public static Pose autonomousEndPose = POSES.of(72, botStartYIn, 90);
 
@@ -66,6 +66,21 @@ public final class OpModeStorage {
      * before it.
      */
     public static boolean isRed = true;
+
+    /**
+     * Where an OpMode outside the lessons starts when nothing else says: against
+     * the alliance's wall, 12 in to the left of its middle as its drivers see
+     * it, facing them, so that driving field relative is the right way round.
+     * Red's pose, turned a half-turn about the field's middle for blue.
+     */
+    public static Pose defaultStartPose(boolean red) {
+        PoseFactory poses = POSES;
+        if (!red) {
+            poses = POSES.rotateAround(72.0, 72.0, 180.0);
+        }
+        Pose defaultStart = poses.of(60.0, botStartYIn, -90.0);
+        return defaultStart;
+    }
 
     private OpModeStorage() {
     }
