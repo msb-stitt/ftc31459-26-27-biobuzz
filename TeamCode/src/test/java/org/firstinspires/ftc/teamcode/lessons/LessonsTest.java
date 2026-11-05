@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.base.SimRobot;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public class LessonsTest {
     public void tearDown() {
         OpModeHarness.restoreFactories();
         Scheduler.reset();
-        OpModeStorage.isRed = true;
     }
 
     /** A number the lesson sent to Panels, whatever its Java type was. */
@@ -55,6 +55,11 @@ public class LessonsTest {
         Object v = values.get(key);
         assertTrue("nothing was logged as \"" + key + "\"; got " + values.keySet(), v instanceof Number);
         return ((Number) v).doubleValue();
+    }
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
     }
 
     // -------------------------------------------------------------- L020

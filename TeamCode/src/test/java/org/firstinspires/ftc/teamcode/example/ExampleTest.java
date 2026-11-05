@@ -93,15 +93,11 @@ public class ExampleTest {
     private final Fake windmill = new Fake();
     private Intake intake;
     private Launcher launcher;
-    private Pose savedEndPose;
-    private boolean savedAutoHasRun;
 
     @Before
     public void setUp() {
+        OpModeStorage.clear();
         Scheduler.reset();
-        savedEndPose = OpModeStorage.autonomousEndPose;
-        savedAutoHasRun = OpModeStorage.autoHasRun;
-        OpModeStorage.autoHasRun = false;
         intake = new Intake(intakeMotor.as(DcMotor.class), leftServo.as(CRServo.class),
                 rightServo.as(CRServo.class));
         launcher = new Launcher(launcherMotor.as(DcMotorEx.class), windmill.as(CRServo.class));
@@ -118,9 +114,6 @@ public class ExampleTest {
         ExampleAuto.clock = System::nanoTime;
         ExampleTeleOp.intakes = Intake::from;
         ExampleTeleOp.launchers = Launcher::from;
-        OpModeStorage.isRed = true;
-        OpModeStorage.autonomousEndPose = savedEndPose;
-        OpModeStorage.autoHasRun = savedAutoHasRun;
         OpModeHarness.restoreFactories();
         Scheduler.reset();
     }

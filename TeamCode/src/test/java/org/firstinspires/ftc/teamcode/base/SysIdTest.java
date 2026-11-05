@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.base;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.sysid.SysIdDriveOpMode;
 import org.firstinspires.ftc.teamcode.sysid.VoltageResponseOpMode;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,6 +15,11 @@ import org.junit.Test;
  * ours to choose.
  */
 public class SysIdTest {
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
+    }
 
     @Test
     public void theStateStringsAreTheOnesTheAnalyserAccepts() {

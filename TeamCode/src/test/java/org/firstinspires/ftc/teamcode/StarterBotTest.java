@@ -71,6 +71,7 @@ public class StarterBotTest {
 
     @Before
     public void setUp() {
+        OpModeStorage.clear();
         Scheduler.reset();
         intake = new Intake(intakeMotor.as(DcMotor.class), leftServo.as(CRServo.class),
                 rightServo.as(CRServo.class));

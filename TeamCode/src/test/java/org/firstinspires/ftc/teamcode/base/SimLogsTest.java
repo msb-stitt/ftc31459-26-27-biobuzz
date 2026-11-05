@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.base;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,6 +14,11 @@ import org.junit.Test;
  * which no passing test can do. What is checked here is the note it builds.
  */
 public class SimLogsTest {
+
+    @Before
+    public void startAsTheAppDoes() {
+        OpModeStorage.clear();
+    }
 
     @Test
     public void aRunThatLoggedNothingAddsNothing() {

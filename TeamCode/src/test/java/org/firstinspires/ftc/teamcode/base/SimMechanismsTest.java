@@ -7,6 +7,7 @@ import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Bot88888Auto;
+import org.firstinspires.ftc.teamcode.OpModeStorage;
 import org.firstinspires.ftc.teamcode.StarterBotTeleOp;
 import org.firstinspires.ftc.teamcode.example.ExampleAuto;
 import org.firstinspires.ftc.teamcode.example.ExampleTeleOp;
@@ -30,6 +31,7 @@ public class SimMechanismsTest {
 
     @Before
     public void setUp() throws IllegalAccessException {
+        OpModeStorage.clear();
         Scheduler.reset();
         for (Class<?> taker : TAKERS) {
             for (Field field : taker.getDeclaredFields()) {
