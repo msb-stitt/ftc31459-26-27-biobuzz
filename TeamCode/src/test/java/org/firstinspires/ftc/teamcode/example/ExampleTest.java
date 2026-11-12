@@ -10,9 +10,9 @@ import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Launcher;
@@ -38,7 +38,10 @@ import java.util.function.Predicate;
  */
 public class ExampleTest {
 
-    /** A motor or servo that records what was written, and reports a velocity a test sets. */
+    /**
+     * A motor or servo that records what was written, and reports a velocity a
+     * test sets, or a battery that reports the nominal volts.
+     */
     static final class Fake {
         double speed;
         double targetVelocity;
@@ -51,6 +54,7 @@ public class ExampleTest {
                             case "setPower": speed = (Double) args[0]; return null;
                             case "setVelocity": targetVelocity = (Double) args[0]; return null;
                             case "getVelocity": return velocity;
+                            case "getVoltage": return Constants.NOMINAL_BATTERY_VOLTAGE;
                             default:
                                 Class<?> r = method.getReturnType();
                                 if (r == boolean.class) return false;
@@ -102,9 +106,10 @@ public class ExampleTest {
         savedEndPose = OpModeStorage.autonomousEndPose;
         savedAutoHasRun = OpModeStorage.autoHasRun;
         OpModeStorage.autoHasRun = false;
-        intake = new Intake(intakeMotor.as(DcMotor.class), leftServo.as(CRServo.class),
+        intake = new Intake(intakeMotor.as(DcMotorEx.class), leftServo.as(CRServo.class),
                 rightServo.as(CRServo.class));
-        launcher = new Launcher(launcherMotor.as(DcMotorEx.class), windmill.as(CRServo.class));
+        launcher = new Launcher(launcherMotor.as(DcMotorEx.class), windmill.as(CRServo.class),
+                new Fake().as(VoltageSensor.class));
         ExampleAuto.intakes = map -> intake;
         ExampleAuto.launchers = map -> launcher;
         ExampleTeleOp.intakes = map -> intake;

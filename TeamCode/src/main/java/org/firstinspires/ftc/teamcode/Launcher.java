@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.base.Tracker;
@@ -25,7 +26,11 @@ import java.util.function.DoubleSupplier;
  * <p>The motor controller in the hub holds the speed itself, and its
  * feedforward is F × the target. So that the feedforward is a static part plus
  * a part per tick per second, kS + kV × target, the motor controller is given
- * a new F each time the target changes.
+ * a new F at INIT, at each spin-up from below 50 ticks/s, and at each change of
+ * target while spinning. kS and kV are for
+ * {@link Constants#NOMINAL_BATTERY_VOLTAGE}, so F is scaled by that over the
+ * battery's reading at INIT or at the spin-up. The battery is not read again
+ * for F while the launcher spins.
  *
  * <p>The motor controller's output is in rev motor controller units: full
  * power is 32767 of them, by REV's
@@ -34,9 +39,10 @@ import java.util.function.DoubleSupplier;
  * per second.
  *
  * <p>Each time the motor is given a target, spinning or stopped, its target,
- * its measured speed, its current and whether the windmill is feeding go to
- * the flight log under {@code launcher/}, so a flight log shows whether it
- * holds its speed.
+ * its measured speed, its current, whether the windmill is feeding and the
+ * battery's reading go to the flight log under {@code launcher/}, so a flight
+ * log shows whether it holds its speed. Each F given goes there too, with the
+ * battery's reading it was worked out from.
  */
 // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
 public class Launcher {
@@ -51,6 +57,8 @@ public class Launcher {
 
     /** The launcher motor stopped. */
     static final double STOPPED_TICKS_PER_SECOND = 0;
+    /** A target below this counts as stopped, so a target from below it is a spin-up. */
+    static final double SPIN_UP_FROM_BELOW_TICKS_PER_SECOND = 50;
     /** The windmill turning to feed. */
     static final double WINDMILL_FEEDING_SPEED_FRACTION = 1;
     /** The windmill still. */
@@ -61,25 +69,39 @@ public class Launcher {
 
     final DcMotorEx motor;
     final CRServo windmill;
+    final VoltageSensor battery;
     boolean feeding;
     /** The target the motor controller's F was last worked out for. */
     double motCtrlFeedforwardTargetTicksPerSecond;
+    /** The battery's reading the motor controller's F was last worked out from, in volts. */
+    double motCtrlFeedforwardBatteryVolts;
+    /** The target the motor was last given; stopped until it is given one. */
+    double lastTargetTicksPerSecond = STOPPED_TICKS_PER_SECOND;
+    /** The battery's reading this loop, in volts. */
+    double batteryVolts;
 
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
-    public Launcher(DcMotorEx motor, CRServo windmill) {
+    public Launcher(DcMotorEx motor, CRServo windmill, VoltageSensor battery) {
         this.motor = motor;
         this.windmill = windmill;
+        this.battery = battery;
+        motCtrlFeedforwardBatteryVolts = battery.getVoltage();
         useMotCtrlVelocityControl();
         windmill.setDirection(DcMotorSimple.Direction.REVERSE);
         stopTheWindmill();
     }
 
-    /** The two devices, by the names in {@link Constants}. */
+    /**
+     * The two devices, by the names in {@link Constants}, and the battery. The
+     * battery is not looked up by name: the SDK offers every voltage sensor as
+     * a group, and the first is the Control Hub's own.
+     */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public static Launcher from(HardwareMap map) {
         DcMotorEx launcherMotor = map.get(DcMotorEx.class, Constants.launcherName);
         CRServo windmillServo = map.get(CRServo.class, Constants.windmillServoName);
-        Launcher launcher = new Launcher(launcherMotor, windmillServo);
+        VoltageSensor battery = map.voltageSensor.iterator().next();
+        Launcher launcher = new Launcher(launcherMotor, windmillServo, battery);
         return launcher;
     }
 
@@ -119,15 +141,22 @@ public class Launcher {
     }
 
     /**
-     * The motor's target, a speed the motor controller then holds. A new
-     * target to spin at gets its own F first.
+     * The motor's target, a speed the motor controller then holds. The battery
+     * is read each time. A spin-up gets an F from that reading; a new target
+     * while spinning gets an F from the spin-up's reading.
      */
     void spinAt(double targetTicksPerSecond) {
-        boolean targetChanged = targetTicksPerSecond != motCtrlFeedforwardTargetTicksPerSecond;
+        batteryVolts = battery.getVoltage();
         boolean spinning = targetTicksPerSecond > STOPPED_TICKS_PER_SECOND;
-        if (targetChanged && spinning) {
+        boolean wasStopped = lastTargetTicksPerSecond < SPIN_UP_FROM_BELOW_TICKS_PER_SECOND;
+        boolean targetChanged = targetTicksPerSecond != motCtrlFeedforwardTargetTicksPerSecond;
+        if (spinning && wasStopped) {
+            motCtrlFeedforwardBatteryVolts = batteryVolts;
+            giveMotCtrlGainsFor(targetTicksPerSecond);
+        } else if (spinning && targetChanged) {
             giveMotCtrlGainsFor(targetTicksPerSecond);
         }
+        lastTargetTicksPerSecond = targetTicksPerSecond;
         motor.setVelocity(targetTicksPerSecond);
         publishMotorState(targetTicksPerSecond);
     }
@@ -191,29 +220,41 @@ public class Launcher {
         giveMotCtrlGainsFor(TARGET_TICKS_PER_SECOND);
     }
 
-    /** The robot's P, I and D, and the F that makes the feedforward right at this target. */
+    /**
+     * The robot's P, I and D, and the F that makes the feedforward right at
+     * this target, from {@link #motCtrlFeedforwardBatteryVolts}. The F and the
+     * volts go to the flight log.
+     */
     void giveMotCtrlGainsFor(double targetTicksPerSecond) {
-        double motFCtrlUnitsPerTickPerSecond = motFCtrlUnitsPerTickPerSecondAt(targetTicksPerSecond);
+        double motFCtrlUnitsPerTickPerSecond = motFCtrlUnitsPerTickPerSecondAt(targetTicksPerSecond,
+                motCtrlFeedforwardBatteryVolts);
         PIDFCoefficients gains = new PIDFCoefficients(Constants.launcher_P_ctrlUnitsPerTickPerS,
                 Constants.launcher_I, Constants.launcher_D, motFCtrlUnitsPerTickPerSecond);
         motor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, gains);
         motCtrlFeedforwardTargetTicksPerSecond = targetTicksPerSecond;
+        Tracker.publish("launcher/f_ctrl_units", motFCtrlUnitsPerTickPerSecond);
+        Tracker.publish("launcher/f_battery_volts", motCtrlFeedforwardBatteryVolts);
     }
 
     /**
-     * The motor controller's F at a target: kS + kV × target, as a fraction of
-     * full power, in rev motor controller units, divided by the target the
-     * motor controller multiplies it by.
+     * The motor controller's F at a target and a battery reading: kS + kV ×
+     * target, as a fraction of full power, in rev motor controller units,
+     * divided by the target the motor controller multiplies it by, and scaled
+     * by the nominal volts over the battery's.
      */
-    static double motFCtrlUnitsPerTickPerSecondAt(double targetTicksPerSecond) {
+    static double motFCtrlUnitsPerTickPerSecondAt(double targetTicksPerSecond, double batteryVolts) {
         double powerFractionForEachTick = Constants.launcher_kV_powerFractionPerTickPerS * targetTicksPerSecond;
         double powerFractionAtTarget = Constants.launcher_kS_powerFraction + powerFractionForEachTick;
         double ctrlUnitsAtTarget = powerFractionAtTarget * MOT_FULL_POWER_CTRL_UNITS;
-        double motFCtrlUnitsPerTickPerSecond = ctrlUnitsAtTarget / targetTicksPerSecond;
+        double batteryScale = Constants.NOMINAL_BATTERY_VOLTAGE / batteryVolts;
+        double motFCtrlUnitsPerTickPerSecond = ctrlUnitsAtTarget / targetTicksPerSecond * batteryScale;
         return motFCtrlUnitsPerTickPerSecond;
     }
 
-    /** The target, the measured speed, the current and the windmill, for the flight log. */
+    /**
+     * The target, the measured speed, the current, the windmill and the
+     * battery, for the flight log.
+     */
     void publishMotorState(double targetTicksPerSecond) {
         double measuredTicksPerSecond = motor.getVelocity();
         double currentAmps = motor.getCurrent(CurrentUnit.AMPS);
@@ -221,5 +262,6 @@ public class Launcher {
         Tracker.publish("launcher/measured_tps", measuredTicksPerSecond);
         Tracker.publish("launcher/current_amps", currentAmps);
         Tracker.publish("launcher/feeding", feeding);
+        Tracker.publish("launcher/battery_volts", batteryVolts);
     }
 }
