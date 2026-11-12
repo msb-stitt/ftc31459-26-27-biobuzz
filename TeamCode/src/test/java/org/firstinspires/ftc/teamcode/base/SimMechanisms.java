@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Launcher;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -46,10 +47,11 @@ final class SimMechanisms {
      * to hand out the stand-ins. Returns how many it set.
      */
     static int install(Class<?> opModeClass) throws IllegalAccessException {
-        Intake intake = new Intake(device(DcMotor.class), device(CRServo.class),
+        Intake intake = new Intake(device(DcMotorEx.class), device(CRServo.class),
                 device(CRServo.class));
         launcherPidf = null;
-        Launcher launcher = new Launcher(launcherMotor(), device(CRServo.class));
+        Launcher launcher = new Launcher(launcherMotor(), device(CRServo.class),
+                device(VoltageSensor.class));
         int set = 0;
         for (Field field : opModeClass.getDeclaredFields()) {
             boolean factory = Modifier.isStatic(field.getModifiers())
@@ -102,7 +104,9 @@ final class SimMechanisms {
 
     /**
      * A motor or servo that keeps the power and the velocity it was last given,
-     * and reports that velocity back. Every other call gets a harmless default.
+     * and reports that velocity back, or a battery that reports
+     * {@link Constants#NOMINAL_BATTERY_VOLTAGE}. Every other call gets a
+     * harmless default.
      */
     static <T> T device(Class<T> type) {
         double[] power = {0};
@@ -120,6 +124,8 @@ final class SimMechanisms {
                             return null;
                         case "getVelocity":
                             return velocity[0];
+                        case "getVoltage":
+                            return Constants.NOMINAL_BATTERY_VOLTAGE;
                         default:
                             return OpModeHarness.defaultValue(method.getReturnType());
                     }

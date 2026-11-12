@@ -135,6 +135,12 @@ public class Constants {
     public static double launcher_kS_powerFraction;
     public static double launcher_kV_powerFractionPerTickPerS;
 
+    /**
+     * The battery's volts the launcher's kS and kV are for. The launcher
+     * scales its F by this over the battery's reading.
+     */
+    public static final double NOMINAL_BATTERY_VOLTAGE = 12.0;
+
     static {
         pickByTheRobotControllerName(RobotControllerName.readNow());
         takeThisRobotsValues();

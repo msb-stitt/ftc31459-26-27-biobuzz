@@ -5,10 +5,12 @@ import com.pedropathing.ivy.behaviors.EndCondition;
 import com.pedropathing.ivy.behaviors.InterruptedBehavior;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
@@ -18,7 +20,9 @@ import java.util.function.DoubleSupplier;
  * goBILDA's StarterBot intake: the intake motor and the two Gecko Wheel servos,
  * always at one speed, set up as goBILDA's example sets them.
  *
- * <p>Each speed set goes to the flight log as {@code intake/speed}.
+ * <p>Each speed set goes to the flight log as {@code intake/speed}, beside the
+ * motor's measured speed and current. The motor runs in whatever mode it is
+ * in, so its measured speed is 0 ticks/s if its encoder is not plugged in.
  */
 // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
 public class Intake {
@@ -30,12 +34,12 @@ public class Intake {
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public static final double FULL_IN_SPEED_FRACTION = 1;
 
-    final DcMotor motor;
+    final DcMotorEx motor;
     final CRServo leftServo;
     final CRServo rightServo;
 
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
-    public Intake(DcMotor motor, CRServo leftServo, CRServo rightServo) {
+    public Intake(DcMotorEx motor, CRServo leftServo, CRServo rightServo) {
         this.motor = motor;
         this.leftServo = leftServo;
         this.rightServo = rightServo;
@@ -47,14 +51,14 @@ public class Intake {
     /** The three devices, by the names in {@link Constants}. */
     // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
     public static Intake from(HardwareMap map) {
-        DcMotor intakeMotor = map.get(DcMotor.class, Constants.intakeName);
+        DcMotorEx intakeMotor = map.get(DcMotorEx.class, Constants.intakeName);
         CRServo leftIntakeServo = map.get(CRServo.class, Constants.leftIntakeServoName);
         CRServo rightIntakeServo = map.get(CRServo.class, Constants.rightIntakeServoName);
         Intake intake = new Intake(intakeMotor, leftIntakeServo, rightIntakeServo);
         return intake;
     }
 
-    /** One speed for all three, clipped to -1 to 1. */
+    /** One speed for all three, clipped to -1 to 1, and the motor's state for the flight log. */
     void setPower(double speedFraction) {
         double clippedSpeedFraction = Range.clip(speedFraction,
                 FULL_OUT_SPEED_FRACTION, FULL_IN_SPEED_FRACTION);
@@ -62,6 +66,8 @@ public class Intake {
         leftServo.setPower(clippedSpeedFraction);
         rightServo.setPower(clippedSpeedFraction);
         Tracker.publish("intake/speed", clippedSpeedFraction);
+        Tracker.publish("intake/measured_tps", motor.getVelocity());
+        Tracker.publish("intake/current_amps", motor.getCurrent(CurrentUnit.AMPS));
     }
 
     /**
