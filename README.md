@@ -77,9 +77,11 @@ Main competition code is in **Example Auto** and **Example TeleOp**.
 **Launcher Check** runs the launcher alone, with the robot not driven. Hold the right bumper to
 fire at the target the Driver Station shows: the launcher spins up, and the windmill feeds once it
 is fast enough. The D-pad changes the target. Each loop, here and in StarterBot TeleOp, the flight
-log carries `launcher/target_tps`, `launcher/measured_tps`, `launcher/current_amps` and
-`launcher/feeding`, spinning or stopped; graph them together in AdvantageScope to see whether it
-holds its speed.
+log carries `launcher/target_tps`, `launcher/measured_tps`, `launcher/current_amps`,
+`launcher/feeding` and `launcher/battery_volts`, spinning or stopped; graph them together in
+AdvantageScope to see whether it holds its speed. Each F the launcher gives its motor controller
+goes to `launcher/f_ctrl_units`, with the battery's volts it was worked out from in
+`launcher/f_battery_volts`.
 
 The OpModes generally send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.

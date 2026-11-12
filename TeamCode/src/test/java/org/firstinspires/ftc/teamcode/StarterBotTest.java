@@ -9,13 +9,14 @@ import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,11 +28,15 @@ import java.util.function.Function;
 /** goBILDA's StarterBot behavior, kept: the launcher feeds only when fast enough. */
 public class StarterBotTest {
 
-    /** A motor or servo that records what was written, and reports a velocity a test sets. */
+    /**
+     * A motor or servo that records what was written, and reports a velocity a
+     * test sets, or a battery that reports the volts a test sets.
+     */
     static final class Fake {
         double speedFraction;
         double targetVelocity;
         double velocity;
+        double volts = 12.0;
         DcMotorSimple.Direction direction;
         PIDFCoefficients gains;
         int gainsGiven;
@@ -43,6 +48,7 @@ public class StarterBotTest {
                             case "setPower": speedFraction = (Double) args[0]; return null;
                             case "setVelocity": targetVelocity = (Double) args[0]; return null;
                             case "getVelocity": return velocity;
+                            case "getVoltage": return volts;
                             case "setDirection":
                                 direction = (DcMotorSimple.Direction) args[0];
                                 return null;
@@ -66,6 +72,7 @@ public class StarterBotTest {
     private final Fake rightServo = new Fake();
     private final Fake launcherMotor = new Fake();
     private final Fake windmill = new Fake();
+    private final Fake battery = new Fake();
     private Intake intake;
     private Launcher launcher;
 
@@ -73,9 +80,10 @@ public class StarterBotTest {
     public void setUp() {
         OpModeStorage.clear();
         Scheduler.reset();
-        intake = new Intake(intakeMotor.as(DcMotor.class), leftServo.as(CRServo.class),
+        intake = new Intake(intakeMotor.as(DcMotorEx.class), leftServo.as(CRServo.class),
                 rightServo.as(CRServo.class));
-        launcher = new Launcher(launcherMotor.as(DcMotorEx.class), windmill.as(CRServo.class));
+        launcher = new Launcher(launcherMotor.as(DcMotorEx.class), windmill.as(CRServo.class),
+                battery.as(VoltageSensor.class));
     }
 
     @After
@@ -120,34 +128,73 @@ public class StarterBotTest {
     @Test
     public void theFeedforwardIsAStaticPartPlusAPartPerTickPerSecond() {
         // 37523's kS 0.05 and kV 0.00037963 give back its F of 13.75 at 1250 ticks/s.
-        assertEquals(13.75, Launcher.motFCtrlUnitsPerTickPerSecondAt(1250), 1e-3);
+        assertEquals(13.75, Launcher.motFCtrlUnitsPerTickPerSecondAt(1250, 12.0), 1e-3);
         // At 250 ticks/s: 32767 × (0.05 / 250 + 0.00037963) = 18.993.
-        assertEquals(18.993, Launcher.motFCtrlUnitsPerTickPerSecondAt(250), 1e-3);
+        assertEquals(18.993, Launcher.motFCtrlUnitsPerTickPerSecondAt(250, 12.0), 1e-3);
     }
 
     @Test
-    public void theHubGetsANewFOnlyWhenTheTargetChangesAndIsAboveZero() {
-        assertEquals("built with the F for the target",
-                Launcher.motFCtrlUnitsPerTickPerSecondAt(Launcher.TARGET_TICKS_PER_SECOND),
+    public void theFIsScaledByTheNominalVoltsOverTheBatterysVolts() {
+        assertEquals(12.0, Constants.NOMINAL_BATTERY_VOLTAGE, 0);
+        // 13.75 × 12 V / 13.2 V = 12.5.
+        assertEquals(12.5, Launcher.motFCtrlUnitsPerTickPerSecondAt(1250, 13.2), 1e-3);
+    }
+
+    @Test
+    public void theHubIsBuiltWithTheFForTheTargetFromTheBatteryAtInit() {
+        assertEquals(Launcher.motFCtrlUnitsPerTickPerSecondAt(Launcher.TARGET_TICKS_PER_SECOND, 12.0),
                 launcherMotor.gains.f, 1e-9);
         assertEquals(40, launcherMotor.gains.p, 0);
         assertEquals(1, launcherMotor.gainsGiven);
+    }
 
-        launcher.spinAt(Launcher.TARGET_TICKS_PER_SECOND);
-        launcher.spinAt(Launcher.TARGET_TICKS_PER_SECOND);
-        assertEquals("the same target, no new F", 1, launcherMotor.gainsGiven);
+    @Test
+    public void eachSpinUpSendsAnFFromTheBatteryReadThenAndNothingElseDoes() {
+        battery.volts = 13.2;
+        launcher.spinAt(1250);
+        assertEquals("a spin-up from 0 ticks/s", 2, launcherMotor.gainsGiven);
+        assertEquals(12.5, launcherMotor.gains.f, 1e-3);
 
-        launcher.spinAt(250);
-        assertEquals(18.993, launcherMotor.gains.f, 1e-3);
-        assertEquals(2, launcherMotor.gainsGiven);
-        launcher.spinAt(250);
-        assertEquals(2, launcherMotor.gainsGiven);
+        battery.volts = 11.0;
+        launcher.spinAt(1250);
+        launcher.spinAt(1250);
+        assertEquals("holding one target, no new F, whatever the battery", 2,
+                launcherMotor.gainsGiven);
 
         launcher.stop();
         assertEquals("stopped, no new F", 2, launcherMotor.gainsGiven);
         assertEquals(0, launcherMotor.targetVelocity, 0);
+
+        launcher.spinAt(1250);
+        assertEquals("spun up again, to the same target", 3, launcherMotor.gainsGiven);
+        assertEquals(Launcher.motFCtrlUnitsPerTickPerSecondAt(1250, 11.0), launcherMotor.gains.f,
+                1e-9);
+    }
+
+    @Test
+    public void aNewTargetWhileSpinningSendsAnFFromTheSpinUpsReading() {
+        battery.volts = 13.2;
+        launcher.spinAt(1250);
+        battery.volts = 11.0;
         launcher.spinAt(250);
-        assertEquals("back to 250, no new F", 2, launcherMotor.gainsGiven);
+        assertEquals(3, launcherMotor.gainsGiven);
+        assertEquals("the spin-up's 13.2 V, not 11 V",
+                Launcher.motFCtrlUnitsPerTickPerSecondAt(250, 13.2), launcherMotor.gains.f, 1e-9);
+    }
+
+    @Test
+    public void aTargetBelow50TicksPerSecondCountsAsStopped() {
+        launcher.spinAt(40);
+        battery.volts = 13.2;
+        launcher.spinAt(1250);
+        assertEquals("from 40 ticks/s, a spin-up",
+                Launcher.motFCtrlUnitsPerTickPerSecondAt(1250, 13.2), launcherMotor.gains.f, 1e-9);
+
+        launcher.spinAt(50);
+        battery.volts = 11.0;
+        launcher.spinAt(1250);
+        assertEquals("from 50 ticks/s, a retarget",
+                Launcher.motFCtrlUnitsPerTickPerSecondAt(1250, 13.2), launcherMotor.gains.f, 1e-9);
     }
 
     @Test
