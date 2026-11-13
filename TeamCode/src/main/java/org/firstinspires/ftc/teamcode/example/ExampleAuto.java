@@ -299,8 +299,8 @@ public class ExampleAuto extends CorbelsAuto {
     AutoRoutine waitShootParkCommand() {
         PoseFactory poses = poses();
         Pose start = poses.of(60.0, 144.0-botStartYIn, +90.0);
-        Pose firststop = poses.of(60.0, 125.0, +90.0);
-        Pose stopPose = poses.of(18.0,  125.0, +90.0);
+        Pose firststop = poses.of(60.0, 120.0, +90.0);
+        Pose stopPose = poses.of(18.0,  120.0, +90.0);
 
         Command wait = waitSeconds(10);
         Command shoot = shootFor(8);
