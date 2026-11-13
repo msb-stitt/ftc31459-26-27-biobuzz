@@ -66,6 +66,7 @@ public class ExampleAuto extends CorbelsAuto {
     MenuItem movShotStrafeIn = new MenuItem("MVSI", "Move Shot Strafe In");
     // LOOKHERE - add new MenuItem for YOUR_NEW_AUTO_HERE here.
     // e.g. MenuItem YOUR_NEW_AUTO_HERE = new MenuItem( "SF", "Shoot Then Forward");
+    MenuItem waitShootPark = new MenuItem("WSP", "WaitShootPark");
     MenuItem SAP = new MenuItem("SAP","Shoot And Park");
     MenuRow autoRow = new MenuRow("Auto");
     OptionMenu optionMenu = new OptionMenu();
@@ -95,6 +96,7 @@ public class ExampleAuto extends CorbelsAuto {
         // LOOKHERE - add MenuItem for YOUR_NEW_AUTO_HERE to autoRow here
         // e.g:
         // autoRow.add(YOUR_NEW_AUTO_HERE);
+        autoRow.add(waitShootPark);
         autoRow.add(SAP);
         optionMenu.add(allianceRow);
         optionMenu.add(autoRow);
@@ -144,6 +146,9 @@ public class ExampleAuto extends CorbelsAuto {
         //         }
         if (auto == SAP) {
             chosenAuto = shootAndPark();
+        }
+        if (auto == waitShootPark){
+            chosenAuto = waitShootParkCommand();
         }
         return chosenAuto;
     }
@@ -289,6 +294,25 @@ public class ExampleAuto extends CorbelsAuto {
                 waitAfterShooting, strafeLeftToIntake, holdWhileIntaking, runTheIntake);
         AutoRoutine shootThenIntakeRoutine = new AutoRoutine(start, shootThenIntakeRoute);
         return shootThenIntakeRoutine;
+    }
+
+    AutoRoutine waitShootParkCommand() {
+        PoseFactory poses = poses();
+        Pose start = poses.of(60.0, botStartYIn, -90.0);
+        Pose shootFrom = poses.of(60.0, botStartYIn + 6.0, -90.0);
+        Pose intakeAt = poses.of(48.0, botStartYIn + 6.0, -90.0);
+
+        Command driveForwardToShoot = follow(follower, line(start, shootFrom).constant(start));
+        Command holdWhileShooting = hold(follower, shootFrom);
+        Command shoot = shootFor(shootSeconds);
+        Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
+        Command strafeLeftToIntake = follow(follower, line(shootFrom, intakeAt).constant(start));
+        Command holdWhileIntaking = hold(follower, intakeAt);
+        Command runTheIntake = intakeFor(intakeSeconds);
+        Command shootThenIntakeRoute = sequential(driveForwardToShoot, holdWhileShooting, shoot,
+                waitAfterShooting, strafeLeftToIntake, holdWhileIntaking, runTheIntake);
+        AutoRoutine waitShootParkRoutine = new AutoRoutine(start, shootThenIntakeRoute);
+        return waitShootParkRoutine;
     }
 
     // LOOKHERE - for your new auto YOUR_NEW_AUTO_HERE define YOUR_NEW_ROUTINE here, with
