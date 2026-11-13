@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Launcher;
 import org.firstinspires.ftc.teamcode.OpModeStorage;
+import org.firstinspires.ftc.teamcode.base.MenuItem;
 import org.firstinspires.ftc.teamcode.base.OpModeHarness;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -34,7 +35,7 @@ import java.util.function.Predicate;
  * Example Auto and Example TeleOp, on fake mechanisms: the TeleOp drives the
  * field and runs the intake and launcher from gamepad 1, and Move Shot
  * Strafe In does its steps in order, for as long as each is meant to take, on the
- * simulator's clock.
+ * simulator's clock. Each auto on blue is red's turned about the field's middle.
  */
 public class ExampleTest {
 
@@ -89,6 +90,15 @@ public class ExampleTest {
     private static final double EPS = 1e-6;
     /** How far the simulated robot may be from a pose it holds, in inches. */
     private static final double HELD_IN = 1.0;
+    /** How far blue's run may be from red's turned, in inches and radians. */
+    private static final double TURNED_IN = 1e-9;
+    private static final double TURNED_RAD = 1e-9;
+    /**
+     * How many loops blue's intake may lead or lag red's. Ivy 1.1.1's groups run their commands in
+     * no set order, so the boost, which reads whether the launcher is feeding, starts on the
+     * launcher's loop or the next.
+     */
+    private static final int INTAKE_LOOPS = 2;
 
     private final Fake intakeMotor = new Fake();
     private final Fake leftServo = new Fake();
@@ -270,8 +280,7 @@ public class ExampleTest {
                 "Shoot And Park"};
         for (String name : autos) {
             follower.setPose(redPoses.of(50, 60, 30));
-            pressDuringInit(h, pad -> pad.dpad_right = true);
-            pressDuringInit(h, pad -> pad.a = true);
+            chooseAuto(h, auto, name);
             assertEquals(name, auto.autoRow.getSelected().getFullName());
             assertSamePose(name + ", on red", redPoses.of(60.0, 10.5, -90.0), follower.pose());
         }
@@ -283,8 +292,7 @@ public class ExampleTest {
                 follower.pose());
 
         pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
-        pressDuringInit(h, pad -> pad.dpad_right = true);           // wraps to Nothing
-        pressDuringInit(h, pad -> pad.a = true);
+        chooseAuto(h, auto, "Nothing");
         assertSamePose("Nothing, on blue", OpModeStorage.defaultStartPose(false),
                 follower.pose());
 
@@ -400,13 +408,78 @@ public class ExampleTest {
         assertEquals("blue, handed to the teleop", false, OpModeStorage.isRed);
     }
 
+    @Test
+    public void eachAutoOnBlueIsRedsTurnedAboutTheMiddle() {
+        List<String> names = autoNames();
+        assertTrue("autos besides Nothing", !names.isEmpty());
+        for (String name : names) {
+            List<Sample> red = runAuto(true, name, "R-", 30_000_000_000L);
+            List<Sample> blue = runAuto(false, name, "B-", 30_000_000_000L);
+            assertEquals(name + ": samples", red.size(), blue.size());
+            for (int i = 0; i < red.size(); i++) {
+                Sample r = red.get(i);
+                Sample b = blue.get(i);
+                String what = name + ", at " + r.seconds + " s";
+                assertEquals(what + ": x", 144.0 - r.pose.x(), b.pose.x(), TURNED_IN);
+                assertEquals(what + ": y", 144.0 - r.pose.y(), b.pose.y(), TURNED_IN);
+                assertEquals(what + ": heading", 0.0,
+                        angleBetween(r.pose.heading() + Math.PI, b.pose.heading()), TURNED_RAD);
+                assertEquals(what + ": launcher", r.launcherTarget, b.launcherTarget, EPS);
+                assertEquals(what + ": windmill", r.windmill, b.windmill, EPS);
+                assertTrue(what + ": intake " + b.intakeSpeed + ", not red's within "
+                        + INTAKE_LOOPS + " loops", intakeWithin(red, i, b.intakeSpeed));
+                assertEquals(what + ": following", r.following, b.following);
+            }
+        }
+    }
+
+    /** Whether the intake ran at {@code speed} in a loop within {@link #INTAKE_LOOPS} of loop i. */
+    private static boolean intakeWithin(List<Sample> run, int i, double speed) {
+        int from = Math.max(0, i - INTAKE_LOOPS);
+        int to = Math.min(run.size() - 1, i + INTAKE_LOOPS);
+        for (int j = from; j <= to; j++) {
+            if (Math.abs(run.get(j).intakeSpeed - speed) < EPS) return true;
+        }
+        return false;
+    }
+
+    /** The autos in the menu's Auto row, Nothing aside, read by gamepad 1. */
+    private List<String> autoNames() {
+        ExampleAuto auto = new ExampleAuto();
+        OpModeHarness h = new OpModeHarness(auto);
+        h.init();
+        h.initLoop();
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        MenuItem first = auto.autoRow.getSelected();
+        List<String> names = new ArrayList<>();
+        while (true) {
+            pressDuringInit(h, pad -> pad.dpad_right = true);
+            pressDuringInit(h, pad -> pad.a = true);
+            if (auto.autoRow.getSelected() == first) break;
+            names.add(auto.autoRow.getSelected().getFullName());
+        }
+        h.stop();
+        return names;
+    }
+
     /**
      * Example Auto with Move Shot Strafe In chosen, run on the simulator's clock
      * for 25 s, 10 ms a loop, the launcher fast enough to feed, and each loop
      * sampled.
      */
     private List<Sample> runShootThenIntake(boolean red) {
-        OpModeHarness h = new OpModeHarness(new ExampleAuto());
+        return runAuto(red, "Move Shot Strafe In", (red ? "R" : "B") + "-MVSI",
+                25_000_000_000L);
+    }
+
+    /**
+     * The named auto on red or blue, sampled at PLAY and after each 10 ms loop for
+     * {@code nanos} on the simulator's clock, after the Driver Station shows {@code summary}
+     * before PLAY.
+     */
+    private List<Sample> runAuto(boolean red, String name, String summary, long nanos) {
+        ExampleAuto auto = new ExampleAuto();
+        OpModeHarness h = new OpModeHarness(auto);
         ExampleAuto.clock = h.clock::nanos;
         Follower follower = h.robot.follower;
         h.init();
@@ -416,16 +489,15 @@ public class ExampleTest {
             pressDuringInit(h, pad -> pad.a = true);
         }
         pressDuringInit(h, pad -> pad.dpad_down = true);
-        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot And Park
-        pressDuringInit(h, pad -> pad.dpad_left = true);   // Move Shot Strafe In
-        pressDuringInit(h, pad -> pad.a = true);
-        String summary = (red ? "R" : "B") + "-MVSI";
+        chooseAuto(h, auto, name);
         assertTrue(h.driverStation.text(), h.driverStation.shows(summary));
 
         launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
         h.start();
         List<Sample> run = new ArrayList<>();
-        while (h.clock.nanos() < 25_000_000_000L) {
+        run.add(new Sample(h.clock.nanos() / 1e9, launcherMotor.targetVelocity, windmill.speed,
+                intakeMotor.speed, follower.mode() == Follower.Mode.FOLLOW, follower.pose()));
+        while (h.clock.nanos() < nanos) {
             h.loop(10);
             run.add(new Sample(h.clock.nanos() / 1e9, launcherMotor.targetVelocity, windmill.speed,
                     intakeMotor.speed, follower.mode() == Follower.Mode.FOLLOW, follower.pose()));
@@ -465,6 +537,19 @@ public class ExampleTest {
     /** The turn from one heading to another, in radians, from -pi to pi. */
     private static double angleBetween(double from, double to) {
         return Math.atan2(Math.sin(to - from), Math.cos(to - from));
+    }
+
+    /**
+     * Gamepad 1, on the Auto row, chooses each auto to the right in turn until the named one is
+     * chosen, so a test does not depend on where in the row it is.
+     */
+    private static void chooseAuto(OpModeHarness h, ExampleAuto auto, String name) {
+        MenuItem startedAt = auto.autoRow.getSelected();
+        while (!auto.autoRow.getSelected().getFullName().equals(name)) {
+            pressDuringInit(h, pad -> pad.dpad_right = true);
+            pressDuringInit(h, pad -> pad.a = true);
+            assertTrue("no auto named " + name, auto.autoRow.getSelected() != startedAt);
+        }
     }
 
     /** One press and release of gamepad 1's buttons between INIT and PLAY. */
