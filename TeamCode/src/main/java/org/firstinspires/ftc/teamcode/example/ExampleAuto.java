@@ -298,21 +298,19 @@ public class ExampleAuto extends CorbelsAuto {
 
     AutoRoutine waitShootParkCommand() {
         PoseFactory poses = poses();
-        Pose start = poses.of(60.0, botStartYIn, -90.0);
-        Pose shootFrom = poses.of(60.0, botStartYIn + 6.0, -90.0);
-        Pose intakeAt = poses.of(48.0, botStartYIn + 6.0, -90.0);
+        Pose start = poses.of(60.0, 144.0-botStartYIn, +90.0);
+        Pose firststop = poses.of(60.0, 125.0, +90.0);
+        Pose stopPose = poses.of(18.0,  125.0, +90.0);
 
-        Command driveForwardToShoot = follow(follower, line(start, shootFrom).constant(start));
-        Command holdWhileShooting = hold(follower, shootFrom);
-        Command shoot = shootFor(shootSeconds);
-        Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
-        Command strafeLeftToIntake = follow(follower, line(shootFrom, intakeAt).constant(start));
-        Command holdWhileIntaking = hold(follower, intakeAt);
-        Command runTheIntake = intakeFor(intakeSeconds);
-        Command shootThenIntakeRoute = sequential(driveForwardToShoot, holdWhileShooting, shoot,
-                waitAfterShooting, strafeLeftToIntake, holdWhileIntaking, runTheIntake);
-        AutoRoutine waitShootParkRoutine = new AutoRoutine(start, shootThenIntakeRoute);
-        return waitShootParkRoutine;
+        Command wait = waitSeconds(10);
+        Command shoot = shootFor(8);
+
+        Command drivetofirststop = follow(follower, line(start,firststop).constant(start));
+        Command driveToStop = follow(follower, line(firststop, stopPose).constant(start));
+        Command wsp = sequential( wait,shoot,
+                drivetofirststop, driveToStop);
+        AutoRoutine shootAndParkRoutine = new AutoRoutine(start, wsp);
+        return shootAndParkRoutine;
     }
 
     // LOOKHERE - for your new auto YOUR_NEW_AUTO_HERE define YOUR_NEW_ROUTINE here, with
