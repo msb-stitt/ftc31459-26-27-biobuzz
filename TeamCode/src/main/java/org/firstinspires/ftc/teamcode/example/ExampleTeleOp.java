@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.example;
 
+import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.behaviors.EndCondition;
 import com.pedropathing.ivy.behaviors.InterruptedBehavior;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -34,6 +36,9 @@ import java.util.function.Function;
  *   faces.</li>
  *   <li>The right trigger, less the left trigger, runs the intake.</li>
  *   <li>Holding the right bumper spins the launcher up and feeds it.</li>
+ *   <li>Holding A drives to the shooting pose near the driver at the alliance's
+ *   hive, at the cell on the robot's half of the field, and holds it there,
+ *   whatever the sticks do. Letting go gives the sticks the wheels.</li>
  * </ul>
  *
  * <p>Between INIT and PLAY, gamepad 1's D-pad works a menu on the Driver
@@ -45,7 +50,8 @@ import java.util.function.Function;
  *
  * <p>Three commands start when PLAY is pressed and run until STOP: one drives
  * from the sticks, one runs the intake from the triggers, one fires the
- * launcher from the bumper. A command that needs the drivetrain, the intake or
+ * launcher from the bumper. A starts a command that drives to the shooting
+ * pose, which needs the drivetrain. A command that needs the drivetrain, the intake or
  * the launcher sets the one using it aside, and that one comes back when it ends.
  *
  * <p>Every stick, trigger and button read, and the drive asked for, go to the
@@ -75,6 +81,17 @@ public class ExampleTeleOp extends CorbelsTeleOp {
     Command driveFromTheSticks;
     Command runTheIntakeFromTheTriggers;
     Command fireTheLauncherFromTheBumper;
+    Command driveToTheShootingPose;
+    boolean aBefore;
+
+    /**
+     * Red's shooting pose at the hive's cell that is up at the start, near the
+     * driver. The launcher fires out of the robot's back.
+     */
+    static final PoseFactory RED_POSES = PoseFactory.degrees();
+    static final Pose RED_A = RED_POSES.of(15.0, 12.0, -135.0);
+    /** The red hive's tip axis, y = 72 in: the other cell's pose is mirrored about it. */
+    static final Pose RED_TIP_AXIS = RED_POSES.of(72.0, 72.0, 0.0);
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -137,14 +154,27 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         Scheduler.schedule(driveFromTheSticks);
         Scheduler.schedule(runTheIntakeFromTheTriggers);
         Scheduler.schedule(fireTheLauncherFromTheBumper);
+        driveToTheShootingPose = Command.build()
+                .setStart(this::startDrivingToTheShootingPose)
+                .setDone(() -> !gamepad1.a)
+                .setEnd(this::giveTheDriverTheWheels)
+                .requiring(drivetrain);
         startAfter();
     }
 
-    /** The commands do the work, inside loopAfter(); this line is for the driver's screen. */
+    /**
+     * The commands do the work, inside loopAfter(); pressing A starts the drive
+     * to the shooting pose. This line is for the driver's screen.
+     */
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
     public void loop() {
         loopBefore();
+        boolean a = gamepad1.a;
+        if (a && !aBefore) {
+            Scheduler.schedule(driveToTheShootingPose);
+        }
+        aBefore = a;
         Tracker.printToDs(menu.getSummary());
         loopAfter();
     }
@@ -245,6 +275,62 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         }
         double intakeSpeedFraction = triggersSpeedFraction + boostWhileFeeding;
         return intakeSpeedFraction;
+    }
+
+    /** The shooting pose on the robot's half of the field, held by the follower. */
+    void startDrivingToTheShootingPose() {
+        Pose shootingPose = shootingPoseOnTheRobotsHalf();
+        follower.hold(shootingPose);
+        drivetrain.releaseCommandedWheels();
+    }
+
+    /** How the drive to the shooting pose ends: the follower stops, and the sticks drive again. */
+    void giveTheDriverTheWheels(EndCondition howItEnded) {
+        follower.manual(0.0, 0.0, 0.0);
+    }
+
+    /**
+     * A's pose at the alliance's hive, at the cell up at the start or the
+     * other, whichever is on the robot's side of y = 72 in.
+     */
+    Pose shootingPoseOnTheRobotsHalf() {
+        Pose atTheCellUpAtTheStart = forTheAlliance(RED_A);
+        Pose atTheOtherCell = forTheAlliance(mirrored(RED_A, RED_TIP_AXIS));
+        boolean robotBelowTheMiddle = follower.pose().y() < 72.0;
+        boolean cellUpAtTheStartBelowTheMiddle = atTheCellUpAtTheStart.y() < 72.0;
+        Pose shootingPose = atTheOtherCell;
+        if (robotBelowTheMiddle == cellUpAtTheStartBelowTheMiddle) {
+            shootingPose = atTheCellUpAtTheStart;
+        }
+        return shootingPose;
+    }
+
+    /** A red pose as it is, or turned a half-turn about the field's middle for blue. */
+    Pose forTheAlliance(Pose redPose) {
+        PoseFactory poses = RED_POSES;
+        if (allianceRow.getSelected() != red) {
+            poses = RED_POSES.rotateAround(72.0, 72.0, 180.0);
+        }
+        Pose forTheAlliance = poses.of(redPose.x(), redPose.y(), Math.toDegrees(redPose.heading()));
+        return forTheAlliance;
+    }
+
+    /**
+     * A pose mirrored about a line, given as a pose on the line facing along
+     * it: its place reflected across the line, and its heading too.
+     */
+    static Pose mirrored(Pose pose, Pose line) {
+        double twiceTheLine_rad = 2.0 * line.heading();
+        double cos = Math.cos(twiceTheLine_rad);
+        double sin = Math.sin(twiceTheLine_rad);
+        double dx = pose.x() - line.x();
+        double dy = pose.y() - line.y();
+        double x = line.x() + dx * cos + dy * sin;
+        double y = line.y() + dx * sin - dy * cos;
+        double heading_rad = twiceTheLine_rad - pose.heading();
+        double wrapped_rad = Math.atan2(Math.sin(heading_rad), Math.cos(heading_rad));
+        Pose mirrored = new Pose(x, y, wrapped_rad);
+        return mirrored;
     }
 
     /** Against the alliance's wall, facing it: the default start, where Example Auto starts. */
