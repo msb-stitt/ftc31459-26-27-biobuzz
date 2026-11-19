@@ -141,6 +141,35 @@ public class Launcher {
     }
 
     /**
+     * For as long as the OpMode runs: while {@code spinUp} is true, spins up to
+     * the robot's target, and feeds once fast enough while {@code feed} is true
+     * too; while {@code spinUp} is not, the motor and the windmill stop. A
+     * command that also needs the launcher sets this one aside while it runs,
+     * and this one comes back when it ends.
+     */
+    // 'public' so example/'s OpModes, in another package, can use it. 'public' allows access from any code.
+    public Command fireWhile(BooleanSupplier spinUp, BooleanSupplier feed) {
+        Command spinUpWhileFeedingWhen = Command.build()
+                .setExecute(() -> spinUpAndFeedWhenOrStopThisLoop(spinUp, feed))
+                .setDone(this::runsUntilCancelled)
+                .setEnd(this::stopMotorAndWindmill)
+                .requiring(this)
+                .setInterruptedBehavior(InterruptedBehavior.SUSPEND);
+        return spinUpWhileFeedingWhen;
+    }
+
+    /** One loop of {@link #fireWhile(BooleanSupplier, BooleanSupplier)}: both read now. */
+    void spinUpAndFeedWhenOrStopThisLoop(BooleanSupplier spinUp, BooleanSupplier feed) {
+        boolean spinUpNow = spinUp.getAsBoolean();
+        if (spinUpNow) {
+            boolean feedNow = feed.getAsBoolean();
+            spinUpAndFeedWhenFastEnough(TARGET_TICKS_PER_SECOND, FEED_ABOVE_TICKS_PER_SECOND, feedNow);
+        } else {
+            stop();
+        }
+    }
+
+    /**
      * The motor's target, a speed the motor controller then holds. The battery
      * is read each time. A spin-up gets an F from that reading; a new target
      * while spinning gets an F from the spin-up's reading.
@@ -172,18 +201,19 @@ public class Launcher {
                             BooleanSupplier fireButton) {
         boolean fireButtonHeldNow = fireButton.getAsBoolean();
         if (fireButtonHeldNow) {
-            spinUpAndFeedOnceFastEnough(targetTicksPerSecond.getAsDouble(),
-                    feedAboveTicksPerSecond.getAsDouble());
+            spinUpAndFeedWhenFastEnough(targetTicksPerSecond.getAsDouble(),
+                    feedAboveTicksPerSecond.getAsDouble(), true);
         } else {
             stop();
         }
     }
 
-    /** The motor's target, then the windmill by its speed. */
-    void spinUpAndFeedOnceFastEnough(double targetTicksPerSecond, double feedAboveTicksPerSecond) {
+    /** The motor's target, then the windmill by its speed, when it may feed. */
+    void spinUpAndFeedWhenFastEnough(double targetTicksPerSecond, double feedAboveTicksPerSecond,
+                                     boolean mayFeed) {
         double measuredTicksPerSecond = motor.getVelocity();
         boolean fastEnoughToFeed = measuredTicksPerSecond > feedAboveTicksPerSecond;
-        if (fastEnoughToFeed) {
+        if (fastEnoughToFeed && mayFeed) {
             startTheWindmill();
         } else {
             stopTheWindmill();
