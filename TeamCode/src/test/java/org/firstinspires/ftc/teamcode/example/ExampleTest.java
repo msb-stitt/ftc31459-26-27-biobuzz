@@ -455,6 +455,90 @@ public class ExampleTest {
         return run.subList(run.indexOf(from) + 1, run.indexOf(to));
     }
 
+    @Test
+    public void holdingADrivesToItsPoseOnTheRobotsHalfOnEachAlliance() {
+        for (boolean red : new boolean[]{true, false}) {
+            for (boolean otherCell : new boolean[]{false, true}) {
+                String what = (red ? "red" : "blue")
+                        + (otherCell ? ", the other cell" : ", the cell up at the start");
+                Pose expected = expectedShootingPose(otherCell, red);
+                OpModeHarness h = teleOpAt(red, towardTheMiddle(expected, 20.0));
+                h.gamepad1.a = true;
+                for (int i = 0; i < 500; i++) {
+                    h.loop();
+                }
+                Follower follower = h.robot.follower;
+                assertEquals(what + ": driving to the pose", Follower.Mode.HOLD, follower.mode());
+                assertSamePoseWithin(what, expected, follower.pose());
+                h.stop();
+                Scheduler.reset();
+            }
+        }
+    }
+
+    @Test
+    public void whileAIsHeldTheSticksDoNotDriveAndLettingGoGivesThemTheWheels() {
+        Pose expected = expectedShootingPose(false, true);
+        OpModeHarness h = teleOpAt(true, towardTheMiddle(expected, 20.0));
+        Follower follower = h.robot.follower;
+        h.gamepad1.a = true;
+        h.loop();
+        h.gamepad1.left_stick_y = -1.0f;
+        h.gamepad1.right_stick_x = 1.0f;
+        h.loop();
+        h.loop();
+        assertEquals("a stick does not take over", Follower.Mode.HOLD, follower.mode());
+
+        h.gamepad1.a = false;
+        h.loop();
+        assertEquals("let go: manual control returns", Follower.Mode.MANUAL, follower.mode());
+        h.loop();
+        assertTrue("the sticks drive", Math.abs(h.wheelsTurn()) > 0.01);
+        h.stop();
+    }
+
+    /**
+     * Where A drives to, worked out here from Example TeleOp's red A: the other
+     * cell's is mirrored about y = 72 in, and blue's is red's turned about
+     * (72 in, 72 in).
+     */
+    private static Pose expectedShootingPose(boolean otherCell, boolean red) {
+        Pose pose = ExampleTeleOp.RED_A;
+        if (otherCell) {
+            pose = new Pose(pose.x(), 144.0 - pose.y(), -pose.heading());
+        }
+        if (!red) {
+            pose = new Pose(144.0 - pose.x(), 144.0 - pose.y(), pose.heading() + Math.PI);
+        }
+        return pose;
+    }
+
+    /** The pose moved this far toward the field's middle, facing the same way. */
+    private static Pose towardTheMiddle(Pose pose, double by_in) {
+        double dx = 72.0 - pose.x();
+        double dy = 72.0 - pose.y();
+        double length = Math.hypot(dx, dy);
+        return new Pose(pose.x() + dx / length * by_in, pose.y() + dy / length * by_in,
+                pose.heading());
+    }
+
+    /** Example TeleOp through PLAY on the alliance, the robot then put at a pose. */
+    private static OpModeHarness teleOpAt(boolean red, Pose robotAt) {
+        OpModeStorage.isRed = red;
+        OpModeHarness h = new OpModeHarness(new ExampleTeleOp());
+        h.init();
+        h.initLoop();
+        h.start();
+        h.robot.follower.setPose(robotAt);
+        return h;
+    }
+
+    private static void assertSamePoseWithin(String what, Pose expected, Pose pose) {
+        assertAt(what, expected.x(), expected.y(), pose);
+        assertEquals(what + ": heading", 0.0,
+                Math.toDegrees(angleBetween(expected.heading(), pose.heading())), 1.0);
+    }
+
     private static void assertAt(String what, double x, double y, Pose pose) {
         assertEquals(what + ": x", x, pose.x(), HELD_IN);
         assertEquals(what + ": y", y, pose.y(), HELD_IN);
