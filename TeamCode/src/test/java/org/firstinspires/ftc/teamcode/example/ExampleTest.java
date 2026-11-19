@@ -455,6 +455,213 @@ public class ExampleTest {
         return run.subList(run.indexOf(from) + 1, run.indexOf(to));
     }
 
+    @Test
+    public void eachButtonDrivesToItsPoseAtEitherCellAndFiresThereOnEachAlliance() {
+        for (boolean red : new boolean[]{true, false}) {
+            for (char button : new char[]{'x', 'y', 'a'}) {
+                for (boolean otherCell : new boolean[]{false, true}) {
+                    String what = (red ? "red " : "blue ") + button
+                            + (otherCell ? " at the other cell" : " at the cell up at the start");
+                    Pose expected = expectedShootingPose(button, otherCell, red);
+                    Pose near = towardTheMiddle(expected, 10.0);
+
+                    ExampleTeleOp teleOp = new ExampleTeleOp();
+                    OpModeHarness h = teleOpAt(teleOp, red, near);
+                    launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
+                    press(h, button, true);
+                    h.loop();
+                    assertEquals(what + ": driving to the pose", Follower.Mode.HOLD,
+                            h.robot.follower.mode());
+                    assertSamePose(what + ": the pose chosen", expected, teleOp.shootingPose);
+                    assertEquals(what + ": not spun up away from the pose", 0,
+                            launcherMotor.targetVelocity, 0);
+
+                    loopUntilAtThePose(h, teleOp, what);
+                    Pose robot = h.robot.follower.pose();
+                    assertEquals(what + ": within 2 in", 0.0, Math.hypot(robot.x() - expected.x(),
+                            robot.y() - expected.y()), ExampleTeleOp.AT_THE_POSE_WITHIN_IN);
+                    assertEquals(what + ": within 3 deg", 0.0, Math.toDegrees(
+                            angleBetween(expected.heading(), robot.heading())),
+                            ExampleTeleOp.AT_THE_POSE_WITHIN_DEG);
+                    assertEquals(what + ": spun up", Constants.launcherTargetTicksPerSecond,
+                            launcherMotor.targetVelocity, 0);
+                    assertEquals(what + ": feeding", 1, windmill.speed, 0);
+                    assertEquals(what + ": the intake boosted", Launcher.INTAKE_BOOST_SPEED_FRACTION,
+                            intakeMotor.speed, EPS);
+                    h.stop();
+                    Scheduler.reset();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void aButtonWithNoPoseWithin36InDoesNothing() {
+        ExampleTeleOp teleOp = new ExampleTeleOp();
+        OpModeHarness h = teleOpAt(teleOp, true, PoseFactory.degrees().of(72, 72, 0));
+        press(h, 'x', true);
+        h.loop();
+        h.loop();
+        assertEquals(null, teleOp.shootingPose);
+        assertEquals(Follower.Mode.MANUAL, h.robot.follower.mode());
+        assertEquals(0, launcherMotor.targetVelocity, 0);
+        h.stop();
+    }
+
+    @Test
+    public void onlyThePosesAtTheAlliancesOwnHiveAreChosen() {
+        for (boolean red : new boolean[]{true, false}) {
+            String what = red ? "red" : "blue";
+            Pose theOtherAlliancesX = expectedShootingPose('x', false, !red);
+            Pose ownXNearIt = expectedShootingPose('x', true, red);
+            ExampleTeleOp teleOp = new ExampleTeleOp();
+            OpModeHarness h = teleOpAt(teleOp, red, theOtherAlliancesX);
+            press(h, 'x', true);
+            h.loop();
+            assertSamePose(what + ": its own hive's X", ownXNearIt, teleOp.shootingPose);
+            h.stop();
+            Scheduler.reset();
+        }
+    }
+
+    @Test
+    public void awayFromThePoseTheWindmillStopsAndTheLauncherKeepsSpinning() {
+        Pose expected = expectedShootingPose('x', false, true);
+        ExampleTeleOp teleOp = new ExampleTeleOp();
+        OpModeHarness h = teleOpAt(teleOp, true, towardTheMiddle(expected, 10.0));
+        launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
+        press(h, 'x', true);
+        loopUntilAtThePose(h, teleOp, "x");
+        assertEquals("feeding at the pose", 1, windmill.speed, 0);
+
+        h.robot.follower.setPose(towardTheMiddle(expected, 5.0));
+        h.loop();
+        assertEquals("away from it, the windmill stops", 0, windmill.speed, 0);
+        assertEquals("and the launcher keeps spinning", Constants.launcherTargetTicksPerSecond,
+                launcherMotor.targetVelocity, 0);
+        assertEquals("the robot still drives to it", Follower.Mode.HOLD, h.robot.follower.mode());
+        h.stop();
+    }
+
+    @Test
+    public void aStickEndsItAllAndCentredAgainWithTheButtonHeldItStartsAgain() {
+        Pose expected = expectedShootingPose('a', false, true);
+        ExampleTeleOp teleOp = new ExampleTeleOp();
+        OpModeHarness h = teleOpAt(teleOp, true, towardTheMiddle(expected, 10.0));
+        launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
+        press(h, 'a', true);
+        loopUntilAtThePose(h, teleOp, "a");
+        assertEquals("feeding at the pose", 1, windmill.speed, 0);
+
+        h.gamepad1.right_stick_x = 0.5f;
+        h.loop();
+        assertEquals("a stick: the driver drives", Follower.Mode.MANUAL, h.robot.follower.mode());
+        assertEquals("the launcher stops", 0, launcherMotor.targetVelocity, 0);
+        assertEquals("the windmill stops", 0, windmill.speed, 0);
+        assertEquals("no pose", null, teleOp.shootingPose);
+        h.loop();
+        assertTrue("the sticks drive", Math.abs(h.wheelsTurn()) > 0.01);
+
+        h.gamepad1.right_stick_x = 0.04f;                        // inside the deadband
+        h.loop();
+        assertEquals("centred, button held: it starts again", Follower.Mode.HOLD,
+                h.robot.follower.mode());
+        assertSamePose("the same pose", expected, teleOp.shootingPose);
+
+        press(h, 'a', false);
+        h.loop();
+        assertEquals("let go: the driver drives", Follower.Mode.MANUAL, h.robot.follower.mode());
+        assertEquals("the launcher stops", 0, launcherMotor.targetVelocity, 0);
+        assertEquals("no pose", null, teleOp.shootingPose);
+        h.stop();
+    }
+
+    @Test
+    public void theDriverStationShowsTheShootingPoseAndWhetherTheRobotIsAtIt() {
+        Pose expected = expectedShootingPose('x', false, true);
+        ExampleTeleOp teleOp = new ExampleTeleOp();
+        OpModeHarness h = teleOpAt(teleOp, true, towardTheMiddle(expected, 10.0));
+        h.loop();
+        assertTrue(h.driverStation.text(),
+                h.driverStation.shows("Shooting pose  x 0.0  y 0.0  h 0 deg  at it false"));
+
+        press(h, 'x', true);
+        h.loop();
+        h.loop();
+        assertTrue(h.driverStation.text(),
+                h.driverStation.shows("Shooting pose  x 60.0  y 10.5  h -90 deg  at it false"));
+        loopUntilAtThePose(h, teleOp, "x");
+        assertTrue(h.driverStation.text(),
+                h.driverStation.shows("Shooting pose  x 60.0  y 10.5  h -90 deg  at it true"));
+        h.stop();
+    }
+
+    /**
+     * Where a button drives to, worked out here from Example TeleOp's red A and
+     * X: Y is A mirrored about the line x = X's x; the other cell's are
+     * mirrored about y = 72 in; blue's are red's turned about (72 in, 72 in).
+     */
+    private static Pose expectedShootingPose(char button, boolean otherCell, boolean red) {
+        Pose a = ExampleTeleOp.RED_A;
+        Pose x = ExampleTeleOp.RED_X;
+        Pose pose = x;
+        if (button == 'a') {
+            pose = a;
+        }
+        if (button == 'y') {
+            pose = new Pose(2 * x.x() - a.x(), a.y(), Math.PI - a.heading());
+        }
+        if (otherCell) {
+            pose = new Pose(pose.x(), 144.0 - pose.y(), -pose.heading());
+        }
+        if (!red) {
+            pose = new Pose(144.0 - pose.x(), 144.0 - pose.y(), pose.heading() + Math.PI);
+        }
+        return pose;
+    }
+
+    /** The pose moved this far toward the field's middle, facing the same way. */
+    private static Pose towardTheMiddle(Pose pose, double by_in) {
+        double dx = 72.0 - pose.x();
+        double dy = 72.0 - pose.y();
+        double length = Math.hypot(dx, dy);
+        return new Pose(pose.x() + dx / length * by_in, pose.y() + dy / length * by_in,
+                pose.heading());
+    }
+
+    /** Example TeleOp through PLAY on the alliance, the robot then put at a pose. */
+    private static OpModeHarness teleOpAt(ExampleTeleOp teleOp, boolean red, Pose robotAt) {
+        OpModeStorage.isRed = red;
+        OpModeHarness h = new OpModeHarness(teleOp);
+        h.init();
+        h.initLoop();
+        h.start();
+        h.robot.follower.setPose(robotAt);
+        return h;
+    }
+
+    private static void press(OpModeHarness h, char button, boolean held) {
+        if (button == 'x') h.gamepad1.x = held;
+        if (button == 'y') h.gamepad1.y = held;
+        if (button == 'a') h.gamepad1.a = held;
+    }
+
+    /**
+     * Loops until the robot is at the shooting pose, then three more: the drive
+     * notes it in one loop, the launcher, which runs first, spins and feeds in
+     * the next, and the intake, which runs before it, boosts in the one after.
+     */
+    private static void loopUntilAtThePose(OpModeHarness h, ExampleTeleOp teleOp, String what) {
+        for (int i = 0; i < 1000 && !teleOp.atTheShootingPose(); i++) {
+            h.loop();
+        }
+        assertTrue(what + ": reaches the pose, at " + h.robot.follower.pose(),
+                teleOp.atTheShootingPose());
+        h.loop();
+        h.loop();
+        h.loop();
+    }
+
     private static void assertAt(String what, double x, double y, Pose pose) {
         assertEquals(what + ": x", x, pose.x(), HELD_IN);
         assertEquals(what + ": y", y, pose.y(), HELD_IN);

@@ -126,6 +126,37 @@ public class StarterBotTest {
     }
 
     @Test
+    public void onTwoConditionsTheLauncherSpinsOnTheFirstAndFeedsOnlyOnBoth() {
+        boolean[] spinUp = {false};
+        boolean[] feed = {true};
+        Command fire = launcher.fireWhile(() -> spinUp[0], () -> feed[0]);
+        Scheduler.schedule(fire);
+        launcherMotor.velocity = Launcher.FEED_ABOVE_TICKS_PER_SECOND + 10;
+
+        Scheduler.execute();
+        assertEquals("no spin-up, nothing runs", 0, launcherMotor.targetVelocity, 0);
+        assertEquals(0, windmill.speedFraction, 0);
+
+        spinUp[0] = true;
+        Scheduler.execute();
+        assertEquals(Launcher.TARGET_TICKS_PER_SECOND, launcherMotor.targetVelocity, 0);
+        assertEquals("fast enough, and may feed", 1, windmill.speedFraction, 0);
+        assertTrue(launcher.feeding());
+
+        feed[0] = false;
+        Scheduler.execute();
+        assertEquals("may not feed: the windmill stops", 0, windmill.speedFraction, 0);
+        assertFalse(launcher.feeding());
+        assertEquals("and the motor keeps spinning", Launcher.TARGET_TICKS_PER_SECOND,
+                launcherMotor.targetVelocity, 0);
+
+        spinUp[0] = false;
+        Scheduler.execute();
+        assertEquals("no spin-up, the motor stops", 0, launcherMotor.targetVelocity, 0);
+        assertTrue("and the command keeps running", Scheduler.isRunning(fire));
+    }
+
+    @Test
     public void theFeedforwardIsAStaticPartPlusAPartPerTickPerSecond() {
         // 37523's kS 0.05 and kV 0.00037963 give back its F of 13.75 at 1250 ticks/s.
         assertEquals(13.75, Launcher.motFCtrlUnitsPerTickPerSecondAt(1250, 12.0), 1e-3);
