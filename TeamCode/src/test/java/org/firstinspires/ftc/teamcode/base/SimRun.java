@@ -85,6 +85,8 @@ public final class SimRun {
             // No HardwareMap here, so an OpMode's intake and launcher are stand-ins.
             SimMechanisms.install(opMode.getClass());
             harness = new OpModeHarness(opMode);
+            // Nor a camera: one that sees from the simulated robot.
+            SimMechanisms.installCamera(harness);
             harness.logTo(logHome());
         }
         Gamepad typed = null;

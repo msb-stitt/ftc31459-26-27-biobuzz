@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Launcher;
+import org.firstinspires.ftc.teamcode.camera.SimCamera;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import java.lang.reflect.Field;
@@ -24,6 +25,10 @@ import java.util.function.Function;
  * nothing more; each publishes what it always does, so AdvantageScope shows it.
  * The launcher motor reports the speed it was last given, so the windmill feeds
  * from the second loop it is asked to.
+ *
+ * <p>An OpMode that takes its camera through a static {@code cameras}, as
+ * Camera Calibration does, is given a {@link SimCamera} that sees from the
+ * simulated robot, placed and turned as its constants say.
  *
  * <p>Passes when: SimMechanismsTest.
  */
@@ -53,6 +58,28 @@ final class SimMechanisms {
             if (factory && field.getName().equals("launchers")) {
                 field.setAccessible(true);
                 field.set(null, (Function<Object, Launcher>) map -> launcher);
+                set++;
+            }
+        }
+        return set;
+    }
+
+    /**
+     * Sets a static {@code cameras} of {@code harness}'s OpMode to hand out a
+     * camera seeing from the harness's robot, on its clock. Returns how many it set.
+     */
+    static int installCamera(OpModeHarness harness) throws IllegalAccessException {
+        double[] at = {Constants.cameraXInches, Constants.cameraYInches, Constants.cameraZInches};
+        double[] angles = {Constants.cameraHeadingDegrees, Constants.cameraPitchDegrees,
+                Constants.cameraRollDegrees};
+        int set = 0;
+        for (Field field : harness.opMode().getClass().getDeclaredFields()) {
+            boolean factory = Modifier.isStatic(field.getModifiers())
+                    && field.getType() == Function.class;
+            if (factory && field.getName().equals("cameras")) {
+                field.setAccessible(true);
+                field.set(null, (Function<Object, Object>) map -> SimCamera.on(
+                        harness.robot.follower::pose, harness.clock::nanos, at, angles));
                 set++;
             }
         }

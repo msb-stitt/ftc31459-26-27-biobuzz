@@ -67,7 +67,8 @@ If an OpMode is not listed on the Driver Station, check whether its class is `@D
 
 37523 and 31459 are goBILDA's
 [StarterBot with Mecanum Wheels](https://www.gobilda.com/ftc-starterbot-with-mecanum-wheels-resource-guide-2026-2027/),
-stock, with a Pinpoint. 88888 is a Pinpoint and a drivetrain, with no intake, launcher or windmill.
+stock, with a Pinpoint. 37523 also has a Logitech C270 webcam, configured as `Webcam 1`. 88888 is a
+Pinpoint and a drivetrain, with no intake, launcher or windmill.
 **StarterBot TeleOp** and **StarterBot Auto** are similar to goBILDA's example code, written in
 `StarterBotTeleOp`, `StarterBotAuto`, `Intake` and `Launcher`. **88888 Auto** and **88888 TeleOp**
 drive robot 88888.
@@ -82,6 +83,15 @@ log carries `launcher/target_tps`, `launcher/measured_tps`, `launcher/current_am
 AdvantageScope to see whether it holds its speed. Each F the launcher gives its motor controller
 goes to `launcher/f_ctrl_units`, with the battery's volts it was worked out from in
 `launcher/f_battery_volts`.
+
+**Camera Calibration** finds which way 37523's webcam looks: its heading, pitch and roll, with their
+σ, from red's upright AprilTags, IDs 34 to 37, with the HIVES in the pre-match state. The robot
+starts with its intake against the audience wall at x 60 in and stops under the tags; it runs past
+the 30 s autonomous timer, so turn that timer off first. The camera's position comes from its
+constants, and the angles go on the Driver Station at the end. The flight log carries each frame's
+tags in `camera/tag_ids` and `camera/tag_px`, each stop's own angles and residual in the
+`camera/stop_` entries, and the answer in `camera/heading_deg`, `camera/pitch_deg` and
+`camera/roll_deg`, each with its `_sigma_deg`. `CameraCalibration` says how it works.
 
 The OpModes generally send the flight log live to AdvantageScope as well, for practice;
 [NETWORKTABLES.md](./NETWORKTABLES.md) says how to connect, and why not at a competition.
