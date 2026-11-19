@@ -456,7 +456,7 @@ public class ExampleTest {
     }
 
     @Test
-    public void holdingADrivesToItsPoseOnTheRobotsHalfOnEachAlliance() {
+    public void holdingADrivesToTheNearerOfItsPosesOnEachAlliance() {
         for (boolean red : new boolean[]{true, false}) {
             for (boolean otherCell : new boolean[]{false, true}) {
                 String what = (red ? "red" : "blue")
