@@ -88,6 +88,13 @@ public class Constants {
     public static double turnRadiusInches;
 
     /**
+     * How far the robot's front reaches ahead of its centre, inches, so a robot
+     * with its front against a wall is this far from it, plus the frame. On a
+     * StarterBot the front is the intake's end.
+     */
+    public static double frontEndInches;
+
+    /**
      * The drivetrain's feedforward, in SysId's units: kS in volts, and kV in
      * volts per inch per second, or per radian per second turning, for driving
      * forward, strafing and turning. L153 measures them.
@@ -193,6 +200,7 @@ public class Constants {
         foresightConfig = Bot88888.foresightConfig;
         ticksPerInch = Bot88888.ticksPerInch;
         turnRadiusInches = Bot88888.turnRadiusInches;
+        frontEndInches = Bot88888.frontEndInches;
         kSForwardVolts = Bot88888.kSForwardVolts;
         kVForwardVoltSecondsPerInch = Bot88888.kVForwardVoltSecondsPerInch;
         kSStrafeVolts = Bot88888.kSStrafeVolts;
@@ -221,6 +229,7 @@ public class Constants {
         foresightConfig = Bot37523.foresightConfig;
         ticksPerInch = Bot37523.ticksPerInch;
         turnRadiusInches = Bot37523.turnRadiusInches;
+        frontEndInches = Bot37523.frontEndInches;
         kSForwardVolts = Bot37523.kSForwardVolts;
         kVForwardVoltSecondsPerInch = Bot37523.kVForwardVoltSecondsPerInch;
         kSStrafeVolts = Bot37523.kSStrafeVolts;
@@ -249,6 +258,7 @@ public class Constants {
         foresightConfig = Bot31459.foresightConfig;
         ticksPerInch = Bot31459.ticksPerInch;
         turnRadiusInches = Bot31459.turnRadiusInches;
+        frontEndInches = Bot31459.frontEndInches;
         kSForwardVolts = Bot31459.kSForwardVolts;
         kVForwardVoltSecondsPerInch = Bot31459.kVForwardVoltSecondsPerInch;
         kSStrafeVolts = Bot31459.kSStrafeVolts;

@@ -96,6 +96,13 @@ class Bot37523 {
     static double turnRadiusInches = 8.0;
 
     /**
+     * How far the robot's front, the intake's end, reaches ahead of its wheels'
+     * centre, which is Pedro's centre, inches: by goBILDA's STEP of the StarterBot
+     * with mecanum wheels, 3200-2627-0004, read 2026-11-19. MEASURE.
+     */
+    static double frontEndInches = 9.76;
+
+    /**
      * The drivetrain's feedforward, in SysId's units: kS, the volts it takes to
      * start moving, and kV, the volts for each inch per second, or each radian
      * per second turning. L153 measures them. Until it is run on this robot,

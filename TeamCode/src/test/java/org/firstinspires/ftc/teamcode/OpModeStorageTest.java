@@ -27,6 +27,13 @@ public class OpModeStorageTest {
                 turnTo(Math.PI / 2, blue.heading()), EPS);
     }
 
+    @Test
+    public void a37523StartsWithItsIntakeAgainstTheWall() {
+        // The frame's 1.5 in, and the intake's end 9.76 in ahead of the wheels' centre.
+        assertEquals("red: y", 11.26, OpModeStorage.defaultStartPose(true).y(), EPS);
+        assertEquals("blue: y", 144.0 - 11.26, OpModeStorage.defaultStartPose(false).y(), EPS);
+    }
+
     /** The turn from one heading to another, in radians, from -pi to pi. */
     private static double turnTo(double from, double to) {
         return Math.atan2(Math.sin(to - from), Math.cos(to - from));

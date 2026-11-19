@@ -350,7 +350,8 @@ public class Bot88888Test {
         h.stop();
 
         assertEquals("blue, not red, handed to the teleop", false, OpModeStorage.isRed);
-        assertEquals("Nothing does not move", 133.5, follower.pose().y(), 0.1);
+        assertEquals("Nothing does not move", 144.0 - OpModeStorage.botStartYIn, follower.pose().y(),
+                0.1);
     }
 
     private static void assertSamePose(String what, Pose expected, Pose pose) {

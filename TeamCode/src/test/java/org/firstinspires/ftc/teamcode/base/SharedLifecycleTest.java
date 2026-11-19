@@ -160,7 +160,7 @@ public class SharedLifecycleTest {
 
     @Test
     public void aLessonsTeleOpStartsAtTheLessonsDefaultWithNoAutoRun() {
-        Pose lessonsDefault = POSES.of(72, OpModeStorage.botStartYIn, 90);
+        Pose lessonsDefault = POSES.of(72, 10.5, 90);
         for (boolean red : new boolean[]{true, false}) {
             OpModeStorage.isRed = red;
             OpModeHarness h = new OpModeHarness(new L040TankOpMode());

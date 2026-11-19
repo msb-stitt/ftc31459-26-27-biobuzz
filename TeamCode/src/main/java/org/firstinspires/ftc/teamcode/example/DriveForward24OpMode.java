@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.base.AutoRoutine;
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 /**
  * Minimal autonomous: drive 24 inches forward, holding heading. Built with Ivy so
@@ -32,9 +33,9 @@ public class DriveForward24OpMode extends CorbelsAuto {
     private static final double DISTANCE_IN = 24.0;
 
     private static final PoseFactory POSES = PoseFactory.degrees();
-    double robotHalfLengthIn = 9.0;
+    double frontEndIn = Constants.frontEndInches;   // the intake's end, ahead of the centre
     double fieldPerimeterWidthIn = 1.5;
-    double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
+    double botStartYIn = frontEndIn + fieldPerimeterWidthIn;
     private final Pose start = POSES.of(60, botStartYIn, -90);
     private final Pose end = POSES.of(60, botStartYIn+DISTANCE_IN, -90);
 

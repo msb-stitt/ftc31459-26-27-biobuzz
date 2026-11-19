@@ -94,6 +94,12 @@ class Bot88888 {
     static double turnRadiusInches = 8.0;
 
     /**
+     * How far the robot's front reaches ahead of its centre, inches: the half
+     * length the code took for every robot before. MEASURE.
+     */
+    static double frontEndInches = 9.0;
+
+    /**
      * The drivetrain's feedforward, in SysId's units: kS, the volts it takes to
      * start moving, and kV, the volts for each inch per second, or each radian
      * per second turning. L153 measures them. Until it is run on this robot,

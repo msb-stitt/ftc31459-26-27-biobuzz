@@ -39,7 +39,7 @@ public class ClearAutoHasRunTest {
         first.stop();
         assertFalse("no auto has run", OpModeStorage.autoHasRun);
         assertTrue("red, as the app starts", OpModeStorage.isRed);
-        Pose appStart = POSES.of(72, OpModeStorage.botStartYIn, 90);
+        Pose appStart = POSES.of(72, 10.5, 90);
         Pose endPose = OpModeStorage.autonomousEndPose;
         assertEquals("the lessons' default: x", appStart.x(), endPose.x(), 1e-9);
         assertEquals("y", appStart.y(), endPose.y(), 1e-9);

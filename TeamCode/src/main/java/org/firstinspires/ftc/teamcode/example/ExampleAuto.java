@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.base.MenuItem;
 import org.firstinspires.ftc.teamcode.base.MenuRow;
 import org.firstinspires.ftc.teamcode.base.OptionMenu;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import java.util.function.Function;
 import java.util.function.LongSupplier;
@@ -72,9 +73,9 @@ public class ExampleAuto extends CorbelsAuto {
     OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
 
-    double robotHalfLengthIn = 9.0;
+    double frontEndIn = Constants.frontEndInches;   // the intake's end, ahead of the centre
     double fieldPerimeterWidthIn = 1.5;
-    double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
+    double botStartYIn = frontEndIn + fieldPerimeterWidthIn;
 
     double shootSeconds = 10.0;
     double waitAfterShootingSeconds = 3.0;
@@ -219,13 +220,13 @@ public class ExampleAuto extends CorbelsAuto {
         return forwardThenStrafeRoutine;
     }
 
-    // Start: (60, 10.5), against the audience's wall, facing -y, toward the
+    // Start: (60, 11.26), against the audience's wall, facing -y, toward the
     // audience. v is the way the robot faces.
     //
     //        y (in)
     //        ^
-    //   16.5 +
-    //   10.5 +             [v]
+    //  17.26 +
+    //  11.26 +             [v]
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
@@ -235,18 +236,18 @@ public class ExampleAuto extends CorbelsAuto {
     //
     //        y (in)
     //        ^
-    //   16.5 +             [v]
-    //   10.5 +             ( )
+    //  17.26 +             [v]
+    //  11.26 +             ( )
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
     //
-    // Shoot for 10 s at (60, 16.5), then wait 3 s, holding there.
+    // Shoot for 10 s at (60, 17.26), then wait 3 s, holding there.
     //
     //        y (in)
     //        ^
-    //   16.5 +             [v]
-    //   10.5 +
+    //  17.26 +             [v]
+    //  11.26 +
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
@@ -255,18 +256,18 @@ public class ExampleAuto extends CorbelsAuto {
     //
     //        y (in)
     //        ^
-    //   16.5 +          [v]( )
-    //   10.5 +
+    //  17.26 +          [v]( )
+    //  11.26 +
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144
     //
-    // Stop at (48, 16.5) and intake for 3 s, holding there.
+    // Stop at (48, 17.26) and intake for 3 s, holding there.
     //
     //        y (in)
     //        ^
-    //   16.5 +          [v]
-    //   10.5 +
+    //  17.26 +          [v]
+    //  11.26 +
     //        |
     //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
     //        0     24    48    72    96    120   144

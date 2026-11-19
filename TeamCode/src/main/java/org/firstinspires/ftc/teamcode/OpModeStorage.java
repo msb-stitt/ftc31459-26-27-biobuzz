@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 
+import org.firstinspires.ftc.teamcode.pedro.Constants;
+
 /**
  * What one OpMode leaves behind for the next one.
  *
@@ -26,9 +28,11 @@ import com.pedropathing.math.Pose;
  * corner, and the frame stands between it and the tiles.
  *
  * <p>So a robot cannot be at (0, 0). The closest it can get is
- * {@link #fieldPerimeterWidthIn} in from each wall, and further still by half
- * its own length in whichever direction it faces. That is what
- * {@link #botStartYIn} adds up.
+ * {@link #fieldPerimeterWidthIn} in from each wall, and further still by how
+ * far its end at the wall reaches from its centre. {@link #botStartYIn} adds
+ * that up for a robot whose front is at the wall, from the robot's
+ * {@link Constants#frontEndInches}; the lessons' default start, with its back
+ * at the wall, takes {@link #robotHalfLengthIn}.
  *
  * <p>The other reading, that (0, 0) is the inside corner, puts the middle at
  * 70.75 in, because the tiles measure 141.5 in across rather than 144 in. A
@@ -39,14 +43,14 @@ public final class OpModeStorage {
 
     private static final PoseFactory POSES = PoseFactory.degrees();
 
-    /** Nose to middle, so a robot against a wall is this far from it. */
+    /** Half a robot's length, as the lessons' default start takes it. */
     public static final double robotHalfLengthIn = 9.0;
 
     /** The frame's thickness, between the outside corner at (0, 0) and the tiles. */
     public static final double fieldPerimeterWidthIn = 1.5;
 
-    /** How far up the field a robot's middle is when its back is against the wall. */
-    public static final double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
+    /** How far up the field a robot's middle is when its front is against the wall. */
+    public static final double botStartYIn = Constants.frontEndInches + fieldPerimeterWidthIn;
 
     /**
      * Where the last autonomous finished, and so where the next teleop starts.
@@ -79,7 +83,7 @@ public final class OpModeStorage {
      * if no autonomous had run.
      */
     public static void clear() {
-        autonomousEndPose = POSES.of(72, botStartYIn, 90);
+        autonomousEndPose = POSES.of(72, robotHalfLengthIn + fieldPerimeterWidthIn, 90);
         autoHasRun = false;
         isRed = true;
     }

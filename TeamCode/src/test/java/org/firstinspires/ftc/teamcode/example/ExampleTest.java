@@ -268,8 +268,8 @@ public class ExampleTest {
         pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
         String[] autos = {"Forward 24", "Forward Then Strafe", "Move Shot Strafe In",
                 "WaitShootPark", "Shoot And Park"};
-        Pose wall = redPoses.of(60.0, 10.5, -90.0);
-        Pose[] starts = {wall, wall, wall, redPoses.of(60.0, 133.5, 90.0), wall};
+        Pose wall = redPoses.of(60.0, 11.26, -90.0);
+        Pose[] starts = {wall, wall, wall, redPoses.of(60.0, 132.74, 90.0), wall};
         for (int i = 0; i < autos.length; i++) {
             String name = autos[i];
             follower.setPose(redPoses.of(50, 60, 30));
@@ -282,7 +282,7 @@ public class ExampleTest {
         pressDuringInit(h, pad -> pad.dpad_up = true);              // the Alliance row
         pressDuringInit(h, pad -> pad.dpad_right = true);           // blue
         pressDuringInit(h, pad -> pad.a = true);
-        assertSamePose("Shoot And Park, on blue", bluePoses.of(60.0, 10.5, -90.0),
+        assertSamePose("Shoot And Park, on blue", bluePoses.of(60.0, 11.26, -90.0),
                 follower.pose());
 
         pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
@@ -310,7 +310,7 @@ public class ExampleTest {
         assertTrue(h.driverStation.text(), h.driverStation.shows("R-FS"));
         h.start();
         h.loops(1000, 10);
-        assertAt("forward 24 in, then left 24 in, on red's side", 36.0, 34.5,
+        assertAt("forward 24 in, then left 24 in, on red's side", 36.0, 35.26,
                 h.robot.follower.pose());
         h.stop();
     }
@@ -355,13 +355,13 @@ public class ExampleTest {
     public void shootThenIntakeDoesEachStepInOrderForItsTime() {
         List<Sample> run = runShootThenIntake(true);
 
-        // Forward 6 inches from red's start, (72, 10.5), then shoot.
+        // Forward 6 inches from red's start, (72, 11.26), then shoot.
         Sample shootingStarts = first(run, s -> s.launcherTarget > 0);
         Sample shootingEnds = firstAfter(run, shootingStarts, s -> s.launcherTarget == 0);
         assertEquals("shoots for 10 s", 10.0, shootingEnds.seconds - shootingStarts.seconds, 0.05);
-        assertAt("shoots from 6 in forward", 60.0, 16.5, shootingStarts.pose);
+        assertAt("shoots from 6 in forward", 60.0, 17.26, shootingStarts.pose);
         for (Sample s : between(run, shootingStarts, shootingEnds)) {
-            assertAt("held while shooting, at " + s.seconds + " s", 60.0, 16.5, s.pose);
+            assertAt("held while shooting, at " + s.seconds + " s", 60.0, 17.26, s.pose);
             assertEquals("fed, once fast enough", 1, s.windmill, 0);
             assertEquals("the intake boosted while it feeds", Launcher.INTAKE_BOOST_SPEED_FRACTION,
                     s.intakeSpeed, EPS);
@@ -372,18 +372,18 @@ public class ExampleTest {
         Sample strafeStarts = firstAfter(run, shootingEnds, s -> s.following);
         assertEquals("waits 3 s", 3.0, strafeStarts.seconds - shootingEnds.seconds, 0.05);
         for (Sample s : between(run, shootingEnds, strafeStarts)) {
-            assertAt("held while waiting, at " + s.seconds + " s", 60.0, 16.5, s.pose);
+            assertAt("held while waiting, at " + s.seconds + " s", 60.0, 17.26, s.pose);
             assertEquals("nothing runs while it waits", 0, s.intakeSpeed, 0);
             assertEquals(0, s.launcherTarget, 0);
         }
 
         Sample intakeStarts = firstAfter(run, strafeStarts, s -> s.intakeSpeed > 0);
         Sample intakeEnds = firstAfter(run, intakeStarts, s -> s.intakeSpeed == 0);
-        assertAt("strafed 12 in to the robot's left, -x", 48.0, 16.5, intakeStarts.pose);
+        assertAt("strafed 12 in to the robot's left, -x", 48.0, 17.26, intakeStarts.pose);
         assertEquals("intakes for 3 s", 3.0, intakeEnds.seconds - intakeStarts.seconds, 0.05);
         for (Sample s : between(run, intakeStarts, intakeEnds)) {
             assertEquals("full speed in", Intake.FULL_IN_SPEED_FRACTION, s.intakeSpeed, EPS);
-            assertAt("held while intaking, at " + s.seconds + " s", 48.0, 16.5, s.pose);
+            assertAt("held while intaking, at " + s.seconds + " s", 48.0, 17.26, s.pose);
             assertEquals("the launcher stays stopped", 0, s.launcherTarget, 0);
         }
         Sample last = run.get(run.size() - 1);
@@ -394,12 +394,12 @@ public class ExampleTest {
     public void shootThenIntakeForBlueIsRedsTurnedAboutTheMiddle() {
         List<Sample> run = runShootThenIntake(false);
 
-        // Red's (72, 16.5) and (48, 16.5), turned a half-turn about (72, 72).
+        // Red's (72, 17.26) and (48, 17.26), turned a half-turn about (72, 72).
         Sample shootingStarts = first(run, s -> s.launcherTarget > 0);
-        assertAt("shoots from 6 in forward of blue's wall", 84.0, 127.5, shootingStarts.pose);
+        assertAt("shoots from 6 in forward of blue's wall", 84.0, 126.74, shootingStarts.pose);
         Sample intakeStarts = firstAfter(run, shootingStarts,
                 s -> s.intakeSpeed == Intake.FULL_IN_SPEED_FRACTION);
-        assertAt("strafed to the robot's left, +x", 96.0, 127.5, intakeStarts.pose);
+        assertAt("strafed to the robot's left, +x", 96.0, 126.74, intakeStarts.pose);
         assertEquals("blue, handed to the teleop", false, OpModeStorage.isRed);
     }
 

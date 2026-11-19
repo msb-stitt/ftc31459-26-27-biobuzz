@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.base.AutoRoutine;
 import org.firstinspires.ftc.teamcode.base.CorbelsAuto;
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.Tracker;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 /**
  * The StarterBot's autonomous, on the red alliance: from the default start,
@@ -33,9 +34,9 @@ public class StarterBotAuto extends CorbelsAuto {
 
     PoseFactory poses = PoseFactory.degrees();
 
-    double robotHalfLengthIn = 9.0;
+    double frontEndIn = Constants.frontEndInches;   // the intake's end, ahead of the centre
     double fieldPerimeterWidthIn = 1.5;
-    double botStartYIn = robotHalfLengthIn + fieldPerimeterWidthIn;
+    double botStartYIn = frontEndIn + fieldPerimeterWidthIn;
     Pose start = poses.of(60.0, botStartYIn, -90.0);
     Pose corner = poses.of(60.0, botStartYIn + 24.0, -90.0);
     Pose end = poses.of(36.0, botStartYIn + 24.0, -90.0);

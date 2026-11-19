@@ -92,6 +92,14 @@ class Bot31459 {
     static double ticksPerInch = 45.0;
     static double turnRadiusInches = 8.0;
 
+    /**
+     * How far the robot's front, the intake's end, reaches ahead of its wheels'
+     * centre, which is Pedro's centre, inches: by goBILDA's STEP of the StarterBot
+     * with mecanum wheels, 3200-2627-0004, read 2026-11-19, as
+     * 37523's. MEASURE.
+     */
+    static double frontEndInches = 9.76;
+
     /** 37523's, which are the simulator's. MEASURE: L153 measures them. */
     static double kSForwardVolts = 0.6;
     static double kVForwardVoltSecondsPerInch = 0.177;
