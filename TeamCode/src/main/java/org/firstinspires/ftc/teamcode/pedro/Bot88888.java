@@ -100,6 +100,24 @@ class Bot88888 {
     static double frontEndInches = 9.0;
 
     /**
+     * Where the camera is, inches from the robot's centre at ground level, in
+     * Pedro's robot frame: x forward, y left, z up. This robot has no camera:
+     * these are 37523's placeholders, so the code builds the same for each robot.
+     */
+    static double cameraXInches = -7.0;
+    static double cameraYInches = 0.0;
+    static double cameraZInches = 10.0;
+
+    /**
+     * Which way the camera looks, degrees: heading about +z, 0 forward and 90
+     * left; pitch up from level; roll about where it looks, clockwise as the
+     * camera sees. 37523's, as above.
+     */
+    static double cameraHeadingDegrees = 180.0;
+    static double cameraPitchDegrees = 45.0;
+    static double cameraRollDegrees = 0.0;
+
+    /**
      * The drivetrain's feedforward, in SysId's units: kS, the volts it takes to
      * start moving, and kV, the volts for each inch per second, or each radian
      * per second turning. L153 measures them. Until it is run on this robot,

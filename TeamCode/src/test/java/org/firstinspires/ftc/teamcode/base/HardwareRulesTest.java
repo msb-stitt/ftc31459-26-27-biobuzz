@@ -83,7 +83,7 @@ public class HardwareRulesTest {
                 OpModeHarness.BACK_LEFT, OpModeHarness.BACK_RIGHT, Constants.imuName,
                 Constants.intakeName, Constants.leftIntakeServoName,
                 Constants.rightIntakeServoName, Constants.launcherName,
-                Constants.windmillServoName};
+                Constants.windmillServoName, Constants.webcamName};
         List<String> offenders = new ArrayList<>();
         try (Stream<Path> files = Files.walk(baseDirectory)) {
             for (Path file : files.filter(f -> f.toString().endsWith(".java"))

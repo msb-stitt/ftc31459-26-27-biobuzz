@@ -100,6 +100,24 @@ class Bot31459 {
      */
     static double frontEndInches = 9.76;
 
+    /**
+     * Where the camera is, inches from the robot's centre at ground level, in
+     * Pedro's robot frame: x forward, y left, z up. This robot has no camera:
+     * these are 37523's placeholders, so the code builds the same for each robot.
+     */
+    static double cameraXInches = -7.0;
+    static double cameraYInches = 0.0;
+    static double cameraZInches = 10.0;
+
+    /**
+     * Which way the camera looks, degrees: heading about +z, 0 forward and 90
+     * left; pitch up from level; roll about where it looks, clockwise as the
+     * camera sees. 37523's, as above.
+     */
+    static double cameraHeadingDegrees = 180.0;
+    static double cameraPitchDegrees = 45.0;
+    static double cameraRollDegrees = 0.0;
+
     /** 37523's, which are the simulator's. MEASURE: L153 measures them. */
     static double kSForwardVolts = 0.6;
     static double kVForwardVoltSecondsPerInch = 0.177;

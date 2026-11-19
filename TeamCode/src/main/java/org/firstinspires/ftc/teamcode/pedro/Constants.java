@@ -54,6 +54,9 @@ public class Constants {
     public static String launcherName = "launcher";
     public static String windmillServoName = "windmillServo";
 
+    /** The USB camera, by the SDK samples' name for it. */
+    public static String webcamName = "Webcam 1";
+
     // ---- Each robot's own values come from its file, Bot88888 and so on: the
     // ---- three configs its AutoTune procedures printed, pasted whole, its
     // ---- choices AutoTune does not print, and its other numbers. A value
@@ -93,6 +96,23 @@ public class Constants {
      * StarterBot the front is the intake's end.
      */
     public static double frontEndInches;
+
+    /**
+     * Where the camera is, inches from the robot's centre at ground level, in
+     * Pedro's robot frame: x forward, y left, z up.
+     */
+    public static double cameraXInches;
+    public static double cameraYInches;
+    public static double cameraZInches;
+
+    /**
+     * Which way the camera looks, degrees: heading about +z, 0 forward and 90
+     * left; pitch up from level; roll about where it looks, clockwise as the
+     * camera sees. {@code camera.CameraAngles} turns them into a rotation.
+     */
+    public static double cameraHeadingDegrees;
+    public static double cameraPitchDegrees;
+    public static double cameraRollDegrees;
 
     /**
      * The drivetrain's feedforward, in SysId's units: kS in volts, and kV in
@@ -201,6 +221,12 @@ public class Constants {
         ticksPerInch = Bot88888.ticksPerInch;
         turnRadiusInches = Bot88888.turnRadiusInches;
         frontEndInches = Bot88888.frontEndInches;
+        cameraXInches = Bot88888.cameraXInches;
+        cameraYInches = Bot88888.cameraYInches;
+        cameraZInches = Bot88888.cameraZInches;
+        cameraHeadingDegrees = Bot88888.cameraHeadingDegrees;
+        cameraPitchDegrees = Bot88888.cameraPitchDegrees;
+        cameraRollDegrees = Bot88888.cameraRollDegrees;
         kSForwardVolts = Bot88888.kSForwardVolts;
         kVForwardVoltSecondsPerInch = Bot88888.kVForwardVoltSecondsPerInch;
         kSStrafeVolts = Bot88888.kSStrafeVolts;
@@ -230,6 +256,12 @@ public class Constants {
         ticksPerInch = Bot37523.ticksPerInch;
         turnRadiusInches = Bot37523.turnRadiusInches;
         frontEndInches = Bot37523.frontEndInches;
+        cameraXInches = Bot37523.cameraXInches;
+        cameraYInches = Bot37523.cameraYInches;
+        cameraZInches = Bot37523.cameraZInches;
+        cameraHeadingDegrees = Bot37523.cameraHeadingDegrees;
+        cameraPitchDegrees = Bot37523.cameraPitchDegrees;
+        cameraRollDegrees = Bot37523.cameraRollDegrees;
         kSForwardVolts = Bot37523.kSForwardVolts;
         kVForwardVoltSecondsPerInch = Bot37523.kVForwardVoltSecondsPerInch;
         kSStrafeVolts = Bot37523.kSStrafeVolts;
@@ -259,6 +291,12 @@ public class Constants {
         ticksPerInch = Bot31459.ticksPerInch;
         turnRadiusInches = Bot31459.turnRadiusInches;
         frontEndInches = Bot31459.frontEndInches;
+        cameraXInches = Bot31459.cameraXInches;
+        cameraYInches = Bot31459.cameraYInches;
+        cameraZInches = Bot31459.cameraZInches;
+        cameraHeadingDegrees = Bot31459.cameraHeadingDegrees;
+        cameraPitchDegrees = Bot31459.cameraPitchDegrees;
+        cameraRollDegrees = Bot31459.cameraRollDegrees;
         kSForwardVolts = Bot31459.kSForwardVolts;
         kVForwardVoltSecondsPerInch = Bot31459.kVForwardVoltSecondsPerInch;
         kSStrafeVolts = Bot31459.kSStrafeVolts;

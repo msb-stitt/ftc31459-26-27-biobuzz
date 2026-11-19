@@ -103,6 +103,24 @@ class Bot37523 {
     static double frontEndInches = 9.76;
 
     /**
+     * Where the camera is, inches from the robot's centre at ground level, in
+     * Pedro's robot frame: x forward, y left, z up. Placeholders until the C270
+     * is mounted and measured; nothing on the robot depends on them yet. MEASURE.
+     */
+    static double cameraXInches = -7.0;
+    static double cameraYInches = 0.0;
+    static double cameraZInches = 10.0;
+
+    /**
+     * Which way the camera looks, degrees: heading about +z, 0 forward and 90
+     * left; pitch up from level; roll about where it looks, clockwise as the
+     * camera sees. Camera Calibration measures them.
+     */
+    static double cameraHeadingDegrees = 180.0;
+    static double cameraPitchDegrees = 45.0;
+    static double cameraRollDegrees = 0.0;
+
+    /**
      * The drivetrain's feedforward, in SysId's units: kS, the volts it takes to
      * start moving, and kV, the volts for each inch per second, or each radian
      * per second turning. L153 measures them. Until it is run on this robot,
