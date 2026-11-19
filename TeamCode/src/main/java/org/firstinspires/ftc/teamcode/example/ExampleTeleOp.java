@@ -37,7 +37,7 @@ import java.util.function.Function;
  *   <li>The right trigger, less the left trigger, runs the intake.</li>
  *   <li>Holding the right bumper spins the launcher up and feeds it.</li>
  *   <li>Holding A drives to the shooting pose near the driver at the alliance's
- *   hive, the nearer of its two, one at each cell, and holds it there,
+ *   hive, at the cell on the robot's side of the middle, and holds it there,
  *   whatever the sticks do. Letting go gives the sticks the wheels.</li>
  * </ul>
  *
@@ -276,9 +276,9 @@ public class ExampleTeleOp extends CorbelsTeleOp {
         return intakeSpeedFraction;
     }
 
-    /** The nearer shooting pose, held by the follower. */
+    /** The shooting pose on the robot's side, held by the follower. */
     void startDrivingToTheShootingPose() {
-        Pose shootingPose = nearerShootingPose();
+        Pose shootingPose = shootingPoseOnTheRobotsSide();
         follower.hold(shootingPose);
         drivetrain.releaseCommandedWheels();
     }
@@ -290,24 +290,20 @@ public class ExampleTeleOp extends CorbelsTeleOp {
 
     /**
      * A's pose at the alliance's hive, at the cell up at the start or the
-     * other, whichever is nearer the robot. The other is mirrored about the
-     * hive's tip axis, y = 72 in, so the nearer is the one on the robot's half
-     * of the field. Blue's are red's turned a half-turn about the middle.
+     * other, whichever is on the robot's side of the hive's tip axis,
+     * y = 72 in. The other is mirrored about it. Blue's are red's turned a
+     * half-turn about the middle.
      */
-    Pose nearerShootingPose() {
+    Pose shootingPoseOnTheRobotsSide() {
         PoseFactory poses = PoseFactory.degrees();
         if (allianceRow.getSelected() != red) {
             poses = poses.rotateAround(72.0, 72.0, 180.0);
         }
         Pose atTheCellUpAtTheStart = poses.of(A_X_IN, A_Y_IN, A_HEADING_DEG);
         Pose atTheOtherCell = poses.mirrorY(72.0).of(A_X_IN, A_Y_IN, A_HEADING_DEG);
-        Pose robot = follower.pose();
-        double toTheCellUpAtTheStart_in = Math.hypot(atTheCellUpAtTheStart.x() - robot.x(),
-                atTheCellUpAtTheStart.y() - robot.y());
-        double toTheOtherCell_in = Math.hypot(atTheOtherCell.x() - robot.x(),
-                atTheOtherCell.y() - robot.y());
+        boolean robotOnTheFarSide = follower.pose().y() > 72.0;
         Pose shootingPose = atTheOtherCell;
-        if (toTheCellUpAtTheStart_in < toTheOtherCell_in) {
+        if ((atTheCellUpAtTheStart.y() > 72.0) == robotOnTheFarSide) {
             shootingPose = atTheCellUpAtTheStart;
         }
         return shootingPose;
