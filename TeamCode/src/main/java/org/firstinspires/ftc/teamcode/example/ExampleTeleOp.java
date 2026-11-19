@@ -86,12 +86,11 @@ public class ExampleTeleOp extends CorbelsTeleOp {
 
     /**
      * Red's shooting pose at the hive's cell that is up at the start, near the
-     * driver. The launcher fires out of the robot's back.
+     * driver, in inches and degrees. The launcher fires out of the robot's back.
      */
-    static final PoseFactory RED_POSES = PoseFactory.degrees();
-    static final Pose RED_A = RED_POSES.of(15.0, 12.0, -135.0);
-    /** The red hive's tip axis, y = 72 in: the other cell's pose is mirrored about it. */
-    static final Pose RED_TIP_AXIS = RED_POSES.of(72.0, 72.0, 0.0);
+    static final double A_X_IN = 15.0;
+    static final double A_Y_IN = 12.0;
+    static final double A_HEADING_DEG = -135.0;
 
     // 'public' to match the parent class. 'public' allows access from any code.
     @Override
@@ -291,12 +290,17 @@ public class ExampleTeleOp extends CorbelsTeleOp {
 
     /**
      * A's pose at the alliance's hive, at the cell up at the start or the
-     * other, whichever is nearer the robot. The two are mirrored about
-     * y = 72 in, so the nearer is the one on the robot's half of the field.
+     * other, whichever is nearer the robot. The other is mirrored about the
+     * hive's tip axis, y = 72 in, so the nearer is the one on the robot's half
+     * of the field. Blue's are red's turned a half-turn about the middle.
      */
     Pose nearerShootingPose() {
-        Pose atTheCellUpAtTheStart = forTheAlliance(RED_A);
-        Pose atTheOtherCell = forTheAlliance(mirrored(RED_A, RED_TIP_AXIS));
+        PoseFactory poses = PoseFactory.degrees();
+        if (allianceRow.getSelected() != red) {
+            poses = poses.rotateAround(72.0, 72.0, 180.0);
+        }
+        Pose atTheCellUpAtTheStart = poses.of(A_X_IN, A_Y_IN, A_HEADING_DEG);
+        Pose atTheOtherCell = poses.mirrorY(72.0).of(A_X_IN, A_Y_IN, A_HEADING_DEG);
         Pose robot = follower.pose();
         double toTheCellUpAtTheStart_in = Math.hypot(atTheCellUpAtTheStart.x() - robot.x(),
                 atTheCellUpAtTheStart.y() - robot.y());
@@ -307,34 +311,6 @@ public class ExampleTeleOp extends CorbelsTeleOp {
             shootingPose = atTheCellUpAtTheStart;
         }
         return shootingPose;
-    }
-
-    /** A red pose as it is, or turned a half-turn about the field's middle for blue. */
-    Pose forTheAlliance(Pose redPose) {
-        PoseFactory poses = RED_POSES;
-        if (allianceRow.getSelected() != red) {
-            poses = RED_POSES.rotateAround(72.0, 72.0, 180.0);
-        }
-        Pose forTheAlliance = poses.of(redPose.x(), redPose.y(), Math.toDegrees(redPose.heading()));
-        return forTheAlliance;
-    }
-
-    /**
-     * A pose mirrored about a line, given as a pose on the line facing along
-     * it: its place reflected across the line, and its heading too.
-     */
-    static Pose mirrored(Pose pose, Pose line) {
-        double twiceTheLine_rad = 2.0 * line.heading();
-        double cos = Math.cos(twiceTheLine_rad);
-        double sin = Math.sin(twiceTheLine_rad);
-        double dx = pose.x() - line.x();
-        double dy = pose.y() - line.y();
-        double x = line.x() + dx * cos + dy * sin;
-        double y = line.y() + dx * sin - dy * cos;
-        double heading_rad = twiceTheLine_rad - pose.heading();
-        double wrapped_rad = Math.atan2(Math.sin(heading_rad), Math.cos(heading_rad));
-        Pose mirrored = new Pose(x, y, wrapped_rad);
-        return mirrored;
     }
 
     /** Against the alliance's wall, facing it: the default start, where Example Auto starts. */

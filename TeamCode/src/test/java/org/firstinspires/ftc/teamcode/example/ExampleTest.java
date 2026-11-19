@@ -503,7 +503,8 @@ public class ExampleTest {
      * (72 in, 72 in).
      */
     private static Pose expectedShootingPose(boolean otherCell, boolean red) {
-        Pose pose = ExampleTeleOp.RED_A;
+        Pose pose = new Pose(ExampleTeleOp.A_X_IN, ExampleTeleOp.A_Y_IN,
+                Math.toRadians(ExampleTeleOp.A_HEADING_DEG));
         if (otherCell) {
             pose = new Pose(pose.x(), 144.0 - pose.y(), -pose.heading());
         }
