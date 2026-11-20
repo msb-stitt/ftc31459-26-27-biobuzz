@@ -74,15 +74,17 @@ public class ExampleTest {
         final double intakeSpeed;
         final boolean following;
         final Pose pose;
+        final double speed_ips;
 
         Sample(double seconds, double launcherTarget, double windmill, double intakeSpeed,
-               boolean following, Pose pose) {
+               boolean following, Pose pose, double speed_ips) {
             this.seconds = seconds;
             this.launcherTarget = launcherTarget;
             this.windmill = windmill;
             this.intakeSpeed = intakeSpeed;
             this.following = following;
             this.pose = pose;
+            this.speed_ips = speed_ips;
         }
     }
 
@@ -267,9 +269,9 @@ public class ExampleTest {
 
         pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
         String[] autos = {"Forward 24", "Forward Then Strafe", "Move Shot Strafe In",
-                "WaitShootPark", "Shoot And Park"};
+                "WaitShootPark", "Shoot And Park", "Shoot Sweep"};
         Pose wall = redPoses.of(60.0, 11.26, -90.0);
-        Pose[] starts = {wall, wall, wall, redPoses.of(60.0, 132.74, 90.0), wall};
+        Pose[] starts = {wall, wall, wall, redPoses.of(60.0, 132.74, 90.0), wall, wall};
         for (int i = 0; i < autos.length; i++) {
             String name = autos[i];
             follower.setPose(redPoses.of(50, 60, 30));
@@ -282,7 +284,7 @@ public class ExampleTest {
         pressDuringInit(h, pad -> pad.dpad_up = true);              // the Alliance row
         pressDuringInit(h, pad -> pad.dpad_right = true);           // blue
         pressDuringInit(h, pad -> pad.a = true);
-        assertSamePose("Shoot And Park, on blue", bluePoses.of(60.0, 11.26, -90.0),
+        assertSamePose("Shoot Sweep, on blue", bluePoses.of(60.0, 11.26, -90.0),
                 follower.pose());
 
         pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
@@ -419,7 +421,8 @@ public class ExampleTest {
             pressDuringInit(h, pad -> pad.a = true);
         }
         pressDuringInit(h, pad -> pad.dpad_down = true);
-        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot And Park
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot Sweep
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // Shoot And Park
         pressDuringInit(h, pad -> pad.dpad_left = true);   // WaitShootPark
         pressDuringInit(h, pad -> pad.dpad_left = true);   // Move Shot Strafe In
         pressDuringInit(h, pad -> pad.a = true);
@@ -432,10 +435,143 @@ public class ExampleTest {
         while (h.clock.nanos() < 25_000_000_000L) {
             h.loop(10);
             run.add(new Sample(h.clock.nanos() / 1e9, launcherMotor.targetVelocity, windmill.speed,
-                    intakeMotor.speed, follower.mode() == Follower.Mode.FOLLOW, follower.pose()));
+                    intakeMotor.speed, follower.mode() == Follower.Mode.FOLLOW, follower.pose(),
+                    Math.hypot(follower.velocity().vx, follower.velocity().vy)));
         }
         h.stop();
         return run;
+    }
+
+    @Test
+    public void shootSweepShootsRunsInSweepsSlowlyIntakingAndParksOnEachAlliance() {
+        ExampleAuto auto = new ExampleAuto();
+        for (boolean red : new boolean[]{true, false}) {
+            String what = red ? "red" : "blue";
+            List<Sample> run = runShootSweep(red);
+            double runInX = auto.gardenEndXIn + auto.shortOfTheBallsIn + auto.frontEndIn;
+
+            Sample shootingStarts = first(run, s -> s.launcherTarget > 0);
+            Sample shootingEnds = firstAfter(run, shootingStarts, s -> s.launcherTarget == 0);
+            assertEquals(what + ": shoots for its time", auto.shootSeconds,
+                    shootingEnds.seconds - shootingStarts.seconds, 0.05);
+            assertAt(what + ": shoots from the start", 60.0, auto.botStartYIn,
+                    asRed(shootingStarts.pose, red));
+
+            Sample intakeOn = firstAfter(run, shootingEnds, s -> s.intakeSpeed > 0);
+            Sample intakeOff = firstAfter(run, intakeOn, s -> s.intakeSpeed == 0);
+            Pose atTheTrap = asRed(intakeOn.pose, red);
+            assertAt(what + ": runs in short of the balls", runInX, auto.botStartYIn, atTheTrap);
+            assertHeading(what + ": turned toward the red wall", -175.0, atTheTrap, 5.0);
+            double topRunIn = 0;
+            for (Sample s : between(run, shootingEnds, intakeOn)) {
+                topRunIn = Math.max(topRunIn, s.speed_ips);
+            }
+            assertTrue(what + ": the run in at full speed, " + topRunIn, topRunIn > 30.0);
+
+            Sample trapEnds = firstAfter(run, intakeOn, s -> !s.following);
+            double trapTook = trapEnds.seconds - intakeOn.seconds;
+            for (Sample s : between(run, intakeOn, trapEnds)) {
+                if (s.seconds > intakeOn.seconds + 0.5) {        // slowed from the run in
+                    assertTrue(what + ": the trap slow at " + s.seconds + " s, " + s.speed_ips,
+                            s.speed_ips < topRunIn / 2);
+                    assertHeading(what + ": the trap holds -175", -175.0, asRed(s.pose, red), 2.0);
+                }
+                assertTrue(what + ": toward the corner", asRed(s.pose, red).x() <= runInX + 0.5);
+            }
+            Pose trapped = asRed(trapEnds.pose, red);
+            assertTrue(what + ": the trap moved toward the corner, to " + trapped,
+                    trapped.x() < atTheTrap.x() - 1.0 && trapped.y() < atTheTrap.y() - 1.0);
+            assertTrue(what + ": the trap ends at the red wall, before its time limit, "
+                    + trapTook + " s", trapTook < auto.trapSeconds);
+            assertEquals(what + ": the front at the red wall",
+                    auto.fieldPerimeterWidthIn + auto.frontEndIn, trapped.x(), 1.0);
+            assertEquals(what + ": intakes through the trap and 3 s more",
+                    trapTook + auto.intakeSeconds, intakeOff.seconds - intakeOn.seconds, 0.05);
+            assertHeading(what + ": square to the red wall as the intake stops", -180.0,
+                    asRed(intakeOff.pose, red), 2.0);
+
+            Sample cleared = firstAfter(run, intakeOff, s ->
+                    Math.hypot(asRed(s.pose, red).x() - 24.0, asRed(s.pose, red).y() - 24.0) < 1.0);
+            assertHeading(what + ": at (24, 24) still -180", -180.0, asRed(cleared.pose, red), 2.0);
+            Sample last = run.get(run.size() - 1);
+            assertAt(what + ": parks", 18.0, 96.0, asRed(last.pose, red));
+            assertHeading(what + ": parked facing -90", -90.0, asRed(last.pose, red), 2.0);
+            double topPark = 0;
+            for (Sample s : between(run, cleared, last)) {
+                topPark = Math.max(topPark, s.speed_ips);
+            }
+            assertTrue(what + ": the park at full speed again, " + topPark, topPark > 30.0);
+            Scheduler.reset();
+        }
+    }
+
+    @Test
+    public void shootSweepsTrapEndsAtItsTimeLimitShortOfTheWall() {
+        ExampleAuto auto = new ExampleAuto();
+        auto.trapSeconds = 1.0;
+        List<Sample> run = runShootSweep(true, auto);
+        Sample shootingEnds = firstAfter(run, first(run, s -> s.launcherTarget > 0),
+                s -> s.launcherTarget == 0);
+        Sample intakeOn = firstAfter(run, shootingEnds, s -> s.intakeSpeed > 0);
+        Sample intakeOff = firstAfter(run, intakeOn, s -> s.intakeSpeed == 0);
+        Sample trapEnds = firstAfter(run, intakeOn, s -> !s.following);
+        assertEquals("the trap ends at its time limit", auto.trapSeconds,
+                trapEnds.seconds - intakeOn.seconds, 0.05);
+        assertTrue("short of the red wall, at " + trapEnds.pose,
+                trapEnds.pose.x() > auto.fieldPerimeterWidthIn + auto.frontEndIn + 5.0);
+        assertEquals("intakes through the trap and 3 s more",
+                auto.trapSeconds + auto.intakeSeconds, intakeOff.seconds - intakeOn.seconds,
+                0.05);
+        Sample last = run.get(run.size() - 1);
+        assertAt("parks", 18.0, 96.0, last.pose);
+    }
+
+    private List<Sample> runShootSweep(boolean red) {
+        return runShootSweep(red, new ExampleAuto());
+    }
+
+    /** Shoot Sweep, chosen during INIT on the alliance, run for 30 s on the simulator's clock. */
+    private List<Sample> runShootSweep(boolean red, ExampleAuto auto) {
+        OpModeHarness h = new OpModeHarness(auto);
+        ExampleAuto.clock = h.clock::nanos;
+        Follower follower = h.robot.follower;
+        h.init();
+        h.initLoop();
+        if (!red) {
+            pressDuringInit(h, pad -> pad.dpad_right = true);
+            pressDuringInit(h, pad -> pad.a = true);
+        }
+        pressDuringInit(h, pad -> pad.dpad_down = true);
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot Sweep
+        pressDuringInit(h, pad -> pad.a = true);
+        String summary = (red ? "R" : "B") + "-SSW";
+        assertTrue(h.driverStation.text(), h.driverStation.shows(summary));
+
+        launcherMotor.velocity = Constants.launcherFeedAboveTicksPerSecond + 10;
+        h.start();
+        List<Sample> run = new ArrayList<>();
+        while (h.clock.nanos() < 30_000_000_000L) {
+            h.loop(10);
+            run.add(new Sample(h.clock.nanos() / 1e9, launcherMotor.targetVelocity, windmill.speed,
+                    intakeMotor.speed, follower.mode() == Follower.Mode.FOLLOW, follower.pose(),
+                    Math.hypot(follower.velocity().vx, follower.velocity().vy)));
+        }
+        h.stop();
+        return run;
+    }
+
+    /** A pose as red sees it: blue's turned back a half-turn about (72 in, 72 in). */
+    private static Pose asRed(Pose pose, boolean red) {
+        if (red) {
+            return pose;
+        }
+        return new Pose(144.0 - pose.x(), 144.0 - pose.y(), pose.heading() + Math.PI);
+    }
+
+    private static void assertHeading(String what, double expected_deg, Pose pose,
+                                      double within_deg) {
+        assertEquals(what + ", at " + Math.toDegrees(pose.heading()), 0.0, Math.toDegrees(
+                angleBetween(Math.toRadians(expected_deg), pose.heading())), within_deg);
     }
 
     private static Sample first(List<Sample> run, Predicate<Sample> test) {

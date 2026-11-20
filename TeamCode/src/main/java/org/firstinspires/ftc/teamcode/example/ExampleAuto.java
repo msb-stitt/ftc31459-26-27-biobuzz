@@ -4,10 +4,12 @@ import static com.pedropathing.api.Paths.line;
 import static com.pedropathing.ivy.commands.Commands.lazy;
 import static com.pedropathing.ivy.commands.Commands.waitUntil;
 import static com.pedropathing.ivy.groups.Groups.deadline;
+import static com.pedropathing.ivy.groups.Groups.race;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static com.pedropathing.ivy.pedro.PedroCommands.hold;
 
+import com.pedropathing.algorithm.Foresight;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
@@ -69,6 +71,7 @@ public class ExampleAuto extends CorbelsAuto {
     // e.g. MenuItem YOUR_NEW_AUTO_HERE = new MenuItem( "SF", "Shoot Then Forward");
     MenuItem waitShootPark = new MenuItem("WSP", "WaitShootPark");
     MenuItem SAP = new MenuItem("SAP","Shoot And Park");
+    MenuItem shootSweep = new MenuItem("SSW", "Shoot Sweep");
     MenuRow autoRow = new MenuRow("Auto");
     OptionMenu optionMenu = new OptionMenu();
     DriverStationMenu menu = new DriverStationMenu(optionMenu);
@@ -80,6 +83,16 @@ public class ExampleAuto extends CorbelsAuto {
     double shootSeconds = 10.0;
     double waitAfterShootingSeconds = 3.0;
     double intakeSeconds = 3.0;
+
+    /**
+     * Where the red garden's balls end along the audience wall, and how short
+     * of them the run in stops.
+     */
+    double gardenEndXIn = 23.5;
+    double shortOfTheBallsIn = 2.0;
+    /** The trap's speed, a fraction of the robot's top speed, and how long it may take. */
+    double trapSpeedFraction = 0.3;
+    double trapSeconds = 3.0;
 
     CorbelsMecanum drivetrain;
     Intake intake;
@@ -99,6 +112,7 @@ public class ExampleAuto extends CorbelsAuto {
         // autoRow.add(YOUR_NEW_AUTO_HERE);
         autoRow.add(waitShootPark);
         autoRow.add(SAP);
+        autoRow.add(shootSweep);
         optionMenu.add(allianceRow);
         optionMenu.add(autoRow);
 
@@ -150,6 +164,9 @@ public class ExampleAuto extends CorbelsAuto {
         }
         if (auto == waitShootPark){
             chosenAuto = waitShootParkCommand();
+        }
+        if (auto == shootSweep) {
+            chosenAuto = shootSweepRoutine();
         }
         return chosenAuto;
     }
@@ -347,6 +364,63 @@ public class ExampleAuto extends CorbelsAuto {
         return shootAndParkRoutine;
     }
 
+
+    // Shoot Sweep, on red: shoot from Shoot And Park's start; run in along the
+    // audience wall facing the red wall, 2 in short of the garden's balls; then,
+    // slowly and intaking, push them into the corner; turn square to the red
+    // wall and intake 3 s more; then (24, 24) and Shoot And Park's park.
+    //
+    //        y (in)
+    //        ^
+    //     96 + [<]  park, turning to face -90 from (24, 24)
+    //        |
+    //     24 +   (24, 24)
+    //   11.3 +  <\--------------[<]--------[v] shoot
+    //        |   corner   o o o o  run in at -175
+    //      0 +-----+-----+-----+-----+-----+-----+--> x (in)
+    //        0     24    48    72    96    120   144
+
+    /**
+     * Shoot, then sweep the garden's balls into the corner, intaking, and park.
+     * The trap moves along -135°, toward the corner, at {@link #trapSpeedFraction}
+     * of top speed, until the front reaches the red wall or {@link #trapSeconds}
+     * pass; the audience wall stops it going lower, so it slides along that.
+     */
+    AutoRoutine shootSweepRoutine() {
+        PoseFactory poses = poses();
+        Pose start = poses.of(60.0, botStartYIn, -90.0);
+        double runInXIn = gardenEndXIn + shortOfTheBallsIn + frontEndIn;
+        Pose runInEnd = poses.of(runInXIn, botStartYIn, -175.0);
+        double frontAtTheRedWallXIn = fieldPerimeterWidthIn + frontEndIn;
+        double towardTheCornerIn = runInXIn - frontAtTheRedWallXIn;
+        Pose trapEnd = poses.of(frontAtTheRedWallXIn, botStartYIn - towardTheCornerIn, -175.0);
+        Pose squareToTheRedWall = poses.of(0.0, 0.0, -180.0);
+        Pose clearOfTheCorner = poses.of(24.0, 24.0, -180.0);
+        Pose park = poses.of(18.0, 96.0, -90.0);
+
+        Command shoot = shootFor(shootSeconds);
+        Command waitAfterShooting = waitSeconds(waitAfterShootingSeconds);
+        // The turn to -175 done by 30% of the way, so it is done before the trap.
+        Command runIn = follow(follower, line(start, runInEnd).linear(start, runInEnd, 0.3));
+        Foresight foresight = (Foresight) follower.algorithm();
+        Command pushTowardTheCorner = follow(follower, line(runInEnd, trapEnd).constant(runInEnd)
+                .with(foresight.config.maxPathSpeed.at(trapSpeedFraction)));
+        Command trap = race(pushTowardTheCorner, waitSeconds(trapSeconds));
+        Command turnSquare = lazy(() -> hold(follower,
+                follower.pose().withHeading(squareToTheRedWall.heading())));
+        Command turnSquareWhileIntaking = deadline(waitSeconds(intakeSeconds), turnSquare);
+        Command trapAndTurn = sequential(trap, turnSquareWhileIntaking);
+        Command intakeThroughout = intake.run(this::fullSpeedIn);
+        Command sweep = deadline(trapAndTurn, intakeThroughout);
+        Command clearTheCorner = lazy(() -> follow(follower,
+                line(follower.pose(), clearOfTheCorner).constant(clearOfTheCorner)));
+        Command driveToPark = follow(follower, line(clearOfTheCorner, park)
+                .linear(clearOfTheCorner, park));
+        Command shootSweepRoute = sequential(shoot, waitAfterShooting, runIn, sweep,
+                clearTheCorner, driveToPark);
+        AutoRoutine shootSweepRoutine = new AutoRoutine(start, shootSweepRoute);
+        return shootSweepRoutine;
+    }
 
     /**
      * The launcher spun up and fed once fast enough, and the intake boosted
