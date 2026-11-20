@@ -419,7 +419,8 @@ public class ExampleTest {
             pressDuringInit(h, pad -> pad.a = true);
         }
         pressDuringInit(h, pad -> pad.dpad_down = true);
-        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot And Park
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot Sweep
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // Shoot And Park
         pressDuringInit(h, pad -> pad.dpad_left = true);   // WaitShootPark
         pressDuringInit(h, pad -> pad.dpad_left = true);   // Move Shot Strafe In
         pressDuringInit(h, pad -> pad.a = true);
