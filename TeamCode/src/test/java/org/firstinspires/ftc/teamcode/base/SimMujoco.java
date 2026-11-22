@@ -32,7 +32,12 @@ import java.util.Map;
  * {@code values}, the topics mujocobiobuzz turns into motor powers, by the
  * names simRun publishes them under; and {@code pose}, x and y in inches,
  * heading in radians and its number, when the code has set a pose that MuJoCo
- * has not yet taken. The line back is the numbers {@link #parse} reads.
+ * has not yet taken; {@code robot}, the robot's number; and {@code launcher},
+ * the launcher motor's P, I, D and F once the code has set them, which MuJoCo's
+ * model of the hub's velocity loop holds the launcher's target with. The line
+ * back is the numbers {@link #parse} reads; its last, the launcher's speed as
+ * that hub measures it, is what the launcher motor's {@code getVelocity}
+ * reports.
  *
  * <p>It is a socket rather than NetworkTables because the server simRun
  * serves, corbelsflightlog's {@code Nt4Server}, keeps no reader of a value a
@@ -67,6 +72,7 @@ final class SimMujoco implements AutoCloseable {
     private BufferedReader in;
     private OutputStream out;
     private volatile SimRobot.Motion latest;
+    private volatile double launcherTps;
 
     private SimMujoco(ServerSocket server) {
         this.server = server;
@@ -113,13 +119,15 @@ final class SimMujoco implements AutoCloseable {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
         out = socket.getOutputStream();
         robot.localizer.follow(() -> latest);
+        SimMechanisms.launcherMeasured = () -> launcherTps;
         log.println("MuJoCo connected.");
     }
 
     /** One pass's exchange: the time {@code t} and the harness's powers out, MuJoCo's reading back. */
     void step(OpModeHarness harness, double t) throws IOException {
         SimRobot.SimLocalizer localizer = harness.robot.localizer;
-        String line = request(t, values(harness), localizer.posePending(), localizer.poseSeq());
+        String line = request(t, values(harness), localizer.posePending(), localizer.poseSeq(),
+                robotNumber(), SimMechanisms.launcherPidf);
         out.write(line.getBytes(StandardCharsets.UTF_8));
         out.flush();
         String answer;
@@ -132,6 +140,12 @@ final class SimMujoco implements AutoCloseable {
             throw new IOException("MuJoCo closed the link");
         }
         latest = parse(answer);
+        launcherTps = launcherTps(answer);
+    }
+
+    /** The robot's number, as {@code BOT_37523} names it: 37523. */
+    static String robotNumber() {
+        return org.firstinspires.ftc.teamcode.pedro.Constants.thisRobot.name().replace("BOT_", "");
     }
 
     /** The topics MuJoCo turns into powers, as the harness's motors and {@link Tracker} hold them now. */
@@ -152,6 +166,12 @@ final class SimMujoco implements AutoCloseable {
 
     /** One line to MuJoCo, ending in a newline. */
     static String request(double t, Map<String, Object> values, Pose pending, long seq) {
+        return request(t, values, pending, seq, null, null);
+    }
+
+    /** One line to MuJoCo, with the robot's number and the launcher's gains when given. */
+    static String request(double t, Map<String, Object> values, Pose pending, long seq,
+            String robot, double[] launcherPidf) {
         StringBuilder b = new StringBuilder("{\"t\": ").append(number(t)).append(", \"values\": {");
         String sep = "";
         for (Map.Entry<String, Object> e : values.entrySet()) {
@@ -166,6 +186,16 @@ final class SimMujoco implements AutoCloseable {
                     .append(number(pending.y())).append(", ").append(number(pending.heading()))
                     .append(", ").append(seq).append(']');
         }
+        if (robot != null) {
+            b.append(", \"robot\": \"").append(robot).append('"');
+        }
+        if (launcherPidf != null) {
+            b.append(", \"launcher\": [");
+            for (int i = 0; i < launcherPidf.length; i++) {
+                b.append(i == 0 ? "" : ", ").append(number(launcherPidf[i]));
+            }
+            b.append(']');
+        }
         return b.append("}\n").toString();
     }
 
@@ -177,12 +207,12 @@ final class SimMujoco implements AutoCloseable {
     /**
      * MuJoCo's line: t, seq, x, y, heading, vx, vy, omega, turned, the four
      * wheels' roll, forward and leftward travel, as {@link SimRobot.Motion}
-     * names them, space-separated.
+     * names them, and the launcher's speed, space-separated.
      */
     static SimRobot.Motion parse(String line) {
         String[] f = line.trim().split("\\s+");
-        if (f.length != 15) {
-            throw new IllegalArgumentException("MuJoCo sent " + f.length + " numbers, not 15: " + line);
+        if (f.length != 16) {
+            throw new IllegalArgumentException("MuJoCo sent " + f.length + " numbers, not 16: " + line);
         }
         double[] v = new double[15];
         for (int i = 0; i < 15; i++) {
@@ -192,8 +222,15 @@ final class SimMujoco implements AutoCloseable {
                 new double[]{v[9], v[10], v[11], v[12]}, v[13], v[14], (long) v[1]);
     }
 
+    /** The launcher's speed, ticks a second, the last number of MuJoCo's line. */
+    static double launcherTps(String line) {
+        String[] f = line.trim().split("\\s+");
+        return Double.parseDouble(f[f.length - 1]);
+    }
+
     @Override
     public void close() throws IOException {
+        SimMechanisms.launcherMeasured = null;
         if (socket != null) {
             socket.close();
         }

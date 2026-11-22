@@ -59,9 +59,9 @@ public final class SimMujocoTest {
     }
 
     @Test
-    public void anAnswerIsFifteenNumbersInMotionsOrder() {
+    public void anAnswerIsSixteenNumbersInMotionsOrderThenTheLauncher() {
         SimRobot.Motion m = SimMujoco.parse(
-                "1.5 3.0 10.0 20.0 0.5 1.0 2.0 0.1 0.25 4.0 5.0 6.0 7.0 8.0 9.0\n");
+                "1.5 3.0 10.0 20.0 0.5 1.0 2.0 0.1 0.25 4.0 5.0 6.0 7.0 8.0 9.0 1800.0\n");
         assertEquals(3, m.seq);
         assertEquals(10, m.x, EPS);
         assertEquals(20, m.y, EPS);
@@ -73,6 +73,33 @@ public final class SimMujocoTest {
         assertEquals(7, m.rolled[3], EPS);
         assertEquals(8, m.forward, EPS);
         assertEquals(9, m.strafe, EPS);
+        assertEquals(1800, SimMujoco.launcherTps("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 1800.0"), EPS);
+    }
+
+    @Test
+    public void aRequestNamesTheRobotAndCarriesTheLaunchersGainsOnceSet() {
+        String line = SimMujoco.request(0, new LinkedHashMap<>(), null, 0, "37523",
+                new double[]{40, 0, 0, 13.75});
+        assertTrue(line, line.endsWith(", \"robot\": \"37523\", \"launcher\": [40.0, 0.0, 0.0, 13.75]}\n"));
+        assertTrue(SimMujoco.request(0, new LinkedHashMap<>(), null, 0, "37523", null)
+                .endsWith("\"robot\": \"37523\"}\n"));
+    }
+
+    @Test
+    public void theLaunchersMotorKeepsItsGainsAndReportsMujocosSpeed() {
+        SimMechanisms.launcherPidf = null;
+        com.qualcomm.robotcore.hardware.DcMotorEx motor = SimMechanisms.launcherMotor();
+        motor.setPIDFCoefficients(com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_USING_ENCODER,
+                new com.qualcomm.robotcore.hardware.PIDFCoefficients(40, 0, 0, 13.75));
+        assertEquals(13.75, SimMechanisms.launcherPidf[3], EPS);
+        motor.setVelocity(1325);
+        assertEquals(1325, motor.getVelocity(), EPS);
+        SimMechanisms.launcherMeasured = () -> 1200;
+        try {
+            assertEquals(1200, motor.getVelocity(), EPS);
+        } finally {
+            SimMechanisms.launcherMeasured = null;
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -137,7 +164,7 @@ public final class SimMujocoTest {
                     String line;
                     while ((line = in.readLine()) != null) {
                         seen.add(line);
-                        out.write("0.01 0 12.0 34.0 0.0 1.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0 2.0 0.0\n"
+                        out.write("0.01 0 12.0 34.0 0.0 1.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0 2.0 0.0 0.0\n"
                                 .getBytes(StandardCharsets.UTF_8));
                         out.flush();
                     }

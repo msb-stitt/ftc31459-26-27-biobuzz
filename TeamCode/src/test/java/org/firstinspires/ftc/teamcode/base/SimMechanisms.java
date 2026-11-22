@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.base;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.teamcode.Intake;
 import org.firstinspires.ftc.teamcode.Launcher;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Launcher;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 
 /**
@@ -22,7 +24,9 @@ import java.util.function.Function;
  * real classes on motors and servos that keep what they are given and do
  * nothing more; each publishes what it always does, so AdvantageScope shows it.
  * The launcher motor reports the speed it was last given, so the windmill feeds
- * from the second loop it is asked to.
+ * from the second loop it is asked to; with {@link SimMujoco} on, it reports
+ * the speed MuJoCo's model of its hub measures, and keeps the P, I, D and F the
+ * code gives it for MuJoCo to use.
  *
  * <p>Passes when: SimMechanismsTest.
  */
@@ -31,6 +35,12 @@ final class SimMechanisms {
     private SimMechanisms() {
     }
 
+    /** The launcher motor's P, I, D and F as the code last set them, or null. */
+    static volatile double[] launcherPidf;
+
+    /** The launcher's speed as MuJoCo measures it, or null to report the speed last given. */
+    static volatile DoubleSupplier launcherMeasured;
+
     /**
      * Sets each static {@code intakes} and {@code launchers} of {@code opModeClass}
      * to hand out the stand-ins. Returns how many it set.
@@ -38,7 +48,8 @@ final class SimMechanisms {
     static int install(Class<?> opModeClass) throws IllegalAccessException {
         Intake intake = new Intake(device(DcMotor.class), device(CRServo.class),
                 device(CRServo.class));
-        Launcher launcher = new Launcher(device(DcMotorEx.class), device(CRServo.class));
+        launcherPidf = null;
+        Launcher launcher = new Launcher(launcherMotor(), device(CRServo.class));
         int set = 0;
         for (Field field : opModeClass.getDeclaredFields()) {
             boolean factory = Modifier.isStatic(field.getModifiers())
@@ -55,6 +66,38 @@ final class SimMechanisms {
             }
         }
         return set;
+    }
+
+    /**
+     * The launcher's motor: a {@link #device} that also keeps the gains the code
+     * sets in {@link #launcherPidf}, and reports {@link #launcherMeasured} when
+     * MuJoCo moves it.
+     */
+    static DcMotorEx launcherMotor() {
+        DcMotorEx plain = device(DcMotorEx.class);
+        Object proxy = Proxy.newProxyInstance(DcMotorEx.class.getClassLoader(),
+                new Class<?>[]{DcMotorEx.class},
+                (self, method, args) -> {
+                    switch (method.getName()) {
+                        case "setPIDFCoefficients":
+                            PIDFCoefficients g = (PIDFCoefficients) args[1];
+                            launcherPidf = new double[]{g.p, g.i, g.d, g.f};
+                            return null;
+                        case "setVelocityPIDFCoefficients":
+                            launcherPidf = new double[]{(Double) args[0], (Double) args[1],
+                                    (Double) args[2], (Double) args[3]};
+                            return null;
+                        case "getVelocity":
+                            DoubleSupplier measured = launcherMeasured;
+                            if (measured != null) {
+                                return measured.getAsDouble();
+                            }
+                            return method.invoke(plain, args);
+                        default:
+                            return method.invoke(plain, args);
+                    }
+                });
+        return (DcMotorEx) proxy;
     }
 
     /**
