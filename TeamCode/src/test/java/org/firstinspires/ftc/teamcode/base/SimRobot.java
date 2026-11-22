@@ -188,6 +188,37 @@ public final class SimRobot {
         }
     }
 
+    /**
+     * What a simulator outside this one, MuJoCo, read of the robot at a time,
+     * which {@link SimLocalizer#follow} reports in place of its own motion: its
+     * pose in the field's frame, inches and radians; its velocity along itself
+     * and to its left, inches a second, and its turn, radians a second; how far
+     * it has turned, unwrapped; how far each wheel has rolled, front left, front
+     * right, back left, back right, inches; and how far it has moved along
+     * itself and to its left, inches. {@code seq} is the last pose
+     * {@link SimLocalizer#setPose} set that MuJoCo has taken.
+     */
+    public static final class Motion {
+        public final double x, y, heading, vx, vy, omega, turned, forward, strafe;
+        public final double[] rolled;
+        public final long seq;
+
+        public Motion(double x, double y, double heading, double vx, double vy, double omega,
+                double turned, double[] rolled, double forward, double strafe, long seq) {
+            this.x = x;
+            this.y = y;
+            this.heading = heading;
+            this.vx = vx;
+            this.vy = vy;
+            this.omega = omega;
+            this.turned = turned;
+            this.rolled = rolled.clone();
+            this.forward = forward;
+            this.strafe = strafe;
+            this.seq = seq;
+        }
+    }
+
     public static final class SimLocalizer implements Localizer {
         private final LongSupplier clock;
         private Supplier<double[]> chassisVelocitySupplier;
@@ -206,6 +237,11 @@ public final class SimRobot {
         private double strafeTravel;
         private long lastNs;
         private MotionState state = MotionState.zero();
+        /** MuJoCo's motion, reported in place of this class's own, or null. */
+        private Supplier<Motion> motion;
+        /** The last pose set while following MuJoCo, and its number. */
+        private Pose posePending;
+        private long poseSeq;
 
         SimLocalizer(SimDrive drive, LongSupplier clock) {
             this.clock = clock;
@@ -220,6 +256,26 @@ public final class SimRobot {
          */
         public void driveFrom(Supplier<double[]> chassisVelocitySupplier) {
             this.chassisVelocitySupplier = chassisVelocitySupplier;
+        }
+
+        /**
+         * Reports what {@code motion} reads in place of this class's own motion,
+         * from the next {@link #update}. A pose set from then on is held, and
+         * reported, until {@code motion} says MuJoCo has taken it.
+         */
+        public void follow(Supplier<Motion> motion) {
+            this.motion = motion;
+        }
+
+        /** The pose set while following MuJoCo that it has not yet taken, or null. */
+        public Pose posePending() {
+            Motion m = motion == null ? null : motion.get();
+            return posePending != null && (m == null || m.seq < poseSeq) ? posePending : null;
+        }
+
+        /** The number of the last pose set while following MuJoCo. */
+        public long poseSeq() {
+            return poseSeq;
         }
 
         /**
@@ -274,6 +330,10 @@ public final class SimRobot {
             y = p.y();
             heading = p.heading();
             state = state.withPose(p);
+            if (motion != null) {
+                posePending = p;
+                poseSeq++;
+            }
         }
 
         @Override
@@ -289,6 +349,10 @@ public final class SimRobot {
 
         @Override
         public void update() {
+            if (motion != null) {
+                updateFromMotion();
+                return;
+            }
             long now = clock.getAsLong();
             double dt = lastNs == 0 ? 0 : (now - lastNs) / 1e9;
             lastNs = now;
@@ -305,6 +369,26 @@ public final class SimRobot {
             strafeTravel += vy * dt;
             double[] speeds = wheelSpeeds();
             for (int i = 0; i < 4; i++) rolled[i] += speeds[i] * dt;
+            state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));
+        }
+
+        /** MuJoCo's last reading, once it has taken the last pose set; until then that pose, at rest. */
+        private void updateFromMotion() {
+            Motion m = motion.get();
+            if (m == null || m.seq < poseSeq) {
+                vx = vy = omega = 0;
+            } else {
+                x = m.x;
+                y = m.y;
+                heading = m.heading;
+                vx = m.vx;
+                vy = m.vy;
+                omega = m.omega;
+                turned = m.turned;
+                System.arraycopy(m.rolled, 0, rolled, 0, 4);
+                forwardTravel = m.forward;
+                strafeTravel = m.strafe;
+            }
             state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));
         }
     }

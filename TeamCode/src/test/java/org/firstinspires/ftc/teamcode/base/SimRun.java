@@ -19,7 +19,11 @@ import java.lang.reflect.Field;
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --pad"
  * ./gradlew :TeamCode:simRun --args="lessons.L040TankOpMode --left_stick_y=-1"
  * ./gradlew :TeamCode:simRun --args="mytry.l135.AutoWithMenuOpMode --init --pad"
+ * SIMRUN_MUJOCO=5813 ./gradlew :TeamCode:simRun --args="StarterBotTeleOp --pad"
  * </pre>
+ *
+ * <p>With {@code SIMRUN_MUJOCO} set, MuJoCo moves the robot, as
+ * {@link SimMujoco} says.
  *
  * <p>{@link SimArgs} holds the four forms, the 21 controls that can be set and
  * the usage text; {@code --help} prints it. A usage error is one line on
@@ -87,6 +91,19 @@ public final class SimRun {
             harness = new OpModeHarness(opMode);
             harness.logTo(logHome());
         }
+        SimMujoco mujoco = null;
+        if (harness != null) {
+            try {
+                mujoco = SimMujoco.open(System.getenv(SimMujoco.VARIABLE));
+                if (mujoco != null) {
+                    mujoco.connect(harness.robot, System.out);
+                }
+            } catch (IOException | IllegalArgumentException e) {
+                System.err.println("simRun: no link to MuJoCo: " + e.getMessage());
+                System.exit(2);
+                return;
+            }
+        }
         Gamepad typed = null;
         for (String control : plan.controls) {
             if (typed == null) {
@@ -95,12 +112,19 @@ public final class SimRun {
             set(typed, control);
         }
         try {
-            loop(plan, harness, typed);
+            loop(plan, harness, typed, mujoco);
+        } catch (MujocoLost e) {
+            System.err.println("simRun: " + e.getMessage());
+            System.exit(1);
         } catch (IOException e) {
             System.err.println("simRun: the NetworkTables server could not start on port "
                     + SimPublisher.NT4_PORT + ": " + e.getMessage()
                     + ". Is another simRun still running?");
             System.exit(2);
+        } finally {
+            if (mujoco != null) {
+                mujoco.close();
+            }
         }
     }
 
@@ -120,8 +144,8 @@ public final class SimRun {
      * the last step, so how far the robot goes follows real time rather than the
      * number of passes it took to get there.
      */
-    private static void loop(SimArgs.Plan plan, OpModeHarness harness, Gamepad typed)
-            throws IOException {
+    private static void loop(SimArgs.Plan plan, OpModeHarness harness, Gamepad typed,
+            SimMujoco mujoco) throws IOException {
         Gamepad slot1 = harness == null ? new Gamepad() : harness.gamepad1;
         Gamepad slot2 = harness == null ? new Gamepad() : harness.gamepad2;
         boolean usePads = plan.form == SimArgs.Form.OPMODE_PAD
@@ -172,11 +196,14 @@ public final class SimRun {
                         harness.start();
                     }
                     if (inInit) {
+                        exchange(mujoco, harness, 0);
                         harness.initLoop();
                         shown = printWhenChanged(harness.driverStation.text(), shown);
                         out.publish();
                     } else if (harness != null) {
-                        harness.loop(SimTicker.stepWorth(nowMs - lastStepMs));
+                        long worth = SimTicker.stepWorth(nowMs - lastStepMs);
+                        exchange(mujoco, harness, worth);
+                        harness.loop(worth);
                         out.publish();
                     }
                     lastStepMs = nowMs;
@@ -203,6 +230,29 @@ public final class SimRun {
         }
         if (harness != null) {
             System.out.println("Flight logs: " + harness.logFolder);
+        }
+    }
+
+    /** A run whose link to MuJoCo failed, which ends it. */
+    static final class MujocoLost extends IOException {
+        MujocoLost(IOException cause) {
+            super("the link to MuJoCo failed: " + cause.getMessage(), cause);
+        }
+    }
+
+    /**
+     * MuJoCo stepped to the time the pass {@code ms} on will run at, before
+     * the pass, so it reads what MuJoCo made of the last pass's powers.
+     */
+    private static void exchange(SimMujoco mujoco, OpModeHarness harness, long ms)
+            throws MujocoLost {
+        if (mujoco == null) {
+            return;
+        }
+        try {
+            mujoco.step(harness, (harness.clock.nanos() + ms * 1_000_000L) / 1e9);
+        } catch (IOException e) {
+            throw new MujocoLost(e);
         }
     }
 
