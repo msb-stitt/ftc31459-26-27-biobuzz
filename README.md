@@ -28,6 +28,8 @@ runs it on its own.
 | Watch Example Auto, its intake and launcher stand-ins | `./gradlew :TeamCode:simRun --args="example.ExampleAuto --init --pad"` |
 | Every option the simulator takes | `./gradlew :TeamCode:simRun --args="--help"` |
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
+| Drive the robot in MuJoCo, its physics in place of the simulator's | `SIMRUN_MUJOCO=5813 ./gradlew :TeamCode:simRun --args="StarterBotTeleOp --pad"`, then start [mujocobiobuzz](https://github.com/msb-stitt/mujocobiobuzz)'s link as its README says |
+| Steer the simulator's virtual gamepad along a path | `SIMRUN_VIRTUAL_PADS=5812` on `simRun`, then `uv run tools/follow.py starterbot` — `tools/follow.py` says how |
 | Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
 | Hot reload TeamCode only | `./gradlew deploySloth` — see [PANELS.md](./PANELS.md); it does not configure in this checkout |
 | Build the guide | `ninja book` in `book/`, with `book/.venv/bin` on `PATH` |
