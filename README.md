@@ -29,6 +29,7 @@ runs it on its own.
 | Every option the simulator takes | `./gradlew :TeamCode:simRun --args="--help"` |
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
 | Drive the robot in MuJoCo, its physics in place of the simulator's | `SIMRUN_MUJOCO=5813 ./gradlew :TeamCode:simRun --args="StarterBotTeleOp --pad"`, then start [mujocobiobuzz](https://github.com/msb-stitt/mujocobiobuzz)'s link as its README says |
+| Run the simulator as another robot | `SIMRUN_RC_NAME=31459-RC` on `simRun`, the Robot Controller name that picks the robot |
 | Steer the simulator's virtual gamepad along a path | `SIMRUN_VIRTUAL_PADS=5812` on `simRun`, then `uv run tools/follow.py starterbot` — `tools/follow.py` says how |
 | Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |
 | Hot reload TeamCode only | `./gradlew deploySloth` — see [PANELS.md](./PANELS.md); it does not configure in this checkout |

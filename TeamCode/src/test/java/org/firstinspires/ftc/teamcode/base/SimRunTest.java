@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.example.DriveForward24OpMode;
 import org.firstinspires.ftc.teamcode.lessons.L040TankOpMode;
+import org.firstinspires.ftc.teamcode.pedro.RobotControllerName;
 import org.junit.Test;
 
 /**
@@ -80,5 +81,23 @@ public class SimRunTest {
         assertTrue("a on the second loop", readByTheLesson.a);
         assertEquals("aWasPressed() on the second loop",
                 false, readByTheLesson.aWasPressed());
+    }
+
+    @Test
+    public void aRobotControllerNameGivenIsTheOneRead() {
+        java.util.function.Supplier<String> before = RobotControllerName.reader;
+        try {
+            SimRun.nameTheRobotController("31459-RC");
+            assertEquals("31459-RC", RobotControllerName.readNow());
+        } finally {
+            RobotControllerName.reader = before;
+        }
+    }
+
+    @Test
+    public void noRobotControllerNameLeavesTheReaderAsItWas() {
+        java.util.function.Supplier<String> before = RobotControllerName.reader;
+        SimRun.nameTheRobotController(null);
+        assertTrue(before == RobotControllerName.reader);
     }
 }

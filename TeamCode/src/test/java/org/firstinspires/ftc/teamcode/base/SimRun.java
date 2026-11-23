@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import org.firstinspires.ftc.teamcode.pedro.RobotControllerName;
+
 /**
  * Runs one OpMode in the simulator until Ctrl-C, publishing to NetworkTables
  * every loop so AdvantageScope can watch it, or checks gamepads and nothing
@@ -24,6 +26,9 @@ import java.lang.reflect.Field;
  *
  * <p>With {@code SIMRUN_MUJOCO} set, MuJoCo moves the robot, as
  * {@link SimMujoco} says.
+ *
+ * <p>With {@code SIMRUN_RC_NAME} set, such as {@code 31459-RC}, the run takes
+ * it as the Robot Controller name, which picks the robot as on the field.
  *
  * <p>{@link SimArgs} holds the four forms, the 21 controls that can be set and
  * the usage text; {@code --help} prints it. A usage error is one line on
@@ -63,7 +68,21 @@ public final class SimRun {
     /** Set when Enter is read, which ends INIT under {@code --init}. */
     private static volatile boolean enterPressed = false;
 
+    /** The variable naming the Robot Controller, which picks the robot. */
+    static final String RC_NAME_VARIABLE = "SIMRUN_RC_NAME";
+
+    /**
+     * Makes {@code name} the Robot Controller name read, before any OpMode
+     * reads Constants; null leaves the reader as it was.
+     */
+    static void nameTheRobotController(String name) {
+        if (name != null) {
+            RobotControllerName.reader = () -> name;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
+        nameTheRobotController(System.getenv(RC_NAME_VARIABLE));
         SimArgs.Plan plan = SimArgs.parse(args);
         if (plan.error != null) {
             System.err.println(plan.error);
