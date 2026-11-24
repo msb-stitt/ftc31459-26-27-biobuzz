@@ -111,14 +111,23 @@ public final class SimRun {
             harness.logTo(logHome());
         }
         SimMujoco mujoco = null;
+        SimScrimmage scrimmage = null;
         if (harness != null) {
             try {
                 mujoco = SimMujoco.open(System.getenv(SimMujoco.VARIABLE));
+                scrimmage = SimScrimmage.open(System.getenv(SimScrimmage.VARIABLE));
+                if (mujoco != null && scrimmage != null) {
+                    throw new IllegalArgumentException(SimMujoco.VARIABLE + " and "
+                            + SimScrimmage.VARIABLE + " are both set; set one");
+                }
                 if (mujoco != null) {
                     mujoco.connect(harness.robot, System.out);
                 }
+                if (scrimmage != null) {
+                    scrimmage.connect(harness.robot, System.out);
+                }
             } catch (IOException | IllegalArgumentException e) {
-                System.err.println("simRun: no link to MuJoCo: " + e.getMessage());
+                System.err.println("simRun: no link to the simulation: " + e.getMessage());
                 System.exit(2);
                 return;
             }
@@ -131,8 +140,8 @@ public final class SimRun {
             set(typed, control);
         }
         try {
-            loop(plan, harness, typed, mujoco);
-        } catch (MujocoLost e) {
+            loop(plan, harness, typed, mujoco, scrimmage);
+        } catch (MujocoLost | ScrimmageLost e) {
             System.err.println("simRun: " + e.getMessage());
             System.exit(1);
         } catch (IOException e) {
@@ -143,6 +152,9 @@ public final class SimRun {
         } finally {
             if (mujoco != null) {
                 mujoco.close();
+            }
+            if (scrimmage != null) {
+                scrimmage.close();
             }
         }
     }
@@ -162,9 +174,14 @@ public final class SimRun {
      * <p>The step is handed the clock's own measure of how long it has been since
      * the last step, so how far the robot goes follows real time rather than the
      * number of passes it took to get there.
+     *
+     * <p>With Scrimmage, the server paces the loop instead: each pass waits for
+     * its sync at T, runs at T on the simulated clock, however long since the
+     * last, and answers with the next pass's time, {@value SimTicker#GRID_MS} ms
+     * on. It does not sleep.
      */
     private static void loop(SimArgs.Plan plan, OpModeHarness harness, Gamepad typed,
-            SimMujoco mujoco) throws IOException {
+            SimMujoco mujoco, SimScrimmage scrimmage) throws IOException {
         Gamepad slot1 = harness == null ? new Gamepad() : harness.gamepad1;
         Gamepad slot2 = harness == null ? new Gamepad() : harness.gamepad2;
         boolean usePads = plan.form == SimArgs.Form.OPMODE_PAD
@@ -207,7 +224,24 @@ public final class SimRun {
                 if (typed != null) {
                     slot1.copy(typed);
                 }
-                if (SimTicker.due(tick, lastStep, SimTicker.STEP_TICKS)) {
+                if (scrimmage != null) {
+                    long t = sync(scrimmage);
+                    long worth = Math.max(0, t / 1000 - harness.clock.nanos() / 1_000_000L);
+                    if (inInit && enterPressed) {
+                        inInit = false;
+                        System.out.println("Started.");
+                        harness.start();
+                    }
+                    if (inInit) {
+                        harness.clock.advance(worth);
+                        harness.initLoop();
+                        shown = printWhenChanged(harness.driverStation.text(), shown);
+                    } else {
+                        harness.loop(worth);
+                    }
+                    out.publish();
+                    answer(scrimmage, harness, t, t + SimTicker.GRID_MS * 1000);
+                } else if (SimTicker.due(tick, lastStep, SimTicker.STEP_TICKS)) {
                     lastStep = tick;
                     if (inInit && enterPressed) {
                         inInit = false;
@@ -238,8 +272,10 @@ public final class SimRun {
                         pads.report();
                     }
                 }
-                OpModeHarness.sleep(SimTicker.startOf(origin, tick + 1)
-                        - System.currentTimeMillis());
+                if (scrimmage == null) {
+                    OpModeHarness.sleep(SimTicker.startOf(origin, tick + 1)
+                            - System.currentTimeMillis());
+                }
                 nowMs = System.currentTimeMillis();
                 tick = SimTicker.tickAt(origin, nowMs);
             }
@@ -256,6 +292,30 @@ public final class SimRun {
     static final class MujocoLost extends IOException {
         MujocoLost(IOException cause) {
             super("the link to MuJoCo failed: " + cause.getMessage(), cause);
+        }
+    }
+
+    /** A run whose link to Scrimmage failed, which ends it. */
+    static final class ScrimmageLost extends IOException {
+        ScrimmageLost(IOException cause) {
+            super("the link to Scrimmage failed: " + cause.getMessage(), cause);
+        }
+    }
+
+    private static long sync(SimScrimmage scrimmage) throws ScrimmageLost {
+        try {
+            return scrimmage.awaitSync();
+        } catch (IOException e) {
+            throw new ScrimmageLost(e);
+        }
+    }
+
+    private static void answer(SimScrimmage scrimmage, OpModeHarness harness, long t, long nextUs)
+            throws ScrimmageLost {
+        try {
+            scrimmage.answer(harness, t, nextUs);
+        } catch (IOException e) {
+            throw new ScrimmageLost(e);
         }
     }
 
