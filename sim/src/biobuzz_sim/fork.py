@@ -26,13 +26,21 @@ GOBILDA_312 = {"stall_torque": 2.383, "stall_current": 9.2, "free_current": 0.25
 # SimRun's hardware names, spaces as underscores, and each wheel's joint.
 WHEELS = (("Front_Left", "fl"), ("Front_Right", "fr"), ("Back_Left", "bl"), ("Back_Right", "br"))
 WHEEL_RADIUS_M = 0.052
+# Two of 37523, each put down clear of the hive's stand, one near each alliance's wall.
+TWO = {NAME: (PREFIX, (72.0, 30.0, 0.0)), NAME + "b": ("robotb_", (72.0, 114.0, 0.0))}
 
 
-def config(prefix: str = PREFIX, robot: str = NAME) -> dict[str, Any]:
-    """The fork's configuration for one StarterBot under `prefix`."""
+def config(
+    prefix: str = PREFIX, robot: str = NAME, start: tuple[float, float, float] = (72.0, 72.0, 0.0)
+) -> dict[str, Any]:
+    """The fork's configuration for one StarterBot under `prefix`, put down at `start`,
+    (x in, y in, heading rad)."""
     joint = prefix + "starterbot_wheel_"
     return {
-        "robot": {"body": prefix + "starterbot", "start_pose": [72 * IN, 72 * IN, 0.0]},
+        "robot": {
+            "body": prefix + "starterbot",
+            "start_pose": [start[0] * IN, start[1] * IN, start[2]],
+        },
         "motor": [
             {
                 "name": n,
@@ -65,9 +73,12 @@ def world(
     pollen: list[tuple[float, float]] | None = None,
     models: Path = MODELS,
     spec: Path = STARTERBOT,
+    robots: dict[str, tuple[str, tuple[float, float, float]]] | None = None,
 ) -> Any:
-    """The fork's world: the field, a POLLEN at each (x in, y in), and StarterBot, its parts'
-    contacts `spec`'s, its recipe."""
+    """The fork's world: the field, a POLLEN at each (x in, y in), and a StarterBot for each of
+    `robots`, by its name, served at `/wpilibws/<name>`: its prefix and where it is put down,
+    (x in, y in, heading rad), until its program sets its pose; one, 37523, at the field's centre,
+    unless given. Each its parts' contacts `spec`'s, its recipe, and its launcher 37523's."""
     from mujocobiobuzz import balls
     from scrimmage.multi import MultiWorld
 
@@ -75,22 +86,32 @@ def world(
         (balls.POLLEN, f"pollen{i}", (x * IN, y * IN, balls.POLLEN.radius_m + 0.001))
         for i, (x, y) in enumerate(pollen or [])
     ]
+    robots = robots or {NAME: (PREFIX, (72.0, 72.0, 0.0))}
     m = fieldmodel.with_robots(
-        {PREFIX: (72 * IN, 72 * IN, 0.0)}, models=models, balls=placed, spec=spec
+        {prefix: (x * IN, y * IN, h) for prefix, (x, y, h) in robots.values()},
+        models=models,
+        balls=placed,
+        spec=spec,
     )
     # The fork's motors drive the wheels' joints, back-EMF and all; the model's own wheel
     # actuators, which the link drives, would add their back-EMF again.
-    for hardware, _ in WHEELS:
-        a = m.actuator(actuator(hardware)).id
-        m.actuator_gainprm[a, :] = 0.0
-        m.actuator_biasprm[a, :] = 0.0
-    return MultiWorld(m, {NAME: (config(), models)}, timestep=0.001)
+    for prefix, _ in robots.values():
+        for hardware, _ in WHEELS:
+            a = m.actuator(actuator(hardware, prefix)).id
+            m.actuator_gainprm[a, :] = 0.0
+            m.actuator_biasprm[a, :] = 0.0
+    configs = {
+        name: (config(prefix, start=start), models) for name, (prefix, start) in robots.items()
+    }
+    return MultiWorld(m, configs, timestep=0.001)
 
 
 def main() -> None:
-    """`python -m biobuzz_sim.fork [--port N] [--viewer] [--pollen X,Y]... [--video OUT.mp4]`:
-    StarterBot served by the fork at `/wpilibws/37523`, for `SimRun` started with
-    `SIMRUN_SCRIMMAGE=localhost:N/37523`, in real time until Ctrl-C or the viewer is closed.
+    """`python -m biobuzz_sim.fork [--port N] [--two] [--viewer] [--pollen X,Y]...
+    [--video OUT.mp4]`: StarterBot served by the fork at `/wpilibws/37523`, for `SimRun` started
+    with `SIMRUN_SCRIMMAGE=localhost:N/37523`, in real time until Ctrl-C or the viewer is closed.
+    `--two` serves a second 37523 at `/wpilibws/37523b`, each put down apart until its program
+    sets its pose.
     `--pollen` puts a POLLEN on the floor at (X in, Y in); `--video` draws the run to a video.
     `--viewer` draws it live; on macOS it runs under `mjpython`, which ships with MuJoCo."""
     import argparse
@@ -104,11 +125,13 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     p = argparse.ArgumentParser(description=main.__doc__)
     p.add_argument("--port", type=int, default=3300)
+    p.add_argument("--two", action="store_true")
     p.add_argument("--viewer", action="store_true")
     p.add_argument("--pollen", action="append", default=[], metavar="X,Y")
     p.add_argument("--video", type=Path)
     a = p.parse_args()
-    w = world([(float(x), float(y)) for x, y in (xy.split(",") for xy in a.pollen)])
+    robots = TWO if a.two else None
+    w = world([(float(x), float(y)) for x, y in (xy.split(",") for xy in a.pollen)], robots=robots)
     server = MultiServer(w, port=a.port, speed=1.0)
     drawn = None
     if a.video is not None:
@@ -148,22 +171,28 @@ def main() -> None:
     finally:
         if drawn is not None:
             drawn.close()
-    host = w.robots[NAME].plugins
     steps = max(1, round(w.data.time / w.model.opt.timestep))
-    for plugin, seconds in zip(host.plugins, host.seconds, strict=True):
-        log.info(
-            "%s: %.1f us a step over %d steps", type(plugin).__name__, seconds / steps * 1e6, steps
-        )
-    shooter = next(p.shooter for p in host.plugins if isinstance(p, Mechanisms))
-    for s in shooter.shots:
-        log.info(
-            "shot at %.2f s: %.2f m/s, %.1f deg up, at %.0f ticks/s",
-            s.t,
-            s.speed,
-            s.up_deg,
-            s.flywheel_tps,
-        )
-    log.info("%d shots", len(shooter.shots))
+    for name, robot in w.robots.items():
+        host = robot.plugins
+        for plugin, seconds in zip(host.plugins, host.seconds, strict=True):
+            log.info(
+                "%s %s: %.1f us a step over %d steps",
+                name,
+                type(plugin).__name__,
+                seconds / steps * 1e6,
+                steps,
+            )
+        shooter = next(p.shooter for p in host.plugins if isinstance(p, Mechanisms))
+        for s in shooter.shots:
+            log.info(
+                "%s shot at %.2f s: %.2f m/s, %.1f deg up, at %.0f ticks/s",
+                name,
+                s.t,
+                s.speed,
+                s.up_deg,
+                s.flywheel_tps,
+            )
+        log.info("%s: %d shots", name, len(shooter.shots))
 
 
 if __name__ == "__main__":

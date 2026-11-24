@@ -75,3 +75,23 @@ def test_the_robots_contacts_are_its_recipes(tmp_path: Path) -> None:
     intake = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, fork.PREFIX + "starterbot_intake")
     frictions = {float(m.geom_friction[g, 0]) for g in range(m.ngeom) if m.geom_bodyid[g] == intake}
     assert 0.25 in frictions
+
+
+@needs_model
+def test_two_of_37523_each_drive_on_their_own_program_only() -> None:
+    import mujoco
+
+    w = fork.world(robots=fork.TWO)
+    a, b = fork.NAME, fork.NAME + "b"
+    a0, b0 = w.robots[a].robot_pose(), w.robots[b].robot_pose()
+    for _ in range(1000):
+        w.step({a: wheels(6.0), b: HalState()})
+    a1, b1 = w.robots[a].robot_pose(), w.robots[b].robot_pose()
+    assert a1[0] - a0[0] > 0.25
+    assert math.dist(b1[:2], b0[:2]) < 0.05
+    for prefix in ("robot_", "robotb_"):
+        for hardware, _ in fork.WHEELS:
+            act = mujoco.mj_name2id(
+                w.model, mujoco.mjtObj.mjOBJ_ACTUATOR, fork.actuator(hardware, prefix)
+            )
+            assert w.data.actuator_force[act] == 0.0

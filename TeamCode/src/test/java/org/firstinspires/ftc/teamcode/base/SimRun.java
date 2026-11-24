@@ -72,6 +72,24 @@ public final class SimRun {
     /** The variable naming the Robot Controller, which picks the robot. */
     static final String RC_NAME_VARIABLE = "SIMRUN_RC_NAME";
 
+    /** The variable naming the NetworkTables port served, the robot's own 5810 unless set. */
+    static final String NT_PORT_VARIABLE = "SIMRUN_NT_PORT";
+
+    /**
+     * What publishes {@code sim/Pose}: on the robot's own server, which the
+     * robot's live tables share, unless {@code port} names another; then a
+     * server of its own there, which the live tables share instead, so two
+     * simRuns on one computer each serve their own.
+     */
+    static SimPublisher publisher(OpModeHarness harness, String port) throws IOException {
+        if (port == null || port.isEmpty()) {
+            return new SimPublisher(harness);
+        }
+        SimPublisher out = new SimPublisher(harness, Integer.parseInt(port));
+        Tracker.liveServers = out::server;
+        return out;
+    }
+
     /**
      * Makes {@code name} the Robot Controller name read, before any OpMode
      * reads Constants; null leaves the reader as it was.
@@ -150,8 +168,9 @@ public final class SimRun {
             System.err.println("simRun: " + e.getMessage());
             System.exit(1);
         } catch (IOException e) {
+            String port = System.getenv(NT_PORT_VARIABLE);
             System.err.println("simRun: the NetworkTables server could not start on port "
-                    + SimPublisher.NT4_PORT + ": " + e.getMessage()
+                    + (port == null ? SimPublisher.NT4_PORT : port) + ": " + e.getMessage()
                     + ". Is another simRun still running?");
             System.exit(2);
         } finally {
@@ -192,7 +211,8 @@ public final class SimRun {
         boolean usePads = plan.form == SimArgs.Form.OPMODE_PAD
                 || plan.form == SimArgs.Form.PAD_CHECK;
 
-        try (SimPublisher out = harness == null ? null : new SimPublisher(harness);
+        try (SimPublisher out = harness == null ? null
+                        : publisher(harness, System.getenv(NT_PORT_VARIABLE));
                 SimVirtualPads virtual = SimVirtualPads.open(
                         System.getenv(SimVirtualPads.VARIABLE), usePads, System.out);
                 SimPads pads = !usePads ? null

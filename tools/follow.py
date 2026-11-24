@@ -13,11 +13,12 @@ distance ahead of the robot onto the path; holonomic steers the robot's middle a
 ftc-claude's `.docs/2026-10-21-lesson-videos.md`, *The point ahead, for tank and arcade*, gives
 the arithmetic.
 
-Usage: follow.py MODE [--shape S] [--port N] [--log FILE] [--size IN] [--leg S] [--eight S]
-                 [--around S] [--limit P]
+Usage: follow.py MODE [--shape S] [--port N] [--nt-port N] [--log FILE] [--size IN] [--leg S]
+                 [--eight S] [--around S] [--limit P]
   MODE    tank (L040), arcade (L080), robot (L090) or starterbot (StarterBot TeleOp): which
           sticks, and how the OpMode shapes them
   --port  simRun's SIMRUN_VIRTUAL_PADS, 5812 unless given
+  --nt-port  simRun's SIMRUN_NT_PORT, where it serves sim/Pose, 5810 unless given
   --log   writes each loop's time, pose, reference and sticks as JSON lines
   --shape eight, unless given, or triangle, square, pentagon, hexagon or circle: a driver's lap,
           Around's, for a screenshot of the robot driven as a student would drive it
@@ -264,11 +265,11 @@ def distance_to(p, curve):
 class SimPose:
     """`sim/Pose` from simRun, in inches from the field's centre and radians."""
 
-    def __init__(self, wait_s=30.0):
+    def __init__(self, port=5810, wait_s=30.0):
         import ntcore
         self._inst = ntcore.NetworkTableInstance.create()
         self._inst.startClient4("follow.py")
-        self._inst.setServer("127.0.0.1", ntcore.NetworkTableInstance.kDefaultPort4)
+        self._inst.setServer("127.0.0.1", port)
         # Every 10 ms, simRun's loop; the default, 100 ms, leaves the robot a loop behind.
         self._sub = self._inst.getRawTopic("sim/Pose").subscribe(
             "struct:Pose2d", b"", ntcore.PubSubOptions(periodic=0.01))
@@ -288,6 +289,7 @@ def main(argv):
     ap.add_argument("mode", choices=MODES)
     ap.add_argument("--shape", choices=("eight",) + tuple(SIDES), default="eight")
     ap.add_argument("--port", type=int, default=5812)
+    ap.add_argument("--nt-port", type=int, default=5810)
     ap.add_argument("--log")
     ap.add_argument("--size", type=float)
     ap.add_argument("--leg", type=float)
@@ -298,7 +300,7 @@ def main(argv):
     from vpad import Pads  # beside this file, which Python puts first on the path
 
     g = Gains(**({"limit": args.limit} if args.limit else {}))
-    pose_in = SimPose()
+    pose_in = SimPose(args.nt_port)
     pose = pose_in.read()
     start = pose[:2] if args.mode in HOLONOMIC else point_ahead(pose, g.ahead)
     if args.shape == "eight":

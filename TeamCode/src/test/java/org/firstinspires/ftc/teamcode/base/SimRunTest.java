@@ -100,4 +100,17 @@ public class SimRunTest {
         SimRun.nameTheRobotController(null);
         assertTrue(before == RobotControllerName.reader);
     }
+
+    @Test
+    public void aNetworkTablesPortGivenServesSimPoseAndTheLiveTablesThere() throws Exception {
+        java.util.concurrent.Callable<io.github.mikestitt.corbelsflightlog.nt.Nt4Server> before =
+                Tracker.liveServers;
+        OpModeHarness h = new OpModeHarness(new SimOpModes.Tank());
+        try (SimPublisher out = SimRun.publisher(h, "5898")) {
+            assertEquals(5898, out.server().port());
+            assertTrue("the live tables share it", Tracker.liveServers.call() == out.server());
+        } finally {
+            Tracker.liveServers = before;
+        }
+    }
 }

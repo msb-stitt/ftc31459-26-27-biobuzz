@@ -11,4 +11,6 @@ The models are built on each computer from goBILDA's and FIRST's own downloads, 
 git. `ninja model` downloads and converts them, and `ninja check` runs this folder's tests.
 
 `uv run python -m biobuzz_sim.fork` serves the field and StarterBot to `simRun` started with
-`SIMRUN_SCRIMMAGE=localhost:3300/37523`; `--help` gives its options.
+`SIMRUN_SCRIMMAGE=localhost:3300/37523`; `--help` gives its options. With `--two` it serves two
+of 37523, the second at `localhost:3300/37523b`, for a second `simRun` on its own NetworkTables
+port, as the README's cheat sheet says.
