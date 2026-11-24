@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import io.github.mikestitt.corbelsflightlog.FlightLog;
 import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
 
+import org.firstinspires.ftc.teamcode.base.RobotClock;
+
 /**
  * Check 8: make the logger's storage writes visible, on purpose, at 3 Hz.
  *
@@ -77,7 +79,7 @@ public class LogCheck8FlushBeatOpMode extends OpMode {
         // Move the SDK's own periodic cost away from 3, 6, 9 Hz.
         telemetry.setMsTransmissionInterval(200);
         log = FtcFlightLog.open(this);
-        startNs = System.nanoTime();
+        startNs = RobotClock.nanoTime();
         lastNs = startNs;
         written = 0;
         loops = 0;
@@ -86,7 +88,7 @@ public class LogCheck8FlushBeatOpMode extends OpMode {
 
     @Override
     public void loop() {
-        long now = System.nanoTime();
+        long now = RobotClock.nanoTime();
         double loopMs = (now - lastNs) / 1e6;
         lastNs = now;
         loops++;

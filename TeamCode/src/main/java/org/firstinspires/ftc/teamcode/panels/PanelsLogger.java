@@ -9,6 +9,7 @@ import com.pedropathing.follower.Follower;
 
 
 import java.util.ArrayDeque;
+import org.firstinspires.ftc.teamcode.base.RobotClock;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 /**
@@ -100,7 +101,7 @@ public class PanelsLogger {
 
     /** Call once per loop, after follower.update(). */
     public void update(Follower follower) {
-        long now = System.nanoTime();
+        long now = RobotClock.nanoTime();
 
         if (follower != null) {
             // ---- robot position ----

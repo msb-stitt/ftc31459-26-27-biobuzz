@@ -286,6 +286,8 @@ public final class OpModeHarness {
                 BACK_LEFT, BACK_RIGHT}) {
             motors.put(name, new FakeMotor());
         }
+        // The robot code's clock is this harness's simulated one, as its hardware is.
+        RobotClock.use(clock::nanos);
         // No HardwareMap is built here: the real one needs an Android context.
         // The OpMode gets its devices through RobotFactory instead, which is
         // also how the follower is swapped for a simulated one.

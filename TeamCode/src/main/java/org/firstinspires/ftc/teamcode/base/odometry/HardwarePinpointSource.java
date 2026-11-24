@@ -4,6 +4,7 @@ import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
+import org.firstinspires.ftc.teamcode.base.RobotClock;
 import org.firstinspires.ftc.teamcode.base.RobotFactory;
 
 /**
@@ -27,7 +28,7 @@ public class HardwarePinpointSource implements PinpointSource {
     @Override
     public void update() {
         pinpoint.update();
-        readTime_s = System.nanoTime() / 1e9;
+        readTime_s = RobotClock.nanoTime() / 1e9;
     }
 
     @Override

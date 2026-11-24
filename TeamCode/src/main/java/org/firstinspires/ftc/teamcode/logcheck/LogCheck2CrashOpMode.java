@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import io.github.mikestitt.corbelsflightlog.FlightLog;
 import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
 
+import org.firstinspires.ftc.teamcode.base.RobotClock;
+
 /**
  * Check 2: the log survives an OpMode that throws.
  *
@@ -38,14 +40,14 @@ public class LogCheck2CrashOpMode extends OpMode {
     @Override
     public void start() {
         log = FtcFlightLog.open(this);
-        startNs = System.nanoTime();
+        startNs = RobotClock.nanoTime();
         loops = 0;
         FlightLog.event("about to crash on purpose");
     }
 
     @Override
     public void loop() {
-        double seconds = (System.nanoTime() - startNs) / 1e9;
+        double seconds = (RobotClock.nanoTime() - startNs) / 1e9;
         loops++;
         log.recordOutput("loop/count", loops);
         log.recordOutput("seconds", seconds);

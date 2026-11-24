@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.RobotClock;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 
 import java.io.IOException;
@@ -48,14 +49,14 @@ public class NtCheckOpMode extends CorbelsTeleOp {
     @Override
     public void start() {
         super.start();
-        startNs = System.nanoTime();
+        startNs = RobotClock.nanoTime();
     }
 
     @Override
     public void loop() {
         loopBefore();
 
-        double seconds = (System.nanoTime() - startNs) / 1e9;
+        double seconds = (RobotClock.nanoTime() - startNs) / 1e9;
         double sine = Math.sin(2 * Math.PI * seconds / SINE_PERIOD_S);
         double leftY = -gamepad1.left_stick_y;
         boolean a = gamepad1.a;

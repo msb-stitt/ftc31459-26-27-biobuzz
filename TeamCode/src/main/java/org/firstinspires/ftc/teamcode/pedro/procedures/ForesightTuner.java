@@ -16,6 +16,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.*;
 import java.util.function.Function;
 
+import org.firstinspires.ftc.teamcode.base.RobotClock;
+
 import static com.pedropathing.utils.Utils.linearFit;
 import static com.pedropathing.utils.Utils.quadraticFit;
 
@@ -325,7 +327,7 @@ class ForwardDeceleration extends TuningOpMode<Double> {
             double currentVelocity = localizer.twist().toVector2D().x();
             if (Math.abs(currentVelocity) > velocity) {
                 previousVelocity = currentVelocity;
-                previousTimeNano = System.nanoTime();
+                previousTimeNano = RobotClock.nanoTime();
 
                 stopping = true;
                 drivetrain.stop(false);
@@ -340,7 +342,7 @@ class ForwardDeceleration extends TuningOpMode<Double> {
             localizer.update();
             drivetrain.stop(false);
             double currentVelocity = localizer.twist().toVector2D().x();
-            long currentTimeNano = System.nanoTime();
+            long currentTimeNano = RobotClock.nanoTime();
             double dt = (currentTimeNano - previousTimeNano) / 1e9;
 
             if (dt > 0) {
@@ -419,7 +421,7 @@ class StrafeDeceleration extends TuningOpMode<Double> {
             double currentVelocity = localizer.twist().toVector2D().y();
             if (Math.abs(currentVelocity) > velocity) {
                 previousVelocity = currentVelocity;
-                previousTimeNano = System.nanoTime();
+                previousTimeNano = RobotClock.nanoTime();
 
                 stopping = true;
                 drivetrain.stop(false);
@@ -434,7 +436,7 @@ class StrafeDeceleration extends TuningOpMode<Double> {
             drivetrain.stop(false);
             localizer.update();
             double currentVelocity = localizer.twist().toVector2D().y();
-            long currentTimeNano = System.nanoTime();
+            long currentTimeNano = RobotClock.nanoTime();
             double dt = (currentTimeNano - previousTimeNano) / 1e9;
 
             if (dt > 0) {

@@ -115,7 +115,7 @@ public final class Tracker {
         values.clear();
         loopCount = 0;
         lastLoopNs = 0L;
-        startNs = System.nanoTime();
+        startNs = RobotClock.nanoTime();
         period_ms = 0.0;
         maxPeriod_ms = 0.0;
         panels = null;
@@ -189,7 +189,7 @@ public final class Tracker {
         panels = PanelsTelemetry.INSTANCE.getTelemetry();
         logger = new PanelsLogger();
         logger.start();
-        startNs = System.nanoTime();
+        startNs = RobotClock.nanoTime();
         lastLoopNs = startNs;
     }
 
@@ -199,7 +199,7 @@ public final class Tracker {
      * {@code CorbelsOpMode.loopAfter()}, after everything else.
      */
     public static void endLoop(Follower follower) {
-        long now = System.nanoTime();
+        long now = RobotClock.nanoTime();
         if (lastLoopNs != 0L) {
             period_ms = (now - lastLoopNs) / 1_000_000.0;
         }
