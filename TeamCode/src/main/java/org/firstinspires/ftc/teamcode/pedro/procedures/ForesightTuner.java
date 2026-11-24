@@ -11,7 +11,7 @@ import com.pedropathing.tuning.autotune.TuningOpMode;
 import com.pedropathing.utils.Angle;
 import com.pedropathing.utils.Utils;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.base.RobotElapsedTime;
 
 import java.util.*;
 import java.util.function.Function;
@@ -483,7 +483,7 @@ class HeadingBraking extends TuningOpMode<List<Double>> {
     public static double bias = 1.5; // how much it favors doing trials with higher powers
     public static double brakingPower = 0.001;
 
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
 
     private final List<double[]> velocityToBrakingDistance = new ArrayList<>();
     private State state = State.DRIVE;
@@ -631,7 +631,7 @@ class HeadingTuner extends TuningOpMode<Double> {
     private double vMax = 0;
     private final List<Double> times = new ArrayList<>();
     private final List<Double> velocities = new ArrayList<>();
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
     private boolean done = false;
     private double lastTime = 0.0;
 
@@ -755,7 +755,7 @@ class ForwardBraking extends TuningOpMode<List<Double>> {
     /** Stops the robot if it drifts this many inches across the test's direction. */
     public double DRIFT = 48;
 
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
     private final List<double[]> velocityToBrakingDistance = new ArrayList<>();
     private State state = State.DRIVE;
     private int iteration = 0;
@@ -933,7 +933,7 @@ class StrafeBraking extends TuningOpMode<List<Double>> {
     /** Stops the robot if it drifts this many inches across the test's direction. */
     public double DRIFT = 48;
 
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
     private final List<double[]> velocityToBrakingDistance = new ArrayList<>();
     private State state = State.DRIVE;
     private int iteration = 0;
@@ -1108,7 +1108,7 @@ class ForwardTranslational extends TuningOpMode<List<Double>> {
     private double vMax = 0;
     private final List<Double> times = new ArrayList<>();
     private final List<Double> velocities = new ArrayList<>();
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
     private boolean done = false;
     private double lastTime = 0.0;
 
@@ -1232,7 +1232,7 @@ class StrafeTranslational extends TuningOpMode<List<Double>> {
     private double vMax = 0;
     private final List<Double> times = new ArrayList<>();
     private final List<Double> velocities = new ArrayList<>();
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
     private boolean done = false;
     private double lastTime = 0.0;
 

@@ -72,6 +72,14 @@ public class RobotClockTest {
     }
 
     @Test
+    public void aRobotElapsedTimeReadsTheSimulatedClock() {
+        OpModeHarness h = new OpModeHarness(new TeleOpWithPanelsOpMode());
+        RobotElapsedTime timer = new RobotElapsedTime();
+        h.clock.advance(37);
+        assertEquals("37 ms of simulated time", 37.0, timer.milliseconds(), 0.0);
+    }
+
+    @Test
     public void theWallClockIsTheRobotsOnTheRobot() {
         RobotClock.useWallClock();
         long before = System.nanoTime();
@@ -82,7 +90,9 @@ public class RobotClockTest {
     /**
      * Where robot code still reads the wall clock, by file and count. A run ID
      * is a date, as a file name is, and VoltageResponseOpMode times what a call
-     * costs; everything else reads {@link RobotClock}.
+     * costs; everything else reads {@link RobotClock}. The SDK's
+     * {@code ElapsedTime} reads the wall clock, so robot code makes a
+     * {@link RobotElapsedTime} instead.
      */
     private static final Map<String, Long> WALL_CLOCK_ALLOWED = new TreeMap<>(Map.of(
             "base/RobotClock.java", 1L,
@@ -98,7 +108,8 @@ public class RobotClockTest {
             for (Path f : files.filter(p -> p.toString().endsWith(".java")).collect(Collectors.toList())) {
                 List<String> lines = Files.readAllLines(f);
                 long n = lines.stream()
-                        .filter(l -> l.contains("System.nanoTime") || l.contains("System.currentTimeMillis"))
+                        .filter(l -> l.contains("System.nanoTime") || l.contains("System.currentTimeMillis")
+                                || l.contains("new ElapsedTime("))
                         .count();
                 if (n > 0) found.put(root.relativize(f).toString().replace('\\', '/'), n);
             }

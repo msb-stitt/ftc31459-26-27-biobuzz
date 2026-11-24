@@ -14,7 +14,7 @@ import com.pedropathing.tuning.autotune.Procedure;
 import com.pedropathing.tuning.autotune.TuningOpMode;
 import com.pedropathing.utils.Angle;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.base.RobotElapsedTime;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -324,7 +324,7 @@ class TestsOdometry extends TuningOpMode<Boolean> {
     double totalHeading;
     double prevHeading;
 
-    private final ElapsedTime timer = new ElapsedTime();
+    private final RobotElapsedTime timer = new RobotElapsedTime();
 
     private boolean passedX = false;
     private boolean passedY = false;
