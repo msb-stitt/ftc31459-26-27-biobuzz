@@ -5,12 +5,15 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.pedropathing.math.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.firstinspires.ftc.teamcode.example.TeleOpWithPanelsOpMode;
 import org.junit.Test;
@@ -158,6 +161,98 @@ public final class SimScrimmageTest {
             assertEquals(10_000L, s.awaitSync());
             assertEquals(1210.5, SimMechanisms.launcherMeasured.getAsDouble(), EPS);
             s.close();
+        }
+    }
+
+    /** An OpMode noting the robot's clock, ms, at each of its loops. */
+    static final class ClockProbe extends OpMode {
+        final List<Long> ranMs = new CopyOnWriteArrayList<>();
+
+        @Override
+        public void init() {
+        }
+
+        @Override
+        public void loop() {
+            ranMs.add(RobotClock.nanoTime() / 1_000_000L);
+        }
+    }
+
+    /**
+     * The fork's lockstep conformance test, {@code tests/test_lockstep_time.py},
+     * played against simRun's client: synced only at the time it answered as its
+     * next pass, each pass runs once, at the time synced; with no sync nothing
+     * runs; a sync 1 s on, as after a stall, runs one pass, at that time.
+     */
+    @Test
+    public void eachPassRunsOnceAtTheTimeSyncedAndOnlyWhenSynced() throws Exception {
+        ClockProbe probe = new ClockProbe();
+        OpModeHarness h = new OpModeHarness(probe);
+        h.init();
+        h.start();
+        try (FakeHalsimServer server = new FakeHalsimServer()) {
+            SimScrimmage s = new SimScrimmage("localhost", server.port(), "37523");
+            Thread accept = new Thread(() -> {
+                try {
+                    server.accept();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            accept.start();
+            s.connect(h.robot, new PrintStream(new ByteArrayOutputStream()));
+            accept.join();
+            server.receive();
+            server.send("SimDevice", "ScrimmageLockstep", of(">step_us", 0L, ">engage", true));
+
+            long t = 8_700_000L;
+            for (int pass = 0; pass < 100; pass++) {
+                int before = probe.ranMs.size();
+                long next = syncAndRun(server, s, h, t);
+                assertEquals("one pass a sync", before + 1, probe.ranMs.size());
+                assertEquals("at the time synced", t / 1000, (long) probe.ranMs.get(before));
+                assertTrue("the next pass is after the time synced", next > t);
+                t = next;
+            }
+
+            int ran = probe.ranMs.size();
+            Thread waiting = new Thread(() -> {
+                try {
+                    SimRun.paced(s, h, h::loop);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            waiting.start();
+            Thread.sleep(300);
+            assertEquals("no sync, no pass", ran, probe.ranMs.size());
+            long stalled = t + 1_000_000L;
+            server.send("SimDevice", "ScrimmageLockstep", of(">step_seq", stalled));
+            waiting.join(5000);
+            assertEquals("a sync 1 s on runs one pass", ran + 1, probe.ranMs.size());
+            assertEquals(stalled / 1000, (long) probe.ranMs.get(ran));
+            assertEquals(stalled + 10_000L, answered(server).get("<next_us"));
+            s.close();
+        }
+    }
+
+    /** Syncs at {@code t} and runs SimRun's pass; returns the next pass's time, us. */
+    private static long syncAndRun(FakeHalsimServer server, SimScrimmage s, OpModeHarness h,
+            long t) throws Exception {
+        server.send("SimDevice", "ScrimmageLockstep", of(">step_seq", t));
+        SimRun.paced(s, h, h::loop);
+        Map<String, Object> done = answered(server);
+        assertEquals("each sync answered once, with its own time", t, done.get("<done_seq"));
+        return (Long) done.get("<next_us");
+    }
+
+    /** The client's lockstep answer, past what it sends before it. */
+    private static Map<String, Object> answered(FakeHalsimServer server) throws Exception {
+        while (true) {
+            SimHalsimWs.Message m = server.receive();
+            if ("ScrimmageLockstep".equals(m.device) && m.data.containsKey("<done_seq")) {
+                return m.data;
+            }
         }
     }
 

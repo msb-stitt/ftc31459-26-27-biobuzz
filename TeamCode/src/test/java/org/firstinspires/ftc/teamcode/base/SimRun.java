@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.function.LongConsumer;
 
 import org.firstinspires.ftc.teamcode.pedro.RobotControllerName;
 
@@ -225,22 +226,24 @@ public final class SimRun {
                     slot1.copy(typed);
                 }
                 if (scrimmage != null) {
-                    long t = sync(scrimmage);
-                    long worth = Math.max(0, t / 1000 - harness.clock.nanos() / 1_000_000L);
                     if (inInit && enterPressed) {
                         inInit = false;
                         System.out.println("Started.");
                         harness.start();
                     }
-                    if (inInit) {
-                        harness.clock.advance(worth);
-                        harness.initLoop();
+                    boolean init = inInit;
+                    paced(scrimmage, harness, worth -> {
+                        if (init) {
+                            harness.clock.advance(worth);
+                            harness.initLoop();
+                        } else {
+                            harness.loop(worth);
+                        }
+                        out.publish();
+                    });
+                    if (init) {
                         shown = printWhenChanged(harness.driverStation.text(), shown);
-                    } else {
-                        harness.loop(worth);
                     }
-                    out.publish();
-                    answer(scrimmage, harness, t, t + SimTicker.GRID_MS * 1000);
                 } else if (SimTicker.due(tick, lastStep, SimTicker.STEP_TICKS)) {
                     lastStep = tick;
                     if (inInit && enterPressed) {
@@ -300,6 +303,18 @@ public final class SimRun {
         ScrimmageLost(IOException cause) {
             super("the link to Scrimmage failed: " + cause.getMessage(), cause);
         }
+    }
+
+    /**
+     * One pass paced by Scrimmage: waits for the sync at T, hands {@code pass}
+     * the milliseconds from the clock to T, and answers with the next pass's
+     * time, {@value SimTicker#GRID_MS} ms on.
+     */
+    static void paced(SimScrimmage scrimmage, OpModeHarness harness, LongConsumer pass)
+            throws ScrimmageLost {
+        long t = sync(scrimmage);
+        pass.accept(Math.max(0, t / 1000 - harness.clock.nanos() / 1_000_000L));
+        answer(scrimmage, harness, t, t + SimTicker.GRID_MS * 1000);
     }
 
     private static long sync(SimScrimmage scrimmage) throws ScrimmageLost {

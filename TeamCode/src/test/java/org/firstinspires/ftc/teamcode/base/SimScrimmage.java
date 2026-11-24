@@ -219,6 +219,7 @@ final class SimScrimmage implements AutoCloseable {
 
     @Override
     public void close() throws IOException {
+        SimMechanisms.launcherMeasured = null;
         if (ws != null) {
             ws.close();
         }
