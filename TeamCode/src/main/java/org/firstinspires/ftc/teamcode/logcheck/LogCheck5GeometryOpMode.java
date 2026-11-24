@@ -9,6 +9,7 @@ import io.github.mikestitt.corbelsflightlog.FlightLog;
 import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
 import io.github.mikestitt.corbelsflightlog.ftc.FtcGeometry;
 
+import org.firstinspires.ftc.teamcode.base.RobotClock;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 /**
@@ -46,12 +47,12 @@ public class LogCheck5GeometryOpMode extends OpMode {
     @Override
     public void start() {
         log = FtcFlightLog.open(this);
-        startNs = System.nanoTime();
+        startNs = RobotClock.nanoTime();
     }
 
     @Override
     public void loop() {
-        double t = (System.nanoTime() - startNs) / 1e9;
+        double t = (RobotClock.nanoTime() - startNs) / 1e9;
 
         // An imaginary robot going round a 24 inch circle in the middle of the
         // field, facing the way it travels. Pedro units: inches, corner origin.

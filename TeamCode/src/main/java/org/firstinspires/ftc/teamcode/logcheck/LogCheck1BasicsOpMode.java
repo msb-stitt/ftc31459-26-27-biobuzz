@@ -9,6 +9,8 @@ import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
 
 import java.io.File;
 
+import org.firstinspires.ftc.teamcode.base.RobotClock;
+
 /**
  * Check 1: does logging work at all, and where do the files go?
  *
@@ -43,7 +45,7 @@ public class LogCheck1BasicsOpMode extends OpMode {
 
     @Override
     public void loop() {
-        long now = System.nanoTime();
+        long now = RobotClock.nanoTime();
         double loopMs = lastNs == 0 ? 0 : (now - lastNs) / 1e6;
         lastNs = now;
         loops++;

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.RobotClock;
 import org.firstinspires.ftc.teamcode.base.SysIdRecorder;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.base.WheelVelocities;
@@ -94,7 +95,7 @@ public class SysIdDriveOpMode extends CorbelsTeleOp {
         boolean wanted = gamepad1.right_trigger > 0.5;
         if (wanted && !running) {
             running = true;
-            startNs = System.nanoTime();
+            startNs = RobotClock.nanoTime();
             startTicks = drivetrain.wheelTicks();
         } else if (!wanted && running) {
             running = false;
@@ -103,7 +104,7 @@ public class SysIdDriveOpMode extends CorbelsTeleOp {
 
         double volts = 0;
         if (running) {
-            double seconds = (System.nanoTime() - startNs) / 1e9;
+            double seconds = (RobotClock.nanoTime() - startNs) / 1e9;
             volts = voltsFor(selected, seconds, RAMP_VOLTS_PER_SECOND, STEP_VOLTS);
         }
 

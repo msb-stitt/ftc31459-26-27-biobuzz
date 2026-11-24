@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.CorbelsMecanum;
 import org.firstinspires.ftc.teamcode.base.CorbelsTeleOp;
+import org.firstinspires.ftc.teamcode.base.RobotClock;
 import org.firstinspires.ftc.teamcode.base.Tracker;
 import org.firstinspires.ftc.teamcode.base.WheelVelocities;
 
@@ -89,12 +90,12 @@ public class VoltageResponseOpMode extends CorbelsTeleOp {
         boolean wanted = gamepad1.right_trigger > 0.5;
         if (wanted && !running) {
             running = true;
-            startNs = System.nanoTime();
+            startNs = RobotClock.nanoTime();
         } else if (!wanted) {
             running = false;
         }
 
-        double seconds = running ? (System.nanoTime() - startNs) / 1e9 : 0;
+        double seconds = running ? (RobotClock.nanoTime() - startNs) / 1e9 : 0;
         int phase = phaseAt(seconds);
         boolean finished = running && phase >= FREQUENCIES.length;
         double speed = finished ? 0 : speedAt(phase, seconds, AMPLITUDE);
