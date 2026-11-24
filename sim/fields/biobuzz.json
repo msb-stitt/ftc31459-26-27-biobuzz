@@ -1,0 +1,130 @@
+{
+ "name": "biobuzz",
+ "source": "https://ftc-resources.firstinspires.org/ftc/archive/2027/field/field-cad-step",
+ "base": "fixed",
+ "axes": [
+  [
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   -1
+  ],
+  [
+   0,
+   1,
+   0
+  ]
+ ],
+ "origin_cad_mm": [
+  -1828.8,
+  0,
+  1828.8
+ ],
+ "density_g_cm3": 2.7,
+ "leave_out": [
+  "am-5851: Pollen",
+  "am-5852: Blue Nectar",
+  "am-5852: Red Nectar"
+ ],
+ "no_collision": [
+  "am-2499: FIRST Tech Challenge Field Soft Tiles <1>",
+  "Gaffer Tape, Blue, 1in Wide, 11in Long",
+  "Gaffer Tape, Blue, 1in Wide, 20.69in Long",
+  "Gaffer Tape, Blue, 1in Wide, 22.69in Long",
+  "Gaffer Tape, Blue, 1in Wide, 54in Long",
+  "Gaffer Tape, Blue, 1in Wide, 94.82in Long",
+  "Gaffer Tape, Red, 1in Wide, 11in Long",
+  "Gaffer Tape, Red, 1in Wide, 20.69in Long",
+  "Gaffer Tape, Red, 1in Wide, 22.69in Long",
+  "Gaffer Tape, Red, 1in Wide, 54in Long",
+  "Gaffer Tape, Red, 1in Wide, 94.82in Long"
+ ],
+ "floor": {
+  "centre_m": [
+   1.8288,
+   1.8288,
+   0
+  ],
+  "half_m": [
+   1.8288,
+   1.8288
+  ]
+ },
+ "hull_by": "solid",
+ "min_box_mm3": 2000,
+ "split_ratio": 4,
+ "max_pieces": 16,
+ "max_pieces_for": {
+  "Goal Rib": 48
+ },
+ "max_pieces_note": "a goal rib bends around the cell's mouth, and at 16 pieces its hulls fill the mouth's corners where the balls wedge",
+ "hull_triangles": 200,
+ "look_by": "part",
+ "look_colours": true,
+ "look_colours_note": "each part drawn in the colours the field STEP gives its solids",
+ "look_triangles": {
+  "default": 60000
+ },
+ "bodies": [
+  {
+   "name": "blue_hive",
+   "parts": [
+    "am-5853-Blue Hive <1>"
+   ],
+   "density_g_cm3": 0.594,
+   "density_note": "0.22 of 2.7 g/cm3, fitted so a raised cell's 8th POLLEN tips the hive and its 7th does not, as tests/test_field.py checks",
+   "joint": {
+    "through": "Goal Pivot Assembly <1>",
+    "axis_cad": [
+     1,
+     0,
+     0
+    ],
+    "range_deg": [
+     -60,
+     0
+    ],
+    "damping": 0.01,
+    "stop_solref": [
+     0.05,
+     1.2
+    ]
+   },
+   "collide": {
+    "hulls": true
+   }
+  },
+  {
+   "name": "red_hive",
+   "parts": [
+    "am-5853-Red Hive <1>"
+   ],
+   "density_g_cm3": 0.594,
+   "density_note": "0.22 of 2.7 g/cm3, fitted so a raised cell's 8th POLLEN tips the hive and its 7th does not, as tests/test_field.py checks",
+   "joint": {
+    "through": "Goal Pivot Assembly <1>",
+    "axis_cad": [
+     1,
+     0,
+     0
+    ],
+    "range_deg": [
+     0,
+     60
+    ],
+    "damping": 0.01,
+    "stop_solref": [
+     0.05,
+     1.2
+    ]
+   },
+   "collide": {
+    "hulls": true
+   }
+  }
+ ]
+}

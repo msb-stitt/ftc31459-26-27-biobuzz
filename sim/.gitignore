@@ -1,0 +1,14 @@
+# The environment uv makes from uv.lock
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ninja build state
+.ninja_log
+.ninja_deps
+
+# The vendors' CAD downloads and the models made from them, built on each computer.
+/media/
+/models/
