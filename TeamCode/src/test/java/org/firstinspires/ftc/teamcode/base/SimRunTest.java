@@ -113,4 +113,25 @@ public class SimRunTest {
             Tracker.liveServers = before;
         }
     }
+
+    @Test
+    public void anAllianceGivenIsTheOneATeleOpStartsFrom() {
+        boolean before = org.firstinspires.ftc.teamcode.OpModeStorage.isRed;
+        try {
+            SimRun.chooseTheAlliance("blue");
+            assertEquals(false, org.firstinspires.ftc.teamcode.OpModeStorage.isRed);
+            SimRun.chooseTheAlliance("red");
+            assertEquals(true, org.firstinspires.ftc.teamcode.OpModeStorage.isRed);
+            SimRun.chooseTheAlliance(null);
+            assertEquals(true, org.firstinspires.ftc.teamcode.OpModeStorage.isRed);
+            try {
+                SimRun.chooseTheAlliance("green");
+                fail("green is no alliance");
+            } catch (IllegalArgumentException expected) {
+                // as wanted
+            }
+        } finally {
+            org.firstinspires.ftc.teamcode.OpModeStorage.isRed = before;
+        }
+    }
 }

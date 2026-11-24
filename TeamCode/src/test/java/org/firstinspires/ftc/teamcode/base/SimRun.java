@@ -72,6 +72,24 @@ public final class SimRun {
     /** The variable naming the Robot Controller, which picks the robot. */
     static final String RC_NAME_VARIABLE = "SIMRUN_RC_NAME";
 
+    /** The variable naming the alliance, {@code red} or {@code blue}, as an auto would hand it over. */
+    static final String ALLIANCE_VARIABLE = "SIMRUN_ALLIANCE";
+
+    /**
+     * Hands the OpMode {@code alliance}, as an auto run before it does, so a
+     * TeleOp with no auto starts at that alliance's default; null leaves it as
+     * it was.
+     */
+    static void chooseTheAlliance(String alliance) {
+        if (alliance == null || alliance.isEmpty()) {
+            return;
+        }
+        if (!alliance.equals("red") && !alliance.equals("blue")) {
+            throw new IllegalArgumentException(ALLIANCE_VARIABLE + " is red or blue, not " + alliance);
+        }
+        org.firstinspires.ftc.teamcode.OpModeStorage.isRed = alliance.equals("red");
+    }
+
     /** The variable naming the NetworkTables port served, the robot's own 5810 unless set. */
     static final String NT_PORT_VARIABLE = "SIMRUN_NT_PORT";
 
@@ -102,6 +120,7 @@ public final class SimRun {
 
     public static void main(String[] args) throws Exception {
         nameTheRobotController(System.getenv(RC_NAME_VARIABLE));
+        chooseTheAlliance(System.getenv(ALLIANCE_VARIABLE));
         SimArgs.Plan plan = SimArgs.parse(args);
         if (plan.error != null) {
             System.err.println(plan.error);
