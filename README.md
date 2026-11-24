@@ -30,6 +30,7 @@ runs it on its own.
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
 | Drive the robot in MuJoCo, its physics in place of the simulator's | `SIMRUN_MUJOCO=5813 ./gradlew :TeamCode:simRun --args="StarterBotTeleOp --pad"`, then start `mujocobiobuzz`'s link as its README says |
 | Drive the robot on the Scrimmage fork, from this repo's field and robots | `SIMRUN_SCRIMMAGE=localhost:3300/37523 ./gradlew :TeamCode:simRun --args="example.ExampleTeleOp --pad"`, then start the server as [`sim/README.md`](sim/README.md) says |
+| Change or turn off the simulated Pinpoint's error, a tenth of what waggle measured | `SIMRUN_PINPOINT_SEED=7` on `simRun` for another draw, or `exact` for none; `SimOdometryError` says what it is |
 | Run the simulator as another robot | `SIMRUN_RC_NAME=31459-RC` on `simRun`, the Robot Controller name that picks the robot |
 | Steer the simulator's virtual gamepad along a path | `SIMRUN_VIRTUAL_PADS=5812` on `simRun`, then `uv run tools/follow.py starterbot` — `tools/follow.py` says how |
 | Check NetworkTables, beside a running **NetworkTables API check** | `./gradlew :TeamCode:ntApiCheck` — see [NETWORKTABLES.md](./NETWORKTABLES.md) |

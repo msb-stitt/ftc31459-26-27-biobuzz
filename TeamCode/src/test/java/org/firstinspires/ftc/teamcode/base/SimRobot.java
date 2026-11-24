@@ -235,6 +235,13 @@ public final class SimRobot {
         /** How far the robot has moved along its own forward and leftward, inches. */
         private double forwardTravel;
         private double strafeTravel;
+        /** The Pinpoint's error, or null for none, and what its pods have read, inches. */
+        private SimOdometryError odometry;
+        private double forwardRead;
+        private double strafeRead;
+        /** How far the pose the Pinpoint reads is from the robot's, in the field's frame, inches. */
+        private double xError;
+        private double yError;
         private long lastNs;
         private MotionState state = MotionState.zero();
         /** MuJoCo's motion, reported in place of this class's own, or null. */
@@ -265,6 +272,14 @@ public final class SimRobot {
          */
         public void follow(Supplier<Motion> motion) {
             this.motion = motion;
+        }
+
+        /**
+         * Gives the Pinpoint {@code error}, or none for null: its pods, and the
+         * pose this localizer reports, then read the robot's moves as it says.
+         */
+        public void odometryError(SimOdometryError error) {
+            this.odometry = error;
         }
 
         /** The pose set while following MuJoCo that it has not yet taken, or null. */
@@ -312,16 +327,21 @@ public final class SimRobot {
 
         /**
          * How far the robot has moved forward along itself since it was made,
-         * in inches, which {@link #setPose} does not change. A pod at its middle
-         * would read this.
+         * in inches, which {@link #setPose} does not change, as a pod at its
+         * middle reads it, with the {@link #odometryError}.
          */
         public double forwardInches() {
-            return forwardTravel;
+            return forwardRead;
         }
 
-        /** How far the robot has moved to its own left since it was made, in inches. */
+        /** How far the robot has moved to its own left since it was made, in inches, as a pod reads it. */
         public double strafeInches() {
-            return strafeTravel;
+            return strafeRead;
+        }
+
+        /** Where the robot really is, which the pose differs from by the {@link #odometryError}. */
+        public Pose truePose() {
+            return POSES.of(x, y, Math.toDegrees(heading));
         }
 
         @Override
@@ -329,6 +349,7 @@ public final class SimRobot {
             x = p.x();
             y = p.y();
             heading = p.heading();
+            xError = yError = 0;
             state = state.withPose(p);
             if (motion != null) {
                 posePending = p;
@@ -344,6 +365,7 @@ public final class SimRobot {
         @Override
         public void reset() {
             x = y = heading = vx = vy = omega = 0;
+            xError = yError = 0;
             state = MotionState.zero();
         }
 
@@ -353,6 +375,7 @@ public final class SimRobot {
                 updateFromMotion();
                 return;
             }
+            double forwardWas = forwardTravel, strafeWas = strafeTravel;
             long now = clock.getAsLong();
             double dt = lastNs == 0 ? 0 : (now - lastNs) / 1e9;
             lastNs = now;
@@ -369,7 +392,27 @@ public final class SimRobot {
             strafeTravel += vy * dt;
             double[] speeds = wheelSpeeds();
             for (int i = 0; i < 4; i++) rolled[i] += speeds[i] * dt;
-            state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));
+            read(forwardTravel - forwardWas, strafeTravel - strafeWas);
+            report();
+        }
+
+        /**
+         * The pods' reading of a move of {@code forward} and {@code strafe}
+         * inches, and what it puts on the pose's error, turned into the field's
+         * frame at the robot's heading.
+         */
+        private void read(double forward, double strafe) {
+            double[] r = odometry == null ? new double[]{forward, strafe} : odometry.read(forward, strafe);
+            forwardRead += r[0];
+            strafeRead += r[1];
+            double df = r[0] - forward, ds = r[1] - strafe;
+            xError += df * Math.cos(heading) - ds * Math.sin(heading);
+            yError += df * Math.sin(heading) + ds * Math.cos(heading);
+        }
+
+        private void report() {
+            state = MotionState.ofTwist(POSES.of(x + xError, y + yError, Math.toDegrees(heading)),
+                    new Twist(vx, vy, omega));
         }
 
         /** MuJoCo's last reading, once it has taken the last pose set; until then that pose, at rest. */
@@ -386,10 +429,12 @@ public final class SimRobot {
                 omega = m.omega;
                 turned = m.turned;
                 System.arraycopy(m.rolled, 0, rolled, 0, 4);
+                double forwardWas = forwardTravel, strafeWas = strafeTravel;
                 forwardTravel = m.forward;
                 strafeTravel = m.strafe;
+                read(forwardTravel - forwardWas, strafeTravel - strafeWas);
             }
-            state = MotionState.ofTwist(POSES.of(x, y, Math.toDegrees(heading)), new Twist(vx, vy, omega));
+            report();
         }
     }
 

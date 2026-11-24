@@ -121,6 +121,8 @@ public final class SimRun {
                     throw new IllegalArgumentException(SimMujoco.VARIABLE + " and "
                             + SimScrimmage.VARIABLE + " are both set; set one");
                 }
+                harness.robot.localizer.odometryError(
+                        SimOdometryError.fromVariable(System.getenv(SimOdometryError.VARIABLE)));
                 if (mujoco != null) {
                     mujoco.connect(harness.robot, System.out);
                 }
