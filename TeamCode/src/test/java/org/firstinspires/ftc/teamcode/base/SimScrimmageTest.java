@@ -125,6 +125,42 @@ public final class SimScrimmageTest {
         }
     }
 
+    @Test
+    public void theLauncherAndIntakeGoAsTheLinkTakesThemAndTheHubsSpeedComesBack() throws Exception {
+        OpModeHarness h = new OpModeHarness(new TeleOpWithPanelsOpMode());
+        Tracker.publish("intake/speed", 0.75);
+        Tracker.publish("launcher/target_tps", 1325.0);
+        Map<String, Object> sent = SimScrimmage.mechanisms(h, new double[]{40, 0, 1, 33.4});
+        assertEquals(0.75, (Double) sent.get("</intake/speed"), EPS);
+        assertEquals(1325.0, (Double) sent.get("</launcher/target_tps"), EPS);
+        assertEquals(33.4, (Double) sent.get("<launcher_f"), EPS);
+        assertEquals(1.0, (Double) sent.get("<launcher_d"), EPS);
+        assertTrue("no wheel goes as a mechanism", sent.keySet().stream().allMatch(
+                k -> k.startsWith("</") || k.startsWith("<launcher_")));
+        assertNull("no gains until the code sets them",
+                SimScrimmage.mechanisms(h, null).get("<launcher_p"));
+
+        try (FakeHalsimServer server = new FakeHalsimServer()) {
+            SimScrimmage s = new SimScrimmage("localhost", server.port(), "37523");
+            Thread accept = new Thread(() -> {
+                try {
+                    server.accept();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            accept.start();
+            s.connect(h.robot, new PrintStream(new ByteArrayOutputStream()));
+            accept.join();
+            server.receive();
+            server.send("Biobuzz", "mechanisms", of(">launcher_tps", 1210.5));
+            server.send("SimDevice", "ScrimmageLockstep", of(">step_seq", 10_000L));
+            assertEquals(10_000L, s.awaitSync());
+            assertEquals(1210.5, SimMechanisms.launcherMeasured.getAsDouble(), EPS);
+            s.close();
+        }
+    }
+
     private static Map<String, Object> of(Object... kv) {
         Map<String, Object> m = new LinkedHashMap<>();
         for (int i = 0; i < kv.length; i += 2) {

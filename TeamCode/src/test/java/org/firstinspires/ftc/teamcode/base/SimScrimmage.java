@@ -33,6 +33,11 @@ import java.util.Map;
  * so the localizer, the encoders, the IMU and the Pinpoint all read the
  * server's robot. A pose the code sets is sent as the plugin's placing.
  *
+ * <p>The launcher and intake are {@code mujocobiobuzz}'s plugin
+ * {@code Mechanisms}, sent the values {@link SimMujoco} sends the link, on
+ * {@code Biobuzz mechanisms}; the launcher's motor reads back the speed the
+ * plugin's hub measured.
+ *
  * <p>Passes when: SimScrimmageTest.
  */
 final class SimScrimmage implements AutoCloseable {
@@ -45,6 +50,10 @@ final class SimScrimmage implements AutoCloseable {
     static final String DRIVEBASE_TYPE = "ScrimmageDrivebase";
     static final String DRIVEBASE = "drive";
     static final String MOTOR_TYPE = "ScrimmageMotor";
+    /** The launcher and intake, as {@code mujocobiobuzz.plugins.Mechanisms} reads them. */
+    static final String MECHANISMS_TYPE = "Biobuzz";
+    static final String MECHANISMS = "mechanisms";
+    private static final String[] GAINS = {"<launcher_p", "<launcher_i", "<launcher_d", "<launcher_f"};
     private static final double IN = 0.0254;
     private static final String[] WHEELS = {OpModeHarness.FRONT_LEFT, OpModeHarness.FRONT_RIGHT,
             OpModeHarness.BACK_LEFT, OpModeHarness.BACK_RIGHT};
@@ -55,6 +64,7 @@ final class SimScrimmage implements AutoCloseable {
     private SimHalsimWs ws;
     private final Map<String, Map<String, Object>> devices = new HashMap<>();
     private volatile SimRobot.Motion latest;
+    private volatile double launcherTps;
 
     SimScrimmage(String host, int port, String name) {
         this.host = host;
@@ -92,6 +102,7 @@ final class SimScrimmage implements AutoCloseable {
         ws = SimHalsimWs.connect(host, port, path);
         lockstep(map("<engaged", false));
         robot.localizer.follow(() -> latest);
+        SimMechanisms.launcherMeasured = () -> launcherTps;
         log.println("Scrimmage connected.");
     }
 
@@ -123,6 +134,9 @@ final class SimScrimmage implements AutoCloseable {
             if (DRIVEBASE_TYPE.equals(m.type) && DRIVEBASE.equals(m.device)) {
                 latest = motion(devices.get(m.type + "/" + m.device));
             }
+            if (MECHANISMS_TYPE.equals(m.type) && MECHANISMS.equals(m.device)) {
+                launcherTps = number(m.data, ">launcher_tps", launcherTps);
+            }
         }
     }
 
@@ -144,9 +158,30 @@ final class SimScrimmage implements AutoCloseable {
             place.put("<place_seq", localizer.poseSeq());
             ws.send(DRIVEBASE_TYPE, DRIVEBASE, place);
         }
+        ws.send(MECHANISMS_TYPE, MECHANISMS, mechanisms(harness, SimMechanisms.launcherPidf));
         Map<String, Object> done = map("<next_us", nextUs);
         done.put("<done_seq", t);
         lockstep(done);
+    }
+
+    /**
+     * The launcher's and intake's values, as {@link SimMujoco} sends them to
+     * {@code mujocobiobuzz.link}, each {@code <} and its topic, and the gains the
+     * code gave the launcher's motor, once it has.
+     */
+    static Map<String, Object> mechanisms(OpModeHarness harness, double[] launcherPidf) {
+        Map<String, Object> out = new LinkedHashMap<>();
+        for (Map.Entry<String, Object> e : SimMujoco.values(harness).entrySet()) {
+            if (e.getKey().startsWith("/")) {
+                out.put("<" + e.getKey(), e.getValue());
+            }
+        }
+        if (launcherPidf != null) {
+            for (int i = 0; i < GAINS.length; i++) {
+                out.put(GAINS[i], launcherPidf[i]);
+            }
+        }
+        return out;
     }
 
     /** The server's device name for a hardware name: its spaces as underscores. */
