@@ -57,3 +57,21 @@ def _bodies(w: object) -> list[str]:
 
     m = w.model  # type: ignore[attr-defined]
     return [mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_BODY, b) or "" for b in range(m.nbody)]
+
+
+@needs_model
+def test_the_robots_contacts_are_its_recipes(tmp_path: Path) -> None:
+    import json
+
+    import mujoco
+
+    from biobuzz_sim.robots import STARTERBOT
+
+    recipe = json.loads(STARTERBOT.read_text())
+    recipe["contacts"]["starterbot_intake"]["friction"] = [0.25, 0.005, 0.0001]
+    given = tmp_path / "starterbot.json"
+    given.write_text(json.dumps(recipe))
+    m = fork.world(spec=given).model
+    intake = mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, fork.PREFIX + "starterbot_intake")
+    frictions = {float(m.geom_friction[g, 0]) for g in range(m.ngeom) if m.geom_bodyid[g] == intake}
+    assert 0.25 in frictions

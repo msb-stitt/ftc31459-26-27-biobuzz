@@ -674,7 +674,7 @@ wheels = [
 [[package]]
 name = "mujocobiobuzz"
 version = "0.1.0"
-source = { git = "https://github.com/msb-stitt/mujocobiobuzz?branch=scr-plugins#1b853139b2d1b8d9cfb48dc84a72c116978d2a17" }
+source = { git = "https://github.com/msb-stitt/mujocobiobuzz?branch=scr-plugins#009fa34633bddbc53280c12f079b6ee68f79e9c7" }
 dependencies = [
     { name = "mujoco" },
     { name = "numpy" },

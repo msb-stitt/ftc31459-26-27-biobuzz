@@ -14,7 +14,7 @@ from typing import Any
 
 from mujocobiobuzz import field as fieldmodel
 
-from biobuzz_sim.robots import MODELS
+from biobuzz_sim.robots import MODELS, STARTERBOT
 
 log = logging.getLogger(__name__)
 
@@ -61,8 +61,13 @@ def actuator(hardware: str, prefix: str = PREFIX) -> str:
     return prefix + hardware.replace("_", " ")
 
 
-def world(pollen: list[tuple[float, float]] | None = None, models: Path = MODELS) -> Any:
-    """The fork's world: the field, a POLLEN at each (x in, y in), and StarterBot."""
+def world(
+    pollen: list[tuple[float, float]] | None = None,
+    models: Path = MODELS,
+    spec: Path = STARTERBOT,
+) -> Any:
+    """The fork's world: the field, a POLLEN at each (x in, y in), and StarterBot, its parts'
+    contacts `spec`'s, its recipe."""
     from mujocobiobuzz import balls
     from scrimmage.multi import MultiWorld
 
@@ -70,7 +75,9 @@ def world(pollen: list[tuple[float, float]] | None = None, models: Path = MODELS
         (balls.POLLEN, f"pollen{i}", (x * IN, y * IN, balls.POLLEN.radius_m + 0.001))
         for i, (x, y) in enumerate(pollen or [])
     ]
-    m = fieldmodel.with_robots({PREFIX: (72 * IN, 72 * IN, 0.0)}, models=models, balls=placed)
+    m = fieldmodel.with_robots(
+        {PREFIX: (72 * IN, 72 * IN, 0.0)}, models=models, balls=placed, spec=spec
+    )
     # The fork's motors drive the wheels' joints, back-EMF and all; the model's own wheel
     # actuators, which the link drives, would add their back-EMF again.
     for hardware, _ in WHEELS:
