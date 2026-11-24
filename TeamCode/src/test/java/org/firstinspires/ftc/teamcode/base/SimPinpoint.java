@@ -41,7 +41,7 @@ public final class SimPinpoint implements PinpointSource {
         double ticksPerInch = PinpointSource.ticksPerMm(config.podType.get()) * 25.4;
         encoderX = (int) Math.round(sign(config.xPodDirection.get()) * forwardPod_in * ticksPerInch);
         encoderY = (int) Math.round(sign(config.yPodDirection.get()) * strafePod_in * ticksPerInch);
-        heading = turned_rad;
+        heading = robot.pinpointTurnedRadians();
         readTime_s = robot.seconds();
     }
 

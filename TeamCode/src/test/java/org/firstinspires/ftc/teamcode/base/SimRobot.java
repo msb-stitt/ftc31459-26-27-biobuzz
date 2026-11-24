@@ -242,6 +242,14 @@ public final class SimRobot {
         /** How far the pose the Pinpoint reads is from the robot's, in the field's frame, inches. */
         private double xError;
         private double yError;
+        /** When the Pinpoint's heading last read true, seconds, and its heading now, radians. */
+        private double headingSetAt;
+        private double headingRead;
+        /** The noise on the pose reported now, inches. */
+        private double xNoise;
+        private double yNoise;
+        /** The IMU's heading error, or null for none. */
+        private SimHeadingError imu;
         private long lastNs;
         private MotionState state = MotionState.zero();
         /** MuJoCo's motion, reported in place of this class's own, or null. */
@@ -280,6 +288,22 @@ public final class SimRobot {
          */
         public void odometryError(SimOdometryError error) {
             this.odometry = error;
+            headingSetAt = seconds();
+        }
+
+        /** Gives the IMU {@code error}, or none for null. */
+        public void imuError(SimHeadingError error) {
+            this.imu = error;
+        }
+
+        /** How far the robot has turned since it was made, as the IMU reads it, radians. */
+        public double imuTurnedRadians() {
+            return imu == null ? turned : imu.read(turned, seconds());
+        }
+
+        /** How far the robot has turned since it was made, as the Pinpoint reads it, radians. */
+        public double pinpointTurnedRadians() {
+            return turned + headingRead - heading;
         }
 
         /** The pose set while following MuJoCo that it has not yet taken, or null. */
@@ -350,6 +374,8 @@ public final class SimRobot {
             y = p.y();
             heading = p.heading();
             xError = yError = 0;
+            headingSetAt = seconds();
+            headingRead = heading;
             state = state.withPose(p);
             if (motion != null) {
                 posePending = p;
@@ -366,6 +392,8 @@ public final class SimRobot {
         public void reset() {
             x = y = heading = vx = vy = omega = 0;
             xError = yError = 0;
+            headingSetAt = seconds();
+            headingRead = heading;
             state = MotionState.zero();
         }
 
@@ -402,16 +430,27 @@ public final class SimRobot {
          * frame at the robot's heading.
          */
         private void read(double forward, double strafe) {
-            double[] r = odometry == null ? new double[]{forward, strafe} : odometry.read(forward, strafe);
+            if (odometry == null) {
+                forwardRead += forward;
+                strafeRead += strafe;
+                headingRead = heading;
+                return;
+            }
+            double[] r = odometry.read(forward, strafe);
             forwardRead += r[0];
             strafeRead += r[1];
-            double df = r[0] - forward, ds = r[1] - strafe;
-            xError += df * Math.cos(heading) - ds * Math.sin(heading);
-            yError += df * Math.sin(heading) + ds * Math.cos(heading);
+            // The pods' move is turned into the field at the heading the Pinpoint reads.
+            headingRead = odometry.heading.read(heading, seconds() - headingSetAt);
+            double c = Math.cos(headingRead), s = Math.sin(headingRead);
+            xError += r[0] * c - r[1] * s - (forward * Math.cos(heading) - strafe * Math.sin(heading));
+            yError += r[0] * s + r[1] * c - (forward * Math.sin(heading) + strafe * Math.cos(heading));
+            xNoise = odometry.placeNoise();
+            yNoise = odometry.placeNoise();
         }
 
         private void report() {
-            state = MotionState.ofTwist(POSES.of(x + xError, y + yError, Math.toDegrees(heading)),
+            state = MotionState.ofTwist(
+                    POSES.of(x + xError + xNoise, y + yError + yNoise, Math.toDegrees(headingRead)),
                     new Twist(vx, vy, omega));
         }
 

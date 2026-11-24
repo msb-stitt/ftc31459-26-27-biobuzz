@@ -8,6 +8,7 @@ import com.pedropathing.math.Pose;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * The simulated Pinpoint reads the robot's moves with a tenth of the error
@@ -82,6 +83,86 @@ public class SimOdometryErrorTest {
         assertEquals(0.000064, (sizes[1999] + sizes[2000]) / 2, 0.000004);
     }
 
+    private final long[] now_ns = {1};
+
+    /** A still robot followed from MuJoCo, then {@code seconds} later driven {@code alongX} along +x. */
+    private SimRobot.SimLocalizer waitThenDrive(SimOdometryError error, double seconds, double alongX) {
+        SimRobot.SimLocalizer l = new SimRobot(() -> now_ns[0]).localizer;
+        l.odometryError(error);
+        double[] at = new double[1];
+        l.follow(() -> new SimRobot.Motion(at[0], 0, 0, 0, 0, 0, 0, new double[4], at[0], 0, 0));
+        l.update();
+        now_ns[0] += (long) (seconds * 1e9);
+        l.update();
+        for (int step = 0; step < alongX; step++) {
+            at[0] += 1; l.update();
+        }
+        return l;
+    }
+
+    private static SimOdometryError headingOnly(double rate, double noise) {
+        return new SimOdometryError(0, 0, 0, 96, 0, new SimHeadingError(rate, noise, new Random(3)), null);
+    }
+
+    @Test
+    public void theHeadingDriftsFromTrueWhereItsPoseWasSet() {
+        double rate = Math.toRadians(0.01);
+        SimRobot.SimLocalizer l = waitThenDrive(headingOnly(rate, 0), 100, 0);
+        assertEquals(Math.toRadians(1), l.state().pose().heading(), EPS);
+        assertEquals("the Pinpoint's own heading reads it too", Math.toRadians(1), l.pinpointTurnedRadians(), EPS);
+        l.setPose(new Pose(10, 20, 0.5));
+        assertEquals("a pose set reads as set", 0.5, l.state().pose().heading(), EPS);
+    }
+
+    @Test
+    public void aHeadingOffTurnsEachMoveMadeAfterIt() {
+        SimRobot.SimLocalizer l = waitThenDrive(headingOnly(Math.toRadians(0.01), 0), 100, 100);
+        assertEquals(100 * Math.sin(Math.toRadians(1)), l.state().pose().y(), 1e-6);
+        assertEquals(0, l.truePose().y(), EPS);
+    }
+
+    @Test
+    public void eachReadingsNoiseHasItsSpread() {
+        SimOdometryError e = new SimOdometryError(0, 0, 0, 96, 0.3,
+                new SimHeadingError(0, Math.toRadians(0.1), new Random(4)), new Random(5));
+        SimRobot.SimLocalizer l = new SimRobot(() -> 0L).localizer;
+        l.odometryError(e);
+        l.follow(() -> new SimRobot.Motion(0, 0, 0, 0, 0, 0, 0, new double[4], 0, 0, 0));
+        int n = 20000;
+        double xx = 0, hh = 0;
+        for (int i = 0; i < n; i++) {
+            l.update();
+            xx += l.state().pose().x() * l.state().pose().x();
+            double h = Math.IEEEremainder(l.state().pose().heading(), 2 * Math.PI); // Pedro wraps to 0..2π
+            hh += h * h;
+        }
+        assertEquals(0.3, Math.sqrt(xx / n), 0.01);
+        assertEquals(Math.toRadians(0.1), Math.sqrt(hh / n), Math.toRadians(0.005));
+    }
+
+    @Test
+    public void theImuIsThreeTimesAsNoisyAndDriftyAsThePinpoint() {
+        double[] pinpoint = new double[2000], imu = new double[2000];
+        for (int seed = 0; seed < 2000; seed++) {
+            pinpoint[seed] = Math.abs(SimOdometryError.seeded(seed).heading.rate);
+            imu[seed] = Math.abs(SimOdometryError.imu(seed).rate);
+        }
+        Arrays.sort(pinpoint);
+        Arrays.sort(imu);
+        double median = SimOdometryError.HEADING_RATE_MEDIAN;
+        assertEquals(median, (pinpoint[999] + pinpoint[1000]) / 2, median * 0.08);
+        assertEquals(3 * median, (imu[999] + imu[1000]) / 2, 3 * median * 0.08);
+        assertEquals(3 * SimOdometryError.seeded(1).heading.noise, SimOdometryError.imu(1).noise, EPS);
+    }
+
+    @Test
+    public void withNoImuErrorTheImuReadsTheTurn() {
+        SimRobot.SimLocalizer l = drive(null, 10, 10);
+        assertEquals(l.turnedRadians(), l.imuTurnedRadians(), EPS);
+        l.imuError(new SimHeadingError(0.001, 0, null));
+        assertEquals(l.turnedRadians() + 0.001 * l.seconds(), l.imuTurnedRadians(), EPS);
+    }
+
     @Test
     public void simRunsErrorIsSeededAndExactTurnsItOff() {
         assertEquals(SimOdometryError.seeded(1).forwardScale,
@@ -89,5 +170,6 @@ public class SimOdometryErrorTest {
         assertEquals(SimOdometryError.seeded(7).strafeScale,
                 SimOdometryError.fromVariable("7").strafeScale, 0);
         assertNull(SimOdometryError.fromVariable("exact"));
+        assertNull(SimOdometryError.imuFromVariable("exact"));
     }
 }

@@ -123,6 +123,8 @@ public final class SimRun {
                 }
                 harness.robot.localizer.odometryError(
                         SimOdometryError.fromVariable(System.getenv(SimOdometryError.VARIABLE)));
+                harness.robot.localizer.imuError(
+                        SimOdometryError.imuFromVariable(System.getenv(SimOdometryError.VARIABLE)));
                 if (mujoco != null) {
                     mujoco.connect(harness.robot, System.out);
                 }

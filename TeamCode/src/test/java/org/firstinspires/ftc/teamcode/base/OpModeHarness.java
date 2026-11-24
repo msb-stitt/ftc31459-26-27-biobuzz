@@ -322,7 +322,7 @@ public final class OpModeHarness {
                 motors.get(BACK_RIGHT).speed));
         // The IMU turns as the simulated robot does, and only then: putting the
         // robot down at its start pose leaves it reading zero, as on the robot.
-        imu.follow(robot.localizer::turnedRadians);
+        imu.follow(robot.localizer::imuTurnedRadians);
         // The encoders count what each wheel rolls, until a test sets them.
         String[] wheels = {FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT};
         for (int i = 0; i < 4; i++) {
