@@ -145,8 +145,10 @@ dependencies {
     // BOTH artifacts are required: `core` provides Scheduler/Command/Groups,
     // `pedro` provides PedroCommands.follow(). Missing `pedro` is the usual
     // cause of "cannot resolve symbol follow".
-    implementation 'com.pedropathing.ivy:core:1.1.1'
-    implementation 'com.pedropathing.ivy:pedro:1.1.1'
+    // From msb-stitt's fork, on JitPack: 1.1.1 with its waits timed by Pedro's
+    // Clock, so simRun's simulated time reaches them.
+    implementation 'com.github.msb-stitt.Ivy:core:v1.1.1-simclock.2'
+    implementation 'com.github.msb-stitt.Ivy:pedro:v1.1.1-simclock.2'
 
 
     // --- corbelsflightlog (WPILOG files for AdvantageScope) ---------------

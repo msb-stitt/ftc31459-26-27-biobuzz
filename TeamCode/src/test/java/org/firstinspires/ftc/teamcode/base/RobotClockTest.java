@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
@@ -57,6 +58,17 @@ public class RobotClockTest {
         com.pedropathing.utils.Timer timer = new com.pedropathing.utils.Timer();
         h.clock.advance(37);
         assertEquals("37 ms of simulated time", 37.0, timer.milliseconds(), 0.0);
+    }
+
+    @Test
+    public void anIvyWaitIsTimedByTheSimulatedClock() {
+        OpModeHarness h = new OpModeHarness(new TeleOpWithPanelsOpMode());
+        com.pedropathing.ivy.CommandBuilder wait = com.pedropathing.ivy.commands.Commands.waitMs(37);
+        wait.start();
+        h.clock.advance(36);
+        assertFalse("36 ms of simulated time", wait.done());
+        h.clock.advance(1);
+        assertTrue("37 ms of simulated time", wait.done());
     }
 
     @Test
