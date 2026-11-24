@@ -20,3 +20,12 @@ dependencies {
     implementation 'com.pedropathing:tuning:1.0.1'
 }
 
+// Pedro's core from msb-stitt's fork, on JitPack: 3.0.2 with its clock settable, so
+// simRun's simulated time reaches the follower, its PIDs and its timers. On the robot
+// it reads System.nanoTime() as 3.0.2 does.
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute module('com.pedropathing:core') using module('com.github.msb-stitt:PedroPathing:v3.0.2-simclock.1')
+    }
+}
+

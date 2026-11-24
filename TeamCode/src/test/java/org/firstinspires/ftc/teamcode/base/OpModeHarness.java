@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import com.pedropathing.revhub.drivetrains.MecanumConfig;
+import com.pedropathing.utils.Clock;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -9,7 +10,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
+import io.github.mikestitt.corbelsflightlog.FlightLog;
 import io.github.mikestitt.corbelsflightlog.ftc.FtcFlightLog;
+import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
@@ -286,8 +289,12 @@ public final class OpModeHarness {
                 BACK_LEFT, BACK_RIGHT}) {
             motors.put(name, new FakeMotor());
         }
-        // The robot code's clock is this harness's simulated one, as its hardware is.
+        // The robot code's clock is this harness's simulated one, as its hardware is,
+        // and so is Pedro's, the flight log's and the NetworkTables server's.
         RobotClock.use(clock::nanos);
+        Clock.use(clock::nanos);
+        FlightLog.useClock(clock::nanos);
+        Nt4Server.useClock(clock::nanos);
         // No HardwareMap is built here: the real one needs an Android context.
         // The OpMode gets its devices through RobotFactory instead, which is
         // also how the follower is swapped for a simulated one.

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.base;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import io.github.mikestitt.corbelsflightlog.nt.Nt4Server;
 import org.firstinspires.ftc.teamcode.example.TeleOpWithPanelsOpMode;
 import org.junit.Test;
 
@@ -34,6 +35,28 @@ public class RobotClockTest {
         h.loop(0);
         assertEquals("a clock held still reads no time", 0.0, Tracker.loopPeriodMs(), 0.0);
         h.stop();
+    }
+
+    @Test
+    public void aServerStartedInASimRunStampsSimulatedTime() throws IOException {
+        OpModeHarness h = new OpModeHarness(new TeleOpWithPanelsOpMode());
+        Nt4Server server = Nt4Server.start(0);
+        try {
+            long before = server.nowMicros();
+            h.clock.advance(37);
+            assertEquals("37 ms of simulated time", 37_000L, server.nowMicros() - before);
+        } finally {
+            server.close();
+            Nt4Server.useWallClock();
+        }
+    }
+
+    @Test
+    public void pedroTimesItsTimersByTheSimulatedClock() {
+        OpModeHarness h = new OpModeHarness(new TeleOpWithPanelsOpMode());
+        com.pedropathing.utils.Timer timer = new com.pedropathing.utils.Timer();
+        h.clock.advance(37);
+        assertEquals("37 ms of simulated time", 37.0, timer.milliseconds(), 0.0);
     }
 
     @Test
