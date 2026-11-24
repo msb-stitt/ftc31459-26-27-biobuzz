@@ -267,13 +267,16 @@ public class ExampleTest {
 
         pressDuringInit(h, pad -> pad.dpad_down = true);            // the Auto row
         String[] autos = {"Forward 24", "Forward Then Strafe", "Move Shot Strafe In",
-                "Shoot And Park"};
+                "WaitShootPark", "Shoot And Park"};
         for (String name : autos) {
             follower.setPose(redPoses.of(50, 60, 30));
             pressDuringInit(h, pad -> pad.dpad_right = true);
             pressDuringInit(h, pad -> pad.a = true);
             assertEquals(name, auto.autoRow.getSelected().getFullName());
-            assertSamePose(name + ", on red", redPoses.of(60.0, 10.5, -90.0), follower.pose());
+            Pose start = name.equals("WaitShootPark")             // starts at its own wall
+                    ? auto.waitShootParkCommand().startPose()
+                    : redPoses.of(60.0, 10.5, -90.0);
+            assertSamePose(name + ", on red", start, follower.pose());
         }
 
         pressDuringInit(h, pad -> pad.dpad_up = true);              // the Alliance row
@@ -417,6 +420,7 @@ public class ExampleTest {
         }
         pressDuringInit(h, pad -> pad.dpad_down = true);
         pressDuringInit(h, pad -> pad.dpad_left = true);   // wraps to the last, Shoot And Park
+        pressDuringInit(h, pad -> pad.dpad_left = true);   // WaitShootPark
         pressDuringInit(h, pad -> pad.dpad_left = true);   // Move Shot Strafe In
         pressDuringInit(h, pad -> pad.a = true);
         String summary = (red ? "R" : "B") + "-MVSI";
