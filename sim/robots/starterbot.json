@@ -94,5 +94,25 @@
        "motor": {"hardware": "windmillServo", "part": "2000-0025-0002", "stall_kg_cm": 17.2, "free_rpm": 40,
          "note": "at 4.8 V, 0.25 s/60 deg, continuous mode taken as the positioning mode's"}},
      "collide": {"hulls": true, "min_box_mm3": 1000}}
+  ],
+  "devices": {
+    "note": "Each device by its hardware name in biobuzz, bound to the model's actuator or joint of that name under the robot's prefix. powers: each topic SimRun publishes a power on, -1 to 1, and the actuators it sets. feeder: the topic true while the launcher feeds, and the servo it turns at +1. launcher: the topic of its target speed in encoder ticks a second, its motor's actuator and joint, and the ticks a turn and free speed that make the target a power. wheels: each wheel's joint, front left, front right, back left, back right, as SimRobot orders them.",
+    "body": "starterbot",
+    "powers": {
+      "sim/wheels/frontLeft": ["Front Left"],
+      "sim/wheels/frontRight": ["Front Right"],
+      "sim/wheels/backLeft": ["Back Left"],
+      "sim/wheels/backRight": ["Back Right"],
+      "/intake/speed": ["intake", "left_intake_servo", "right_intake_servo"]
+    },
+    "feeder": {"topic": "/launcher/feeding", "servo": "windmillServo"},
+    "launcher": {"topic": "/launcher/target_tps", "motor": "launcher", "joint": "starterbot_flywheel",
+                 "ticks_per_rev": 28, "free_rpm": 6000.0},
+    "wheels": ["starterbot_wheel_fl", "starterbot_wheel_fr", "starterbot_wheel_bl", "starterbot_wheel_br"]
+  },
+  "plugins": [
+    {"class": "mujocobiobuzz.plugins:Launcher", "fits": "biobuzz_sim.robots:FLYWHEELS"},
+    {"class": "mujocobiobuzz.plugins:Shot"},
+    {"class": "mujocobiobuzz.plugins:Drivebase"}
   ]
 }

@@ -30,7 +30,7 @@ runs it on its own.
 | Check a gamepad, beside a running lesson | `./gradlew :TeamCode:simRun --args="--pad-check"` |
 | Drive the robot in MuJoCo, its physics in place of the simulator's | `SIMRUN_MUJOCO=5813 ./gradlew :TeamCode:simRun --args="StarterBotTeleOp --pad"`, then start `mujocobiobuzz`'s link as its README says |
 | Drive the robot on the Scrimmage fork, from this repo's field and robots | `SIMRUN_SCRIMMAGE=localhost:3300/37523 ./gradlew :TeamCode:simRun --args="example.ExampleTeleOp --pad"`, then start the server as [`sim/README.md`](sim/README.md) says |
-| Drive the robot on mujocobiobuzz's sim server | the same `simRun`, with `uv run python -m mujocobiobuzz.server` started in mujocobiobuzz's `sim-server` branch, as its README says |
+| Drive the robot on mujocobiobuzz's sim server | the same `simRun`, with `uv run python -m mujocobiobuzz.server --team <this repo>/sim` started in mujocobiobuzz's `sim-server` branch, as its README says, so the field, the robot and its plugins come from `sim/` |
 | Change or turn off the simulated Pinpoint's and IMU's error, the Pinpoint's a tenth of what waggle measured | `SIMRUN_PINPOINT_SEED=7` on `simRun` for another draw, or `exact` for none; `SimOdometryError` says what it is |
 | Run two simulators on one computer | `SIMRUN_NT_PORT=5820`, `SIMRUN_VIRTUAL_PADS=5822` and `SIMRUN_ALLIANCE=blue` on the second `simRun`, and `--nt-port 5820 --port 5822` on its `tools/follow.py`; on the Scrimmage fork, the server started with `--two` and the second `simRun` given `SIMRUN_SCRIMMAGE=localhost:3300/37523b` |
 | Run the simulator as another robot | `SIMRUN_RC_NAME=31459-RC` on `simRun`, the Robot Controller name that picks the robot |
